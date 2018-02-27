@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.AppCenter.SmartClient.Shell</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellApplication">
+            <summary>
+            Main application entry point class.
+            Note that the class derives from CAB supplied base class FormShellApplication, and the 
+            main form will be ShellForm, also created by default by this solution template
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellApplication.Main``1">
+            <summary>
+            Application entry point.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellApplication.AddBuilderStrategies(Microsoft.Practices.ObjectBuilder.Builder)">
+            <summary>
+            加上此方法以识别[Action()]标记 wang
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellApplication.AfterShellCreated">
+            <summary>
+            Sets the extension site registration after the shell has been created.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellApplication.SelectChildTab(System.Windows.Forms.Form)">
+            <summary>
+            在子窗体的RIBBON和主窗体合并时，自动切换到合并后子窗体的
+            Ribbon的第一个Tab
+            </summary>
+            <param name="form"></param>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellForm">
+            <summary>
+            Main application shell view.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellForm.#ctor">
+            <summary>
+            Default class initializer.
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellForm.Text">
+            <summary>
+            显示在Ribbon上的窗体标题
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Shell.ShellForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

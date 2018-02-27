@@ -1,0 +1,8 @@
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.DbModels.dll.config
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.DbModels.XML
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.DbModels.dll
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.DbModels.pdb
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\01PKS.Library\PKS.DbModels\obj\Debug\PKS.DbModels.csprojResolveAssemblyReference.cache
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\01PKS.Library\PKS.DbModels\obj\Debug\PKS.DbModels.csproj.CoreCompileInputs.cache
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\01PKS.Library\PKS.DbModels\obj\Debug\PKS.DbModels.dll
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\01PKS.Library\PKS.DbModels\obj\Debug\PKS.DbModels.pdb

@@ -1,0 +1,4413 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.CommonModels</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.CommonModels.Articles.ArticleExtensions">
+            <summary>
+            关于文章属性的扩展
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleExtensions.GetExt(Jurassic.CommonModels.Articles.Base_CatalogArticle,System.String)">
+            <summary>
+            根据文章的标签名称, 获取文章的某个标签值，返回根据该文章的标签属性定义的数据类型
+            </summary>
+            <param name="ca">栏目文章对象</param>
+            <param name="name">标签名称</param>
+            <returns>标签值</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleExtensions.GetExtDateTime(Jurassic.CommonModels.Articles.Base_CatalogArticle,System.String)">
+            <summary>
+            获取日期时间扩展属性
+            </summary>
+            <param name="ca"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleExtensions.GetExtInt(Jurassic.CommonModels.Articles.Base_CatalogArticle,System.String)">
+            <summary>
+            获取整数的扩展属性
+            </summary>
+            <param name="ca"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleExtensions.GetExtStr(Jurassic.CommonModels.Articles.Base_CatalogArticle,System.String)">
+            <summary>
+            获取字符串扩展属性
+            </summary>
+            <param name="ca"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleExtensions.GetExtDisplay(Jurassic.CommonModels.Articles.Base_CatalogArticle,Jurassic.CommonModels.Articles.Base_CatalogExt)">
+            <summary>
+            获取文章扩展展性的显示值（来自键值对的下拉列表中的显示内容）
+            </summary>
+            <param name="ca"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleExtensions.GetExt(Jurassic.CommonModels.Articles.Base_CatalogArticle,System.Int32)">
+            <summary>
+            根据文章所在栏目的扩展属性ID，获取文章的某个标签值，返回根据该文章的标签属性定义的数据类型
+            </summary>
+            <param name="ca">栏目文章对象</param>
+            <param name="catExtId">栏目的扩展属性ID</param>
+            <returns>标签值</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleExtensions.SetExt(Jurassic.CommonModels.Articles.Base_CatalogArticle,System.String,System.Object)">
+            <summary>
+            设置文章的某个标签值
+            </summary>
+            <param name="ca"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleExtensions.CheckExts(Jurassic.CommonModels.Articles.Base_CatalogArticle)">
+            <summary>
+            检查文章的扩展属性，凡是栏目中没有的属性就去掉，凡是栏目中有的属性则加上。
+            </summary>
+            <param name="ca">栏目文章对象</param>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.ArticleManager">
+            <summary>
+            文章集中管理对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetAllInCatalog(System.Int32)">
+            <summary>
+            获取某栏目下，当前语言的所有子栏目(也包括该栏目本身)文章，主要用于多语言环境中。
+            </summary>
+            <param name="rootId">主栏目ID</param>
+            <returns>文章列表</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetAllInCatalogs(System.Int32[])">
+            <summary>
+            获取某些栏目下，当前语言的所有子栏目(也包括该栏目本身)文章，主要用于多语言环境中。
+            </summary>
+            <param name="rootIds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetAllAtCatalog(System.Int32)">
+            <summary>
+            获取某栏目下所有文章，不计子栏目的文章
+            </summary>
+            <param name="catId">栏目ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetPageInCatalog(System.Linq.Expressions.Expression{System.Func{Jurassic.CommonModels.Articles.Base_CatalogArticle,System.Boolean}},System.Int32,System.Int32,System.Int32)">
+            <summary>
+            根据指定筛选条件，获取指定目录中的分页记录
+            </summary>
+            <param name="filter"></param>
+            <param name="catId"></param>
+            <param name="page"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetPageInCatalog(Jurassic.CommonModels.Articles.PageModel,System.Linq.Expressions.Expression{System.Func{Jurassic.CommonModels.Articles.Base_CatalogArticle,System.Boolean}}[])">
+            <summary>
+            根据分页数据对象获取分页后的文章列表
+            </summary>
+            <param name="pageModel">分页数据对象</param>
+            <param name="modelFilters">一连串筛选器</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetTextPageInCatalog(Jurassic.CommonModels.Articles.PageModel,System.Linq.Expressions.Expression{System.Func{Jurassic.CommonModels.Articles.Base_CatalogArticle,System.Boolean}}[])">
+            <summary>
+            根据分页数据对象获取分页后的文章列表
+            并且包含文章中的长文本Text字段内容
+            </summary>
+            <param name="pageModel">分页数据对象</param>
+            <param name="modelFilter">筛选器</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.MatchTexts(System.Collections.Generic.IEnumerable{Jurassic.CommonModels.Articles.Base_Article})">
+            <summary>
+            查找并填充文章和关联文章的Text属性
+            </summary>
+            <param name="articles"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.MatchTexts(System.Collections.Generic.IEnumerable{Jurassic.CommonModels.Articles.Base_CatalogArticle})">
+            <summary>
+            查找并填充文章和关联文章的Text属性,并返回原集合
+            </summary>
+            <param name="cas"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetTopArticles(System.Int32,System.Int32)">
+            <summary>
+            获取目录中的前N个文件
+            </summary>
+            <param name="catId"></param>
+            <param name="topN"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.Search(System.String,System.Int32,System.Int32,System.Int32[])">
+            <summary>
+            全站搜索
+            </summary>
+            <param name="key">关键词</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.CreateByCatalog(System.Int32)">
+            <summary>
+            根据栏目ID新建一篇文章，并建立和栏目对应的文章标签
+            </summary>
+            <param name="catId">栏目ID</param>
+            <returns>新文章对象</returns>e
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.Save(Jurassic.CommonModels.Articles.Base_CatalogArticle)">
+            <summary>
+            保存文章，包括新增和修改
+            </summary>
+            <param name="ca"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.Delete(System.Int32)">
+            <summary>
+            删除CatalogArticle中的记录
+            </summary>
+            <param name="id">CatalogArticle表的Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetById(System.Int32)">
+            <summary>
+            根据文章ID获取文章对象，包括标签集
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.ChangeState(System.Collections.Generic.IEnumerable{System.Int32},Jurassic.CommonModels.Articles.ArticleState)">
+            <summary>
+            修改若干文章的状态位
+            </summary>
+            <param name="idArr">Base_Article表中的主键</param>
+            <param name="state">要修改的状态</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetAllQuery">
+            <summary>
+            获取所有文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetQuery">
+            <summary>
+            获取所有文件（包括不完整的（Incomplete））
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.IsUrlTitleExists(System.Int32,Jurassic.CommonModels.Articles.Base_Article)">
+            <summary>
+            判断某文章的UrlTitle（对Url友好的标题）是否在本栏目内是重复的
+            </summary>
+            <param name="catId"></param>
+            <param name="article"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetNext(Jurassic.CommonModels.Articles.Base_CatalogArticle)">
+            <summary>
+            获取下一篇
+            </summary>
+            <param name="article"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetPrev(Jurassic.CommonModels.Articles.Base_CatalogArticle)">
+            <summary>
+            获取上一篇
+            </summary>
+            <param name="article"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetExt(Jurassic.CommonModels.Articles.Base_CatalogArticle,System.String)">
+            <summary>
+            获取文章的某个标签值，返回根据该文章的标签属性定义的数据类型
+            </summary>
+            <param name="article"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.SetExt(Jurassic.CommonModels.Articles.Base_CatalogArticle,System.String,System.Object)">
+            <summary>
+            设置文章的某个标签值
+            </summary>
+            <param name="article"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetByArticleIds(System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            通过一串在Base_Article表中的ID找到它对应的栏目-文章对象 wang
+            </summary>
+            <param name="articleIds">一串在Base_Article表中的ID</param>
+            <param name="catalogIds">一串在Base_Catlaog表中的ID</param>
+            <returns>系统栏目-文章对象集合</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetByArticleId(System.Int32,System.Int32[])">
+            <summary>
+            通过在Base_Article表中的ID找到它对应的栏目-文章对象 wang
+            </summary>
+            <param name="articleId">在Base_Article表中的ID</param>
+            <param name="catalogIds">一串在Base_Catlaog表中的ID</param>
+            <returns>系统栏目-文章对象</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.ArticleManager.GetArticleIds(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            通过一串在Base_CatalogArticle表中的ID找到它对应的Base_Article表中的ID
+            </summary>
+            <param name="caIds"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Article.Targets">
+            <summary>
+            文章的关联文章集合
+            </summary>
+            <example>
+            典型的例子如：
+            一个论坛的贴子和下面的若干回复之间的关系。
+            </example>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Article.TargetArticles">
+            <summary>
+            该属性用于获取从界面传过来的相关文章集合, 而这些相关文章需要
+            在数据库中进行Update操作。
+            </summary>
+            <remarks>
+            Targets是一个总的集合，里面有各种各样的关系。
+            出于性能考虑，Targets中的文章有些是不需要再次update的。
+            而另外一类相关文章是需要从界面输入一些确切值，特别是文章的特殊属性集
+            而它们在实际持久化时，需要Update。
+            所以应该先放到此集合中，确保它们能实际更新。
+            <example>
+            典型的例子如: 一份购物单，主体购物单对象下面的若干明细。
+            它们在界面中由用户录入，在提交时需要保存明细的详细信息。
+            </example>
+            </remarks>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.Base_ArticleExt">
+            <summary>
+            文章的扩展属性
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_ArticleExt.Id">
+            <summary>
+            扩展属性ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_ArticleExt.ArticleId">
+            <summary>
+            文章ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_ArticleExt.CatlogExtId">
+            <summary>
+            栏目扩展属性的ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_ArticleExt.Value">
+            <summary>
+            扩展属性的值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_ArticleExt.Article">
+            <summary>
+            扩展属性所在的文章
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.Base_Catalog">
+            <summary>
+            栏目实体类
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.Base_Catalog.#ctor">
+            <summary>
+            创建一个栏目实体类
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.ParentId">
+            <summary>
+            实体类父ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.Location">
+            <summary>
+            位置，一般指URL
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.IconLocation">
+            <summary>
+            图标地址
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.Name">
+            <summary>
+            栏目名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.Abstract">
+            <summary>
+            栏目简介
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.Language">
+            <summary>
+            栏目语言名称(如zh-CN)
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.OwnerId">
+            <summary>
+            目录所有者ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.OwnerType">
+            <summary>
+            目录所有者类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.EditTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.EditorId">
+            <summary>
+            修改者ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.Exts">
+            <summary>
+            栏目的扩展属性集
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_Catalog.Ord">
+            <summary>
+            排序位
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.Base_CatalogExt">
+            <summary>
+            栏目的扩展属性，在根据此栏目创建新对象时，
+            对象的扩展属性完全根据它所在的栏目扩展属性集生成
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.Base_CatalogExt.#ctor">
+            <summary>
+            创建一个新的栏目扩展属性
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.CatalogId">
+            <summary>
+            主栏目ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.Name">
+            <summary>
+            扩展属性名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.DataType">
+            <summary>
+            数据类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.DefaultValue">
+            <summary>
+            默认值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.DataSourceType">
+            <summary>
+            提供给用户选项的数据源类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.DataSource">
+            <summary>
+            用户选项的数据源描述
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.MaxLength">
+            <summary>
+            最大长度
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.AllowNull">
+            <summary>
+            是否允许空值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.MaxValue">
+            <summary>
+            最大值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.MinValue">
+            <summary>
+            最小值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.Base_CatalogExt.Ord">
+            <summary>
+            排序位
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.CatalogExtAttribute">
+            <summary>
+            在栏目扩展属性初始化时，该扩展属性的详细定义
+            ps: 定义某个属性的约束、录入和显示方式
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.DefaultValue">
+            <summary>
+            默认值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.DataSourceType">
+            <summary>
+            提供给用户选项的数据源类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.DataSource">
+            <summary>
+            用户选项的数据源描述
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.MaxLength">
+            <summary>
+            最大长度
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.AllowNull">
+            <summary>
+            是否允许空值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.MinLength">
+            <summary>
+            最小长度
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.MaxValue">
+            <summary>
+            最大值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.MinValue">
+            <summary>
+            最小值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.RegExpr">
+            <summary>
+            正则表达式, 用于验证输入
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.Ord">
+            <summary>
+            排序位
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.ForceUpdate">
+            <summary>
+            是否强行改写已存在的属性
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.Browsable">
+            <summary>
+            是否可在列表中出现,默认为True
+            也决定是否可搜索
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.Editable">
+            <summary>
+            是否可编辑，默认为True
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.EntityType">
+            <summary>
+            对应数据实体的类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.LinkedProperty">
+            <summary>
+            关联的属性名称，用于下拉列表联动
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.DisplayProperty">
+            <summary>
+            用于联动的下拉列表时，初始显示哪个属性的值
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.InputFormat">
+            <summary>
+            录入时的格式化信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.DisplayFormat">
+            <summary>
+            显示时的格式化信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.AuthByUser">
+            <summary>
+            指定利用该属性在查询中进行用户级权限控制，用于表示用户ID的属性
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.CatalogExtAttribute.AuthByDept">
+            <summary>
+            指定利用该属性在查询中进行部门级权限控制，用于表示部门ID的属性
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.CatalogExtensions">
+            <summary>
+            关于Catalog的扩展
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogExtensions.GetExtByName(Jurassic.CommonModels.Articles.Base_Catalog,System.String)">
+            <summary>
+            根据栏目获取它的某个指定名称的标签
+            </summary>
+            <param name="cat"></param>
+            <param name="extName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogExtensions.GetStaticParent(Jurassic.CommonModels.Articles.Base_Catalog)">
+            <summary>
+            获取上级Static的栏目
+            </summary>
+            <param name="catId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogExtensions.GetChildrenByLang(Jurassic.CommonModels.Articles.Base_Catalog)">
+            <summary>
+            根据栏目获取子结点
+            </summary>
+            <param name="cat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogExtensions.GetDescendantByLang(Jurassic.CommonModels.Articles.Base_Catalog)">
+            <summary>
+            根据栏目获取所有下级子结点
+            </summary>
+            <param name="cat"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.CatalogManager">
+            <summary>
+            网站分类栏目管理业务类, 此类最好初始化为单例
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetChildren(System.Int32)">
+            <summary>
+            获取直接下级
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetChildrenByLang(System.Int32)">
+            <summary>
+            根据栏目ID和语言ID获取它的所有子栏目
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetAllExts(System.Int32)">
+            <summary>
+            获取本栏目有效的扩展属性
+            其规则为：和父栏目属性合并，如果同名则以子栏目属性为主
+            </summary>
+            <param name="id">栏目ID</param>
+            <returns>合并以后栏目的总属性表</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetExtId(System.Int32,System.String)">
+            <summary>
+            获取目录的扩展属性ID
+            </summary>
+            <param name="catalogId">所在目录的ID</param>
+            <param name="extName">扩展属性的Name</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetDescendant(System.Int32)">
+            <summary>
+            获取所有后代
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.IsDescendant(System.Int32,System.Int32)">
+            <summary>
+            判断某个栏目是否是另一个栏目的子孙或它自己
+            </summary>
+            <param name="rootId">上级栏目ID</param>
+            <param name="id">下级栏目ID</param>
+            <returns>是/否</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.IsChild(System.Int32,System.Int32)">
+            <summary>
+            判断某个栏目是否另一栏目的直接下级或它自身
+            </summary>
+            <param name="rootId"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetDescendantByLang(System.Int32[])">
+            <summary>
+            获取所有后代，栏目语言为当前语言
+            </summary>
+            <param name="ids">栏目ID列表</param>
+            <returns>所有指定ID栏目的当前语言子栏目</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetChildrenIdsByCatId(System.Int32)">
+            <summary>
+            根据栏目Id获取所有的子栏目Id集合
+            </summary>
+            <param name="catId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetUserVisibleCatalogs(System.Int32)">
+            <summary>
+            获取所有用户可见的栏目列表
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetUserSharedCatalogs(System.Int32)">
+            <summary>
+            获取所有用户共享的栏目列表
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetUserOwneredCatalogs(System.Int32)">
+            <summary>
+            获取用户所属的栏目列表
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetRootId">
+            <summary>
+            获取根目录ID
+            </summary>
+            <param name="name">根目录名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetAllValid">
+            <summary>
+            获取所有未删除的栏目
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.Save(Jurassic.CommonModels.Articles.Base_Catalog)">
+            <summary>
+            提交修改并返回树结点信息
+            </summary>
+            <param name="cat">要修改的功能</param>
+            <returns>修改后的功能信息Json</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.Sort(System.Int32,System.Int32)">
+            <summary>
+            移动结点
+            </summary>
+            <param name="id">要移动的结点ID</param>
+            <param name="dir">移动方向</param>
+            <returns>移动以后的结点信息</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.Move(System.Collections.Generic.IEnumerable{System.Int32},System.Int32)">
+            <summary>
+            将选中结点移到另一个结点下
+            </summary>
+            <param name="idArr">要移动的结点ID列表</param>
+            <param name="pId">要移到的新结点ID，0代表移动到根结点</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetStaticParent(System.Int32)">
+            <summary>
+            获取上级由系统初始化时就固定的栏目(静态栏目)
+            </summary>
+            <param name="catId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetStaticCatalog(Jurassic.CommonModels.Articles.Base_Article)">
+            <summary>
+            获取某文章所属的静态栏目，它决定了文章的类型,它可能是某个文章栏目的上级栏目
+            </summary>
+            <param name="art"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetExtById(System.Int32,System.Int32)">
+            <summary>
+            根据栏目ID和扩展属属性ID获取栏目扩展属性对象
+            它有可能找到该栏目的父栏目的扩展属性
+            </summary>
+            <param name="catId">栏目ID</param>
+            <param name="extId">扩展属性ID</param>
+            <returns>栏目扩展属性对象，没找到则返回null</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetExtById(System.Int32)">
+            <summary>
+            根据栏目扩展属性的ID获取栏目扩展属性对象
+            </summary>
+            <param name="extId">扩展属性ID</param>
+            <returns>栏目扩展属性对象，没找到则返回null</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetExtByName(System.Int32,System.String)">
+            <summary>
+            根据栏目扩展属性名称查找扩展属性对象
+            </summary>
+            <param name="catId">所在栏目ID</param>
+            <param name="extName">扩展属性名称</param>
+            <returns>扩展属性对象</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetCurrentLanguage">
+            <summary>
+            获取当前区域语言的名称（如zh-CN)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetDeepth(System.Int32,System.Int32)">
+            <summary>
+            获取指定栏目到根栏目的层级数
+            </summary>
+            <param name="catId"></param>
+            <param name="rootId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.GetIds(System.Int32,System.Int32)">
+            <summary>
+            获取指定栏目到根栏目的ID集合
+            </summary>
+            <param name="catId"></param>
+            <param name="rootId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Articles.CatalogManager.InitStaticCatalogs(System.Type)">
+            <summary>
+            初始化一个类的静态成员属性到Base_Catalog表中
+            该类的静态成员属性类型都包括了Id (int)和Name (string)两个公共属性。
+            根据指定类型中的公共属性来初始化栏目。
+            该类型必须有Id和Name两个属性。
+            该类型的Name属性将会作为Base_Catalog的Name。Id属性取Base_Catalog对应的记录ID。
+            除Id和Name属性以外的其他属性都将在Base_Catalog表的扩展属性表Base_CatalogExt中的定义。
+            每个属性的类型必须为String
+            </summary>
+            <example>
+             //类型的定义举例：
+            public class SampleCatalog
+            {
+                public int Id {get;set;}
+                public string Name {get;set;}
+                
+               public string ExtProp1 {get;set;}
+               
+               public string ExtProp2 {get; set;}
+            }
+            
+            public class SampleStaticCatalogs
+            {
+                public static SampleCatalog Sample {get;set;}
+            }
+            
+            public static class Main()
+            {
+                InitStaticCatalogs(typeof(SampleStaticCatalogs));
+                Console.WriteLine(SampleStaticCatalogs.Sample.ExtProp);
+            }
+            </example>
+            <param name="type">容纳一系列静态属性的类型</param>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.ExtDataType">
+            <summary>
+            文章扩展属性的数据类型
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.SingleLineText">
+            <summary>
+            单行文本
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.MultiLineText">
+            <summary>
+            多行文本
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.Html">
+            <summary>
+            Html文本
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.SingleNumber">
+            <summary>
+            整数
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.FloatNumber">
+            <summary>
+            小数
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.Currency">
+            <summary>
+            货币
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.Bool">
+            <summary>
+            是/否
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.DateAndTime">
+            <summary>
+            日期时间
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.Image">
+            <summary>
+            图形
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.File">
+            <summary>
+            文件
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.Time">
+            <summary>
+            不包含日期的时间数据
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.Percent">
+            <summary>
+            百分比
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.UserId">
+            <summary>
+            指定数据是用户ID
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.ButtonEdit">
+            <summary>
+            一个ButtonEdit控件，需要用户在前台自定义按钮事件
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.MultiLanguage">
+            <summary>
+            表示该属性支持多语言
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataType.Auto">
+            <summary>
+            初始化时的默认值，因为0=SingleLineText
+            所以用这个，该值在分析属性类型后，会被其他值代替
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.ExtDataSourceType">
+            <summary>
+            用以描述扩展属性数据源类型的枚举
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataSourceType.None">
+            <summary>
+            默认值，不属任何列表类型
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataSourceType.DirectList">
+            <summary>
+            单项选择列表
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataSourceType.MultipleList">
+            <summary>
+            多项选择列表
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataSourceType.SqlQuery">
+            <summary>
+            SQL查询
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataSourceType.SqlQueryMultipleList">
+            <summary>
+            SQL查询+多选
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataSourceType.TreeSelect">
+            <summary>
+            树控件
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataSourceType.UserDefine">
+            <summary>
+            用户自定义数据源
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataSourceType.Hidden">
+            <summary>
+            隐藏，不显示控件，只生成一个隐藏域
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ExtDataSourceType.Custom">
+            <summary>
+            用户自定义控件
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.ArticleState">
+            <summary>
+            内容的状态值.它们通常组合使用。
+            仅凭以下定义的状态，可能不能覆盖今后内容状态管理的所有可能性，
+            但可以根据这些状态的组合搭配出其他状态，并且可以把组合状态定义为一些静态变量方便使用。
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.None">
+            <summary>
+            默认无状态 (0)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.Deleted">
+            <summary>
+            删除状态位， 表示已删除 0x1
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.Published">
+            <summary>
+            表示内容已正式发布(0x2)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.New">
+            <summary>
+            表示是新的 (0x4)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.Recommended">
+            <summary>
+            推荐 (0x8)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.SetTop">
+            <summary>
+            置顶 (0x10 = 16)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.ReadOnly">
+            <summary>
+            只读的，表示此属性不能由用户端改写，只能由程序改写 （0x20 = 32)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.Reply">
+            <summary>
+            表示回复 (0x40 - 64)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.Agree">
+            <summary>
+            表示同意(0x-80 - 128)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.Separator">
+            <summary>
+            分隔符，这个状态目前没有明确意义 0x100 = 256 
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.Static">
+            <summary>
+            表示不可更改，由程序自动生成，且是系统运行所必须 (0x200 = 512)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.Shared">
+            <summary>
+            共享 (0x400 = 1024)
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Articles.ArticleState.Incomplete">
+            <summary>
+            未完成 (0x800)
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.CatalogOwnerType">
+            <summary>
+            目录所有者类型
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.PageModel">
+            <summary>
+            用于视图向Article控制器提交分页的信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.PageModel.PageIndex">
+            <summary>
+            页号
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.PageModel.Page">
+            <summary>
+            和PageIndex相同
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.PageModel.PageSize">
+            <summary>
+            页的大小
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.PageModel.SortOrder">
+            <summary>
+            排序方向， asc或desc
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.PageModel.SortField">
+            <summary>
+            排序字段
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.PageModel.Key">
+            <summary>
+            搜索关键字
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.PageModel.AdvQuery">
+            <summary>
+            高级查询的条件表达式树Json字符串
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.ModelBase">
+            <summary>
+            所有具有ID和状态值的实体类的基类
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.ModelBase.Id">
+            <summary>
+            主键标识
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Articles.ModelBase.State">
+            <summary>
+            状态值枚举
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Articles.ArticleProcesser">
+            <summary>
+            文章点击率加1
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.CUDCodedEntity">
+            <summary>
+            记录了编号和增删改信息的实体信息基类
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.CUDCodedEntity.Code">
+            <summary>
+            表示单据的编号
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.CUEntity">
+            <summary>
+            记录了增改信息的实体基类
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.CUDEntity">
+            <summary>
+            记录了增删改信息的实体基类
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.ICanLogicalDeleteEntity">
+            <summary>
+            定义可供逻辑删除的接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.ICanLogicalDeleteEntity.IsDeleted">
+            <summary>
+            是否已删除
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.ICodedEntity">
+            <summary>
+            具有编码属性的实体接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.ICodedEntity.Code">
+            <summary>
+            表示单据的编码
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.ICUEntity">
+            <summary>
+            记录了增改信息的实体接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.ICUDEntity">
+            <summary>
+            记录了增删改信息的实体接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.IAttachmentEntity">
+            <summary>
+            非显式依赖关系中子表实体接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.IDataRule">
+            <summary>
+            数据权限标记接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.IDetailEntity`1">
+            <summary>
+            主从表中子表实体接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.IDetailEntity`1.Master">
+            <summary>
+            父级对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.IDetailEntity.MasterId">
+            <summary>
+            父级对象的ID
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.IIdEntity">
+            <summary>
+            所有具有单一主键Id的实体接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.IMultiLanguage">
+            <summary>
+            实现多语言属性的接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.IMultiLanguage.LangTexts">
+            <summary>
+            该对象中所有多语言的属性文本集合
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.MultiLanguage">
+            <summary>
+            含多语言字段的表继承的基类
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.MultiLanguage.LangTexts">
+            <summary>
+            该对象中所有多语言的属性文本集合
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.INamedEntity">
+            <summary>
+            具有名称属性的实体接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.INamedEntity.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.OperationType">
+            <summary>
+            标识操作类型的枚举
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.EntityBase.OperationType.None">
+            <summary>
+            无（默认值）
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.EntityBase.OperationType.View">
+            <summary>
+            查看
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.EntityBase.OperationType.Insert">
+            <summary>
+            新增
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.EntityBase.OperationType.Update">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.EntityBase.OperationType.Delete">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.Sys_DataRule">
+            <summary>
+            数据权限类
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataRule.Id">
+            <summary>
+            PK
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataRule.BillId">
+            <summary>
+            数据项ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataRule.BillType">
+            <summary>
+            数据实体类型名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataRule.ObjectId">
+            <summary>
+            授权对象ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataRule.ObjectType">
+            <summary>
+            授权对象类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataRule.StartDate">
+            <summary>
+            起始时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataRule.EndDate">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataRule.OpType">
+            <summary>
+            允许的操作类型枚举（按位迭加的）
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EntityBase.Sys_DataLanguage">
+            <summary>
+            数据库层面的多语言表
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataLanguage.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataLanguage.BillId">
+            <summary>
+            实体类的唯一标识ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataLanguage.Name">
+            <summary>
+            实体类中的属性名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataLanguage.Text">
+            <summary>
+            对应Language的文本
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataLanguage.BillType">
+            <summary>
+            实体类的类型名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EntityBase.Sys_DataLanguage.Language">
+            <summary>
+            语言简称的小写，如zh-cn, en-us等等
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.IMessageSender">
+            <summary>
+            消息发送的公共接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.MailMessageSender">
+            <summary>
+            默认的邮件服务发送类
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.SystemMessageSender">
+            <summary>
+            默认的系统消息发送类
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.SMSMessageSender">
+            <summary>
+            默认的短消息发送类
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.DefaultCustomMessageSender">
+            <summary>
+            默认的自定义消息发送器，什么事都不做
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.MessageRoot">
+            <summary>
+            初始化消息栏目
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.MessageRouter">
+            <summary>
+            消息的总的发送类，根据消息发送通道的定义
+            分别发送并回写状态
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.JMessage">
+            <summary>
+            信息发送的实体类，包括信息本身和发送的用户
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.Id">
+            <summary>
+            消息的数据库记录ID, 在初始化后应该保持默认值0
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.Title">
+            <summary>
+            信息标题
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.Content">
+            <summary>
+            信息内容
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.SenderId">
+            <summary>
+            发送人的ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.SendToIds">
+            <summary>
+            要发送到的用户ID列表
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.CopyToIds">
+            <summary>
+            抄送的用户ID列表
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.PlanSendTime">
+            <summary>
+            计划发送时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.Channel">
+            <summary>
+            发送通道（短信、邮件、系统通知等，可以组合)
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.Priority">
+            <summary>
+            优先级
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.AttachmentIds">
+            <summary>
+            附件的ID列表
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.JMessage.Url">
+            <summary>
+            点击消息转到的URL
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.SendResult">
+            <summary>
+            发送结果
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.SendResult.MessageId">
+            <summary>
+            消息的数据库ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.SendResult.FailedIds">
+            <summary>
+            发送失败的用户ID列表
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.SendResult.FailedReason">
+            <summary>
+            失败原因
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.SendResult.PlanSendTime">
+            <summary>
+            计划发送时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.SendResult.SentTime">
+            <summary>
+            实际发送时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Messages.SendResult.State">
+            <summary>
+            发送状态 0-发送成功  2-等待发送 4-发送失败 6-发送失败后等待再次发送
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.MessageManager">
+            <summary>
+            消息的管理类
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Messages.MessageManager.#ctor(Jurassic.CommonModels.Messages.MessageProcesser)">
+            <summary>
+            
+            </summary>
+            <param name="processer"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Messages.MessageManager.Register(Jurassic.CommonModels.Messages.SendChannel,Jurassic.CommonModels.Messages.IMessageSender)">
+            <summary>
+            注册指定通道的消息发送类
+            </summary>
+            <param name="channel">通道枚举</param>
+            <param name="sender">执行发送的对象</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Messages.MessageManager.Send(Jurassic.CommonModels.Messages.JMessage)">
+            <summary>
+            发送消息 
+            </summary>
+            <param name="msg">消息实体对象</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Messages.MessageManager.Send(System.String,Jurassic.CommonModels.Messages.SendChannel,System.Int32[])">
+            <summary>
+            根据消息 标题 通道和发送目标发送消息
+            </summary>
+            <param name="title"></param>
+            <param name="channel"></param>
+            <param name="sendtoIds"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Messages.MessageManager.Send(System.String,System.String,Jurassic.CommonModels.Messages.SendChannel,System.Int32[])">
+            <summary>
+            根据消息 标题 内容 通道和发送目标发送消息
+            </summary>
+            <param name="title"></param>
+            <param name="content"></param>
+            <param name="channel"></param>
+            <param name="sendtoIds"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Messages.MessageManager.BroadCast(Jurassic.CommonModels.Messages.JMessage,System.Int32[])">
+            <summary>
+            向指定部门发送广播消息
+            </summary>
+            <param name="msg">消息实体</param>
+            <param name="deptIds">部门ID的集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Messages.MessageManager.GetSendResults(System.Int32)">
+            <summary>
+            获取指定消息发送的结果
+            </summary>
+            <param name="msgId">消息的数据库ID</param>
+            <returns>发送结果</returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.MessageProcesser">
+            <summary>
+            消息的处理类,排队处理消息 
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Messages.MessageProcesser.SaveGetId(Jurassic.CommonModels.Messages.JMessage)">
+            <summary>
+            将信息实体和待发送到的信息存到数据表中
+            转换规则（Base_Article)：
+            CreateTime = 计划发送时间
+            Clicks = 发送通道
+            UrlTitle = 点击消息后转到的Url
+            EditorId = 要发送到的人
+            
+            转换规则（Base_ArticleRelation)
+            RelationType =  是发送还是抄送
+            
+            转换规则 （Base_CatalogArticle)
+            Ord = 优先级
+            
+            </summary>
+            <param name="msg"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.PriorityType">
+            <summary>
+            优先级
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.PriorityType.Normal">
+            <summary>
+            一般
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.PriorityType.Important">
+            <summary>
+            重要
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.PriorityType.Urgent">
+            <summary>
+            紧急
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.PriorityType.ImportantUrgent">
+            <summary>
+            重要且紧急
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.SendChannel">
+            <summary>
+            消息的发送通道
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.SendChannel.System">
+            <summary>
+            系统内部
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.SendChannel.Email">
+            <summary>
+            邮件通知
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.SendChannel.SMS">
+            <summary>
+            短信通知
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.SendChannel.Custom">
+            <summary>
+            自定义通道
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.SendType">
+            <summary>
+            发送或抄送的关系定义
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.SendType.Send">
+            <summary>
+            发送的关系
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.SendType.Copy">
+            <summary>
+            抄送的关系
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Messages.SendResultType">
+            <summary>
+            消息发送的结果
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.SendResultType.WaitForSend">
+            <summary>
+            等待发送
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.SendResultType.Success">
+            <summary>
+            发送成功
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Messages.SendResultType.Failed">
+            <summary>
+            发送失败
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.DeptUserAuthQuery`1">
+            <summary>
+            根据部门和用户从属关系授权的数据筛选查询类
+            筛选方法：
+            当一个实体类中有部门ID外键属性时，并且此属性标记为AuthByDeptId=true，
+            则该部门领导能看到所有该部门和下属部门的记录
+            普通员工只能看到部门ID属于自己的并且人员ID（标记为AuthByUserId=true)指向自己的记录。
+            </summary>
+            <typeparam name="T">要查询的业务实体类型</typeparam>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.DeptUserAuthQuery`1.#ctor">
+            <summary>
+            ctor
+            </summary>
+            <param name="getDeptId">获取当前用户部门ID的委托</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.DeptUserAuthQuery`1.GetQuery(System.Linq.IQueryable{`0})">
+            <summary>
+            将查询再次通过数据权限进行过滤
+            </summary>
+            <param name="query">传入的查询</param>
+            <returns>过滤后的查询</returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.ICodedModel">
+            <summary>
+            具有编码属性的实体接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.ICUModel">
+            <summary>
+            记录了增删改信息的实体接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.ICurrentDepartment">
+            <summary>
+            获取当前用户当前部门ID的接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.ICurrentDepartment.DeptId">
+            <summary>
+            返回当前用户的当前部门
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.IModelConverter`2">
+            <summary>
+            定义从物理模型到数据模型的单向转换
+            </summary>
+            <typeparam name="TModel">数据模型</typeparam>
+            <typeparam name="TEntity">物理模型</typeparam>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.IModelConverter`2.EntityToModel">
+            <summary>
+            物理模型转换成数据模型的表达式
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.LangDataMapper`2">
+            <summary>
+            设置支持多语言属性的EF映射规则
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TModel"></typeparam>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.LangDataMapper`2.#ctor">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.LangDataMapper`2.MapperLangProperties``2">
+            <summary>
+            用AutoMapper映射出多语言字段属性, 此方法被反射调用
+            </summary>
+            <typeparam name="TM">业务实体类型</typeparam>
+            <typeparam name="TE">数据实体类型</typeparam>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.LangDataMapper`2.ToEntity(`0)">
+            <summary>
+            将业务实体对象转换为数据实体对象
+            </summary>
+            <param name="t">业务实体对象</param>
+            <returns>数据实体对象</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.LangDataMapper`2.SaveLanguages(Jurassic.AppCenter.EFAuditDataService{`1},`1,`0)">
+            <summary>
+            保存多语言的文本信息
+            </summary>
+            <param name="dataService">当前的数据服务</param>
+            <param name="e">数据实体对象</param>
+            <param name="t">业务实体对象</param>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.SameEntityModelConverter`2">
+            <summary>
+            定义数据模型和物理模型类型相同时的默认转换
+            </summary>
+            <typeparam name="TModel">数据模型</typeparam>
+            <typeparam name="TEntity">物理模型</typeparam>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.IModelEntityConverter`2">
+            <summary>
+            定义数据模型和物理模型之间的相互转换，用于Linq to Entity的查询场景中
+            </summary>
+            <typeparam name="TModel">数据模型</typeparam>
+            <typeparam name="TEntity">物理模型</typeparam>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.IModelEntityConverter`2.ModelToEntity">
+            <summary>
+            数据模型转换成物理模型的表达式
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.IIdModel">
+            <summary>
+            所有具有单一主键Id的实体接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.INamedModel">
+            <summary>
+            具有名称属性的实体接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.INamedModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.ModelDataService`2">
+            <summary>
+            基于数据模型到物理模型的数据访问提供程序
+            </summary>
+            <typeparam name="TModel">数据模型</typeparam>
+            <typeparam name="TEntity">物理模型</typeparam>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.#ctor(Jurassic.AppCenter.EFAuditDataService{`1})">
+            <summary>
+            ctor
+            </summary>
+            <param name="innerDataProvider"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.GetByKey(System.Object)">
+            <summary>
+            根据指定主键获取对应的业务模型对象
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.GetCollection``2(System.Int32)">
+            <summary>
+            获取强主外键关联的子表对象集合
+            </summary>
+            <typeparam name="TItemModel">子表的业务模型类</typeparam>
+            <typeparam name="TItemEntity">子表的数据模型类</typeparam>
+            <param name="modelId">主表ID</param>
+            <returns>子表集合</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.GetAttachmentCollection``2(System.Int32)">
+            <summary>
+            获取非强主外键关联的子表对象集合
+            </summary>
+            <typeparam name="TItemModel">非主外键关联的子表业务实体类型</typeparam>
+            <typeparam name="TItemEntity">非主外键关联的子表数据实体类型</typeparam>
+            <param name="modelId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.GetAttachmentsCollection(`0)">
+            <summary>
+            获取非强主外键关联的子表对象集合
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.GetCollections(`0)">
+            <summary>
+            获取强主外键关联的子表对象集合
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.GetCollectionInEntity(`1,System.Type)">
+            <summary>
+            获取数据模型对象中的对应集合数据
+            </summary>
+            <param name="data"></param>
+            <param name="itemEntityType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.ProcessCollection``2(`0,`1)">
+            <summary>
+            批量处理数据对象中的强关联集合数据， 此方法被反射调用
+            </summary>
+            <typeparam name="TItemModel">业务对象中的集合元素类型</typeparam>
+            <typeparam name="TItemEntity">数据对象中的集合元素类型</typeparam>
+            <param name="model">业务对象</param>
+            <param name="data">数据对象</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.ProcessAttachmentCollection``2(`0,`1)">
+            <summary>
+            批量处理数据对象中的非强关联集合数据， 此方法被反射调用
+            </summary>
+            <typeparam name="TItemModel">业务对象中的集合元素类型</typeparam>
+            <typeparam name="TItemEntity">数据对象中的集合元素类型</typeparam>
+            <param name="model">业务对象</param>
+            <param name="data">数据对象</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.ProcessCollections(`0,`1)">
+            <summary>
+            批量处理业务对象中明细表对象集
+            </summary>
+            <param name="model">业务对象</param>
+            <param name="data">数据对象</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.Add(`0)">
+            <summary>
+            将新增的业务模型对象保存到数据库表，并返回新增后的Id
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.Change(`0)">
+            <summary>
+            将修改后的业务模型保存到数据库表，并返回业务模型的ID
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.Delete(`0)">
+            <summary>
+            在数据库表中删除指定的业务模型对象
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.GetQuery">
+            <summary>
+            返回业务模型对象全部的结果查询表达式
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.DeleteByKeys(System.Collections.IEnumerable)">
+            <summary>
+            根据一串ID在数据库中删除对应的全部数据对象
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.Add(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            根据一个新增对象集合在数据库中新增对应对象
+            </summary>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelDataService`2.Change(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            批量修改
+            </summary>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.ModelRule">
+            <summary>
+            用于全面描述一个数据模型的规则和约束的类
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelRule.Clear">
+            <summary>
+            清除缓存，重新读取元数据
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelRule.Get(System.Type)">
+            <summary>
+            根据某类型，返回一个规则类
+            </summary>
+            <param name="type">类型参数</param>
+            <returns>规则类</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelRule.Get``1">
+            <summary>
+            根据某类型，返回一个规则描述类
+            </summary>
+            <typeparam name="T">类型参数</typeparam>
+            <returns>规则类</returns>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.ModelRule.Attr">
+            <summary>
+            解析对象以后生成的标签对象，可能是来自于对象自身的标签，
+            在没有打标签时是根据对象本身的定义信息生成的
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.ModelRule.ModelType">
+            <summary>
+            数据模型的类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.ModelRule.Name">
+            <summary>
+            规则名称，等同于属性名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.ModelRule.SingleRules">
+            <summary>
+            对象中所有单个属性的规则集
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.ModelRule.CollectionRules">
+            <summary>
+            对象中所有集合属性的规则集，集合必须是泛型类的集合
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelRule.GetModelRules(System.Type)">
+            <summary>
+            批量获取某个对象下所有非集合属性的数据规则和约束
+            </summary>
+            <param name="modelType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelRule.GetSingleValue(System.Object,System.String)">
+            <summary>
+            获取某对象的单个属性值
+            </summary>
+            <param name="obj">符合该类所定义的类型的对象</param>
+            <param name="propName">单个属性的名称</param>
+            <returns>单个属性的值</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelRule.GetCollectionValue(System.Object,System.String)">
+            <summary>
+            获取某对象的集合属性值
+            </summary>
+            <param name="obj">符合该类所定义的类型的对象</param>
+            <param name="propName">集合属性名称</param>
+            <returns>集合属性值</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelRule.GetAdvDataRule(System.Reflection.PropertyInfo)">
+            <summary>
+            返回属性的数据规则和约束条件
+            </summary>
+            <param name="prop"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ModelBase.ModelRule.GetCollectionValue``1(System.Object)">
+            <summary>
+            根据子项类型获取某对象的集合属性值
+            </summary>
+            <typeparam name="TItem">集合中子项类型</typeparam>
+            <param name="obj">主对象</param>
+            <returns>集合属性的值</returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.ModelBase.NamedModel">
+            <summary>
+            具有名称属性的实体接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ModelBase.NamedModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetDepartmentData(System.Nullable{System.Int32})">
+            <summary>
+            查询组织结构数据
+            </summary>
+            <param name="isDisabled">1有效 0无效 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetDepartmentById(System.Int32)">
+            <summary>
+            通过主键id查询部门数据对象
+            </summary>
+            <param name="orgID">机构ID(主键)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetOrgByOrgNode(System.String)">
+            <summary>
+            通过节点查询组织机构子节点
+            </summary>
+            <param name="orgNode">机构节点</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.VerifyOrgCode(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            验证机构编码是否重复
+            通过主键ID来确定操作是新增还是编辑状态
+            </summary>
+            <param name="organizationModel">数据节点对象</param>
+            <returns>true重复  false=不重复</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.VerifyUserIsMainOrg(Jurassic.CommonModels.Organization.DepUserModel)">
+            <summary>
+            获取员工的第一部门对象
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.SaveInfo(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            新增
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.Delete(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            删除
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetDepPostData(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            查询组织结构相关的岗位
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetPostData">
+            <summary>
+            查询岗位数据集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetUserList">
+            <summary>
+            查询所有人员集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetDepUserData(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            查询组织结构相关的人员
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.SavePostInfo(System.Collections.Generic.List{Jurassic.CommonModels.Organization.PostModel})">
+            <summary>
+            保存岗位数据
+            </summary>
+            <param name="postModelList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.IsNotLinkPost(Jurassic.CommonModels.Organization.PostModel)">
+            <summary>
+            验证该岗位是否存在引用关系
+            岗位与部门表
+            岗位与部门人员表
+            </summary>
+            <returns>true 没有引用关系  false 有引用关系</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetUserInfo(Jurassic.CommonModels.Organization.DepUserModel)">
+            <summary>
+            获取用户所属部门以及直属领导人对象
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetParentDepInfo(Jurassic.CommonModels.Organization.DepUserModel)">
+            <summary>
+            获取指定员工的上级部门主管
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetDepInfo(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            获取部门对象以及部门的主管
+            </summary>
+            <param name="departmentModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetDepList">
+            <summary>
+            获取部门列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetUserInfoList">
+            <summary>
+            获取用户列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetUserInfoByName(System.String)">
+            <summary>
+            根据用户名称获取用户ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.IOrganizationProvider.GetDepUserQuery">
+            <summary>
+            返回一个可以附加其他条件的查询
+            </summary>
+            <returns>部门用户查询对象</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.#ctor(Jurassic.CommonModels.Organization.IOrganizationProvider)">
+            <summary>
+            
+            </summary>
+            <param name="organization"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetDepartmentData(System.Nullable{System.Int32})">
+            <summary>
+            查询组织结构数据
+            </summary>
+            <param name="isDisabled">1有效 0无效 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetDepartmentById(System.Int32)">
+            <summary>
+            通过主键id查询部门数据对象
+            </summary>
+            <param name="orgID">机构ID(主键)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetOrgByOrgNode(System.String)">
+            <summary>
+            通过节点查询组织机构子节点
+            </summary>
+            <param name="orgNode">机构节点</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.VerifyOrgCode(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            验证机构编码是否重复
+            通过主键ID来确定操作是新增还是编辑状态
+            </summary>
+            <param name="departmentModel">数据节点对象</param>
+            <returns>true重复  false=不重复</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.VerifyUserIsMainOrg(Jurassic.CommonModels.Organization.DepUserModel)">
+            <summary>
+            获取员工的第一部门对象
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.SaveInfo(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            新增
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.Delete(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            删除
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetDepPostData(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            查询组织结构相关的岗位
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetPostData">
+            <summary>
+            查询岗位数据集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetUserList">
+            <summary>
+            查询所有人员集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetDepUserData(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            查询组织结构相关的人员
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.SavePostInfo(System.Collections.Generic.List{Jurassic.CommonModels.Organization.PostModel})">
+            <summary>
+            保存岗位数据
+            </summary>
+            <param name="postModelList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.IsNotLinkPost(Jurassic.CommonModels.Organization.PostModel)">
+            <summary>
+            验证该岗位是否存在引用关系
+            岗位与部门表
+            岗位与部门人员表
+            </summary>
+            <returns>true 没有引用关系  false 有引用关系</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetUserInfo(System.String)">
+            <summary>
+            获取用户所属部门以及直属领导人对象
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetParentDepInfo(System.String)">
+            <summary>
+            获取指定员工的上级部门主管
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetDepInfo(System.Int32)">
+            <summary>
+            获取部门对象以及部门的主管
+            </summary>
+            <param name="departmentModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetUserInfo(Jurassic.CommonModels.Organization.DepUserModel)">
+            <summary>
+            获取用户所属部门以及直属领导人对象
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetDepInfo(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            获取部门对象以及部门的主管
+            </summary>
+            <param name="departmentModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetDepList">
+            <summary>
+            获取部门列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetUserInfoList">
+            <summary>
+            获取用户列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Organization.OrganizationManager.GetUserInfoByName(System.String)">
+            <summary>
+            根据用户名称获取用户ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Jurassic.CommonModels.Organization.OrgManager.organizationManager">
+            <summary>
+            组织机构数据访问对象
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Organization.ViewUserModel">
+            <summary>
+            部门与用户关系信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewUserModel.Id">
+            <summary>
+            主键Id
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewUserModel.ParentId">
+            <summary>
+            上级部门ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewUserModel.DepId">
+            <summary>
+            部门ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewUserModel.DepName">
+            <summary>
+            部门名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewUserModel.DepHID">
+            <summary>
+            部门编码
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewUserModel.UserId">
+            <summary>
+            用户ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewUserModel.UserName">
+            <summary>
+            用户名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewUserModel.LeaderUserName">
+            <summary>
+            直属领导用户名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewUserModel.IsLeader">
+            <summary>
+            是否主管
+            0否 1是
+            </summary>		
+        </member>
+        <member name="T:Jurassic.CommonModels.Organization.ViewDepartmentModel">
+            <summary>
+            部门主信息表
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.DepId">
+            <summary>
+            主键ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.OrgNode">
+            <summary>
+            组织机构节点编码
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.DepHID">
+            <summary>
+            机构编码
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.DepName">
+            <summary>
+            部门名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.DepType">
+            <summary>
+            部门类型1.单位2.部门
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.DepLevel">
+            <summary>
+            部门级别
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.ParentId">
+            <summary>
+            父部门编号
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.ParentDepName">
+            <summary>
+            父节点部门名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.ParentDepHID">
+            <summary>
+            父对象节点值
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.LeaderUserId">
+            <summary>
+            部门主管ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepartmentModel.LeaderUserName">
+            <summary>
+            部门主管名称
+            </summary>		
+        </member>
+        <member name="T:Jurassic.CommonModels.Organization.DepartmentModel">
+            <summary>
+            部门主信息表
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.Id">
+            <summary>
+            主键ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.ParentId">
+            <summary>
+            父部门编号
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.OrgNode">
+            <summary>
+            组织机构节点编码
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.DepHID">
+            <summary>
+            机构编码
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.Ord">
+            <summary>
+            部门序号
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.Name">
+            <summary>
+            部门名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.Remark">
+            <summary>
+            备注
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.DepType">
+            <summary>
+            部门类型1.单位2.部门
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.ExamineType">
+            <summary>
+            审核状态
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.IsActive">
+            <summary>
+            是否激活 0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.IsDisabled">
+            <summary>
+            是否禁用 0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.IsDeleted">
+            <summary>
+            是否删除 0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.CreateDatetime">
+            <summary>
+            创建日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.ModifiedDateTime">
+            <summary>
+            修改日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.ParentOrgNode">
+            <summary>
+            父对象节点值
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.DepPostModelList">
+            <summary>
+            组织结构岗位关系集合
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepartmentModel.DepUserModelList">
+            <summary>
+            组织结构用户关系集合
+            </summary>		
+        </member>
+        <member name="T:Jurassic.CommonModels.Organization.DepPostModel">
+            <summary>
+            部门与岗位关系表
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.Id">
+            <summary>
+            主键ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.DepId">
+            <summary>
+            部门ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.PostId">
+            <summary>
+            岗位ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.Name">
+            <summary>
+            名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.PlanNumber">
+            <summary>
+            岗位人数
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.ExamineType">
+            <summary>
+            审核状态
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.Describe">
+            <summary>
+            岗位描述
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.Duty">
+            <summary>
+            岗位责任
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.Requirement">
+            <summary>
+            岗位要求
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.IsActive">
+            <summary>
+            是否激活
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.IsDisabled">
+            <summary>
+            是否禁用
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.IsDeleted">
+            <summary>
+            是否删除
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel.CreateDatetime">
+            <summary>
+            创建日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepPostModel._State">
+            <summary>
+            数据状态
+            新增=ADDED 编辑=MODIFIED 删除=REMOVED
+            </summary>		
+        </member>
+        <member name="T:Jurassic.CommonModels.Organization.DepUserModel">
+            <summary>
+            部门与用户关系信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.Id">
+            <summary>
+            主键Id
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.DepId">
+            <summary>
+            部门ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.UserId">
+            <summary>
+            用户ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.UserName">
+            <summary>
+            用户名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.ExamineType">
+            <summary>
+            审核类型
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.ContractType">
+            <summary>
+            合同类型
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.ContractLenght">
+            <summary>
+            合同期限
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.JoinDateTime">
+            <summary>
+            入职日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.OutDateTime">
+            <summary>
+            离职日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.CreateDatetime">
+            <summary>
+            创建日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.IsSuspension">
+            <summary>
+            是否停职
+            0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.IsLeader">
+            <summary>
+            是否主管
+            0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.IsMain">
+            <summary>
+            是否主部门
+            确定该账号直属的部门
+            0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.IsDeleted">
+            <summary>
+            是否删除
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel.PostId">
+            <summary>
+            岗位主键ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.DepUserModel._State">
+            <summary>
+            数据状态
+            新增=ADDED 编辑=MODIFIED 删除=REMOVED
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.Id">
+            <summary>
+            主键Id
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.DepId">
+            <summary>
+            部门ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.DepName">
+            <summary>
+            部门名称 wang加
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.UserId">
+            <summary>
+            用户ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.UserName">
+            <summary>
+            用户名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.ExamineType">
+            <summary>
+            审核类型
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.ContractType">
+            <summary>
+            合同类型
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.ContractLenght">
+            <summary>
+            合同期限
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.JoinDateTime">
+            <summary>
+            入职日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.OutDateTime">
+            <summary>
+            离职日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.CreateDatetime">
+            <summary>
+            创建日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.IsSuspension">
+            <summary>
+            是否停职
+            0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.IsLeader">
+            <summary>
+            是否主管
+            0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.IsMain">
+            <summary>
+            是否主部门
+            确定该账号直属的部门
+            0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.IsDeleted">
+            <summary>
+            是否删除
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel.PostId">
+            <summary>
+            岗位主键ID
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.ViewDepUserModel._State">
+            <summary>
+            数据状态
+            新增=ADDED 编辑=MODIFIED 删除=REMOVED
+            </summary>		
+        </member>
+        <member name="T:Jurassic.CommonModels.Organization.PostModel">
+            <summary>
+            岗位基本信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.PostModel.Id">
+            <summary>
+            主键Id
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.PostModel.PostName">
+            <summary>
+            岗位名称
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.PostModel.PostType">
+            <summary>
+            岗位类型
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.PostModel.PostLevelType">
+            <summary>
+            岗位级别
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.PostModel.PostEngageType">
+            <summary>
+            岗位雇佣类型
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.PostModel.OperatorID">
+            <summary>
+            操作人
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.PostModel.CreateDatetime">
+            <summary>
+            创建日期
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.PostModel.IsDeleted">
+            <summary>
+            是否删除 0否 1是
+            </summary>		
+        </member>
+        <member name="P:Jurassic.CommonModels.Organization.PostModel._State">
+            <summary>
+            数据状态
+            新增=ADDED 编辑=MODIFIED 删除=REMOVED
+            </summary>		
+        </member>
+        <member name="T:Jurassic.CommonModels.Schedule.ScheduleEvent">
+            <summary>
+            日程表的栏目定义
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Schedule.ScheduleEvent.EventRead">
+            <summary>
+            表示该日程已读
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Schedule.ScheduleEvent.EventFinished">
+            <summary>
+            表示该日程已完成的状态
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Schedule.ScheduleEvent.EventReadOnly">
+            <summary>
+            表示该日程是只读状态
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.Schedule.ScheduleEvent.EventNotice">
+            <summary>
+            该状态位表是不需要在日程表中显示，仅仅是通知一下用户
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.ScheduleEvent.EventType">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.ScheduleEvent.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.ScheduleEvent.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.ScheduleEvent.AlertTime">
+            <summary>
+            冗余属性，便于轮询快速判断需要提醒的事件时间，它由StartTime-AlertBefore生成
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.ScheduleEvent.AllDay">
+            <summary>
+            是否是全天事件
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.ScheduleEvent.AlertBefore">
+            <summary>
+            提前通知的时间(分钟）,负数表示不通知
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.ScheduleEvent.LoopType">
+            <summary>
+            循环类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.ScheduleEvent.ProcessUrl">
+            <summary>
+            处理此消息的页面地址
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Schedule.ScheduleManager">
+            <summary>
+            日程表和消息提醒的数据管理类
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Schedule.ScheduleManager.GetEvents(System.Int32,System.DateTime,System.DateTime)">
+            <summary>
+            获取用户所有落在某个时间段的日程表事件，只要是起始时间或结束时间在指定范围都算
+            </summary>
+            <param name="userId">用户ID</param>
+            <param name="startTime">起始时间</param>
+            <param name="endTime">结束时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Schedule.ScheduleManager.CreateLoopEvents">
+            <summary>
+            生成循环事件
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.Schedule.ScheduleManager.GetAlerts(System.Int32)">
+            <summary>
+            获取指定用户的当前时间点需要提醒的项
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Schedule.ScheduleManager.ClearAlerts(System.Int32)">
+            <summary>
+            清空指定用户的消息 
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Schedule.ScheduleManager.ReadAllAlerts(System.Int32)">
+            <summary>
+            将所有消息设置成只读
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Schedule.ScheduleManager.GetUserIdsToAlert">
+            <summary>
+            获取当前时间点需要提醒的所有用户ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.Schedule.ScheduleManager.AdjustAlertTime(Jurassic.CommonModels.Articles.Base_CatalogArticle)">
+            <summary>
+            根据用户设置的提醒分钟数,设定事件的提醒时间
+            </summary>
+            <param name="ca"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.Schedule.ScheduleManager.DeleteAlerts(System.Int32,System.Int32[])">
+            <summary>
+            删除指定的消息 
+            </summary>
+            <param name="userId"></param>
+            <param name="idArr"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.Schedule.MenuExtInfo">
+            <summary>
+            配合左侧菜单项显示徽章数据的类
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.MenuExtInfo.MenuId">
+            <summary>
+            菜单项的ID(在AppFuntions.json文件中）
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Schedule.MenuExtInfo.BadgeText">
+            <summary>
+            徽章中显示的文字 
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.Schedule.IMenuExtInfoService">
+            <summary>
+            返回当前用户菜单信息附加项的接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.ResourceCatalogInfo.OwnerId">
+            <summary>
+            目录所有者ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.ResourceCatalogInfo.OwnerType">
+            <summary>
+            目录所有者类型
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.FileRepository.ResourceCatalogInit.InnerInitSysAvatar">
+            <summary>
+            初始化系统自带的头像
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.SystemTypes.Id">
+            <summary>
+            Id是必须的。它的值会在初始化时被数据库的"SystemTypes"所在的栏目替代
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.SystemTypes.Name">
+            <summary>
+            Name是必须的。它的值会在初始化时被"SystemTypes"替代
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.SystemTypes.Root">
+            <summary>
+            以下的静态对象方便程序调用来获取对应的属性名称
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.FileRepository.Files">
+            <summary>
+            还可以定义SystemTypes下面的子栏目
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.FileRepository.FileLocator">
+            <summary>
+            文件路径定位器
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.CommonModels.FileRepository.FileLocator.GetFilePath(System.String)" -->
+        <member name="T:Jurassic.CommonModels.FileRepository.FileExtensionTypeHelper">
+            <summary>
+            文件类型帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.FileRepository.FileExtensionTypeHelper.GetFileExtensionType(System.IO.Stream)">
+            <summary>
+            获取文件类型
+            </summary>
+            <param name="stream">文件流</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.FileRepository.FileExtensionTypeHelper.GetThumbnail(System.IO.Stream,System.Drawing.Size)">
+            <summary>
+            获得文件缩略图流
+            </summary>
+            <param name="id">文件信息ID</param>
+            <param name="thumbnailSize">缩略图大小</param>
+            <returns>缩略图流</returns>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.ThumbnailSize.Large">
+            <summary>
+            大
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.ThumbnailSize.LargeMiddle">
+            <summary>
+            大中
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.ThumbnailSize.Middle">
+            <summary>
+            中
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.ThumbnailSize.MiddleSmall">
+            <summary>
+            中小
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.FileRepository.ThumbnailSize.Small">
+            <summary>
+            小
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.FileRepository.IFileLocator">
+            <summary>
+            文件路径定位器
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.FileRepository.IFileLocator.GetFilePath(System.String)">
+            <summary>
+            获取文件的全路径名称
+            </summary>
+            <param name="fileKey">文件Key，就是文件的名称</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.FileRepository.IFileRepository">
+            <summary>
+            定义一个文件资源存储接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.FileRepository.IFileRepository`1">
+            <summary>
+            泛型文件资源存储接口
+            </summary>
+            <typeparam name="TKey">文件的键值</typeparam>
+        </member>
+        <member name="T:Jurassic.CommonModels.FileRepository.WindowsFileRepository">
+            <summary>
+            Windows本地文件存取类
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.FileRepository.WindowsFileRepository.InnerGetFilePath(System.String)">
+            <summary>
+            取得文件路径
+            </summary>
+            <param name="key">key是文件名称</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.DiskFile.DiskFileInfoService">
+            <summary>
+            在Windows文件目录中存取文件。此服务类没有使用数据库
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.DiskFile.DiskFileInfoService.Save(System.IO.DirectoryInfo,Jurassic.CommonModels.DiskFile.DiskFileInfo)">
+            <summary>
+            保存文件信息
+            </summary>
+            <param name="info">文件信息</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.DiskFile.DiskFileInfoService.GetAll(System.IO.DirectoryInfo)">
+            <summary>
+            获取所有文件信息列表（不包括文件流）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.DiskFile.DiskFileInfoService.Get(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            获取文件信息（包括文件流），不存在返回null
+            </summary>
+            <param name="id">文件信息ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.DiskFile.DiskFileInfoService.DeleteFileInfo(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            删除文件信息
+            </summary>
+            <param name="id">文件信息ID</param>
+            <returns>被删除的文件信息，如果没有找到文件返回null</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.DiskFile.DiskFileInfoService.GetThumbnail(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            获得文件缩略图流
+            </summary>
+            <param name="id">文件信息ID</param>
+            <returns>缩略图流</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.DiskFile.DiskFileInfoService.GetThumbnail(System.IO.DirectoryInfo,System.String,System.Drawing.Size)">
+            <summary>
+            获得文件缩略图流
+            </summary>
+            <param name="id">文件信息ID</param>
+            <param name="thumbnailSize">缩略图大小</param>
+            <returns>缩略图流</returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.Properties.Resource">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.access">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.excel">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.onenote">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.outlook">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.pdf">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.ppt">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.project">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.unknown">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.visio">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.Properties.Resource.word">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ResourceFileInfo.CatalogId">
+            <summary>
+            所属目录Id
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.SaveFile(Jurassic.CommonModels.ResourceFileInfo)">
+            <summary>
+            保存文件信息
+            </summary>
+            <param name="info">文件信息</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.ChangeArtState(Jurassic.CommonModels.ResourceFileInfo)">
+            <summary>
+            当文件上传完整之后修改文件的状态
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.InnerSaveArticleInfo(Jurassic.CommonModels.ResourceFileInfo)">
+            <summary>
+            保存文件属性信息
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.SaveCatalogArticleInfo(Jurassic.CommonModels.ResourceFileInfo)">
+            <summary>
+            保存上传记录，其中info.Id不能为空
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFile(System.Int32)">
+            <summary>
+            获取文件信息（包括文件流），不存在返回null
+            </summary>
+            <param name="fileId">文件信息ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFiles(System.Collections.Generic.IEnumerable{System.Int32},System.Boolean)">
+            <summary>
+            根据一串ID获取文件列表
+            </summary>
+            <param name="fileIds">一串文件ID</param>
+            <param name="includeStream">是否获取文件流数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFile(Jurassic.CommonModels.Articles.Base_CatalogArticle)">
+            <summary>
+            获取文件信息（包括文件流），不存在返回null
+            </summary>
+            <param name="ca"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.DeleteFile(System.Int32)">
+            <summary>
+            删除文件信息
+            </summary>
+            <param name="fileId">文件信息ID</param>
+            <returns>被删除的文件信息，如果没有找到文件返回null</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFile(System.Int64,System.String)">
+            <summary>
+            获取文件信息（不包括文件流），不存在返回null
+            </summary>
+            <param name="size">文件大小</param>
+            <param name="fileMD5">MD5码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFileBySizeName(System.Int64,System.String,System.Boolean)">
+            <summary>
+            根据名称和大小获取文件信息
+            </summary>
+            <param name="size">大小</param>
+            <param name="fileName">名称</param>
+            <returns>文件信息</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.ToResourceFileInfo(Jurassic.CommonModels.Articles.Base_CatalogArticle)">
+            <summary>
+            映射
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFileStream(System.Int32)">
+            <summary>
+            获取文件流，不存在返回null，存在返回文件流Stream
+            </summary>
+            <param name="fileId">文件信息ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFileThumbnail(System.Int32)">
+            <summary>
+            获得文件缩略图流
+            </summary>
+            <param name="fileId">文件信息ID</param>
+            <returns>缩略图流</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFileThumbnail(System.Int32,System.Drawing.Size)">
+            <summary>
+            获得文件缩略图流
+            </summary>
+            <param name="fileId">文件信息ID</param>
+            <param name="thumbnailSize">缩略图大小</param>
+            <returns>缩略图流</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetSysAvatarThumbnail(System.Int32)">
+            <summary>
+            获得头像缩略图流
+            </summary>
+            <param name="fileId">文件信息ID（Base_Article中的ID）</param>
+            <param name="thumbnailSize">缩略图大小</param>
+            <returns>缩略图流</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetCatalogOfFile(System.Int32)">
+            <summary>
+            获取文件的目录
+            </summary>
+            <param name="fileId">文件ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFilesInCatalog(System.Int32)">
+            <summary>
+            获取目录的所有文件（包括不完整的（Incomplete））
+            </summary>
+            <param name="catalogId">目录ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.ToResourceCatalogInfo(Jurassic.CommonModels.Articles.Base_Catalog)">
+            <summary>
+            映射
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFileCatalogRootId">
+            <summary>
+            确定文件目录的根目录ID
+            新增：[2017-01-16/汪敏]
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetUserRootCatalog(System.Int32)">
+            <summary>
+            取得根目录
+            修改：[2017-01-16/汪敏]
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetChildrenCatalogs(System.Int32)">
+            <summary>
+            取得目录的直接下级目录
+            </summary>
+            <param name="catalogId">目录Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetDescendantCatalogs(System.Int32)">
+            <summary>
+            取得目录的所有下级目录
+            </summary>
+            <param name="rootCatalogName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.SaveCatalog(Jurassic.CommonModels.FileRepository.ResourceCatalogInfo)">
+            <summary>
+            保存一个目录对象
+            </summary>
+            <param name="ResourceCatalogInfo">目录</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.UpdateCatalog(Jurassic.CommonModels.FileRepository.ResourceCatalogInfo)">
+            <summary>
+            更新一个目录对象
+            </summary>
+            <param name="ResourceCatalogInfo">目录</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.DeleteCatalog(System.Int32)">
+            <summary>
+            删除一个目录（带删除目录中的子目录以及文件）
+            </summary>
+            <param name="catalogId">目录Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.UpdateCatalogOfFile(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            将文件移动到指定的目录中
+            </summary>
+            <param name="fileId">将要移动的文件id</param>
+            <param name="newCatalogId">将要移动到的CatalogId</param>
+            <param name="isCopy">表示是否是复制文件</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetUserVisibleCatalogs(System.Int32)">
+            <summary>
+            通过用户的Id获取其对应可见的目录列表
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.PageQuery(System.Int32,System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            排序、分页
+            </summary>
+            <param name="catalogId">目录Id</param>
+            <param name="page">页码数</param>
+            <param name="pageSize">每页的大小</param>
+            <param name="key">搜索的关键字</param>
+            <param name="sortField">将要排序的字段名</param>
+            <param name="sortOrder">排序的方式（desc、asc）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.CheckRepeatFiles(System.Collections.Generic.List{Jurassic.CommonModels.ResourceFileInfo},System.Int32)">
+            <summary>
+            筛选一个目录下的文件与选中的文件列表中的重复文件
+            </summary>
+            <param name="files">选中的文件列表</param>
+            <param name="newCatalogId">将要与之比较的目录Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.UpdateCatalogOfFiles(System.Collections.Generic.List{Jurassic.CommonModels.ResourceFileInfo},System.Collections.Generic.List{Jurassic.CommonModels.ResourceFileInfo},System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            批量移动、复制文件
+            </summary>
+            <param name="files">选中的文件</param>
+            <param name="repList">重复的文件</param>
+            <param name="newCatalogId">将要移至的目录Id</param>
+            <param name="isCover">是否覆盖重复的文件</param>
+            <param name="isCopy">是否是复制</param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetAllSysAvatar">
+            <summary>
+            获得所有的系统默认头像
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetUserAvatar(System.Int32)">
+            <summary>
+            获得用户的当前头像
+            </summary>
+            <param name="userId">用户的Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.SaveAvatar(Jurassic.CommonModels.ResourceFileInfo)">
+            <summary>
+            当选择系统默认头像时，保存头像
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFileByArticleId(System.Int32)">
+            <summary>
+            根据Base_Article中的ID返回文件信息 wang
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ResourceFileService.GetFilePath(System.Int32[])">
+            <summary>
+            根据文件的ID返回文件的物理路径
+            </summary>
+            <param name="fileIds"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.AppUserEx">
+            <summary>
+            用户实体类的扩展
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.AppUserEx.Email">
+            <summary>
+            E-Mails
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.LogManager">
+            <summary>
+            日志管理类，该类应该通过依赖注入来初始化
+            </summary>
+            <example>
+            LogManager _logManager = SiteManager.Kernel.Get&lt;LogManager&gt;();
+            </example>
+        </member>
+        <member name="M:Jurassic.CommonModels.LogManager.GetPage(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            日志的分页查询
+            </summary>
+            <param name="page">分页号，从1开始</param>
+            <param name="pageSize">分页大小</param>
+            <param name="key">查询关键字</param>
+            <param name="sortExpression">排序表达式，如'ID DESC'</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.LogManager.Clear">
+            <summary>
+            清除所有日志
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.LogManager.DeleteByKeys(System.Int32[])">
+            <summary>
+            批量删除指定ID的日志记录
+            </summary>
+            <param name="idArr"></param>
+        </member>
+        <member name="M:Jurassic.CommonModels.LogManager.GetUserLoginLogs(System.String,System.Int32,System.Int32)">
+            <summary>
+            查询指定用户ID的登录历史记录,按ID排降序
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.IDataAuthorizeProvider">
+            <summary>
+            数据权限节点对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IDataAuthorizeProvider.GetData(System.Nullable{System.Int32})">
+            <summary>
+            查询数据
+            </summary>
+            <param name="isvalId">1有效 0无效 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IDataAuthorizeProvider.GetDataById(System.String)">
+            <summary>
+            通过主键id查询有效的数据对象
+            </summary>
+            <param name="toKeyId">授权表主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IDataAuthorizeProvider.GetDataByDataNodeID(System.String)">
+            <summary>
+            通过数据节点id查询有效的数据对象
+            </summary>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IDataAuthorizeProvider.Delete(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            删除
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IDataAuthorizeProvider.Add(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            新增
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IDataAuthorizeProvider.Change(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            编辑
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IDataAuthorizeProvider.VerifyDataNodeRepeat(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            验证数据节点id是否重复
+            通过主键ID来确定操作是新增还是编辑状态
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IDataAuthorizeProvider.IsDataRelations(System.String)">
+            <summary>
+            查询该数据节点是否存在授权关系
+            </summary>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.IServerAuthProvider">
+            <summary>
+            安全令牌数据访问对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.GetData">
+            <summary>
+            查询数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.GetDataById(System.String)">
+            <summary>
+            通过主键id查询数据对象
+            </summary>
+            <param name="toKeyId">授权表主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.GetDataByClientId(System.String)">
+            <summary>
+            通过客户id查询数据对象
+            </summary>
+            <param name="clientId">客户id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.Delete(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            删除
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.Add(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            新增
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.Change(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            编辑
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.VerifyClientRepeat(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            验证客户id与授权key是否重复
+            通过主键ID来确定操作是新增还是编辑状态
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.GetDataRelation(System.String)">
+            <summary>
+            查询数据制定客户的数据授权关系
+            </summary>
+            <param name="tokeyID">授权主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.SaveDataRelation(System.Collections.Generic.List{Jurassic.CommonModels.ServerAuth.DataRelation},System.String)">
+            <summary>
+            保存数据授权关系
+            </summary>
+            <param name="dataRelationList">关系集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.GetDataNodesByClientId(System.String)">
+            <summary>
+            通过客户组Id查询该客户授权的数据节点
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.IsAuthData(System.String,System.String)">
+            <summary>
+            获取该客户的数据节点是否授权
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.GetServiceRelation(System.String)">
+            <summary>
+            查询指定客户的服务授权关系
+            </summary>
+            <param name="tokeyID">授权主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.SaveServiceRelation(System.Collections.Generic.List{Jurassic.CommonModels.ServerAuth.ServiceRelation},System.String)">
+            <summary>
+            保存服务授权关系
+            </summary>
+            <param name="dataRelationList">关系集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.GetServiceByClientId(System.String)">
+            <summary>
+            通过客户组Id查询该客户授权的服务节点
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.IsAuthService(System.String,System.String,System.String)">
+            <summary>
+            获取该客户的服务节点是否授权
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <param name="actionName">服务名称</param>
+            <param name="serviceFullName">服务完成方法名称(包含命名空间名称)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServerAuthProvider.GetAllAuthService">
+            <summary>
+            获取所有的授权服务关系
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.IServiceInfoProvider">
+            <summary>
+            控制器Api服务授权对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServiceInfoProvider.GetData(System.Nullable{System.Int32})">
+            <summary>
+            获取服务信息
+            </summary>
+            <param name="isvalId">1有效 0无效 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServiceInfoProvider.GetDataById(System.String)">
+            <summary>
+            通过主键id查询有效的服务对象
+            </summary>
+            <param name="serviceID">授权表主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServiceInfoProvider.Delete(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            删除
+            </summary>
+            <param name="serviceInfoModel">服务对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServiceInfoProvider.Add(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            新增
+            </summary>
+            <param name="serviceInfoModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServiceInfoProvider.Change(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            编辑
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.IServiceInfoProvider.IsServiceRelations(System.String)">
+            <summary>
+            查询该数服务点是否存在授权关系
+            </summary>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.AuthToken">
+            <remarks>by_zjf</remarks>
+            <summary>
+            授权安全令牌实体类 
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.AuthToken.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.AuthToken.ToKeyId">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.AuthToken.ClientName">
+            <summary>
+            客户组名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.AuthToken.ClientId">
+            <summary>
+            客户id
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.AuthToken.TokeyCode">
+            <summary>
+            授权key
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.AuthToken.Memo">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.AuthToken.IsvalId">
+            <summary>
+            状态
+            1启用 0禁用
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.AuthToken.ValidityDate">
+            <summary>
+            授权有效期
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.AuthToken.AccreditDate">
+            <summary>
+            授权日期
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.AuthToken.AccreditBy">
+            <summary>
+            授权人
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.DataNodeInfo">
+            <remarks>by_zjf</remarks>
+            <summary>
+            数据节点对象 
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataNodeInfo.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataNodeInfo.DataID">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataNodeInfo.DataParentID">
+            <summary>                                                
+            数据父节点ID                                             
+            </summary>                                               
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataNodeInfo.DataNodeName">
+            <summary>
+            数据父节点名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataNodeInfo.DataNodeID">
+            <summary>
+            数据节点ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataNodeInfo.Memo">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataNodeInfo.IsvalId">
+            <summary>
+            状态
+            1启用 0禁用
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataNodeInfo.CreatedDate">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataNodeInfo.CreatedBy">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.DataRelation">
+            <remarks>by_zjf</remarks>
+            <summary>
+            数据节点授权关系对象 
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataRelation.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataRelation.RID">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataRelation.DataID">
+            <summary>                                                
+            数据节点主键ID                                             
+            </summary>                                               
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.DataRelation.TokeyID">
+            <summary>
+            身份令牌主键ID
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.ViDataAuth">
+            <remarks>by_zjf</remarks>
+            <summary>
+            数据节点授权关系对象 
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ViDataAuth.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViDataAuth.RID">
+            <summary>                                                
+                                                         
+            </summary>                                               
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViDataAuth.ClientName">
+            <summary>                                                
+            客户组名称                                             
+            </summary>                                               
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViDataAuth.ClientId">
+            <summary>
+            客户组编码
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViDataAuth.TokeyCode">
+            <summary>
+            客户授权Key
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViDataAuth.ValidityDate">
+            <summary>
+            客户授权有效期
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViDataAuth.DataNodeID">
+            <summary>
+            数据节点编码
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViDataAuth.DataNodeName">
+            <summary>
+            数据节点名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViDataAuth.DataParentID">
+            <summary>
+            上级数据节点编码
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.ServiceInfo">
+            <remarks>by_zjf</remarks>
+            <summary>
+            服务节点对象 
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceInfo.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.ServiceID">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.ParentID">
+            <summary>                                                
+            数据父节点ID                                             
+            </summary>                                               
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.ParentName">
+            <summary>                                                
+            数据父节点名称                                             
+            </summary>                                               
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.ServiceName">
+            <summary>
+            服务名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.ServiceFunctionName">
+            <summary>
+            服务函数名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.ServiceFullName">
+            <summary>
+            服务全称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.RequestWay">
+            <summary>
+            请求方式
+            Post,Put,Get,Delete
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.AuthWay">
+            <summary>
+            授权方式 
+            0 有权限的用户(NeedAuth)有权限的客户组
+            1 所有登录用户可访问(AllUsers)所有授权客户端 
+            2 所有人(EveryOne)所有人
+            4 禁止所有人(Forbidden)禁止所有人
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.Memo">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.IsvalId">
+            <summary>
+            状态
+            1启用 0禁用
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.CreatedDate">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceInfo.CreatedBy">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.ServiceRelation">
+            <remarks>by_zjf</remarks>
+            <summary>
+            数据节点授权关系对象 
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceRelation.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceRelation.SID">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceRelation.ServiceID">
+            <summary>                                                
+            数据节点主键ID                                             
+            </summary>                                               
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ServiceRelation.TokeyID">
+            <summary>
+            身份令牌主键ID
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.ViServiceAuth">
+            <remarks>by_zjf</remarks>
+            <summary>
+            服务节点授权关系对象 
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ViServiceAuth.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.SID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.ClientName">
+            <summary>
+            客户组名称 
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.ClientId">
+            <summary>
+            客户组编码
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.TokeyCode">
+            <summary>
+            客户授权Key
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.ServiceID">
+            <summary>
+            服务ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.ServiceName">
+            <summary>
+            服务名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.ServiceFunctionName">
+            <summary>
+            服务方法名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.ServiceFullName">
+            <summary>
+            服务全称
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.AuthWay">
+            <summary>
+            授权方式 
+            0 有权限的用户(NeedAuth)有权限的客户组
+            1 所有登录用户可访问(AllUsers)所有授权客户端
+            2 所有人(EveryOne)所有人
+            4 禁止所有人(Forbidden)禁止所有人
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.ServerAuth.ViServiceAuth.RequestWay">
+            <summary>
+            请求方式
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.ServerAuthManager">
+            <summary>
+            安全令牌数据访问对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.GetData">
+            <summary>
+            查询数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.GetDataById(System.String)">
+            <summary>
+            通过主键id查询数据对象
+            </summary>
+            <param name="toKeyId">授权表主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.GetDataByClientId(System.String)">
+            <summary>
+            通过客户id查询数据对象
+            </summary>
+            <param name="clientId">客户id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.Delete(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            删除
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.Add(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            新增
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.Change(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            编辑
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.VerifyClientRepeat(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            验证客户id与授权key是否重复
+            通过主键ID来确定操作是新增还是编辑状态
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.GetDataRelation(System.String)">
+            <summary>
+            查询数据制定客户的数据授权关系
+            </summary>
+            <param name="tokeyID">授权主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.SaveDataRelation(System.Collections.Generic.List{Jurassic.CommonModels.ServerAuth.DataRelation},System.String)">
+            <summary>
+            保存数据授权关系
+            </summary>
+            <param name="dataRelationList">关系集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.GetDataNodesByClientId(System.String)">
+            <summary>
+            通过客户组Id查询该客户授权的数据节点
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.IsAuthData(System.String,System.String)">
+            <summary>
+            获取该客户的数据节点是否授权
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.GetServiceRelation(System.String)">
+            <summary>
+            查询指定客户的服务授权关系
+            </summary>
+            <param name="tokeyID">授权主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.SaveServiceRelation(System.Collections.Generic.List{Jurassic.CommonModels.ServerAuth.ServiceRelation},System.String)">
+            <summary>
+            保存服务授权关系
+            </summary>
+            <param name="dataRelationList">关系集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.GetServiceByClientId(System.String)">
+            <summary>
+            通过客户组Id查询该客户授权的服务节点
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.IsAuthService(System.String,System.String,System.String)">
+            <summary>
+            获取该客户的服务节点是否授权
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <param name="actionName">服务名称</param>
+            <param name="serviceFullName">服务完成方法名称(包含命名空间名称)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.GetAuthService(System.String,System.String,System.String)">
+            <summary>
+            获取客户id与访问的方法所授权的对象
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <param name="serviceFullName">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.GetAllAuthService">
+            <summary>
+            获取所有的授权服务关系
+            判断是否本地有数据如果没有将重新获取最新数据
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServerAuthManager.IsServerAuthValid(System.String,System.String)">
+            <summary>
+            验证客户组与授权Key是否合法
+            </summary>
+            <param name="clientId">用户组ID</param>
+            <param name="clientSecret">授权Key</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.DataAuthorizeManager">
+            <summary>
+            数据节点业务访问类
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataAuthorizeManager.GetData(System.Nullable{System.Int32})">
+            <summary>
+            查询数据
+            </summary>
+            <param name="isvalId">1有效 0无效 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataAuthorizeManager.GetDataById(System.String)">
+            <summary>
+            通过主键id查询有效的数据对象
+            </summary>
+            <param name="toKeyId">授权表主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataAuthorizeManager.GetDataByDataNodeID(System.String)">
+            <summary>
+            通过数据节点id查询有效的数据对象
+            </summary>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataAuthorizeManager.Delete(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            删除
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataAuthorizeManager.Add(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            新增
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataAuthorizeManager.Change(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            编辑
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataAuthorizeManager.VerifyDataNodeRepeat(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            验证数据节点id是否重复
+            通过主键ID来确定操作是新增还是编辑状态
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.DataAuthorizeManager.IsDataRelations(System.String)">
+            <summary>
+            查询该数据节点是否存在授权关系
+            </summary>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="F:Jurassic.CommonModels.ServerAuth.ApiManager.serverAuthManager">
+            <summary>
+            安全令牌数据访问对象
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.ServerAuth.ApiManager.dataAuthorizeManager">
+            <summary>
+            数据节点业务访问类
+            </summary>
+        </member>
+        <member name="F:Jurassic.CommonModels.ServerAuth.ApiManager.serviceInfoManager">
+            <summary>
+            服务节点业务访问类
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.ServerAuth.ServiceInfoManager">
+            <summary>
+            数据节点业务访问类
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceInfoManager.GetData(System.Nullable{System.Int32})">
+            <summary>
+            查询数据
+            </summary>
+            <param name="isvalId">1有效 0无效 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceInfoManager.GetDataById(System.String)">
+            <summary>
+            通过主键id查询有效的服务对象
+            </summary>
+            <param name="serviceID">授权表主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceInfoManager.Delete(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            删除
+            </summary>
+            <param name="serviceInfoModel">服务对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceInfoManager.Add(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            新增
+            </summary>
+            <param name="serviceInfoModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceInfoManager.Change(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            编辑
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceInfoManager.IsServiceRelations(System.String)">
+            <summary>
+            查询该数服务点是否存在授权关系
+            </summary>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceInfoManager.GetServiceInfo(System.String,System.String)">
+            <summary>
+            获取客户id与访问的方法所授权的对象
+            </summary>
+            <param name="serviceFunctionName">访问的请求方法</param>
+            <param name="serviceFullName">访问的请求全称(命名空间名称)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.ServerAuth.ServiceInfoManager.GetDataList">
+            <summary>
+            查询获取服务信息数据到本地
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.SiteManager">
+            <summary>
+            应用程序管理类，用此类简化对一些常规业务逻辑的访问
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.SiteManager.CacheKey">
+            <summary>
+            OutputCache的Key, 修改这个属性控制缓存整体失效
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.SiteManager.Kernel">
+            <summary>
+            Ninject在本项目中的容器实例
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.SiteManager.Get``1">
+            <summary>
+            获取Ninject容器中的指定类型对象。
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <returns>指定类型的对象</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.SiteManager.Get(System.Type)">
+            <summary>
+            获取Ninject容器中的指定类型对象的非泛型版本。
+            </summary>
+            <param name="type">对象类型</param>
+            <returns>指定类型的对象</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.SiteManager.Init">
+            <summary>
+            初始化日志对象和栏目文章对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.SiteManager.DefaultDBHelper">
+            <summary>
+            系统默认的DBHelper
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.SiteManager.MustChangePasswordFirst">
+            <summary>
+            设置用户必须在第一次登录时修改密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.SiteManager.Catalog">
+            <summary>
+            栏目的管理对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.SiteManager.Log">
+            <summary>
+            系统的日志对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.SiteManager.Message">
+            <summary>
+            通用消息管理对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.SiteManager.StreamCache">
+            <summary>
+            基于文件流的字典对象
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.UserProfile">
+            <summary>
+            在数据库表中映射的用户基本信息实体类
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.UserProfile.UserInRoles">
+            <summary>
+            用户的角色列表
+            如果这里不声明为virtural, 在Find(id)时将得不到该属性
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.MemberShip.IsConfirmed">
+            <summary>
+            判断用户是否被删除
+            IsConfirmed = true 有效用户
+            IsConfirmed = false 无效用户
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.MemberShip.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.MemberShip.PasswordChangedDate">
+            <summary>
+            密码修改时间
+            </summary>
+        </member>
+    </members>
+</doc>

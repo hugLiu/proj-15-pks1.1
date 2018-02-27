@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{80D91054-91C9-4BDB-9D2B-9751C81B7ACA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PKS.Lib</RootNamespace>
+    <AssemblyName>PKS.Lib</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aspose11.7\Aspose.Cells.dll" />
+    <Content Include="Aspose11.7\Aspose.Pdf.dll" />
+    <Content Include="Aspose11.7\Aspose.Slides.dll" />
+    <Content Include="Aspose11.7\Aspose.Words.dll" />
+    <Content Include="JOGIS\ocx\AImageX.dll" />
+    <Content Include="JOGIS\ocx\JoGIS_XJCL.INF" />
+    <Content Include="JOGIS\ocx\JoGIS_XJCL.ocx" />
+    <Content Include="JOGIS\组件注册工具.exe" />
+    <Content Include="NLog.4.4.11\NLog.dll" />
+    <Content Include="NLog.4.4.11\NLog.pdb" />
+    <Content Include="NLog.4.4.11\NLog.xml" />
+    <Content Include="WinFrame\Images\mainbg.jpg" />
+    <Content Include="WinFrame\Images\refresh.png" />
+    <Content Include="WinFrame\Images\save.png" />
+    <Content Include="WinFrame\Images\search.png" />
+    <Content Include="WinFrame\Images\success.png" />
+    <Content Include="WinFrame\Infragistics.Practices.CompositeUI.WinForms.dll" />
+    <Content Include="WinFrame\Infragistics.Practices.CompositeUI.WinForms.pdb" />
+    <Content Include="WinFrame\Infragistics.Practices.CompositeUI.WinForms.xml" />
+    <Content Include="WinFrame\Infragistics4.Shared.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Shared.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.AppStylistSupport.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.Misc.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.Misc.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinDataSource.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinDataSource.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinDock.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinDock.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinEditors.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinEditors.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinExplorerBar.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinExplorerBar.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinGrid.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinGrid.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinListView.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinListView.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinStatusBar.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinStatusBar.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinTabbedMdi.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinTabbedMdi.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinTabControl.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinTabControl.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinToolbars.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinToolbars.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinTree.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.UltraWinTree.v14.2.xml" />
+    <Content Include="WinFrame\Infragistics4.Win.v14.2.dll" />
+    <Content Include="WinFrame\Infragistics4.Win.v14.2.xml" />
+    <Content Include="WinFrame\Jurassic.AppCenter.Core.dll" />
+    <Content Include="WinFrame\Jurassic.AppCenter.Core.pdb" />
+    <Content Include="WinFrame\Jurassic.AppCenter.Core.xml" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Interface.dll" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Interface.pdb" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Interface.XML" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Library.dll" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Library.pdb" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Library.XML" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Module.dll" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Module.pdb" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Module.xml" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Shell.dll" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Shell.pdb" />
+    <Content Include="WinFrame\Jurassic.AppCenter.SmartClient.Shell.xml" />
+    <Content Include="WinFrame\Jurassic.AppCenter.WinForms.dll" />
+    <Content Include="WinFrame\Jurassic.AppCenter.WinForms.pdb" />
+    <Content Include="WinFrame\Jurassic.AppCenter.WinForms.xml" />
+    <Content Include="WinFrame\Jurassic.Com.dll" />
+    <Content Include="WinFrame\Jurassic.Com.pdb" />
+    <Content Include="WinFrame\Jurassic.Com.xml" />
+    <Content Include="WinFrame\Jurassic.CommonModels.dll" />
+    <Content Include="WinFrame\Jurassic.CommonModels.EFProvider.dll" />
+    <Content Include="WinFrame\Jurassic.CommonModels.EFProvider.pdb" />
+    <Content Include="WinFrame\Jurassic.CommonModels.EFProvider.xml" />
+    <Content Include="WinFrame\Jurassic.CommonModels.pdb" />
+    <Content Include="WinFrame\Jurassic.CommonModels.xml" />
+    <Content Include="WinFrame\MainProgram.exe" />
+    <Content Include="WinFrame\MainProgram.pdb" />
+    <Content Include="WinFrame\Microsoft.Practices.CompositeUI.dll" />
+    <Content Include="WinFrame\Microsoft.Practices.CompositeUI.WinForms.dll" />
+    <Content Include="WinFrame\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="WinFrame\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" />
+    <Content Include="WinFrame\Microsoft.Practices.ObjectBuilder.dll" />
+    <Content Include="WinFrame\UserData\UIContext.xml" />
+    <Content Include="WinFrame\x64\SQLite.Interop.dll" />
+    <Content Include="WinFrame\x86\SQLite.Interop.dll" />
+    <Content Include="WinFrame\zh-CN\Jurassic.AppCenter.Core.resources.dll" />
+    <Content Include="WinFrame\zh-Hans\EntityFramework.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="JOGIS\注册.bat" />
+    <None Include="JOGIS\组件注册工具.exe.config" />
+    <None Include="WinFrame\Jurassic.AppCenter.SmartClient.Infrastructure.Module.dll.config" />
+    <None Include="WinFrame\Styles\Nautilus.isl" />
+    <None Include="WinFrame\Styles\Office2007Black.isl" />
+    <None Include="WinFrame\Styles\Office2007Blue.isl" />
+    <None Include="WinFrame\Styles\Office2007Silver.isl" />
+    <None Include="WinFrame\Styles\Office2013 - Dark Gray.isl" />
+    <None Include="WinFrame\Styles\Office2013 - Light Gray.isl" />
+    <None Include="WinFrame\Styles\Office2013 - White.isl" />
+    <None Include="WinFrame\Styles\RedPlanet.isl" />
+    <None Include="WinFrame\Styles\Windows7.isl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WinFrame\App_Data\CustomStrings.en-US.resx" />
+    <EmbeddedResource Include="WinFrame\App_Data\CustomStrings.zh-CN.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Discuz\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

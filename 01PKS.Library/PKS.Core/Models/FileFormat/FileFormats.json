@@ -1,0 +1,34 @@
+﻿//本文件定义了文件格式,具体格式定义请参见PKS.Install项目中MongoDB\Data.js
+//ext:文件扩展名数组
+//mediaType:HttpContent的媒体头
+//isStream:是否流，分为流和文本
+//generatePdf:是否能生成PDF
+//generateImage:是否能生成图片
+//generateThumbnail:是否能生成缩略图
+//generateFulltext:是否能生成全文
+//appDataType:应用数据的数据类型
+//indexDataType:元数据标签中的datatype值
+[
+  {
+    "ext": [ "" ],
+    "mediaType": "application/octet-stream",
+    "isStream": true,
+    "generatePdf": false,
+    "generateImage": false,
+    "generateThumbnail": false,
+    "generateFulltext": false,
+    "appDataType": "Raw",
+    "indexDataType": "Raw"
+  },
+  {
+    "ext": [ "doc" ],
+    "mediaType": "application/msword",
+    "isStream": true,
+    "generatePdf": true,
+    "generateImage": false,
+    "generateThumbnail": false,
+    "generateFulltext": true,
+    "appDataType": "Pdf",
+    "indexDataType": "PDF"
+  }
+]

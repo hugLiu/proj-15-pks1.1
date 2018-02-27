@@ -1,0 +1,2992 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.Com</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.Com.DB.OracleMDA.DBCommOracleMDA">
+            <summary>
+            Oracle的DBComm接口实现，基于Oracle提供的MDA
+            MDA的特点是不需要额外安装客户端
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.DB.DBHelper">
+            <summary>
+            此处主要放置ORM相关的逻辑
+            </summary>
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            通用数据访问类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetModelById``1(System.String,System.String)">
+            <summary>
+            根据唯一ID获取对象,返回实体，实体为数据表
+            </summary>
+            <param name="pkName">字段主键</param>
+            <param name="pkVal">字段值</param>
+            <returns>返回实体类</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetModelById``1(System.Collections.Hashtable)">
+            <summary>
+            根据查询参数获取对象,返回实体,实体为数据表
+            </summary>
+            <param name="ht">参数</param>
+            <returns>返回实体类</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetModelById``1(System.Text.StringBuilder,System.Data.IDataParameter[])">
+            <summary>
+            根据查询条件获取对象,返回实体，实体为数据表
+            </summary>
+            <param name="where">条件</param>
+            <param name="param">参数化</param>
+            <returns>返回实体类</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetModel``1(System.String,System.Data.IDataParameter[])">
+            <summary>
+            根据查询条件获取对象,返回实体，实体可为业务Model
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetParameter(System.Collections.Hashtable)">
+            <summary>
+            Hashtable对象参数转换,跟进Hashtable获得List
+            </summary>
+            <param name="ht"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetParameter``1(``0)">
+            <summary>
+            实体类对象参数转换
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetParameter(System.String,System.String)">
+            <summary>
+            字符串转换为参数
+            </summary>
+            <param name="text"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.PrepareQuerySqlString``1(``0)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.PrepareInsertSqlString(System.String,System.Collections.Hashtable)">
+            <summary>
+            哈希表生成InsertSql语句
+            </summary>
+            <param name="tableName">表名</param>
+            <param name="ht">Hashtable</param>
+            <returns>int</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.PrepareInsertSqlString``1(``0)">
+            <summary>
+            泛型方法，反射生成InsertSql语句
+            </summary>
+            <param name="entity">实体类</param>
+            <returns>int</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.PrepareUpdateSqlString(System.String,System.String,System.Collections.Hashtable)">
+            <summary>
+            哈希表生成UpdateSql语句
+            </summary>
+            <param name="tableName">表名</param>
+            <param name="pkName">主键</param>
+            <param name="ht">Hashtable</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.PrepareUpdateSqlString``1(``0,System.String)">
+            <summary>
+            泛型方法，反射生成UpdateSql语句
+            </summary>
+            <param name="entity">实体类</param>
+            <param name="pkName">主键</param>
+            <returns>int</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.PrepareDeleteSqlString``1(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="tableName"></param>
+            <param name="pkName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.PrepareDeleteSqlString(System.String,System.String)">
+            <summary>
+            拼接删除SQL语句
+            </summary>
+            <param name="tableName">表名</param>
+            <param name="pkName">字段主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.PrepareDeleteSqlString(System.String,System.Collections.Hashtable)">
+            <summary>
+            拼接删除SQL语句
+            </summary>
+            <param name="tableName">表名</param>
+            <param name="ht">多参数</param>
+            <returns></returns>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBHelper.Log">
+            <summary>
+            用于记录SQL日志的委托
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBHelper.ConnStr">
+            <summary>
+            数据库链接字符串
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBHelper.Timeout">
+            <summary>
+            超时时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBHelper.DBComm">
+            <summary>
+            数据库对象的公共接口
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.#ctor(System.String)">
+            <summary>
+            根据连接字符串(或其在配置节中的名称)创建数据库帮助类
+            </summary>
+            <param name="connStrOrName">连接字符串,或在config配置文件中的名称</param>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.#ctor(System.String,Jurassic.Com.DB.IDBComm)">
+            <summary>
+            根据连接字符串(或其在配置节中的名称)和指定的数据接口创建数据库帮助类
+            </summary>
+            <param name="connStrOrName">连接字符串(或其在配置节中的名称)</param>
+            <param name="dbComm">数据接口</param>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.#ctor(System.Configuration.ConnectionStringSettings)">
+            <summary>
+            根据连接字符串配置节信息创建数据库帮助类
+            </summary>
+            <param name="settings">连接字符串配置节信息</param>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.#ctor">
+            <summary>
+            创建一个默认的数据库帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetServerVersion">
+            <summary>
+            获取数据库系统版本
+            </summary>
+            <returns>系统版本号</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetDBName">
+            <summary>
+            获取数据库名
+            </summary>
+            <returns>数据库名称</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.TestConnetion">
+            <summary>
+            测试Connection
+            </summary>
+            <returns>测试连接成功与否</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.BeginTrans">
+            <summary>
+            开始一个事务
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.RollbackTrans">
+            <summary>
+            回滚事务
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.EndTrans">
+            <summary>
+            结束事务
+            </summary>
+            <returns>结束事务出错时返回的错误信息</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.ExecNonQuery(System.String,System.Data.IDataParameter[])">
+            <summary>
+            用指定连接串执行非查询语句
+            </summary>
+            <param name="sql">非查询语句</param>
+            <param name="sp">可选参数数组</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.RunProcedure(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="procname">存储过程名称</param>
+            <param name="sp">可选参数数组</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.RunProcedureDs(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程(返回DataSet)
+            </summary>
+            <param name="procname">存储过程名称</param>
+            <param name="sp">可选参数数组</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.TransNonQuery(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行事务中的非查询语句
+            </summary>
+            <param name="sql">非查询语句</param>
+            <param name="sp">可选参数数组</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.TransGetObject(System.String,System.Data.IDataParameter[])">
+            <summary>
+            在事务中获取单个对象
+            </summary>
+            <param name="sql">查询语句</param>
+            <param name="sp">可选参数数组</param>
+            <returns>返回的单个值</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.ExecGetObject(System.String,System.Data.IDataParameter[])">
+            <summary>
+            得到单一对象
+            </summary>
+            <param name="sql">要执行的sql语句</param>
+            <param name="sp">参数数组</param>
+            <returns>返回的单个值</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.ExecReader(System.String,System.Data.IDataParameter[])">
+            <summary>
+            根据指定Sql返回一个DataReader
+            </summary>
+            <param name="sql">要执行的sql语句</param>
+            <param name="sp">参数数组</param>
+            <returns>IDataReader</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.ExecDataTable(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行SQL查询语句，返回DataTable
+            </summary>
+            <param name="sql">要执行的Sql语句</param>
+            <param name="sp">参数数组</param>
+            <returns>DataTable</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.ExecDataSet(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行SQL查询语句，返回DataSet
+            </summary>
+            <param name="sql">要执行的Sql语句</param>
+            <param name="sp">参数数组</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.CreateParameter(System.String,System.Object)">
+            <summary>
+            生成参数
+            </summary>
+            <param name="parameterName">参数名称</param>
+            <param name="value">参数值</param>
+            <returns>参数对象</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetDBSize">
+            <summary>
+            获取数据库大小
+            </summary>
+            <returns>数据库大小</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.ShrinkDB">
+            <summary>
+            压缩数据库
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.ExecPageReader(Jurassic.Com.DB.DBPagerInfo,System.Data.IDataParameter[])">
+            <summary>
+            执行分页查询
+            </summary>
+            <param name="pager">分页对象</param>
+            <param name="ps">可选参数数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.Import(System.Data.DataTable,System.String,System.Boolean,System.Int32,System.Action{System.Int32})">
+            <summary>
+            导入DataTable到数据库
+            </summary>
+            <param name="dt">内存中的数据表</param>
+            <param name="tableName">表名,如果为空，则以传入的DataTable的TableName作为表名</param>
+            <param name="buckCopy">是否使用批量导入, 对应的DBComm必须实现ISupportBuckCopy的接口</param>
+            <param name="notifyAfter">发生提示时导入的行数</param>
+            <param name="onRowsCopied">发生提示时执行的委托</param>
+            <returns>成功导入的行数</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.GetList``1(System.String,System.Data.IDataParameter[])">
+            <summary>
+            通过执行sql语句返回一个泛型T的列表
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="sql">查询语句</param>
+            <param name="sp">参数列表</param>
+            <returns>T的泛型列表</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBHelper.SetValue(System.Object,System.Reflection.PropertyInfo,System.Object)">
+            <summary>
+            将value中的值赋给对象的属性
+            </summary>
+            <param name="obj">对象</param>
+            <param name="pi">对象的属性信息</param>
+            <param name="value">值</param>
+        </member>
+        <member name="T:Jurassic.Com.DB.DBCommOleDb">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            ACCESS数据库的数据接口实现
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBCommOleDb.Helper">
+            <summary>
+            通用数据访问类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOleDb.CreateConnection">
+            <summary>
+            参照接口定义
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOleDb.CreateDataAdapter(System.Data.Common.DbCommand)">
+            <summary>
+            参照接口定义
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOleDb.CreateParameter(System.String,System.Object)">
+            <summary>
+            参照接口定义
+            </summary>
+            <param name="parameterName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOleDb.CreateImageParameter(System.String,System.Byte[])">
+            <summary>
+            生成二进制参数
+            </summary>
+            <param name="parameterName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOleDb.GetDBSize">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOleDb.ShrinkDB">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOleDb.ExecPageReader(Jurassic.Com.DB.DBPagerInfo,System.Data.IDataParameter[])">
+            <summary>
+            
+            </summary>
+            <param name="pager"></param>
+            <param name="sp"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.DB.DBCommOracle">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            Oracle的数据访问接口实现，注意此类已经过时，请使用Jurassic.Com.DB.OracleMDA中的实现
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBCommOracle.Helper">
+            <summary>
+            通用数据访问类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOracle.CreateConnection">
+            <summary>
+            生成OracleConnection
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOracle.CreateDataAdapter(System.Data.Common.DbCommand)">
+            <summary>
+            生成OracleDataAdapter
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOracle.CreateParameter(System.String,System.Object)">
+            <summary>
+            生成参数
+            </summary>
+            <param name="parameterName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOracle.CreateImageParameter(System.String,System.Byte[])">
+            <summary>
+            生成二进制参数OracleParameter
+            </summary>
+            <param name="parameterName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOracle.GetDBSize">
+            <summary>
+             
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOracle.ShrinkDB">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommOracle.ExecPageReader(Jurassic.Com.DB.DBPagerInfo,System.Data.IDataParameter[])">
+            <summary>
+            
+            </summary>
+            <param name="pager"></param>
+            <param name="sp"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.DB.DBCommSql">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            SqlServer数据库的访问接口实现
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBCommSql.Helper">
+            <summary>
+            通用数据访问类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommSql.CreateConnection">
+            <summary>
+            生成SqlConnection
+            </summary>
+            <param name="connectionString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommSql.CreateDataAdapter(System.Data.Common.DbCommand)">
+            <summary>
+            生成SqlDataAdapter
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommSql.CreateParameter(System.String,System.Object)">
+            <summary>
+            生成SqlParameter
+            </summary>
+            <param name="parameterName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommSql.CreateImageParameter(System.String,System.Byte[])">
+            <summary>
+            生成二进制参数SqlParameter
+            </summary>
+            <param name="parameterName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommSql.GetDBSize">
+            <summary>
+            获取数据库的大小
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommSql.ShrinkDB">
+            <summary>
+            收缩数据库
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.DBCommSql.ExecPageReader(Jurassic.Com.DB.DBPagerInfo,System.Data.IDataParameter[])">
+            <summary>
+            数据分页查询
+            </summary>
+            <param name="pager"></param>
+            <param name="sp"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBCommSql.ParamPrefix">
+            <summary>
+            表示参数开头的符号
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBCommSql.FieldPrefix">
+            <summary>
+            表示字段开头的符号
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBCommSql.FieldSuffix">
+            <summary>
+            表示字段结束的符号
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.DB.ISupportBuckCopy">
+            <summary>
+            标识数据库是否支持批量导入的接口
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.ISupportBuckCopy.BuckCopy(System.Data.DataTable,System.String,System.Int32,System.Action{System.Int32})">
+            <summary>
+            批量导入
+            </summary>
+            <param name="dt"></param>
+            <param name="tableName"></param>
+            <param name="notifyAfter"></param>
+            <param name="onRowsCopied"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.DB.ModelHelper">
+            <summary>
+            识别实体特殊标记的帮助类，根据北京总部成果改写
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.Com.DB.ModelHelper.GetKeyField(System.Type)" -->
+        <member name="M:Jurassic.Com.DB.ModelHelper.GetKeyFieldValue``1(``0)">
+            <summary>
+            获取实体类主键字段值
+            </summary>
+            <param name="entity">实体类</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.DB.ErrorsHander">
+            <summary>
+            错误处理的委托
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.DB.ExcelDB">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            将Excel作为数据库操作的类
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.DB.ExcelDB.ErrorHander">
+            <summary>
+            一般性错误处理委托
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.ExcelDB.GetSheets(System.String)">
+            <summary>
+            获取指定Excel表的架构信息
+            </summary>
+            <param name="excelFile">Excel文件路径</param>
+            <returns>Excel所有工作表名称的数组</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.ExcelDB.defaultErrorHander(System.Exception)">
+            <summary>
+            默认错误处理
+            </summary>
+            <param name="ex"></param>
+        </member>
+        <member name="M:Jurassic.Com.DB.ExcelDB.defaultImporting(System.Int64,System.Int64)">
+            <summary>
+            默认进度条处理
+            </summary>
+            <param name="rowCount">总行数</param>
+            <param name="rowsCopied">已拷贝的行数</param>
+        </member>
+        <member name="M:Jurassic.Com.DB.ExcelDB.GetExcelTable(System.String,System.String,System.String)">
+            <summary>
+            读出指定Excel表中的全部数据
+            </summary>
+            <param name="excelFile">Excel文件名</param>
+            <param name="sheetName">工作表名</param>
+            <param name="columns">要访问的字段列表，默认是全部返回(*)</param>
+        </member>
+        <member name="M:Jurassic.Com.DB.ExcelDB.SaveExcelTable(System.Data.DataTable,System.String,System.String)">
+            <summary>
+            将数据表导出到Excel中
+            </summary>
+            <param name="excelFile"></param>
+            <param name="sheetName"></param>
+            <param name="columns"></param>
+            <returns>操作成功的Excel行数</returns>
+        </member>
+        <member name="T:Jurassic.Com.DB.IDBComm">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            DbHelper调用的产生数据库对象的公共接口
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.IDBComm.CreateConnection">
+            <summary>
+            产生数据库连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.IDBComm.CreateDataAdapter(System.Data.Common.DbCommand)">
+            <summary>
+            产生DataAdapter
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.IDBComm.CreateCommandBuilder(System.Data.Common.DbDataAdapter)">
+            <summary>
+            产生DbCommandBuilder
+            </summary>
+            <param name="sda"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.IDBComm.CreateParameter(System.String,System.Object)">
+            <summary>
+            产生参数
+            </summary>
+            <param name="parameterName"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.IDBComm.ExecPageReader(Jurassic.Com.DB.DBPagerInfo,System.Data.IDataParameter[])">
+            <summary>
+            执行分页查询获取一个DataReader
+            </summary>
+            <param name="pager">分页对象</param>
+            <param name="sp">参数列表</param>
+            <returns>分页的DataReader</returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.IDBComm.GetDBSize">
+            <summary>
+            获取数据库大小
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.DB.IDBComm.ShrinkDB">
+            <summary>
+            压缩数据库
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.DB.IDBComm.CreateTable(System.Data.DataTable,System.String)">
+            <summary>
+            根据DataTable的架构生成一个表
+            </summary>
+            <param name="dt">DataTable</param>
+            <param name="tableName">要生成的表名</param>
+        </member>
+        <member name="M:Jurassic.Com.DB.IDBComm.TableExists(System.String)">
+            <summary>
+            判断表是否存在
+            </summary>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Jurassic.Com.DB.IDBComm.ParamPrefix">
+            <summary>
+            参数前缀，比如sqlserver是@，oracle是：
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.IDBComm.FieldPrefix">
+            <summary>
+            表示字段名开头的符号,sqlserver是‘[’,oracle是‘"’
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.IDBComm.FieldSuffix">
+            <summary>
+            表示字段名结束的符号,sqlserver是‘]’,oracle是‘"’
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.DB.IPager">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            分页类接口,定义从大数据集返回部分数据所需的信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.IPager.RecordCount">
+            <summary>
+            总记录数
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.IPager.PageSize">
+            <summary>
+            页大小
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.IPager.PageIndex">
+            <summary>
+            页号
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.IPager.AbsRowIndex">
+            <summary>
+            绝对行号
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.DB.DBPagerInfo">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            分页类,定义从大数据集返回部分数据的位置和数量等信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.Name">
+            <summary>
+            分页对象名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.Query">
+            <summary>
+            不分页的查询语句
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.OrderBy">
+            <summary>
+            排序语句
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.KeyId">
+            <summary>
+            主键字段
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.PageIndex">
+            <summary>
+            页编号, 从0开始计数
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.PageSize">
+            <summary>
+            页大小
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.PageCount">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.RecordCount">
+            <summary>
+            记录数量
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.AbsRowIndex">
+            <summary>
+            当前的绝对行号, 从0开始
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.StartIndex">
+            <summary>
+            本页起始的行号, 从0开始计数
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.DB.DBPagerInfo.Offset">
+            <summary>
+            本页实际的起始行号
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.DB.TableImportException">
+            <summary>
+            从DataTable导入到数据库表出错时引发的异常
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Formating.DateFormatter">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            自定义的日期格式化类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Formating.DateFormatter.#ctor">
+            <summary>
+            创建自定义的日期格式化对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Formating.DateFormatter.GetFormat(System.Type)">
+            <summary>
+            返回对象值的格式
+            </summary>
+            <param name="fFormat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.DateFormatter.Format(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            返回带格式的时间值
+            </summary>
+            <param name="fFormat"></param>
+            <param name="arg"></param>
+            <param name="provider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Formating.EnumDescConverter">
+            <summary>
+            枚举转换器
+            用此类之前，必须保证在枚举项中定义了Description
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.Formating.EnumDescConverter.dic">
+            <summary>
+            枚举项集合
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.LoadDic(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            加载枚举项集合
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            是否可从来源转换
+            </summary>
+            <param name="context"></param>
+            <param name="sourceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            从来源转换
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            是否可转换
+            </summary>
+            <param name="context"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.GetStandardValuesSupported(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.GetStandardValuesExclusive(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.GetStandardValues(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.EnumDescConverter.GetEnumValueDesDic(System.Type)">
+            <summary>
+            记载枚举的值+描述
+            </summary>
+            <param name="enumType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Formating.PinyinHelper">
+            <summary>
+            汉字转换拼音的帮助类
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Formating.RMBHelper">
+            <summary>
+            转换人民币大小金额
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Formating.RMBHelper.CmycurD(System.Decimal)">
+            <summary> 
+            转换人民币大小金额 
+            </summary> 
+            <param name="num">金额</param> 
+            <returns>返回大写形式</returns> 
+        </member>
+        <member name="M:Jurassic.Com.Formating.RMBHelper.CmycurD(System.String)">
+            <summary> 
+            一个重载，将字符串先转换成数字在调用CmycurD(decimal num) 
+            </summary> 
+            <param name="num">用户输入的金额，字符串形式未转成decimal</param> 
+            <returns></returns> 
+        </member>
+        <member name="T:Jurassic.Com.Formating.StorageFormatter">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            供显示控件格式化存储容量的格式化类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Formating.StorageFormatter.GetFormat(System.Type)">
+            <summary>
+            返回对象值的格式
+            </summary>
+            <param name="fFormat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.StorageFormatter.Format(System.String,System.Object,System.IFormatProvider)">
+            <summary>
+            返回对象值的格式
+            </summary>
+            <param name="fFormat"></param>
+            <param name="arg"></param>
+            <param name="provider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Formating.StorageSize">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            支持存储器容量的格式化显示
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Formating.StorageSize.#ctor(System.Int64)">
+            <summary>
+            根据指定的字节数，新建一个存储器容量格式化类
+            </summary>
+            <param name="size">字节数</param>
+        </member>
+        <member name="P:Jurassic.Com.Formating.StorageSize.KB">
+            <summary>
+            返回字节数的KB值
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Formating.StorageSize.MB">
+            <summary>
+            返回字节数的MB值
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Formating.StorageSize.GB">
+            <summary>
+            返回字节数的GB值
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Formating.StorageSize.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.StorageSize.ToString(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Formating.StorageSize.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            重写TOSTRING函数
+            </summary>
+            <param name="format"></param>
+            <param name="provider"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.FrameVersion">
+            <summary>
+            标识框架版本的静态类
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.CodeHelper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            全、简拼处理类
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.Tools.CodeHelper._Allhz">
+            <summary>
+            01-09区为特殊符号。 
+            16-55区为一级汉字，按拼音排序。 
+            56-87区为二级汉字，按部首/笔画排序。
+            每个汉字及符号以两个字节来表示。第一个字节称为“高位字节”，第二个字节称为“低位字节”。
+            “高位字节”使用了0xA1-0xF7(把01-87区的区号加上0xA0)，“低位字节”使用了0xA1-0xFE(把01-94加上0xA0)。
+            例如“啊”字在大多数程序中，会以0xB0A1储存。（与区位码对比：0xB0=0xA0+16,0xA1=0xA0+1）。
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CodeHelper.Convert(System.String)">
+            <summary>
+            将汉字转成全拼
+            </summary>
+            <param name="str">汉字字串</param>
+            <returns>全拼</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CodeHelper.ConvertToSimple(System.String)">
+            <summary>
+            汉字转简拼
+            </summary>
+            <param name="str">汉字字串</param>
+            <returns>简拼</returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.CommOp">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            常用工具方法
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.NewId">
+            <summary>
+            生成Guid字符串,不带{}号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ByteLength(System.String)">
+            <summary>
+            获取一个字符串的字节长度
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToInt(System.Object)">
+            <summary>
+            转换成Int32
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToInt(System.String)">
+            <summary>
+            将字符串转换为Int32数字
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToInt(System.Nullable{System.Int32})">
+            <summary>
+            将可为空整型转为整形，空值转为0
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToIntNull(System.Object)">
+            <summary>
+            将对象转为可为空整形
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToLong(System.Object)">
+            <summary>
+            转换成Int64(有符号)
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToLongNull(System.Object)">
+            <summary>
+            转换成Int64(有符号)
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToULong(System.Object)">
+            <summary>
+            转换成Int64(无符号)
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToFloat(System.Object)">
+            <summary>
+            转换成float
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToFloatNull(System.Object)">
+            <summary>
+            转换成可为空float
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToDecimal(System.Object)">
+            <summary>
+            转换成decimal
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToDecimalNull(System.Object)">
+            <summary>
+            转换成可为空的decimal
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToDouble(System.Object)">
+            <summary>
+            转换成Double
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToDoubleNull(System.Object)">
+            <summary>
+            转换成可为空的Double
+            </summary>
+            <param name="s"></param>
+            <returns>可为空的Double</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToBool(System.Object)">
+            <summary>
+            转换成bool值,非0的数字或'True'转换成true,其他的转换成false
+            </summary>
+            <param name="s">非0的数字或'True'转换成true,其他的转换成false</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToBoolNull(System.Object)">
+            <summary>
+            转换成bool?值
+            </summary>
+            <param name="s">非0的数字或'True'转换成true,其他的转换成false</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToStr(System.Object)">
+            <summary>
+            转换成string,无论如何也会返回一个非null值的串，并且自动去除了头尾空格
+            </summary>
+            <param name="obj">任何对象</param>
+            <returns>非null的字符串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.IsEmpty(System.Object)">
+            <summary>
+            判断对象是否是空值或空串或DBNULL
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.IsEmpty(System.Nullable{System.DateTime})">
+            <summary>
+            判断对象是否是默认值
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.IsEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            判断一个列表是否为空或没有数据
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.Each``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            遍历执行某个方法
+            </summary>
+            <param name="list">传入的枚举</param>
+            <param name="action">方法的委托</param>
+            <returns>原有的枚举</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.Each``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            遍历执行某个判断，当判断返回false时，终止遍历并跳出
+            </summary>
+            <param name="list">传入的枚举</param>
+            <param name="func">方法的委托</param>
+            <returns>当遍历终止时已经遍历过的元素枚举(不包括终止的元素)</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.Each(System.Collections.IEnumerable,System.Action{System.Object})">
+            <summary>
+            遍历执行某个方法
+            </summary>
+            <param name="list">传入的枚举</param>
+            <param name="action">方法的委托</param>
+            <returns>原有的枚举</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.Each``1(System.Collections.IEnumerable,System.Func{System.Object,``0})">
+            <summary>
+            遍历执行某个方法，返回某泛型枚举
+            </summary>
+            <typeparam name="T">泛型类型</typeparam>
+            <param name="list">输入的集合</param>
+            <param name="func">函数委托</param>
+            <returns>泛型T的枚举</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.Each(System.Collections.IEnumerable,System.Func{System.Object,System.Boolean})">
+            <summary>
+            遍历执行某个判断，当判断返回false时，终止遍历并跳出
+            </summary>
+            <param name="list">传入的枚举</param>
+            <param name="action">方法的委托</param>
+            <returns>原有的枚举</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.UnionAll``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}})">
+            <summary>
+            将所有同类枚举合并成一个大枚举
+            </summary>
+            <typeparam name="T">组成枚举的数据类型</typeparam>
+            <param name="list">同类枚举的枚举</param>
+            <returns>合并后的单个枚举</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToChar(System.Object)">
+            <summary>
+            转换成字符,如果是一个字符串，则取第一个字符
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToGuid(System.Object)">
+            <summary>
+            转换成Guid
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToStr(System.Int32)">
+            <summary>
+            将整数的0转换成空串,其他原样转换
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToStr(System.String)">
+            <summary>
+            将字符串去左右空格，空值转为空字符串
+            </summary>
+            <param name="s">源字符串</param>
+            <returns>去空格后的字符串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToFullStr(System.Object)">
+            <summary>
+            原样转换字符串,不截空格，空值转为空串
+            </summary>
+            <param name="s">源字符串</param>
+            <returns>转换后的串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToFullStr(System.Object,System.Int32)">
+            <summary>
+            原样转换字符串,不截空格， 并补齐空格
+            </summary>
+            <param name="s">源字符串</param>
+            <param name="totalLen">加空格后的总长</param>
+            <returns>加空格后的字符串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.CutStr(System.String,System.Int32)">
+            <summary>
+            截取指定长度字符串
+            </summary>
+            <param name="s">源字符串</param>
+            <param name="len">保留的长度</param>
+            <returns>截取后的串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.CutStr(System.String,System.Char[])">
+            <summary>
+            根据firstchars在字符串的位置，截取firstChars前面的子串
+            没找到则原样返回
+            </summary>
+            <param name="s">原字符串</param>
+            <param name="firstChars">字符数组，在此数组中，查找第一个出现的字符</param>
+            <returns>截取后的字符串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.CutStrWithDot(System.String,System.Int32)">
+            <summary>
+            截取字符串,不足部分用...代替
+            </summary>
+            <param name="s">原字符串</param>
+            <param name="len">保留的长度</param>
+            <returns>截取后的字符串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.CutByteStrDot(System.String,System.Int32)">
+            <summary>
+            按全角2个单位半角1个单位截取指定长度单位的字符串, 如果未截取完则补…
+            </summary>
+            <param name="s">原字符串</param>
+            <param name="len">保留的长度</param>
+            <returns>截取后的字符串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.CutByteStr(System.String,System.Int32)">
+            <summary>
+            按全角2个单位半角1个单位截取指定长度单位的字符串
+            </summary>
+            <param name="s">原字符串</param>
+            <param name="len">保留的长度</param>
+            <returns>截取后的字符串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToDateStr(System.Object)">
+            <summary>
+            将日期转换成yyyy-MM-dd或空串
+            </summary>
+            <param name="s">要转成日期的对象</param>
+            <returns>日期串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToDateStr(System.DateTime)">
+            <summary>
+            将日期转成yyyy-MM-dd或空串
+            </summary>
+            <param name="d">要转的日期</param>
+            <returns>日期串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToDateStr2(System.Object)">
+            <summary>
+            对象转换为yy/mm/dd形式的日期字符串
+            </summary>
+            <param name="s">要转的对象</param>
+            <returns>日期串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToTimeStr(System.Object)">
+            <summary>
+            将日期转换成yy-MM-dd HH:mm:ss格式的字符串
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToTimeStr(System.DateTime)">
+            <summary>
+            将日期转换成yyyy-MM-dd HH:mm:ss格式的字符串
+            如果是datetime默认值，则转换成空串
+            </summary>
+            <param name="d">日期时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToTimeStr2(System.Object)">
+            <summary>
+            将日期转换成MM-dd hh:mm格式的字符串
+            如果是datetime默认值，则转换成空串
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToTimeStr2(System.DateTime)">
+            <summary>
+            将日期转换成MM-dd hh:mm格式的字符串
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToTimeStr2(System.Nullable{System.DateTime})">
+            <summary>
+            将日期转换成MM-dd hh:mm格式的字符串
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToDateTime(System.Object)">
+            <summary>
+            转换成DateTime
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToDateTimeNull(System.Object)">
+            <summary>
+            转换成DateTime?型
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToIntArray(System.String,System.Char)">
+            <summary>
+            将字符串分割成整数数组
+            </summary>
+            <param name="ints"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToLongArray(System.String,System.Char)">
+            <summary>
+            将字符串分割成长整数数组
+            </summary>
+            <param name="ints"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToNumStr2(System.Object)">
+            <summary>
+            转换成至少2位小数格式，不足补0
+            </summary>
+            <param name="o"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.TestNull(System.String)">
+            <summary>
+            转换空串到DBNull.Value
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.TestNull(System.Object)">
+            <summary>
+            检测Null值，转换对象到DBNull.Value
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.TestNull(System.DateTime)">
+            <summary>
+            转换空日期到DBNull.Value
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.TestNull(System.Int32)">
+            <summary>
+            转换0到DBNull.Value
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.TestNull(System.Decimal)">
+            <summary>
+            转换空值到DBNull.Value
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.IsEmail(System.String)">
+            <summary>
+            判断是否是Email地址
+            </summary>
+            <param name="email">要判断的地址字符串</param>
+            <returns>是否</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.IsChnChar(System.String)">
+            <summary>
+            验证是否为汉字
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.IsPhoneNumber(System.String)">
+            <summary>
+            判断是否是电话号码
+            </summary>
+            <param name="phoneNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.StrIsNumberOrLetters(System.String)">
+            <summary>
+            判断是否含有除了字母及数字外的其他字符
+            </summary>
+            <param name="str">要验证的字符串</param>
+            <returns>返回true代表不包含汉字或者特殊字符</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.IsNumeric(System.String)">
+            <summary>
+            判断是否是数字
+            </summary>
+            <param name="str">字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.FilterSql(System.String)">
+            <summary>
+            过滤Sql字符串
+            </summary>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.RemoveHTML(System.String)">
+            <summary>
+            清除HTML中的Tag标记，只留下文本。
+            </summary>
+            <param name="htmlStr">HTML字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.RemoveHTMLResP(System.String)">
+            <summary>
+            清除HTML中的Tag标记，只留下文本。保留段落
+            </summary>
+            <param name="htmlStr">HTML字符串</param>
+            <returns>有换行标记的HTML</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToHtmlStr(System.Object)">
+            <summary>
+            将普通字符串中的换行替换为HTML的回车或换行标记
+            以能在网页中正常显示换行或回车。
+            </summary>
+            <param name="s">字符串</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.AddQuotation(System.String)">
+            <summary>
+            添加引号
+            </summary>
+            <param name="str">需要添加的字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToBase64Str(System.String)">
+            <summary>
+            转换成Base64
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.FromBase64Str(System.String)">
+            <summary>
+            Base64转换成String
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.ToEnum``1(System.String)">
+            <summary>
+            将字符串强转成枚举型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.TryAndTry(System.Action,System.Int32,System.Int32)">
+            <summary>
+            一次次尝试action直到成功为止，这个对性能有很大影响,目前仅用于与Word有关的操作
+            </summary>
+            <param name="action">要执行的动作</param>
+            <param name="tryTimes">重试次数</param>
+            <param name="sleepMs">重试之间等待的时间(毫秒)</param>
+            <returns>成功前重试的次数</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.EqualTo``1(``0,``0)">
+            <summary>
+            判断两个泛型对象是否相等
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.IsDefault``1(``0)">
+            <summary>
+            判断一个泛型对象是否是该类型的默认值
+            如果T是class,则是判断空值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.SetEqualTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            判断两个泛型的集合是否相同
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.CompareValue(System.Object,System.Object,System.Type)">
+            <summary>
+            比较两个值,o1&gt;o2返回1, o1=o2返回0, o1&lt;o2返回-1
+            </summary>
+            <param name="o1"></param>
+            <param name="o2"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.CanConvertTo``2">
+            <summary>
+            判断一个类型的对象是否可以转换为某个接口或父类
+            </summary>
+            <typeparam name="T">某个类型</typeparam>
+            <typeparam name="I">接口或父类的类型</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.CommOp.IsNullableType(System.Type)">
+            <summary>
+            判断类型是否为可为空类型
+            </summary>
+            <param name="theType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.DrawingHelper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            用于GDI+画图的帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DrawingHelper.GetPartOfImage(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            截取图片的一部分
+            </summary>
+            <param name="bitmapPathAndName">图片路径名称</param>
+            <param name="width">部分的宽</param>
+            <param name="height">截取部分的高</param>
+            <param name="offsetX">截取部分的x坐标</param>
+            <param name="offsetY">截取部分的y坐标</param>
+            <returns>wanted graphic</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DrawingHelper.GetPartOfImage(System.Drawing.Bitmap,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            截取图片的一部分
+            </summary>
+            <param name="bitmapPathAndName">要截取的原图</param>
+            <param name="width">部分的宽</param>
+            <param name="height">截取部分的高</param>
+            <param name="offsetX">截取部分的x坐标</param>
+            <param name="offsetY">截取部分的y坐标</param>
+            <returns>wanted graphic</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DrawingHelper.GetPartOfImage(System.Drawing.Bitmap,System.Drawing.Rectangle)">
+            <summary>
+            截取图片的一部分
+            </summary>
+            <param name="sourceBitmap"></param>
+            <param name="rect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DrawingHelper.GetThumbnail(System.Drawing.Image,System.Int32,System.Int32)">
+            <summary>
+            获取图片的缩略图
+            </summary>
+            <param name="img">图像</param>
+            <param name="w">缩略图宽</param>
+            <param name="h">缩略图高</param>
+            <returns>缩略图对象</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DrawingHelper.GetThumbnailStream(System.Drawing.Image,System.Int32,System.Int32)">
+            <summary>
+            获取图片的缩略图的流
+            </summary>
+            <param name="img">图像</param>
+            <param name="w">缩略图宽</param>
+            <param name="h">缩略图高</param>
+            <returns>缩略图的流对象</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DrawingHelper.BytesToImage(System.Byte[])">
+            <summary>
+            将Byte[]数组转换成Image对象
+            </summary>
+            <param name="b">Byte数组</param>
+            <returns>Image</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DrawingHelper.ImageToBytes(System.Drawing.Image,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            将图片Image转换成Byte[]
+            </summary>
+            <param name="Image">image对象</param>
+            <param name="imageFormat">后缀名</param>
+            <returns>byte数组</returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.Encryption">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            encryption related utility functions
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.Encryption.Decrypt(System.String)">
+            <summary>
+            this funciton will decrypted the text
+            </summary>
+            <param name="strSource">encrypted strSource</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.Encryption.Encrypt(System.String)">
+            <summary>
+            this funciton will encrypt the string 
+            </summary>
+            <param name="strSource">encrypt source string</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.Encryption.EncryptString(System.String,System.String,System.String)">
+            <summary>
+            For DES algo, key and vi size are 8 bytes each.
+             ** IF you want to print out the resulting byte array(eg. key), you can try 
+             MsgBox(System.Text.Encoding.ASCII.GetChars(bytKey)) or 
+             MsgBox(System.Text.Encoding.Unicode.GetStrings(bytKey)) 
+            </summary>
+            <param name="strSource">strSource is the source string </param>
+            <param name="strKey">aryKey is the encryption KEY</param>
+            <param name="strVi">aryVi is the encryption VECTOR</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.Encryption.DecryptString(System.String,System.String,System.String)">
+            <summary>
+            For DES algo, key and vi size have sizes of 8 bytes each (64 bits)
+            </summary>
+            <param name="strSource">bytSource is the source string (encrypted)</param>
+            <param name="strKey">aryKey is the encryption KEY</param>
+            <param name="strVi">aryVi is the encryption VECTOR</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.Encryption.Des_StrToByte(System.String)">
+            <summary>
+             For DES algo, the KEY and VI size are 64 bits (8 bytes) each 
+             For easy usage and declaration, we allow user to passed in key and vi values in 
+             string format (8 caracters). We then convert these unicode strings into its corresponding 
+             byte values.eg, "A" --> byte(97) 
+            </summary>
+            <param name="strBlock">a byte array (8 bytes)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.Encryption.Prepare_Key(System.String)">
+            <summary>
+            prepare the keys 
+            </summary>
+            <param name="strKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.Encryption.BytesToString(System.Byte[])">
+            <summary>
+             conversion a byte array into a safe string representation 
+             We cannot directly convert the byte to string, as the 
+             string may contain a lot of unexpetced chars ... 
+            </summary>
+            <param name="objSource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.Encryption.StringToBytes(System.String)">
+            <summary>
+            Convert a string (previous processed by BytesToString()), back to its byte array.
+            </summary>
+            <param name="strSource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.Encryption.MD5(System.String)">
+            <summary>
+            将字符串加密MD5
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.DataProtection">
+            <summary>
+            encryption/deccryption serialize data.
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.Tools.DataProtection.EntropyData">
+            <summary>
+            specify an entropy so other DPAPI applications can't see the data
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataProtection.Encrypt(System.String,Jurassic.Com.Tools.DataProtection.Store)">
+            <summary>
+            encrypt the data using DPAPI, returns a base64-encoded encrypted string
+            </summary>
+            <param name="data"></param>
+            <param name="store"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataProtection.Decrypt(System.String,Jurassic.Com.Tools.DataProtection.Store)">
+            <summary>
+            decrypt the data using DPAPI, data is a base64-encoded encrypted string
+            </summary>
+            <param name="data"></param>
+            <param name="store"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataProtection.SetBlobData(Jurassic.Com.Tools.DataProtection.Win32.DATA_BLOB@,System.Byte[])">
+            <summary>
+            helper method that fills in a DATA_BLOB, copies 
+            data from managed to unmanaged memory
+            </summary>
+            <param name="blob"></param>
+            <param name="bits"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataProtection.GetBlobData(Jurassic.Com.Tools.DataProtection.Win32.DATA_BLOB@)">
+            <summary>
+            helper method that gets data from a DATA_BLOB, 
+            copies data from unmanaged memory to managed
+            </summary>
+            <param name="blob"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.DataProtection.Win32">
+            <summary>
+            encrypt api functional
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.DataProtection.Store">
+            <summary>
+            use local machine or user to encrypt and decrypt the data
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.Tools.DataProtection.Store.Machine">
+            <summary>
+            machine
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.Tools.DataProtection.Store.User">
+            <summary>
+            user
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.ExpressionHelper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            动态拼接EF的查询
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.ExpressionHelper.True``1">
+            <summary>
+            返回真的表达式
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.ExpressionHelper.False``1">
+            <summary>
+            返回假的表达式
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.ExpressionHelper.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            And操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="exp_left"></param>
+            <param name="exp_right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.ExpressionHelper.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Or操作
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="exp_left"></param>
+            <param name="exp_right"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.FtpHelper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            FTP上传的帮助类 
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.FtpHelper.#ctor(System.String,System.String,System.String)">
+            <summary>
+            带地址、用户名、密码参数的构造函数
+            </summary>
+            <param name="url">FTP地址</param>
+            <param name="userName">用户名</param>
+            <param name="password">密码</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.FtpHelper.#ctor(System.String)">
+            <summary>
+            带地址的构造函数
+            </summary>
+            <param name="url">FTP地址</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.FtpHelper.UploadAsync(System.Uri,System.String)">
+            <summary>
+            异步上传，还没写好
+            </summary>
+            <param name="target">目标Uri</param>
+            <param name="fileName">文件名</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.FtpHelper.Upload(System.String)">
+            <summary>
+            同步上传
+            </summary>
+            <param name="fileName">上传的本地文件</param>
+        </member>
+        <member name="T:Jurassic.Com.Tools.FtpState">
+            <summary>
+            FTP状态类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.FtpState.#ctor">
+            <summary>
+            无参构造函数
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.FtpState.OperationComplete">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.FtpState.Request">
+            <summary>
+            文件传输协议
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.FtpState.FileName">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.FtpState.OperationException">
+            <summary>
+            执行程序时发生的错误信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.FtpState.StatusDescription">
+            <summary>
+            状态描述
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.GZipHelper">
+            <summary>
+            压缩文本、字节或者文件的压缩辅助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.GZipHelper.Compress(System.String)">
+            <summary>
+            压缩字符串
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.GZipHelper.Uncompress(System.String)">
+            <summary>
+            解压字符串
+            </summary>
+            <param name="compressedText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.GZipHelper.Compress(System.Byte[])">
+            <summary>
+            压缩字节
+            </summary>
+            <param name="bytData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.GZipHelper.Decompress(System.Byte[])">
+            <summary>
+            解压字节
+            </summary>
+            <param name="bytData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.GZipHelper.CompressFile(System.String,System.String)">
+            <summary>
+            压缩文件
+            </summary>
+            <param name="sourceFile">源文件</param>
+            <param name="destinationFile">目标文件</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.GZipHelper.DecompressFile(System.String,System.String)">
+            <summary>
+            解压文件
+            </summary>
+            <param name="sourceFile">源文件</param>
+            <param name="destinationFile">目标文件</param>
+        </member>
+        <member name="T:Jurassic.Com.Tools.StringSpliter">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            从字符串中提取用分隔符分开的属性的操作类
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.Tools.StringSpliter._source">
+            <summary>
+            包含属性的字符串
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.Tools.StringSpliter.propTable">
+            <summary>
+            包含属性的字典表
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.Tools.StringSpliter._split1">
+            <summary>
+            行分隔符
+            </summary>
+        </member>
+        <member name="F:Jurassic.Com.Tools.StringSpliter._split2">
+            <summary>
+            行内属性名称和值之间的分隔符
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.StringSpliter.#ctor(System.String,System.String,System.String)">
+            <summary>
+            根据要分析的字符串，第一分隔符和第二分隔符新建一个操作对象
+            </summary>
+            <param name="source">待分解的字符串</param>
+            <param name="split1">第一分隔符</param>
+            <param name="split2">第二分隔符</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.StringSpliter.#ctor(System.String)">
+            <summary>
+            根据指定源字符串创建字符串分割类
+            </summary>
+            <param name="source"></param>
+        </member>
+        <member name="P:Jurassic.Com.Tools.StringSpliter.Item(System.String)">
+            <summary>
+            获取属性名获取属性值
+            </summary>
+            <param name="propName">属性名</param>
+            <returns>属性值</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.StringSpliter.Str2Hash">
+            <summary>
+            将字符串转成字典表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.StringSpliter.ToString">
+            <summary>
+            将字典表转成字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.StringSpliter.SetValue(System.String,System.Object)">
+            <summary>
+            设置一个属性
+            </summary>
+            <param name="propName">属性名称</param>
+            <param name="o">属性值</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.StringSpliter.GetValue(System.String)">
+            <summary>
+            获取某属性名对应的值
+            </summary>
+            <param name="propName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.HeartBeat">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            利用定时器实现的简单心跳
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.HeartBeat.#ctor(System.String,System.Int32,System.Action,System.Action{System.Exception})">
+            <summary>
+            根据周期（秒数）新建心跳对象
+            </summary>
+            <param name="interval">周期（秒数）</param>
+        </member>
+        <member name="P:Jurassic.Com.Tools.HeartBeat.Enabled">
+            <summary>
+            心跳是否在进行中
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.HeartBeat.Start">
+            <summary>
+            开始心跳
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.HeartBeat.Stop">
+            <summary>
+            停止心跳
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.HeartBeat.Interval">
+            <summary>
+            心跳时间间隔，以秒为单位
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.IOHelper">
+            <summary>
+            IO的帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.SaveCSV(System.Data.DataTable,System.String)">
+            <summary>
+            将DataTable中数据写入到CSV文件中
+            </summary>
+            <param name="dt">提供保存数据的DataTable</param>
+            <param name="fileName">CSV的文件路径</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.OpenCSV(System.String)">
+            <summary>
+            将CSV文件的数据读取到DataTable中
+            </summary>
+            <param name="fileName">CSV文件路径</param>
+            <returns>返回读取了CSV数据的DataTable</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.WriteStreamToFile(System.IO.Stream,System.String)">
+            <summary>
+            将流写入文件
+            </summary>
+            <param name="stream"></param>
+            <param name="path"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.CheckFileName(System.String)">
+            <summary>
+            过滤非法文件名字符
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.GetUniqueFileName(System.String)">
+            <summary>
+            检查有无相同的文件，如果有，则返回一个后面加了(1),(2)...的文件名
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.GetBaseFileName(System.String)">
+            <summary>
+            返回不带路径、不带扩展名的文件名
+            </summary>
+            <param name="fileName">原始文件名</param>
+            <returns>不带扩展名的文件名</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.CopyDirectorysAndFiles(System.String,System.IO.DirectoryInfo,System.Boolean)">
+            <summary>
+            复制一个文件夹下所有内容到另一个文件夹
+            </summary>
+            <param name="dest"></param>
+            <param name="copySrcDir">是否连同文件夹一起拷贝</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.StrToStream(System.String)">
+            <summary>
+            将字符串转化成内存流
+            </summary>
+            <param name="str">要转的字符串</param>
+            <returns>内存流</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.StrToStream(System.String,System.Text.Encoding)">
+            <summary>
+            将字符串转成文件流
+            </summary>
+            <param name="str">输入字符串</param>
+            <param name="encoding">编码</param>
+            <returns>指定编码的文件流</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.StreamToStr(System.IO.Stream)">
+            <summary>
+            将Stream转换成String
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.StreamToStr(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            流转成字节数组
+            </summary>
+            <param name="stream"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.StreamToBytes(System.IO.Stream)">
+            <summary>
+            字节数组转成流
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.GetFileBaseNamesList(System.String,System.String)">
+            <summary>
+            获取某文件夹全部指定了扩展名的文件名称(不包括扩展名)
+            <param name="dirName">文件夹名称</param>
+            <param name="extName">匹配的文件名</param>
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.GetTempDir">
+            <summary>
+            设置本系统临时目录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.CreateTempFileName(System.String,System.String)">
+            <summary>
+            创建一个随机文件名供Word保存临时文件
+            </summary>
+            <param name="type"></param>
+            <param name="ext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.DeleteTempDir">
+            <summary>
+            删除所有本次操作产生的临时文件
+            本方法一定要在确信所有操作终止以后调用。
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.CopyStream(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            将一个流COPY到另一个流
+            </summary>
+            <param name="source"></param>
+            <param name="dest"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.IOHelper.GetContentType(System.String)">
+            <summary>
+            根据文件扩展名获取文件流contenttype类型
+            </summary>
+            <param name="fileName">文件名</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.IPHelper">
+            <summary>
+            关于IP数据库的帮助类，此类需要配合纯真QQIP数据库文件(qqwry.dat)使用
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.LocalMachine">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            获取本地机器信息的类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.LocalMachine.GetDiskPartInfo">
+            <summary>
+            获取所有本地逻辑磁盘的信息表
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.LocalMachine.GetDiskInfo">
+            <summary>
+            获取所有驱动器信息表
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.LocalMachine.GetCpuInfo">
+            <summary>
+            获取所有CPU信息列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.LocalMachine.GetMachineCode">
+            <summary>
+            根据机器的硬件信息获取机器的唯一标识
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.LocalMachine.GetNetCardInfo">
+            <summary>
+            获取所有网卡信息列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.DiskPartInfo">
+            <summary>
+            逻辑磁盘分区信息实体类
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskPartInfo.DeviceID">
+            <summary>
+            磁盘分区ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskPartInfo.Size">
+            <summary>
+            磁盘总空间,单位:Byte
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskPartInfo.FileSystem">
+            <summary>
+            文件系统类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskPartInfo.FreeSpace">
+            <summary>
+            可用空间,单位:Byte
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskPartInfo.VolumeSerialNumber">
+            <summary>
+            卷序列号(格式化时生成的)
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskPartInfo.SystemName">
+            <summary>
+            机器名
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.DiskInfo">
+            <summary>
+            物理磁盘信息实体类
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskInfo.Name">
+            <summary>
+            磁盘名称,如:\\.\PHYSICALDRIVE0
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskInfo.Model">
+            <summary>
+            磁盘型号,如:TOSHIBA MK6034GAX
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskInfo.PNPDeviceID">
+            <summary>
+            磁盘PNP设备ID,如IDE\DISKTOSHIBA_MK6034GAX_______________________AC101A__...
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.DiskInfo.Size">
+            <summary>
+            磁盘总空量,单位:Byte
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.CpuInfo">
+            <summary>
+            CPU信息实体类
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.AddressWidth">
+            <summary>
+            地址宽度 (32,64)
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.Name">
+            <summary>
+            CPU名称,如:Intel(R) Celeron(R) M CPU        420  @ 1.60GHz
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.Description">
+            <summary>
+            CPU描述,如:x86 Family 6 Model 14 Stepping 8
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.CurrentClockSpeed">
+            <summary>
+            当前时钟频率 (MHZ)
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.MaxClockSpeed">
+            <summary>
+            最大时钟频率 (MHZ)
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.DeviceID">
+            <summary>
+            设备标识,如:CPU0
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.ExtClock">
+            <summary>
+            外部时钟频率(MHZ)
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.L2CacheSize">
+            <summary>
+            二级缓存容量(KB)
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.Manufacturer">
+            <summary>
+            制造商名称,如:GenuineIntel
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.CpuInfo.ProcessorId">
+            <summary>
+            处理器ID,如:AFE9FBFF000006E8
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.NetCardInfo">
+            <summary>
+            网卡信息实体类
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.NetCardInfo.SettingID">
+            <summary>
+            网卡的设定ID, 如:{4D9FE433-28B3-4F54-A7A8-428FFE1A81A7}
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.NetCardInfo.Caption">
+            <summary>
+            网卡的标题,如:[00000007] Marvell Yukon 88E8038 PCI-E Fast Ethernet Controller
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.NetCardInfo.Description">
+            <summary>
+            网卡的描述,如:Marvell Yukon 88E8038 PCI-E Fast Ethernet Controller - Virtual Machine Network Services Driver
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.NetCardInfo.MACAddress">
+            <summary>
+            网卡的MAC地址,如:00:16:A6:86:66:49
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.NongLi">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            农历算法
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.NongLi.Date">
+            <summary> 
+            农历所对应的日期
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.NongLi.Month">
+            <summary>
+            农历的月份,在1-13之间.由于润月的存在,一年可能有13个月
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.NongLi.Day">
+            <summary>
+            农历的月中第几天,在1-29,30之间
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.NongLi.LeapMonth">
+            <summary>
+            农历的第几个月为润月
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.NongLi.#ctor(System.DateTime)">
+            <summary>
+            用指定日期新建一个农历对象
+            </summary>
+            <param name="dt"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.NongLi.MonthName">
+            <summary>
+            农历的月份的中文名称,如果是润月,会在前面加个"润"字
+            例:七月,润七月,...
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.NongLi.DayName">
+            <summary>
+            农历日的中文名称,如初一,十五等等.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.NongLi.ToString">
+            <summary>
+            显示农历月日,如八月十五
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.ChnWeek">
+            <summary>
+            星期的汉字枚举
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Tools.DataHelper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            DataSet和DataTable的帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.CopyRow(System.Object,System.Object)">
+            <summary>
+            copy content from source to destination row 
+            they must be of the same type 
+            </summary>
+            <param name="objSource">source reference to a row</param>
+            <param name="objDestination">reference to a destination row</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.CopyRow_ByFieldName(System.Object,System.Object)">
+            <summary>
+            copy content from source to destination row 
+            they must be of the same type 
+            </summary>
+            <param name="objSource">source reference to a row</param>
+            <param name="objDestination">reference to a destination row</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.CopyDataTable(System.Object,System.Object)">
+            <summary>
+            copy content from souece datatable to destination data.
+            they must be of the same type
+            </summary>
+            <param name="objSource">source table</param>
+            <param name="objDestination">destination table</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.CopyDataTable(System.Data.DataTable,System.Data.DataTable,System.String)">
+            <summary>
+            copy content from souece datatable to destination data.
+            they must be of the same type
+            </summary>
+            <param name="objSource">source table</param>
+            <param name="objDestination">destination table</param>
+            <param name="sourceFilter">filter string for source table</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.CopyDataTable_ByFieldName(System.Object,System.Object)">
+            <summary>
+            copy content from souece datatable to destination data.
+            </summary>
+            <param name="objSource"></param>
+            <param name="objDestination"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.MergeRecord(System.Data.DataRow,System.Data.DataRow)">
+            <summary>
+            将源记录合并到目标行上。（适用于将多条记录合并到一条记录上）
+            </summary>
+            <param name="sourceRow">源记录</param>
+            <param name="mergeRow">目标行</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.MergeRecord(System.Data.DataTable,System.Data.DataTable,System.Int32)">
+            <summary>
+            将源表的数据合并到目标表的指定行上。（适用于将多条记录合并到一条记录上）
+            </summary>
+            <param name="sourceTable">源表</param>
+            <param name="mergeTable">目标表</param>
+            <param name="rowIndex">需合并的行索引（从0开始）</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.MergeTableStructure(System.Data.DataTable,System.Data.DataTable)">
+            <summary>
+            将源表的结构合并到目标表上。（适用于将多表结构合并到一个表中）
+            </summary>
+            <param name="sourceTable">源表</param>
+            <param name="mergeTable">目标表</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.GetRecordValues(System.Data.DataRow[],System.String)">
+            <summary>
+            得到行集合中指定字段的值。
+            </summary>
+            <param name="sourceRow">待取值的集合</param>
+            <param name="fieldName">目标字段名</param>
+            <returns>返回字段值的拼接串，以逗号分隔</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.GetRecordValues(System.Data.DataRowCollection,System.String)">
+            <summary>
+            得到行集合中指定字段的值（以逗号分隔）。
+            </summary>
+            <param name="sourceRow">待取值的集合</param>
+            <param name="fieldName">目标字段名</param>
+            <returns>返回字段值的拼接串，以逗号分隔</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.GetRecordValues(System.Data.DataTable,System.String,System.String)">
+            <summary>
+            得到行集合中指定字段的值。
+            </summary>
+            <param name="sourceTable">待取值的集合</param>
+            <param name="fieldName">目标字段名</param>
+            <param name="splitChar">分隔符</param>
+            <returns>返回字段值的拼接串</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.FindRow(System.String,System.Data.DataTable)">
+            <summary>
+            find row in the datatable
+            </summary>
+            <param name="strFilter">filter</param>
+            <param name="objTable">table</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.FindRow(System.String,System.Data.DataTable,System.Data.DataViewRowState)">
+            <summary>
+            find row in the datatable
+            </summary>
+            <param name="strFilter">filter</param>
+            <param name="objTable">table</param>
+            <param name="rowVersion">row data version</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.FindRow(System.Object,System.Data.DataView,System.String)">
+            <summary>
+            find row in the dataview
+            </summary>
+            <param name="objKey">key value</param>
+            <param name="objDataView">dataview</param>
+            <param name="strSort">sort</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.FindRow(System.Object[],System.Data.DataView,System.String)">
+            <summary>
+            find rows in the dataview
+            </summary>
+            <param name="objKey">key value</param>
+            <param name="objDataView">dataview</param>
+            <param name="strSort">sort</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.FindRows(System.String,System.Data.DataTable)">
+            <summary>
+            find rows in the datatable
+            </summary>
+            <param name="strFilter">filter</param>
+            <param name="objTable">table</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.FindRows(System.String,System.Data.DataViewRowState,System.Data.DataTable)">
+            <summary>
+            find rows in the datatable
+            </summary>
+            <param name="strFilter">filter</param>
+            <param name="rowState">data row state</param>
+            <param name="objTable">table</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.FindRows(System.Object,System.Data.DataView,System.String)">
+            <summary>
+            find rows in the dataview
+            </summary>
+            <param name="objKey">key value</param>
+            <param name="objDataView">dataview</param>
+            <param name="strSort">sort</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.FindRows(System.Object[],System.Data.DataView,System.String)">
+            <summary>
+            find rows in the dataview
+            </summary>
+            <param name="objKey">key value</param>
+            <param name="objDataView">dataview</param>
+            <param name="strSort">sort</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.RowIsAvailable(System.Data.DataRow)">
+            <summary>
+            indicate the datarow whether is available. 
+            </summary>
+            <param name="objRow"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.RemoveDuplicate(System.Object,System.Object,System.String[])">
+            <summary>
+            remove duplicate record for the destination source.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.RemoveAll(System.Object)">
+            <summary>
+             将数据表中的记录全部设置Delete状态。
+            </summary>
+            <param name="objTable">目标数据表</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.RemoveAll(System.Object,System.String)">
+            <summary>
+            将数据表中相匹配的记录全部设置Delete状态。
+            </summary>
+            <param name="objTable">目标数据表</param>
+            <param name="rowFilter">删除条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.XmlToDataTable(System.String)">
+            <summary>
+            从Xml获取DataTable
+            </summary>
+            <param name="xmlFile">Xml文件名</param>
+            <returns>DataTable</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.DataTableToXml(System.Data.DataTable,System.String)">
+            <summary>
+            将DataTable保存到Xml文件
+            </summary>
+            <param name="dt">DataTable</param>
+            <param name="xmlFile">Xml文件名</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.ToStr(System.Data.IDataReader,System.String)">
+            <summary>
+            将reader[Key]转换为字符串
+            </summary>
+            <param name="reader"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.ToInt(System.Data.IDataReader,System.String)">
+            <summary>
+            将reader[Key]转换为Int32
+            </summary>
+            <param name="reader"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.ReaderToModel``1(System.Data.DataRow)">
+            <summary>
+            将DataRow转换为 实体类
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="dr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.DataHelper.HackType(System.Object,System.Type)">
+            <summary>
+            这个类对可空类型进行判断转换，要不然会报错
+            </summary>
+            <param name="value"></param>
+            <param name="conversionType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.SMTPMail">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            邮件发送的帮助类
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.From">
+            <summary>
+            发件人
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.To">
+            <summary>
+            收件人
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.CC">
+            <summary>
+            抄送
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.Subject">
+            <summary>
+            主题
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.Body">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.Files">
+            <summary>
+            附件文件
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.Server">
+            <summary>
+            邮件服务器
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.Password">
+            <summary>
+            发件人账号的密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.DefaultFrom">
+            <summary>
+            默认发件人
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.ErrorMessage">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.SMTPMail.#ctor">
+            <summary>
+            创建一个邮件发送类
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.SendCompleted">
+            <summary>
+            异步发送时发送完成事件委托
+            </summary>
+        </member>
+        <member name="P:Jurassic.Com.Tools.SMTPMail.UserState">
+            <summary>
+            邮件异步发送时传送给发送完成时事件的对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.SMTPMail.GetAccount">
+            <summary>
+            获取账号信息
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.SMTPMail.#ctor(System.String,System.String,System.String,System.String,System.String,System.String[])">
+            <summary>
+            根据发送地址等信息，构造新的邮件工具类
+            </summary>
+            <param name="from">发送地址</param>
+            <param name="to">到达地址</param>
+            <param name="subject">标题</param>
+            <param name="body">正文</param>
+            <param name="files">附件文件名列表</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.SMTPMail.#ctor(System.String,System.String,System.String)">
+            <summary>
+            生成SMTPMail,根据发送到,主题和内容
+            </summary>
+            <param name="to">发送目的邮件地址</param>
+            <param name="subject">主题</param>
+            <param name="body">邮件正文</param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.SMTPMail.MakeMessage">
+            <summary>
+            生成邮件信息对象
+            </summary>
+            <returns>邮件信息对象</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.SMTPMail.SendAsync">
+            <summary>
+            异步发送邮件
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.Com.Tools.SMTPMail.Send" -->
+        <member name="M:Jurassic.Com.Tools.SMTPMail.SendWebMail">
+            <summary>
+            在Send()方法有问题时，用这个方法替换
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.SMTPMail.client_SendCompleted(System.Object,System.ComponentModel.AsyncCompletedEventArgs)">
+            <summary>
+            异步发信时发完以后的操作
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Jurassic.Com.Tools.WebHelper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            用于asp.net的Helper类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetCookie(System.String)">
+            <summary>
+            获取Cookie
+            </summary>
+            <param name="cookieName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.RemoveCookie(System.String)">
+            <summary>
+            移除Cookie
+            </summary>
+            <param name="cookieName"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.SetCookie(System.String,System.String)">
+            <summary>
+            保存Cookie
+            </summary>
+            <param name="cookieName"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.SetCookie(System.String,System.String,System.Int32)">
+            <summary>
+            保存Cookie
+            </summary>
+            <param name="cookieName"></param>
+            <param name="value"></param>
+            <param name="expireDays"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.SetCookies(System.String,System.String[],System.String)">
+            <summary>
+            批量保存Cookie
+            </summary>
+            <param name="cookieName"></param>
+            <param name="values"></param>
+            <param name="CookiesKeyName"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.TrueUrl(System.Object)">
+            <summary>
+            获取绝对地址
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.DownLoadFile(System.String)">
+            <summary>
+            提供一个文件下载的动作
+            </summary>
+            <param name="filePath"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetWebResponseText(System.String)">
+            <summary>
+            请求指定url,并返回结果，如果遇到错误返回空串
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetWebResponseTextCore(System.String)">
+            <summary>
+            请求指定url,并返回结果,并不处理错误
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetWebResponseText(System.String,System.Text.Encoding)">
+            <summary>
+            请求指定url,并返回结果,处理错误时返回空串
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetWebResponseText(System.Net.WebResponse)">
+            <summary>
+            返回数据流,并不处理错误
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetWebResponseText(System.Net.WebResponse,System.Text.Encoding)">
+            <summary>
+            返回数据流
+            </summary>
+            <param name="response"></param>
+            <param name="encode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetWebResponseText(System.String,System.String,System.String)">
+            <summary>
+            用指定方式请求指定url,并返回结果
+            </summary>
+            <param name="url">提交到的URL</param>
+            <param name="postData">提交的数据</param>
+            <param name="method">提交方法，默认为POST</param>
+            <returns>返回结果</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetEncodeString(System.Byte[])">
+            <summary>
+            获取URL编码以后的字符串
+            </summary>
+            <param name="bs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetEncodeString(System.String)">
+            <summary>
+            获取URL编码以后的字符串
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetStreamFromUrl(System.String)">
+            <summary>
+            从网络URL获取流
+            </summary>
+            <param name="url">URL地址</param>
+            <returns>Stream</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.FtpDisplayFile(System.Uri,System.String,System.String)">
+            <summary>
+            从ftp服务器下载文件列表
+            </summary>
+            <param name="serverUri"></param>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetImageFromUrl(System.String)">
+            <summary>
+            从网络URL获取图片
+            </summary>
+            <param name="url">URL地址</param>
+            <returns>Stream</returns>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WebHelper.GetContentType(System.String)">
+            <summary>
+            获取类型
+            </summary>
+            <param name="ext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.Com.Tools.WinCookieHelper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            Winform的Cookie操作帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WinCookieHelper.SetWebClient(System.Net.WebClient,System.String,System.String,System.String)">
+            <summary>
+            WebClient设置cookie!
+            </summary>
+            <param name="wc"></param>
+        </member>
+        <member name="M:Jurassic.Com.Tools.WinCookieHelper.InternetSetCookie(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="lpszUrlName"></param>
+            <param name="lbszCookieName"></param>
+            <param name="lpszCookieData"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.Com.Tools.WinCookieHelper.SetToRequest(System.Net.HttpWebRequest,System.String)" -->
+        <member name="T:Jurassic.Com.Wcf.CustomCertificateValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Jurassic.Com.Wcf.SvcClientHelper">
+            <summary>
+            WCF的客户端代理生成帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.Com.Wcf.SvcClientHelper.CreateClient``1(System.String,System.String)">
+            <summary>
+            生成新的WCF服务代理,如果需要新的代理时使用此方法
+            </summary>
+            <typeparam name="T">服务端接口类型</typeparam>
+            <param name="bindingName"></param>
+            <param name="wcfUrl"></param>
+            <returns>客户端代理</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Jurassic.Com.Wcf.WcfClientBase`1" -->
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.Com.Wcf.WcfClientBase`1.GetClientInstance" -->
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.Com.Wcf.WcfClientBase`1.AppendClientCredentials(System.String,System.String)" -->
+    </members>
+</doc>

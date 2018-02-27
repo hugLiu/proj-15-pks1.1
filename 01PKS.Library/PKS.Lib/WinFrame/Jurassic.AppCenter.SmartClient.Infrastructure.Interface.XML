@@ -1,0 +1,887 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.AppCenter.SmartClient.Infrastructure.Interface</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IDialogView">
+            <summary>
+            对话框必须继承的接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IDialogView.DialogResult">
+            <summary>
+            对话框结果
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IDialogView.Title">
+            <summary>
+            对话框标题
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IPopupController">
+            <summary>
+            定义在Ribbon风格的按钮点击后下拉容器内显示自定义控件的接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IPopupController.PopupControl">
+            <summary>
+            将显示在下拉的容器内自定义控件对象
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IQuickAccessBar">
+            <summary>
+            支持快捷访问工具栏操作
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IQuickAccessBar.QuickAccessKeys">
+            <summary>
+            一串表示控件Key值的字符串数组
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IRibbonForm">
+            <summary>
+            用于定义Ribbon风格窗体行为的接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IRibbonForm.ToolbarsManager">
+            <summary>
+            Ribbon管理器
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IRibbonForm.MainPanel">
+            <summary>
+            Ribbon下面的主面板
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.ISideBar">
+            <summary>
+            用于定义侧边栏行为的接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.ISideBar.DockedLocation">
+            <summary>
+            停靠位置
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.ISideBar.GroupName">
+            <summary>
+            选项卡组名
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.ISideBar.AllowClose">
+            <summary>
+            是否允许关闭
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.ISplashService">
+            <summary>
+            定义窗体加载过程中显示缓冲界面的接口
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.ISplashService.Show(System.String)">
+            <summary>
+            显示缓冲窗体并在其上显示一段文字提示
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.ISplashService.Hide">
+            <summary>
+            隐藏
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.ISplashService.Close">
+            <summary>
+            关闭
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IActionCondition">
+            <summary>
+            判断用户能否进行某项操作的判断接口
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IActionCondition.CanExecute(System.String,Microsoft.Practices.CompositeUI.WorkItem,System.Object,System.Object)">
+            <summary>
+            能否进行指定的操作
+            </summary>
+            <param name="action">操作的名称关键字</param>
+            <param name="context">WorkItem</param>
+            <param name="caller"></param>
+            <param name="target"></param>
+            <returns>是否能操作</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IMessageBoxService">
+            <summary>
+            用于显示提示信息或提示用户选择或输入简单信息的对话框服务接口
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IMessageBoxService.Confirm(System.String)">
+            <summary>
+            询问用户并返回布尔值
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IMessageBoxService.Error(System.String)">
+            <summary>
+            显示一个错识信息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IMessageBoxService.Warning(System.String)">
+            <summary>
+            显示一个警告信息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IMessageBoxService.Ask(System.String)">
+            <summary>
+            询问用户并返回一个DialogResult
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IMessageBoxService.Alert(System.String)">
+            <summary>
+            给用户一个简单的提示
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IMessageBoxService.Prompt(System.String,System.String)">
+            <summary>
+            提示用户输入一个字符串
+            </summary>
+            <param name="message">提示信息</param>
+            <param name="defaultValue">默认值</param>
+            <returns>用户输入的字符串，当用户取消时返回空值null</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Services.IStartupService">
+            <remarks>wang</remarks>
+             <summary>
+             加入程序初始运行时要提供的一系列服务
+             </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Constants.CommandNames">
+            <summary>
+            Constants for command names.
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Constants.EventTopicNames">
+            <summary>
+            Constants for event topic names.
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Constants.EventTopicNames.StatusUpdate">
+            <summary>
+            Event fired to tell the shell to update the status panel
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Constants.EventTopicNames.OnPopupContainerCreated">
+            <summary>
+            当弹出式菜单容器生成时的事件
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Constants.UIExtensionSiteNames">
+            <summary>
+            Constants for UI extension site names.
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Constants.UIExtensionSiteNames.MainMenu">
+            <summary>
+            The extension site for the main menu.
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Constants.UIExtensionSiteNames.MainToolbar">
+            <summary>
+            The extension site for the main toolbar.
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Constants.UIExtensionSiteNames.MainStatus">
+            <summary>
+            The extension site for the main status bar.
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Constants.WorkspaceNames">
+            <summary>
+            Constants for workspace names.
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.ActionAttribute">
+            <summary>
+            定义动作属性
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.ControlledWorkItem`1">
+            <summary>
+            Represents a WorkItem that uses a WorkItem controller to perform its business logic.
+            </summary>
+            <typeparam name="TController"></typeparam>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.ControlledWorkItem`1.Controller">
+            <summary>
+            Gets the controller.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.ControlledWorkItem`1.OnBuiltUp(System.String)">
+            <summary>
+            See <see cref="M:Microsoft.Practices.ObjectBuilder.IBuilderAware.OnBuiltUp(System.String)"/> for more information.
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IWorkItemController">
+            <summary>
+            Controller used by <see cref="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.ControlledWorkItem`1"/>.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.IWorkItemController.Run">
+            <summary>
+            Called when the controller is ready to run.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Presenter`1.SetToolbarToTop">
+            <summary>
+            将Ribbon下面的工具栏按钮转移到顶部快速访问区(只限于第一个工具栏）
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Presenter`1.RefreshMergedTools">
+            <summary>
+            刷新主窗体中的Toolbar以正确呈现现子窗体合并后的工具项
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Presenter`1.IsActiveMdiChild">
+            <summary>
+            View是否是MDI活动窗体
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Presenter`1.Dispose">
+            <summary>
+            See <see cref="M:System.IDisposable.Dispose"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.Presenter`1.Dispose(System.Boolean)">
+            <summary>
+            Called when the object is being disposed or finalized.
+            </summary>
+            <param name="disposing">True when the object is being disposed (and therefore can
+            access managed members); false when the object is being finalized without first
+            having been disposed (and therefore can only touch unmanaged members).</param>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.StatusInfo">
+            <summary>
+            在状态栏显示进度条的类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.StatusInfo.TextRunning">
+            <summary>
+            任务运行时显示的文字
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.StatusInfo.TextFinished">
+            <summary>
+            任务执行完显示的文字
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.StatusInfo.Worker">
+            <summary>
+            后台工作组件
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.StatusInfo.Delay">
+            <summary>
+            任务执行完后文本持续的显示时间
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.StatusInfo.#ctor">
+            <summary>
+            创建在状态栏显示进度条的类
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.StatusInfo.#ctor(System.String,System.String,System.ComponentModel.BackgroundWorker)">
+            <summary>
+            创建在状态栏显示进度条的类
+            </summary>
+            <param name="textRunning">任务运行时显示的文字</param>
+            <param name="textFinished">任务执行完显示的文字</param>
+            <param name="worker">后台工作组件</param>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController">
+            <summary>
+            Base class for a WorkItem controller.
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.RibbonSpace">
+            <summary>
+            本Controller所对应的Ribbon工作空间
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.MdiTabSpace">
+            <summary>
+            本Controller所对应的Tab风格MDI多文档界面的工作空间
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.WorkItem">
+            <summary>
+            Gets or sets the work item.
+            </summary>
+            <value>The work item.</value>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ShowViewInWorkspace``1(System.String)">
+            <summary>
+            Creates and shows a smart part on the specified workspace.
+            </summary>
+            <typeparam name="TView">The type of the smart part to create and show.</typeparam>
+            <param name="workspaceName">The name of the workspace in which to show the smart part.</param>
+            <returns>The new smart part instance.</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ShowViewInWorkspace``1(System.String,System.String)">
+            <summary>
+            Shows a specific smart part in the workspace. If a smart part with the specified id
+            is not found in the <see cref="P:Microsoft.Practices.CompositeUI.WorkItem.SmartParts"/> collection, a new instance
+            will be created; otherwise, the existing instance will be re used.
+            </summary>
+            <typeparam name="TView">The type of the smart part to show.</typeparam>
+            <param name="viewId">The id of the smart part in the <see cref="P:Microsoft.Practices.CompositeUI.WorkItem.SmartParts"/> collection.</param>
+            <param name="workspaceName">The name of the workspace in which to show the smart part.</param>
+            <returns>The smart part instance.</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateAndActivateChildForm``1(System.String)">
+            <summary>
+            创建或激活MID的子窗体
+            </summary>
+            <typeparam name="T">子窗体类型</typeparam>
+            <param name="id">子窗体的ID</param>
+            <returns>创建或激活的子窗体</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateAndActivateChildForm(System.Type,System.String)">
+            <summary>
+            创建或激活MID的子窗体，非泛型版本
+            </summary>
+            <param name="t">子窗体类型</param>
+            <param name="id">子窗体的ID</param>
+            <returns>创建或激活的子窗体</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateChildForm(System.Type,System.String)">
+            <summary>
+            创建子窗体,并不显示，非泛型版本
+            </summary>
+            <param name="t">子窗体类型</param>
+            <param name="id">子窗体的ID</param>
+            <returns>创建或激活的子窗体</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ShowChildForm(System.Windows.Forms.Control)">
+            <summary>
+            显示控件作为MDI子窗体,并激活
+            </summary>
+            <param name="view">要显示的控件</param>
+            <returns>控件本身</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateAndActivate``1(System.String)">
+            <summary>
+            根据T的类型动态创建CAB的界面对象，可以是窗体也可以是侧边栏，取决于是否实现ISideBar接口
+            T的类型可以是接口，当是接口时，必须用WorkItem.Register(Tinstance, TregisterAs)来定义接口实现
+            </summary>
+            <typeparam name="T">类型，可以是接口</typeparam>
+            <param name="id">创建后对象的ID</param>
+            <returns>界面对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateAndActivate(System.Type,System.String)">
+            <summary>
+            根据t的类型动态创建CAB的界面对象，可以是窗体也可以是侧边栏，取决于是否实现ISideBar接口
+            t的类型可以是接口，当是接口时，必须用WorkItem.Register(Tinstance, TregisterAs)来定义接口实现
+            非泛型版本
+            </summary>
+            <param name="t">类型，可以是接口</param>
+            <param name="id">创建后对象的ID</param>
+            <returns>界面对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.Create(System.Type,System.String)">
+            <summary>
+            根据类型创建子窗体、侧边栏或对话框
+            </summary>
+            <param name="t">控件类型</param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateAndActivateSideBar``1(System.String)">
+            <summary>
+            创建或激活侧边栏
+            </summary>
+            <typeparam name="T">侧边栏的类</typeparam>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateAndActivateSideBar(System.Type,System.String)">
+            <summary>
+            创建或激活侧边栏的非泛型版本
+            </summary>
+            <param name="t">侧边栏的类</param>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateSideBar``1(System.String)">
+            <summary>
+            创建侧边栏新实例（不会自动显示）如果该栏已存在，则返回已存在的实例
+            </summary>
+            <typeparam name="T">侧边栏的类</typeparam>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateSideBar(System.Type,System.String)">
+            <summary>
+            创建侧边栏新实例（不会自动显示）如果该栏已存在，则返回已存在的实例，非泛型版本
+            </summary>
+            <param name="t">侧边栏的类</param>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ActiveSideBar(System.String)">
+            <summary>
+            激活侧边栏
+            </summary>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CloseSideBar(System.String)">
+            <summary>
+            关闭侧边栏
+            </summary>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.HideSideBar(System.String)">
+            <summary>
+            隐藏侧边栏
+            </summary>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.UnpinSideBar(System.String)">
+            <summary>
+            取消固定侧边栏
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.PinSideBar(System.String)">
+            <summary>
+            固定侧边栏
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ActiveAndPinSideBar(System.String)">
+            <summary>
+            显示并固定侧边栏
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CloseFileMenu">
+            <summary>
+            关闭文件菜单
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.OpenFileMenu">
+            <summary>
+            打开文件菜单
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ShowDialog``1(System.Windows.Forms.FormStartPosition,System.Action{``0})">
+            <summary>
+            显示模态对话框并返回操作结果，对话框类须继续自IDialogView
+            </summary>
+            <typeparam name="T">对话框类</typeparam>
+            <param name="startPosition">起始位置,不指定则在屏幕正中</param>
+            <param name="onCreated">对话框控件生成后的委托</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ShowDialog(System.Type,System.Windows.Forms.FormStartPosition,System.Action{System.Windows.Forms.Control})">
+            <summary>
+            显示模态对话框并返回操作结果，对话框类须继续自IDialogView
+            </summary>
+            <param name="t">对话框类</param>
+            <param name="startPosition">起始位置,不指定则在屏幕正中</param>
+            <param name="onCreated">对话框控件生成后的委托</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateDialog``1(System.Windows.Forms.FormStartPosition,System.Action{``0})">
+            <summary>
+            创建一个模态对话框并返回，不显示，对话框类须继续自IDialogView
+            </summary>
+            <typeparam name="T">对话框类型</typeparam>
+            <param name="startPosition">起始位置</param>
+            <param name="onCreated">对话框控件生成后的委托</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.CreateDialog(System.Type,System.Windows.Forms.FormStartPosition,System.Action{System.Windows.Forms.Control})">
+            <summary>
+            创建一个模态对话框并返回，不显示，对话框类须继续自IDialogView，非泛型版本
+            </summary>
+            <param name="t">对话框类型</param>
+            <param name="startPosition">起始位置</param>
+            <param name="onCreated">对话框控件生成后的委托</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ShowDialog(System.Object)">
+            <summary>
+            显示通过CreateDialog生成的对话框
+            </summary>
+            <param name="control">对话框控件实例</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ShowDialogGet(System.Windows.Forms.Control)">
+            <summary>
+            
+            </summary>
+            <param name="control"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ShowDialog(System.String)" -->
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemController.ShowDialogGet(System.String)">
+            <summary>
+            显示指定ID的模态对话框
+            </summary>
+            <param name="id">对话框ID</param>
+            <returns>对话框对象</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions">
+            <summary>
+            对WorkItem的扩展方法类
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.GetService(Microsoft.Practices.CompositeUI.WorkItem)">
+            <summary>
+            获取IMessageBoxService服务的实例
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <returns>IMessageBoxService的实例</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.Confirm(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            确认是/否
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="message">框中的提示信息</param>
+            <returns>是/否</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.Error(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            提示错误
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="message">框中的提示信息</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.Warning(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            提示警告
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="message">框中的提示信息</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.Ask(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            三个按钮的询问框
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="message">框中的提示信息</param>
+            <returns>一个DialogResult,返回枚举Yes/No/Cancel中的一个</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.Alert(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            简单的弹出信息
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="message">框中的提示信息</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.Prompt(Microsoft.Practices.CompositeUI.WorkItem,System.String,System.String)">
+            <summary>
+            接收用户输入一个字符串
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="message">提示信息</param>
+            <param name="defaultValue">默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowStatus(Microsoft.Practices.CompositeUI.WorkItem,System.String,System.Int32)">
+            <summary>
+            在状态栏显示文本信息
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="text">要显示的文本</param>
+            <param name="delay">持续的毫秒数，0代表一直显示，直到有新内容替代</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowStatus(Microsoft.Practices.CompositeUI.WorkItem,System.String,System.String,System.ComponentModel.BackgroundWorker,System.Int32)">
+            <summary>
+            在后台执行操作时，状态栏显示进度条和提示文字
+            如果传递的BackgroundWorker支持报告进度，则显示一个百分比进度条，如果不支持，则显示Marquee进度条。
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="textRunning">操作期间显示的提示</param>
+            <param name="textFinished">操作完成显示的提示</param>
+            <param name="worker">一个执行操作的BackgroundWorker</param>
+            <param name="delayOnFinished">完成时提示的持续时间(ms)，0表示不限制时间</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.GetController(Microsoft.Practices.CompositeUI.WorkItem)">
+            <summary>
+            获取WorkItem对应的WorkItemController,以便于调用WorkItemController中定义的一系列方法
+            暂时用反射来实现，效率较低
+            </summary>
+            <param name="workItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateAndActivateChildForm``1(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            创建或激活MID的子窗体
+            </summary>
+            <typeparam name="T">子窗体类型</typeparam>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id">子窗体的ID</param>
+            <returns>创建或激活的子窗体</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateAndActivateChildForm(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.String)">
+            <summary>
+            创建或激活MID的子窗体, 非泛型版本
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="t">子窗体类型</param>
+            <param name="id">子窗体的ID</param>
+            <returns>创建或激活的子窗体</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateAndActivate``1(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            创建或激活MID的子窗体或控件
+            </summary>
+            <typeparam name="T">控件类型或控件继承的接口类型</typeparam>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id">子窗体或控件的ID</param>
+            <returns>创建或激活的子窗体或侧边栏控件</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateAndActivate(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.String)">
+            <summary>
+            创建或激活MID的子窗体或控件, 非泛型版本
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="t">控件类型或控件继承的接口类型</param>
+            <param name="id">子窗体或控件的ID</param>
+            <returns>创建或激活的子窗体或侧边栏控件</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateAndActivateSideBar``1(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            创建或激活侧边栏
+            </summary>
+            <typeparam name="T">侧边栏的类</typeparam>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateAndActivateSideBar(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.String)">
+            <summary>
+            创建或激活侧边栏,非泛型版本
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="t">侧边栏的类</param>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateSideBar``1(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            创建侧边栏新实例（不会自动显示）如果该栏已存在，则返回已存在的实例
+            </summary>
+            <typeparam name="T">侧边栏的类</typeparam>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateSideBar(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.String)">
+            <summary>
+            创建侧边栏新实例（不会自动显示）如果该栏已存在，则返回已存在的实例,非泛型版本
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="t">侧边栏的类</param>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ActiveSideBar(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            激活侧边栏
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CloseSideBar(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            关闭侧边栏
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id">侧边栏的ID</param>
+            <returns>侧边栏对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.UnpinSideBar(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            取消固定侧边栏
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.PinSideBar(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            固定侧边栏
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.HideSideBar(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            隐藏侧边栏
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ActiveAndPinSideBar(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            固定侧边栏
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateDialog``1(Microsoft.Practices.CompositeUI.WorkItem,System.Windows.Forms.FormStartPosition,System.Action{``0})">
+            <summary>
+            创建一个模态对话框并返回，不显示，对话框类须继续自IDialogView
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <typeparam name="T">对话框类型</typeparam>
+            <param name="startPosition">起始位置</param>
+            <param name="onCreated">对话框控件生成后的委托</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowDialog``1(Microsoft.Practices.CompositeUI.WorkItem,System.Windows.Forms.FormStartPosition,System.Action{``0})">
+            <summary>
+            显示指定类型控件的模态对话框
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="startPosition">起始位置</param>
+            <param name="onCreated">生成时的委托</param>
+            <returns>对话框结果</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowDialogGet``1(Microsoft.Practices.CompositeUI.WorkItem,System.Windows.Forms.FormStartPosition,System.Action{``0})">
+            <summary>
+            显示指定类型控件的模态对话框
+            </summary>
+            <typeparam name="T">对话框类型</typeparam>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="startPosition">起始位置</param>
+            <param name="onCreated">生成时的委托</param>
+            <returns>对话框</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowDialog(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.Windows.Forms.FormStartPosition,System.Action{System.Windows.Forms.Control})" -->
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowDialogGet(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.Windows.Forms.FormStartPosition,System.Action{System.Windows.Forms.Control})" -->
+        <!-- Badly formed XML comment ignored for member "M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateDialog(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.Windows.Forms.FormStartPosition,System.Action{System.Windows.Forms.Control})" -->
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowDialog(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            显示指定ID的模态对话框
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id">对话框ID</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowDialog(Microsoft.Practices.CompositeUI.WorkItem,System.Object)">
+            <summary>
+            显示通过CreateDialog生成的对话框
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="control">对话框控件实例</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CloseFileMenu(Microsoft.Practices.CompositeUI.WorkItem)">
+            <summary>
+            关闭文件（开始）菜单
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.OpenFileMenu(Microsoft.Practices.CompositeUI.WorkItem)">
+            <summary>
+            打开文件（开始）菜单
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.RegisterType(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.Type)">
+            <summary>
+            注册一个接口(父）类型和它的实现类型，非泛型版本
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="instanceType">实例类型或子类型</param>
+            <param name="registerAs">接口类型或父类型</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.RegisterType``2(Microsoft.Practices.CompositeUI.WorkItem)">
+            <summary>
+            注册一个接口(父）类型和它的实现类型
+            </summary>
+            <typeparam name="TinstanceType">实例类型或子类型</typeparam>
+            <typeparam name="TregiserAs">接口类型或父类型</typeparam>
+            <param name="workItem">当前的WorkItem</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.Create(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.String)">
+            <summary>
+            根据类型创建子窗体、侧边栏或对话框
+            </summary>
+            <param name="workItem"></param>
+            <param name="t">控件类型</param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.CreateChildForm(Microsoft.Practices.CompositeUI.WorkItem,System.Type,System.String)">
+            <summary>
+            创建子窗体,并不显示，非泛型版本
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="t">子窗体类型</param>
+            <param name="id">子窗体的ID</param>
+            <returns>创建或激活的子窗体</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowChildForm(Microsoft.Practices.CompositeUI.WorkItem,System.Windows.Forms.Control)">
+            <summary>
+            显示控件作为MDI子窗体,并激活
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="view">要显示的控件</param>
+            <returns>控件本身</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowDialogGet(Microsoft.Practices.CompositeUI.WorkItem,System.Windows.Forms.Control)">
+            <summary>
+            
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="control"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ShowDialogGet(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            显示指定ID的模态对话框
+            </summary>
+            <param name="workItem">当前的WorkItem</param>
+            <param name="id">对话框ID</param>
+            <returns>对话框对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.IsActivedForm(System.Windows.Forms.Control)">
+            <summary>
+            判断窗体或控件所在的窗体是否是当前激活的窗体
+            </summary>
+            <param name="ctrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ExecuteFunction(Microsoft.Practices.CompositeUI.WorkItem,System.String)">
+            <summary>
+            根据菜单ID执行对应的菜单方法，类似于菜单的点击
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="functionId">菜单功能的ID</param>
+            <returns>执行Run方法以后的WorkItemController</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Interface.WorkItemExtensions.ExecuteController(Microsoft.Practices.CompositeUI.WorkItem,Jurassic.AppCenter.AppFunction)">
+            <summary>
+            找到ContollerWorkItem中的Contoller属性并立即执行它的Run()方法
+            </summary>
+            <param name="workItem">WorkItem</param>
+            <param name="func">菜单对象</param>
+            <returns>执行Run方法以后的WorkItemController</returns>
+        </member>
+    </members>
+</doc>

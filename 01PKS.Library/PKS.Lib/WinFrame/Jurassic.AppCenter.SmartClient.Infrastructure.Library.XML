@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.AppCenter.SmartClient.Infrastructure.Library</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.BuilderStrategies.ActionStrategy">
+            <summary>
+            定义Action行为策略
+            此类由项目模板生成。后作了改动
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.AddServicesCalled">
+            <summary>
+              查找类似 AddServices() method called for Module {0}. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.DependencyNotFound">
+            <summary>
+              查找类似 Section &apos;{0}&apos; depends on section &apos;{1}&apos; which was not found. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.DuplicatedModule">
+            <summary>
+              查找类似 A duplicated module with name {0} has been found by the loader. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.FailedToLoadModule">
+             <summary>
+               查找类似 Failed to load module from assembly {0}. Error was:
+            {1} 的本地化字符串。
+             </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.InvalidSolutionProfileSchema">
+            <summary>
+              查找类似 The solution profile references an unknown schema. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.LogModuleAdded">
+            <summary>
+              查找类似 Module {0} added to the container. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.LogModuleAssemblyLoaded">
+            <summary>
+              查找类似 Loaded assembly file {0} for Module. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.ModuleNotFound">
+            <summary>
+              查找类似 Assembly file {0} was not found. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.ModuleStartCalled">
+            <summary>
+              查找类似 Load() method called for Module {0}. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.NoUserProvidedForAuthentication">
+            <summary>
+              查找类似 No user was selected for the authentication service. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.ReferencedAssemblyNotFound">
+            <summary>
+              查找类似 The ModuleLoaderService cannot initialize the module because some of their dependencies are not present. Make sure to deploy all the assemblies needed to execute the module. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.ServiceAdded">
+            <summary>
+              查找类似 Service {1} added for Module {0}. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.ServiceAddedOnDemand">
+            <summary>
+              查找类似 Service {1} will be added on demand for Module {0}. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Properties.Resources.UserNotFoundMessage">
+            <summary>
+              查找类似 There is no a user matching the information you have provided. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.DependentModuleLoaderService">
+            <summary>
+            Service to load modules into the application.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.DependentModuleLoaderService.#ctor(System.Diagnostics.TraceSource)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.CompositeUI.Services.ModuleLoaderService"/> class with the
+            provided trace source.
+            </summary>
+            <param name="traceSource">The trace source for tracing. If null is
+            passed, the service does not perform tracing.</param>
+        </member>
+        <member name="E:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.DependentModuleLoaderService.ModuleLoaded">
+            <summary>
+            See <see cref="E:Microsoft.Practices.CompositeUI.Services.IModuleLoaderService.ModuleLoaded"/> for more information.
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.DependentModuleLoaderService.LoadedModules">
+            <summary>
+            See <see cref="P:Microsoft.Practices.CompositeUI.Services.IModuleLoaderService.LoadedModules"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.DependentModuleLoaderService.Load(Microsoft.Practices.CompositeUI.WorkItem,Microsoft.Practices.CompositeUI.Configuration.IModuleInfo[])">
+            <summary>
+            See <see cref="M:Microsoft.Practices.CompositeUI.Services.IModuleLoaderService.Load(Microsoft.Practices.CompositeUI.WorkItem,Microsoft.Practices.CompositeUI.Configuration.IModuleInfo[])"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.DependentModuleLoaderService.Load(Microsoft.Practices.CompositeUI.WorkItem,System.Reflection.Assembly[])">
+            <summary>
+            See <see cref="M:Microsoft.Practices.CompositeUI.Services.IModuleLoaderService.Load(Microsoft.Practices.CompositeUI.WorkItem,System.Reflection.Assembly[])"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.DependentModuleLoaderService.OnModuleLoaded(Microsoft.Practices.CompositeUI.Services.LoadedModuleInfo)">
+            <summary>
+            Fires the ModuleLoaded event.
+            </summary>
+            <param name="module">The module that was loaded.</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.DependentModuleLoaderService.ClassNameTraceSourceAttribute.#ctor">
+            <summary>
+            Initializes the attribute using the <see cref="T:Microsoft.Practices.CompositeUI.Services.IModuleLoaderService"/> 
+            interface namespace as the source name.
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.WinFormAuthService">
+            <summary>
+            Winform默认的身份验证接口实现
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.XmlStreamDependentModuleEnumerator">
+            <summary>
+            This implementation of IModuleEnumerator processes the assemblies specified
+            in a solution profile.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.XmlStreamDependentModuleEnumerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:XmlStreamDependentModuleEnumerator"/> class.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.Services.XmlStreamDependentModuleEnumerator.EnumerateModules">
+            <summary>
+            Gets an array of <see cref="T:Microsoft.Practices.CompositeUI.Configuration.IModuleInfo"/>
+            enumerated from the source the enumerator is processing.
+            </summary>
+            <returns>
+            An array of <see cref="T:Microsoft.Practices.CompositeUI.Configuration.IModuleInfo"/> instances.
+            </returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.UI.DialogView">
+            <summary>
+            对话框视图的基类
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.UI.DialogView.OnShow">
+            <summary>
+            Override this method when you need to initialize controls on your derived dialog classes. 
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.SmartClient.Infrastructure.Library.UI.DialogView.components">
+            <summary> 
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.UI.DialogView.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Library.UI.DialogView.InitializeComponent">
+            <summary> 
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV1.SolutionProfileElement">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV1.SolutionProfileElement.Modules">
+            <remarks/>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV1.ModuleInfoElement">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV1.ModuleInfoElement.Roles">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV1.ModuleInfoElement.AssemblyFile">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV1.ModuleInfoElement.UpdateLocation">
+            <remarks/>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV1.RoleElement">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV1.RoleElement.Allow">
+            <remarks/>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.SolutionProfileElement">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.SolutionProfileElement.Section">
+            <remarks/>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.SectionElement">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.SectionElement.Dependencies">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.SectionElement.Modules">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.SectionElement.Name">
+            <remarks/>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.DependencyElement">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.DependencyElement.Name">
+            <remarks/>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.RoleElement">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.RoleElement.Allow">
+            <remarks/>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.ModuleInfoElement">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.ModuleInfoElement.Dependencies">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.ModuleInfoElement.Roles">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.ModuleInfoElement.AssemblyFile">
+            <remarks/>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Library.SolutionProfileV2.ModuleInfoElement.Name">
+            <remarks/>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.AppCenter.WinForms</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.AppCenter.WinForms.CompCulture">
+            <summary>
+            用于窗体或用户控件上静态的文本多语言切换的组件
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.WinForms.CompCulture.RegisterNameAndTextProperty(System.Type,System.String,System.String)">
+            <summary>
+            注册一个类型，并声明该类型的名称属性和显示的文本属性
+            </summary>
+            <param name="type">类型（通常是可视化的控件或组件）</param>
+            <param name="nameProperty">名称属性</param>
+            <param name="textProperty">文本属性</param>
+        </member>
+        <member name="P:Jurassic.AppCenter.WinForms.CompCulture.CultureContainer">
+            <summary>
+            需要进行多语言切换的容器类组件
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.WinForms.CompCulture.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.WinForms.CompCulture.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.WinForms.CompCulture.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.WinForms.FormSelectControls.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.WinForms.FormSelectControls.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.WinForms.FormSelectControls.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,450 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.CommonModels.EFProvider</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.CommonModels.EFProvider.ArticleProvider">
+            <summary>
+            内容存储的数据持久化的EF实现
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ArticleProvider.Delete(Jurassic.CommonModels.Articles.Base_CatalogArticle)">
+            <summary>
+            删除文件，当文件被多次引用的时候只删除CatalogArticle中的一条记录，
+            只被引用一次的时候就是删除记录并将Article表中的记录标记为Delete
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.CatalogProvider.Delete(Jurassic.CommonModels.Articles.Base_Catalog)">
+            <summary>
+            删除目录
+            修改：[2017-01-16/汪敏]
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.EFProvider.DateTime2Convention">
+            <summary>
+            时间转换约定
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.DateTime2Convention.#ctor">
+            <summary>
+            时间转换约定
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EFProvider.LogProvider">
+            <summary>
+            日志的数据访问提供类
+            </summary>
+        </member>
+        <member name="T:Jurassic.CommonModels.EFProvider.ModelContext">
+            <summary>
+            一个包含框架默认表结构的数据上下文，包括用户角色，部门，组和基本的内容管理表
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ModelContext.#ctor">
+            <summary>
+            ctor, 默认以config文件中名为DefaultConnection的连接串来创建新的上下文
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetDepartmentData(System.Nullable{System.Int32})">
+            <summary>
+            查询组织结构数据
+            </summary>
+            <param name="isDisabled">是否禁用 1否 0是 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetDepartmentById(System.Int32)">
+            <summary>
+            通过主键id查询部门数据对象
+            </summary>
+            <param name="orgID">机构ID(主键)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetOrgByOrgNode(System.String)">
+            <summary>
+            通过节点查询组织机构子节点
+            </summary>
+            <param name="orgNode">机构节点</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.VerifyOrgCode(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            验证机构编码是否重复
+            通过主键ID来确定操作是新增还是编辑状态
+            </summary>
+            <param name="departmentModel">数据节点对象</param>
+            <returns>true重复  false=不重复</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.VerifyUserIsMainOrg(Jurassic.CommonModels.Organization.DepUserModel)">
+            <summary>
+            获取员工的第一部门对象
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.SaveInfo(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            保存
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.Delete(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            删除
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetDepPostData(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            查询组织结构相关的岗位
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetDepUserData(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            查询组织结构相关的人员
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetPostData">
+            <summary>
+            查询岗位数据集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetUserList">
+            <summary>
+            查询所有人员集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.SavePostInfo(System.Collections.Generic.List{Jurassic.CommonModels.Organization.PostModel})">
+            <summary>
+            保存岗位数据
+            </summary>
+            <param name="postModelList"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.IsNotLinkPost(Jurassic.CommonModels.Organization.PostModel)">
+            <summary>
+            验证该岗位是否存在引用关系
+            岗位与部门表
+            岗位与部门人员表
+            </summary>
+            <returns>true 没有引用关系  false 有引用关系</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetDepAllList">
+            <summary>
+            获取所有部门对象以及部门的主管
+            </summary>
+            <param name="depUserModel"></param>
+            <returns>返回一个可以附加其他条件的查询</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetParentDepInfo(Jurassic.CommonModels.Organization.DepUserModel)">
+            <summary>
+            获取指定员工的上级部门主管
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetDepInfo(Jurassic.CommonModels.Organization.DepartmentModel)">
+            <summary>
+            获取指定部门对象以及部门的主管
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetDepList">
+            <summary>
+            获取部门列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetUserInfoAllList">
+            <summary>
+            获取用户列表
+            </summary>
+            <returns>返回一个可以附加其他条件的查询</returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetUserInfoList">
+            <summary>
+            获取用户列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetUserInfo(Jurassic.CommonModels.Organization.DepUserModel)">
+            <summary>
+            获取用户所属部门以及直属领导人对象
+            </summary>
+            <param name="depUserModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetUserInfoByName(System.String)">
+            <summary>
+            根据用户名称获取用户ID
+            此方法是冗余工作流接口使用
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.OrganizationProvider.GetDepUserQuery">
+            <summary>
+            返回一个可以附加其他条件的查询
+            </summary>
+            <returns>部门用户查询Queryable对象</returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.EFProvider.ServerAuthProvider">
+            <summary>
+            安全令牌数据访问对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.GetData">
+            <summary>
+            查询所有授权客户组数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.GetDataById(System.String)">
+            <summary>
+            通过主键id查询数据对象
+            </summary>
+            <param name="toKeyId">授权表主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.GetDataByClientId(System.String)">
+            <summary>
+            通过客户组id查询数据对象
+            有效的数据
+            </summary>
+            <param name="clientId">客户id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.Delete(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            删除
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.Add(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            新增
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.Change(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            编辑
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.VerifyClientRepeat(Jurassic.CommonModels.ServerAuth.AuthToken)">
+            <summary>
+            验证客户id与授权key是否重复
+            通过主键ID来确定操作是新增还是编辑状态
+            </summary>
+            <param name="authTokenModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.GetDataRelation(System.String)">
+            <summary>
+            查询指定客户的数据授权关系
+            </summary>
+            <param name="tokeyID">授权主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.SaveDataRelation(System.Collections.Generic.List{Jurassic.CommonModels.ServerAuth.DataRelation},System.String)">
+            <summary>
+            保存数据授权关系
+            </summary>
+            <param name="dataRelationList">关系集合</param>
+            <param name="tokeyID">授权主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.GetDataNodesByClientId(System.String)">
+            <summary>
+            通过客户组Id查询该客户授权的数据节点
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.IsAuthData(System.String,System.String)">
+            <summary>
+            获取该客户的数据节点是否授权
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.GetServiceRelation(System.String)">
+            <summary>
+            查询指定客户的服务授权关系
+            </summary>
+            <param name="tokeyID">授权主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.SaveServiceRelation(System.Collections.Generic.List{Jurassic.CommonModels.ServerAuth.ServiceRelation},System.String)">
+            <summary>
+            保存服务授权关系
+            </summary>
+            <param name="serviceRelationList">关系集合</param>
+            <param name="tokeyID">授权主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.GetServiceByClientId(System.String)">
+            <summary>
+            通过客户组Id查询该客户授权的服务节点
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.IsAuthService(System.String,System.String,System.String)">
+            <summary>
+            获取该客户的服务节点是否授权
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <param name="actionName">服务名称</param>
+            <param name="serviceFullName">服务完成方法名称(包含命名空间名称)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServerAuthProvider.GetAllAuthService">
+            <summary>
+            获取所有的授权服务关系
+            有效的授权服务
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.EFProvider.DataAuthorizeProvider">
+            <summary>
+            数据权限节点对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.DataAuthorizeProvider.GetData(System.Nullable{System.Int32})">
+            <summary>
+            查询数据
+            </summary>
+            <param name="isvalId">1有效 0无效 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.DataAuthorizeProvider.GetDataById(System.String)">
+            <summary>
+            通过主键id查询有效的数据对象
+            </summary>
+            <param name="toKeyId">授权表主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.DataAuthorizeProvider.GetDataByDataNodeID(System.String)">
+            <summary>
+            通过数据节点id查询有效的数据对象
+            </summary>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.DataAuthorizeProvider.Delete(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            删除
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.DataAuthorizeProvider.Add(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            新增
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.DataAuthorizeProvider.Change(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            编辑
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.DataAuthorizeProvider.VerifyDataNodeRepeat(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            验证数据节点id是否重复
+            通过主键ID来确定操作是新增还是编辑状态
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.DataAuthorizeProvider.IsDataRelations(System.String)">
+            <summary>
+            查询该数据节点是否存在授权关系
+            </summary>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.EFProvider.ServiceInfoProvider">
+            <summary>
+            控制器Api服务授权对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServiceInfoProvider.GetData(System.Nullable{System.Int32})">
+            <summary>
+            获取服务信息
+            </summary>
+            <param name="isvalId">1有效 0无效 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServiceInfoProvider.GetDataById(System.String)">
+            <summary>
+            通过主键id查询有效的服务对象
+            </summary>
+            <param name="serviceID">授权表主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServiceInfoProvider.Delete(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            删除
+            </summary>
+            <param name="serviceInfoModel">服务对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServiceInfoProvider.Add(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            新增
+            </summary>
+            <param name="serviceInfoModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServiceInfoProvider.Change(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            编辑
+            </summary>
+            <param name="authTokenModel">数据节点对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.CommonModels.EFProvider.ServiceInfoProvider.IsServiceRelations(System.String)">
+            <summary>
+            查询该数服务点是否存在授权关系
+            </summary>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.CommonModels.EFProvider.MyRoleProvider">
+            <summary>
+            实际系统实现自己的DataProvider
+            </summary>
+        </member>
+        <member name="P:Jurassic.CommonModels.EFProvider.MyStateProvider.Timeout">
+            <summary>
+            指定登录过期时间(以秒为单位)
+            </summary>
+        </member>
+    </members>
+</doc>

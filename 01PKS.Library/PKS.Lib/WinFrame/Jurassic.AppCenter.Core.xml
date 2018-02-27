@@ -1,0 +1,3049 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.AppCenter.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.AppCenter.AppServices.IAuthService">
+            <summary>
+            一个用于支持WCF的用户登录服务契约
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.AppServices.LoginResult">
+            <summary>
+            用于在WCF服务中给客户端呈现登录结果，并返回用户有权限的菜单和角色列表
+            这是为了减少登录请求次数，所以把相关数据一并返回
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppServices.LoginResult.User">
+            <summary>
+            用户对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppServices.LoginResult.State">
+            <summary>
+            登录状态
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppServices.LoginResult.SessionID">
+            <summary>
+            会话ID，下次请求要带上以识别身份
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppServices.LoginResult.UserMenus">
+            <summary>
+            用户可见的菜单
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppServices.LoginResult.Roles">
+            <summary>
+            用户的角色列表
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.AppServices.ClientManager">
+            <summary>
+            用于WCF服务中客户端登录和会话管理的类
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppServices.ClientManager.GetClient``1">
+            <summary>
+            获取指定接口的服务的客户端代理
+            </summary>
+            <typeparam name="T">服务接口类型</typeparam>
+            <returns>服务接口的客户端代理对象</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.AppServices.ITypeProvider">
+            <summary>
+            为WCF服务提供AppUser、AppRole、AppFunction等的已知派生类型
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppServices.ITypeProvider.GetTypes">
+            <summary>
+            获取类型列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.AppParameter">
+            <summary>
+            方法执行的参数信息类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppParameter.Name">
+            <summary>
+            参数名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppParameter.ValuePattern">
+            <summary>
+            参数能接收的值的模式描述,使用正则表达式
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Caches.CachedObjectOnMergeEventArgs`1">
+            <summary>
+            当CachedObject的缓存依赖项更改时，新数据和旧数据的合并事件参数
+            </summary>
+            <typeparam name="T">缓存的类型</typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.Caches.CachedObjectOnMergeEventArgs`1.#ctor(`0,`0)">
+            <summary>
+            根据旧对象和新对象创建一个合并数据类
+            </summary>
+            <param name="oldObj"></param>
+            <param name="newObj"></param>
+        </member>
+        <member name="P:Jurassic.AppCenter.Caches.CachedObjectOnMergeEventArgs`1.NewObject">
+            <summary>
+            新对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Caches.CachedObjectOnMergeEventArgs`1.OldObject">
+            <summary>
+            旧对象
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Caches.CachedObject`1">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            用于存储并用json序列化和反序列化某个对象的缓存类
+            可以在缓存依赖项更改时，立即刷新缓存，在IIS进程回收时，也可以及时回写内存数据到文件
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Caches.CachedObject`1.CfgFileName">
+            <summary>
+            持久化的json数据文件
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.Caches.CachedObject`1.ExpireSeconds">
+            <summary>
+            缓存强制过期时间(秒)
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Caches.CachedObject`1.Item">
+            <summary>
+            存储T的List集合
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Caches.CachedObject`1.#ctor(System.String)">
+            <summary>
+            指定要持久化的文件名来创建CachedObject
+            </summary>
+            <param name="cfgFileName">文件名,该文件名只需提供相对于App_Data文件夹的相对路径</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Caches.CachedObject`1.Save">
+            <summary>
+            将列表保存到默认的文件中
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Caches.CachedObject`1.SaveAs(System.String)">
+            <summary>
+            将列表另存到其他文件
+            </summary>
+            <param name="filePath">另存到的文件的完全路径名</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Caches.CachedObject`1.ReadObject">
+            <summary>
+            从js文件读取List[T]清单
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.Caches.CachedObject`1.inWriteBack">
+            <summary>
+            标志T.js是否在回写，如果是在回写则在下面的方法中跳出
+            避免重复处理
+            </summary>
+        </member>
+        <member name="E:Jurassic.AppCenter.Caches.CachedObject`1.OnMerge">
+            <summary>
+            在缓存过期，重新从文件读取对象以后，与原有对象的合并操作
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Caches.CachedObject`1.WriteBack(System.String,System.Object,System.Web.Caching.CacheItemRemovedReason)">
+            <summary>
+            当域名访问量记数器缓存过期时的委托
+            </summary>
+            <param name="key">缓存的Key</param>
+            <param name="value">缓存的值</param>
+            <param name="reason">移除原因</param>
+        </member>
+        <member name="T:Jurassic.AppCenter.Caches.CacheProvider">
+            <summary>
+            默认基于.net Cahce的缓存实现
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Caches.CacheProvider.#ctor">
+            <summary>
+            创建默认基于.net Cahce的缓存实现
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Caches.L2Cache`1">
+            <summary>
+            分布式二级缓存
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Caches.L2Cache`1.L1Hit">
+            <summary>
+            L1命中率
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Caches.L2Cache`1.L2Hit">
+            <summary>
+            L2命中率
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Caches.L2Cache`1.Hit">
+            <summary>
+            总命中率
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Caches.StreamCacheProvider">
+            <summary>
+            默认使用本机内存的流缓存提供类
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Caches.CachedList`1">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            用于存储并用json序列化和反序列化各类强类型List列表的缓存类
+            可以在缓存依赖项更改时，立即刷新缓存，在IIS进程回收时，也可以及时回写内存数据到文件
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Caches.CachedList`1.Item(System.Int32)">
+            <summary>
+            根据整形下标访问成员
+            </summary>
+            <param name="index">下标</param>
+            <returns>值</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.Config.UIContext">
+            <summary>
+            保存本地UI的上下文配置
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Config.UIContext.ContextObject">
+            <summary>
+            上下文相关的对象(一般指窗体)
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Config.UIContext.CurrentContextDict">
+            <summary>
+            获取当前窗体的上下文配置字典
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.GetContextValue(System.String)">
+            <summary>
+            从内存中获取指定对象名称的配置值
+            </summary>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.FindObject(System.String[])">
+            <summary>
+            反射获取用'.'号隔开的对象路径中的对象
+            </summary>
+            <param name="propertyNames">将'.'号分隔的对象路径split后的名称数组</param>
+            <returns>反射获取的对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.Load(System.String)">
+            <summary>
+            从Profile中获取并设置本窗体的指定控件的属性值
+            </summary>
+            <param name="propertyName">用'.'号分隔的控件及属性名称 </param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.Load(System.String,System.String)">
+            <summary>
+            从Profile中获取并设置本窗体的指定控件的属性值,如果为空则设置默认值
+            </summary>
+            <param name="propertyName">用'.'号分隔的控件及属性名称 </param>
+            <param name="defaultValue">默认值</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.Save(System.Boolean)">
+            <summary>
+            将本对象的用户配置值保存到内存中或持久化的配置文件中
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.#ctor">
+            <summary>
+            创建一个空上下文对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.#ctor(System.Object)">
+            <summary>
+            根据需要保存属性或字段信息的对象,新建一个上下文操作对象
+            </summary>
+            <param name="contextObject">需要保存属性或字段信息的对象，一般指窗体或控件</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.#ctor(System.Object,System.String)">
+            <summary>
+            根据需要保存属性或字段信息的对象,新建一个上下文操作对象
+            </summary>
+            <param name="contextObject">需要保存属性或字段信息的对象，一般指窗体或控件</param>
+            <param name="key">代表对象的键值</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.#ctor(System.Object,Jurassic.AppCenter.Config.IDataSetProvider)">
+            <summary>
+            根据需要保存属性或字段信息的对象,新建一个上下文操作对象
+            </summary>
+            <param name="contextObject">需要保存属性或字段信息的对象，一般指窗体或控件</param>
+            <param name="loader">DataSet存取类</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.#ctor(System.Object,Jurassic.AppCenter.Config.IDataSetProvider,System.String)">
+            <summary>
+            根据需要保存属性或字段信息的对象,新建一个上下文操作对象
+            </summary>
+            <param name="contextObject">需要保存属性或字段信息的对象，一般指窗体或控件</param>
+            <param name="loader">DataSet存取类</param>
+            <param name="key">代表对象的键值</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.LoadAllFromPersistent">
+            <summary>
+            将应用程序所有上下文配置加载到内存
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.SaveAllToPersistent">
+            <summary>
+            将配置持久化保存
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.Clear">
+            <summary>
+            清除用户的所有个性化选项
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.LoadContext(System.String)">
+             <summary>
+             通过上下文字符串设置指定上下文对象的属性值或字段值>
+             其中contextSettings参数的格式为：
+            对象属性名（可以用.号表示层次关系）[=默认值]
+            如果有多个，用回车或;号分隔
+             </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.GetOtherContextValue(System.String,System.String)">
+            <summary>
+            从其他对象(窗口)的获取指定属性(或字段)的值
+            </summary>
+            <param name="objName">其他对象(窗口)</param>
+            <param name="propertyName">属性或字段名称</param>
+            <returns>字符串表示的值</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.UIContext.Dispose">
+            <summary>
+            持久化保存配置信息并清空内部数据
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Config.IDataSetProvider">
+            <summary>
+            用于UIContext的XML数据持久化接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Config.DefaultDataSetProvider">
+            <summary>
+            用于UIContext的XML数据持久化接口的默认实现
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.DefaultDataSetProvider.LoadData">
+            <summary>
+            在派生类中重写，以定义读取XML配置的方法
+            </summary>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Config.DefaultDataSetProvider.SaveData(System.Data.DataSet)">
+            <summary>
+            在派生类中重写，以定义保存XML配置的方法
+            </summary>
+            <param name="ds">DataSet</param>
+        </member>
+        <member name="T:Jurassic.AppCenter.DataManagerBase`2">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            统一的数据管理类，提供对类型T数据列表的增删改。
+            <typeparam name="T">要管理的数据类型</typeparam>
+            <typeparam name="TId">数据的主键类型</typeparam>
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.DataManagerBase`2.DataType">
+            <summary>
+            获取该DataManager的实际数据类型，它应该是T或T的子类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.DataManagerBase`2.AfterGetData">
+            <summary>
+             在从数据持久层获取数据以后的操作
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.DataManagerBase`2.BeforeSave">
+            <summary>
+            在保存数据到数据持久层之前的操作
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.DataManagerBase`2.AfterSaved">
+            <summary>
+            在成功保存数据之后的操作
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.DataManagerBase`2.DataList">
+            <summary>
+            该管理器所管理的数据集合。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.DataManagerBase`2.Count">
+            <summary>
+            元素的总数
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.GetAll">
+            <summary>
+            获取所有元素
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Jurassic.AppCenter.DataManagerBase`2.Provider">
+            <summary>
+            来自外部的数据存取提供接口
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.Create">
+            <summary>
+            创建一个T类型的实例
+            </summary>
+            <returns>创建的对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.#ctor">
+            <summary>
+            创建一个DataManager
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.GetById(`1)">
+            <summary>
+            根据ID获取对像，找不到返回null
+            </summary>
+            <param name="id"></param>
+            <returns>对象T</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.GetByName(System.String)">
+            <summary>
+            根据名称获取对象
+            </summary>
+            <param name="name"></param>
+            <returns>对象T</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.Change(`0)">
+            <summary>
+            修改对象
+            </summary>
+            <param name="t"></param>
+            <returns>修改成功与否</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.CheckValidName(`0)">
+            <summary>
+            判断实现了IUniqueName接口对象的名称是否重复
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.Add(`0)">
+            <summary>
+            新增对象
+            </summary>
+            <param name="t"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.Remove(`0)">
+            <summary>
+            删除对象t
+            </summary>
+            <param name="t"></param>
+            <returns>删除成功与否</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.Remove(`1)">
+            <summary>
+            根据对象ID删除对象
+            </summary>
+            <param name="id"></param>
+            <returns>删除成功与否</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.Clear">
+            <summary>
+            清空数据缓存，强制重新从执久层获取
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataManagerBase`2.Save">
+            <summary>
+            如果内部存储数据的List支持ICanSave接口，则保存全部数据
+            这是为CachedListT而准备的
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.IId`1">
+            <summary>
+            具有ID属性的数据实体接口
+            </summary>
+            <typeparam name="T">ID属性的数据类型</typeparam>
+        </member>
+        <member name="T:Jurassic.AppCenter.DataProvider`1">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            DataManager的数据提供接口的默认实现，应用系统通过继承此类来实现自己的基础数据存取。
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataProvider`1.GetData">
+            <summary>
+            获取全部T的列表
+            </summary>
+            <returns>关于T的泛型集合</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataProvider`1.Add(`0)">
+            <summary>
+            新增操作
+            </summary>
+            <param name="t">要新增的T对象</param>
+            <returns>成功返回大于零的数，不成功返回0</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataProvider`1.Change(`0)">
+            <summary>
+            修改操作
+            </summary>
+            <param name="t">要修改的对象T</param>
+            <returns>成功返回大于零的数，不成功返回0</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DataProvider`1.Delete(`0)">
+            <summary>
+            删除操作
+            </summary>
+            <param name="t">要删除的T对象</param>
+            <returns>成功返回大于零的数，不成功返回0</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.ICacheProvider">
+            <summary>
+            定义一个简单的字典缓存接口
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.ICacheProvider`1">
+            <summary>
+            关键字是字符串的字典接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Jurassic.AppCenter.ICacheProvider`2">
+            <summary>
+            泛型缓存字典接口
+            </summary>
+            <typeparam name="TKey">键的数据类型</typeparam>
+            <typeparam name="T">缓存的数据类型</typeparam>
+        </member>
+        <member name="T:Jurassic.AppCenter.IAuditDataService`1">
+            <remarks>王家新, 2015-04-12, 2014-04-12</remarks>
+            <summary>
+            通用的数据服务提供实现接口，
+            应用系统通过实现此接口来实现自己的基础数据存取、事务处理，
+            并记录访问日志
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.IAuditDataService`1.BeginTrans">
+            <summary>
+            开始一个事务
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.IAuditDataService`1.EndTrans">
+            <summary>
+            完成当前事务
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.IAuditDataService`1.RollbackTrans">
+            <summary>
+            回滚当前事务
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.IAuditDataService`1.OnLog">
+            <summary>
+            写日志的委托
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.IAuditDataService`1.LogInfo">
+            <summary>
+            用于跟踪的日志对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.IIdNameParentId`1.ParentId">
+            <summary>
+            用于表示父对象的ID
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.IDataCUD`1">
+            <summary>
+            定义可以增删改的数据接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.IDataCUD`1.Add(`0)">
+            <summary>
+            新增操作
+            </summary>
+            <param name="t">要新增的T对象</param>
+            <returns>成功返回大于零的数，不成功返回0</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.IDataCUD`1.Change(`0)">
+            <summary>
+            修改操作
+            </summary>
+            <param name="t">要修改的对象T</param>
+            <returns>成功返回大于零的数，不成功返回0</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.IDataCUD`1.Delete(`0)">
+            <summary>
+            删除操作
+            </summary>
+            <param name="t">要删除的T对象</param>
+            <returns>成功返回大于零的数，不成功返回0</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.IGetData`1">
+            <summary>
+            定义可以从有限数据集合中返回全部数据的接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.IGetData`1.GetData">
+            <summary>
+            获取全部T的列表
+            </summary>
+            <returns>全部T的集合</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.ILinqDataProvider`1">
+            <summary>
+            在QueryDataProvider的基础上，再增加分页功能的查询的数据提供类，
+            </summary>
+            <typeparam name="T">列表元素的数据类型</typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.ILinqDataProvider`1.PageQuery(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Int32,System.Int32,System.String)">
+            <summary>
+            带条件的分页查询
+            </summary>
+            <param name="whereExpression">条件表达式</param>
+            <param name="page">分页号</param>
+            <param name="pageSize">页的大小</param>
+            <param name="sortExpression">排序字段和排序方向</param>
+            <returns>分页后带分页信息的数据</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.ILinqDataProvider`1.PageQuery(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            带字符串表示的条件的分页查询
+            </summary>
+            <param name="page">分页号</param>
+            <param name="pageSize">页的大小</param>
+            <param name="whereExpression">条件的字符串表达式</param>
+            <param name="sortExpression">排序的字符串表达式</param>
+            <returns>分页后带分页信息的数据</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.IDataProvider`1">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            DataManager的数据提供实现接口，
+            应用系统通过实现此接口来实现自己的基础数据存取。
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.AppManager">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            应用程序总控类，提供用户认证和权限判定的基本方法
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.UserManager">
+            <summary>
+            用户管理类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.RoleManager">
+            <summary>
+            角色管理类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.FunctionManager">
+            <summary>
+            功能管理类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.StateProvider">
+            <summary>
+            登录方法的提供程序
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.StateManager">
+            <summary>
+            登录状态管理接口实现
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.KnownTypeProvider">
+            <summary>
+            用于WCF服务时，识别AppUser,AppRole,AppFunction等对象的子对象的类型标识器
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.NeedInit">
+            <summary>
+            判断对象是否需要初始化
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.StartReInit">
+            <summary>
+            重新开始初始化
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.Instance">
+            <summary>
+            AppManager的单例
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.FunctionProvider">
+            <summary>
+            功能数据提供方（该提供方一般使用自带的）
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.RoleProvider">
+            <summary>
+            角色数据提供方
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.UserProvider">
+            <summary>
+            用户数据提供方
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppManager.DefaultAuthType">
+            <summary>
+            默认的权限控制类型
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetCurrentUserName">
+            <summary>
+            获取当前用户名
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetCurrentUserId">
+            <summary>
+            获取当前用户ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.#ctor">
+            <summary>
+            私有构造函数，防止用户随便New出来。
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.HasRightId(System.String,System.String)">
+            <summary>
+            判断某用户是否有某功能ID的访问权限，这一般是表示用户已经确定点击了某个功能
+            </summary>
+            <param name="userName">用户名</param>
+            <param name="functionId">功能ID</param>
+            <returns>有或无</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.HasRightIdCore(System.String,System.String)">
+            <summary>
+            验证该用户是否拥有该模块功能权限
+            </summary>
+            <param name="userName">用户账号</param>
+            <param name="functionId">模块id</param>
+            <returns>true=是 false=否</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.HasRight(System.String,System.String,Jurassic.AppCenter.WebMethod)">
+            <summary>
+            判断用户是否有某个资源的访问权限
+            </summary>
+            <param name="userName">用户名</param>
+            <param name="location">资源定位标识</param>
+            <returns>是/否</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetFunctionId(System.String,Jurassic.AppCenter.WebMethod)">
+            <summary>
+            获取URL对应的FunctionId
+            </summary>
+            <param name="location">地址</param>
+            <param name="method">提交方法</param>
+            <returns>FunctionId</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetFunctionByLocation(System.String,Jurassic.AppCenter.WebMethod)">
+            <summary>
+            获取URL对应的Function
+            </summary>
+            <param name="location">地址</param>
+            <param name="method">提交方法</param>
+            <returns>Function实体</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.Login(Jurassic.AppCenter.Models.LoginModel)">
+            <summary>
+            登录的公共方法
+            </summary>
+            <param name="LoginModel">登录数据实体，包括用户名、密码、记住我等信息</param>
+            <returns>登录状态的枚举</returns>
+            <exception cref="T:Jurassic.AppCenter.JException">JException</exception>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.Logout(System.String)">
+            <summary>
+            退出登录的公共方法
+            </summary>
+            <param name="userName">要退出登录的用户名</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetOnlineUsers">
+            <summary>
+            获取所有登录用户
+            </summary>
+            <returns>所有登录用户</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetRightIds(System.String)">
+            <summary>
+            获取当前用户有权限的功能ID列表
+            </summary>
+            <param name="userName">用户名</param>
+            <returns>功能ID列表</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetHasRightFunctions(System.String)">
+            <summary>
+            获取当前用户有权限的功能列表
+            </summary>
+            <param name="userName">用户名</param>
+            <returns>功能ID列表</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetForbiddenIds(System.String)">
+            <summary>
+            获取当前用户无权限的功能ID列表
+            </summary>
+            <param name="userName">用户名</param>
+            <returns>功能ID列表</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetForbiddenFunctions(System.String)">
+            <summary>
+            获取当前用户无权限的功能列表
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetUserMenus(System.String)">
+            <summary>
+            获取当前用户可操作的菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetAllRoleMenus">
+            <summary>
+            获取所有权限管理的控制菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.EndInit(System.Object)">
+            <summary>
+            结束初始化时向磁盘写入一个标识文件
+            </summary>
+            <param name="setupModel">要写入文件的可序列化对象</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetAppTypes(System.Reflection.ICustomAttributeProvider)">
+            <summary>
+            为WCF服务提供AppUser、AppRole、AppFunction等的已知派生类型
+            </summary>
+            <param name="provider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppManager.GetWidgetFunctions">
+            <summary>
+            获取所有部件列表
+            </summary>
+            <returns>部件列表</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.IGetQueryData`1">
+            <summary>
+            支持IQuerable的对象查询类
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.IGetQueryData`1.GetQuery">
+            <summary>
+            获取可查询对象，在此基础上可以附加查询条件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.IGetQueryData`1.GetByKey(System.Object)">
+            <summary>
+            根据ID获取对象
+            </summary>
+            <param name="key">主键值</param>
+            <returns>T实体</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.IDataBatchCUD`1">
+            <summary>
+            支持数据批量增删改的数据接口
+            </summary>
+            <typeparam name="T">数据实体类型</typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.IDataBatchCUD`1.Add(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            批量新增
+            </summary>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.IDataBatchCUD`1.Change(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            批量修改
+            </summary>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.IDataBatchCUD`1.DeleteByKeys(System.Collections.IEnumerable)">
+            <summary>
+            批量删除
+            </summary>
+            <param name="keys"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.IModelDataService`1">
+            <summary>
+            定义一个实现了可查询数据集和批量增删改的全功能的数据接口
+            </summary>
+            <typeparam name="T">数据实体类</typeparam>
+        </member>
+        <member name="T:Jurassic.AppCenter.LocalDataProvider`1">
+            <summary>
+            基于本地json文件存储的数据提供类
+            </summary>
+            <typeparam name="T">存储的数据类型</typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.LocalDataProvider`1.GetData">
+            <summary>
+            从json文件加载全部T的列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.RoleDataWrapper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            在AppRole数据提供类基础上的一层包装，用于与本地json文件交换FuncionIds的数据
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.RoleDataWrapper.#ctor(Jurassic.AppCenter.IDataProvider{Jurassic.AppCenter.AppRole},Jurassic.AppCenter.Caches.CachedList{Jurassic.AppCenter.AppRole})">
+            <summary>
+            在基本的角色提供程序基础上，创建一个角色包装类
+            </summary>
+            <param name="provider">基本的角色提供程序</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.RoleDataWrapper.GetData">
+            <summary>
+            当需要持久化数据Provider中没有的信息时，用此类来合并Provider的数据
+            和本地json数据文件。
+            </summary>
+            <returns>合并后的数据列表</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RoleDataWrapper.Add(Jurassic.AppCenter.AppRole)">
+            <summary>
+            新增角色
+            </summary>
+            <param name="t">要新增的角色</param>
+            <returns>成功返回非0值，不成功返回0</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RoleDataWrapper.Change(Jurassic.AppCenter.AppRole)">
+            <summary>
+            修改角色
+            </summary>
+            <param name="t">要修改的角色</param>
+            <returns>成功返回非0值，不成功返回0</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RoleDataWrapper.Delete(Jurassic.AppCenter.AppRole)">
+            <summary>
+            删除角色
+            </summary>
+            <param name="t">要删除的角色</param>
+            <returns>成功返回非0值，不成功返回0</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.RoleDataProvider">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            AppRole的缺省的数据提供类，当外部程序没有提供此接口时，
+            由这个类来管理系统角色，它可以将角色数据持久化存到磁盘的Json文件。
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.RoleDataProvider.GetData">
+            <summary>
+            从磁盘json文件加载角色表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.AuthExtensions">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            对Forms身份验证的扩展类，使用此类进行权限验证可比使用AppManager中更简洁一些。
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AuthExtensions.GetUserId(System.Security.Principal.IIdentity)">
+            <summary>
+            获取用户ID
+            </summary>
+            <param name="identity">用户标识</param>
+            <returns>用户ID</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AuthExtensions.GetUserName(System.Security.Principal.IIdentity)">
+            <summary>
+            获取用户名称
+            </summary>
+            <param name="identity">用户标识</param>
+            <returns>用户名称</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AuthExtensions.HasRight(System.Security.Principal.IIdentity,System.String,Jurassic.AppCenter.WebMethod)">
+            <summary>
+            判断当前用户是否有某地址的访问权限
+            </summary>
+            <param name="identity">用户标识</param>
+            <param name="location">URL地址(不带http://)</param>
+            <param name="method">GET或POST</param>
+            <returns>有或没有</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AuthExtensions.HasRightId(System.Security.Principal.IIdentity,System.String)">
+            <summary>
+            判断当前用户是否有权限ID的权限
+            </summary>
+            <param name="identity">用户标识</param>
+            <param name="functionId">功能ID</param>
+            <returns>有或没有</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AuthExtensions.GetForbiddenIds(System.Security.Principal.IIdentity)">
+            <summary>
+            获取当前用户无权限的功能ID列表
+            </summary>
+            <param name="identity">用户标识</param>
+            <returns>功能ID列表</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.AppFunction">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            系统功能实体类
+            </summary>
+            <namespace>
+            <summary>
+            Jurassic.AppCenter命名空间为所有应用程序提供公共服务组件，它们不依赖于具体的平台
+            和第三方组件。
+            </summary>
+            </namespace>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppFunction.#ctor">
+            <summary>
+            新建一个系统功能实体类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.ParentId">
+            <summary>
+            功能的父ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.Id">
+            <summary>
+            功能ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.Name">
+            <summary>
+            功能名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.Location">
+            <summary>
+            功能的地址（一般是URL）
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.LocationSamples">
+            <summary>
+            地址示例
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.IconLocation">
+            <summary>
+            图标的地址
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.RegTail">
+            <summary>
+            Url后缀的正则表达式
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.Method">
+            <summary>
+            发送请求时是Get还是Post
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.AuthType">
+            <summary>
+            授权类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.Description">
+            <summary>
+            功能的描述
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.Ord">
+            <summary>
+            在同级中，功能的排序位
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.Visible">
+            <summary>
+            是否在菜单中显示
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.Parameters">
+            <summary>
+            使用功能要输入的参数名数组
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.ControllerName">
+            <summary>
+            该功能对应的控制器类型全称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.ActionName">
+            <summary>
+            该功能对应的方法名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.AreaName">
+            <summary>
+            该功能所在区域名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.LogType">
+            <summary>
+            本功能被日志记录的级别，如果低于系统规定的级别，则该功能的操作记录不会被记录在日志中，
+            除非有异常,默认级别是INFO
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.RelatedIds">
+            <summary>
+            关联的ID(不是指它的子级, 主要用于前台菜单和后台服务的关联)
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppFunction.MatchLocation(System.String)">
+            <summary>
+            判断用户访问的地址的格式是否与指定AppFunction定义的相同
+            </summary>
+            <param name="userLoc">用户的地址</param>
+            <returns>是/否</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppFunction.IsSampleVaild">
+            <summary>
+            判断示例地址中的地址是否与给定的地址规则匹配
+            </summary>
+            <returns>是/否</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppFunction.ToString">
+            <summary>
+            返回一个可读的功能名字符串。
+            </summary>
+            <returns>功能名字符串</returns>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppFunction.PMark">
+            <summary>
+            用于统一表示参数信息的字符串
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppFunction.IsTheSame(Jurassic.AppCenter.AppFunction)">
+            <summary>
+            判断两个功能点是否实质上等价
+            </summary>
+            <param name="other">另一个功能点</param>
+            <returns>是否实质上等价</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.DataManager`1">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            统一的数据管理类，提供对类型T数据列表的增删改。
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.IStateProvider">
+            <summary>
+            为系统登录和退出登录提供接口
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.IStateProvider.Login(Jurassic.AppCenter.Models.LoginModel)">
+            <summary>
+            验证用户登录
+            </summary>
+            <param name="model">登录数据实体</param>
+            <returns>登录状态</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.IStateProvider.Logout(System.String)">
+            <summary>
+            退出登录
+            </summary>
+            <param name="userName">用户名</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.IStateProvider.SendPasswordResetMessage(System.String,System.String,System.String)">
+            <summary>
+            发送密码重置信息（如邮件）
+            </summary>
+            <param name="userName"></param>
+            <param name="email"></param>
+            <param name="resetUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.IStateProvider.ResetPassword(Jurassic.AppCenter.Models.PasswordResetModel)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.IStateProvider.ChangePassword(Jurassic.AppCenter.Models.PasswordChangeModel)">
+            <summary>
+            更改密码
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Jurassic.AppCenter.IStateProvider.Timeout">
+            <summary>
+             指定登录过期时间
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.LoginState">
+            <summary>
+            表示登录状态的枚举
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.LoginState.UnKnown">
+            <summary>
+            默认值,无状态
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.LoginState.OK">
+            <summary>
+            登录成功
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.LoginState.PasswordError">
+            <summary>
+            密码错误
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.LoginState.UserNotExist">
+            <summary>
+            用户不存在
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.LoginState.UserOrPasswordError">
+            <summary>
+            用户不存在或密码错误
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.LoginState.AccoutLocked">
+            <summary>
+            帐户被锁定
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.TreeDataManagerBase`2">
+            <summary>
+            用于管理线性结构存储的层级结构的数据
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <typeparam name="TId">数据的主键类型</typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.TreeDataManagerBase`2.GetChildren(`1)">
+            <summary>
+            获取直接下级
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.TreeDataManagerBase`2.GetDescendant(`1)">
+            <summary>
+            获取所有后代
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.TreeDataManagerBase`2.Delete(`1[])">
+            <summary>
+            批量删除结点
+            </summary>
+            <param name="idArr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.TreeDataManagerBase`2.Move(System.Collections.Generic.IEnumerable{`1},`1)">
+            <summary>
+            将选中结点移到另一个结点下
+            </summary>
+            <param name="ids">要移动的结点ID列表</param>
+            <param name="pId">要移到的新结点ID，0代表移动到根结点</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.TreeDataManagerBase`2.Save(`0)">
+            <summary>
+            提交修改并返回树结点信息
+            </summary>
+            <param name="cat">要修改的功能</param>
+            <returns>修改后的功能信息Json</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.TreeDataManagerBase`2.GetDeepth(`1,`1)">
+            <summary>
+            获取指定栏目到根栏目的层级数
+            </summary>
+            <param name="catId"></param>
+            <param name="rootId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.UserDataProvider">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            AppUser的缺省的数据提供类，这个类只保证外部程序
+            没有提供相应的接口类时，应用程序不至于因空引用而崩溃
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.AppRole">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            角色实体
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppRole.#ctor">
+            <summary>
+            新建一个角色对象。并初始化功能ID列表为一个空表
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppRole.Id">
+            <summary>
+            角色ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppRole.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppRole.Description">
+            <summary>
+            角色描述
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppRole.FunctionIds">
+            <summary>
+            角色的功能ID列表
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.AppUser">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            用户实体类 
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppUser.#ctor">
+            <summary>
+            新建一个用户对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppUser.Id">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppUser.Name">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppUser.Password">
+            <summary>
+            用户密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppUser.RoleNames">
+            <summary>
+            用户的角色名称以,号分隔的字符串
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppUser.IsDefaultRole">
+            <summary>
+            by_zjf
+            用于判断当设置了用户与模块关系的情况下所采用授权方式 
+            以角色授权为主 true
+            以用户授权为主 false
+            默认值为true(王家新补充)
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppUser.IsInRoleId(System.String)">
+            <summary>
+            判断用户是否属于某个角色ID
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppUser.IsInRole(System.String)">
+            <summary>
+            判断用户是否属于一个角色名称
+            </summary>
+            <param name="roleName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.AppUser.AddRoleId(System.String)">
+            <summary>
+            给用户新增一个角色ID
+            </summary>
+            <param name="roleId"></param>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppUser.IsOnline">
+            <summary>
+            用户是否在线
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppUser.LastOpTime">
+            <summary>
+            用户最后一次的操作时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppUser.RoleIds">
+            <summary>
+            用户的角色ID列表
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.AppUser.FunctionIds">
+            <summary>
+            为用户单独指定的功能ID列表
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.EFAuditDataService`1">
+            <remarks>王家新, 2015-04-12, 2014-04-12</remarks>
+            <summary>
+            基于EF的数据访问接口实现
+            </summary>
+            <typeparam name="T">DTO数据实体类型</typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.EFAuditDataService`1.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            ctor
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.EFAuditDataService`1.BeginTrans">
+            <summary>
+            开启事务
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.EFAuditDataService`1.EndTrans">
+            <summary>
+            事务提交
+            判断:_trans对象不为空前提下
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.EFAuditDataService`1.RollbackTrans">
+            <summary>
+            事务回滚
+            判断:_trans对象不为空前提下
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.EFAuditDataService`1.MarkState(System.Object,System.Data.Entity.EntityState)">
+            <summary>
+            标记一个对象的增删改状态
+            </summary>
+            <param name="t"></param>
+            <param name="state"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.EFAuditDataService`1.Add(`0)">
+            <summary>
+            新增对象
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.EFAuditDataService`1.Change(`0)">
+            <summary>
+            编辑对象
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.EFAuditDataService`1.Delete(`0)">
+            <summary>
+            删除对象
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.EFAuditDataService`1.ExecComm">
+            <remarks>zjf, 2016-01-15</remarks>
+            <summary>
+            执行增删改
+            如在使用事务的情况下出现异常会自动进行回滚 
+            </summary>
+            <param name="_context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.AdoAuditDataService`1">
+            <summary>
+            基于ADO.net的数据访问接口实现
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+        </member>
+        <member name="M:Jurassic.AppCenter.AdoAuditDataService`1.#ctor(Jurassic.Com.DB.DBHelper)">
+            <summary>
+            根据DBHelper创建一个
+            </summary>
+            <param name="helper"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.FunctionExtensions.HasChildren(Jurassic.AppCenter.AppFunction)">
+            <summary>
+            判断有无下级
+            </summary>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.FunctionExtensions.GetChildren(Jurassic.AppCenter.AppFunction)">
+            <summary>
+            获取功能项的直接下级列表
+            </summary>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.FunctionExtensions.GetFamily(Jurassic.AppCenter.AppFunction)">
+            <summary>
+            获取一个权限结点的所有上级和下级以及它本身
+            </summary>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Jurassic.AppCenter.DbSchemaVersionManager.GetInstance">
+            <summary>
+            获取实例
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.DbSchemaVersionManager.ValidateVersion">
+            <summary>
+            判断数据库与框架的数据架构版本是否一致
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DbSchemaVersionManager.GetMaxVersionFromDB">
+            <summary>
+            从数据库中获取数据库架构最新版本号
+            </summary>
+            <returns>-1：version表不存在，0：没有初始版本数据，其他：最新版本号</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DbSchemaVersionManager.GetDbSchemaScript">
+            <summary>
+            获取差异版本更新脚本
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.DbSchemaVersionManager.UpdateDbSchemaToMaxVersion">
+            <summary>
+            更新数据库架构到最新版本
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.ISchemaScriptProvider.GetSchemaScriptDictionary">
+            <summary>
+            获取数据库架构脚本字典
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.MssqlSchemaScriptProvider.GetCurrentFrameSchemaVersion">
+            <summary>
+            当前框架数据结构版本
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.MssqlSchemaScriptProvider.SchemaScriptDictionaryInitialization">
+            <summary>
+            架构脚本初始化
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.JsonHelper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            使用NewtonSoft.Json进行序列化和反序列化的帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.JsonHelper.ToJson(System.Object,System.Boolean)">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            序列化数据为Json数据格式.选择是否使用可读性强的缩进格式
+            </summary>
+            <param name="value">被序列化的对象</param>
+            <param name="indent">是否是可读的缩进格式</param>
+            <returns>json字符串</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.JsonHelper.FromJson``1(System.String)">
+            <summary>
+            反序列化json字符串得到相应的对象
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="json">json字符串</param>
+            <returns>反序列化得到的对象，如果json是空串，则返回T的默认值</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.JsonHelper.FormJson(System.String,System.Type)">
+            <summary>
+            反序列化json字符串得到相应的对象
+            </summary>
+            <param name="json">json字符串</param>
+            <param name="t">对象类型</param>
+            <returns>反序列化得到的对象，如果json是空串，则返回则返回t的默认值</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.JsonHelper.FormJson(System.String)">
+            <summary>
+            反序列化得到一个由Hashtable组成的ArrayList对象(当字符串是一个json的对象数组时)，或一个Hashtable对象(当字符串是单个json对象时），
+            或一个日期（当字符串是一个日期时），取决于输入的Json字符串的特征。
+            </summary>
+            <param name="json">输入的Json字符串</param>
+            <returns>反序列化后得到的对象</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.IIdName">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            含字符型ID和名称的数据定义接口
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.IIdNameBase`1.Name">
+            <summary>
+            对象名称
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.IUniqueName">
+            <summary>
+            标志接口，表示名称必须唯一
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.RefHelper">
+            <summary>
+            关于反射的帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.RegisterPraser``1(Jurassic.AppCenter.IPraseable)">
+            <summary>
+            注册解析类，用于从字符串解析成对象
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="praser">解析对象，实现了<see cref="T:Jurassic.AppCenter.IPraseable"/>的接口</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.GetPathProperty(System.Object,System.String)">
+            <summary>
+            反射获取用'.'号隔开的对象路径中的对象
+            </summary>
+            <param name="obj">对象</param>
+            <param name="propertyPathName">'.'号分隔的对象路径</param>
+            <returns>反射获取的对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.GetPathValue(System.Object,System.String)">
+            <summary>
+            获取对象的一个嵌套的属性或字段值
+            </summary>
+            <param name="obj">对象</param>
+            <param name="propertyPathName">用.号分隔的名称</param>
+            <returns>获取的值</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.SetPathValue(System.Object,System.String,System.String)">
+            <summary>
+            设置对象的一个嵌套的属性或字段值
+            </summary>
+            <param name="obj"></param>
+            <param name="propertyPathName">用.号分隔的名称</param>
+            <param name="value">要设置的值</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.GetPropertyInfo(System.Object,System.String)">
+            <summary>
+            获取对象的属性信息
+            </summary>
+            <param name="obj">对象</param>
+            <param name="propertyName">属性名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.GetFieldInfo(System.Object,System.String)">
+            <summary>
+            获取对象的字段信息
+            </summary>
+            <param name="obj">对象</param>
+            <param name="fieldName">字段名</param>
+            <returns>字段</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.SetValue(System.Object,System.String,System.String,System.Type)">
+            <summary>
+            将value中的值赋给对象的属性或字段
+            </summary>
+            <param name="obj">对象</param>
+            <param name="propName">属性名</param>
+            <param name="value">值</param>
+            <param name="actualType">值的类型，为空时自动判断</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.SetFieldValue(System.Object,System.Reflection.FieldInfo,System.String,System.Type)">
+            <summary>
+            更新对象中字段的值
+            </summary>
+            <param name="obj">对象</param>
+            <param name="fi">字段信息</param>
+            <param name="value">值</param>
+            <param name="actualType">值的类型，为空时自动判断</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.GetValue(System.Object,System.String)">
+            <summary>
+            获取对象的public属性值或字段值
+            </summary>
+            <param name="obj">对象</param>
+            <param name="propName">属性名</param>
+            <returns>值</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.LoadClass(System.String)">
+            <summary>
+            通过反射生成指定类型对象
+            </summary>
+            <param name="fullClassName">类型全称</param>
+            <returns>对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.LoadClass(System.String,System.String)">
+            <summary>
+            带参数反射生成对象
+            </summary>
+            <param name="fullClassName">类的完全限定名</param>
+            <param name="param">构造函数参数</param>
+            <returns>对象</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.LoadAssembly(System.String)">
+            <summary>
+            根据类名加载所在程序集，类名必须是完全限定名
+            </summary>
+            <param name="fullClassName">类型的全称</param>
+            <returns>程序集</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.LoadType(System.String)">
+            <summary>
+            加载指定类型
+            </summary>
+            <param name="fullClassName">类型的全称</param>
+            <returns>指定类型的Type</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.CallMethod(System.Object,System.String,System.Object[])">
+            <summary>
+            通过反射直接调用对象指定名称的方法，方法可以为非public, 但不是static
+            </summary>
+            <param name="obj">定义了此方法的对象</param>
+            <param name="methodName">方法名称</param>
+            <param name="p">参数列表</param>
+            <returns>方法执行后的返回值</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.CallMethod(System.Object,System.String,System.Type[],System.Object[])">
+            <summary>
+            通过反射直接调用对象指定名称的泛型方法，方法可以为非public, 但不是static
+            </summary>
+            <param name="obj">定义了此方法的对象</param>
+            <param name="methodName">方法名称</param>
+            <param name="types">泛型类型参数</param>
+            <param name="p">参数列表</param>
+            <returns>方法执行后的返回值</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.RefHelper.Wrapper(System.Type)">
+            <summary>
+            将一个类型动态生成另一个子类，并在其继承的接口上打上[ServiceContract]标记
+            </summary>
+            <param name="sourceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.PointPraser.Prase(System.String)">
+            <summary>
+            分析字符串，返回Point
+            </summary>
+            <param name="tStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SizePraser.Prase(System.String)">
+            <summary>
+            分析字符串，返回Size
+            </summary>
+            <param name="tStr"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.JAuthAttribute">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            用于定义菜单项
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.JAuthAttribute.#ctor">
+            <summary>
+            根据默认值新建一个菜单标记，默认是需要有角色的用户
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.JAuthAttribute.#ctor(Jurassic.AppCenter.JAuthType)">
+            <summary>
+            根据授权类型创建一个权限标签
+            </summary>
+            <param name="authType">授权类型</param>
+        </member>
+        <member name="P:Jurassic.AppCenter.JAuthAttribute.AuthType">
+            <summary>
+            授权类型
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.JAuthAttribute.#ctor(Jurassic.AppCenter.VisibleType)">
+            <summary>
+            用此构造函数构造一个显式定义不显示的菜单
+            </summary>
+            <param name="visible">当为false时扫描程程序忽略该菜单</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.JAuthAttribute.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            根据名称，ID和排序位创建一个菜单标记。
+            </summary>
+            <param name="name">菜单名称</param>
+            <param name="id">菜单ID</param>
+            <param name="ord">排序位</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.JAuthAttribute.#ctor(Jurassic.AppCenter.JAuthType,System.String,System.String,System.Int32)">
+            <summary>
+            根据授权类型、名称、ID和排序位创建一个菜单标记。
+            </summary>
+            <param name="authType">授权类型</param>
+            <param name="name">菜单名称</param>
+            <param name="id">菜单ID</param>
+            <param name="ord">排序位</param>
+        </member>
+        <member name="P:Jurassic.AppCenter.JAuthAttribute.Name">
+            <summary>
+            菜单名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.JAuthAttribute.AreaName">
+            <summary>
+            功能所在区域名
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.JAuthAttribute.Ord">
+            <summary>
+            功能在菜单中的排序位
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.JAuthAttribute.Visible">
+            <summary>
+            功能是否会在菜单中出现
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.JAuthAttribute.LogType">
+            <summary>
+            日志记录的级别
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.JAuthAttribute.Id">
+            <summary>
+            显式定义该功能的ID,不能和其他的显式定义的ID重复
+            默认为空, 表示由系统自动分配ID
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.JException">
+            <summary>
+            自定义异常类，用于主动抛出的异常
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Logs.LogHelper">
+            <summary>
+            系统日志帮助类
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Logs.LogHelper.Write(Jurassic.AppCenter.Logs.JLogInfo,System.Exception)">
+            <summary>
+            输出日志到Log4Net
+            </summary>
+            <param name="logInfo"></param>
+            <param name="ex"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Logs.LogHelper.GetOSNameByUserAgent(System.String)">
+            <summary>   
+            根据 User Agent 获取操作系统名称   
+            </summary>   
+        </member>
+        <member name="T:Jurassic.AppCenter.Logs.JLogInfo">
+            <summary>
+            系统日志数据实体类
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Models.FunctionInitializer">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            扫描程序集，初始化权限数据
+            新的扫描结果对照已有的功能列表，保证原有功能的ID不变
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Models.FunctionInitializer.#ctor">
+            <summary>
+            建立一个扫描DLL获取所有功能的对象
+            新的扫描结果对照已有的功能列表，保证原有对象的ID不变
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Models.FunctionInitializer.InitFunctions(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            根据程序集列表，反射生成系统功能列表
+            </summary>
+            <param name="arrPaths">程序集所在路径名称列表</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Models.FunctionInitializer.GetFunctions(Jurassic.AppCenter.JTree{Jurassic.AppCenter.AppFunction},System.Reflection.Assembly)">
+            <summary>
+            根据程序集反射出所有的需权限的控制器和功能
+            </summary>
+            <param name="rootTree">程序集根结点</param>
+            <param name="assembly">程序集</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Models.FunctionInitializer.MakePostRegTail(Jurassic.AppCenter.AppFunction,Jurassic.AppCenter.Models.MvcFuncInfo)">
+            <summary>
+            生成POST的Action的URL规则
+            </summary>
+            <param name="child"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Models.FunctionInitializer.MakeRegTail(Jurassic.AppCenter.AppFunction,Jurassic.AppCenter.Models.MvcFuncInfo)">
+            <summary>
+            生成GET的Action的URL规则
+            </summary>
+            <param name="child"></param>
+            <param name="info"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Models.FunctionInitializer.FormatControllerName(System.String)">
+            <summary>
+            Formats the name of the controller,remove all of the namespace information from the controller names
+            </summary>
+            <param name="typeName">Name of the type.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.Models.LoginModel">
+            <summary>
+            用于用户登录的ViewModel
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.LoginModel.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.LoginModel.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.LoginModel.RememberMe">
+            <summary>
+            是否记住我
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.LoginModel.AutoLogin">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.LoginModel.IsChangedPassword">
+            <summary>
+            是否强制修改密码
+            </summary> 
+        </member>
+        <member name="T:Jurassic.AppCenter.Models.PasswordResetModel">
+            <summary>
+            用户重设密码的数据定义实体类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.PasswordResetModel.IsResetPass">
+            <summary>
+            是否属于系统重置密码
+            IsResetPass=1 系统重置密码
+            IsResetPass = 0  邮箱方式重置密码
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Models.PasswordChangeModel">
+            <summary>
+            用户修改密码的数据定义实体类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.MvcFuncInfo.AuthType">
+            <summary>
+            授权类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.MvcFuncInfo.HasPost">
+            <summary>
+            是否标记了[POST]
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Models.NetFileInfo">
+            <summary>
+            自动更新服务向客户端传递的文件信息
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.Models.NetFileInfo.DefaultServerDir">
+            <summary>
+            服务端自动更新目录的默认名称
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.Models.NetFileInfo.FullName">
+            <summary>
+            文件全名
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.Models.NetFileInfo.Length">
+            <summary>
+            文件大小(字节数)
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.Models.NetFileInfo.UpdateTime">
+            <summary>
+            文件改写时间
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Models.SetupModel">
+            <summary>
+            执行Setup操作,指定管理员角色和账户名的ViewModel
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.SetupModel.AdminRoleName">
+            <summary>
+            管理员角色名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Models.SetupModel.AdminUserName">
+            <summary>
+            管理员用户名
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Pager">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            简单分页算法类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Pager.RecordCount">
+            <summary>
+            总记录数
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Pager.PageIndex">
+            <summary>
+            当前页号
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Pager.PageSize">
+            <summary>
+            每页记录条数
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Pager.PageCount">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Pager.Pages">
+            <summary>
+            用于显示的页号数组，如果中间有小于0的页号，则表示是省略号
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Pager.AbsRowIndex">
+            <summary>
+            当前记录的绝对位置 
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Pager`1">
+            <summary>
+            包含结果数据的分页类，可以用来枚举
+            </summary>
+            <typeparam name="T">结果数据集合中元素的类型</typeparam>
+        </member>
+        <member name="F:Jurassic.AppCenter.Pager`1.mResultSet">
+            <summary>
+            分页得到的结果集
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Pager`1.OrignalQuery">
+            <summary>
+            分页之前的查询
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Pager`1.#ctor(System.Linq.IQueryable{`0},System.Int32,System.Int32)">
+            <summary>
+            根据指定的集合表达式和排序字段得出一个分页对象和分页后的数据集
+            </summary>
+            <param name="allList">初始的集合</param>
+            <param name="page">页号</param>
+            <param name="pageSize">页数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Pager`1.#ctor(System.Linq.IQueryable{`0},System.Func{System.Linq.IQueryable{`0},System.Linq.IQueryable{`0}},System.Int32,System.Int32)">
+            <summary>
+            根据指定的集合表达式和排序的委托得出一个分页对象和分页后的数据集
+            这一般用于多重排序
+            </summary>
+            <param name="allList">数据实体列表</param>
+            <param name="OnSorting">排序时调用的排序委托</param>
+            <param name="page">当前页号(从1开始)</param>
+            <param name="pageSize">每页记录数</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Pager`1.#ctor(System.Linq.IQueryable{`0},System.String,System.Int32,System.Int32)">
+            <summary>
+            根据指定的集合表达式和排序的字符串表达式(类似于sql的orderby条件的写法）得出一个分页对象和分页后的数据集
+            可以支持多重排序
+            </summary>
+            <param name="allList">集合表达式</param>
+            <param name="sortExpression">排序的字符串表达式(类似于sql的orderby条件的写法）</param>
+            <param name="page">当前页号(从1开始)</param>
+            <param name="pageSize">每页记录数</param>
+        </member>
+        <member name="T:Jurassic.AppCenter.ProcesserBase">
+            <summary>
+            定义可以排队处理的一些业务操作的基类
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.ProcesserBase.Name">
+            <summary>
+            处理器名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.ProcesserBase.Processed">
+            <summary>
+            已经处理的项数目
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.ProcesserBase.Total">
+            <summary>
+            所有项数目
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.ProcesserBase.Remain">
+            <summary>
+            剩余的项数目
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.ProcesserBase.Message">
+            <summary>
+            其他信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.ProcesserBase.ProcessedPercent">
+            <summary>
+            完成百分比
+            </summary>
+        </member>
+        <member name="E:Jurassic.AppCenter.ProcesserBase.ProgressChanged">
+            <summary>
+            报告进度的委托
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserBase.Add(System.Object)">
+            <summary>
+            在处理器中添加一个元素并开始处理
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserBase.DeQueue">
+            <summary>
+            待处理资讯出队
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserBase.Process(System.Object)">
+            <summary>
+            实际用于处理item的方法
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="T:Jurassic.AppCenter.TimerProcesser">
+            <summary>
+            用于定时执行某些任务的处理器
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.TimerProcesser.Interval">
+            <summary>
+            定时器间隔的毫秒数
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.TimerProcesser.LoadData">
+            <summary>
+            当待处理队列为空时，从数据库或其他方法获取待处理数据的方法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.ProcesserFactory">
+            <summary>
+            定义用于延时处理一些逻辑的处理器工厂
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.ProcesserFactory.Instance">
+            <summary>
+            处理器工厂的单实例
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserFactory.Add(System.String,System.Object)">
+            <summary>
+            将待处理对象添加进工厂中的指定处理器中
+            </summary>
+            <typeparam name="T">待处理对象的类型</typeparam>
+            <param name="procName">处理器名称</param>
+            <param name="obj">待处理对象</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserFactory.Start(System.String)">
+            <summary>
+            启动某个处理器
+            </summary>
+            <param name="procName"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserFactory.Stop(System.String)">
+            <summary>
+            停止某个处理器
+            </summary>
+            <param name="procName"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserFactory.GetAllProcessers">
+            <summary>
+            获取所有处理器列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserFactory.ClearAll">
+            <summary>
+            清除所有处理器
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserFactory.Process(System.String,System.Object)">
+            <summary>
+            在工厂中立即处理待处理对象
+            </summary>
+            <typeparam name="T">待处理对象的类型</typeparam>
+            <param name="processerName">处理器名称</param>
+            <param name="obj">待处理对象</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.ProcesserFactory.Register(System.String,Jurassic.AppCenter.ProcesserBase)">
+            <summary>
+            注册新的处理器
+            </summary>
+            <typeparam name="T">待处理对象的类型</typeparam>
+            <param name="processerName">处理器名称</param>
+            <param name="processer">处理器实例</param>
+        </member>
+        <member name="T:Jurassic.AppCenter.TimeHelper">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            获取服务器时间的帮助类，它可以使客户机/服务器时间保持一致
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.TimeHelper.ServerTime">
+            <summary>
+            当前服务器时间
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.TimeHelper.GetTimeFromServer">
+            <summary>
+            从数据库服务器获取当前时间。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.JTree`1">
+            <summary>
+            一般性的树结构
+            </summary>
+            <typeparam name="T">作为树结点的数据类型</typeparam>
+        </member>
+        <member name="P:Jurassic.AppCenter.JTree`1.Node">
+            <summary>
+            树的结点数据
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.JTree`1.Parent">
+            <summary>
+            树的父结点
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.JTree`1.Children">
+            <summary>
+            树的子结点集合
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.JTree`1.Length">
+            <summary>
+            直接子元素的个数
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.JTree`1.#ctor(`0)">
+            <summary>
+            用一个根结点初始化一个树
+            </summary>
+            <param name="root">根结点的数据</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.JTree`1.#ctor">
+            <summary>
+            初始化一个空树
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.JTree`1.Add(`0)">
+            <summary>
+            将一个数据加入树的子结点
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.JTree`1.Remove(`0)">
+            <summary>
+            在整树中查找，从树中删除指定数据的结点
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.JTree`1.Remove(Jurassic.AppCenter.JTree{`0})">
+            <summary>
+            删除树的第一级子树
+            </summary>
+            <param name="child">第一级子树</param>
+            <returns>被删除的子树</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.JTree`1.Find(`0)">
+            <summary>
+            在整树中查找指定数据的子树
+            </summary>
+            <param name="node">要查找的数据</param>
+            <returns>找到的子树，找不到返回null</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.JTree`1.FindTree(System.Func{`0,System.Boolean})">
+            <summary>
+            在整树中通过指定条件查找第一个满足条件的子树
+            </summary>
+            <param name="istrue">判断条件</param>
+            <returns>子树</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.JTree`1.FindTrees(System.Func{`0,System.Boolean})">
+            <summary>
+            在整树中通过指定条件查找所有满足条件的子树
+            </summary>
+            <param name="istrue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.JTree`1.GetEnumerator">
+            <summary>
+            获取遍历树中所有数据的枚举器
+            </summary>
+            <returns>枚举器</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.WebMethod">
+            <summary>
+            web页面提交请求的方法
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.JAuthType">
+            <summary>
+            授权类型
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.JAuthType.NeedAuth">
+            <summary>
+            需要角色权限
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.JAuthType.AllUsers">
+            <summary>
+            所有登录用户可访问
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.JAuthType.EveryOne">
+            <summary>
+            所有人可访问
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.JAuthType.Ignore">
+            <summary>
+            所有人可访问, 并且扫描程序会忽略掉此方法的权限判断。<br />
+            也不会在功能树中出现
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.JAuthType.Forbidden">
+            <summary>
+            所有人都不可访问
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.VisibleType">
+            <summary>
+            功能项出现的方式 
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.None">
+            <summary>
+            表示既不在权限控制菜单也不在用户菜单显示
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.Menu">
+            <summary>
+            表示在用户菜单显示
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.Role">
+            <summary>
+            在权限菜单显示
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.All">
+            <summary>
+            同时在权限菜单和用户菜单显示
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.Top">
+            <summary>
+            在顶部显示
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.Container">
+            <summary>
+            此菜单项点击后会形成一个容器
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.Button">
+            <summary>
+            作为按钮显示
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.GroupBegin">
+            <summary>
+            表示是一个按钮组的第一个按钮
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.QuckAccessBar">
+            <summary>
+            表示是快捷访问工具栏
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.LargeSize">
+            <summary>
+            大尺寸按钮
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.IsService">
+            <summary>
+            服务
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.DefaultButton">
+            <summary>
+            默认提交按钮
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.VisibleType.Widget">
+            <summary>
+            首页部件
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Resources.JStr">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.About">
+            <summary>
+              查找类似 About 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Account">
+            <summary>
+              查找类似 Account 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Add">
+            <summary>
+              查找类似 Add 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Added">
+            <summary>
+              查找类似 Added 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Address">
+            <summary>
+              查找类似 Address 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.All">
+            <summary>
+              查找类似 All 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Application">
+            <summary>
+              查找类似 Application 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Audit">
+            <summary>
+              查找类似 Audit 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Authorize">
+            <summary>
+              查找类似 Authorize 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Backward">
+            <summary>
+              查找类似 Backward 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Base">
+            <summary>
+              查找类似 Base 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Cancel">
+            <summary>
+              查找类似 Cancel 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Class">
+            <summary>
+              查找类似 Class 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Clear">
+            <summary>
+              查找类似 Clear 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Confirm">
+            <summary>
+              查找类似 Confirm 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Contact">
+            <summary>
+              查找类似 Contact 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Count">
+            <summary>
+              查找类似 Count 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Customer">
+            <summary>
+              查找类似 Customer 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Customers">
+            <summary>
+              查找类似 Customers 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Delete">
+            <summary>
+              查找类似 Delete 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Deleted">
+            <summary>
+              查找类似 Deleted 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Description">
+            <summary>
+              查找类似 Description 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Details">
+            <summary>
+              查找类似 Details 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Duplicated">
+            <summary>
+              查找类似 Duplicated 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Edit">
+            <summary>
+              查找类似 Edit 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Email">
+            <summary>
+              查找类似 Email 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Example">
+            <summary>
+              查找类似 Example 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Exists">
+            <summary>
+              查找类似 Exists 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Failure">
+            <summary>
+              查找类似 Failure 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Foreward">
+            <summary>
+              查找类似 Foreward 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Function">
+            <summary>
+              查找类似 Function 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Home">
+            <summary>
+              查找类似 Home 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.HomePage">
+            <summary>
+              查找类似 HomePage 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Icon">
+            <summary>
+              查找类似 Icon 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Index">
+            <summary>
+              查找类似 Index 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Info">
+            <summary>
+              查找类似 Info 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Initialize">
+            <summary>
+              查找类似 Initialize 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Jurassic">
+            <summary>
+              查找类似 Jurassic 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Language">
+            <summary>
+              查找类似 Language 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.List">
+            <summary>
+              查找类似 List 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Local">
+            <summary>
+              查找类似 Local 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Login">
+            <summary>
+              查找类似 Login 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Manage">
+            <summary>
+              查找类似 Manage 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Manager">
+            <summary>
+              查找类似 Manager 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Method">
+            <summary>
+              查找类似 Method 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Move">
+            <summary>
+              查找类似 Move 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Name">
+            <summary>
+              查找类似 Name 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Need">
+            <summary>
+              查找类似 Need 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.New">
+            <summary>
+              查找类似 New 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Node">
+            <summary>
+              查找类似 Node 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.NotFound">
+            <summary>
+              查找类似 Not found 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Offline">
+            <summary>
+              查找类似 Offline 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.OK">
+            <summary>
+              查找类似 OK 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Online">
+            <summary>
+              查找类似 Online 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Operation">
+            <summary>
+              查找类似 Operation 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Order">
+            <summary>
+              查找类似 Order 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Parent">
+            <summary>
+              查找类似 Parent 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Password">
+            <summary>
+              查找类似 Password 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Permission">
+            <summary>
+              查找类似 Permission 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.PhoneNumber">
+            <summary>
+              查找类似 PhoneNumber 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Please">
+            <summary>
+              查找类似 Please 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Prefix">
+            <summary>
+              查找类似 Prefix 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Refresh">
+            <summary>
+              查找类似 Refresh 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Regex">
+            <summary>
+              查找类似 Regex 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Remove">
+            <summary>
+              查找类似 Remove 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Reset">
+            <summary>
+              查找类似 Reset 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Resource">
+            <summary>
+              查找类似 Resource 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Resources">
+            <summary>
+              查找类似 Resources 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Restart">
+            <summary>
+              查找类似 Restart 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.ReturnTo">
+            <summary>
+              查找类似 ReturnTo 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Role">
+            <summary>
+              查找类似 Role 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Roles">
+            <summary>
+              查找类似 Roles 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Save">
+            <summary>
+              查找类似 Save 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Search">
+            <summary>
+              查找类似 Search 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Sort">
+            <summary>
+              查找类似 Sort 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Start">
+            <summary>
+              查找类似 Start 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Status">
+            <summary>
+              查找类似 Status 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Submit">
+            <summary>
+              查找类似 Submit 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Success">
+            <summary>
+              查找类似 Success 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Successed">
+            <summary>
+              查找类似 Successed 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Successfully">
+            <summary>
+              查找类似 Successfully 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Suffix">
+            <summary>
+              查找类似 Suffix 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.System">
+            <summary>
+              查找类似 System 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Timeout">
+            <summary>
+              查找类似 Timeout 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Tree">
+            <summary>
+              查找类似 Tree 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Type">
+            <summary>
+              查找类似 Type 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Update">
+            <summary>
+              查找类似 Update 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.User">
+            <summary>
+              查找类似 User 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.UserName">
+            <summary>
+              查找类似 User Name 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Users">
+            <summary>
+              查找类似 Users 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Visible">
+            <summary>
+              查找类似 Visible 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.WordSpc">
+            <summary>
+              查找类似   的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.You">
+            <summary>
+              查找类似 You 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.Resources.JStr.Your">
+            <summary>
+              查找类似 Your 的本地化字符串。
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.Resources.ResHelper">
+            <summary>
+            资源帮助类,统一管理全局的字符串资源。
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.GetStr(System.String,System.String)">
+            <summary>
+            获取资源字符串,此方法将先在CustomStrings.区域名.resx中查找，没找到在静态资源中查找，如再没有找到，则
+            直接返回defaultValue或name名并创建一个新的资源
+            </summary>
+            <param name="name">资源名</param>
+            <param name="defaultValue">当资源文件不存在此值时的默认值</param>
+            <returns>资源字符串</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.Format(System.String,System.Object[])">
+            <summary>
+            格式化输出带资源的字符串
+            </summary>
+            <param name="format">格式化串，用+号分隔资源关键字，其余同String.Format</param>
+            <param name="args">参数表</param>
+            <returns>用本地资源格式化后的串</returns>
+            <example>
+            <code>
+            var str = ResHelper.Format("User+'{0}'+Info+Update+Successed+!", "wangjiaxin");
+            </code>
+            </example>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.SaveAllRes">
+            <summary>
+            保存所有资源，包括没有用过的，可供用户再次编辑
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.GetAllResourceKeys">
+            <summary>
+            获取所有现有资源的名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.GetUsedCultureNames">
+            <summary>
+            获取已使用的语言名称清单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.ClearAllRes">
+            <summary>
+            清除所有资源,所有资源文件变为空文件
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.LoadAllRes">
+            <summary>
+            一次性加载所有语言的资源
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.GetGResources(System.String,System.String)">
+            <summary>
+            从g.resources命名空间中获取流，它通常是生成类型为"Resource"时生成的资源
+            </summary>
+            <param name="resNamespace">要保证命名空间和程序集名称相同</param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.GetGResourcesReader(System.String)">
+            <summary>
+            获取一个根据g.resources得到的资源读取器
+            </summary>
+            <param name="resNamespace"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.CombinAssemblyResx(System.Collections.Generic.IEnumerable{System.String},System.Boolean)">
+            <summary>
+            合并所有来自其他程序集的资源到主资源，前提是资源文件在对应项目的App_Data文件夹下
+            </summary>
+            <param name="resNamespaces">资源所在的命名空间名称列表</param>
+            <param name="overwriteExists">是否覆盖已经定义的资源</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.MakeDataTable">
+            <summary>
+            将所有语言的资源组成一个DataTable
+            DataTable第一列为Key,后面每一列代表一个地区的资源
+            </summary>
+            <returns>包含资源的DataTable</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.SaveDataTable(System.Data.DataTable)">
+            <summary>
+            保存DataTable中的数据到所有语言的资源文件
+            </summary>
+            <param name="dt">存有资源的DataTable</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.GetAllResStrJs(System.String)">
+            <summary>
+            将当前的区域信息所对应的资源序列化成js对象供前台js调用
+            本方法将自动按照当前线程的区域特性返回对应的资源对象。
+            </summary>
+            <param name="varName">生成的Js的对象名</param>
+            <returns>Js的一个对象语句</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.Resources.ResHelper.GetAssemblyResourceStream(System.Reflection.Assembly,System.String)">
+            <summary>
+            获取程序集嵌入的资源流
+            </summary>
+            <param name="assembly"></param>
+            <param name="resName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.StateManager">
+            <summary>
+            用户登录状态管理类，用于控制单点登录和用户个性化信息的缓存
+            在分布式环境下，必须保证一个服务进程始终处理一个用户的会话
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.StateManager.SingleLogin">
+            <summary>
+            是否单点登录，默认值是False
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.StateManager.UsersDict">
+            <summary>
+            存储用户会话的字典表
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.StateManager.#ctor(System.Boolean)">
+            <summary>
+            利用缓存提供类创建一个状态管理类
+            </summary>
+            <param name="singleLogin">是否要支持单点登录</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.StateManager.GetOnlineUsers">
+            <summary>
+            获取所有登录用户
+            </summary>
+            <returns>所有登录用户</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.StateManager.Add(Jurassic.AppCenter.AppServices.LoginResult)">
+            <summary>
+            新增用户会话信息到会话表
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.StateManager.GetLoginResult(System.String)">
+            <summary>
+            根据用户会话ID找到登录用户信息
+            </summary>
+            <param name="sessionId"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

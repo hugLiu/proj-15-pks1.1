@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{929DC150-2AD5-475C-B921-13C68C998519}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PKS.PageEngine</RootNamespace>
+    <AssemblyName>PKS.PageEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CatalogueItem.cs" />
+    <Compile Include="Consts.cs" />
+    <Compile Include="Data\DataLoadType.cs" />
+    <Compile Include="Data\ViewDataManager.cs" />
+    <Compile Include="EvenHandlers\ComponentEventArg.cs" />
+    <Compile Include="EvenHandlers\XEventArg.cs" />
+    <Compile Include="Extensions\PageContextExtension.cs" />
+    <Compile Include="Extensions\TypeConvertExtension.cs" />
+    <Compile Include="FragmentInfo.cs" />
+    <Compile Include="Data\JsDataModel.cs" />
+    <Compile Include="PageRenderEngine.cs" />
+    <Compile Include="Param\QueryOutputParam.cs" />
+    <Compile Include="Param\TextTemplateParam.cs" />
+    <Compile Include="Param\VParam.cs" />
+    <Compile Include="PageContext.cs" />
+    <Compile Include="Query\EsQueryPlanTranslator.cs" />
+    <Compile Include="Query\IQueryPlanTranslator.cs" />
+    <Compile Include="Query\OperationType.cs" />
+    <Compile Include="Query\QueryOrder.cs" />
+    <Compile Include="Query\QueryPlan.cs" />
+    <Compile Include="Query\QueryField.cs" />
+    <Compile Include="Query\FieldQueryType.cs" />
+    <Compile Include="View\ComponentQueryInfo.cs" />
+    <Compile Include="View\ViewComponentContainer.cs" />
+    <Compile Include="View\ViewComponentBase.cs" />
+    <Compile Include="View\ViewManager.cs" />
+    <Compile Include="View\ViewComponent.cs" />
+    <Compile Include="Param\ComponentParam.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

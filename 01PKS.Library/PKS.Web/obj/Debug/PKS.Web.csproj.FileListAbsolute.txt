@@ -1,0 +1,8 @@
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.Web.dll.config
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.Web.XML
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.Web.dll
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.Web.pdb
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\01PKS.Library\PKS.Web\obj\Debug\PKS.Web.csprojResolveAssemblyReference.cache
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\01PKS.Library\PKS.Web\obj\Debug\PKS.Web.csproj.CoreCompileInputs.cache
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\01PKS.Library\PKS.Web\obj\Debug\PKS.Web.dll
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\01PKS.Library\PKS.Web\obj\Debug\PKS.Web.pdb

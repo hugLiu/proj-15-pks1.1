@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.AppCenter.SmartClient.Infrastructure.Module</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Module.ActionFilters.DefaultFilter">
+            <summary>
+            默认筛选器，用于权限控制
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Module.PromptBox">
+            <summary>
+            接收用户输入一个字符串的对话框
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.PromptBox.#ctor">
+            <summary>
+            创建一个输入字符串的对话框
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.PromptBox.#ctor(System.String,System.String)">
+            <summary>
+            根据提示信息和默认值构造了一个输入对话框
+            </summary>
+            <param name="message"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Module.PromptBox.Value">
+            <summary>
+            返回值
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Module.PromptBox.Message">
+            <summary>
+            提示信息
+            </summary>
+        </member>
+        <member name="F:Jurassic.AppCenter.SmartClient.Infrastructure.Module.PromptBox.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.PromptBox.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.PromptBox.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.ModuleController.Run">
+            <summary>
+            启动这个控制器
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.ModuleController.ShowTopMenu(Jurassic.AppCenter.AppFunction)">
+            <summary>
+            生成开始屏幕中的菜单
+            </summary>
+            <param name="topFunc"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.ModuleController.CreateTool(Jurassic.AppCenter.AppFunction)">
+            <summary>
+            根据功能信息生成各类工具按钮
+            </summary>
+            <param name="func">功能信息实体对象</param>
+            <returns>ToolBase</returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.ModuleController.ExecuteController(Jurassic.AppCenter.AppFunction)">
+            <summary>
+            找到ContollerWorkItem中的Contoller属性并立即执行它的Run()方法
+            </summary>
+            <param name="func"></param>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Properties.Resources.DefaultIcon">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Properties.Resources.wait">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.MessageBoxService">
+            <summary>
+            用于显示提示框的服务，基于NetAdvantange14.2
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.MessageBoxService.#ctor(Infragistics.Win.UltraMessageBox.UltraMessageBoxManager)">
+            <summary>
+            创建一个提示框服务
+            </summary>
+            <param name="manager">NetAdvantage的提示框管理器</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.MessageBoxService.Confirm(System.String)">
+            <summary>
+            显示确认框
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.MessageBoxService.Error(System.String)">
+            <summary>
+            显示错误
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.MessageBoxService.Warning(System.String)">
+            <summary>
+            显示警告
+            </summary>
+            <param name="message">警告信息</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.MessageBoxService.Ask(System.String)">
+            <summary>
+            显示询问
+            </summary>
+            <param name="message">询问信息</param>
+            <returns>Yes/No//Cancel</returns>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.SplashService">
+            <summary>
+            用于展示窗体加载中缓冲界面的管理类
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.SplashService.Hide">
+            <summary>
+            隐藏
+            </summary>
+        </member>
+        <member name="T:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.StyleService">
+            <summary>
+            栏式切换服务，基于NetAdvantage14.2
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.StyleService.#ctor">
+            <summary>
+            创建一个样式切换服务
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.StyleService.GetStylesList">
+            <summary>
+            获取栏式列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.StyleService.StyleName">
+            <summary>
+            当前样式名称
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.Services.StyleService.ApplyStyle(System.String)">
+            <summary>
+            /应用样式名称
+            </summary>
+            <param name="styleName">样式名称</param>
+        </member>
+        <member name="F:Jurassic.AppCenter.SmartClient.Infrastructure.Module.SplashScreen.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.SplashScreen.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Jurassic.AppCenter.SmartClient.Infrastructure.Module.SplashScreen.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

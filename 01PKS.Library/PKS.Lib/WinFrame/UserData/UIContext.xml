@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <FormLogin>
+    <Key>LoginData</Key>
+    <TypeName>Jurassic.AppCenter.Models.LoginModel, Jurassic.AppCenter.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeName>
+    <Value>{
+  "UserName": "pmis",
+  "Password": "888888",
+  "RememberMe": true,
+  "AutoLogin": false
+}</Value>
+  </FormLogin>
+  <MainProgramApplication>
+    <Key>Shell.ToolbarsManager.Ribbon.DisplayMode</Key>
+    <TypeName>Infragistics.Win.UltraWinToolbars.RibbonDisplayMode, Infragistics4.Win.UltraWinToolbars.v14.2, Version=14.2.20142.1000, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb</TypeName>
+    <Value>Full</Value>
+  </MainProgramApplication>
+</NewDataSet>

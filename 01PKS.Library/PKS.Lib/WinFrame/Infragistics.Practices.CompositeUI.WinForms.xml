@@ -1,0 +1,1941 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Infragistics.Practices.CompositeUI.WinForms</name>
+    </assembly>
+    <members>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.IGApplicationContextApplication`2">
+            <summary>
+            A CAB shell application class used to start an application using a specified ApplicationContext.
+            </summary>
+            <typeparam name="TWorkItem">The type of the root application work item.</typeparam>
+            <typeparam name="TShell">The type of the <see cref="T:System.Windows.Forms.ApplicationContext"/> for the shell to use.</typeparam>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.IGApplicationContextApplication`2.Start">
+            <summary>
+            Used to start a message pump using the specified shell form.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.IGFormShellApplication`2">
+            <summary>
+            A CAB shell application class used to start an application using a specified Form.
+            </summary>
+            <typeparam name="TWorkItem">The type of the root application work item.</typeparam>
+            <typeparam name="TShell">The type of the form for the shell to use.</typeparam>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.IGFormShellApplication`2.Start">
+            <summary>
+            Used to start a message pump using the specified shell form.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.IGWindowsFormsApplicationBase`2">
+            <summary>
+            Defines an abstact cab application which shows a shell based on a Form that uses Infragistics WinForms components.
+            </summary>
+            <typeparam name="TWorkItem">The type of the root application work item.</typeparam>
+            <typeparam name="TShell">The type for the shell to use.</typeparam>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.IGWindowsFormsApplicationBase`2.#ctor">
+            <summary>
+            Initializes a new <see cref="!:IGWindowsFormsApplicationBase"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.IGWindowsFormsApplicationBase`2.AddBuilderStrategies(Microsoft.Practices.ObjectBuilder.Builder)">
+            <summary>
+            Added Windows Forms specific strategies to the builder.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.IGWindowsFormsApplicationBase`2.AfterShellCreated">
+            <summary>
+            See <see cref="M:Microsoft.Practices.CompositeUI.CabShellApplication`2.AfterShellCreated"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.IGWindowsFormsApplicationBase`2.ProvideInkSupport">
+            <summary>
+            Indicates if the application should automatically provide ink enabled functionality 
+            to the usercontrols and forms within the application.
+            </summary>
+            <remarks>
+            <p class="body">By default, ink functionality will be enabled if ink recognition is supported.</p>
+            </remarks>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.IGWindowsFormsApplicationBase`2.ProvideInkSupportResolved">
+            <summary>
+            Returns the resolved value for whether ink support should be extended to the application.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1">
+            <summary>
+            Abstract base class for a command adapter that associates a single command with a single uielement event.
+            </summary>
+            <typeparam name="TInvoker">Type of invoker for which the command adapter is associated</typeparam>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.Command">
+            <summary>
+            Returns the command associated with the command adapter.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.Invoker">
+            <summary>
+            Returns the invoker object associated with the command adapter.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.LogicalInvoker">
+            <summary>
+            Returns the object that will be used to identify the item in the master list.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.AddInvoker(System.Object,System.String)">
+            <summary>
+            Invoked to associated the command adapter with an object whose event will trigger the execution of the associated command.
+            </summary>
+            <param name="invoker">Object whose event will be hooked</param>
+            <param name="eventName">Name of the event to hook</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.BindCommand(Microsoft.Practices.CompositeUI.Commands.Command)">
+            <summary>
+            Informs the <see cref="T:Microsoft.Practices.CompositeUI.Commands.CommandAdapter"/> that has been adapted to the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.Command"/>.
+            </summary>
+            <param name="command">The <see cref="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.Command"/> to bind to.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.ContainsInvoker(System.Object)">
+            <summary>
+            Indicates if the specified invoker is associated with the command adapter.
+            </summary>
+            <param name="invoker">Object to evaluate</param>
+            <returns>True if the command adapter is associated with the specified invoker.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.Dispose(System.Boolean)">
+            <summary>
+            Disposes the invoker.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.InvokerCount">
+            <summary>
+            Returns the number of invokers associated with the command adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.OnCommandChanged(Microsoft.Practices.CompositeUI.Commands.Command)">
+            <summary>
+            Called when a binded <see cref="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.Command"/> fired the Changed event.
+            </summary>
+            <param name="command">The Command that fired the Changed event or null if the adapter is no longer associated with a command.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.RemoveInvoker(System.Object,System.String)">
+            <summary>
+            Invoked to unhook an object from the command adapter.
+            </summary>
+            <param name="invoker">Object whose event will be unhooked</param>
+            <param name="eventName">Name of the event to unhook</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.UnbindCommand(Microsoft.Practices.CompositeUI.Commands.Command)">
+            <summary>
+            Informs the <see cref="T:Microsoft.Practices.CompositeUI.Commands.CommandAdapter"/> that has been unbinded from the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.Command"/>.
+            </summary>
+            <param name="command">The <see cref="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.Command"/> from with to unbind.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.CreateLogicalInvoker(`0)">
+            <summary>
+            Implemented by a derived command adapter to create an object used to identify any instance of the invoking item.
+            </summary>
+            <param name="invoker">Object for which the invoker key should be created.</param>
+            <returns>An object that can be used as a key into a hashtable that can be used to compare to other instances of the invoker.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.GetEventSource(`0,System.String)">
+            <summary>
+            Returns the object whose event should be used to invoke the associated <see cref="P:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.Command"/>.
+            </summary>
+            <param name="invoker">Invoker being added to the command adapter.</param>
+            <param name="eventName">Name of the event being caught</param>
+            <returns>The object whose event is to be caught.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.HookEvent(System.Object,System.String)">
+            <summary>
+            Used to hook an event for use in invoking the adapter's ExecuteCommand event.
+            </summary>
+            <seealso cref="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.UnhookEvent(System.Object,System.String)"/>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.UnhookEvent(System.Object,System.String)">
+            <summary>
+            Used to unhook an event for use in invoking the adapter's ExecuteCommand event.
+            </summary>
+            <seealso cref="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.HookEvent(System.Object,System.String)"/>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.OnEventInvoked(System.Object,System.EventArgs)">
+            <summary>
+            Invoked when a method on the invoker has been raised.
+            </summary>
+            <param name="sender">Object whose event was raised</param>
+            <param name="e">Event arguments for the raised event.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.OnInvokerStateChanged">
+            <summary>
+            Invoked when the state of the associated invoker has been changed due to a command change.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.IUIElement.UpdateState(Microsoft.Practices.CompositeUI.Commands.CommandStatus)">
+            <summary>
+            Invoked when the state of the associated element needs to be updated
+            </summary>
+            <param name="newStatus">New command state</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.Commands.CommandAdapterBase`1.CommandAdapterManager">
+            <summary>
+            Manages the state of 
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarCommandAdapter">
+            <summary>
+            Class for managing the relationship between a <b>UltraExplorerBarItem</b> instances and a <see cref="T:Microsoft.Practices.CompositeUI.Commands.Command"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarCommandAdapter.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarCommandAdapter"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarCommandAdapter.GetEventSource(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItem,System.String)">
+            <summary>
+            Invoked to determine the object whose event should be hooked.
+            </summary>
+            <param name="invoker">Item for which the specified event will be hooked</param>
+            <param name="eventName">Event that will be hooked.</param>
+            <returns>The object whose event should be hooked.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarCommandAdapter.OnEventInvoked(System.Object,System.EventArgs)">
+            <summary>
+            Invoked when a method on the invoker has been raised.
+            </summary>
+            <param name="sender">Object whose event was raised</param>
+            <param name="e">Event arguments for the raised event.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarGroupCommandAdapter">
+            <summary>
+            Class for managing the relationship between a <b>UltraExplorerBarGroup</b> instances and a <see cref="T:Microsoft.Practices.CompositeUI.Commands.Command"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarGroupCommandAdapter.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarGroupCommandAdapter"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarGroupCommandAdapter.GetEventSource(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup,System.String)">
+            <summary>
+            Invoked to determine the object whose event should be hooked.
+            </summary>
+            <param name="invoker">Group for which the specified event will be hooked</param>
+            <param name="eventName">Event that will be hooked.</param>
+            <returns>The object whose event should be hooked.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.ExplorerBarGroupCommandAdapter.OnEventInvoked(System.Object,System.EventArgs)">
+            <summary>
+            Invoked when a method on the invoker has been raised.
+            </summary>
+            <param name="sender">Object whose event was raised</param>
+            <param name="e">Event arguments for the raised event.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.Commands.StatusPanelCommandAdapter">
+            <summary>
+            Class for managing the relationship between a <b>UltraStatusPanel</b> instances and a <see cref="T:Microsoft.Practices.CompositeUI.Commands.Command"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.StatusPanelCommandAdapter.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.Commands.StatusPanelCommandAdapter"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.StatusPanelCommandAdapter.GetEventSource(Infragistics.Win.UltraWinStatusBar.UltraStatusPanel,System.String)">
+            <summary>
+            Invoked to determine the object whose event should be hooked.
+            </summary>
+            <param name="invoker">Tool for which the specified event will be hooked</param>
+            <param name="eventName">Event that will be hooked.</param>
+            <returns>The object whose event should be hooked.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.StatusPanelCommandAdapter.OnEventInvoked(System.Object,System.EventArgs)">
+            <summary>
+            Invoked when a method on the invoker has been raised.
+            </summary>
+            <param name="sender">Object whose event was raised</param>
+            <param name="e">Event arguments for the raised event.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.Commands.ToolBaseCommandAdapter">
+            <summary>
+            Class for managing the relationship between a <b>ToolBase</b> and a <see cref="T:Microsoft.Practices.CompositeUI.Commands.Command"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.ToolBaseCommandAdapter.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.Commands.ToolBaseCommandAdapter"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.ToolBaseCommandAdapter.GetEventSource(Infragistics.Win.UltraWinToolbars.ToolBase,System.String)">
+            <summary>
+            Invoked to determine the object whose event should be hooked.
+            </summary>
+            <param name="invoker">Tool for which the specified event will be hooked</param>
+            <param name="eventName">Event that will be hooked.</param>
+            <returns>The object whose event should be hooked.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.ToolBaseCommandAdapter.OnEventInvoked(System.Object,System.EventArgs)">
+            <summary>
+            Invoked when a method on the invoker has been raised.
+            </summary>
+            <param name="sender">Object whose event was raised</param>
+            <param name="e">Event arguments for the raised event.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.Commands.TreeNodeCommandAdapter">
+            <summary>
+            Class for managing the relationship between <b>UltraTreeNode</b> instances and a <see cref="T:Microsoft.Practices.CompositeUI.Commands.Command"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.TreeNodeCommandAdapter.#ctor">
+            <summary>
+            Initializes a new <see cref="!:TreeCommandAdapter"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.TreeNodeCommandAdapter.GetEventSource(Infragistics.Win.UltraWinTree.UltraTreeNode,System.String)">
+            <summary>
+            Invoked to determine the object whose event should be hooked.
+            </summary>
+            <param name="invoker">Node for which the specified event will be hooked</param>
+            <param name="eventName">Event that will be hooked.</param>
+            <returns>The object whose event should be hooked.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.Commands.TreeNodeCommandAdapter.OnEventInvoked(System.Object,System.EventArgs)">
+            <summary>
+            Invoked when a method on the invoker has been raised.
+            </summary>
+            <param name="sender">Object whose event was raised</param>
+            <param name="e">Event arguments for the raised event.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.AdapterAlreadyHasInvoker">
+            <summary>
+              查找类似 The adapter is already associated with an invoker. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.CannotAcceptTaskPaneTool">
+            <summary>
+              查找类似 The tool cannot be a &apos;TaskPaneTool&apos;. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Category_Appearance">
+            <summary>
+              查找类似 Appearance 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Category_Behavior">
+            <summary>
+              查找类似 Behavior 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Category_CompositeUI">
+            <summary>
+              查找类似 Composite UI 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Category_Layout">
+            <summary>
+              查找类似 Layout 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_ImageSmartPartInfo_Image">
+            <summary>
+              查找类似 The image to be displayed for the smart part in the associated workspace. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraDockSmartPartInfo_DefaultLocation">
+            <summary>
+              查找类似 The default location for the dock area created to contain the smart part if the &apos;PreferredGroup&apos; is not located. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraDockSmartPartInfo_DefaultPaneStyle">
+            <summary>
+              查找类似 The style of the dockarea pane created to contain the smart part if the &apos;PreferredGroup&apos; is not located. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraDockSmartPartInfo_PreferredGroup">
+            <summary>
+              查找类似 The key of the group to which the pane containing the smart part should be added. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraDockSmartPartInfo_PreferredSize">
+            <summary>
+              查找类似 The size at which the pane containing the smart part should be created. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraDockWorkspace">
+            <summary>
+              查找类似 An UltraDockManager that provides workspace infrastructure for use with CAB. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraExplorerBarWorkspace">
+            <summary>
+              查找类似 An UltraExplorerBar that provides workspace infrastructure for use with CAB. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraMdiTabSmartPartInfo_PreferredGroup">
+            <summary>
+              查找类似 The key of the group to which the tab containing the smart part should be added. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraMdiTabWorkspace">
+            <summary>
+              查找类似 An UltraTabbedMdiManager that provides workspace infrastructure for use with CAB. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraTabSmartPartInfo_ActivateTab">
+            <summary>
+              查找类似 Indicates whether the tab should be activated when shown. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraTabWorkspace">
+            <summary>
+              查找类似 An UltraTabControl that provides workspace infrastructure for use with CAB. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraToolbarsManagerWorkspace">
+            <summary>
+              查找类似 An UltraToolbarsManager that provides workspace infrastructure for use with CAB. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraToolbarsSmartPartInfo_HeaderCaption">
+            <summary>
+              查找类似 The text displayed in the task pane toolbar when the smart part is activated. By default, the &apos;Title&apos; will be displayed. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraToolbarsSmartPartInfo_PreferredDockedLocation">
+            <summary>
+              查找类似 Determine where the task pane toolbar will be docked if one is created to display the smart part. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraToolbarsSmartPartInfo_PreferredExtent">
+            <summary>
+              查找类似 The DockedContentExtent used for the task pane toolbar if one is created to display the smart part. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraToolbarsSmartPartInfo_PreferredNavigationStyle">
+            <summary>
+              查找类似 Determine whether the task pane toolbar will display the navigation buttons if one is created to display the smart part. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraToolbarsSmartPartInfo_PreferredShowHomeButton">
+            <summary>
+              查找类似 Determine whether the task pane toolbar will display the home button if one is created to display the smart part. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraToolbarsSmartPartInfo_PreferredTaskPane">
+            <summary>
+              查找类似 The key of the task pane toolbar in which to display the smart part; otherwise the key of the task pane toolbar created. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_UltraToolbarsSmartPartInfo_ResizeMode">
+            <summary>
+              查找类似 Indicates how the smart part should be resized when the associated task pane tool is selected or the containing task pane toolbar is resized. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_Workspace_E_SmartPartActivated">
+            <summary>
+              查找类似 Invoked when a smart part within the workspace is activated. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.Desc_Workspace_E_SmartPartClosing">
+            <summary>
+              查找类似 Cancelable event that occurs when a smart part within the workspace is about to be closed. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.DifferentInvoker">
+            <summary>
+              查找类似 The adapter is not associated with the specified invoker. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.InvalidAdapterElementType">
+            <summary>
+              查找类似 The specified uielement type &apos;{0}&apos; is not a valid for the &apos;{1}&apos;. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.InvalidAdapterForKey">
+            <summary>
+              查找类似 The specified adapter is not associated with the specified key. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.InvalidElementHost">
+            <summary>
+              查找类似 &apos;{0}&apos; cannot host uielements. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.InvalidInvokerEvent">
+            <summary>
+              查找类似 Unable to access the specified event for the specified invoker. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.InvalidInvokerType">
+            <summary>
+              查找类似 Invoker is not of type &apos;{0}&apos;. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.InvalidToolsCollectionForElements">
+            <summary>
+              查找类似 The owner of the specified tools collection must be a PopupMenuTool, RibbonGroup, ApplicationMenuArea, or UltraToolbarBase. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.MdiParentNotSet">
+            <summary>
+              查找类似 The &apos;MdiParent&apos; property must be set to the mdi parent form. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.TabNotPartOfContextualTabGroup">
+            <summary>
+              查找类似 The &apos;RibbonTab&apos; must be part of the ContextualTabGroup&apos;s Tabs collection. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.ToolsCollectionNotPartOfManager">
+            <summary>
+              查找类似 The tools collection must be associated with an UltraToolbarsManager. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.UltraDockWorkspace_MissingSmartPart">
+            <summary>
+              查找类似 The specified smart part is not docked within the {0}. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.Properties.Resources.UnrecognizedAdapterKey">
+            <summary>
+              查找类似 The adapter key is not recognized. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.ImageSmartPartInfo">
+            <summary>
+            Specialized <see cref="T:Microsoft.Practices.CompositeUI.SmartParts.SmartPartInfo"/> that allows an <see cref="T:System.Drawing.Image"/> to be associated with the smart part when it is displayed by a <see cref="T:Microsoft.Practices.CompositeUI.SmartParts.IWorkspace"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.ImageSmartPartInfo.#ctor">
+            <summary>
+            Initializes the smart part info without any values.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.ImageSmartPartInfo.#ctor(System.String,System.String)">
+            <summary>
+            Initializes the smart part info with the title and description values.
+            </summary>
+            <param name="title">Display name used by the <see cref="T:Microsoft.Practices.CompositeUI.SmartParts.IWorkspace"/> for the associated smart part</param>
+            <param name="description">String used to describe the associated smart part.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.ImageSmartPartInfo.#ctor(System.String,System.String,System.Drawing.Image)">
+            <summary>
+            Initializes the smart part info with the title, description and image values.
+            </summary>
+            <param name="title">Display name used by the <see cref="T:Microsoft.Practices.CompositeUI.SmartParts.IWorkspace"/> for the associated smart part</param>
+            <param name="description">String used to describe the associated smart part.</param>
+            <param name="image">Image displayed by the <see cref="T:Microsoft.Practices.CompositeUI.SmartParts.IWorkspace"/> to represent the associated smart part.</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.ImageSmartPartInfo.Image">
+            <summary>
+            Returns or sets the image that is displayed in associated with the smart part.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo">
+            <summary>
+            Provides smart part information for an <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo.#ctor">
+            <summary>
+            Initializes the smart part info without any values.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo.#ctor(System.String,System.String)">
+            <summary>
+            Initializes the smart part info with the title and description values.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo.PreferredGroup">
+            <summary>
+            Returns or sets the key of the group to which the pane should be 
+            added if the group already exists. Otherwise this is used to 
+            initialize the key of the group to which the smart part will be added.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo.DefaultLocation">
+            <summary>
+            Returns or sets the location at which the smart part should be positioned.
+            </summary>
+            <remarks>
+            Note: This property is not used if the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo.PreferredGroup"/> is specified and exists.
+            </remarks>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo.DefaultPaneStyle">
+            <summary>
+            Returns or sets the pane style of the group in which the pane will be added.
+            </summary>
+            <remarks>
+            Note: This property is not used if the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo.PreferredGroup"/> is specified and exists.
+            </remarks>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo.PreferredSize">
+            <summary>
+            Returns or sets the preferred size for the control pane created for the smart part.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarSmartPartInfo">
+            <summary>
+            Provides smart part information for an <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace"/> that is used 
+            to initialize the controlcontainer style <see cref="!:UltraExplorerBarGroup"/> created for the 
+            associated smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarSmartPartInfo.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarSmartPartInfo"/>
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabSmartPartInfo">
+            <summary>
+            Provides smart part information for an <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabSmartPartInfo.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabSmartPartInfo"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabSmartPartInfo.PreferredGroup">
+            <summary>
+            Returns or sets the key of the MdiTabGroup to which the control should be 
+            added if the tab group already exists. Otherwise this is used to 
+            initialize the key of the tab group to which the smart part will be added.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraTabSmartPartInfo">
+            <summary>
+            Provides smart part information for an <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraTabSmartPartInfo"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabSmartPartInfo.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraTabSmartPartInfo"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraTabSmartPartInfo.ActivateTab">
+            <summary>
+            Returns or sets whether the tab should be activated when the smart part is shown.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo">
+            <summary>
+            Provides smart part information for an <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.PreferredDockedPosition">
+            <summary>
+            Returns or sets the docked position of the taskpane that will be added.
+            </summary>
+            <remarks>
+            Note: This property is not used if the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.PreferredTaskPane"/> is specified and exists.
+            </remarks>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.PreferredNavigationStyle">
+            <summary>
+            Returns or sets the navigation button style of the taskpane toolbar that is created.
+            </summary>
+            <remarks>
+            Note: This property is not used if the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.PreferredTaskPane"/> is specified and exists.
+            </remarks>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.PreferredShowHomeButton">
+            <summary>
+            Returns or sets whether the home button will be displayed in the taskpane toolbar that is created.
+            </summary>
+            <remarks>
+            Note: This property is not used if the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.PreferredTaskPane"/> is specified and exists.
+            </remarks>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.PreferredTaskPane">
+            <summary>
+            Returns or sets the key of the task pane tool to which the task pane tool should be 
+            added if the task pane already exists. Otherwise this is used to 
+            initialize the key of the task pane to which the smart part will be added.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.PreferredExtent">
+            <summary>
+            Returns or sets the preferred extent of the task pane toolbar that will be created 
+            for the tool.
+            </summary>
+            <remarks>
+            Note: This property is not used if the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.PreferredTaskPane"/> is specified and exists.
+            </remarks>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.HeaderCaption">
+            <summary>
+            Returns or sets the caption that is assigned to the <b>HeaderCaption</b> property of the <b>TaskPaneTool</b> that is created for the smart part.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo.ResizeMode">
+            <summary>
+            Returns or sets a value indicating how the smart part should be resized when the tool is selected and when the containing <see cref="T:Infragistics.Win.UltraWinToolbars.UltraTaskPaneToolbar"/> is resized while the tool is selected.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.IGWorkItemStrategy">
+            <summary>
+            Strategy that walks the control chain adding UltraDockWorkspace, 
+            UltraToolbarsManagerWorkspace, and UltraMdiTabWorkspaces as well as the 
+            controls associated with each to the <see cref="T:Microsoft.Practices.CompositeUI.WorkItem"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.IGWorkItemStrategy.BuildUp(Microsoft.Practices.ObjectBuilder.IBuilderContext,System.Type,System.Object,System.String)">
+            <summary>
+            Walks the control hierarchy and adds the relevant elements to the <see cref="T:Microsoft.Practices.CompositeUI.WorkItem"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.IGWorkItemStrategy.TearDown(Microsoft.Practices.ObjectBuilder.IBuilderContext,System.Object)">
+            <summary>
+            Walks the control hierarchy removing the relevant elements from the <see cref="T:Microsoft.Practices.CompositeUI.WorkItem"/>.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.InkProviderStrategy">
+            <summary>
+            Strategy that adds ink provider capability to container controls in the application.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.InkProviderStrategy.BuildUp(Microsoft.Practices.ObjectBuilder.IBuilderContext,System.Type,System.Object,System.String)">
+            <summary>
+            Walks the control hierarchy and adds the relevant elements to the <see cref="T:Microsoft.Practices.CompositeUI.WorkItem"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.InkProviderStrategy.TearDown(Microsoft.Practices.ObjectBuilder.IBuilderContext,System.Object)">
+            <summary>
+            Walks the control hierarchy removing the relevant elements from the <see cref="T:Microsoft.Practices.CompositeUI.WorkItem"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.InkProviderStrategy.LoadInkAssembly(System.String)">
+            <summary>
+            Attempts to load the ink provider assembly with the specified name.
+            </summary>
+            <param name="inkAssemblyName">Name of the fully qualified wininkprovider assembly to load.</param>
+            <returns>Returns true if the specified assembly was loaded; otherwise false is returned.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupCollectionUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinToolbars.ContextualTabGroupCollection"/> for use as an <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupCollectionUIAdapter.#ctor(Infragistics.Win.UltraWinToolbars.ContextualTabGroupCollection)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupCollectionUIAdapter"/>
+            </summary>
+            <param name="groups">ContextualTabGroup collection represented by the ui adapter</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupCollectionUIAdapter.Groups">
+            <summary>
+            The <see cref="T:Infragistics.Win.UltraWinToolbars.ContextualTabGroupCollection"/> that is represented by the adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupCollectionUIAdapter.Add(Infragistics.Win.UltraWinToolbars.ContextualTabGroup)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinToolbars.ContextualTabGroup"/> to the <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">ContextualTabGroup to add to the ribbon</param>
+            <returns>The contextual tab group that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupCollectionUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinToolbars.ContextualTabGroup)">
+            <summary>
+            Returns the index at which a contextual tab group will be added.
+            </summary>
+            <param name="contextual tab grouptabgroup">Tab to evaluate</param>
+            <returns>By default, contextual tab groups are added at the end of the associated <see cref="!:Tabs"/> collection.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupCollectionUIAdapter.Remove(Infragistics.Win.UltraWinToolbars.ContextualTabGroup)">
+            <summary>
+            Removes the specified <see cref="T:Infragistics.Win.UltraWinToolbars.ContextualTabGroup"/> from the associated <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/>
+            </summary>
+            <param name="uiElement">Ribbon contextual tab group that should be removed.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinToolbars.ContextualTabGroup"/> for use in adding <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonTab"/> instances to a particular <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonGroup"/> in <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupUIAdapter.#ctor(Infragistics.Win.UltraWinToolbars.ContextualTabGroup)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupUIAdapter"/>
+            </summary>
+            <param name="tabGroup">ContextualTabGroup represented by the ui adapter</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupUIAdapter.TabGroup">
+            <summary>
+            The <see cref="T:Infragistics.Win.UltraWinToolbars.ContextualTabGroup"/> that is represented by the adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupUIAdapter.Add(Infragistics.Win.UltraWinToolbars.RibbonTab)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonTab"/> to the <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">RibbonTab to add to the ribbon</param>
+            <returns>The tab that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ContextualTabGroupUIAdapter.Remove(Infragistics.Win.UltraWinToolbars.RibbonTab)">
+            <summary>
+            Removes the specified <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonTab"/> from the associated <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/>
+            </summary>
+            <param name="uiElement">Ribbon tab that should be removed.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupOwnerUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroupsCollection"/> for use as an <see cref="!:IUIElementAdapter"/> and uses 
+            the location of the wrapped group to determine where new groups are positioned.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupOwnerUIAdapter.#ctor(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupOwnerUIAdapter"/>
+            </summary>
+            <param name="group">Group whose owning collection will be updated with any added elements.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupOwnerUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup)">
+            <summary>
+            Returns the index at which an group will be added.
+            </summary>
+            <param name="group">Group to evaluate</param>
+            <returns>By default, groups are added at the end of the associated <see cref="!:Groups"/> collection.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupsCollectionUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroupsCollection"/> for use as an <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupsCollectionUIAdapter.#ctor(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroupsCollection)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemsCollectionUIAdapter"/>
+            </summary>
+            <param name="groups">Groups collection represented by the ui adapter</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupsCollectionUIAdapter.Groups">
+            <summary>
+            The <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroupsCollection"/> that is represented by the adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupsCollectionUIAdapter.Add(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItem"/> to the <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">ExplorerBar group to add to the group</param>
+            <returns>The group that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupsCollectionUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup)">
+            <summary>
+            Returns the index at which a group will be added.
+            </summary>
+            <param name="item">Group to evaluate</param>
+            <returns>By default, groups are added at the end of the associated <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupsCollectionUIAdapter.Groups"/> collection.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarGroupsCollectionUIAdapter.Remove(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup)">
+            <summary>
+            Removes the specified <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup"/> from the associated <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBar"/>
+            </summary>
+            <param name="uiElement">ExplorerBar group that should be removed.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemOwnerUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItemsCollection"/> for use as an <see cref="!:IUIElementAdapter"/> and uses 
+            the location of the wrapped item to determine where new items are positioned.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemOwnerUIAdapter.#ctor(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItem)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemOwnerUIAdapter"/>
+            </summary>
+            <param name="item">Item whose owning collection will be updated with any added elements.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemOwnerUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItem)">
+            <summary>
+            Returns the index at which an item will be added.
+            </summary>
+            <param name="item">Item to evaluate</param>
+            <returns>By default, items are added at the end of the associated <see cref="!:Items"/> collection.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemsCollectionUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup"/> for use as an <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemsCollectionUIAdapter.#ctor(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItemsCollection)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemsCollectionUIAdapter"/>
+            </summary>
+            <param name="items">Items collection represented by the ui adapter</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemsCollectionUIAdapter.Items">
+            <summary>
+            The <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup"/> that is represented by the adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemsCollectionUIAdapter.Add(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItem)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItem"/> to the <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">ExplorerBar item to add to the group</param>
+            <returns>The item that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemsCollectionUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItem)">
+            <summary>
+            Returns the index at which an item will be added.
+            </summary>
+            <param name="item">Item to evaluate</param>
+            <returns>By default, items are added at the end of the associated <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemsCollectionUIAdapter.Items"/> collection.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemsCollectionUIAdapter.Remove(Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItem)">
+            <summary>
+            Removes the specified <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarItem"/> from the associated <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup"/>
+            </summary>
+            <param name="uiElement">ExplorerBar item that should be removed.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupOwnerUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonGroupCollection"/> for use as an <see cref="!:IUIElementAdapter"/> and uses 
+            the location of the wrapped tab to determine where new groups are positioned.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupOwnerUIAdapter.#ctor(Infragistics.Win.UltraWinToolbars.RibbonGroup)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupOwnerUIAdapter"/>
+            </summary>
+            <param name="group">RibbonGroup whose owning collection will be updated with any added elements.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupOwnerUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinToolbars.RibbonGroup)">
+            <summary>
+            Returns the index at which an group will be added.
+            </summary>
+            <param name="group">Group to evaluate</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupsCollectionUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonGroupCollection"/> for use as an <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupsCollectionUIAdapter.#ctor(Infragistics.Win.UltraWinToolbars.RibbonGroupCollection)">
+            <summary>
+            Initializes a new <see cref="!:RibbonGroupCollectionUIAdapter"/>
+            </summary>
+            <param name="groups">Groups collection represented by the ui adapter</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupsCollectionUIAdapter.Groups">
+            <summary>
+            The <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonGroupCollection"/> that is represented by the adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupsCollectionUIAdapter.Add(Infragistics.Win.UltraWinToolbars.RibbonGroup)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonGroup"/> to the <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">RibbonGroup to add to the ribbon</param>
+            <returns>The group that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupsCollectionUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinToolbars.RibbonGroup)">
+            <summary>
+            Returns the index at which a group will be added.
+            </summary>
+            <param name="group">Group to evaluate</param>
+            <returns>By default, groups are added at the end of the associated <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupsCollectionUIAdapter.Groups"/> collection.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonGroupsCollectionUIAdapter.Remove(Infragistics.Win.UltraWinToolbars.RibbonGroup)">
+            <summary>
+            Removes the specified <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonGroup"/> from the associated <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/>
+            </summary>
+            <param name="uiElement">Ribbon group that should be removed.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabOwnerUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonTabCollection"/> for use as an <see cref="!:IUIElementAdapter"/> and uses 
+            the location of the wrapped tab to determine where new tabs are positioned.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabOwnerUIAdapter.#ctor(Infragistics.Win.UltraWinToolbars.RibbonTab)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabOwnerUIAdapter"/>
+            </summary>
+            <param name="tab">RibbonTab whose owning collection will be updated with any added elements.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabOwnerUIAdapter.Add(Infragistics.Win.UltraWinToolbars.RibbonTab)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonTab"/> to the <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">RibbonTab to add to the ribbon</param>
+            <returns>The tab that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabOwnerUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinToolbars.RibbonTab)">
+            <summary>
+            Returns the index at which an group will be added.
+            </summary>
+            <param name="tab">Tab to evaluate</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabsCollectionUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonTabCollection"/> for use as an <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabsCollectionUIAdapter.#ctor(Infragistics.Win.UltraWinToolbars.RibbonTabCollection)">
+            <summary>
+            Initializes a new <see cref="!:RibbonTabCollectionUIAdapter"/>
+            </summary>
+            <param name="tabs">Tabs collection represented by the ui adapter</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabsCollectionUIAdapter.Tabs">
+            <summary>
+            The <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonTabCollection"/> that is represented by the adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabsCollectionUIAdapter.Add(Infragistics.Win.UltraWinToolbars.RibbonTab)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonTab"/> to the <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">RibbonTab to add to the ribbon</param>
+            <returns>The tab that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabsCollectionUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinToolbars.RibbonTab)">
+            <summary>
+            Returns the index at which a tab will be added.
+            </summary>
+            <param name="tab">Tab to evaluate</param>
+            <returns>By default, tabs are added at the end of the associated <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabsCollectionUIAdapter.Tabs"/> collection.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.RibbonTabsCollectionUIAdapter.Remove(Infragistics.Win.UltraWinToolbars.RibbonTab)">
+            <summary>
+            Removes the specified <see cref="T:Infragistics.Win.UltraWinToolbars.RibbonTab"/> from the associated <see cref="T:Infragistics.Win.UltraWinToolbars.Ribbon"/>
+            </summary>
+            <param name="uiElement">Ribbon tab that should be removed.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelOwnerUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusPanelsCollection"/> for use as an <see cref="!:IUIElementAdapter"/> and uses 
+            the location of the wrapped panel to determine where new items are positioned.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelOwnerUIAdapter.#ctor(Infragistics.Win.UltraWinStatusBar.UltraStatusPanel)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelOwnerUIAdapter"/>
+            </summary>
+            <param name="panel">Panel whose owning collection will be updated with any added elements.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelOwnerUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinStatusBar.UltraStatusPanel)">
+            <summary>
+            Returns the index at which an item will be added.
+            </summary>
+            <param name="panel">Panel to evaluate</param>
+            <returns>By default, panels are added at the end of the associated <see cref="!:Panels"/> collection.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelsCollectionUIAdapter">
+            <summary>
+            An adapter that wraps the <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusPanelsCollection"/> of an <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusBar"/> for use as an <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelsCollectionUIAdapter.#ctor(Infragistics.Win.UltraWinStatusBar.UltraStatusPanelsCollection)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelsCollectionUIAdapter"/>
+            </summary>
+            <param name="panels">Panels collection of an ultraStatusBar represented by the ui adapter</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelsCollectionUIAdapter.Panels">
+            <summary>
+            The <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusPanelsCollection"/> that is represented by the adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelsCollectionUIAdapter.Add(Infragistics.Win.UltraWinStatusBar.UltraStatusPanel)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusPanel"/> to the <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusBar"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">Status panel to add to the UltraStatusBar</param>
+            <returns>The item that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelsCollectionUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinStatusBar.UltraStatusPanel)">
+            <summary>
+            Returns the index at which an item will be added.
+            </summary>
+            <param name="panel">Panel to evaluate</param>
+            <returns>By default, panels are added at the end of the associated <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelsCollectionUIAdapter.Panels"/> collection.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusPanelsCollectionUIAdapter.Remove(Infragistics.Win.UltraWinStatusBar.UltraStatusPanel)">
+            <summary>
+            Removes the specified <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusPanel"/> from the associated <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusBar"/>
+            </summary>
+            <param name="uiElement">Status panel that should be removed.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarUIAdapterFactory">
+            <summary>
+            A <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapterFactory"/> that produces adapters for UltraExplorerBar-related UI Elements.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarUIAdapterFactory.GetAdapter(System.Object)">
+            <summary>
+            Returns a <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/> for the specified uielement.
+            </summary>
+            <param name="uiElement">UltraExplorerBarGroup for which to return a <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/></param>
+            <returns>A <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/> that represents the specified <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup"/></returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarUIAdapterFactory.Supports(System.Object)">
+            <summary>
+            Indicates if the specified ui element is supported by the adapter factory.
+            </summary>
+            <param name="uiElement">UI Element to evaluate</param>
+            <returns>Returns true for <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBarGroup"/>, otherwise returns false.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusBarUIAdapterFactory">
+            <summary>
+            A <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapterFactory"/> that produces adapters for UltraStatusBar-related UI Elements.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusBarUIAdapterFactory.GetAdapter(System.Object)">
+            <summary>
+            Returns a <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/> for the specified uielement.
+            </summary>
+            <param name="uiElement">UltraStatusBar for which to return a <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/></param>
+            <returns>A <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/> that represents the specified <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusBar"/></returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.StatusBarUIAdapterFactory.Supports(System.Object)">
+            <summary>
+            Indicates if the specified ui element is supported by the adapter factory.
+            </summary>
+            <param name="uiElement">UI Element to evaluate</param>
+            <returns>Returns true for <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusBar"/>, <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusPanelsCollection"/>, and <see cref="T:Infragistics.Win.UltraWinStatusBar.UltraStatusPanel"/> otherwise returns false.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolbarsManagerUIAdapterFactory">
+            <summary>
+            A <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapterFactory"/> that produces adapters for UltraToolbarsManager-related UI Elements.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolbarsManagerUIAdapterFactory.GetAdapter(System.Object)" -->
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolbarsManagerUIAdapterFactory.Supports(System.Object)">
+            <summary>
+            Indicates if the specified ui element is supported by the adapter factory.
+            </summary>
+            <param name="uiElement">UI Element to evaluate</param>
+            <returns>Returns true for <see cref="T:Infragistics.Win.UltraWinToolbars.UltraToolbar"/> and <see cref="T:Infragistics.Win.UltraWinToolbars.PopupMenuTool"/>, otherwise returns false.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolBaseOwnerUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinToolbars.ToolsCollection"/> for use as an <see cref="!:IUIElementAdapter"/> and uses 
+            the location of the wrapped tool to determine where new items are positioned.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolBaseOwnerUIAdapter.#ctor(Infragistics.Win.UltraWinToolbars.ToolBase)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter"/>
+            </summary>
+            <param name="tool">Tool whose owning collection will be updated with any added elements.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolBaseOwnerUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinToolbars.ToolBase)">
+            <summary>
+            Returns the index at which an item will be added.
+            </summary>
+            <param name="tool">Tool to evaluate</param>
+            <returns>By default, tools are added at the end of the associated <see cref="!:Tools"/> collection.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="T:Infragistics.Win.UltraWinToolbars.ToolsCollection"/> for use as an <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter.#ctor(Infragistics.Win.UltraWinToolbars.ToolsCollectionBase)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter"/>
+            </summary>
+            <param name="tools">Tools collection represented by the ui adapter</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter.Tools">
+            <summary>
+            The <see cref="T:Infragistics.Win.UltraWinToolbars.ToolsCollection"/> that is represented by the adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter.Add(Infragistics.Win.UltraWinToolbars.ToolBase)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinToolbars.ToolBase"/> to the <see cref="T:Infragistics.Win.UltraWinToolbars.ToolsCollection"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">Tool to add to the group</param>
+            <returns>The tool that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinToolbars.ToolBase)">
+            <summary>
+            Returns the index at which an item will be added.
+            </summary>
+            <param name="tool">Tool to evaluate</param>
+            <returns>By default, tools are added at the end of the associated <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter.Tools"/> collection.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter.Remove(Infragistics.Win.UltraWinToolbars.ToolBase)">
+            <summary>
+            Removes the specified <see cref="T:Infragistics.Win.UltraWinToolbars.ToolBase"/> from the associated <see cref="T:Infragistics.Win.UltraWinToolbars.ToolsCollection"/>
+            </summary>
+            <param name="uiElement">Tool that should be removed.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ToolsCollectionUIAdapter.ToolsCollectionAdapterImpl.ToolInstance">
+            <summary>
+            Helper class for maintaining a reference to a tool instance and the number of 
+            times it has been referenced.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodeOwnerUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="!:UltraTreeNodesCollection"/> for use as an <see cref="!:IUIElementAdapter"/> and uses 
+            the location of the wrapped item to determine where new items are positioned.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodeOwnerUIAdapter.#ctor(Infragistics.Win.UltraWinTree.UltraTreeNode)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.ExplorerBarItemOwnerUIAdapter"/>
+            </summary>
+            <param name="node">Node whose owning collection will be updated with any added elements.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodeOwnerUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinTree.UltraTreeNode)">
+            <summary>
+            Returns the index at which an item will be added.
+            </summary>
+            <param name="node">Item to evaluate</param>
+            <returns>By default, items are added at the end of the associated <see cref="!:Items"/> collection.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodesCollectionUIAdapter">
+            <summary>
+            An adapter that wraps a <see cref="!:UltraExplorerBarGroup"/> for use as an <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodesCollectionUIAdapter.#ctor(Infragistics.Win.UltraWinTree.TreeNodesCollection)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodesCollectionUIAdapter"/>
+            </summary>
+            <param name="nodes">Nodes collection represented by the ui adapter</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodesCollectionUIAdapter.Nodes">
+            <summary>
+            The <see cref="T:Infragistics.Win.UltraWinTree.TreeNodesCollection"/> that is represented by the adapter.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodesCollectionUIAdapter.Add(Infragistics.Win.UltraWinTree.UltraTreeNode)">
+            <summary>
+            Adds an <see cref="T:Infragistics.Win.UltraWinTree.UltraTreeNode"/> to the <see cref="!:UltraExplorerBarGroup"/> associated with the adapter.
+            </summary>
+            <param name="uiElement">UltraTree node to add to the collection</param>
+            <returns>The node that was added.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodesCollectionUIAdapter.GetNewElementIndex(Infragistics.Win.UltraWinTree.UltraTreeNode)">
+            <summary>
+            Returns the index at which an item will be added.
+            </summary>
+            <param name="item">Item to evaluate</param>
+            <returns>By default, nodes are added at the end of the associated <see cref="F:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodesCollectionUIAdapter.nodes"/> collection.</returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeNodesCollectionUIAdapter.Remove(Infragistics.Win.UltraWinTree.UltraTreeNode)">
+            <summary>
+            Removes the specified <see cref="T:Infragistics.Win.UltraWinTree.UltraTreeNode"/> from the associated <see cref="!:UltraExplorerBarGroup"/>
+            </summary>
+            <param name="uiElement">UltraTree node that should be removed.</param>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeUIAdapterFactory">
+            <summary>
+            A <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapterFactory"/> that produces adapters for UltraTree-related UI Elements.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeUIAdapterFactory.GetAdapter(System.Object)">
+            <summary>
+            Returns a <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/> for the specified uielement.
+            </summary>
+            <param name="uiElement">UltraToolbar or PopupMenuTool for which to return a <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/></param>
+            <returns>A <see cref="T:Microsoft.Practices.CompositeUI.UIElements.IUIElementAdapter"/> that represents the specified <see cref="!:UltraToolbar"/> or <see cref="!:PopupMenuTool"/></returns>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UIElements.TreeUIAdapterFactory.Supports(System.Object)">
+            <summary>
+            Indicates if the specified ui element is supported by the adapter factory.
+            </summary>
+            <param name="uiElement">UI Element to evaluate</param>
+            <returns>Returns true for <see cref="T:Infragistics.Win.UltraWinTree.TreeNodesCollection"/> and <see cref="T:Infragistics.Win.UltraWinTree.UltraTreeNode"/>, otherwise returns false.</returns>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.ControlWorkspaceComposer`2">
+            <summary>
+            Helper class for dealing with a composable workspace where the smart parts are controls.
+            </summary>
+            <typeparam name="TSmartPartInfo">Type of the smart part info for the workspace</typeparam>
+            <typeparam name="TWorkspaceItem">Type of the item that represents the smart parts in the workspace.</typeparam>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.ControlWorkspaceComposer`2.#ctor(Microsoft.Practices.CompositeUI.SmartParts.IComposableWorkspace{System.Windows.Forms.Control,`0},System.Boolean)">
+            <summary>
+            Initializes a new <see cref="!:ControlWorkspaceComposer"/>
+            </summary>
+            <param name="composedWorkspace">ComposableWorkspace that will be delegated to.</param>
+            <param name="activateSmartPartOnControlEnter">Boolean indicating whether to automatically activate the smart part when the control's Enter event is invoked.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.ControlWorkspaceComposer`2.ActivateHelper(System.Object)">
+            <summary>
+            Activates the smartPart on the workspace if it is not already in the process of being activated.
+            </summary>
+            <param name="smartPart">The smart part to activate.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.ControlWorkspaceComposer`2.OnActivate(System.Windows.Forms.Control)">
+            <summary>
+            Calls <see cref="M:Microsoft.Practices.CompositeUI.SmartParts.IComposableWorkspace`2.OnActivate(`0)"/> 
+            on the composed workspace.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace">
+            <summary>
+            A workspace that displays smart parts within an <see cref="T:Infragistics.Win.UltraWinDock.UltraDockManager"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.WorkspaceName">
+            <summary>
+            Name of the workspace, which is used to register it with the 
+            <see cref="!:IWorkspaceCatalogService"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.WorkItem">
+            <summary>
+            Dependency injection setter property to get the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.WorkItem"/> where the object is contained.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnActivate(System.Windows.Forms.Control)">
+            <summary>
+            Activates the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnApplySmartPartInfo(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo)">
+            <summary>
+            Applies the smart part info to the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to which the smart part info should be applied.</param>
+            <param name="smartPartInfo">The smart part info to apply</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnClose(System.Windows.Forms.Control)">
+            <summary>
+            Closes/removes the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnHide(System.Windows.Forms.Control)">
+            <summary>
+            Hides the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnShow(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraDockSmartPartInfo)">
+            <summary>
+            Shows the smart part in the workspace.
+            </summary>
+            <param name="smartPart">The smart part to show</param>
+            <param name="smartPartInfo">The associated smart part info for the smart part being shown.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnSmartPartActivated(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.SmartPartActivated"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnSmartPartClosing(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceCancelEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.SmartPartClosing"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnConvertFrom(Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Converts a smart part information to a compatible one for the workspace.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnLayoutLoaded">
+            <summary>
+            Called after a layout file is loaded with one of the LoadFromBinary or LoadFromXML overloads.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.OnPropertyChanged(Infragistics.Win.PropertyChangedEventArgs)">
+            <summary>
+            Overriden. Used to invoke the <see cref="!:PropertyChanged"/> event when a property of the object or one of its subobjects has changed.
+            </summary>
+            <param name="e">Event args that provides information about the property change.</param>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.ActiveSmartPart">
+            <summary>
+            Returns the currently active smart part within the workspace.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.SmartParts">
+            <summary>
+            Returns a read-only collection of the smart parts associated with the workspace.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.Activate(System.Object)">
+            <summary>
+            Activates the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.ApplySmartPartInfo(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Applies the specified smart part info to the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to update</param>
+            <param name="smartPartInfo">Smart part info to apply to the <paramref name="smartPart"/></param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.Close(System.Object)">
+            <summary>
+            Closes the specified smart part and removes it from the workspace.
+            </summary>
+            <param name="smartPart">Smart part to close and remove.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.Hide(System.Object)">
+            <summary>
+            Hides the specified smart part.
+            </summary>
+            <param name="smartPart">Smart part within the workspace that should be hidden.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.Show(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Shows the smart part within the workspace using the specified smart part info.
+            </summary>
+            <param name="smartPart">Smart part that should be displayed</param>
+            <param name="smartPartInfo">Smart part info to applied to the smart part</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.Show(System.Object)">
+            <summary>
+            Shows the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to show.</param>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.SmartPartClosing">
+            <summary>
+            Invoked when a smart part is closing.
+            </summary>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraDockWorkspace.SmartPartActivated">
+            <summary>
+            Invoked when a smart part is activated.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace">
+            <summary>
+            A workspace that displays smart parts within an <see cref="T:Infragistics.Win.UltraWinExplorerBar.UltraExplorerBar"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.WorkItem">
+            <summary>
+            Dependency injection setter property to get the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.WorkItem"/> where the object is contained.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.OnActivate(System.Windows.Forms.Control)">
+            <summary>
+            Activates the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.OnApplySmartPartInfo(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarSmartPartInfo)">
+            <summary>
+            Applies the smart part info to the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to which the smart part info should be applied.</param>
+            <param name="smartPartInfo">The smart part info to apply</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.OnClose(System.Windows.Forms.Control)">
+            <summary>
+            Closes/removes the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.OnHide(System.Windows.Forms.Control)">
+            <summary>
+            Hides the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.OnShow(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarSmartPartInfo)">
+            <summary>
+            Shows the smart part in the workspace.
+            </summary>
+            <param name="smartPart">The smart part to show</param>
+            <param name="smartPartInfo">The associated smart part info for the smart part being shown.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.OnSmartPartActivated(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.SmartPartActivated"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.OnSmartPartClosing(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceCancelEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.SmartPartClosing"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.OnConvertFrom(Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Converts a smart part information to a compatible one for the workspace.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.ActiveSmartPart">
+            <summary>
+            Returns the currently active smart part within the workspace.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.SmartParts">
+            <summary>
+            Returns a read-only collection of the smart parts associated with the workspace.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.Activate(System.Object)">
+            <summary>
+            Activates the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.ApplySmartPartInfo(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Applies the specified smart part info to the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to update</param>
+            <param name="smartPartInfo">Smart part info to apply to the <paramref name="smartPart"/></param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.Close(System.Object)">
+            <summary>
+            Closes the specified smart part and removes it from the workspace.
+            </summary>
+            <param name="smartPart">Smart part to close and remove.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.Hide(System.Object)">
+            <summary>
+            Hides the specified smart part.
+            </summary>
+            <param name="smartPart">Smart part within the workspace that should be hidden.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.Show(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Shows the smart part within the workspace using the specified smart part info.
+            </summary>
+            <param name="smartPart">Smart part that should be displayed</param>
+            <param name="smartPartInfo">Smart part info to applied to the smart part</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.Show(System.Object)">
+            <summary>
+            Shows the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to show.</param>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.SmartPartClosing">
+            <summary>
+            Invoked when a smart part is closing.
+            </summary>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraExplorerBarWorkspace.SmartPartActivated">
+            <summary>
+            Invoked when a smart part is activated.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace">
+            <summary>
+            A workspace that displays smart parts within an <see cref="T:Infragistics.Win.UltraWinTabbedMdi.UltraTabbedMdiManager"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.WorkspaceName">
+            <summary>
+            Name of the workspace, which is used to register it with the 
+            <see cref="!:IWorkspaceCatalogService"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.WorkItem">
+            <summary>
+            Dependency injection setter property to get the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.WorkItem"/> where the object is contained.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.OnActivate(System.Windows.Forms.Control)">
+            <summary>
+            Activates the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.OnApplySmartPartInfo(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabSmartPartInfo)">
+            <summary>
+            Applies the smart part info to the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to which the smart part info should be applied.</param>
+            <param name="smartPartInfo">The smart part info to apply</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.OnClose(System.Windows.Forms.Control)">
+            <summary>
+            Closes/removes the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.OnHide(System.Windows.Forms.Control)">
+            <summary>
+            Hides the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.OnShow(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabSmartPartInfo)">
+            <summary>
+            Shows the smart part in the workspace.
+            </summary>
+            <param name="smartPart">The smart part to show</param>
+            <param name="smartPartInfo">The associated smart part info for the smart part being shown.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.OnSmartPartActivated(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.SmartPartActivated"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.OnSmartPartClosing(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceCancelEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.SmartPartClosing"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.OnConvertFrom(Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Converts a smart part information to a compatible one for the workspace.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.ActiveSmartPart">
+            <summary>
+            Returns the currently active smart part within the workspace.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.SmartParts">
+            <summary>
+            Returns a read-only collection of the smart parts associated with the workspace.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.Activate(System.Object)">
+            <summary>
+            Activates the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.ApplySmartPartInfo(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Applies the specified smart part info to the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to update</param>
+            <param name="smartPartInfo">Smart part info to apply to the <paramref name="smartPart"/></param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.Close(System.Object)">
+            <summary>
+            Closes the specified smart part and removes it from the workspace.
+            </summary>
+            <param name="smartPart">Smart part to close and remove.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.Hide(System.Object)">
+            <summary>
+            Hides the specified smart part.
+            </summary>
+            <param name="smartPart">Smart part within the workspace that should be hidden.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.Show(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Shows the smart part within the workspace using the specified smart part info.
+            </summary>
+            <param name="smartPart">Smart part that should be displayed</param>
+            <param name="smartPartInfo">Smart part info to applied to the smart part</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.Show(System.Object)">
+            <summary>
+            Shows the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to show.</param>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.SmartPartClosing">
+            <summary>
+            Invoked when a smart part is closing.
+            </summary>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.SmartPartActivated">
+            <summary>
+            Invoked when a smart part is activated.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraMdiTabWorkspace.TabDisplayingHelper">
+            <summary>
+            Helper class that is used to ensure the tab is added to the correct tab group.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace">
+            <summary>
+            A workspace that displays smart parts within an <see cref="T:Infragistics.Win.UltraWinTabControl.UltraTabControl"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.WorkItem">
+            <summary>
+            Dependency injection setter property to get the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.WorkItem"/> where the object is contained.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.OnActivate(System.Windows.Forms.Control)">
+            <summary>
+            Activates the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.OnApplySmartPartInfo(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraTabSmartPartInfo)">
+            <summary>
+            Applies the smart part info to the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to which the smart part info should be applied.</param>
+            <param name="smartPartInfo">The smart part info to apply</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.OnClose(System.Windows.Forms.Control)">
+            <summary>
+            Closes/removes the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.OnHide(System.Windows.Forms.Control)">
+            <summary>
+            Hides the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.OnShow(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraTabSmartPartInfo)">
+            <summary>
+            Shows the smart part in the workspace.
+            </summary>
+            <param name="smartPart">The smart part to show</param>
+            <param name="smartPartInfo">The associated smart part info for the smart part being shown.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.OnSmartPartActivated(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.SmartPartActivated"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.OnSmartPartClosing(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceCancelEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.SmartPartClosing"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.OnConvertFrom(Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Converts a smart part information to a compatible one for the workspace.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.ActiveSmartPart">
+            <summary>
+            Returns the currently active smart part within the workspace.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.SmartParts">
+            <summary>
+            Returns a read-only collection of the smart parts associated with the workspace.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.Activate(System.Object)">
+            <summary>
+            Activates the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.ApplySmartPartInfo(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Applies the specified smart part info to the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to update</param>
+            <param name="smartPartInfo">Smart part info to apply to the <paramref name="smartPart"/></param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.Close(System.Object)">
+            <summary>
+            Closes the specified smart part and removes it from the workspace.
+            </summary>
+            <param name="smartPart">Smart part to close and remove.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.Hide(System.Object)">
+            <summary>
+            Hides the specified smart part.
+            </summary>
+            <param name="smartPart">Smart part within the workspace that should be hidden.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.Show(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Shows the smart part within the workspace using the specified smart part info.
+            </summary>
+            <param name="smartPart">Smart part that should be displayed</param>
+            <param name="smartPartInfo">Smart part info to applied to the smart part</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.Show(System.Object)">
+            <summary>
+            Shows the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to show.</param>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.SmartPartClosing">
+            <summary>
+            Invoked when a smart part is closing.
+            </summary>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraTabWorkspace.SmartPartActivated">
+            <summary>
+            Invoked when a smart part is activated.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace">
+            <summary>
+            A workspace that displays smart parts within an <see cref="T:Infragistics.Win.UltraWinToolbars.UltraToolbarsManager"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace"/>
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Initializes a new <see cref="T:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.WorkspaceName">
+            <summary>
+            Name of the workspace, which is used to register it with the 
+            <see cref="!:IWorkspaceCatalogService"/>
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.WorkItem">
+            <summary>
+            Dependency injection setter property to get the <see cref="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.WorkItem"/> where the object is contained.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.OnActivate(System.Windows.Forms.Control)">
+            <summary>
+            Activates the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.OnApplySmartPartInfo(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo)">
+            <summary>
+            Applies the smart part info to the smart part within the workspace.
+            </summary>
+            <param name="smartPart">The smart part to which the smart part info should be applied.</param>
+            <param name="smartPartInfo">The smart part info to apply</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.OnClose(System.Windows.Forms.Control)">
+            <summary>
+            Closes/removes the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.OnHide(System.Windows.Forms.Control)">
+            <summary>
+            Hides the smart part.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.OnShow(System.Windows.Forms.Control,Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsSmartPartInfo)">
+            <summary>
+            Shows the smart part in the workspace.
+            </summary>
+            <param name="smartPart">The smart part to show</param>
+            <param name="smartPartInfo">The associated smart part info for the smart part being shown.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.OnSmartPartActivated(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.SmartPartActivated"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.OnSmartPartClosing(Microsoft.Practices.CompositeUI.SmartParts.WorkspaceCancelEventArgs)">
+            <summary>
+            Raises the <see cref="E:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.SmartPartClosing"/> event.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.OnConvertFrom(Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Converts a smart part information to a compatible one for the workspace.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.ActiveSmartPart">
+            <summary>
+            Returns the currently active smart part within the workspace.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.SmartParts">
+            <summary>
+            Returns a read-only collection of the smart parts associated with the workspace.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.Activate(System.Object)">
+            <summary>
+            Activates the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to activate</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.ApplySmartPartInfo(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Applies the specified smart part info to the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to update</param>
+            <param name="smartPartInfo">Smart part info to apply to the <paramref name="smartPart"/></param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.Close(System.Object)">
+            <summary>
+            Closes the specified smart part and removes it from the workspace.
+            </summary>
+            <param name="smartPart">Smart part to close and remove.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.Hide(System.Object)">
+            <summary>
+            Hides the specified smart part.
+            </summary>
+            <param name="smartPart">Smart part within the workspace that should be hidden.</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.Show(System.Object,Microsoft.Practices.CompositeUI.SmartParts.ISmartPartInfo)">
+            <summary>
+            Shows the smart part within the workspace using the specified smart part info.
+            </summary>
+            <param name="smartPart">Smart part that should be displayed</param>
+            <param name="smartPartInfo">Smart part info to applied to the smart part</param>
+        </member>
+        <member name="M:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.Show(System.Object)">
+            <summary>
+            Shows the specified smart part within the workspace.
+            </summary>
+            <param name="smartPart">Smart part to show.</param>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.SmartPartClosing">
+            <summary>
+            Invoked when a smart part is closing.
+            </summary>
+        </member>
+        <member name="E:Infragistics.Practices.CompositeUI.WinForms.UltraToolbarsManagerWorkspace.SmartPartActivated">
+            <summary>
+            Invoked when a smart part is activated.
+            </summary>
+        </member>
+    </members>
+</doc>
