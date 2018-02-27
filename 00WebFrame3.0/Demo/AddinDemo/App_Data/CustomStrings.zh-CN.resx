@@ -1,0 +1,783 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Label.PersonModel.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Label.PersonModel.Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="Label.PersonModel.Country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="Label.PersonModel.City" xml:space="preserve">
+    <value>城市</value>
+  </data>
+  <data name="Label.PersonModel.CityName" xml:space="preserve">
+    <value>CityName</value>
+  </data>
+  <data name="Label.PersonModel.Degree" xml:space="preserve">
+    <value>学历</value>
+  </data>
+  <data name="Label.PersonModel.Enabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="FunctionsManager" xml:space="preserve">
+    <value>功能管理</value>
+  </data>
+  <data name="RolesManager" xml:space="preserve">
+    <value>角色管理</value>
+  </data>
+  <data name="UsersManager" xml:space="preserve">
+    <value>用户管理</value>
+  </data>
+  <data name="ResourcesManager" xml:space="preserve">
+    <value>资源管理</value>
+  </data>
+  <data name="InitFinishedAndRuningPerfect" xml:space="preserve">
+    <value>已完成初始化并正常运行。</value>
+  </data>
+  <data name="Functions" xml:space="preserve">
+    <value>功能</value>
+  </data>
+  <data name="ReInit" xml:space="preserve">
+    <value>重新初始化</value>
+  </data>
+  <data name="ReGenerateFunctions_DontDeleteRolesAndUsers" xml:space="preserve">
+    <value>将会重新生成所有的功能项，但不会删除已有的角色和用户。</value>
+  </data>
+  <data name="FirstPage" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="AppCenter" xml:space="preserve">
+    <value>应用程序中心</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>退出登录</value>
+  </data>
+  <data name="Jurassic.PMIS.Web" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AfterSaveAllRes_YouCanEditInVs" xml:space="preserve">
+    <value>保存所有资源，可以在VS中编辑资源文件</value>
+  </data>
+  <data name="ParentNoId" xml:space="preserve">
+    <value>父结点没有ID</value>
+  </data>
+  <data name="新增" xml:space="preserve">
+    <value />
+  </data>
+  <data name="功能管理" xml:space="preserve">
+    <value />
+  </data>
+  <data name="新增平级" xml:space="preserve">
+    <value />
+  </data>
+  <data name="新增语种" xml:space="preserve">
+    <value />
+  </data>
+  <data name="删除" xml:space="preserve">
+    <value />
+  </data>
+  <data name="不经过服务器" xml:space="preserve">
+    <value />
+  </data>
+  <data name="删除语种" xml:space="preserve">
+    <value />
+  </data>
+  <data name="新增子级" xml:space="preserve">
+    <value />
+  </data>
+  <data name="角色管理" xml:space="preserve">
+    <value />
+  </data>
+  <data name="保存" xml:space="preserve">
+    <value />
+  </data>
+  <data name="编辑" xml:space="preserve">
+    <value />
+  </data>
+  <data name="清空" xml:space="preserve">
+    <value />
+  </data>
+  <data name="克隆" xml:space="preserve">
+    <value />
+  </data>
+  <data name="用户管理" xml:space="preserve">
+    <value />
+  </data>
+  <data name="新增条目" xml:space="preserve">
+    <value />
+  </data>
+  <data name="删除条目" xml:space="preserve">
+    <value />
+  </data>
+  <data name="语言管理" xml:space="preserve">
+    <value />
+  </data>
+  <data name="日志管理" xml:space="preserve">
+    <value />
+  </data>
+  <data name="清空所有资源" xml:space="preserve">
+    <value />
+  </data>
+  <data name="上移" xml:space="preserve">
+    <value />
+  </data>
+  <data name="系统管理" xml:space="preserve">
+    <value />
+  </data>
+  <data name="下移" xml:space="preserve">
+    <value />
+  </data>
+  <data name="移动" xml:space="preserve">
+    <value />
+  </data>
+  <data name="下拉" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CSS" xml:space="preserve">
+    <value>CSS样式</value>
+  </data>
+  <data name="RoleNames" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="Please select a user" xml:space="preserve">
+    <value>请选择一个用户</value>
+  </data>
+  <data name="Duplicated Name" xml:space="preserve">
+    <value>重复的名称</value>
+  </data>
+  <data name="Account_Empty" xml:space="preserve">
+    <value>账号为空</value>
+  </data>
+  <data name="Password_Empty" xml:space="preserve">
+    <value>密码为空</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>记住我</value>
+  </data>
+  <data name="正在登录" xml:space="preserve">
+    <value />
+  </data>
+  <data name="初始化" xml:space="preserve">
+    <value />
+  </data>
+  <data name="新部门" xml:space="preserve">
+    <value />
+  </data>
+  <data name="新子部门" xml:space="preserve">
+    <value />
+  </data>
+  <data name="编辑部门" xml:space="preserve">
+    <value />
+  </data>
+  <data name="删除部门" xml:space="preserve">
+    <value />
+  </data>
+  <data name="保存部门" xml:space="preserve">
+    <value />
+  </data>
+  <data name="组织管理" xml:space="preserve">
+    <value />
+  </data>
+  <data name="增加岗位" xml:space="preserve">
+    <value />
+  </data>
+  <data name="编辑岗位" xml:space="preserve">
+    <value />
+  </data>
+  <data name="删除岗位" xml:space="preserve">
+    <value />
+  </data>
+  <data name="我的日程" xml:space="preserve">
+    <value />
+  </data>
+  <data name="岗位安排" xml:space="preserve">
+    <value />
+  </data>
+  <data name="添加部门人员" xml:space="preserve">
+    <value />
+  </data>
+  <data name="移除部门人员" xml:space="preserve">
+    <value />
+  </data>
+  <data name="请选择要删除的行" xml:space="preserve">
+    <value />
+  </data>
+  <data name="确定删除？" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfirmPassword_Empty" xml:space="preserve">
+    <value>确认密码为空</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>忘记密码</value>
+  </data>
+  <data name="LoginState.UserOrPasswordError" xml:space="preserve">
+    <value>用户名或密码错误</value>
+  </data>
+  <data name="复制" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Login_Success" xml:space="preserve">
+    <value>登录成功</value>
+  </data>
+  <data name="Hello World!" xml:space="preserve">
+    <value />
+  </data>
+  <data name="示例" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Add files..." xml:space="preserve">
+    <value>选择文件...</value>
+  </data>
+  <data name="Start upload" xml:space="preserve">
+    <value>开始上传</value>
+  </data>
+  <data name="Cancel upload" xml:space="preserve">
+    <value>取消上传</value>
+  </data>
+  <data name="Uploading..." xml:space="preserve">
+    <value>正在上传...</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Saler" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value />
+  </data>
+  <data name="报表输出" xml:space="preserve">
+    <value />
+  </data>
+  <data name="KnockoutDemo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HCarts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="请输入您注册时所用的邮箱" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report Demo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SignalR Demo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LoginState_UserOrPasswordError" xml:space="preserve">
+    <value>用户名或密码错误</value>
+  </data>
+  <data name="File Upload Demo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfirmReInit" xml:space="preserve">
+    <value>是否重新初始化？</value>
+  </data>
+  <data name="ClearAllCacheFiles" xml:space="preserve">
+    <value>清除系统自动生成的文件,完成此操作后，系统需要重新启动才能正常运行。</value>
+  </data>
+  <data name="ClearCacheFiles" xml:space="preserve">
+    <value>清除缓存文件</value>
+  </data>
+  <data name="操作成功！" xml:space="preserve">
+    <value />
+  </data>
+  <data name="请重新启动Web站点" xml:space="preserve">
+    <value />
+  </data>
+  <data name="操作失败！" xml:space="preserve">
+    <value />
+  </data>
+  <data name="未能找到路径“D:\Wang\Documents\svn\项目管理规范\12-项目模板\WebTemplate\Jurassic.WebTemplate\content\theme\blue”的一部分。" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Success_Delete" xml:space="preserve">
+    <value>删除成功</value>
+  </data>
+  <data name="Success_Save" xml:space="preserve">
+    <value>保存成功</value>
+  </data>
+  <data name="Success_Save_{0}" xml:space="preserve">
+    <value>{0}保存成功</value>
+  </data>
+  <data name="对路径“D:\Wang\Documents\svn\项目管理规范\12-项目模板\WebTemplate_Lite\AddinDemo\scripts\miniui\themes”的访问被拒绝。" xml:space="preserve">
+    <value />
+  </data>
+  <data name="System_ShortName" xml:space="preserve">
+    <value>应用管理系统</value>
+  </data>
+  <data name="System_CompanyName" xml:space="preserve">
+    <value>北京侏罗纪软件股份有限公司</value>
+  </data>
+  <data name="System_Copyright" xml:space="preserve">
+    <value>Copyright &amp;copy; 2015  Jurassic, all rights reserved</value>
+  </data>
+  <data name="System_CompanyInfo" xml:space="preserve">
+    <value>地址：北京市海淀区学清路9号汇智大厦B座9层  电话：010-82730099</value>
+  </data>
+  <data name="System_Name" xml:space="preserve">
+    <value>北京侏罗纪软件股份有限公司应用管理系统</value>
+  </data>
+  <data name="Login Success" xml:space="preserve">
+    <value />
+  </data>
+  <data name="System_Company_Url" xml:space="preserve">
+    <value>http://www.jurassic.com.cn/</value>
+  </data>
+  <data name="Success_Update_UserInfo_{0}" xml:space="preserve">
+    <value>成功保存用户{0}的信息</value>
+  </data>
+  <data name="Login Failed" xml:space="preserve">
+    <value>登录失败</value>
+  </data>
+  <data name="Please Enter Your Email" xml:space="preserve">
+    <value>请输入你注册时使用的Email地址</value>
+  </data>
+  <data name="{0}_NotExist" xml:space="preserve">
+    <value>{0}不存在</value>
+  </data>
+  <data name="Success_Clone" xml:space="preserve">
+    <value>克隆成功</value>
+  </data>
+  <data name="Parameter" xml:space="preserve">
+    <value>参数</value>
+  </data>
+  <data name="Resources_Saved" xml:space="preserve">
+    <value>成功保存资源</value>
+  </data>
+  <data name="Log_Delete_Success" xml:space="preserve">
+    <value>成功删除日志</value>
+  </data>
+  <data name="Log_Clear_Success" xml:space="preserve">
+    <value>成功清除全部日志</value>
+  </data>
+  <data name="Delete_Success" xml:space="preserve">
+    <value>删除成功</value>
+  </data>
+  <data name="Delete_Error" xml:space="preserve">
+    <value>删除失败</value>
+  </data>
+  <data name="Role_NotFound" xml:space="preserve">
+    <value>没有找到角色</value>
+  </data>
+  <data name="Add_Success" xml:space="preserve">
+    <value>添加成功</value>
+  </data>
+  <data name="{0}_Add_Success" xml:space="preserve">
+    <value>{0}添加成功</value>
+  </data>
+  <data name="修改密码" xml:space="preserve">
+    <value />
+  </data>
+  <data name="注销" xml:space="preserve">
+    <value />
+  </data>
+  <data name="用户列表" xml:space="preserve">
+    <value />
+  </data>
+  <data name="New_PersonModel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Column.PersonModel.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Empty.PersonModel.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Column.PersonModel.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Empty.PersonModel.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Column.PersonModel.Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Empty.PersonModel.Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Column.PersonModel.City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Empty.PersonModel.City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Column.PersonModel.Degree" xml:space="preserve">
+    <value>Degree</value>
+  </data>
+  <data name="Empty.PersonModel.Degree" xml:space="preserve">
+    <value>Degree</value>
+  </data>
+  <data name="Column.PersonModel.Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Empty.PersonModel.Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Details.PersonModel.EduHistorys" xml:space="preserve">
+    <value>EduHistorys</value>
+  </data>
+  <data name="Column.PersonModel.SchoolName" xml:space="preserve">
+    <value>SchoolName</value>
+  </data>
+  <data name="Empty.PersonModel.SchoolName" xml:space="preserve">
+    <value>SchoolName</value>
+  </data>
+  <data name="Column.PersonModel.StartDate" xml:space="preserve">
+    <value>StartDate</value>
+  </data>
+  <data name="Empty.PersonModel.StartDate" xml:space="preserve">
+    <value>StartDate</value>
+  </data>
+  <data name="Column.PersonModel.EndDate" xml:space="preserve">
+    <value>EndDate</value>
+  </data>
+  <data name="Empty.PersonModel.EndDate" xml:space="preserve">
+    <value>EndDate</value>
+  </data>
+  <data name="Column.PersonModel.Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="Empty.PersonModel.Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="Column.PersonModel.Special" xml:space="preserve">
+    <value>Special</value>
+  </data>
+  <data name="Empty.PersonModel.Special" xml:space="preserve">
+    <value>Special</value>
+  </data>
+  <data name="Column.PersonModel.Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Empty.PersonModel.Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Details.PersonModel.Honors" xml:space="preserve">
+    <value>Honors</value>
+  </data>
+  <data name="Column.PersonModel.HonorName" xml:space="preserve">
+    <value>HonorName</value>
+  </data>
+  <data name="Empty.PersonModel.HonorName" xml:space="preserve">
+    <value>HonorName</value>
+  </data>
+  <data name="Column.PersonModel.GetDate" xml:space="preserve">
+    <value>GetDate</value>
+  </data>
+  <data name="Empty.PersonModel.GetDate" xml:space="preserve">
+    <value>GetDate</value>
+  </data>
+  <data name="Column.PersonModel.AttachmentId" xml:space="preserve">
+    <value>AttachmentId</value>
+  </data>
+  <data name="Empty.PersonModel.AttachmentId" xml:space="preserve">
+    <value>AttachmentId</value>
+  </data>
+  <data name="Confirm_Delete" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Query.PersonModel.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Query.PersonModel.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Query.PersonModel.Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Query.PersonModel.City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Query.PersonModel.CityName" xml:space="preserve">
+    <value>CityName</value>
+  </data>
+  <data name="Query.PersonModel.Degree" xml:space="preserve">
+    <value>Degree</value>
+  </data>
+  <data name="Query.PersonModel.Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Query.PersonModel.EduHistorys" xml:space="preserve">
+    <value>EduHistorys</value>
+  </data>
+  <data name="Query.PersonModel.Honors" xml:space="preserve">
+    <value>Honors</value>
+  </data>
+  <data name="Edit_PersonModel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Create_Success" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enum.DegreeType.MiddleSchool" xml:space="preserve">
+    <value>中学</value>
+  </data>
+  <data name="Enum.DegreeType.HighSchool" xml:space="preserve">
+    <value>大学</value>
+  </data>
+  <data name="Enum.DegreeType.PostGraduate" xml:space="preserve">
+    <value>研究生</value>
+  </data>
+  <data name="Enum.DegreeType.Doctor" xml:space="preserve">
+    <value>博士</value>
+  </data>
+  <data name="返回" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Message_Alert" xml:space="preserve">
+    <value />
+  </data>
+  <data name="No_Message_Alert" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FinishTime" xml:space="preserve">
+    <value />
+  </data>
+  <data name="数据DEMO" xml:space="preserve">
+    <value />
+  </data>
+  <data name="人员" xml:space="preserve">
+    <value />
+  </data>
+  <data name="供应商" xml:space="preserve">
+    <value />
+  </data>
+  <data name="数据多语言" xml:space="preserve">
+    <value />
+  </data>
+  <data name="岗位维护" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Column.SupplierModel.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Empty.SupplierModel.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Column.SupplierModel.Tel" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="Empty.SupplierModel.Tel" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="Column.SupplierModel.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Empty.SupplierModel.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Column.SupplierModel.CreaterId" xml:space="preserve">
+    <value>CreaterId</value>
+  </data>
+  <data name="Empty.SupplierModel.CreaterId" xml:space="preserve">
+    <value>CreaterId</value>
+  </data>
+  <data name="Column.SupplierModel.CreateTime" xml:space="preserve">
+    <value>CreateTime</value>
+  </data>
+  <data name="Empty.SupplierModel.CreateTime" xml:space="preserve">
+    <value>CreateTime</value>
+  </data>
+  <data name="Column.SupplierModel.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Empty.SupplierModel.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Column.SupplierModel.Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="Empty.SupplierModel.Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="Column.SupplierModel.Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Empty.SupplierModel.Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Column.SupplierModel.ContacterName" xml:space="preserve">
+    <value>ContacterName</value>
+  </data>
+  <data name="Empty.SupplierModel.ContacterName" xml:space="preserve">
+    <value>ContacterName</value>
+  </data>
+  <data name="Query.SupplierModel.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Query.SupplierModel.Tel" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="Query.SupplierModel.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Query.SupplierModel.CreaterId" xml:space="preserve">
+    <value>CreaterId</value>
+  </data>
+  <data name="Query.SupplierModel.CreateTime" xml:space="preserve">
+    <value>CreateTime</value>
+  </data>
+  <data name="Query.SupplierModel.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Query.SupplierModel.Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="Query.SupplierModel.Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Query.SupplierModel.ContacterName" xml:space="preserve">
+    <value>ContacterName</value>
+  </data>
+  <data name="Enum.SupplierLevel.Small" xml:space="preserve">
+    <value>Small</value>
+  </data>
+  <data name="Enum.SupplierLevel.Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Enum.SupplierLevel.Large" xml:space="preserve">
+    <value>Large</value>
+  </data>
+</root>

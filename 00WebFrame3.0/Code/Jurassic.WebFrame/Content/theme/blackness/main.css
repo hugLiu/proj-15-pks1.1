@@ -1,0 +1,455 @@
+﻿body {
+    background-color: #f5f2f2;
+}
+p,h1,h4{
+    color:#434A54;
+}
+/*整体边框颜色*/
+.mini-layout-region {
+    border-color: #e5e8ef;
+}
+/*调整版权区域*/
+.mini-layout-region-south {
+    background-color: #efefef;
+}
+/*----------------整体头部-----------------------*/
+.header {
+    background: #fa625f;
+}
+    .header h1 {
+        background-image:url(../../../Images/titlelogo.png);
+        color: white;
+    }
+/*----------------------定义右上角快捷菜单-------------------------*/
+/*定义快捷菜单button的样式-*/
+.shortcut_menu .mini-button,
+.shortcut_menu a.mini-button {
+    color: #fff;
+}
+/*鼠标经过快捷菜单时背景颜色*/
+.shortcut_menu a:hover.mini-button {
+    background: #ffaba9;
+    border-color:#ffaba9;
+}
+.shortcut_menu .label,.mini-tree-nodeshow .label {
+    color: white;
+}
+.shortcut_menu .label-important,
+.mini-tree-nodeshow .label-important {
+    background-color: #db3434;
+}
+/*----------------------面包屑位置-----------------------------*/
+.top_crumb, .crumb,
+.top_crumb a:link, .crumb a:link,
+.top_crumb a:visited, .crumb a:visited,
+.top_crumb a:hover, .crumb a:hover {
+    color: #434a54;
+}
+/*----------------------------tree整体---------------------------*/
+/*顶部搜索栏#nav_leftTop*/
+ #nav_leftTop{
+    background:#434a54;
+    border-right:1px solid #434a54;
+}
+/*tree整体背景色-2种适用*/
+#nav_leftMenuBar.mini-outlookbar {
+    background-color:#434a54;
+}
+/*tree整体边框样式---2种适用*/
+#nav_leftMenuBar .mini-outlookbar-border {
+    border: 1px solid #434a54;
+}
+/*tree一级单边框颜色---2种适用*/
+#nav_leftMenuBar .mini-outlookbar-group {
+    border-color: #434a54;
+}
+/*tree一级头部背景颜色*/
+
+#nav_leftMenuBar .mini-outlookbar-groupHeader {
+    background: #434a54;
+}
+#nav_leftMenuBar .mini-outlookbar-hover,
+#nav_leftMenuBar .mini-outlookbar-expand .mini-outlookbar-groupHeader {
+    background: url("images/tree/groupheader.png") no-repeat #4c5662;
+}
+/*tree一级头部字体颜色*/
+#nav_leftMenuBar .mini-outlookbar-groupTitle{
+    background-image:url("images/icon/computer.png");
+    color: #a8bac4;
+    font-weight:normal;
+}
+    #nav_leftMenuBar .mini-outlookbar-hover .mini-outlookbar-groupTitle,
+    #nav_leftMenuBar .mini-outlookbar-expand .mini-outlookbar-groupTitle {
+        color: #a8bac4;
+    }
+/*tree上下收缩展开工具样式*/
+#nav_leftMenuBar .mini-outlookbar-collapse .mini-tools-collapse,
+#nav_leftMenuBar .mini-outlookbar-collapse .mini-tools-collapse {
+    background: url("images/tree/expand.png") no-repeat 50% 50%;
+}
+
+#nav_leftMenuBar .mini-outlookbar-expand .mini-tools-collapse,
+#nav_leftMenuBar .mini-outlookbar-collapse.mini-outlookbar-expand{
+    background: url("images/tree/collapse.png") no-repeat 50% 50%;
+}
+/*tree字体图标颜色-主要针对下级icon*/
+#nav_leftMenuBar .iconfont {
+    color: #aab2bd;
+    font-size: 14px;
+}
+#nav_leftMenuBar .mini-tree-node-hover .iconfont ,
+#nav_leftMenuBar .mini-tree-selectedNode .iconfont {
+  
+}
+/*tree展开后二级菜单背景、边框颜色*/
+#nav_leftMenuBar .mini-outlookbar-groupBody {
+    background: #434a54;
+    border-top-color:#535c68;
+}
+/*tree展开后二级菜单文字颜色*/
+#nav_leftMenuBar .mini-tree-nodetext{
+  color:#a8bac4
+}
+#nav_leftMenuBar .mini-tree-node-hover .mini-tree-nodetext,
+#nav_leftMenuBar .mini-tree-selectedNode .mini-tree-nodetext{
+  color: #fff;
+}
+/*tree二级鼠标经过与选中背景样式*/
+#nav_leftMenuBar .mini-tree-node-hover .mini-tree-nodeshow,
+#nav_leftMenuBar .mini-tree-selectedNode .mini-tree-nodeshow {
+    border: 1px solid #fa625f;
+    background: #fa625f url(images/tree/button111.png) repeat-x 0 0;
+}
+/*二级菜单鼠标经过、选中时icon的样式---通用*/
+#nav_leftMenuBar .mini-tree-node-hover .iconfont ,
+#nav_leftMenuBar .mini-tree-selectedNode .iconfont {
+  color:#fff
+}
+/*tree展开后二级菜单中日历的颜色*/
+.mini-outlookbar-groupBody  #calendar1{
+    background-color:#f8f8f8;
+}
+
+/*------------------------------抽屉式菜单--------------------------*/
+/*tree展开后二级菜单鼠标经过---1、整行背景样式*/
+#nav_leftMenuBar.drawer-menu .mini-tree-node-hover {
+    background-color: #fa625f;
+    color: #333;
+}
+/*tree展开后二级菜单鼠标经过与选中背景样式*/
+#nav_leftMenuBar.drawer-menu .mini-tree-node-hover .mini-tree-nodetext,
+#nav_leftMenuBar.drawer-menu .mini-tree-selectedNode .mini-tree-nodetext{
+  color:#fff
+}
+#nav_leftMenuBar.drawer-menu .mini-tree-node-hover .mini-tree-nodeshow,
+#nav_leftMenuBar.drawer-menu .mini-tree-selectedNode .mini-tree-nodeshow {
+    background:#fa625f;
+    border:none;
+}
+/*tree整体收缩后的背景颜色*/
+.mini-layout-proxy {
+    background: #434a54;
+}
+.mini-splitter-pane1-button {
+    background:url("images/tree/mini-left.png") no-repeat scroll 50% 50%
+}
+.mini-splitter-pane2-button {
+    background:url("images/tree/mini-right.png") no-repeat scroll 50% 50%
+}
+.mini-splitter-handler-vertical .mini-splitter-pane1-button{
+     background:url("images/tree/collapse.png") no-repeat scroll 50% 50%;
+}
+.mini-splitter-handler-vertical .mini-splitter-pane2-button{
+     background:url("images/tree/expand.png") no-repeat scroll 50% 50%;
+}
+/*------------------------弹出框-----------------------*/
+.mini-window {
+}
+    .mini-window .mini-panel-border {
+    }
+
+    .mini-window .mini-panel-header {
+    }
+    .mini-window .mini-panel-viewport {
+    }
+.popuplayer_button {
+}
+.mini-tools-close {
+    background: url(images/icon/shut.png) no-repeat 50% 1px;
+}
+/*--------------定义内容区样式-----------------*/
+.mini-panel-border{
+    border:1px solid #d5d5d5;
+}
+.mini-splitter-border,
+.mini-splitter .mini-splitter-pane1,
+.mini-splitter .mini-splitter-pane2,
+.mini-toolbar,
+.mini-grid-border{
+    border-color: #d5d5d5;   
+}
+form .mini-splitter .mini-splitter-pane1,
+form .mini-splitter .mini-splitter-pane2 {
+}
+/*-----定义操作区工具栏样式----*/
+.mini-toolbar {
+    background: #fff;
+}
+    .mini-toolbar a:hover.mini-button {
+        border-color:#d5d5d5;
+        background: #fff;
+    }
+.mini-textbox-input {
+    padding: 0 3px;
+}
+/*--定义搜索栏样式
+.searchinfo {
+    border: 1px solid #b5b8c8;
+}--*/
+.searchinfo .mini-textbox-input {
+    color:#b5b8c8;
+}
+.searchinfo .mini-textbox-focus .mini-textbox-input {
+    color:black;
+}
+/*----定义表格----*/
+/*定义头部样式*/
+.mini-grid-headerCell {
+    border-bottom-color:#d3d3d3;
+    border-right-color:#d3d3d3;
+    background:#ededed;
+}
+/*定义鼠标经过/选中某行时样式*/
+body .mini-grid-row-hover,
+body .mini-grid-row-hover .mini-grid-frozenCell {
+    background:#ecedef;
+}
+html body .mini-grid-row-selected{
+    background: #dde7f2;
+    color: Black;
+}
+/*定义鼠标选中某单元格时样式*/
+html body .mini-datagrid .mini-grid-cell-selected {
+    background: #dfe8f6;
+}
+/*----定义tab----*/
+.mini-tabs-scrollCt{
+width:100%;
+}
+/*tab页头部整体边框颜色*/
+.mini-tabs-scrollCt,
+.mini-tab{
+    border:1px solid #d2d2d2;
+}
+/*tab页头部整体背景和颜色*/
+.mini-tabs-scrollCt,
+.mini-tabs-space,
+.mini-tabs-space1,
+.mini-tabs-space2{
+    border-bottom: 1px solid #d2d2d2; 
+}
+.mini-tabs-scrollCt,
+.mini-tab{
+    background:#eff5fb;
+}
+/*选项卡的边框和背景颜色*/
+.mini-tab{
+    border-bottom:none;
+}
+.mini-tab-active{
+    background: white;
+    border-top:3px solid #fa625f;
+     -webkit-box-sizing: border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+.mini-tab-active .mini-tab-text{
+    font-weight:bold;
+}
+.mini-tab-text .badge{
+    background-color:#fff;
+    border:1px solid #fa625f;
+    color:#fa625f
+}
+/*tab页内容样式*/
+.mini-tabs-bodys {
+    border-color: #d2d2d2;
+    width:100%;
+}
+
+/*定义选项栏内容边框样式*/
+.mini-tabs-bodys {
+    border-color: #ecedef;
+}
+/*----定义内容区底部的样式----*/
+.mini-grid-footer, .mini-grid-pager {
+    border-top: 1px solid  #d0d0d0;
+    border-bottom: 1px solid  #d0d0d0;
+    background: #ededed;
+}
+
+/*--------------定义用户设置界面样式--------------*/
+.topinfo{
+    background:white;
+}
+    .topinfo .titleline {
+        border-bottom-color:#a9c0df
+    }
+    .topinfo .contentline {
+        border-bottom-color:#bfc8d9;
+    }
+/*头像设置-系统头像样式*/
+.useravatar img:hover{
+    border-color:#2b7cd8
+}
+/*头像设置-自定义头像样式*/
+.customavatar .localimg{
+    border-color:#d2d2d2;
+}
+/*日历样式*/
+.fc-day-grid-event.fc-event .fc-content{
+    background:#fa625f;
+}
+/*------------以下是用于编译项目中的图标信息-----------------------*/
+.icon-new-search {
+    background: url(images/icon/search.png) no-repeat 50% 3px;
+}
+
+.icon-new-clone {
+    background: url(images/icon/clone.png) no-repeat;
+}
+.icon-new-document {
+    background: url(images/icon/NewDocumentHS.png) no-repeat;
+}
+
+.icon-new-deletefolder {
+    background: url(images/icon/DeleteFolderHS.png) no-repeat;
+}
+
+.icon-new-newfolder {
+    background: url(images/icon/NewFolderHS.png) no-repeat;
+}
+
+.icon-new-recycle {
+    background: url(images/icon/recycle.png) no-repeat;
+}
+
+.icon-new-add {
+    background: url(images/icon/add.png) no-repeat;
+}
+
+.icon-new-addpeers {
+    background: url(images/icon/addpeers.png) no-repeat;
+}
+
+.icon-new-addchild {
+    background: url(images/icon/addchild.png) no-repeat;
+}
+
+.icon-new-delete {
+    background: url(images/icon/delete.png) no-repeat;
+}
+
+.icon-new-copy {
+    background: url(images/icon/copy.png) no-repeat;
+}
+
+.icon-new-save {
+    background: url(images/icon/save.png) no-repeat;
+}
+
+.icon-new-move {
+    background: url(images/icon/move.png) no-repeat;
+}
+
+.icon-new-movedown {
+    background: url(images/icon/movedown.png) no-repeat;
+}
+
+.icon-new-moveup {
+    background: url(images/icon/moveup.png) no-repeat;
+}
+
+.icon-new-refresh {
+    background: url(images/icon/refresh.png) no-repeat;
+}
+
+.icon-new-edit {
+    background: url(images/icon/edit.png) no-repeat;
+}
+
+.icon-new-empty {
+    background: url(images/icon/empty.png) no-repeat;
+}
+
+.icon-new-log {
+    background: url(images/icon/log.png) no-repeat;
+}
+
+.icon-new-initialize {
+    background: url(images/icon/initialize.png) no-repeat;
+}
+
+.icon-new-home {
+    background: url(images/icon/home.png) no-repeat;
+}
+
+.icon-new-download {
+    background: url(images/icon/download.png) no-repeat;
+}
+
+.icon-new-upload {
+    background: url(images/icon/upload.png) no-repeat;
+}
+
+.icon-new-management {
+    background: url(images/icon/management.png) no-repeat;
+}
+
+.icon-new-dontpass {
+    background: url(images/icon/dontpass.png) no-repeat;
+}
+
+.icon-new-user {
+    background: url(images/icon/user.png) no-repeat;
+}
+
+.icon-new-role {
+    background: url(images/icon/role.png) no-repeat;
+}
+
+.icon-new-baobiao {
+    background: url(images/icon/baobiao.png) no-repeat;
+}
+
+.icon-new-userinfo{
+    background: url(images/icon/userinfo.png) no-repeat;
+}
+
+.icon-new-message {
+    background: url(images/icon/message.png) no-repeat;
+}
+
+.icon-new-changepassword {
+    background: url(images/icon/changepassword.png) no-repeat;
+}
+
+.icon-new-exit {
+    background: url(images/icon/exit.png) no-repeat;
+}
+.icon-new-folder {
+    background: url(images/icon/folder.png) no-repeat;
+}
+.icon-new-adduser{
+     background: url(images/icon/adduser.png) no-repeat;
+}
+.icon-new-adduser-more{
+     background: url(images/icon/adduser-more.png) no-repeat;
+}
+.icon-new-return {
+    background: url(images/icon/return.png) no-repeat;
+}
+.icon-new-homepage {
+    background: url(images/icon/homepage.png) no-repeat;
+}
+/*------------以上是用于编译项目中的图标信息-----------------------*/

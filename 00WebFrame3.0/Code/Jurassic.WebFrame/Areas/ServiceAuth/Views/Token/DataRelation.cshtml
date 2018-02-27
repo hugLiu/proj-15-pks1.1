@@ -1,0 +1,80 @@
+﻿@model Jurassic.CommonModels.ServerAuth.DataRelation
+@{
+    ViewBag.ShowBreadCrumb = false;
+    ViewBag.ShowSearchBox = false;
+}
+<div class="form-div frame-fit" id="form1" style="overflow:hidden;" >
+    <input type="hidden" name="TokeyID" id="TokeyID" value="@Model.TokeyID" />
+    <input type="hidden" name="nowDataList" id="nowDataList"  />
+    <input type="hidden" name="oldDataList" id="oldDataList"  />
+
+    <div class="mini-fit">
+       <ul id="treeData" class="mini-tree" style="height:100%" 
+         
+            textfield="DataNodeName" 
+            idfield="DataNodeID"
+            parentfield="DataParentID" 
+
+            showtreeicon="true"  
+            expandOnLoad ="true"
+            resultastree="false"
+            showarrow="true" 
+
+            checkrecursive="true" 
+            showcheckbox="true"  
+            >
+    </ul>
+    </div>
+    <br />
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var treeObj = mini.get("#treeData");
+    var allData;
+
+    //初始创建树结构,并选择已设置的选项
+    $.newGET('@Url.Action("GetTreeData", "DataAuthorize")', function (zNodes) {
+        allData = zNodes;
+        treeObj.loadList(allData, "DataNodeID", "DataParentID");
+        //获取已设置的状态并设置树节点选中状态
+        var did = $('#TokeyID').val();
+        $.newGET('@Url.Action("InitTreeCheckStat","Token")', { id: did }, setCheckStates);
+    });
+
+    //设置权限树选择状态
+    function setCheckStates(resData) {
+        treeObj.uncheckAllNodes();
+        $(allData).each(function () { 
+            var checked = false;
+            for (var i = 0; i < resData.length; i++) {
+                if (resData[i].DataID == this.DataID) {
+                     checked = true;
+                    break;
+                }
+            }
+            //当结点有权限，并且是叶子结点时，勾选结点
+            if (checked && treeObj.isLeaf(this)) {
+                treeObj.checkNode(this);
+            }
+        }); 
+    }
+
+    //获取选择的节点id
+    function getCheckedIds() { 
+        var nodes = treeObj.getCheckedNodes(true);
+        var tokeyID = $('#TokeyID').val();
+        var idArr = [];
+        for (var i = 0; i < nodes.length; i++) {
+            nodes[i].TokeyID = tokeyID;
+            idArr.push(nodes[i]);
+        }
+        var datajson = mini.encode(idArr);
+        $('#nowDataList').val(datajson);
+    }
+
+    $.regButton({
+        text: "@JStr.Save",
+        beforeSubmit: getCheckedIds
+    });
+</script>

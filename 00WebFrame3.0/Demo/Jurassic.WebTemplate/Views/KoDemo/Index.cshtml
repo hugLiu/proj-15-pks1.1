@@ -1,0 +1,45 @@
+﻿<script src="~/scripts/knockout-3.0.0.js" type="text/javascript"></script>
+@*<script src="~/scripts/knockout.mapping-latest.js" type="text/javascript"></script>*@
+
+<div id="ViewBag">
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <span>&nbsp;&nbsp;编号</span>
+                </td>
+                <td>
+                    <span>&nbsp;&nbsp;姓名</span>
+                </td>
+                <td>
+                    <span>&nbsp;&nbsp;年龄</span>
+                </td>
+                <td>
+                    <span>&nbsp;&nbsp;性别</span>
+                </td>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: Users">
+            <tr>
+                <td data-bind="text: Id"></td>
+                <td data-bind="text: Name"></td>
+                <td data-bind="text: Age"></td>
+                <td data-bind="text: Sex"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <input type="submit" value="展开、关闭编辑" data-bind="click:function(){isEdit(!isEdit());}" />
+    <input type="submit" value="保存" data-bind="click:$root.upduser($('#user_name').val(),$('#user_age').val(),$('#user_sex').val())" />
+    <input type="submit" value="清空" data-bind="click:$root.delall()" />
+    <input type="submit" value="更改性别" data-bind="click:$root.sex()" />
+    @*ko的语法可以嵌入到注释中，这样的好处是有时候不用增加额外的代码，可以更精确的控制元素，特别在多种元素的循环中。*@
+    <!-- ko if: isEdit -->
+    <div style="height: 10px"></div>
+    <div>姓名：<input type="text" id="user_name" /></div>
+    <div>年龄：<input type="text" id="user_age" /></div>
+    <div>性别：<input type="text" id="user_sex" /></div>
+    <!-- /ko -->
+</div>
+
+<script src="~/scripts/VM/KoDemoVM.js" type="text/javascript"></script>

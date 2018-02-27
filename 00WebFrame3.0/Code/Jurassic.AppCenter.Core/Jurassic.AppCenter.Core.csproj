@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{333D850B-CF34-4466-B35D-EACC64E53D2C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jurassic.AppCenter</RootNamespace>
+    <AssemblyName>Jurassic.AppCenter.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppServices\ClientManager.cs" />
+    <Compile Include="AppServices\IAuthService.cs" />
+    <Compile Include="AppServices\ITypeProvider.cs" />
+    <Compile Include="AppServices\IUpdateService.cs" />
+    <Compile Include="AppServices\IUserManagerService.cs" />
+    <Compile Include="AppServices\LoginResult.cs" />
+    <Compile Include="Auth\AppFunction.cs" />
+    <Compile Include="Auth\AppManager.cs" />
+    <Compile Include="Auth\AppParameter.cs" />
+    <Compile Include="Auth\AppRole.cs" />
+    <Compile Include="Auth\AppUser.cs" />
+    <Compile Include="Auth\AuthExtensions.cs" />
+    <Compile Include="Auth\FunctionExtensions.cs" />
+    <Compile Include="Auth\IStateManager.cs" />
+    <Compile Include="Auth\IStateProvider.cs" />
+    <Compile Include="Auth\JAuthAttribute.cs" />
+    <Compile Include="Auth\StateManager.cs" />
+    <Compile Include="Caches\CachedList.cs" />
+    <Compile Include="Caches\CachedObject.cs" />
+    <Compile Include="Caches\CachedObjectOnMergeEventArgs.cs" />
+    <Compile Include="Caches\CacheProvider.cs" />
+    <Compile Include="Caches\ICacheProvider.cs" />
+    <Compile Include="Caches\L2Cache.cs" />
+    <Compile Include="Caches\StreamCacheProvider.cs" />
+    <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="Config\UIContext.cs" />
+    <Compile Include="DataManager\DataManager.cs" />
+    <Compile Include="DataManager\DataManagerBase.cs" />
+    <Compile Include="DataManager\ICanSave.cs" />
+    <Compile Include="DataManager\IId.cs" />
+    <Compile Include="DataManager\IIdName.cs" />
+    <Compile Include="DataManager\IIdNameParentId.cs" />
+    <Compile Include="DataManager\IUniqueName.cs" />
+    <Compile Include="DataManager\Pager.cs" />
+    <Compile Include="DataManager\TreeDataManager.cs" />
+    <Compile Include="DataManager\TreeDataManagerBase.cs" />
+    <Compile Include="DataProvider\AdoAuditDataService.cs" />
+    <Compile Include="DataProvider\DataProvider.cs" />
+    <Compile Include="DataProvider\EFAuditDataService.cs" />
+    <Compile Include="DataProvider\IAuditDataService.cs" />
+    <Compile Include="DataProvider\IDataBatchCUD.cs" />
+    <Compile Include="DataProvider\IDataCUD.cs" />
+    <Compile Include="DataProvider\IDataProvider.cs" />
+    <Compile Include="DataProvider\IGetData.cs" />
+    <Compile Include="DataProvider\IGetQueryData.cs" />
+    <Compile Include="DataProvider\ILinqDataProvider.cs" />
+    <Compile Include="DataProvider\IModelDataService.cs" />
+    <Compile Include="DataProvider\LocalDataProvider.cs" />
+    <Compile Include="DataProvider\RoleDataProvider.cs" />
+    <Compile Include="DataProvider\RoleDataWrapper.cs" />
+    <Compile Include="DataProvider\UserDataProvider.cs" />
+    <Compile Include="DbSchema\DbSchemaVersionManager.cs" />
+    <Compile Include="DbSchema\ISchemaScriptProvider.cs" />
+    <Compile Include="DbSchema\MssqlSchemaScriptProvider.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\RefHelper.cs" />
+    <Compile Include="Helpers\TimeHelper.cs" />
+    <Compile Include="JDataEventArgs.cs" />
+    <Compile Include="JException.cs" />
+    <Compile Include="JTree.cs" />
+    <Compile Include="Logs\IJLog.cs" />
+    <Compile Include="Logs\IJLogManager.cs" />
+    <Compile Include="Logs\JLogInfo.cs" />
+    <Compile Include="Logs\JLogType.cs" />
+    <Compile Include="Logs\LogHelper.cs" />
+    <Compile Include="Models\FunctionInitializer.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MvcFuncInfo.cs" />
+    <Compile Include="Models\NetFileInfo.cs" />
+    <Compile Include="Models\SetupModel.cs" />
+    <Compile Include="Processers\ProcesserBase.cs" />
+    <Compile Include="Processers\ProcesserFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\IStartupStr.cs" />
+    <Compile Include="Resources\JIcon.cs" />
+    <Compile Include="Resources\JImg.cs" />
+    <Compile Include="Resources\JStr.cs" />
+    <Compile Include="Resources\ResHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Logs\Logs.cd" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jurassic.Com\Jurassic.Com.csproj">
+      <Project>{de9ba8dc-b7c3-4d8f-b2b0-38bbdfc16069}</Project>
+      <Name>Jurassic.Com</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

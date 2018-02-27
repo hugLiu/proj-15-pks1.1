@@ -1,0 +1,2455 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jurassic.WebFrame</name>
+    </assembly>
+    <members>
+        <member name="T:Jurassic.WebFrame.NinjectWebCommon">
+            <summary>
+            Ninject自动生成的初始化类，进行了适当的改写
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.NinjectWebCommon.Start">
+            <summary>
+            Starts the application
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.NinjectWebCommon.Stop">
+            <summary>
+            Stops the application.
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.NinjectWebCommon.CreateKernel">
+            <summary>
+            Creates the kernel that will manage your application.
+            </summary>
+            <returns>The created kernel.</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.NinjectWebCommon.RegisterServices(Ninject.IKernel)">
+            <summary>
+            Load your modules or register your services here!
+            </summary>
+            <param name="kernel">The kernel.</param>
+        </member>
+        <member name="T:Jurassic.WebFrame.Startup">
+            <summary>
+            利用Owin对应用程序的初始化操作
+            </summary>
+        </member>
+        <member name="F:Jurassic.WebFrame.Startup._configs">
+            <summary>
+            应用程序模块通过此集合加入初始化类，为Owin只能执行一次
+            </summary>
+        </member>
+        <member name="T:Jurassic.WebFrame.IStartupConfig">
+            <summary>
+            应用程序初始化接口。
+            </summary>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.AppManagerController">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            权限系统首页，检查系统环境并显示系统状态。
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.AppManagerController.Start">
+            <summary>
+            应用程序管理起始页，嵌在首页中
+            </summary>
+            <returns>起始页的View</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.AppManagerController.Restart">
+            <summary>
+            重新开始初始化
+            </summary>
+            <returns>重定向的Setup的首页的View</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.AppManagerController.WriteResFiles">
+            <summary>
+            清空所有资源
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.AppManagerController.GetForbiddenIds">
+            <summary>
+            获取当前用户所有能操作的功能ID列表
+            用于前台的动态权限判断
+            </summary>
+            <returns>功能ID列表的Json数组</returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.CatalogController">
+            <summary>
+            分类目录的管理控制器
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.CatalogController.Index(System.String)">
+            <summary>
+            目录管理的主界面
+            </summary>
+            <param name="root">管理的目录树的根结点ID或名称</param>
+            <returns>主界面视图</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.CatalogController.GetAll(System.Int32)">
+            <summary>
+            返回功能列表, 该方法只用于后台菜单管理
+            </summary>
+            <returns>Catalog的Json数组</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.CatalogController.Edit(System.Int32)">
+            <summary>
+            返回要编辑的功能的详细信息
+            </summary>
+            <param name="id">要编辑的树结点ID</param>
+            <returns>功能对象的的Json</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.CatalogController.Edit(Jurassic.CommonModels.Articles.Base_Catalog)">
+            <summary>
+            提交修改并返回树结点信息
+            </summary>
+            <param name="cat">要修改的功能</param>
+            <returns>修改后的功能信息Json</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.CatalogController.Sort(System.String,System.Int32)">
+            <summary>
+            移动结点
+            </summary>
+            <param name="id">要移动的结点</param>
+            <param name="dir">移动方向</param>
+            <returns>移动以后的序号</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.CatalogController.Move(System.String,System.Int32)">
+            <summary>
+            将选中结点移到另一个结点下
+            </summary>
+            <param name="ids">要移动的结点ID列表</param>
+            <param name="pId">要移到的新结点ID，0代表移动到根结点</param>
+            <returns>移动成功与否的JsonTips</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.CatalogController.Delete(System.String)">
+            <summary>
+            删除
+            </summary>
+            <param name="ids">要删除的ID列表</param>
+            <returns>删除的结果提示</returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.FunctionsController">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            功能管理，对功能项的CRUD，除了首页以外，
+            其他的都返回Json的ReturnValueWithTips对象
+            它的另一个版本，参见<see cref="T:Jurassic.WebFrame.Controllers.FunctionsSetupController"/>
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.Index">
+            <summary>
+            首页，注意它的视图是Shared/FunctionIndex.
+            因为这个视图要被两个控制器共用。一个是有权限的功能管理(本控制器），
+            一个是不需要权限的初始化操作。
+            </summary>
+            <returns>功能管理的View</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.GetAll(System.String)">
+            <summary>
+            返回功能列表, 该方法只用于后台菜单管理
+            </summary>
+            <returns>AppFunction的Json数组</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.SearchKey(System.Collections.Generic.IList{Jurassic.AppCenter.AppFunction},System.String)">
+            <summary>
+            从集合中搜索key
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.GetAllRoleMenus">
+            <summary>
+            返回需要角色的功能列表,供角色管理使用
+            </summary>
+            <returns>AppFunction的Json数组</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.GetUserMenu">
+            <summary>
+            返回功能列表, 该方法用于前台生成菜单
+            其中功能的名称已根据资源文件作本地化处理
+            <code>
+            //返回的json对象为：
+            {
+              UserMenu:[{Id:xx，ParentId:xxx, Name:xxx,IconLocation,xxx,Location:xxx},...],
+              ForbiddenIds:[Id1,Id2,....]
+            }
+            </code>
+            </summary>
+            <returns>AppFunction的Json数组</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.CheckFunctionId(System.String)">
+            <summary>
+            检查是否有ID相同的功能
+            </summary>
+            <param name="id">功能ID</param>
+            <returns>是/否</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.Edit(System.String,System.String)">
+            <summary>
+            返回要编辑的功能的详细信息
+            </summary>
+            <param name="id">要编辑的树结点ID</param>
+            <param name="parentId">父结点ID</param>
+            <returns>功能对象的的Json</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.Edit(System.Web.Mvc.FormCollection)">
+            <summary>
+            提交修改并返回树结点信息---所有节点提交
+            </summary>
+            <param name="form">要修改的功能</param>
+            <returns>修改后的功能信息Json</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.Delete(System.String)">
+            <summary>
+            删除
+            </summary>
+            <param name="ids">要删除的ID列表</param>
+            <returns>删除的结果提示</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.Sort(System.String,System.Int32)">
+            <summary>
+            移动结点
+            </summary>
+            <param name="id">要移动的结点</param>
+            <param name="dir">移动方向</param>
+            <returns>移动以后的序号</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.Move(System.String,System.String)">
+            <summary>
+            将选中结点移到另一个结点下
+            </summary>
+            <param name="ids">要移动的结点ID列表</param>
+            <param name="pId">要移到的新结点ID，0代表移动到根结点</param>
+            <returns>移动成功与否的JsonTips</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.GetDescendant(System.String)">
+            <summary>
+            获取所有后代
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.FunctionsController.GetResKeys">
+            <summary>
+            获取系统所有定义过的语言Key供Menu菜单选择它的Name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.FunctionsSetupController">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            由于FunctionsController在初始化阶段也要用，
+            所以用一个不用权限的子类包装,一但Setup完成，将不能再进入这个子类
+            </summary>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.LogController">
+            <summary>
+            日志管理的控制器
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.LogController.#ctor(Jurassic.CommonModels.LogManager)">
+            <summary>
+            ctor
+            </summary>
+            <param name="logManager">日志管理器</param>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.LogController.Index">
+            <summary>
+            显示日志管理主页面
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.LogController.GetAll(System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            获取分页显示的日志数据
+            </summary>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <param name="key"></param>
+            <param name="sortField"></param>
+            <param name="sortOrder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.LogController.Clear">
+            <summary>
+            清除所有日志
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.LogController.Delete(System.String)">
+            <summary>
+            删除几条选定的日志
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.LogController.GetUserLoginLogs(System.Int32,System.Int32)">
+            <summary>
+            获取单用户的登录日志
+            </summary>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.ResController">
+            <summary>
+            资源管理的控制器
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.ResController.Index">
+            <summary>
+            资源管理的首页
+            </summary>
+            <returns>首页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.ResController.GetAll(System.String)">
+            <summary>
+            获取所有资源的DataTable
+            修改时间：2017-01-04，修改人：汪敏
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.ResController.Index(System.Web.Mvc.FormCollection)">
+            <summary>
+            保存所有应用程序运行中产生的资源信息
+            以便于今后可以手工编辑缺失的资源内容
+            修改时间：2017-01-04，修改人：汪敏
+            </summary>
+            <returns>保存成功回首页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.ResController.AddCulture(System.String)">
+            <summary>
+            新增语种
+            </summary>
+            <param name="culture">语言简称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.ResController.DeleteCulture(System.String)">
+            <summary>
+            删除语种
+            </summary>
+            <param name="culture"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.ResController.ClearAllRes">
+            <summary>
+            清除所有资源,所有资源文件变为空文件
+            </summary>
+            <returns>返回操作结果的Json提示信息</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.ResController.AddKey(System.String)">
+            <summary>
+            接受一个新的Key到所有的语言
+            </summary>
+            <param name="key">Key</param>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.ResController.GetAllJsRes(System.String)">
+            <summary>
+            返回一个js对象以使前台脚本也可以调用后台JS
+            本方法将自动按照当前线程的区域特性返回对应的资源对象。
+            </summary>
+            <param name="id">生成的Js的对象名,默认叫JStr</param>
+            <returns>一个js对象</returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.RolesController">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            角色管理，对角色基本信息和角色对应功能权限的维护
+            除了首页Index以外其他的都是输出Json的ReturnValueWithTips
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.RolesController.Index(System.String)">
+            <summary>
+            首页，展示角色列表
+            </summary>
+            <param name="id">要定痊的角色ID，将在列表中自动选中该角色</param>
+            <returns>展示所有角色的视图</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.RolesController.Edit(System.String)">
+            <summary>
+            返回编辑或新增的对象
+            </summary>
+            <param name="id">对象ID，为空时表示新增对象</param>
+            <returns>要修改或新增的对象Json数据</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.RolesController.CheckRoleName(System.String)">
+            <summary>
+            检查角色名称是否合法
+            </summary>
+            <param name="name">要检查的角色名称</param>
+            <returns>是否</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.RolesController.Edit(Jurassic.AppCenter.AppRole,System.String)">
+            <summary>
+            提交并返回编辑或新增过的对象
+            </summary>
+            <param name="role">提交的AppRole对象</param>
+            <param name="funcIds">角色能操作的功能ID列表</param>
+            <returns>返回角色管理首页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.RolesController.Delete(System.String)">
+            <summary>
+            删除指定ID的角色
+            </summary>
+            <param name="id">要删除的角色ID</param> 
+            <returns>成功或失败的提示信息</returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.SetupController">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            AppCenter的初始化向导
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.SetupController.Index">
+            <summary>
+            初始化向导的主页,起始页嵌在主页之内
+            </summary>
+            <returns>初始化向导的主页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.SetupController.Start">
+            <summary>
+            初始化向导起始页，开始程序设置
+            </summary>
+            <returns>初始化向导起始页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.SetupController.GetFunctions">
+            <summary>
+            返回查找功能列表的视图
+            </summary>
+            <returns>查找功能列表的视图</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.SetupController.GetFunctions(System.String)">
+            <summary>
+            根据DLL列表查找功能
+            </summary>
+            <param name="dllPaths">DLL路径名，以换行分隔</param>
+            <returns>重定向到SetAdmin</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.SetupController.SetAdmin">
+            <summary>
+            返回设置管理员角色和用户的表单
+            </summary>
+            <returns>设置管理员角色和用户的表单</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.SetupController.SetAdmin(Jurassic.AppCenter.Models.SetupModel)">
+            <summary>
+            接受管理员角色和用户表单的输入，并设置管理员的角色和账户
+            </summary>
+            <param name="setupModel">包含管理员角色和账户名的数据对象</param>
+            <returns>完成页</returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.UsersController">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            用户管理，对用户基本信息和角色及对应功能权限的维护
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.Index(System.Int32)">
+            <summary>
+            首页，返回用户列表
+            </summary>
+            <param name="page">页号</param>
+            <returns>分页用户列表</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.UserToAction(System.String)">
+            <summary>
+            初始显示用户与功能模块页面并显示用户信息 by_zjf
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.RestoreAction(Jurassic.AppCenter.AppUser)">
+            <summary>
+            恢复默认角色授权 by_zjf
+            </summary>
+            <param name="user">用户对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.SaveAction(Jurassic.AppCenter.AppUser)">
+            <summary>
+            保存设置的功能模块 by_zjf
+            </summary>
+            <param name="user">用户对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.InitTreeCheckStat(System.String)">
+            <summary>
+            获取所选择用户设置的模块功能,并设置树节点为选中状态 by_zjf
+            </summary>
+            <param name="uName">用户</param>
+            <returns>功能模块Json数据</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.GetRoleUsers(System.String)">
+            <summary>
+            根据用户角色ID获取相应所有用户
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.GetAll(Jurassic.CommonModels.Articles.PageModel)">
+            <summary>
+            获取所有用户的分页json数据
+            </summary>
+            <param name="page">查询分页信息，包括当前页、页大小、关键词等</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.Edit(System.String)">
+            <summary>
+            编辑页面
+            </summary>
+            <param name="id">用户ID</param>
+            <returns>用户编辑页面</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.CheckUserName(System.String)">
+            <summary>
+            检查用户名是否合法，用于前台validate远程验证
+            </summary>
+            <param name="name">要检查的用户名</param>
+            <returns>可用/不可用（有重复）</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.Edit(Jurassic.AppCenter.AppUser,System.String[])">
+            <summary>
+            提交编辑
+            </summary>
+            <param name="user">用户AppUser实体</param>
+            <param name="rolesIds">用户对应的角色ID串</param>
+            <returns>如果是新增用户，则继续新增页面，如果是修改用户，则返回用户列表</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.Delete(System.String)">
+            <summary>
+            删除用户，这个如果用户和其他的记录关联会删不掉
+            tips:可以在UserProvider实现的数据操作中采用逻辑删除以避免这种情况
+            </summary>
+            <param name="ids">逗号分隔的要删除的用户ID列表串</param>
+            <returns>回到用户的主界面</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.UsersController.ResetPass(System.String)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="ids">逗号分隔的要重置密码的用户ID列表串</param>
+            <returns>回到用户的主界面</returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Controllers.AccountController">
+            <summary>
+            用户登录控制器
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.AccountController.Login(System.String)">
+            <summary>
+            登录页
+            </summary>
+            <param name="returnUrl">登录成功后要转到的URL</param>
+            <returns>登录页面</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.AccountController.Login(Jurassic.AppCenter.Models.LoginModel,System.String)">
+            <summary>
+            异步登录
+            </summary>
+            <param name="model"></param>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.AccountController.ChangePassword(Jurassic.AppCenter.Models.PasswordChangeModel)">
+            <summary>
+            处理修改密码的POST请求
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.HomeController.Index">
+            <summary>
+            框架主页
+            </summary>。
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.HomeController.HomeSetting">
+            <summary>
+            
+            </summary>。
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.HomeController.StartPage">
+            <summary>
+            主页中内框架mainframe中的起始页
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Controllers.HomeController.StartConfigPage">
+            <summary>
+            mainframe起始页的配置页面
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.Index">
+            <summary>
+            初始页面部门表单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.GetTreeData(System.Nullable{System.Int32})">
+            <summary>
+            获取机构节点集合
+            获取所有数据
+            </summary>
+            <param name="isDisabled">是否禁用 1是 0否 null所有</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.GetDepPostData(System.String)">
+            <summary>
+            查询组织结构相关的岗位
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.GetDepUserData(System.String)">
+            <summary>
+            查询组织结构相关的用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.GetDataInfo(System.Int32)">
+            <summary>
+            根据Id获取组织机构数据对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.SaveForm">
+            <summary>
+            保存表单信息
+            </summary>
+            <returns>保存成功回首页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.DelData(System.Nullable{System.Int32})">
+            <summary>
+            删除组织机构数据
+            </summary>
+            <param name="id">需要删除的ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.GetPostDataInfo">
+            <summary>
+            获取岗位数据集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.VerifyUserIsMainOrg(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.GetDictDataHT">
+            <summary>
+            人员合同类型(字典)
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.GetUserList">
+            <summary>
+            人员基本信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.PostInfo">
+            <summary>
+            初始页面岗位表格
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.PostSave">
+            <summary>
+            保存表单信息
+            </summary>
+            <returns>保存成功回首页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.Organization.Controllers.OrganizationController.IsNotLinkPost(System.Nullable{System.Int32})">
+            <summary>
+            验证该岗位是否存在引用关系
+            岗位与部门表
+            岗位与部门人员表
+            </summary>
+            <returns>true 没有引用关系  false 有引用关系</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.DataAuthorizeController.Index">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.DataAuthorizeController.GetAllTreeData">
+            <summary>
+            获取数据节点集合
+            获取所有的数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.DataAuthorizeController.GetTreeData">
+            <summary>
+            获取数据节点集合
+            获取有效的数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.DataAuthorizeController.GetDataInfo(System.String)">
+            <summary>
+            获取数据节点集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.DataAuthorizeController.SaveForm(Jurassic.CommonModels.ServerAuth.DataNodeInfo)">
+            <summary>
+            保存表单信息
+            </summary>
+            <returns>保存成功回首页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.DataAuthorizeController.DelData(System.String)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="id">需要删除的ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.ServiceAuthorizeController.Index">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.ServiceAuthorizeController.GetAllTreeData">
+            <summary>
+            获取数据节点集合
+            获取所有数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.ServiceAuthorizeController.GetTreeData">
+            <summary>
+            获取数据节点集合
+            仅限获取有效的数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.ServiceAuthorizeController.GetDataInfo(System.String)">
+            <summary>
+            获取数据节点集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.ServiceAuthorizeController.SaveForm(Jurassic.CommonModels.ServerAuth.ServiceInfo)">
+            <summary>
+            保存表单信息
+            </summary>
+            <returns>保存成功回首页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.ServiceAuthorizeController.DelData(System.String)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="id">需要删除的ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.Index">
+            <summary>
+            token授权页面
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.GetMainPageData(System.Int32,System.Int32,System.String)">
+            <summary>
+            token首页数据列表
+            </summary>
+            <param name="pageIndex">分页序号</param>
+            <param name="pageSize">分页大小</param>
+            <param name="key">查询关键字</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.FormInfo(System.String)">
+            <summary>
+            打开表单显示数据
+            </summary>
+            <param name="id">主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.SaveForm">
+            <summary>
+            保存表单信息
+            </summary>
+            <returns>保存成功回首页</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.DelData(System.String)">
+            <summary>
+            删除数据(支持批量删除)
+            </summary>
+            <param name="delList">需要删除的ID集合，用逗号隔开</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.DataRelation(System.String)">
+            <summary>
+            数据授权页面
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.InitTreeCheckStat(System.String)">
+            <summary>
+            获取已授权的数据节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.SaveDataRelation">
+            <summary>
+            保存授权信息
+            </summary>
+            <returns>保存成功</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.ServiceRelation(System.String)">
+            <summary>
+            数据授权页面
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.InitServiceTreeCheckStat(System.String)">
+            <summary>
+            获取已授权的数据节点
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Areas.ServiceAuth.Controllers.TokenController.SaveServiceRelation">
+            <summary>
+            保存授权信息
+            </summary>
+            <returns>保存成功</returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.Providers.AccessToken">
+            <remarks></remarks>
+            <summary>
+            安全令牌实体类 
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Providers.AccessToken.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Providers.AccessToken.access_token">
+            <summary>
+            服务端返回的安全令牌
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Providers.AccessToken.token_type">
+            <summary>
+            安全令牌类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Providers.AccessToken.expires_in">
+            <summary>
+            安全令牌有效时间
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Providers.AccessToken.refresh_token">
+            <summary>
+            服务端返回的用于刷新安全令牌的刷新Key
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Providers.AccessToken.isSuccessStatusCode">
+            <summary>
+            是否成功状态
+            true=成功 false=失败
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Providers.AccessToken.statusCode">
+            <summary>
+            服务端返回的状态编码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Providers.AccessToken.reasonMessage">
+            <summary>
+            返回的状态消息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Providers.AccessToken.issued">
+            <summary>
+            安全令牌发布日期
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Providers.AccessToken.expires">
+            <summary>
+            安全令牌有效期截止日期
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.Providers.AuthorizeComm.GetAccessTokenHeaders(System.String,System.String,System.String)">
+            <summary>
+            获取通讯的安全令牌
+            注:通过文件头信息传递账号与验证信息,如果通过Body传递账号以及验证信息需要改变服务端获取数据的方式
+            </summary>
+            <param name="urlString">远程服务器地址.例:http://www.xxx.com/api</param>
+            <param name="clientId">客户组账号ID</param>
+            <param name="clientSecret">客户授权Key</param>
+            <returns>返回获取安全令牌的对象</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Providers.AuthorizeComm.RefreshToKen(System.String,System.String,System.String,System.String)">
+            <summary>
+            刷新通讯的安全令牌
+            注:通过文件头信息传递账号与验证信息,如果通过Body传递账号以及验证信息需要改变服务端获取数据的方式
+            </summary>
+            <param name="urlString">远程服务器地址.例:http://www.xxx.com/api</param>
+            <param name="clientId">客户组账号ID</param>
+            <param name="clientSecret">客户授权Key</param>
+            <param name="refreshToken">服务端刷新Key</param>
+            <returns>返回获取安全令牌的对象</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Providers.AuthorizeComm.GetAuthdataByClientId(System.String)">
+            <summary>
+            通过客户组Id查询该客户授权的数据节点
+            </summary>
+            <param name="clientId">客户组账号ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Providers.AuthorizeComm.IsAuthData(System.String,System.String)">
+            <summary>
+            获取该客户的数据节点是否授权
+            </summary>
+            <param name="clientId">客户组账号ID</param>
+            <param name="dataNodeID">数据节点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Providers.AuthorizeComm.IsAuthService(System.String,System.String,System.String)">
+            <summary>
+            获取该客户的服务节点是否授权
+            </summary>
+            <param name="clientId">客户组账号ID</param>
+            <param name="actionName">服务名称</param>
+            <param name="serviceFullName">服务完成方法名称(包含命名空间名称)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.Providers.AuthorizeComm.GetServiceByClientId(System.String)">
+            <summary>
+            通过客户组Id查询该客户授权的服务节点
+            </summary>
+            <param name="clientId">客户组编码ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.JGlobalAuthAttribute">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            对AuthorizeAttribute的扩展,并且已自动注册为Mvc的全局筛选器。<br/>
+            使用此特性就无需显式声明对应的角色或用户，由AppCenter自动判定权限
+            子类继承基类时，此特性不能被继承
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.JGlobalAuthAttribute.UnauthorizedData">
+            <summary>
+            在登录超时时所返回的数据
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.JGlobalAuthAttribute.AuthorizeCore(System.Web.HttpContextBase)">
+            <summary>
+            对权限的判断
+            </summary>
+            <param name="httpContext">http请求上下文</param>
+            <returns>是否有权限</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JGlobalAuthAttribute.HandleUnauthorizedRequest(System.Web.Mvc.AuthorizationContext)">
+            <summary>
+            重写非授权访问时的处理逻辑
+            </summary>
+            <param name="filterContext">筛选器上下文</param>
+        </member>
+        <member name="M:Jurassic.WebFrame.JGlobalAuthAttribute.OnAuthorization(System.Web.Mvc.AuthorizationContext)">
+            <summary>
+            重写此方法以获取当前的控制器和视图，检查是否有AllowAnonymous特性。
+            </summary>
+            <param name="filterContext">筛选器上下文</param>
+        </member>
+        <member name="T:Jurassic.WebFrame.JSetupAttribute">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            判断AppCenter是否已初始化，如已初始化则拒绝再次执行
+            </summary>
+        </member>
+        <member name="T:Jurassic.WebFrame.MvcApplication">
+            <summary>
+            MVC应用程序的标准基类，应用程序必须继承此类
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.MvcApplication.Application_Start">
+            <summary>
+            应用程序启动事件方法
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.MvcApplication.AddBindings(Ninject.IKernel)">
+            <summary>
+            使用Ninject用于本系统的自定义接口注入
+            </summary>
+            <param name="ninjectKernel"></param>
+        </member>
+        <member name="P:Jurassic.WebFrame.MvcApplication.ControllerNameSpaces">
+            <summary>
+            查找所有插件程序集，并返回带.Controllers后缀的命名空间列表
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.MvcApplication.InnerControllerNamespaces">
+            <summary>
+            在子类中重写以声明控制器所在的命名空间
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.MvcApplication.Application_BeginRequest">
+            <summary>
+            应用程序启动时的初始化操作，在基类中用于从URL判断当前语种
+            如果在子类重写时没有调用基类方法，则会丢失此特性
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.MvcApplication.GetVaryByCustomString(System.Web.HttpContext,System.String)">
+            <summary>
+            用于自定义缓存过期的条件判断
+            </summary>
+            <param name="context"></param>
+            <param name="custom"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.MvcApplication.Application_End">
+            <summary>停止</summary>
+        </member>
+        <member name="T:Jurassic.WebFrame.BaseController">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            所有Controller的基类，用于日志记录、提示信息和用户权限
+            </summary>
+        </member>
+        <member name="F:Jurassic.WebFrame.BaseController.BadRequest">
+            <summary>
+            错误的请求
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.Tips">
+            <summary>
+            本页的提示信息对象，它可能跨页传递给下一个页面。
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.Id">
+            <summary>
+            数据ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.CatalogId">
+            <summary>
+            栏目ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.CurrentSessionId">
+            <summary>
+            当前会话的ID, 之所以不直接用Session.SessionID,是因为
+            不在Session里放东西，它每次就会生成一个不同的ID,放了一个东西它就固定
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.Function">
+            <summary>
+            当前执行的功能描述实体对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.BreadCrumbList">
+            <summary>
+            面包屑导航
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.LogInfo">
+            <summary>
+            当前控制器的日志数据实体对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.IsPostBack">
+            <summary>
+            是否是回发操作
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.CurrentUser">
+            <summary>
+            代表当前用户的AppUser对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.BaseController.CurrentUserId">
+            <summary>
+            代表当前用户的AppUser对象的ID
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.HasRight(System.String,Jurassic.AppCenter.WebMethod)">
+            <summary>
+            判断用户是否有某URL的访问权限
+            </summary>
+            <param name="location">URL地址(不带http)</param>
+            <param name="method"></param>
+            <returns>有/无</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.HasRightId(System.String)">
+            <summary>
+            判断当前用户是否有某功能ID的访问权限
+            </summary>
+            <param name="functionId">功能ID</param>
+            <returns>有/无</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.OnModelError(System.Collections.Generic.IEnumerable{System.Web.Mvc.ModelError})">
+            <summary>
+            在服务端数据验证错误时的操作,如果不想检查错误，则重写此方法并返回空值
+            </summary>
+            <param name="filterContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>
+            重写以处理Tips提示信息对象
+            </summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.CheckModelError">
+            <summary>
+            当页面数据验证有错误时，找到错误信息
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.JsonTips(System.Object)">
+            <summary>
+            返回一个带提示信息的Json对象。这个通常在验证不通过时
+            提示验证错误
+            </summary>
+            <param name="returnValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.JsonTips(System.Object,System.Web.Mvc.JsonRequestBehavior)">
+            <summary>
+            返回一个带提示信息的Json对象。这个通常在验证不通过时
+            提示验证错误
+            </summary>
+            <param name="returnValue">返回的对象</param>
+            <param name="method">提交方法的限制</param>
+            <returns>带提示的返回对象</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.ViewTips(System.Object)">
+            <summary>
+            返回一个带提示信息的Json对象
+            </summary>
+            <param name="returnValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.JsonTips(System.String,System.String,System.String,System.Object,System.Object[])">
+            <summary>
+            返回一个带提示信息的Json对象
+            </summary>
+            <param name="type">error,warning,success中的一个</param>
+            <param name="title">信息标题</param>
+            <param name="message">信息内容</param>
+            <param name="returnValue">附加的对象数据</param>
+            <param name="formatArgs">以message作为格式化字符串的格式化参数</param>
+            <returns>Json序列化后的ReturnValueWithTips对象</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.JsonTipsLang(System.String,System.String,System.String,System.Object,System.Object[])">
+            <summary>
+            使用多语言版本显示信息
+            </summary>
+            <param name="type">error,warning,success中的一个</param>
+            <param name="titleKey">信息标题的多语言Key</param>
+            <param name="messageKey">信息内容的多语言Key</param>
+            <param name="returnValue">附加的对象数据</param>
+            <param name="formatArgs">以message作为格式化字符串的格式化参数</param>
+            <returns>Json序列化后的ReturnValueWithTips对象</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.JsonTips(System.String,System.String,System.Object,System.String[])">
+            <summary>
+            返回一个带提示信息的Json对象
+            </summary>
+            <param name="type">error,warning,success中的一个</param>
+            <param name="message">信息内容</param>
+            <param name="returnValue">附加的对象数据</param>
+            <returns>Json序列化后的ReturnValueWithTips对象</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.JsonTipsLang(System.String,System.String,System.Object,System.String[])">
+            <summary>
+            使用多语言版本显示信息
+            </summary>
+            <param name="type">error,warning,success中的一个</param>
+            <param name="message">信息内容的多语言Key</param>
+            <param name="returnValue">附加的对象数据</param>
+            <param name="formatArgs">以messageKey作为格式化字符串的格式化参数</param>
+            <returns>Json序列化后的ReturnValueWithTips对象</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.JsonNT(System.Object)">
+            <summary>
+            Json()方法的替换版本，用NewtonSoft.Json来序列化对象
+            这对于序列化DataTable很有用
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.OnActionExecuted(System.Web.Mvc.ActionExecutedContext)">
+            <summary>
+            重写以处理Tips提示信息以及记录日志
+            </summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.OnFinish">
+            <summary>
+            供视图显示调用，以显示本页执行的秒数
+            用在视图末尾，可以较准确地估算视图实际运行的时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.SaveTips">
+            <summary>
+            保存提示信息以使前台能获取到
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.SetTips(System.String,System.String,System.String,System.Object,System.String[])">
+            <summary>
+            当返回的是HTML页面时，要在页面上显示的提示信息
+            通常用于跨页面显示提示信息
+            </summary>
+            <param name="type">error,warning,success中的一个</param>
+            <param name="title">信息标题</param>
+            <param name="message">信息内容</param>
+            <param name="returnValue">附加的对象数据</param>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.SetTips(System.Object)">
+            <summary>
+            当返回的是HTML页面时，要在页面上显示的提示信息
+            </summary>
+            <param name="obj">附加的对象数据</param>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.Dispose(System.Boolean)">
+            <summary>
+            释放控制器
+            </summary>
+            <param name="disposing">是否释放托管资源，false表示只释放非找管资源</param>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.RedirectAction(System.String,System.String)">
+            <summary>
+            公开RedirectToAction方法,这个一般只在筛选器中用。
+            </summary>
+            <param name="actionName">Action名称</param>
+            <param name="controllerName">控制器名称</param>
+            <returns>ActionResult</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.SetCookie(System.String,System.String,System.Int32)">
+            <summary>
+            设置Cookie的值
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="minutes">过期时间，以分钟记</param>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.GetCookie(System.String)">
+            <summary>
+            获取指定Key的Cookie值
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.BaseController.RemoveCookie(System.String)">
+            <summary>
+            删除COOKIE
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="T:Jurassic.WebFrame.ReturnValueWithTips">
+            <summary>
+            为前台的操作定义既要返回提示信息又要返回对象
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.ReturnValueWithTips.#ctor">
+            <summary>
+            创建一个提示信息对象
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.ReturnValueWithTips.Message">
+            <summary>
+            提示信息的内容
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.ReturnValueWithTips.Type">
+            <summary>
+            提示信息的类型,可以是success,warning或error三种
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.ReturnValueWithTips.Title">
+            <summary>
+            提示信息的标题
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.ReturnValueWithTips.ReturnValue">
+            <summary>
+            附加的对象信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.ReturnValueWithTips.IsEmpty">
+            <summary>
+            提示信息是否有Type
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.ReturnValueWithTips.#ctor(System.Object)">
+            <summary>
+            根据一个对象创建提示信息对象
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Jurassic.WebFrame.ReturnValueWithTips.#ctor(System.String,System.String,System.String,System.Object)">
+            <summary>
+            根据提示信息和对象创建提示对象
+            </summary>
+            <param name="type">提示信息的类型,可以是success,warning或error三种</param>
+            <param name="title">提示信息的标题</param>
+            <param name="message">提示信息的内容</param>
+            <param name="value">附加的对象信息</param>
+        </member>
+        <member name="T:Jurassic.WebFrame.FStr">
+            <summary>
+            WebFrame框架本身用到的多语言Key集合
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DefaultRoleReseted">
+            <summary>
+            已恢复默认角色授权
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzSelectUser">
+            <summary>
+            请先选择一个用户
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DuplicatedName">
+            <summary>
+            用户名有重复
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ResetPasswordFailed0">
+            <summary>
+            重置密码失败，带1个参数
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UserSuccessAdded0">
+            <summary>
+            成功新增一个用户，带1个参数（用户名）
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ResetPassword">
+            <summary>
+            重置密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ConfirmResetPassword">
+            <summary>
+            是否重置密码到123456
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.NewUser">
+            <summary>
+            新用户
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UpdateUserInfoSucceed">
+            <summary>
+            成功更新用户信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UpdateUserInfoSucceed0">
+            <summary>
+            成功更新用户信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.EditUser">
+            <summary>
+            成功更新用户信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.RoleNames">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.LoginSucceed">
+            <summary>
+            登录成功
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.MustChangePassword">
+            <summary>
+            第一次登录强制修改密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PasswordChangeSucceed">
+            <summary>
+            成功修改密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ResetPasswordEmailSent">
+            <summary>
+            重置密码的邮件已发送
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ResetPasswordSucceed">
+            <summary>
+            重置密码成功！
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PasswordEmpty">
+            <summary>
+            密码为空
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.RememberMe">
+            <summary>
+            记住我
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ForgotPassword">
+            <summary>
+            忘记密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Loging">
+            <summary>
+            正在登录...
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzInputUserNameForgetPwd">
+            <summary>
+            请输入忘记密码的用户名
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzRestartWebSite">
+            <summary>
+            请重启站点
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UserBaseInfo">
+            <summary>
+            用户基本信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.EditUserInfo">
+            <summary>
+            编辑用户信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Roles">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.RestoreToDefault">
+            <summary>
+            重置
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.InvalidRequestData">
+            <summary>
+            非法的请求数据
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DuplicatedOrgCode">
+            <summary>
+            重复的机构名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UpOrg">
+            <summary>
+            上级组织机构
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.OrgName">
+            <summary>
+            组织机构名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.OrgCode">
+            <summary>
+            组织机构编码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.OrgType">
+            <summary>
+            组织机构编码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Company">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Department">
+            <summary>
+            部门
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DepPost">
+            <summary>
+            部门相关岗位
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostName">
+            <summary>
+            岗位名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostNumber">
+            <summary>
+            岗位人数
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostDesc">
+            <summary>
+            岗位人数
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostDuty">
+            <summary>
+            岗位责任
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostRequire">
+            <summary>
+            岗位要求
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DepartmentEmploy">
+            <summary>
+            部门相关人员
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ContractType">
+            <summary>
+            合同类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ContractYear">
+            <summary>
+            合同期限(年)
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.IsLeader">
+            <summary>
+            是否主管
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.IsMainDept">
+            <summary>
+            是否主部门
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UserAccountFilter">
+            <summary>
+            用户账号筛选
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AddToDept">
+            <summary>
+            加入部门
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.CurrentMainDept">
+            <summary>
+            当前所属主部门
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ChoiceToAddThisUser">
+            <summary>
+            选择添加该部门用户
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AddPost">
+            <summary>
+            新增岗位
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.SystemStatus">
+            <summary>
+            系统概况
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ResourceManager">
+            <summary>
+            语言管理
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DeleteItem">
+            <summary>
+            删除条目
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AddItem">
+            <summary>
+            新增条目
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ClearAllResouce">
+            <summary>
+            清空资源
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ConfirmClearAllResource">
+            <summary>
+            确定清空资源
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DeleteCulture">
+            <summary>
+            删除语种
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzPointCultureColumnForDelete">
+            <summary>
+            请先将光标定位在要删除的语种所在列
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzInputCultueSimpleName">
+            <summary>
+            请输入语种简称(如zh-cn)
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AddCulture">
+            <summary>
+            新增语种
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.RolesList">
+            <summary>
+            角色列表
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.RolePermission">
+            <summary>
+            角色权限
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DuplicatedRoleName">
+            <summary>
+            角色名称重复
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.FunctionManager">
+            <summary>
+            功能管理
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.FunctionNameRequired">
+            <summary>
+            功能名称不能为空
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.IDRequried">
+            <summary>
+            ID不能为空
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.IconAddress">
+            <summary>
+            图标地址
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.IconCSSName">
+            <summary>
+            图标CSS样式名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AuthorizeType">
+            <summary>
+            授权类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.VisibleType">
+            <summary>
+            显示类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ClassName">
+            <summary>
+            类名
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.MethodName">
+            <summary>
+            方法名
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AddBrother">
+            <summary>
+            新增平级
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AddChild">
+            <summary>
+            新增子级
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.NoNodeSelected">
+            <summary>
+            没有结点被勾选
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzInputParentNodeId">
+            <summary>
+            请输入要移动到的父结点ID，0代表移动到顶级
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.NodeCannotMoveToItself">
+            <summary>
+            结点不能移动到自身
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ParentNodeNotFound">
+            <summary>
+            没找到要移动到的父级节点
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.NodeIdIsEmpty">
+            <summary>
+            有结点的ID为空值
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DupliatedNodeId">
+            <summary>
+            有结点的ID重复
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.NewPassowrdMustNotEqualToOld">
+            <summary>
+            修改的密码不能与原密码相同
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ClearSucceed">
+            <summary>
+            成功清除
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.LoginFailed">
+            <summary>
+            登录失败
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostType">
+            <summary>
+            岗位类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostHireType">
+            <summary>
+            岗位雇佣类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostInfo">
+            <summary>
+            岗位信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ChangePassword">
+            <summary>
+            岗位信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Login">
+            <summary>
+            登出
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Logout">
+            <summary>
+            登出
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UserConfigPage">
+            <summary>
+            用户配置页
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.LoginHistory">
+            <summary>
+            登录历史
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ClientIP">
+            <summary>
+            客户端IP
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.FavoriteSettings">
+            <summary>
+            偏好设置
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Skin">
+            <summary>
+            皮肤
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.TabShow">
+            <summary>
+            多标签
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.GridLine">
+            <summary>
+            表格线
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Horizontal">
+            <summary>
+            横线
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Vertical">
+            <summary>
+            竖线
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.LayoutConfig">
+            <summary>
+            布局设置
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.LayoutReseted">
+            <summary>
+            布局已经重置
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.SubmitMethod">
+            <summary>
+            提交方法
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AllLoginUsers">
+            <summary>
+            所有用户
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.EveryOne">
+            <summary>
+            所有人
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.NeedAuth">
+            <summary>
+            授权用户
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Button">
+            <summary>
+            按钮
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UserMenu">
+            <summary>
+            用户菜单
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.RoleMenu">
+            <summary>
+            权限菜单
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.GroupBegin">
+            <summary>
+            分组第一项
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UserContainer">
+            <summary>
+            自定义容器
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.QuckAccessBar">
+            <summary>
+            快速访问项
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.SetTop">
+            <summary>
+            自定义容器
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Widget">
+            <summary>
+            首页部件
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.HowToDefineParameter">
+            <summary>
+            说明：参数格式是 参数名=值(或匹配值的正则表达式)，每行填一个
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.SystemInitFinishedAndRuningPerfect">
+            <summary>
+            系统已完成初始化并正常运行
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.RewriteAllResFiles">
+            <summary>
+            重新写资源文件
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ReGenerateFunctions">
+            <summary>
+            重新生成功能列表
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.FunctionsCount">
+            <summary>
+            功能数
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.RolesCount">
+            <summary>
+            角色数
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UsersCount">
+            <summary>
+            用户数
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ApplicationManagerStartPage">
+            <summary>
+            应用程序管理起始页
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Settings">
+            <summary>
+            设置
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UserAvatar">
+            <summary>
+            用户头像
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Controller">
+            <summary>
+            控制器
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Method">
+            <summary>
+            方法
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Costs">
+            <summary>
+            开销(ms)
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.RolesManager">
+            <summary>
+            角色管理
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ParentAndCurrentSameName">
+            <summary>
+            您所选择的上级数据节点与当前节点重名
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzDeleteAuthroizeRelationFirst">
+            <summary>
+            提示:您所删除的服务节点,与客户组存在服务授权关系,请先删除该服务授权关系.
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DuplicatedAccountOrKey">
+            <summary>
+            你设置的客户组账号或授权Key重复
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DataStatus">
+            <summary>
+            数据状态
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DeleteDataNode">
+            <summary>
+            删除数据节点
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AddDataNode">
+            <summary>
+            新增数据节点
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DataNodeCode">
+            <summary>
+            数据节点编码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DataNodeName">
+            <summary>
+            数据节点名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ParentNodeName">
+            <summary>
+            上级节点名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ServiceInfoName">
+            <summary>
+            服务描述名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ServiceMethodName">
+            <summary>
+            服务方法名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ServiceMethodFullName">
+            <summary>
+            服务方法全称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ServiceStatus">
+            <summary>
+            服务状态
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AddServiceNode">
+            <summary>
+            新增服务节点
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DeleteServiceNode">
+            <summary>
+            删除服务节点
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AuthorizeStatus">
+            <summary>
+            授权状态
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AccreditBy">
+            <summary>
+            授权人
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ValidityDate">
+            <summary>
+            有效期
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AuthorizeKey">
+            <summary>
+            授权Key
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ClientId">
+            <summary>
+            客户组账号
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ClientName">
+            <summary>
+            客户组名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AuthorizeDate">
+            <summary>
+            授驻有效期
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AddAuthorize">
+            <summary>
+            新增授权
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.EditAuthorize">
+            <summary>
+            编辑授权
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DataAuthorize">
+            <summary>
+            数据授权
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ServiceAuthorize">
+            <summary>
+            服务授权
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzInputClientName">
+            <summary>
+            请选择客户组名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.LogManager">
+            <summary>
+            日志管理
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.CultureManager">
+            <summary>
+            日志管理
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.OrgManager">
+            <summary>
+            组织管理
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostMaintance">
+            <summary>
+            岗位维护
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzEnterKeyword">
+            <summary>
+            请输入关键字
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.AccountRequired">
+            <summary>
+            请输入账号
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PasswordAtLeast5Chars">
+            <summary>
+            密码最少要5个字符
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UserManager">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostAlreadyAdded">
+            <summary>
+            你所选择的岗位已经添加
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.OnlyLetterOrNumberAllowed">
+            <summary>
+            只允许输入英文或数字
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.UserMainDeptExists">
+            <summary>
+            该用户已设置主部门
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ConfirmAdjToCurrentDept">
+            <summary>
+            是否调整为当前所设置的部门
+            是=以当前部门做主部门 否=不调整主部门
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzSelectADept">
+            <summary>
+            请选择一个组织机构
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PlzDeleteChildNodesFirst">
+            <summary>
+            请先删该组织机构所对应的子节点!
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ConfrimDeleteSelectedDeptPostEmployInfo">
+            <summary>
+            确定删除所选择组织机构以及相关岗位人员信息?
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.PostBaseInfo">
+            <summary>
+            岗位基础信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.DeptEmployee">
+            <summary>
+            部门人员
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.NameRequired">
+            <summary>
+            请输入名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.Properties">
+            <summary>
+            属性集
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ConfirmCloneNodeAndChildren">
+            <summary>
+            是否复制结点和子结点
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ConfirmClearAllLogs">
+            <summary>
+            确定清空所有日志
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.SearchNav">
+            <summary>
+            搜索导航栏
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.LoginChangePasswordFirst">
+            <summary>
+            欢迎第一次使用本系统，请您修改密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ChangeYourPassword">
+            <summary>
+            修改您的登录密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.OldPassword">
+            <summary>
+            旧密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.NewPassword">
+            <summary>
+            新密码
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.FStr.ConfirmPassword">
+            <summary>
+            确认新密码
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.JAuthLink(System.Web.Mvc.HtmlHelper,System.String,System.String,System.String,System.Object,System.Object)">
+            <remarks>王家新, 2014-08-01, 2014-08-01</remarks>
+            <summary>
+            根据用户所拥有的权限，决定链接显示还是不显示
+            </summary>
+            <param name="htmlHelper">HTMLhelper 帮助类实例.</param>
+            <param name="linkText">链接文本</param>
+            <param name="actionName">Action名称</param>
+            <param name="controllerName">Controller名称</param>
+            <param name="routeValues">路由对象包</param>
+            <param name="htmlAttributes">Html属性包</param>
+            <returns>HtmlString,没有权限返回空串</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.JAuthLink(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Object)">
+            <summary>
+            根据用户是否有权限生成一个链接
+            </summary>
+            <param name="htmlHelper">HTMLhelper 帮助类实例.</param>
+            <param name="linkText">链接文本</param>
+            <param name="actionName">Action名称</param>
+            <param name="routeValues">路由对象包</param>
+            <returns>HtmlString,没有权限返回空串</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.RawStr(System.Web.Mvc.HtmlHelper,System.String,System.String)">
+            <summary>
+            输出有HTML标记的资源字符串
+            </summary>
+            <param name="htmlHelper">HTMLhelper 帮助类实例.</param>
+            <param name="name">资源名称</param>
+            <param name="defaultValue">没有此资源的默认值</param>
+            <returns>带HTML标记的资源字符串</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.Str(System.Web.Mvc.HtmlHelper,System.String,System.String)">
+            <summary>
+            编码输出资源字符串
+            </summary>
+            <param name="htmlHelper">HTMLhelper 帮助类实例.</param>
+            <param name="name">资源名称</param>
+            <param name="defaultValue">没有此资源的默认值</param>
+            <returns>资源字符串</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetId(System.Web.Mvc.HtmlHelper,System.String,Jurassic.AppCenter.WebMethod)">
+            <summary>
+            获取某个操作的ID，用于前台权限判断
+            </summary>
+            <param name="htmlHelper">HTMLhelper 帮助类实例.</param>
+            <param name="actionName">Action名称</param>
+            <param name="method">提交方法</param>
+            <returns>链接的ID</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetId(System.Web.Mvc.HtmlHelper,System.String,System.String,Jurassic.AppCenter.WebMethod)">
+            <summary>
+            获取某个操作的ID，用于前台权限判断
+            </summary>
+            <param name="htmlHelper">HTMLhelper 帮助类实例.</param>
+            <param name="actionName">Action名称</param>
+            <param name="controllerName">Controller名称</param>
+            <param name="method">提交方法</param>
+            <returns>链接的ID</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetId(System.Web.Mvc.HtmlHelper,System.String,System.String,System.Object,Jurassic.AppCenter.WebMethod)">
+            <summary>
+            获取某个操作的ID，用于前台权限判断
+            </summary>
+            <param name="htmlHelper">HTMLhelper 帮助类实例.</param>
+            <param name="actionName">Action名称</param>
+            <param name="controllerName">Controller名称</param>
+            <param name="routeValues">路由对象包</param>
+            <param name="method">提交方法</param>
+            <returns>链接的ID</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.FunctionAction(System.Web.Mvc.UrlHelper,Jurassic.AppCenter.AppFunction)">
+            <summary>
+            根据指定的功能生成链接地址
+            </summary>
+            <param name="url"></param>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetParamsValue(System.Web.Routing.RequestContext,System.String)">
+            <summary>
+            通过RouteValues或QueryString获取指定的值
+            </summary>
+            <param name="context"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.JGrid``1(System.Web.Mvc.HtmlHelper,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            使用Jquery的jqGrid扩展来渲染出一个JqGrid的表格UI界面
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="htmlHelper"></param>
+            <param name="pagerSource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.ReBuildRouteDict(System.Web.Mvc.ViewContext)">
+            <summary>
+            根据现有请求信息重新构造一个请求字典
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.AssignFormValues(System.Collections.Specialized.NameValueCollection,System.Object)">
+            <summary>
+            将Form表单中的数据导入实体对象中的同名属性
+            </summary>
+            <param name="form">表单数据</param>
+            <param name="model">实体对象</param>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetUsersSelectList(System.Web.Mvc.HtmlHelper,System.Boolean)">
+            <summary>
+            提供一个所有用户的下拉列表选项
+            </summary>
+            <param name="helper">HTMLHelper</param>
+            <param name="allowNull">是否在前面加个空值</param>
+            <returns>所有用户的下拉列表</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetSelectList(Jurassic.CommonModels.Articles.Base_CatalogExt)">
+            <summary>
+            根据栏目扩展属性生成下拉列表项
+            </summary>
+            <param name="catExt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetSelectList(Jurassic.CommonModels.Articles.CatalogExtAttribute)">
+            <summary>
+            根据栏目扩展属性标签生成下拉列表项
+            </summary>
+            <param name="catExt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetSqlList(Jurassic.CommonModels.Articles.Base_CatalogExt)">
+            <summary>
+            根据sql语句返回下拉列表所需数据
+            </summary>
+            <param name="catExt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetSqlList(Jurassic.CommonModels.Articles.CatalogExtAttribute)">
+            <summary>
+            根据sql语句返回下拉列表所需数据
+            </summary>
+            <param name="catExt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetUserDefineList(Jurassic.CommonModels.Articles.CatalogExtAttribute,System.Object)">
+            <summary>
+            根据Model中定义的方法来获取下拉列表所需数据
+            方法可以返回一个字符串或一个DataTable或一个System.Web.MVC.SelectListItem集合
+            </summary>
+            <param name="catExt"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.IsHidden(Jurassic.CommonModels.Articles.CatalogExtAttribute)">
+            <summary>
+            标该标签的控件不会显示，但是会用隐藏域传值
+            </summary>
+            <param name="attr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetEnumResKey(System.Type,System.String)">
+            <summary>
+            获取某个枚举类型的枚举名称对应的多语言Key值
+            </summary>
+            <param name="enumType">枚举类型</param>
+            <param name="valueName">该类型上的枚举名称</param>
+            <returns>Key值: Enum.枚举类型名称.值名称</returns>
+        </member>
+        <member name="M:Jurassic.WebFrame.JMvcExtensions.GetSelectList(System.Type)">
+            <summary>
+            根据枚举类型，返回一个下拉列表
+            </summary>
+            <param name="type">枚举类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.WebFrame.ResFileWriter">
+            <summary>
+            将所有程序集中打包的资源如*.cshtml,*.css,*.js,*.png.*.jpg等文件拷贝到网站运行目录下
+            同时在网站结束时删除这些文件。
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.ResFileWriter.ClearResFiles">
+            <summary>
+            清除从打包的资源生成的文件,但是在文件后期被修改后不再删除
+            </summary>
+        </member>
+        <member name="M:Jurassic.WebFrame.ResFileWriter.WriteResFiles">
+            <summary>
+            将所有引用的程序集中的资源写回物理文件
+            </summary>
+        </member>
+        <member name="T:Jurassic.WebFrame.Models.UserConfig">
+            <summary>
+            用户个性化配置
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Models.UserConfig.Theme">
+            <summary>
+            主题名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Models.UserConfig.ShowTab">
+            <summary>
+            显示Tab页风格
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Models.UserConfig.GridLineStyle">
+            <summary>
+            表格线样式
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Models.UserConfig.LoginToLastPage">
+            <summary>
+            是否转向最后一次页面
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Models.UserConfig.LastPageUrl">
+            <summary>
+            用户最后一次访问的页面地址,下次登录可以直接转到此地址
+            </summary>
+        </member>
+        <member name="P:Jurassic.WebFrame.Models.UserConfig.UserHomePage">
+            <summary>
+            用户自定义的主页
+            </summary>
+        </member>
+        <member name="T:Jurassic.WebFrame.Models.UserConfigStorage`1">
+            <summary>
+            用于存储与用户关联的配置信息
+            </summary>
+            <typeparam name="T">继承UserConfig的子类</typeparam>
+        </member>
+    </members>
+</doc>

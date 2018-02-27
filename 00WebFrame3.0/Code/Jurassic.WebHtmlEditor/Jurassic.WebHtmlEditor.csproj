@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1FD84926-A798-496C-B672-06B2BB82550D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jurassic.WebHtmlEditor</RootNamespace>
+    <AssemblyName>Jurassic.WebHtmlEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Jurassic.WebHtmlEditor.xml</DocumentationFile>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>CS1591,CS1571,CS1573</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Jurassic.WebHtmlEditor.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.0.30506.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.Net.Http.2.0.30506.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EditorExtensions.cs" />
+    <Compile Include="EditorFormData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebHtmlEditorRegistration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Scripts\Editor\kindeditor-all-min.js" />
+    <Content Include="Scripts\Editor\kindeditor-all.js" />
+    <Resource Include="Views\UpImg\UploadImg.cshtml" />
+    <Resource Include="Scripts\Editor\kindeditor-min.js" />
+    <Resource Include="Scripts\Editor\kindeditor.js" />
+    <Resource Include="Scripts\Editor\lang\ar.js" />
+    <Resource Include="Scripts\Editor\lang\en.js" />
+    <Resource Include="Scripts\Editor\lang\ko.js" />
+    <Resource Include="Scripts\Editor\lang\zh-CN.js" />
+    <Resource Include="Scripts\Editor\lang\zh-TW.js" />
+    <Resource Include="Scripts\Editor\plugins\anchor\anchor.js" />
+    <Resource Include="Scripts\Editor\plugins\autoheight\autoheight.js" />
+    <Resource Include="Scripts\Editor\plugins\baidumap\baidumap.js" />
+    <Resource Include="Scripts\Editor\plugins\baidumap\index.html" />
+    <Resource Include="Scripts\Editor\plugins\baidumap\map.html" />
+    <Resource Include="Scripts\Editor\plugins\clearhtml\clearhtml.js" />
+    <Resource Include="Scripts\Editor\plugins\code\code.js" />
+    <Resource Include="Scripts\Editor\plugins\code\prettify.css" />
+    <Resource Include="Scripts\Editor\plugins\code\prettify.js" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\emoticons.js" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\0.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\1.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\10.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\100.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\101.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\102.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\103.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\104.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\105.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\106.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\107.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\108.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\109.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\11.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\110.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\111.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\112.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\113.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\114.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\115.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\116.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\117.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\118.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\119.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\12.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\120.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\121.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\122.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\123.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\124.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\125.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\126.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\127.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\128.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\129.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\13.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\130.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\131.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\132.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\133.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\134.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\14.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\15.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\16.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\17.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\18.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\19.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\2.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\20.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\21.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\22.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\23.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\24.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\25.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\26.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\27.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\28.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\29.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\3.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\30.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\31.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\32.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\33.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\34.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\35.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\36.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\37.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\38.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\39.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\4.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\40.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\41.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\42.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\43.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\44.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\45.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\46.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\47.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\48.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\49.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\5.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\50.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\51.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\52.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\53.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\54.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\55.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\56.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\57.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\58.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\59.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\6.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\60.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\61.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\62.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\63.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\64.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\65.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\66.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\67.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\68.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\69.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\7.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\70.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\71.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\72.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\73.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\74.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\75.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\76.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\77.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\78.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\79.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\8.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\80.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\81.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\82.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\83.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\84.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\85.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\86.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\87.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\88.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\89.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\9.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\90.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\91.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\92.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\93.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\94.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\95.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\96.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\97.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\98.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\99.gif" />
+    <Resource Include="Scripts\Editor\plugins\emoticons\images\static.gif" />
+    <Resource Include="Scripts\Editor\plugins\filemanager\filemanager.js" />
+    <Resource Include="Scripts\Editor\plugins\filemanager\images\file-16.gif" />
+    <Resource Include="Scripts\Editor\plugins\filemanager\images\file-64.gif" />
+    <Resource Include="Scripts\Editor\plugins\filemanager\images\folder-16.gif" />
+    <Resource Include="Scripts\Editor\plugins\filemanager\images\folder-64.gif" />
+    <Resource Include="Scripts\Editor\plugins\filemanager\images\go-up.gif" />
+    <Resource Include="Scripts\Editor\plugins\flash\flash.js" />
+    <Resource Include="Scripts\Editor\plugins\image\image.js" />
+    <Resource Include="Scripts\Editor\plugins\image\images\align_left.gif" />
+    <Resource Include="Scripts\Editor\plugins\image\images\align_right.gif" />
+    <Resource Include="Scripts\Editor\plugins\image\images\align_top.gif" />
+    <Resource Include="Scripts\Editor\plugins\image\images\refresh.png" />
+    <Resource Include="Scripts\Editor\plugins\insertfile\insertfile.js" />
+    <Resource Include="Scripts\Editor\plugins\lineheight\lineheight.js" />
+    <Resource Include="Scripts\Editor\plugins\link\link.js" />
+    <Resource Include="Scripts\Editor\plugins\map\map.html" />
+    <Resource Include="Scripts\Editor\plugins\map\map.js" />
+    <Resource Include="Scripts\Editor\plugins\media\media.js" />
+    <Resource Include="Scripts\Editor\plugins\multiimage\images\image.png" />
+    <Resource Include="Scripts\Editor\plugins\multiimage\images\select-files-en.png" />
+    <Resource Include="Scripts\Editor\plugins\multiimage\images\select-files-zh_CN.png" />
+    <Resource Include="Scripts\Editor\plugins\multiimage\images\swfupload.swf" />
+    <Resource Include="Scripts\Editor\plugins\multiimage\multiimage.js" />
+    <Resource Include="Scripts\Editor\plugins\pagebreak\pagebreak.js" />
+    <Resource Include="Scripts\Editor\plugins\plainpaste\plainpaste.js" />
+    <Resource Include="Scripts\Editor\plugins\preview\preview.js" />
+    <Resource Include="Scripts\Editor\plugins\quickformat\quickformat.js" />
+    <Resource Include="Scripts\Editor\plugins\table\table.js" />
+    <Resource Include="Scripts\Editor\plugins\template\html\1.html" />
+    <Resource Include="Scripts\Editor\plugins\template\html\2.html" />
+    <Resource Include="Scripts\Editor\plugins\template\html\3.html" />
+    <Resource Include="Scripts\Editor\plugins\template\template.js" />
+    <Resource Include="Scripts\Editor\plugins\wordpaste\wordpaste.js" />
+    <Resource Include="Scripts\Editor\themes\common\anchor.gif" />
+    <Resource Include="Scripts\Editor\themes\common\blank.gif" />
+    <Resource Include="Scripts\Editor\themes\common\flash.gif" />
+    <Resource Include="Scripts\Editor\themes\common\loading.gif" />
+    <Resource Include="Scripts\Editor\themes\common\media.gif" />
+    <Resource Include="Scripts\Editor\themes\common\rm.gif" />
+    <Resource Include="Scripts\Editor\themes\default\background.png" />
+    <Resource Include="Scripts\Editor\themes\default\default.css" />
+    <Resource Include="Scripts\Editor\themes\default\default.png" />
+    <Resource Include="Scripts\Editor\themes\qq\editor.gif" />
+    <Resource Include="Scripts\Editor\themes\qq\qq.css" />
+    <Resource Include="Scripts\Editor\themes\simple\simple.css" />
+    <Resource Include="Scripts\Editor\plugins\uploadimage\uploadimage.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jurassic.AppCenter.Core\Jurassic.AppCenter.Core.csproj">
+      <Project>{e432a994-a664-497e-b189-94c12c0bfc2c}</Project>
+      <Name>Jurassic.AppCenter.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jurassic.CommonModels\Jurassic.CommonModels.csproj">
+      <Project>{158688c6-63e5-4641-8271-f106641389da}</Project>
+      <Name>Jurassic.CommonModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jurassic.Com\Jurassic.Com.csproj">
+      <Project>{feb3fad2-d5bf-45e5-817e-4c13f2a99b99}</Project>
+      <Name>Jurassic.Com</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Shared\_HtmlEditor.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51276</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51232/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

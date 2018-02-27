@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = ResHelper.GetStr("SelectUser");
+    ViewBag.ShowBreadCrumb = false;
+    var multi = (Request.QueryString["multiSelect"] ?? "").ToLower();
+}
+@*自定义工具栏*@
+@section UserToolBar
+{
+    <a class="mini-button frame-submit" plain="true">@Html.Str("Refresh")</a>
+}
+<div class="mini-splitter frame-fit" style="width:100%;height:100%;">
+    <div size="30%" showcollapsebutton="true" style="padding:5px;">
+        <ul id="treeDept" class="mini-tree" url="@Url.Action("GetDepts")" style="width:100%;height:100%;padding:5px;" showcheckbox="true"
+            showtreeicon="true" textfield="Name" idfield="Id" parentfield="ParentId" resultastree="false" onnodecheck="deptNodeChecked"
+            showarrow="true"></ul>
+    </div>
+    <div showcollapsebutton="true">
+        <div id="gridDeptUsers" idfield="Id" sortField="UserName" sortOrder="asc" class="mini-datagrid frame-search-grid" style="width:100%;height:100%" url="@Url.Action("GetDeptUsers")" multiselect="@multi"
+             pagesize="50">
+            <div property="columns">
+                <div type="indexcolumn"></div>
+                <div type="checkcolumn"></div>
+                <div field="DepName" width="120" headeralign="center" allowsort="true">所属部门</div>
+                <div field="UserName" width="120" headeralign="center" allowsort="true">用户名</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+    var treeDept = mini.get("treeDept");
+    var gridDeptUsers = mini.get("gridDeptUsers");
+    var selectedIds = "";
+
+    gridDeptUsers.on("load", function () {
+        // cast是webframe.1.x的js扩展,用于将一个数组转换成另一个数组
+        var startUsers = selectedIds.split(',').cast(function (n) { return { Id: n } });
+        gridDeptUsers.selects(startUsers);
+    });
+
+    function setSelectedUsers(uids) {
+        selectedIds = uids;
+        gridDeptUsers.load();
+    }
+
+    function deptNodeChecked(e) {
+        var chked = treeDept.getCheckedNodes();
+        var chkedIds = chked.cast(function (node) { return node.Id }).join(",");
+        gridDeptUsers.setUrl("@Url.Action("GetDeptUsers")" + "?deptIds=" + chkedIds);
+        gridDeptUsers.load();
+    }
+
+    function getSelectedUsers() {
+        return gridDeptUsers.getSelecteds();
+    }
+
+    $.regButton({
+        text: "@Html.Str("Refresh")",
+        noSubmit: function () {
+            gridDeptUsers.load();
+        }
+    });
+</script>

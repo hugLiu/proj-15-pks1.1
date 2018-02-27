@@ -1,0 +1,231 @@
+﻿@using Jurassic.AppCenter.Resources;
+@using Jurassic.Com.Tools;
+@using Jurassic.CommonModels.ModelBase;
+@using Jurassic.CommonModels.Articles;
+@using System.Reflection;
+@using Jurassic.WebQuery;
+@{
+    List<object> props = new List<object>();
+    Type m = ViewBag.QueryType as Type;
+    ModelRule modelRule = ModelRule.Get(m);
+    string firstProp = null;
+    foreach (var prop in modelRule.SingleRules.Where(p => p.Browsable))
+    {
+        if (firstProp == null)
+        {
+            firstProp = prop.Name;
+        }
+        var text = ResHelper.GetStr("Column." + m.Name + "." + prop.Name, prop.Name);
+        if (!text.IsEmpty() && text != "-")
+        {
+            props.Add(new
+            {
+                id = prop.Name,
+                text = text
+            });
+        }
+    }
+
+    var queryOpers = @"[
+    {id:'=', text:'='},
+    {id:'>', text:'>'},
+    {id:'>=', text:'>='},
+    {id:'<', text:'<'},
+    {id:'<=', text:'<='},
+    {id:'!=', text:'!='},
+    {id:'LIKE', text:'LIKE'},
+    {id:'NOT LIKE', text:'NOT LIKE'}
+    ]";
+}
+
+    <span class="frame-advquery">
+        <button class="btn  btn-default frame-submit">
+            <span class="glyphicon glyphicon-filter"></span>
+            <span class="hidden">@Html.Str("Advanced Search")</span>
+        </button>
+    </span>
+
+    @*高级搜索弹出窗*@
+    <div id="winAdvSearch" class="mini-window cs-window" title="@Html.Str("Advanced Search")" style="width:560px;height:400px;" showshadow="true"
+         showtoolbar="true" showmodal="false" showfooter="true">
+        <div class="mini-splitter" style="width:100%;height:100%;">
+            <div size="25%" showcollapsebutton="false" style="padding:5px;">
+                <div>@Html.Str("Search Scheme")</div>
+                <input class="mini-listbox mini-fit" id="query_cbxSavedQuery" url="@Url.Action("GetUserQuerys", "AdvQuery", new { modelName=m.Name })"
+                       valuefield="Id" textfield="Name" style="width:100%;height:100%;" />
+            </div>
+            <div showcollapsebutton="false">
+                <div id="tab_AdvQuery" class="mini-tabs" activeindex="0" style="width:100%;height:100%;" plain="true">
+                    <div title="@Html.Str("Criteria")">
+                        <div property="toolbar">
+                            <a id="btn_simpleAnd" checkonclick="true" groupname="andor" class="mini-button" plain="true">AND</a>
+                            <a id="btn_simpleOr" checkonclick="true" groupname="andor" class="mini-button" plain="true">OR</a>
+                            <span class="separator"></span>
+                            <a class="mini-button" id="btn_simpleAddNode" plain="true">@Html.Str("Add Criteria")</a>
+                            <a class="mini-button" id="btn_simpleRemoveNode" plain="true">@Html.Str("Delete Criteria")</a>
+                        </div>
+                        <div id="query_grid" class="mini-datagrid" style="width:100%;height:100%;"
+                             idfield="Id" allowresize="true" showpager="false" allowcelledit="true" allowcellselect="true" multiselect="true"
+                             editnextonenterkey="true" editnextrowcell="true">
+                            <div property="columns">
+                                <div type="indexcolumn"></div>
+                                <div field="ExpressionText" width="150">
+                                    @Html.Str("Field")
+                                </div>
+                                <div field="Operator" width="100" type="comboboxcolumn">
+                                    @Html.Str("Operator")
+                                    <input property="editor" class="mini-combobox" data="@Html.Raw(queryOpers)" />
+                                </div>
+                                <div field="ValueText" width="100">@Html.Str("Compare Value")</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div title="@Html.Str("Advanced")">
+                        <div property="toolbar">
+                            <a class="mini-button" id="btn_onAddAnd" plain="true">+AND</a>
+                            <a class="mini-button" id="btn_onAddOr" plain="true">+OR</a>
+                            <a class="mini-button" id="btn_onAddExpr" plain="true">+@Html.Str("Criteria")</a>
+                            <a class="mini-button" id="btn_onRemoveNode" plain="true">@JStr.Delete</a>
+                        </div>
+                        <div id="query_tree" class="mini-treegrid" style="width:100%;height:100%" treecolumn="ExpressionText"
+                             showtreeicon="true" idfield="Id" parentfield="ParentId" resultastree="false"
+                             allowdrag="true" allowdrop="true" allowleafdropin="true" expandonload="true" allowcelledit="true" allowcellselect="true">
+                            <div property="columns">
+                                <div type="indexcolumn"></div>
+                                <div name="ExpressionText" field="ExpressionText" width="150">
+                                    @Html.Str("Field")
+                                </div>
+                                <div field="Operator" width="100" type="comboboxcolumn">
+                                    @Html.Str("Operator")
+                                    <input property="editor" class="mini-combobox" data="@Html.Raw(queryOpers)" />
+                                </div>
+                                <div field="ValueText" width="100">@Html.Str("Compare Value")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div property="footer" style="text-align:right;" id="advSearchFooter">
+            <a class="mini-button" id="btn_advSearch" style='vertical-align:middle;' plain="true">@JStr.Search</a>
+            <a class="mini-button" id="btn_saveData" plain="true">@JStr.Save</a>
+            <a class="mini-button" id="btn_deleteData" plain="true">@JStr.Delete</a>
+            <a class="mini-button" id="btn_hideAdvSearch" style='vertical-align:middle;' plain="true">@Html.Str("Close")</a>
+        </div>
+    </div>
+    <div style="display:none;">
+        @foreach (var prop in modelRule.SingleRules.Where(p => p.Browsable))
+        {
+            @MiniControl(prop)
+        }
+        <input class="mini-combobox" id="select_AndOr" valuefromselect="true" style="width:100%" data="[{id:'AND', text:'AND'}, {id:'OR', text:'OR'}]" />
+        <input id="select_Field" class="mini-combobox" data='@Html.Raw(JsonHelper.ToJson(props))' />
+    </div>
+    @helper MiniControl(CatalogExtAttribute catAttr)
+{
+    PropertyInfo prop = catAttr.Property;
+    Type type = prop.DeclaringType;
+    string columnText = ResHelper.GetStr("Column." + type.Name + "." + catAttr.Name, catAttr.Name);
+    string emptyText = ResHelper.GetStr("Empty." + type.Name + "." + catAttr.Name);
+    if (emptyText.IsEmpty())
+    {
+        emptyText = columnText;
+    }
+    var idAttr = "id='query_" + prop.Name + "'";
+    var emptyTextAttr = "emptytext=" + "'" + emptyText + "'";
+    var autoAttrs = String.Join(" ", idAttr, emptyTextAttr);
+
+    if (!catAttr.LinkedProperty.IsEmpty())
+    {
+        <input class="mini-textbox" @Html.Raw(autoAttrs) />
+        return;
+    }
+    switch (catAttr.DataSourceType)
+    {
+        //单项选择下拉列表
+        case ExtDataSourceType.UserDefine:
+        case ExtDataSourceType.SqlQuery:
+        case ExtDataSourceType.DirectList:
+            <input class="mini-combobox" @Html.Raw(autoAttrs) valuefromselect="true" style="width:100%" url="@Url.Action("GetPropList", new { prop = prop.Name })" />
+            break;
+
+        //多项选择下拉列表
+        case ExtDataSourceType.SqlQueryMultipleList:
+        case ExtDataSourceType.MultipleList:
+        <input class="mini-combobox" @Html.Raw(autoAttrs) valuefromselect="true" style="width:100%" url="@Url.Action("GetPropList", new { prop = prop.Name })" />
+            break;
+        default:
+            var maxdate = catAttr.MaxValue == null ? null : "maxdate='" + catAttr.MaxValue + "'";
+            var mindate = catAttr.MinValue == null ? null : "mindate='" + catAttr.MinValue + "'";
+            var maxmindate = String.Join(" ", maxdate, mindate);
+            var maxvalue = catAttr.MaxValue == null ? null : "maxvalue='" + catAttr.MaxValue + "'";
+            var minvalue = catAttr.MinValue == null ? null : "minvalue='" + catAttr.MinValue + "'";
+            var maxminvalue = String.Join(" ", maxvalue, minvalue);
+            var maxlength = catAttr.MaxLength == 0 ? null : "maxlength='" + catAttr.MaxLength + "'";
+            var minlength = catAttr.MinLength == 0 ? null : "minlength='" + catAttr.MinLength + "'";
+            var maxminlength = string.Join(" ", maxlength, minlength);
+            switch (catAttr.DataType)
+            {
+                case ExtDataType.Date:
+                    <input class="mini-datepicker"
+                           format="@catAttr.InputFormat"
+                           showtime="false"
+                           showokbutton="false"
+                           showclearbutton="false"
+                           style="width:100%"
+                           @Html.Raw(maxmindate)
+                           @Html.Raw(autoAttrs) />
+                    break;
+                case ExtDataType.DateAndTime:
+                <input class="mini-datepicker"
+                       format="@catAttr.InputFormat"
+                       showtime="true"
+                       showokbutton="true"
+                       showclearbutton="false"
+                       timeformat="@(catAttr.InputFormat == null? "H:mm":catAttr.InputFormat.Split(' ', 'T')[0])"
+                       @Html.Raw(maxmindate)
+                       emptytext="@emptyText"
+                       style="width:100%"
+                       @Html.Raw(autoAttrs) />
+                    break;
+                case ExtDataType.Bool:
+                <input class="mini-combobox" @Html.Raw(autoAttrs) data="@Html.Raw("[{ text:'True', id: true },{ text: 'False', id: false }]")" />
+                    break;
+                case ExtDataType.Time:
+                <input class="mini-timespinner" @Html.Raw(autoAttrs) style="width:100%" format="@catAttr.InputFormat" />
+                    break;
+                case ExtDataType.SingleNumber:
+                case ExtDataType.FloatNumber:
+                case ExtDataType.Currency:
+                    autoAttrs = String.Join(" ", idAttr, emptyTextAttr);
+                    <input class="mini-spinner" inputstyle="text-align:right" allowlimitvalue="false" @Html.Raw(autoAttrs) @Html.Raw(maxminvalue) allownull="true" style="width:100%" format="@catAttr.InputFormat" />
+                    break;
+                case ExtDataType.Percent:
+                    autoAttrs = String.Join(" ", idAttr, emptyTextAttr);
+                    <input class="mini-spinner" inputstyle="text-align:right" @Html.Raw(autoAttrs) @Html.Raw(maxminvalue) allownull="true" increment="0.01" style="width:100%" format="@catAttr.InputFormat" />
+                    break;
+                case ExtDataType.UserId:
+                <input class="mini-autocomplete" @Html.Raw(autoAttrs) style="width:100%;" url="@Url.Action("GetAllDeptUsers", "SelectDepUser")"
+                       valuefield="Id" textfield="UserName" />
+                    break;
+                case ExtDataType.ButtonEdit:
+                <input class="mini-buttonedit" @Html.Raw(autoAttrs) style="width:100%" />
+                    break;
+                default:
+                    if (prop.PropertyType.IsEnum)
+                    {
+                        //枚举的ComboBox
+                        <input class="mini-combobox" @Html.Raw(autoAttrs) style="width:100%" url="@Url.Action("GetPropList", new { prop = prop.Name })" />
+                    }
+                    else
+                    {
+                        //普通文本框
+                        <input class="mini-textbox" @Html.Raw(autoAttrs) @Html.Raw(maxminlength) style="width:100%;" />
+                    }
+                    break;
+            }
+            break;
+    }
+}
+    <input type="hidden" value="@m.Name" id="modelName" />
+    <script type="text/javascript" src="~/Scripts/webframe.advquery.js"></script>

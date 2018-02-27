@@ -1,0 +1,140 @@
+﻿@*基于fullcalendar封装的日程表组件*@
+@using Jurassic.WebSchedule;
+@model ScheduleFormData
+@{
+    var viewBag = this.ViewContext.Controller.ViewBag;
+    bool firstLoad = !CommOp.ToBool(viewBag.CalendarScriptsLoaded);
+    if (firstLoad)
+    {
+        <link href='~/Scripts/fullcalendar/fullcalendar.min.css' rel='stylesheet' />
+        <link href='~/Scripts/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+        <script src="~/Scripts/jquery-ui-1.10.3.custom.min.js"></script>
+        <script src='~/Scripts/fullcalendar/lib/moment.min.js'></script>
+        <script src='~/Scripts/fullcalendar/fullcalendar.min.js'></script>
+        <script src='~/Scripts/fullcalendar/lang/@(ResHelper.CurrentCultureName).js'></script>
+    }
+}
+@*以下代码部分参考 http://www.helloweba.com/demo/fullcalendar/drag.html*@
+<script>
+    $(document).ready(function () {
+        var _win = null;
+
+        var editUrl = '@Url.Action("Edit", "Schedule")';
+        var dragUrl = '@Url.Action("Drag", "Schedule")';
+
+        var ele = $('#@Model.ElementId');
+
+        if (ele.length == 0) {
+            document.write("<div id='@Model.ElementId'></div>");
+        }
+        $('#@Model.ElementId').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            defaultDate: '@Model.DefaultDate.ToShortDateString()',
+            editable: '@Model.Editable.ToString().ToLower()',
+            timezone: 'local',
+            timeFormat: 'HH:mm',
+            defaultView: getCookie("defaultScheduleView") || "month",
+            eventLimit: true, // allow "more" link when too many events
+            selectable: true,
+            events: {
+                url: '@Url.Action("GetEvents")'
+            },
+
+            eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+                $.newPOST(dragUrl, { caId: event.caId, delta: delta.asMinutes() }, function (data) {
+                    if (data.Type == "error") {
+                        revertFunc();
+                    }
+                });
+            },
+
+            eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
+                $.newPOST(dragUrl, { caId: event.caId, delta: delta.asMinutes(), end: event.end.toISOString() }, function (data) {
+                    if (data.Type == "error") {
+                        revertFunc();
+                    }
+                });
+            },
+
+            select: function (start, end, jsEvent, view) {
+                start = start.toISOString();
+                end = end.toISOString();
+                if (_win == null) {
+                    _win = mini.open({
+                        title: '@SStr.NewSchedule',
+                        url: editUrl + "?start=" + start + "&end=" + end + "&allDay=false",
+                        //showModal: false,
+                        width: 600,
+                        height: 440,
+                        ondestroy: closeEditWindow
+                    });
+                }
+                //$.fancybox({
+                //    'type':'ajax',
+                //    'href':'event.php?action=add&date='+start+'&end='+end
+                //});
+            },
+
+            dayClick: function (date, jsEvent, view) {
+                _win = {};
+                var selDate = date.toISOString();
+                _win = mini.open({
+                    title: '@SStr.NewSchedule',
+                    url: editUrl + "?start=" + selDate + "&allday=true",
+                    //showModal: false,
+                    width: 600,
+                    height: 440,
+                    ondestroy: closeEditWindow
+
+                });
+            },
+            eventClick: function (event, jsEvent, view) {
+                if (event.url) {
+                    return;
+                }
+                _win = mini.open({
+                    title: '@SStr.EditSchedule',
+                    url: editUrl + "?caId=" + event.caId + "&allday=false",
+                    //showModal: false,
+                    width: 600,
+                    height: 440,
+                    ondestroy: closeEditWindow
+                });
+                //$.fancybox({
+                //    'type':'ajax',
+                //    'href':'event.php?action=edit&id='+calEvent.id
+                //});
+            },
+            eventRender: function (event, element) {
+                element.find('.fc-title').attr('title', event.title);
+                if (event.alertBefore >= 0) {
+                    element.find('.fc-time').addClass('label-warning');
+                }
+                if (!event.editable) {
+                    element.css('background', "#2b7cd8");
+                }
+                if (event.finished) {
+                    element.css('background', 'gray');
+                }
+            },
+            eventAfterAllRender: function (view) {
+                setCookie("defaultScheduleView", view.name);
+            }
+        });
+
+        function closeEditWindow(action) { //当点XX时，action='close'
+            _win = null;
+            if (!action) {
+                $('#@Model.ElementId').fullCalendar('refetchEvents');
+            }
+        }
+    });
+
+</script>
+@{
+    viewBag.CalendarScriptsLoaded = true;
+}

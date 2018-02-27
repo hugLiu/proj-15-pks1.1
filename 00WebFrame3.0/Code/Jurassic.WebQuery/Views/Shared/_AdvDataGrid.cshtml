@@ -1,0 +1,299 @@
+﻿@using Jurassic.CommonModels.ModelBase;
+@using Jurassic.Com.Tools;
+@using Jurassic.AppCenter.Resources;
+@using Jurassic.WebFrame;
+@using System.Reflection;
+@using Jurassic.CommonModels.Articles;
+@using Jurassic.WebQuery;
+@model Type
+@{
+    Type m = Model;
+    var modelRule = ModelRule.Get(m);
+    var baseController = ViewContext.Controller as BaseController;
+    var gridDetailIds = JsonHelper.ToJson(modelRule.CollectionRules.Select(cr => cr.Name));
+
+    var defaultButtons = JsonHelper.ToJson(baseController.Function.GetChildren()
+    .Where(f => f.Id.StartsWith("Default"))
+    .Select(f => f.Id));
+
+    var linkedProps = JsonHelper.ToJson(modelRule.SingleRules.Where(attr => !attr.LinkedProperty.IsEmpty())
+    .Select(a => new
+    {
+        prop = a.Name,
+        linked = a.LinkedProperty,
+    }));
+
+    //将各编辑界面按配置文件中存储的配置项进行排序
+    var gridOrderItems = modelRule.SingleRules.Where(s => s.Browsable)
+    .Select(r => new
+    {
+        Attr = r,
+        ConfigItem = AdvDataConfigManager.GetPropertyConfig(r, modelRule.ModelType.Name, r.Name),
+    }).OrderBy(item => item.ConfigItem.GridOrder).ToList();
+    AdvDataConfigManager.Save();
+}
+
+@helper MiniGridEditControl(string collName, CatalogExtAttribute catAttr)
+{
+    PropertyInfo prop = catAttr.Property;
+    string rdonly = catAttr.Editable == false || catAttr.DataSourceType == ExtDataSourceType.Hidden ? "true" : "false";
+
+    string vtype = catAttr.AllowNull ? "" : "required";
+    string columnText = ResHelper.GetStr("Column." + Model.Name + "." + catAttr.Name, catAttr.Name);
+    string emptyText = ResHelper.GetStr("Empty." + Model.Name + "." + catAttr.Name, columnText);
+    if (emptyText.Equals("Empty." + Model.Name + "." + catAttr.Name))
+    {
+        emptyText = columnText;
+    }
+    if (emptyText == "-")
+    {
+        emptyText = "";
+    }
+
+    if (catAttr.Name == "Id")
+    {
+        vtype = "";
+    }
+    if (catAttr.LinkedProperty != null)
+    {
+        <div field="@catAttr.Name" name="@catAttr.Name" headeralign="center" allowsort="true" vtype="@vtype" readonly="@rdonly" displayfield="@catAttr.DisplayProperty">
+            @columnText
+            <input property="editor" class="mini-combobox" valuefromselect="true" emptytext="@emptyText" />
+        </div>
+        return;
+    }
+    switch (catAttr.DataSourceType)
+    {
+        //单项选择下拉列表
+        //case ExtDataSourceType.UserDefine: //使用此选项，导致IE莫名死机
+        case ExtDataSourceType.SqlQuery:
+        case ExtDataSourceType.DirectList:
+            <div field="@catAttr.Name" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly" type="comboboxcolumn">
+                @columnText
+                <input property="editor" class="mini-combobox" emptytext="@emptyText" url="@Url.Action("GetPropList", new {prop = prop.Name })" />
+            </div>
+            break;
+
+        //多项选择下拉列表
+        case ExtDataSourceType.SqlQueryMultipleList:
+        case ExtDataSourceType.MultipleList:
+        <div field="@catAttr.Name" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly" type="comboboxcolumn">
+            <input property="editor" class="mini-combobox" multiselect="true" emptytext="@emptyText" url="@Url.Action("GetPropList", new { prop = prop.Name })" />
+        </div>
+            break;
+        default:
+            var maxdate = catAttr.MaxValue == null ? null : "maxdate='" + catAttr.MaxValue + "'";
+            var mindate = catAttr.MinValue == null ? null : "mindate='" + catAttr.MaxValue + "'";
+            var maxmindate = String.Join(" ", maxdate, mindate);
+            var maxvalue = catAttr.MaxValue == null ? null : "maxvalue='" + catAttr.MaxValue + "'";
+            var minvalue = catAttr.MinValue == null ? null : "minvalue='" + catAttr.MaxValue + "'";
+            var maxminvalue = String.Join(" ", maxvalue, minvalue);
+            var maxlength = catAttr.MaxLength == 0 ? null : "maxlength='" + catAttr.MaxLength + "'";
+            var minlength = catAttr.MinLength == 0 ? null : "minlength='" + catAttr.MinLength + "'";
+            var maxminlength = string.Join(" ", maxlength, minlength);
+            switch (catAttr.DataType)
+            {
+                case ExtDataType.Date:
+                    <div field="@catAttr.Name" align="center" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly" dateformat="@catAttr.DisplayFormat">
+                        @columnText
+                        <input property="editor"
+                               class="mini-datepicker"
+                               format="@catAttr.InputFormat"
+                               showtime="false"
+                               showokbutton="false"
+                               showclearbutton="false"
+                               @Html.Raw(maxmindate)
+                               emptytext="@emptyText" />
+                    </div>
+                    break;
+                case ExtDataType.DateAndTime:
+                    var timeFormats = catAttr.InputFormat.ToStr().Split(' ', 'T');
+                    var tf = "H:mm";
+                    if (timeFormats.Length >= 2)
+                    {
+                        tf = timeFormats[1];
+                    }
+                    <div field="@catAttr.Name" align="center" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly" dateformat="@catAttr.DisplayFormat">
+                        @columnText
+                        <input property="editor"
+                               class="mini-datepicker"
+                               format="@catAttr.InputFormat"
+                               showtime="true"
+                               showokbutton="true"
+                               showclearbutton="false"
+                               @Html.Raw(maxmindate)
+                               timeformat="@tf"
+                               emptytext="@emptyText" />
+                    </div>
+                    break;
+                case ExtDataType.Bool:
+                <div field="@catAttr.Name" align="center" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly" type="checkboxcolumn">
+                    @columnText
+                </div>
+                    break;
+                case ExtDataType.MultiLineText:
+                case ExtDataType.Html:
+                <div field="@catAttr.Name" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly">
+                    @columnText
+                    <input property="editor" class="mini-textarea" emptytext="@emptyText" />
+                </div>
+                    break;
+                case ExtDataType.Time:
+                <div field="@catAttr.Name" align="center" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly" dateformat="@catAttr.DisplayFormat">
+                    @columnText
+                    <input property="editor" class="mini-timespinner" format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.FloatNumber:
+                <div field="@catAttr.Name" align="right" name="@catAttr.Name" headeralign="center" vtype="@vtype" datatype="float" allowsort="true" numberformat="@catAttr.DisplayFormat" readonly="@rdonly">
+                    @columnText
+                    <input property="editor" class="mini-spinner" allownull="true" emptytext="@emptyText" @Html.Raw(maxminvalue) format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.Percent:
+                <div field="@catAttr.Name" align="right" name="@catAttr.Name" headeralign="center" vtype="@vtype" datatype="float" allowsort="true" numberformat="@catAttr.DisplayFormat" readonly="@rdonly">
+                    @columnText
+                    <input property="editor" class="mini-spinner" increment="0.01" allownull="true" emptytext="@emptyText" @Html.Raw(maxminvalue) format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.SingleNumber:
+                <div field="@catAttr.Name" align="right" name="@catAttr.Name" headeralign="center" vtype="@vtype" datatype="int" allowsort="true" numberformat="@catAttr.DisplayFormat" readonly="@rdonly">
+                    @columnText
+                    <input property="editor" class="mini-spinner" allownull="true" emptytext="@emptyText" @Html.Raw(maxminvalue) format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.Currency:
+                <div field="@catAttr.Name" align="right" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" numberformat="@catAttr.DisplayFormat" readonly="@rdonly">
+                    @columnText
+                    <input property="editor" class="mini-spinner" allownull="true" emptytext="@emptyText" @Html.Raw(maxminvalue) format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.ButtonEdit:
+                <div field="@catAttr.Name" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly" displayfield="@catAttr.DisplayProperty">
+                    @columnText
+                    <input property="editor" class="mini-buttonedit" @Html.Raw(maxminlength) emptytext="@emptyText" textname="@catAttr.DisplayProperty" />
+                </div>
+                    break;
+                case ExtDataType.UserId:
+                <div field="@catAttr.Name" name="@catAttr.Name" headeralign="center" allowsort="true" vtype="@vtype" readonly="@rdonly" displayfield="@catAttr.DisplayProperty">
+                    @columnText
+                    <input property="editor" class="mini-autocomplete" url="@Url.Action("GetAllDeptUsers", "SelectDepUser")"
+                           valuefield="Id" textfield="UserName" />
+                </div>
+                    break;
+                default:
+                    if (prop.PropertyType.IsEnum)
+                    {
+                        <div field="@catAttr.Name" align="center" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly" type="comboboxcolumn">
+                            @columnText
+                            <input property="editor" class="mini-combobox" emptytext="@emptyText" url="@Url.Action("GetPropList", new {detail=collName, prop = prop.Name })" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div field="@catAttr.Name" name="@catAttr.Name" headeralign="center" vtype="@vtype" allowsort="true" readonly="@rdonly">
+                            @columnText
+                            <input property="editor" class="mini-textbox" @Html.Raw(maxminlength) emptytext="@emptyText" />
+                        </div>
+                    }
+                    break;
+            }
+            break;
+    }
+}
+
+<div id="grid_@m.Name" class="mini-datagrid frame-fit frame-search-grid"
+     url="@Url.Action("GetData")" pagesize="20" multiselect="true" editnextonenterkey="true" editnextrowcell="true"
+     allowcellselect="true" allowcelledit="@(ViewBag.Editable==true? "true":"false")"
+     allowresize="true">
+    <div property="columns">
+        <div type="checkcolumn"></div>
+        @foreach (var attr in gridOrderItems)
+        {
+            @MiniGridEditControl(attr.Attr.Name, attr.Attr)
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var defaultButtons = @Html.Raw(defaultButtons);
+        var linkedProps = @Html.Raw(linkedProps);
+        var grid = mini.get('#grid_@Model.Name')
+        setTimeout(function(){grid.load()}, 0);
+
+        //grid.on("rowdblclick", function(e){
+        //    edit(e.row);
+        //});
+
+        grid.on("cellbeginedit", function(e){
+            linkedProps.forEach(function(col){
+                if (col.prop == e.field){
+                    var linkedValue = e.record[col.linked];
+                    var url = "@Url.Action("GetLinkedList")" + "?linkedValue=" + encodeURIComponent(linkedValue) + "&prop=" + col.prop;
+                    e.editor.setUrl(url);
+                }
+            });
+        });
+
+        function addNew() {
+            top.goUrl("@Url.Action("Edit")");
+        }
+
+        defaultButtons.forEach(function(btnId){
+            if (btnId.indexOf('DefaultAdd') == 0){
+                $.regButton({
+                    id: btnId,
+                    noSubmit:addNew
+                });
+            }
+            else if (btnId.indexOf('DefaultDelete')== 0){
+                $.regButton({
+                    id:btnId,
+                    beforeSubmit: function (ajax) {
+                        var ids = getSelectedIds();
+                        if (ids.length == 0) {
+                            alert("@ResHelper.Format("Plz_Select_A_{0}", m.Name)");
+                            return false;
+                        }
+                        if (!confirm("@ResHelper.GetStr("Confirm_Delete")")) {
+                            return false;
+                        }
+                        ajax.data = { ids: ids }
+                    },
+                    afterSubmit: reloadData
+                });
+            }
+            else if (btnId.indexOf('DefaultEdit') == 0){
+                $.regButton({
+                    id:btnId,
+                    noSubmit: function(){
+                        var row = grid.getSelected();
+                        edit(row);
+                    }
+                });
+            }
+        });
+
+        function getSelectedIds() {
+            var idArr = [];
+            var rows = grid.getSelecteds();
+            for (var i = 0; i < rows.length; i++) {
+                idArr.push(rows[i].Id);
+            }
+            return idArr.join(',');
+        }
+
+        function reloadData() {
+            grid.reload();
+        }
+
+        function edit(row) {
+            if (row) {
+                top.goUrl("@Url.Action("Edit")" + "?id=" + row.Id);
+            } else {
+                alert("@ResHelper.Format("Plz_Select_A_{0}", m.Name)");
+            }
+        }
+
+    });
+</script>

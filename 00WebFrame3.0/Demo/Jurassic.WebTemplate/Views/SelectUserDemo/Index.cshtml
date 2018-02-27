@@ -1,0 +1,35 @@
+﻿@using Jurassic.WebQuery;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>用户选择(单选)</h2>
+<div style="width:400px">
+    @Html.SelectUser(new SelectUserFormData
+    {
+        MultiSelect = false,
+        Id = "ctrlSingleSelect",
+        Name = "singleId",
+        StartValue = "2",
+        
+    })
+</div>
+<div style="width:400px">
+
+    <h2>用户选择(多选)</h2>
+
+    @Html.SelectUser(new SelectUserFormData
+    {
+        MultiSelect = true,
+        Id = "ctrlMultiSelect",
+        StartValue = "2,3",
+        Name = "multiIds",
+        Attributes = "required='true'"
+    })
+</div>
+
+<button class="mini-button frame-submit">提交</button>
+
+<script type="text/javascript">
+    mini.parse();
+</script>

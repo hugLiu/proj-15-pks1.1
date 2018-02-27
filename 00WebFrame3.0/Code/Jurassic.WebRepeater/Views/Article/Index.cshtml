@@ -1,0 +1,139 @@
+﻿@*本视图用于演示支持Base_Article分页显示表格数据的方法*@
+@using Jurassic.Com.Tools;
+@using Jurassic.CommonModels.Articles;
+@using Jurassic.CommonModels;
+@using Jurassic.WebRepeater;
+@model Jurassic.AppCenter.Pager<Base_CatalogArticle>
+@{
+    ViewBag.Title = "使用自定义页来替代此页";
+
+    //如果是ajax请求，则无需返回布局页中的无关内容
+    if (IsAjax)
+    {
+        this.Layout = null;
+    }
+    var baseController = ViewContext.Controller as BaseController;
+    int catId = baseController.CatalogId;
+    if (catId > 0)
+    {
+        var cat = SiteManager.Catalog.GetById(catId);
+        ViewBag.Title = cat.Name;
+    }
+    ViewData["catId"] = catId;
+}
+
+@helper GetHeaderTempalte()
+{
+    <tr>
+        <th class="center" style="width:20px;">
+            <label class="position-relative">
+                <input type="checkbox" id="repeater1_chkAll" />
+                <span class="lbl"></span>
+            </label>
+        </th>
+        <th>ID</th>
+        <th>名称</th>
+        <th>
+            创建日期
+        </th>
+        @foreach (var catExt in SiteManager.Catalog.GetAllExts((int)ViewData["catId"]))
+        {
+            <th>@ResHelper.GetStr(catExt.Name)</th>
+        }
+    </tr>
+}
+
+@helper GetItemTemplate(object obj)
+{
+    var art = obj as Base_CatalogArticle;
+    <tr>
+        <td class="center" style="width:20px;">
+            <label class="position-relative">
+                <input type="checkbox" value="@art.Id" name="repeater1_chk" />
+                <input type="hidden" value="@art.CatalogId" name="CatalogId" />
+                <span class="lbl"></span>
+            </label>
+        </td>
+        <td>@art.Id</td>
+        <td>
+            <a href="@Url.Action("Details", "Jobs", new {id = art.Id, area = "" })" target="_blank" title="点击预览">@art.Article.Title</a>
+        </td>
+        <td>
+            @CommOp.ToTimeStr(art.Article.CreateTime)
+        </td>
+        @foreach (var catExt in SiteManager.Catalog.GetAllExts((int)ViewData["catId"]))
+        {
+            <td>@art.GetExt(catExt.Id)</td>
+        }
+    </tr>
+}
+
+<div class="col-md-12">
+    @Html.Repeater(new RepeaterFormData
+        {
+            Id = "repeater1",
+            HeaderTemplate = GetHeaderTempalte,
+            ItemTemplate = GetItemTemplate,
+        })
+</div>
+<script type="text/javascript">
+    mini.parse();
+    var catId = @catId;
+    //在此处声明所有操作完成后，统一发生的事件
+    $('form').bind('afterSubmit', function () {
+        location.reload();
+    });
+    $('#repeater1').bind("dblclick", function(){
+        edit();
+    });
+
+    function edit() {
+        var id = $('#repeater1').getCurrentId();
+        if (id) {
+            mini.open({
+                url: "@Url.Action("Edit")" + "?caid=" + id,
+                title: "@ResHelper.GetStr("Edit")",
+                width: 720,
+                height: 500
+            });
+
+        } else {
+            alert("@ResHelper.GetStr("Please select a record")");
+        }
+    }
+
+    function addNew() {
+        mini.open({
+            url: "@Url.Action("Edit")" + "?catId=" + catId,
+            title: "@ResHelper.GetStr("New")",
+            width: 720,
+            height: 500
+        });
+    }
+
+    $.regButton({
+        text: "编辑",
+        noSubmit: edit
+    });
+
+    $.regButton({
+        text: "新增",
+        noSubmit: addNew
+    });
+
+    $.regButton({
+        text: "删除",
+        beforeSubmit: function (ajax) {
+            var ids = $('#repeater1').getSelectedIds();
+            if (ids.length == 0) {
+                alert("@ResHelper.GetStr("请选择要删除的行")");
+                return false;
+            }
+            if (!confirm("@ResHelper.GetStr("确定删除？")")) {
+                return false;
+            }
+            ajax.data = { ids: ids }
+        }
+    });
+
+</script>

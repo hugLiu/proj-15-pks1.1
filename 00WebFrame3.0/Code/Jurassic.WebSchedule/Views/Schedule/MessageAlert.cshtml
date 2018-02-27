@@ -1,0 +1,67 @@
+﻿@*消息提醒列表 wang 2016-3-19*@
+@*自定义工具栏*@
+@using Jurassic.WebSchedule;
+@section UserToolBar
+{
+    <a class="mini-button frame-submit" plain="true">@SStr.MessageManager</a>
+    <a class="mini-button frame-submit" plain="true">@SStr.ReadAll</a>
+<a class="mini-button frame-submit" plain="true">@SStr.ClearAll</a>
+}
+<div id="alertGrid" class="mini-datagrid mini-fit" style="width:100%;height:204px"
+     url="@Url.Action("GetAlerts", "Schedule")" pagesize="5" allowresize="true" multiselect="true" showcolumns="false" showpagesize="false" showpageindex="false"
+     onrowdblclick="edit" showemptytext="true" emptytext="@SStr.NoMessage">
+    <div property="columns">
+        <div field="title" headeralign="center" width="70%" allowsort="true">@JStr.Title</div>
+        <div field="start" headeralign="center" width="30%" dateformat="MM-dd HH:mm" allowsort="true">@JStr.StartTime</div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+    function processEvents(e) {
+        //当该记录明确标识有处理的URL
+        if (e.record.url) {
+            //下面主要是提交一下表示已读
+            $.post('@Url.Action("Read", "Schedule")' + "?caId=" + e.record.caId);
+            //到实际处理页
+            parent.iframe.contentWindow.location.href = e.record.url;
+        }
+        else {
+            parent.mini.open({
+                title: '@SStr.Schedule',
+                url: '@Url.Action("Read", "Schedule")' + "?caId=" + e.record.caId,
+                //showModal: false,
+                width: 600,
+                height: 440,
+                ondestroy: function () { alertGrid.reload(); }
+            });
+        }
+    }
+
+    var alertGrid = mini.get('#alertGrid');
+    alertGrid.on("rowclick", processEvents);
+    alertGrid.load();
+
+    $.regButton({
+        text: "@SStr.MessageManager",
+        noSubmit: function () {
+            parent.iframe.contentWindow.location.href = "@Url.Action("MessageManager")";
+        }
+    });
+
+    $.regButton({
+        text: "@SStr.ClearAll",
+        beforeSubmit: function (ajax) {
+            ajax.url = "@Url.Action("Clear")";
+        }
+    });
+    $.regButton({
+        text: "@SStr.ReadAll",
+        beforeSubmit: function (ajax) {
+            ajax.url = "@Url.Action("ReadAll")";
+        }
+    });
+
+    $('form').bind('afterSubmit', function () {
+        alertGrid.reload();
+    });
+</script>

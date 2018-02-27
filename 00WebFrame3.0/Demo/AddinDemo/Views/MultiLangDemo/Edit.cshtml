@@ -1,0 +1,30 @@
+﻿@model AddinDemo.Models.StockModel
+@using Jurassic.WebQuery;
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>@(Model.Id > 0 ? "修改" : "新增")股票信息 </h2>
+<input class="mini-hidden" value="@Model.Id" name="Id" />
+<div class="col-md-4 col-xs-8">
+    <div class="row">
+        <span class="col-md-4">股票代码</span>
+        <span class="col-md-8"><input class="mini-textbox" name="StockCode" style="width:100%" value="@Model.StockCode" /></span>
+    </div>
+    <div class="row">
+        <span class="col-md-4">股票名称</span>
+        <span class="col-md-8">
+        @Html.LangTextInput("StockName", "style:'width:100%'")
+    </div>
+    <div class="row">
+        <span class="col-md-4">价格</span>
+        <span class="col-md-8"><input class="mini-spinner" name="Price" style="width:100%" value="@Model.Price" /></span>
+    </div>
+    <div class="row">
+        <span class="col-md-4">交易日期</span>
+        <span class="col-md-8"><input class="mini-datepicker" name="XchgDate" style="width:100%" value="@Model.XchgDate" /></span>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+</script>

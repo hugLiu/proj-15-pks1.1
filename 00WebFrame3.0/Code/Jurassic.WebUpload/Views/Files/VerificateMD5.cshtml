@@ -1,0 +1,38 @@
+﻿@using Jurassic.WebUpload;
+@using Jurassic.WebFrame;
+@{
+    ViewBag.Title = "VerificateMD5";
+}
+<script src="~/Scripts/spark-md5.js"></script>
+<script src="~/Scripts/webframe.md5.js"></script>
+<div class="frame-fit">
+    <h2>MD5码校验</h2>
+    <div>
+        <input type="file" id="file" />
+        <span id="progress"></span>
+        <br />
+        <div class="textbox" id="box"></div>
+    </div>
+</div>
+
+@*参考资料：https://www.zhuwenlong.com/blog/52d6769f93dcae3050000003*@
+@*此方法在Chrome，百度浏览器下可以运行，
+    由于readAsBinaryString()方法在有些浏览器下无效，所以IE、FireFox下不能运行*@
+
+<script type="text/javascript">
+    //监听文本框变化
+    document.getElementById("file").addEventListener("change", function () {
+        //声明必要的变量
+        var startDate = new Date();
+        file = document.getElementById("file").files[0];
+
+        $.sparkmd5(file, function (md5) {
+            var spand = new Date() - startDate;
+            $("#box").append('<p>[' + file.name + '] MD5: ' + md5 + " COST: " + spand / 1000 + "s</p>");
+        },
+        function (p) {
+            $("#progress").text(Math.round(p * 100) + '%');
+        });
+    }
+);
+</script>

@@ -1,0 +1,56 @@
+﻿@using Jurassic.CommonModels.Messages;
+@{
+    ViewBag.Title = "消息管理示例";
+    List<object> channels = new List<object>();
+    foreach (SendChannel channel in Enum.GetValues(typeof(SendChannel)))
+    {
+        channels.Add(new
+        {
+            Id = (int)channel,
+            Name = Html.Str(channel.ToString()),
+        });
+    }
+    string channelJson = JsonHelper.ToJson(channels);
+}
+
+<div class="topinfo">
+    <div class="contentdiv">
+        <div class="titlediv titleline"><p>消息管理示例</p></div>
+        <div>
+            <span class="contentdivl">消息标题:</span>
+            <div class="contentdivr"><input name="Title" style="width:400px" class="mini-textbox" emptytext="消息标题" required="true"></div>
+        </div>
+        <div>
+            <span class="contentdivl">消息内容:</span>
+            <div class="contentdivr"><textarea class="mini-textarea" style="width:400px; height:200px" name="Content" emptytext="消息内容"></textarea></div>
+        </div>
+        <div>
+            <span class="contentdivl">发送到:</span>
+            <div class="contentdivr">
+                <div name="SendTo" class="mini-checkboxlist" repeatitems="5" repeatlayout="table"
+                     textfield="Name" valuefield="Id" value="" required="true"
+                     url="@Url.Action("UsersList")">
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="contentdivl">发送方式:</span>
+            <div class="contentdivr">
+                <div id="chkChannels" name="Channel" class="mini-checkboxlist" repeatitems="5" repeatlayout="table"
+                     textfield="Name" valuefield="Id" value="" required="true">
+                </div>
+            </div>
+        </div>
+        <div class="online">
+            <div class="contentdivl"></div>
+            <div class="contentdivr">
+                <a class="mini-button frame-submit">发送</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    mini.get("chkChannels").loadData(@Html.Raw(channelJson));
+</script>

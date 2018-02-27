@@ -1,0 +1,12 @@
+﻿@*该模板并不用于创建主文章，而只用作Base_Article.TargetArticles这个集合的显示器
+    而它的主要目的也只是显示文章的特殊属性集Exts*@
+@using Jurassic.CommonModels.Articles;
+@using Jurassic.CommonModels;
+@using Jurassic.WebRepeater;
+@model Base_Article
+@{
+    Model.Exts = Model.Exts.OrderBy(ext => SiteManager.Catalog.GetExtById(ext.CatlogExtId).Ord).ToList();
+}
+<div class="col-xs-12">
+    @Html.ExtDisplay(new ExtRenderEvent { Inline = true })
+</div>

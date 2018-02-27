@@ -1,0 +1,92 @@
+﻿@model AppUser
+@{
+    ViewBag.ShowSearchBox = false;
+    ViewBag.Title = Model.Id.IsEmpty() ? FStr.NewUser : (FStr.EditUserInfo + " - " + Model.Name);
+}
+<style>
+    /*定义操作区工具栏样式*/
+    .mini-toolbar {
+        border: 1px solid #d5d5d5;
+        background: #ffffff;
+        border-bottom: 1px solid #d5d5d5 !important;
+    }
+
+    td {
+        height: 30px;
+        padding-right: 10px;
+    }
+</style>
+<h4>
+    @FStr.UserBaseInfo
+</h4>
+<table>
+    <tr>
+        <td class="right" style="width:80px;">
+            Id
+        </td>
+        <td>
+            @Html.HiddenFor(model => model.Id)
+            @Model.Id
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @JStr.UserName
+        </td>
+        <td>
+            <input name="Name" id="Name" value="@Model.Name" class="mini-textbox" required="true" onvalidation="remoteCheckName" />
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @JStr.PhoneNumber
+        </td>
+        <td>
+            <input name="PhoneNumber" id="PhoneNumber" value="@Model.PhoneNumber" class="mini-textbox" />
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @JStr.Email
+        </td>
+        <td>
+            <input name="Email" id="Email" value="@Model.Email" class="mini-textbox" vtype="email" />
+        </td>
+    </tr>
+    <tr>
+        <td class="right">
+            @FStr.Roles
+        </td>
+        <td>
+            @foreach (var role in AppManager.Instance.RoleManager.GetAll())
+            {
+                <label style="margin-left: 6px">
+                    <input type="checkbox" value="@role.Id" name="rolesIds" @(Model.IsInRoleId(role.Id) ? "checked=\"checked\"" : "") />
+                    @role.Name
+                </label>
+            }
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    mini.parse();
+    function remoteCheckName(e) {
+        if (e.isValid) {
+            var re = $.getSync("@Url.Action("CheckUserName")", { name: e.value });
+            if (!re) {
+                e.errorText = "@FStr.DuplicatedName";
+                e.isValid = false;
+            }
+        }
+    }
+
+    $.regButton({
+        text: "@JStr.Save",
+        afterSubmit: function (data) {
+            if (top.iframe.contentWindow.reloadData) {
+                top.iframe.contentWindow.reloadData();
+            }
+        }
+    });
+</script>

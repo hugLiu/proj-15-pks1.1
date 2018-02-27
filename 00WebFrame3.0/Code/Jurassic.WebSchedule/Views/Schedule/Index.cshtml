@@ -1,0 +1,11 @@
+﻿@*WebSchedule组件提供的默认视图*@
+@using Jurassic.WebSchedule;
+@{
+    ViewBag.ShowSearchBox = false;
+}
+<div id='schedule' class="col-xs-12 col-md-10 col-lg-8"></div>
+@Html.Schedule(new ScheduleFormData { Editable = true })
+
+<script type="text/javascript">
+
+</script>

@@ -1,0 +1,21 @@
+﻿@using Jurassic.WebMap;
+@{
+    ViewBag.Title = "Map";
+}
+
+<h2>Map Demo</h2>
+<div class="form-group">
+    <label class="col-xs-2 control-label no-padding-right">Address:</label>
+    <div class="col-xs-10">
+        <input type="hidden" name="MapAddressJson">
+        <input type="text" id="txtMyMap" class="mini-textbox" style="width:400px" >
+    </div>
+    <div class="col-xs-offset-2 col-xs-10">
+        <div style="width:400px;height:300px">
+            @Html.Map(new MapFormData { Id = "myMap", TextBoxId = "txtMyMap", HiddenId = "MapAddressJson", AllowManualPoint = true })
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+</script>

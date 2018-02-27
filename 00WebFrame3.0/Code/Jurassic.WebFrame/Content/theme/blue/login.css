@@ -1,0 +1,191 @@
+﻿/*公共样式*/
+.container-fluid.lg{
+    padding:0;
+}
+.logintitle{
+    width: 1000px;
+    height: 64px;
+    position: relative;
+    margin: 0 auto;
+    z-index: 2;
+    overflow: hidden;
+    text-align:left;
+}
+    .logintitle .logo {
+        background: url('../../../images/logo.png') no-repeat 0 10px ;
+        padding-left:40px;
+        min-height:64px;
+    }
+    .logintitle p.p1 {
+        font-size: 20px;
+        padding: 10px 0 0 5px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color:#333;
+    }
+    .logintitle p.p2 {
+        padding:0 0 0 5px;
+        color:#999;
+    }
+.loginForm_bg {
+    height: 600px;
+    background: #fff;
+    position: relative;
+    min-width: 1000px;
+    background-color:#346eba;
+}
+.loginForm_loginbg {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    clear: both;
+    background-repeat: no-repeat;
+    background-position: center top;
+    /*background-image:url(http://mimg.127.net/m/lc/img/LoginBackgroundPic/1061/2/promPic.jpg);*/ 
+    background-image: url('images/login/login.jpg');
+}
+.loginForm {
+    width: 295px;
+    height: 320px;
+    padding: 12px 15px;
+    margin-left:120px;
+    top: 125px;
+    left: 50%;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 1px 1px 2px #a8a8a8;
+}
+.loginForm_title{
+    margin:-12px -15px;
+    padding:12px 15px;
+    background:#f9f9f9;
+    text-align:center;
+    border-radius:4px 4px 0 0;
+    border-bottom:1px solid #d9d9d9;
+}
+.loginForm_title span{
+    color:#999;
+    font-size:18px;
+    font-weight:bold;
+}
+.form_username, .form_password {
+    border-color: #d9d9d9;
+    margin-top: 25px;
+}
+.form_username {
+    background-image: url('../../../Content/theme/blue/images/login/username.png');
+}
+.form_password {
+    background-image: url('../../../Content/theme/blue/images/login/password.png');
+}
+.mini-required .mini-textbox-border {
+    background: #fff;
+    color: #999;
+}
+.login .mini-textbox-border,
+.login .mini-textbox-focus .mini-textbox-border {
+    border: none;
+}
+.login .mini-button,
+.login a.mini-button {
+    background: #f9b140;
+}
+.login a:hover.mini-button {
+    background: #f2a62f;
+}
+.login .mini-button-pressed, .login a:hover.mini-button-pressed,
+.login .mini-button-checked, .login a:hover.mini-button-checked,
+.login a.mini-button-popup, .login a:hover.mini-button-popup
+{
+    background:#da9c3c  url(images/icon/disabled1.png) repeat-x 0 0px;
+}
+.en_zh .mini-button-text{
+    color:#666;
+}
+.en_zh a.mini-button {
+    background-color: #d9d9d9;
+}
+.en_zh a:hover.mini-button {
+    background-color: #d3d3d3;
+    box-shadow: none;
+}
+.mini-menuitem-hover{
+    background:#c8ddff;
+}
+.footerlogo{
+    background: url('../../../images/jurassiclogo.png') no-repeat;
+}
+.footertext{
+    padding-left:15px;
+    color:#d0d0d0;
+}
+
+/*-----------Login.cshtml-----------------*/
+
+/*---------------ForgotPassword.cshtml---------------*/
+.fp-header {
+    height: 60px;
+    width: 100%;
+}
+.fp-logobar {
+    margin: 0 auto;
+    padding:0 150px;
+    height: 60px;
+    line-height: 60px;
+}
+    .fp-logobar h2 {
+        float: left;
+        margin: 0;
+        
+    }
+        .fp-logobar h2 span {
+            color: #ff6a00;
+        }
+    .fp-logobar span {
+        float: right;
+    }
+
+.fp a {
+    color: #0297f5;
+    text-decoration: none;
+}
+    .fp a:hover {
+        text-decoration: underline;
+    }
+.fp-main {
+    width: 100%;
+    padding:0 150px;
+    background-color:#f4f4f4;
+}
+.fp-info {
+    width: 250px;
+    height: 150px;
+    padding:10px 0;
+}
+.fp .mini-textbox {
+    width: 100%;
+    height: 25px;
+    border-radius: 3px;
+}
+.fp .mini-textbox-border {
+    height: 23px;
+}
+.fp .mini-textbox-input {
+    height: 23px;
+}
+.fp .mini-button-text{
+    font-size:14px;
+}
+.fp .mini-button ,.fp a.mini-button{
+    border-radius:2px;
+    padding:3px 0;
+    background:#cbcbcb;
+}
+body .fp a:hover.mini-button {
+    padding:3px 0px;
+    
+}
+/*---------------ForgotPassword.cshtml---------------*/
+

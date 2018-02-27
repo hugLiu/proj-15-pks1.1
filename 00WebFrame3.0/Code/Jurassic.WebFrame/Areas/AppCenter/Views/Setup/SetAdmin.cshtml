@@ -1,0 +1,39 @@
+﻿@model Jurassic.AppCenter.Models.SetupModel
+@{
+    ViewBag.Title = "设置管理员角色和账号";
+    Layout = null;
+}
+<h2>
+    系统设置 - 设置管理员角色和账号</h2>
+<p>
+    系统现有功能数：@AppManager.Instance.FunctionManager.Count
+    @Html.ActionLink("查看功能列表", "Index", "FunctionsSetup", null, new { target = "_blank" })
+</p>
+@using (Html.BeginForm("SetAdmin", "Setup", null, FormMethod.Post, new { role = "form" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.AdminRoleName)
+        @Html.TextBoxFor(model => model.AdminRoleName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.AdminRoleName)
+        <p>
+            请指定能操作本系统所有功能的<b>管理员</b>角色名称。<br />
+            如果此角色不存在将会直接创建,并自动赋予其权限。<br />
+            在此操作完成以后，系统可能会提示您重新登录。<br />
+            ps: 本系统已有角色：@ViewBag.RoleNames
+        </p>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AdminUserName)
+        @Html.TextBoxFor(model => model.AdminUserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.AdminUserName)
+        <p>
+            请指定能操作本系统所有功能的管理员用户名称。<br />
+            如果此用户不存在将会直接创建,并自动赋予其管理员角色。<br />
+            系统创建的用户的默认密码为<b>123456</b><br />
+            ps: 本系统已有用户：@ViewBag.UserNames<br />
+        </p>
+        @Html.ActionLink("< 上一步", "GetFunctions", null, new { @class = "btn btn-default" })
+        <input type="submit" value="下一步 >" class="btn btn-primary" />
+        @Html.ActionLink("完成", "Finish", null, new { @class = "btn btn-default" })
+    </div>
+}

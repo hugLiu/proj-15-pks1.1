@@ -1,0 +1,29 @@
+﻿@model Jurassic.AppCenter.Models.SetupModel
+@{
+    ViewBag.Title = "系统设置 - 开始";
+    var functionCount = AppManager.Instance.FunctionManager.Count;
+    var usersCount = AppManager.Instance.UserManager.Count;
+    var rolesCount = AppManager.Instance.RoleManager.Count;
+    Layout = null;
+}
+<h2>系统设置 - 完成</h2>
+<p>
+    系统功能数：<b>@functionCount</b><br/>
+    系统角色数：<b>@rolesCount</b><br/>
+    系统用户数：<b>@usersCount</b>
+</p>
+
+@if (AppManager.Instance.NeedInit)
+{
+    <p>
+        系统初始设置不成功！请联系技术人员。
+    </p>
+}
+else
+{
+    <p>
+        系统初始设置已经完成！
+        请用设置的账号重新登录，以便于进一步调整系统功能，或管理其他角色和用户。
+    </p>
+}
+<a href="@Url.Content(System.Web.Security.FormsAuthentication.LoginUrl)" target="_top" class="btn btn-primary">重新登录</a>

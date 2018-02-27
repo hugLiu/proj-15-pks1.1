@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "系统设置 - 查找程序集";
+    Layout = null;
+}
+<h2>
+    系统设置 - 查找程序集</h2>
+@using (Html.BeginForm("GetFunctions", "Setup", null, FormMethod.Post, new { role = "form" }))
+{
+    <div class="form-group">
+        <label for="DllPaths">
+            程序集所在目录</label>
+        <textarea name="DllPaths" id="DllPaths" rows="4" class="form-control" style="overflow: auto; white-space:nowrap;width:700px">@ViewBag.DllPaths
+        </textarea>
+        <p>
+            请在以上输入框输入应用程序的Bin目录。每行输入一个。<br />
+            请确保已经正确部署本系统(AppCenter)及业务系统。<br />
+        </p>
+    </div>
+    @Html.ActionLink("< 上一步", "Start", null, new { @class = "btn btn-default" })
+    <input type="submit" value="生成 >" class="btn btn-primary" />
+    @Html.ActionLink("跳过 >", "SetAdmin", null, new { @class = "btn btn-default" })
+}

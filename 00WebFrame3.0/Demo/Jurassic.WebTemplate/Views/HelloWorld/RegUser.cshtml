@@ -1,0 +1,106 @@
+﻿@model  Jurassic.WebTemplate.ViewModel.RegModel
+@{
+    ViewBag.Title = "注册";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var baseController = this.ViewContext.Controller as BaseController;
+}
+<link href="@Url.Content("~/Content/theme/" + baseController.UserConfig.Theme + "/login.css")" rel="stylesheet" type="text/css" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid lg">
+        <div class="login">
+            <div class="logintitle">
+                <div class="logo">
+                    <p class="p1">@Html.Str("System_ShortName", "应用管理系统")_用户注册</p>
+                    <p class="p2" style="margin-left: 60px">@Html.Str("System_CompanyName", "北京侏罗纪软件股份有限公司")</p>
+                </div>
+            </div>
+            <div class="loginForm_bg">
+                <div class="loginForm_loginbg">
+                    <div class="loginForm">
+
+                        <div class="form_username" for="username$text">
+                            <input style="width:100%" id="UserName" name="UserName" errormode="icon" onvalidation="onUserNameValidation" class="mini-textbox" emptytext="用户名"
+                                   required="true" requirederrortext="用户名为空" />
+                        </div>
+
+                        <div class="form_username" for="username$text">
+                            <input style="width:100%" id="Password" name="Password" errormode="icon" onvalidation="onValidation" class="mini-password" emptytext="密码"
+                                   required="true" vtype="minLength:5" requirederrortext="密码为空" minlengtherrortext="密码不能少于5个字符" value="123456" />
+                        </div>
+
+                        <div class="form_username" for="username$text">
+                            <input style="width:100%" id="ConfirmPassword" name="ConfirmPassword" errormode="icon" onvalidation="onPwdValidation" class="mini-password" emptytext="确认密码"
+                                   required="true" vtype="minLength:5" requirederrortext="确认密码为空" minlengtherrortext="密码不能少于5个字符" value="123456" />
+                        </div>
+
+                        <div class="form_username" for="username$text">
+                            <input style="width:100%" id="Email" name="Email" errormode="icon" class="mini-textbox" vtype="email" onvalidation="onValidation" emptytext="邮箱"
+                                   required="true" requirederrortext="邮箱为空" />
+                        </div>
+
+                        <div class="form_username" for="username$text">
+                            <input style="width:100%" id="Phone" name="Phone" errormode="icon" class="mini-textbox" vtype="float minLength:7" onvalidation="onValidation" emptytext="电话"
+                                   required="true" requirederrortext="电话为空" />
+                        </div>
+                        <br />
+                        <div class="mini-button frame-submit frame-default">
+                            <div class="loginButton">注册并跳转</div>
+                        </div>
+                        <a href='@Url.Action("Login","Account")' style="color: white; margin-top: 10px;float:right;">@Html.Str("返回登录")</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <ul class="list-unstyled">
+                <li> @Html.RawStr("System_Copyright", "Copyright &copy; 2015  Jurassic, all rights reserved")</li>
+                <li> @Html.RawStr("System_CompanyInfo", "地址：北京市海淀区学清路9号汇智大厦B座9层  电话：010-82730099")</li>
+            </ul>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+    mini.parse();
+
+    ///////////////////提示验证错误信息/////////////////////
+    function updateError(e) {
+        var id = e.sender.name + "_error";
+        if (e.errorText != "")
+            toastr["error"](e.errorText, "错误");
+    }
+
+    function onValidation(e) {
+        updateError(e);
+    }
+
+    function onUserNameValidation(e) {
+        updateError(e);
+        if (e.errorText == "") {
+            $.newPOST('@Url.Action("ValidUserName")', { name: mini.get('#UserName').getValue(), "time": new Date() }, function (tips) {
+                if (tips == 1) {
+                    toastr["error"]("此用户名已存在", "错误");
+                }
+            });
+        }
+    }
+
+    function onPwdValidation(e) {
+        updateError(e);
+        if (e.errorText == "") {
+            var pwd1 = mini.get('#ConfirmPassword').getValue();
+            var pwd2 = mini.get('#Password').getValue();
+            if (pwd1 != pwd2) {
+                toastr["error"]("两次密码不一致", "错误");
+            }
+        }
+
+    }
+
+    if (this.location.href != top.location.href) {
+        top.location = this.location;
+    }
+</script>

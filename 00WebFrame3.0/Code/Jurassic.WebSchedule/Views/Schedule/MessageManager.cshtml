@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = Html.Str("Message_Manager");
+}
+@using Jurassic.WebSchedule;
+@section UserToolBar
+{
+    <a class="mini-button frame-submit" plain="true">@SStr.ReadAll)</a>
+    <a class="mini-button frame-submit" plain="true">@JStr.Delete</a>
+    <a class="mini-button frame-submit" plain="true">@SStr.ClearAll</a>
+}
+<div id="alertGrid" class="mini-datagrid frame-fit" style="width:100%"
+     url="@Url.Action("GetAllAlerts", "Schedule")" pagesize="20" allowresize="true" multiselect="true"
+     idfield ="caId" onrowdblclick="edit" showemptytext="true" emptytext="@SStr.NoMessage">
+    <div property="columns">
+        <div type="checkcolumn" headeralign="center"></div>
+        <div field="title" headeralign="center" width="50%" allowsort="true" renderer="onTitleRenderer">@JStr.Title</div>
+        <div field="start" headeralign="center" width="20%" dateformat="MM-dd HH:mm" allowsort="true">@JStr.StartTime</div>
+        <div field="end" headeralign="center" width="20%" dateformat="MM-dd HH:mm" allowsort="true">@JStr.EndTime</div>
+        <div field="read" headeralign="center" width="10%" allowsort="true" type="checkboxcolumn">@SStr.AlreadyRead</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    var grid = mini.get("alertGrid");
+    grid.load();
+    function onTitleRenderer(e) {
+        var s = '<a href="javascript:processEvents(' + e.rowIndex + ')">' + e.record.title + '</a>'
+        return s;
+    }
+
+    function processEvents(idx) {
+        var row = grid.getRow(idx);
+
+        //当该记录明确标识有处理的URL
+        if (row.url) {
+            //下面主要是提交一下表示已读
+            $.post('@Url.Action("Read", "Schedule")' + "?caId=" + row.caId);
+            //到实际处理页
+            location.href = row.url;
+        }
+        else {
+            mini.open({
+                title: '@JStr.Message',
+                url: '@Url.Action("Read", "Schedule")' + "?caId=" + row.caId,
+                //showModal: false,
+                width: 600,
+                height: 440,
+                ondestroy: function () { grid.reload(); }
+            });
+        }
+    }
+
+    $.regButton({
+        text: "@SStr.ClearAll",
+        beforeSubmit: function (ajax) {
+            if (!confirm("@SStr.ConfirmClearAllMessages")) {
+                return false;
+            }
+            ajax.url = "@Url.Action("Clear")";
+        }
+    });
+
+    $.regButton({
+        text: "@SStr.ReadAll",
+        beforeSubmit: function (ajax) {
+            ajax.url = "@Url.Action("ReadAll")";
+            ajax.method = "POST";
+        }
+    });
+
+    function getSelectedIds() {
+        var idArr = [];
+        var rows = grid.getSelecteds();
+        for (var i = 0; i < rows.length; i++) {
+            idArr.push(rows[i].caId);
+        }
+        return idArr.join(',');
+    }
+
+    $.regButton({
+        text: "@JStr.Delete",
+        beforeSubmit: function (ajax) {
+            var ids = getSelectedIds();
+            if (ids.length == 0) {
+                alert("@ResHelper.GetStr("请选择要删除的行")");
+                return false;
+            }
+            if (!confirm("@ResHelper.GetStr("确定删除？")")) {
+                return false;
+            }
+            ajax.url = "@Url.Action("DeleteAlerts")";
+            ajax.method = "POST";
+            ajax.data = { ids: ids }
+        }
+    });
+
+    $('form').bind("afterSubmit", function () {
+        grid.reload();
+    });
+</script>

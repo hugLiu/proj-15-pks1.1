@@ -1,0 +1,96 @@
+﻿<style>
+    .frame-clicktoggle {
+        background: #eaeaea;
+        width: 100%;
+    }
+
+        .frame-clicktoggle .mini-textbox-border {
+            margin-left: 3px;
+            background: #ffffff;
+        }
+
+    input[type=checkbox] {
+        vertical-align: text-bottom;
+    }
+</style>
+@using Jurassic.CommonModels.EntityBase;
+@using Jurassic.CommonModels.ModelBase;
+@using Jurassic.WebQuery;
+@{
+    LangTextFormData paraModel = ViewContext.ViewBag.ParaModel as LangTextFormData;
+    var pageModel = paraModel.Model ?? (Model as object);
+    var type = pageModel.GetType();
+    var id = (pageModel as IId<int>).Id;
+    if (paraModel.Id.IsEmpty())
+    {
+        paraModel.Id = "master_" + paraModel.Name;
+    }
+    if (paraModel.StartValue == null)
+    {
+        paraModel.StartValue = RefHelper.GetValue(pageModel, paraModel.Name);
+    }
+    var currLang = ResHelper.CurrentCultureName.ToLower();
+    var langs = ResHelper.GetUsedCultureNames()
+        .Where(lang => !lang.Equals(currLang, StringComparison.OrdinalIgnoreCase))
+        .Select(l => l.ToLower()).ToArray();
+    var culture = new System.Globalization.CultureInfo(ResHelper.CurrentCultureName);
+
+    var entityType = ModelRule.Get(type).Attr.EntityType ??
+        AutoMapper.Mapper.GetAllTypeMaps().FirstOrDefault(m => m.DestinationType == type).SourceType ?? type;
+    var langTexts = Jurassic.CommonModels.SiteManager.Get<EFAuditDataService<Sys_DataLanguage>>()
+        .GetQuery().Where(l => l.Name == paraModel.Name && l.BillId == id && l.BillType == entityType.Name);
+}
+@helper LangIcon(string lang, CultureIconType iconType)
+{
+    switch (iconType)
+    {
+        case Jurassic.WebQuery.CultureIconType.Text:
+            <td class="right" style="background-color:#eaeaea; width:40px; font-size:12px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                @lang
+            </td>
+            break;
+        case Jurassic.WebQuery.CultureIconType.Flag:
+        <td style="background:url(@Url.Content("~/Content/flags/" + lang +".png")) no-repeat 5px 5px #fff; width:28px;"></td>
+            break;
+    }
+}
+@if (langs.IsEmpty())
+{
+    <input class="mini-textbox" name="@paraModel.Name" id="@paraModel.Id" value="@paraModel.StartValue" @Html.Raw(@paraModel.Attributes) />
+}
+else
+{
+    <div style="position:relative">
+        <table cellpadding="1" cellspacing="0" style="width:100%" id="tbl_@paraModel.Id">
+            <tr>
+                <td><input class="mini-textbox" name="@paraModel.Name" id="@paraModel.Id" value="@paraModel.StartValue" @Html.Raw(@paraModel.Attributes) /></td>
+                @LangIcon(currLang, paraModel.IconType)
+            </tr>
+        </table>
+        <div id="multilang_@paraModel.Id" style="position:absolute; left:0;top:25px;min-height:24px; z-index:1000;display:none;" class="frame-clicktoggle">
+            <table cellpadding="1" cellspacing="0" style="width:100%">
+                @foreach (var lang in langs)
+                {
+                    culture = new System.Globalization.CultureInfo(lang);
+                    var langVal = langTexts.FirstOrDefault(l => l.Language == lang) ?? new Jurassic.CommonModels.EntityBase.Sys_DataLanguage();
+                    <tr>
+                        <td><input class="mini-textbox" name="@paraModel.Name-@lang" value="@langVal.Text" emptytext="@culture.NativeName" style="width:100%" /></td>
+                        @LangIcon(lang, paraModel.IconType)
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+                var viewBag = this.ViewContext.Controller.ViewBag;
+                bool firstLoad = !CommOp.ToBool(viewBag.LangTextScriptsLoaded);
+                if (firstLoad)
+                {
+                    <script type="text/javascript" src="~/Scripts/webframe-langtextinput.js"></script>
+                }
+                <script type="text/javascript">
+                    $(function () {
+                        $.langTextInput({ id: '@paraModel.Id', name: '@paraModel.Name' });
+                    });
+                </script>
+                viewBag.LangTextScriptsLoaded = true;
+}

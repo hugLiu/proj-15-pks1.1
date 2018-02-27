@@ -1,0 +1,2 @@
+Jurassic.WebTemplate 是使用了webframe主框架和所有jurassic.webXXX的可选组件的一个示例主项目
+AddinDemo 是一个示例插件模块，演示数据采集组件，同时也演示一个模块既可以独立运行又可以集成在webtemplate中。

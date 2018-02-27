@@ -1,0 +1,69 @@
+﻿@{var ViewModel = ViewBag.Table as System.Data.DataTable; }
+<style>
+.bs-example {
+        position: relative;
+        padding: 45px 15px 15px;
+}
+     table {
+         border-spacing: 0;
+         border-collapse: collapse;
+         border-color: #ddd;
+         width: 100%;
+         max-width :100%;
+     }
+
+    caption {
+        padding: 8px;
+
+        background-color: #ddd;
+        text-align: left;
+    }
+
+    thead {
+        display: table-header-group;
+        vertical-align: middle;
+        border-color: inherit;
+    }
+
+    table > thead > tr > th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #ddd;
+        text-align: left;
+    }
+
+    table > tbody > tr > td {
+        padding: 8px;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+</style>
+<div class="bs-example">
+    @*<div class="caption">@ViewBag.Sql</div>*@
+    <table>
+        <caption>@ViewBag.Sql</caption>
+        <thead>
+            <tr>
+                @{
+                    for (int i = 0; i < ViewModel.Columns.Count; i++)
+                    {
+                        <th>@ViewModel.Columns[i]</th>
+                    }
+                }
+            </tr>
+        </thead>
+        @{
+            for (int j = 0; j < ViewModel.Rows.Count; j++)
+            {
+                <tr>
+                    @{
+                for (int k = 0; k < ViewModel.Columns.Count; k++)
+                {
+                    <td>@ViewModel.Rows[j][k]</td>
+                }
+                    }
+                </tr>
+            }
+        }
+
+    </table>
+</div>

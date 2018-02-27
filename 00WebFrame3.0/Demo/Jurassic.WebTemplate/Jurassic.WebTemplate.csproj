@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{98AD9EE4-6FC5-4779-8F97-F823AD64882F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jurassic.WebTemplate</RootNamespace>
+    <AssemblyName>Jurassic.WebTemplate</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Jurassic.WebTemplate.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\..\..\01基础库\03第三方包\NuGet\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\..\..\01基础库\03第三方包\NuGet\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Project\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\公用组件库\dotNet\AppCenter\packages\Microsoft.Net.Http.2.0.30506.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\公用组件库\dotNet\AppCenter\packages\Microsoft.Net.Http.2.0.30506.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AdvDataDemoController.cs" />
+    <Compile Include="Controllers\AdvQueryDemoController.cs" />
+    <Compile Include="Controllers\UploadExcelController.cs" />
+    <Compile Include="Controllers\HCartsDemoController.cs" />
+    <Compile Include="Controllers\HelloWorldController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\KoDemoController.cs" />
+    <Compile Include="Controllers\MapDemoController.cs" />
+    <Compile Include="Controllers\MessageDemoController.cs" />
+    <Compile Include="Controllers\NoteBookController.cs" />
+    <Compile Include="Controllers\RepeaterController.cs" />
+    <Compile Include="Controllers\SelectUserDemoController.cs" />
+    <Compile Include="Controllers\SignalRDemoController.cs" />
+    <Compile Include="Controllers\UploadDemoController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TempMenuExtInfoService.cs" />
+    <Compile Include="ViewModel\RegModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\WebTemplateDB.mdf" />
+    <Content Include="App_Data\WebTemplateDB_log.ldf">
+      <DependentUpon>WebTemplateDB.mdf</DependentUpon>
+    </Content>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Views\NoteBook\Edit.cshtml" />
+    <Content Include="Views\NoteBook\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Code\Jurassic.AppCenter.Core\Jurassic.AppCenter.Core.csproj">
+      <Project>{333d850b-cf34-4466-b35d-eacc64e53d2c}</Project>
+      <Name>Jurassic.AppCenter.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.Com.OfficeLib\Jurassic.Com.OfficeLib.csproj">
+      <Project>{c696b0fd-9b1c-4542-8530-dc9938f66a6b}</Project>
+      <Name>Jurassic.Com.OfficeLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.CommonModels.EFProvider\Jurassic.CommonModels.EFProvider.csproj">
+      <Project>{a35478b0-7a8f-4dd4-a93f-9a346e897f13}</Project>
+      <Name>Jurassic.CommonModels.EFProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.CommonModels\Jurassic.CommonModels.csproj">
+      <Project>{b9398e83-a02a-4cb8-9821-132fc12b9aca}</Project>
+      <Name>Jurassic.CommonModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.Com\Jurassic.Com.csproj">
+      <Project>{de9ba8dc-b7c3-4d8f-b2b0-38bbdfc16069}</Project>
+      <Name>Jurassic.Com</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.Log4\Jurassic.Log4.csproj">
+      <Project>{2d531f7a-393d-4f8a-a3ab-1ac0831df613}</Project>
+      <Name>Jurassic.Log4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.WebFrame\Jurassic.WebFrame.csproj">
+      <Project>{6b411224-ad4d-4372-8ea0-a5f4f7838a0b}</Project>
+      <Name>Jurassic.WebFrame</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.WebHtmlEditor\Jurassic.WebHtmlEditor.csproj">
+      <Project>{1fd84926-a798-496c-b672-06b2bb82550d}</Project>
+      <Name>Jurassic.WebHtmlEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.WebMap\Jurassic.WebMap.csproj">
+      <Project>{2e1e4179-36ea-4cfc-97b0-573f461ce06c}</Project>
+      <Name>Jurassic.WebMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.WebQuery\Jurassic.WebQuery.csproj">
+      <Project>{6bc31d44-c603-4565-a942-c25ea82325ae}</Project>
+      <Name>Jurassic.WebQuery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.WebRepeater\Jurassic.WebRepeater.csproj">
+      <Project>{60126a19-6261-41b1-a1cd-5f47d075e595}</Project>
+      <Name>Jurassic.WebRepeater</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.WebReport\Jurassic.WebReport.csproj">
+      <Project>{b1955a12-804d-4b54-8ddd-9c7f4d2d0740}</Project>
+      <Name>Jurassic.WebReport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.WebSchedule\Jurassic.WebSchedule.csproj">
+      <Project>{b9291a61-bd5f-44f0-a243-eb6c8053d033}</Project>
+      <Name>Jurassic.WebSchedule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Code\Jurassic.WebUpload\Jurassic.WebUpload.csproj">
+      <Project>{22ced720-7cca-4fa7-8660-6189d0fcd853}</Project>
+      <Name>Jurassic.WebUpload</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AddinDemo\AddinDemo.csproj">
+      <Project>{8a1ac970-145f-4e7b-aced-79cbc9fc91e9}</Project>
+      <Name>AddinDemo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\AppRoles.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\CustomStrings.en-US.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\CustomStrings.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Reports\Report1.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\HelloWorld\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\HelloWorld\ReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\HCartsDemo\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UploadDemo\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SignalRDemo\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UploadExcel\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\AppFunctions.json" />
+    <Content Include="App_Data\AdvDataConfigs.json" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Loacal.pubxml" />
+    <None Include="Properties\PublishProfiles\WebDeploy.pubxml" />
+    <Content Include="Views\HelloWorld\HtmlEditor.cshtml" />
+    <Content Include="Views\Repeater\Index.cshtml" />
+    <Content Include="Views\KoDemo\Index.cshtml" />
+    <Content Include="Views\HelloWorld\RegUser.cshtml" />
+    <None Include="Properties\PublishProfiles\WebTemplateDebug.pubxml" />
+    <Content Include="Views\AdvQueryDemo\Index.cshtml" />
+    <Content Include="Views\HelloWorld\IndexMyLayout.cshtml" />
+    <Content Include="Views\_MyLayout.cshtml" />
+    <Content Include="Views\MessageDemo\Index.cshtml" />
+    <Content Include="Views\MapDemo\Index.cshtml" />
+    <Content Include="Views\SelectUserDemo\Index.cshtml" />
+    <Content Include="Views\HelloWorld\TestTreeGrid.cshtml" />
+    <Content Include="Views\AdvDataDemo\Index.cshtml" />
+    <Content Include="Views\AdvDataDemo\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>38332</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4123/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <UserProperties App__Data_2AdvDataConfigs_1json__JSONSchema="2" App__Data_2AppFunctions_1json__JSONSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

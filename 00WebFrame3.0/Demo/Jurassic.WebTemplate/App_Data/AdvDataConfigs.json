@@ -1,0 +1,781 @@
+﻿[
+  {
+    "ClassName": "SupplierModel",
+    "Items": [
+      {
+        "PropertyName": "CreateTime",
+        "FormOrder": 1,
+        "GridOrder": 1,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Level",
+        "FormOrder": 2,
+        "GridOrder": 2,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Email",
+        "FormOrder": 3,
+        "GridOrder": 3,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Name",
+        "FormOrder": 4,
+        "GridOrder": 4,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Id",
+        "FormOrder": 5,
+        "GridOrder": 5,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "CreaterName",
+        "FormOrder": 6,
+        "GridOrder": 6,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Tel",
+        "FormOrder": 7,
+        "GridOrder": 7,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "CreaterId",
+        "FormOrder": 8,
+        "GridOrder": 8,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Address",
+        "FormOrder": 9,
+        "GridOrder": 9,
+        "Rows": 1,
+        "Cols": 3,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "IsConfirmed",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "TestField",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "ContacterName",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "ContacterId",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Products",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      }
+    ]
+  },
+  {
+    "ClassName": "JLogInfo",
+    "Items": [
+      {
+        "PropertyName": "Id",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "ModuleName",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "ActionName",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "UserName",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "ClientIP",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "OpTime",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "CatalogId",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "ObjectId",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "LogType",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Request",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Costs",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Message",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Browser",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "BrowserVersion",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Platform",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      }
+    ]
+  },
+  {
+    "ClassName": "PersonModel",
+    "Items": [
+      {
+        "PropertyName": "Id",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Name",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Country",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "City",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Degree",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Enabled",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "CityName",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "CreateTime",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "LeaderId",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Age",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Salary",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Birth",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Weight",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Height",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Health",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Favorites",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "EduHistorys",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "Honors",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      }
+    ]
+  },
+  {
+    "ClassName": "EduHistorys",
+    "Items": [
+      {
+        "PropertyName": "Id",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "SchoolName",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "StartDate",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "EndDate",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Remark",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Special",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Subject",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      }
+    ]
+  },
+  {
+    "ClassName": "Honors",
+    "Items": [
+      {
+        "PropertyName": "Id",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "HonorName",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "GetDate",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      }
+    ]
+  },
+  {
+    "ClassName": "Products",
+    "Items": [
+      {
+        "PropertyName": "Id",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Name",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      },
+      {
+        "PropertyName": "Price",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": "sum"
+      },
+      {
+        "PropertyName": "Unit",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": ""
+      }
+    ]
+  },
+  {
+    "ClassName": "ProductModel",
+    "Items": [
+      {
+        "PropertyName": "Id",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "Name",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "Price",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false,
+        "SummaryType": "avg"
+      },
+      {
+        "PropertyName": "Unit",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      }
+    ]
+  },
+  {
+    "ClassName": "EduHistoryModel",
+    "Items": [
+      {
+        "PropertyName": "Id",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "SchoolName",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "StartDate",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "EndDate",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "Remark",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "Special",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "Subject",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      }
+    ]
+  },
+  {
+    "ClassName": "HonorModel",
+    "Items": [
+      {
+        "PropertyName": "Id",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "HonorName",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      },
+      {
+        "PropertyName": "GetDate",
+        "FormOrder": 1000,
+        "GridOrder": 1000,
+        "Rows": 1,
+        "Cols": 1,
+        "ColumnWidth": 0,
+        "Fixed": false
+      }
+    ]
+  }
+]

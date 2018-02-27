@@ -1,0 +1,208 @@
+﻿@*用于编辑Base_Article的扩展属性集Base_Article.Exts的编辑器*@
+@using Jurassic.CommonModels.Articles
+@using Jurassic.CommonModels;
+@using Jurassic.WebRepeater;
+@using Jurassic.WebHtmlEditor;
+@model Base_ArticleExt
+@{
+    Base_CatalogExt catExt = SiteManager.Catalog.GetExtById(Model.CatlogExtId);
+    if (catExt == null)
+    {
+        return;
+    }
+    ExtRenderEvent extEvent = this.Html.ViewDataContainer.ViewData["ExtRenderEvent"] as ExtRenderEvent ?? new ExtRenderEvent();
+    HelperResult userRenderResult = null;
+    if (extEvent != null && extEvent.UserRenderer != null)
+    {
+        userRenderResult = extEvent.UserRenderer(this.Html);
+    }
+}
+@helper DefaultRenderer(Base_CatalogExt catExt)
+{
+    <div class="form-group">
+        <label class="col-md-2 col-xs-3 control-label no-padding-right">@ResHelper.GetStr(catExt.Name)</label>
+        <div class="col-md-10 col-xs-9">
+            @*<span class="block input-icon input-icon-right">*@
+            @switch (catExt.DataSourceType)
+            {
+                //单项选择下拉列表
+                case ExtDataSourceType.DirectList:
+                    @Html.DropDownListFor(model => model.Value, catExt.GetSelectList(), new { @class = "", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name) })
+                    break;
+
+                //多项选择下拉列表
+                case ExtDataSourceType.MultipleList:
+                @Html.DropDownListFor(model => model.Value, catExt.GetSelectList(), new { @class = "", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name) })
+                    break;
+
+                case ExtDataSourceType.SqlQuery:
+                @Html.DropDownListFor(model => model.Value, catExt.GetSqlList(), new { @class = "", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name) })
+                    break;
+                case ExtDataSourceType.SqlQueryMultipleList:
+                @Html.DropDownListFor(model => model.Value, catExt.GetSqlList(), new { @class = "", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name) })
+                    break;
+                case ExtDataSourceType.UserDefine:
+                @Html.HiddenFor(model => model.Value)
+                    break;
+                default:
+                    switch (catExt.DataType)
+                    {
+                            @*case ExtDataType.SingleNumber:
+                                    @Html.TextBoxFor(model => model.Value, new { @class = "mini-spinner", nullValue = "null",  emptytext = ResHelper.GetStr(catExt.Name) })
+                                    break;
+
+                                case ExtDataType.FloatNumber:
+                                @Html.TextBoxFor(model => model.Value, new { @class = "mini-spinner", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name), format = "n2" })
+                                    break;
+
+                                case ExtDataType.Currency:
+                                @Html.TextBoxFor(model => model.Value, new { @class = "mini-spinner", format = "c4", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name) })
+                                    break;*@
+
+                        case ExtDataType.Date:
+                        @Html.TextBoxFor(model => model.Value, new { @class = "mini-datepicker", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name), required = catExt.AllowNull ? "false" : "true" })
+                            break;
+
+                        case ExtDataType.DateAndTime:
+                        @Html.TextBoxFor(model => model.Value, new
+                           {
+                               @class = "mini-datepicker",
+                               format = "yyyy-MM-dd H:mm",
+                               showTime = "true",
+                               showOkButton = "true",
+                               showClearButton = "false",
+                               timeFormat = "H:mm",
+                               emptytext = ResHelper.GetStr(catExt.Name),
+                               width = 140,
+                               required = catExt.AllowNull ? "false" : "true"
+                           })
+                            break;
+                        case ExtDataType.Bool:
+                            var chkId = "chk_" + Model.CatlogExtId;
+                            @Html.HiddenFor(model => model.Value, new { id = chkId })
+                            if (CommOp.ToBool(Model.Value))
+                            {
+                                <input checked="checked" type="checkbox" onchange="$('#@chkId').val(this.checked?this.value:'')" value="true" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" value="true" onchange="$('#@chkId').val(this.checked?this.value:'')" />
+                            }
+                            break;
+                        case ExtDataType.MultiLineText:
+                        @Html.TextAreaFor(model => model.Value, new { rows = 4, required = !catExt.AllowNull })
+                            break;
+                        case ExtDataType.Html:
+                        @Html.TextAreaFor(model => model.Value, new { id = "html_" + catExt.Id, rows = 6 })
+                        @Html.HtmlEditor(new EditorFormData { TextAreaId = "html_" + catExt.Id })
+                            break;
+                        case ExtDataType.Time:
+                        @Html.TextBoxFor(model => model.Value, new { @class = "mini-timespinner", format = "H:mm" })
+                            break;
+
+                        default:
+                        @Html.TextBoxFor(model => model.Value, new { @class = "mini-textbox", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name), required = catExt.AllowNull ? "false" : "true" })
+                            break;
+                    }
+                    break;
+            }
+        </div>
+    </div>
+}
+@helper DefaultRendererInline(Base_CatalogExt catExt)
+{
+    <td style="width:100px">
+        @switch (catExt.DataSourceType)
+        {
+            //单项选择下拉列表
+            case ExtDataSourceType.DirectList:
+                @Html.DropDownListFor(model => model.Value, catExt.GetSelectList(), new { @class = "", style = "width:100px", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name) })
+                break;
+
+            //多项选择下拉列表
+            case ExtDataSourceType.MultipleList:
+            @Html.DropDownListFor(model => model.Value, catExt.GetSelectList(), new { @class = "", style = "width:100px", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name) })
+                break;
+            default:
+                switch (catExt.DataType)
+                {
+                        @*case ExtDataType.SingleNumber:
+                                @Html.TextBoxFor(model => model.Value, new { @class = "mini-spinner", nullValue="null", emptytext = ResHelper.GetStr(catExt.Name) })
+                                break;
+
+                            case ExtDataType.FloatNumber:
+                            @Html.TextBoxFor(model => model.Value, new { @class = "mini-spinner",nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name), format = "n2" })
+                                break;
+
+                            case ExtDataType.Currency:
+                            @Html.TextBoxFor(model => model.Value, new { @class = "mini-spinner", format = "c4",  nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name) })
+                                break;*@
+
+                    case ExtDataType.Date:
+                    @Html.TextBoxFor(model => model.Value, new { @class = "mini-datepicker", nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name), required = catExt.AllowNull ? "false" : "true" })
+                        break;
+                    case ExtDataType.DateAndTime:
+                    @Html.TextBoxFor(model => model.Value, new
+                       {
+                           @class = "mini-datepicker",
+                           format = "yyyy-MM-dd H:mm",
+                           showTime = "true",
+                           showOkButton = "true",
+                           showClearButton = "false",
+                           timeFormat = "H:mm",
+                           width = 140,
+                           emptytext = ResHelper.GetStr(catExt.Name),
+                           required = catExt.AllowNull ? "false" : "true"
+                       })
+                        break;
+                    case ExtDataType.Bool:
+                    @Html.HiddenFor(model => model.Value)
+                        var chkId = "chk_" + Model.CatlogExtId;
+                        @Html.HiddenFor(model => model.Value, new { id = chkId })
+                        if (CommOp.ToBool(Model.Value))
+                        {
+                            <input checked="checked" type="checkbox" onchange="$('#@chkId').val(this.checked?this.value:'')" value="true" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" value="true" onchange="$('#@chkId').val(this.checked?this.value:'')" />
+                        }
+                        break;
+                    case ExtDataType.Html:
+                    @Html.TextAreaFor(model => model.Value)
+                        break;
+                    case ExtDataType.Time:
+                    @Html.TextBoxFor(model => model.Value, new { @class = "mini-timespinner", format = "H:mm" })
+                        break;
+                    default:
+                    @Html.TextBoxFor(model => model.Value, new { @class = "mini-textbox", width = 100, nullValue = "null", emptytext = ResHelper.GetStr(catExt.Name), required = catExt.AllowNull ? "false" : "true" })
+                        break;
+                }
+                break;
+        }
+    </td>
+}
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.ArticleId)
+@Html.HiddenFor(model => model.CatlogExtId)
+
+@if (CommOp.ToStr(userRenderResult) != String.Empty)
+{
+    @userRenderResult
+}
+else if (catExt.DataSourceType == ExtDataSourceType.UserDefine)
+{
+    @Html.HiddenFor(model => model.Value)
+}
+else if ((catExt.State & ArticleState.ReadOnly) == ArticleState.ReadOnly)
+{
+    @Html.HiddenFor(model => model.Value)
+}
+else
+{
+    @(extEvent.Inline ? DefaultRendererInline(catExt) : DefaultRenderer(catExt))
+}
+@if (extEvent != null && extEvent.OnExtRendered != null)
+{
+    @extEvent.OnExtRendered(this.Html)
+}

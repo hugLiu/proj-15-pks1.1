@@ -1,0 +1,479 @@
+﻿@using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
+@using Jurassic.WebUpload;
+@model Jurassic.CommonModels.Articles.Base_Article
+@{ var rootId = @ViewBag.id;}
+@{
+    var mod = ViewData["model"];
+}
+<style>
+    .mini-tree-leaf {
+        background-image: url("../../Scripts/miniui/themes/default/images/tree/folder-open.gif");
+    }
+</style>
+
+<div id="uploadDiv" style="display:none">
+    @Html.Upload(new UploadFormData()
+    {
+        JsAddFunction = "addCatalogId",
+        JsDoneFunction = "refresh",
+        ShowManager = false  //不显示文件管理按钮
+    })
+</div>
+@*主界面，左边tree，右边Grid*@
+<div class="mini-splitter frame-fit nospacing" style="width:100%;padding:0">
+    <div size="20%" showcollapsebutton="true" style="padding:5px;">
+        <div id="catalogTree" class="mini-tree frame-fit frame-search-tree" style="width:100%;" showtreeicon="true" expandonload="true" resultastree="false"
+             url="@Url.Action("getcatalogs", "Files" )" textfield="Name" idfield="Id" parentfield="ParentId" @*value="@ViewBag.id" *@
+             checkrecursive="false" autocheckparent="false" expandondblclick="false" @*onendedit="endedit" *@ onnodeclick="showFiles">
+        </div>
+    </div>
+    <div showcollapsebutton="true">
+        <div id="fileGrid" class="mini-datagrid frame-fit frame-search-grid" style="width:100%;" allowresize="true"
+             url="@Url.Action("getfiles", "Files" )" idfield="Id" multiselect="true" editnextonenterkey="true" editnextrowcell="true"
+             allowcelledit="true" allowcellselected="true" pagesize="10" sortmode="client" overflow-y="hidden">
+            <div property="columns">
+                <div id="checkAll" type="checkcolumn"></div>
+                <div field="FileName" headeralign="center" allowsort="true">@JStr.FileName</div>
+                <div field="Keywords" headeralign="center">@JStr.Keyword</div>
+                <div field="Abstract" headeralign="center">@JStr.Abstract</div>
+                <div field="FileSize" datatype="int" headeralign="center" allowsort="true">@Html.Str("FileSize")</div>
+                <div field="ContentType" headeralign="center" allowsort="true">@UStr.ContentType</div>
+            </div>
+        </div>
+    </div>
+</div>
+@*移动文件选择树节点目录*@
+<div id="win1" class="mini-window" title="@UStr.SelectCatalog" style="width:500px;height:400px; margin:0 auto;"
+     showmaxbutton="false" showcollapsebutton="false" showshadow="true" checkrecursive=false autocheckparent=false
+     showtoolbar="false" showfooter="false" showmodal="true" allowresize="false" allowdrag="true">
+    <div class="mini-fit">
+        <div id="catalogTree1" class="mini-tree" showtreeicon="true" expandonload="true"
+             resultastree="false" url="@Url.Action("getcatalogs", "Files" )"
+             textfield="Name" idfield="Id" parentfield="ParentId" expandondblclick="false">
+        </div>
+
+        <div class="popuplayer_button">
+            <a id="removeFile" class="mini-button frame-submit frame-default">@JStr.OK</a>
+            <a class="mini-button" onclick="cancelMoveCatalog">@JStr.Cancel</a>
+        </div>
+    </div>
+</div>
+@*复制文件选择树节点目录*@
+<div id="win2" class="mini-window" title="@UStr.SelectCatalog" style="width:500px;height:400px; margin:0 auto;"
+     showmaxbutton="false" showcollapsebutton="false" showshadow="true"
+     showtoolbar="false" showfooter="false" showmodal="true" allowresize="false" allowdrag="true">
+    <div class="mini-fit">
+        <div id="catalogTree2" class="mini-tree" showtreeicon="true" expandonload="true"
+             resultastree="false" url="@Url.Action("getcatalogs", "Files" )"
+             textfield="Name" idfield="Id" parentfield="ParentId" expandondblclick="false">
+        </div>
+
+        <div class="popuplayer_button">
+            <a id="copyFile" class="mini-button frame-submit frame-default">@JStr.OK</a>
+            <a class="mini-button" onclick="cancelCopyCatalog">@JStr.Cancel</a>
+        </div>
+    </div>
+</div>
+@*编辑树节点目录*@
+<div id="win3" class="mini-window" title="@UStr.EditCatalog" style="width:400px;height:200px; margin:0 auto;"
+     showmaxbutton="false" showcollapsebutton="false" showshadow="true"
+     showtoolbar="true" showfooter="true" showmodal="true" allowresize="false" allowdrag="true">
+    <div class="mini-fit">
+        <div class="form-label" style="width: 60px;display:inline">@UStr.CatalogName：<span id="catalogName" class="mini-textbox"></span></div>
+
+        <div class="popuplayer_button">
+            <a class="mini-button" onclick="saveCatalogName">@JStr.Save</a>
+            <a class="mini-button" onclick="cancelCatalogName">@JStr.Cancel</a>
+        </div>
+
+    </div>
+</div>
+ 
+<script type="text/javascript">
+    var obj = [
+        { "id": 1, "text": "text/plain" },
+        { "id": 2, "text": "text/html" }
+    ];
+    mini.parse();
+    var treeObj = mini.get("catalogTree");
+    var treeObj1 = mini.get("catalogTree1");
+    var treeObj2 = mini.get("catalogTree2");
+    treeObj.setValue("@ViewBag.id");// var root = treeObj.getRootNode();
+    var grid = mini.get("fileGrid");
+    var catId = "@ViewBag.id";//根节点ID，默认显示根节点下的文件
+    grid.load({ catId: catId });
+
+
+    //添加目录
+    $.regButton({
+        text: "@UStr.AddCatalog",
+        beforeSubmit: function (ajax) {
+
+            var nodeId;
+
+            var node = treeObj.getSelectedNode();
+            if (node != undefined) {
+                nodeId = node.Id;
+            } else {
+                nodeId = 0;
+            }
+
+            var name = prompt("@UStr.PlzEnterCatalogName", "New Node");
+            if (!name)
+                return false;
+
+            var newNode = { Name: "New Node", ParentId: nodeId };
+            newNode.Name = name;
+            treeObj.addNode(newNode, "add", node);
+            ajax.data = { catalogName: newNode.Name, pId: newNode.ParentId };
+            ajax.url = "@Url.Action("CreateCatalog", "Files")";
+
+        },
+        afterSubmit: function (data) {
+            reloadTrees();
+        }
+    });
+
+    function reloadTrees() {
+        treeObj.load("@Url.Action("GetCatalogs", "Files")");
+        treeObj1.load("@Url.Action("GetCatalogs", "Files")");
+        treeObj2.load("@Url.Action("GetCatalogs", "Files")");
+    }
+
+
+    //删除目录
+    $.regButton({
+        text: "@UStr.DeleteCatalog",
+        beforeSubmit: function (ajax) {
+            var node = treeObj.getSelectedNode();
+            if (node == undefined) {
+                alert("@UStr.PlzSelectACatalogToDelete");
+                return false;
+            }
+            if (!treeObj.isLeaf(node)) {
+                alert("@UStr.CantDeleteChildCatalog");
+                return false;
+            }
+
+            var parentNode = treeObj.getParentNode(node);//获得这个目录的根节点
+            //if (treeObj.getParentNode(node)) {
+            //    parentNode = treeObj.getParentNode(node);//获得这个目录的根节点
+            //}
+
+            var grid = mini.get("fileGrid");
+            catId = node.Id;
+            var rows = grid.data;
+            if (rows.length > 0) {
+                if (!confirm("@Html.Str("Confrim_Delete_Caltalog_Contains_Files")"))
+                    return false;
+            }
+
+            ajax.data = { catalogId: catId };
+            treeObj.removeNode(node);
+            if (parentNode != null) {
+                treeObj.selectNode(parentNode);  //设定选中节点为上级根目录
+                //alert("parentNode");
+            } else {
+                treeObj.selectNode(null);
+                //alert("null");
+            }
+
+        },
+        afterSubmit: function () {
+
+
+            var node = treeObj.getSelectedNode();
+            //var nodes = tree.findNodes(function (node) {
+            //    if (node.name.indexOf("abc") != -1) return true;
+            //});
+
+            reloadTrees();
+
+            if (node == null) {
+                //alert("clear");
+                grid.clearRows();
+            } else {
+                //alert("load");
+                grid.selectNode(node);
+                grid.load({ catId: node.Id });
+            }
+        }
+    });
+
+    //编辑目录
+    $.regButton({
+        text: "@UStr.EditCatalog",
+        noSubmit: function () {
+            var node = treeObj.getSelectedNode();
+            if (node == undefined) {
+                alert('@UStr.PlzSelectACatalogToEdit');
+                return false;
+            }
+            else {
+                var win = mini.get("win3");
+                win.show();
+            }
+        },
+        beforeSubmit: saveCatalogName,
+    });
+
+    function saveCatalogName() {
+        var node = treeObj.getSelectedNode();
+        var cataName = mini.get("catalogName");
+        var catalogName = cataName.getValue("catalogName");
+        node.Name = catalogName;
+        var json = mini.encode(node);
+        $.ajax({
+            url: "@Url.Action("RenameCatalog", "Files")",
+            data: { model: json },
+            success: function () {
+                var win = mini.get("win3");
+                win.hide();
+                mini.get("catalogName").setValue();
+                reloadTrees();
+            }
+        });
+    }
+
+    function cancelCatalogName() {
+        var win = mini.get("win3");
+        mini.get("catalogName").setValue();
+        win.hide();
+    }
+
+    //上传文件
+    $.regButton({ text: "@UStr.UploadFile", noSubmit: uploadFile });
+    function uploadFile() {
+        var node = treeObj.getSelectedNode();//选择文件夹
+        if (!node) {
+            showTips({ Type: "warning", Title: "@UStr.PlzSelectACatalogToUpload" });
+            return;
+        }
+        $('#uploadDiv').toggle();
+        //if (true)    //如果文件上传的过程中取消上传了就隐藏文件上传组件,
+        //{
+        //     $('#uploadDiv').hide();
+        //}
+    }
+
+    //将文件移到相应的目录去
+    $.regButton({ text: "@UStr.MoveFile", noSubmit: moveToCatalog });
+    function moveToCatalog() {
+        var win = mini.get("win1");
+        win.show();
+    }
+    $.regButton({
+        id: 'removeFile',
+        beforeSubmit: function (ajax) {
+            var node = treeObj1.getSelectedNode();
+            var rows = grid.getSelecteds();
+            //grid.removeRows(rows, true);
+            var json = mini.encode(rows);
+            ajax.data = { model: json, catalogId: node.Id };
+            ajax.url = '@Url.Action("CheckRepeatFile", "Files")';
+        },
+        afterSubmit: function (data) {
+            var condition = false;
+            if (data == "True") {
+                condition = true;
+            }
+            else {
+                if (!confirm("@UStr.ConfirmOverwriteDupFiles")) {
+                    condition = false;
+                }
+                else {
+                    condition = true;
+                }
+            }
+            if (condition) {
+                var node = treeObj1.getSelectedNode();
+                var rows = grid.getSelecteds();
+                var model = mini.encode(rows);
+                $.newPOST("@Url.Action("MoveToCatalog", "Files")", { model: model, catalogId: node.Id, judge: true },
+                    function () {
+                        var win = mini.get("win1");
+                        treeObj1.setValue(@ViewBag.id);
+                        win.hide();
+                        treeObj.setValue(node.Id);//可以考虑新的目录，并且响应事件showFiles，就不用刷新grid了
+                        grid.load({ catId: node.Id });
+                    });
+            }
+        }
+    });
+
+    function cancelMoveCatalog() {
+        var win = mini.get("win1");
+        win.hide();
+        treeObj1.setValue(@ViewBag.id);
+    }
+
+    //文件复制
+    $.regButton({ text: "@UStr.CopyFile", noSubmit: copyFile });
+    function copyFile() {
+        var win = mini.get("win2");
+        win.show();
+    }
+
+    $.regButton({
+        id: 'copyFile',
+        beforeSubmit: function (ajax) {
+            var node = treeObj2.getSelectedNode();
+            var rows = grid.getSelecteds();
+            var model = mini.encode(rows);
+            ajax.data = { model: model, catalogId: node.Id };
+            ajax.url = '@Url.Action("CheckRepeatFile", "Files")';
+        },
+        afterSubmit: function (data) {
+            var condition = false;
+            if (data == "True") {
+                condition = true;
+            }
+            else {
+                if (!confirm("@Html.Str("Confirm_Overwrite_Dup_Files")")) {
+                    condition = false;
+
+                } else {
+                    condition = true;
+                }
+            }
+            if (condition) {
+                var node = treeObj2.getSelectedNode();
+                var rows = grid.getSelecteds();
+                var model = mini.encode(rows);
+                $.newPOST("@Url.Action("CopyFile", "Files")", { model: model, catalogId: node.Id, judge: true },
+                    function () {
+                        var win = mini.get("win2");
+                        treeObj2.setValue(@ViewBag.id);
+                        win.hide();
+                        treeObj.setValue(node.Id);
+                        //mini.get("#checkAll").attr("checked", false);
+                        grid.load({ catId: node.Id });
+                    });
+            }
+        }
+    });
+
+    function cancelCopyCatalog() {
+        var win = mini.get("win2");
+        treeObj2.setValue(@ViewBag.id);
+        win.hide();
+    }
+
+    //点击左侧树节点在DataGrid中显示目录节点下的文件列表
+    function showFiles(e) {
+        var s = e.sender;
+        var node = e.node;
+        catId = node.Id;
+        grid.load({ catId: catId });
+    }
+
+    //自定义缩略图一列，使用"drawcell"事件，可以自定义单元格内容、样式、行样式等
+    grid.on("drawcell", function (e) {
+        var record = e.record,
+            column = e.column;
+        //将文本单元格替换成图片
+        if (column.field == "FileName") {
+            e.cellHtml = "<img src='/Files/GetThumbnail?id=" + record.Id + "' style=\"width:16px;height:16px\"> <a href='/Files/Download?id=" + record.Id + "' style=\"display:inline\";  >" + record.FileName + "</a>";
+        }
+        if (column.field == "FileSize") {
+            var size = Math.ceil(record.FileSize / 1024);//取大于等于值的最小整数
+            e.cellHtml = "<div style=\"display:inline\";>" + size + "KB" + "</div>"
+        }
+    });
+
+    function refresh() {
+        $('.files').empty();
+        $('#uploadDiv').hide();
+        grid.reload();
+    }
+
+    function addCatalogId(data) {
+        var node = treeObj.getSelectedNode();//选择文件夹
+        var catalogId = node.Id;
+        data.formData.CatalogId = catalogId;
+    }
+
+
+    //编辑完目录时激发
+    @*function endedit(e) {
+        var tree = e.sender;//树对象
+        var node = e.node;//节点对象
+        //treeObj.load({ catalogName: node.Name, pId: node.ParentId });
+        $.newGET("@Url.Action("CreateCatalog", "Files")", { catalogName: node.Name, pId: node.ParentId }, function () { treeObj.load("/Files/GetCatalogs"); });
+    }*@
+
+
+    $.regButton({
+        text: "@UStr.DeleteFile",
+        beforeSubmit: function (ajax) {
+            var ids = getSelectedIds();
+            if (ids.length == 0) {
+                alert("@JStr.PlzSelectDataRowsToDelete");
+                return false;
+            }
+            if (!confirm("@JStr.ConfirmDelete")) {
+                return false;
+            }
+            ajax.data = { ids: ids }
+        },
+        afterSubmit: function () {
+            grid.reload();//刷新当前页
+        }
+    });
+
+    function getSelectedIds() {
+        var idArr = [];
+        var rows = grid.getSelecteds();
+        for (var i = 0; i < rows.length; i++) {
+            idArr.push(rows[i].Id);
+        }
+        return idArr.join(',');
+    }
+
+
+
+    //下载文件
+    $.regButton({
+        text: "@UStr.DownloadFile",
+        beforeSubmit: function () {
+            var grid = mini.get("fileGrid");
+            var row = grid.getSelected();
+            if (row == null) {
+                showTips("warning", "@UStr.PlzSelectAFileToDownload");
+                return false;
+            }
+            $.newPOST("@Url.Action("Download","Files")", { id: row.Id });
+        },
+        afterSubmit: function () {
+            showTips({ Type: "success", Title: "@UStr.DownloadCompleted" });
+        }
+    });
+
+    //2016/1/19 增加文件属性编辑功能，便于后期对文件的管理，
+    //例如说添加文件内容的关键字，便于用户通过关键字查找文件
+
+    $.regButton({
+        text: "@UStr.FilePropEdit",
+        noSubmit: edit
+    });
+
+    function edit() {
+        //var row = grid.getSelected();
+        var rows = grid.getSelecteds();
+        if (rows.length != 1) {
+            alert("@JStr.PlzSelectARecord");
+            return;
+        }
+        //alert(rows[0].Id);
+        var id = rows[0].Id;
+        if (true) {
+            mini.open({
+                url: "@Url.Action("Edit")" + "?caid=" + id,
+                title: "@JStr.Edit",
+                width: 720,
+                height: 500
+            });
+        }
+    }
+
+</script>

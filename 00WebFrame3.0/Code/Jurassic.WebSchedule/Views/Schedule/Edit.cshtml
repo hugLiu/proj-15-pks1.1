@@ -1,0 +1,72 @@
+﻿@using Jurassic.CommonModels.Articles;
+@using Jurassic.WebHtmlEditor;
+@using Jurassic.WebSchedule;
+@using Jurassic.WebRepeater;
+@model Base_Article
+@{
+    ViewBag.Title = Model.Id == 0 ? @SStr.NewSchedule : @SStr.EditSchedule;
+    ViewBag.ShowToolbar = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+<style type="text/css">
+    .form-horizontal .mini-textbox, textarea, select {
+        width: 400px;
+    }
+
+    .form-group {
+        margin-bottom: 4px;
+    }
+</style>
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.State)
+<div class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-xs-2">
+            @JStr.Title
+        </label>
+        <div class="col-xs-10">
+            @Html.TextBoxFor(model => model.Title, new { @class = "mini-textbox", required = "true" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-2">
+            @JStr.Content
+        </label>
+        <div class="col-xs-10">
+            @Html.TextAreaFor(model => model.Text, new { style = "height:120px" })
+            @Html.HtmlEditor("Text")
+        </div>
+    </div>
+    @Html.ExtsEditor()
+    <div class="form-group">
+        <div class="col-xs-10 col-xs-offset-2">
+            <a href="#" class="mini-button frame-submit">@JStr.Submit</a>
+            @if (Model.Id > 0)
+            {
+                <a href="#" class="mini-button frame-submit">@JStr.Delete</a>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    $.regButton({
+        text: "@JStr.Submit",
+        afterSubmit: function (data) {
+            CloseOwnerWindow();
+        }
+    });
+
+    $.regButton({
+        text: "@JStr.Delete",
+        beforeSubmit: function (ajax) {
+            if (!confirm('@JStr.ConfirmDelete')) return false;
+            ajax.url = "@Url.Action("Delete")";
+            ajax.data = { id: '@Model.Id' };
+        },
+        afterSubmit: function (data) {
+            CloseOwnerWindow();
+        }
+    });
+</script>

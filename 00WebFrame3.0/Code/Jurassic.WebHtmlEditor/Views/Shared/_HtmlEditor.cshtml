@@ -1,0 +1,51 @@
+﻿@*基于KindEditor的在线编辑器*@
+@model Jurassic.WebHtmlEditor.EditorFormData
+@{
+    Model.JsObjectName = Model.JsObjectName ?? "e_" + CommOp.NewId().Substring(0, 8);
+    var viewBag = this.ViewContext.Controller.ViewBag;
+    bool firstLoad = !CommOp.ToBool(viewBag.EditorScriptsLoaded);
+    string filter = null;
+    if (!Model.TextAreaName.IsEmpty())
+    {
+        filter = "textarea[name=" + Model.TextAreaName + "]";
+    }
+    else
+    {
+        filter = "#" + Model.TextAreaId;
+    }
+    if (firstLoad && !IsAjax)
+    {
+        <link rel="stylesheet" href="~/Scripts/Editor/themes/default/default.css" />
+        <link rel="stylesheet" href="~/Scripts/Editor/plugins/code/prettify.css" />
+        <script src="~/Scripts/Editor/kindeditor.js"></script>
+        <script charset="utf-8" src="~/Scripts/Editor/lang/@(ResHelper.CurrentCultureName).js"></script>
+        <script charset="utf-8" src="~/Scripts/Editor/plugins/code/prettify.js"></script>
+    }
+}
+<script type="text/javascript">
+    //加载编辑器
+    window["@Model.JsObjectName"] = KindEditor.create("@filter", {
+        cssPath: '@Url.Content("~/Scripts/Editor/plugins/code/prettify.css")',
+        // uploadJson: 'Url.Action("UploadFile", "Upload", new { catId = CatalogManager.CAT_PICTURES })',
+        // fileManagerJson: 'Url.Action("KindList", "Upload", new { catId = CatalogManager.CAT_PICTURES })',
+        @if (!Model.FullToolbar)
+            {
+                @Html.Raw(@"items: [
+                'fontname', 'fontsize', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', 'justifyleft', 'justifycenter', 'justifyright', 'image','emoticons', 'link'],")
+            }
+        minWidth: 210, //默认最小宽度为650, 在小的弹出框会超出
+        minHeight: 60,
+        allowFileManager: true,
+        filterMode: false//是否开启过滤模式
+    });
+
+    //因为启用了mini-ui以后，KindEditor提交表单时自动同步内容到TextArea的功能没了，所以在此处补充。
+    // 此处的事件绑定'beforeSubmit'是在webframe.1.0.js中定义的，它不是标准的jq事件。
+    $('@filter').parents('form').bind("beforeSubmit", function () {
+        window["@Model.JsObjectName"].sync();
+    });
+</script>
+@{
+    viewBag.EditorScriptsLoaded = true;
+}

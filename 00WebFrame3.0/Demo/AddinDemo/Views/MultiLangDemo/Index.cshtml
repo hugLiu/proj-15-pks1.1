@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div id="datagrid1" class="mini-datagrid frame-fit mini-fit" style="width:100%;"
+     url="@Url.Action("GetData")" idfield="Id" allowresize="true" ondblclick="gridDblClick"
+     sizelist="[20,30,50,100]" pagesize="20">
+    <div property="columns">
+        <div type="indexcolumn"></div>
+        <div field="StockCode" width="120" headeralign="center" allowsort="true">股票代码</div>
+        <div field="StockName" width="120" headeralign="center" allowsort="true">股票名称</div>
+        <div field="Price" width="100" align="center" headeralign="center">价格</div>
+        <div field="XchgDate" width="100" headeralign="center" dateformat="yyyy-MM-dd" allowsort="true">交易日期</div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+    var grid = mini.get("datagrid1");
+    grid.load();
+    $.regButton({
+        text: "新增",
+        noSubmit: function () {
+            top.goUrl("@Url.Action("Edit")");
+        }
+    });
+
+    $.regButton({
+        text: "删除",
+        beforeSubmit: function () {
+            return confirm("是否删除?");
+        }
+    });
+
+    $.regButton({
+        text:"编辑",
+        noSubmit:function(){
+            var row = grid.getSelected();
+            if (row) {
+                top.goUrl("@Url.Action("Edit")" + "?id=" + row.Id);
+            }
+            else {
+                showTips("warning", "请选中一条记录");
+            }
+        }
+    });
+
+    function gridDblClick(e) {
+        if (!e.record) return;
+        var id = e.record.Id;
+        top.goUrl("@Url.Action("Edit")" + "?id=" + id);
+    }
+</script>

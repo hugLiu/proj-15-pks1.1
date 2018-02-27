@@ -1,0 +1,136 @@
+﻿@model Jurassic.AppCenter.Models.LoginModel
+@{
+    ViewBag.Title = FStr.Login;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var baseController = this.ViewContext.Controller as BaseController;
+}
+<link href="@Url.Content("~/Content/theme/" + baseController.UserConfig.Theme + "/login.css")" rel="stylesheet" type="text/css" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <style>
+        .container-fluid.lg {
+            padding: 15% 0;
+        }
+
+        .login {
+            width: 100%;
+        }
+
+        .loginForm {
+            padding: 30px 0;
+        }
+    </style>
+    <div class="container-fluid lg">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                <div class="login">
+                    <div class="logintitle">
+                        <div class="logo">
+                            <p class="p1">@JStr.SystemShortName</p>
+                            <p class="p2">@JStr.SystemCompanyName</p>
+                        </div>
+                    </div>
+                    <div class="loginForm_bg">
+                        <div class="loginForm_loginbg">
+                            <div class="loginForm">
+                                <div class="form_username" for="username$text">
+                                    <input style="width:100%" id="UserName" name="UserName" errormode="icon" onvalidation="onUserNameValidation" class="mini-textbox"
+                                           required="true" requirederrortext="@FStr.AccountRequired" />
+                                </div>
+                                <div id="UserName_error" class="showTips"><div class="warning"></div></div>
+                                <div class="form_password " for="pwd$text">
+                                    <input style="width:100%" id="Password" name="Password" errormode="icon" onvalidation="onPwdValidation" class="mini-password"
+                                           required="true" vtype="minLength:5" requirederrortext="@FStr.PasswordAtLeast5Chars" minlengtherrortext="密码不能少于5个字符" />
+                                </div>
+                                <div id="Password_error" class="showTips"></div>
+                                <div class="login_RememberMe">
+                                    <input type="hidden" value="false" name="RememberMe" id="RememberMe" />
+                                    <div id="chkRememberMe" class="mini-checkbox" text="@FStr.RememberMe"></div>
+                                    <a href="@Url.Action("ForgotPassword")" class="frame-submit" style="float:right; padding-top:2px;">@FStr.ForgotPassword</a>
+                                </div>
+                                <div class="mini-button frame-submit frame-default">
+                                    <div class="loginButton">@FStr.Login</div>
+                                </div>
+                                <div class="language">
+                                    <div class="en_zh">
+                                        <a class="mini-menubutton " menu="#langMenu">@System.Threading.Thread.CurrentThread.CurrentCulture.NativeName.Split('(')[0]</a>
+                                        <ul class="mini-menu" id="langMenu" style="display:none;">
+                                            @foreach (var langKey in ResHelper.GetUsedCultureNames())
+                                            {
+                                                var culture = new System.Globalization.CultureInfo(langKey);
+                                                <li>@Html.ActionLink(culture.NativeName, "Login", new { culture = langKey })</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-unstyled">
+                    <li style="text-align:center">@Html.Raw(JStr.SystemCopyright)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    mini.parse();
+    var loginText = "@FStr.Login";
+    var loging = "@FStr.Loging";
+    var forgotPassword = "@FStr.ForgotPassword")";
+
+    $.regButton({
+        text: loginText,
+        beforeSubmit: function (ajax) {
+            $('#RememberMe').val(mini.get('#chkRememberMe').getValue());
+        },
+        beforeAjax: function (ajax) {
+            //$(this).text(loging);
+            toastr["info"](loging);
+        },
+        afterSubmit: function (data) {
+            if (data.Type != "success") {
+                //$(this).text(loginText);
+                //toastr["error"]("用户名或者密码错误", "错误");
+                //$('#info').css('color', '#ff0000');
+                //$('#info').text(data.Message);
+            }
+        }
+    });
+
+    $.regButton({
+        text: forgotPassword,
+        noSubmit: function () {
+            var userName = mini.get("#UserName").getValue();
+            if (!userName) {
+                showTips("warning", "@FStr.PlzInputUserNameForgetPwd");
+                return;
+            }
+            location.href = this.href + "?userName=" + userName;
+        }
+    });
+
+
+    ///////////////////提示验证错误信息/////////////////////
+    function updateError(e) {
+        var id = e.sender.name + "_error";
+        if (e.errorText != "")
+            toastr["error"](e.errorText, "@JStr.Error");
+        //var el = document.getElementById(id);
+        //if (el) {
+        //    el.innerHTML = e.errorText;
+        //}
+    }
+    function onUserNameValidation(e) {
+        updateError(e);
+    }
+    function onPwdValidation(e) {
+        updateError(e);
+    }
+
+    if (this.location.href != top.location.href) {
+        top.location = this.location;
+    }
+</script>

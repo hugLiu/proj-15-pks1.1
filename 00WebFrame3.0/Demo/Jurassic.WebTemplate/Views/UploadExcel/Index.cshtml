@@ -1,0 +1,40 @@
+﻿@using Jurassic.WebUpload;
+@{
+    ViewBag.Title = "上传Excel文件";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+
+<h2>上传Excel文件并显示数据,限制上传文件类型为Excel文件</h2>
+@Html.Upload(new UploadFormData
+{
+    ActionName = "GetExcelData",
+    ControllerName = "UploadExcel",
+    JsDoneFunction = "createHtmlTable",
+    AllowedTypes = new string[] { ".xls", ".xlsx"},
+})
+<div id="ShowExcelDiv" style="margin-left:5px"></div>
+
+<script type="text/javascript">
+    //动态生成Table
+    function createHtmlTable(r) {
+        var jsonLength = r.length;
+        var div = document.getElementById("ShowExcelDiv");
+        div.innerHTML = "";
+        var table = document.createElement("table");//创建table
+        table.style.background = "#EBEBEB";
+        table.setAttribute("width", '98%');
+        table.setAttribute("border", '1px');
+        for (var i = 0; i < jsonLength; i++) {
+            var row = table.insertRow();//创建一行
+
+            for (var item in r[i]) {
+                var cell = row.insertCell();//创建一个单元
+
+                cell.innerHTML = r[i][item];
+            }
+
+            div.appendChild(table);
+        }
+    }
+</script>

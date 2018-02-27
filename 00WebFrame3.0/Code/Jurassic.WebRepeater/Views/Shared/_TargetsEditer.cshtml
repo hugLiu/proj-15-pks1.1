@@ -1,0 +1,15 @@
+﻿@using Jurassic.CommonModels.Articles;
+@using Jurassic.CommonModels;
+@model Base_Article
+@{
+    int catId = (int)this.Html.ViewDataContainer.ViewData["ItemCatalogId"];
+}
+<table>
+    <tr>
+        @foreach (var ext in SiteManager.Catalog.GetAllExts(catId))
+        {
+            <td style="width:100px">@Html.Str(ext.Name)</td>
+        }
+    </tr> 
+    @Html.EditorFor(model => model.TargetArticles)
+</table>

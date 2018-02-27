@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B9398E83-A02A-4CB8-9821-132FC12B9ACA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jurassic.CommonModels</RootNamespace>
+    <AssemblyName>Jurassic.CommonModels</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.Extended, Version=6.0.0.0, Culture=neutral, PublicKeyToken=05b7e29bdd433584, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EntityFramework.Extended.6.1.0.168\lib\net45\EntityFramework.Extended.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Articles\ArticleExtensions.cs" />
+    <Compile Include="Articles\ArticleManager.cs" />
+    <Compile Include="Articles\ArticleProcesser.cs" />
+    <Compile Include="Articles\Base_Article.cs" />
+    <Compile Include="Articles\Base_ArticleExt.cs" />
+    <Compile Include="Articles\Base_ArticleRelation.cs" />
+    <Compile Include="Articles\Base_ArticleText.cs" />
+    <Compile Include="Articles\Base_Catalog.cs" />
+    <Compile Include="Articles\Base_CatalogArticle.cs" />
+    <Compile Include="Articles\Base_CatalogExt.cs" />
+    <Compile Include="Articles\CatalogExtAttribute.cs" />
+    <Compile Include="Articles\CatalogExtensions.cs" />
+    <Compile Include="Articles\CatalogManager.cs" />
+    <Compile Include="Articles\Enums.cs" />
+    <Compile Include="EntityBase\StateEntity.cs" />
+    <Compile Include="Articles\PageModel.cs" />
+    <Compile Include="DiskFile\DiskFileInfo.cs" />
+    <Compile Include="DiskFile\DiskFileInfoService.cs" />
+    <Compile Include="EntityBase\CUDCodedEntity.cs" />
+    <Compile Include="EntityBase\CUDEntity.cs" />
+    <Compile Include="EntityBase\CUEntity.cs" />
+    <Compile Include="EntityBase\IAttachmentEntity.cs" />
+    <Compile Include="EntityBase\ICanLogicalDeleteEntity.cs" />
+    <Compile Include="EntityBase\ICodedEntity.cs" />
+    <Compile Include="EntityBase\ICUDEntity.cs" />
+    <Compile Include="EntityBase\ICUEntity.cs" />
+    <Compile Include="EntityBase\IDataRule.cs" />
+    <Compile Include="EntityBase\IDetailEntity.cs" />
+    <Compile Include="EntityBase\IIdEntity.cs" />
+    <Compile Include="EntityBase\IMultiLanguage.cs" />
+    <Compile Include="EntityBase\INamedEntity.cs" />
+    <Compile Include="EntityBase\MultiLanguage.cs" />
+    <Compile Include="EntityBase\OperationType.cs" />
+    <Compile Include="EntityBase\Sys_DataLanguage.cs" />
+    <Compile Include="EntityBase\Sys_DataRule.cs" />
+    <Compile Include="FileRepository\FileExtensionTypeHelper.cs" />
+    <Compile Include="FileRepository\FileLocator.cs" />
+    <Compile Include="FileRepository\IFileLocator.cs" />
+    <Compile Include="FileRepository\IFileRepository.cs" />
+    <Compile Include="FileRepository\IResourceFileService.cs" />
+    <Compile Include="FileRepository\ResourceCatalogInfo.cs" />
+    <Compile Include="FileRepository\ResourceCatalogInit.cs" />
+    <Compile Include="FileRepository\WindowsFileRepository.cs" />
+    <Compile Include="LogManager.cs" />
+    <Compile Include="Messages\IMessageSender.cs" />
+    <Compile Include="Messages\JMessage.cs" />
+    <Compile Include="Messages\MessageCatalog.cs" />
+    <Compile Include="Messages\MessageManager.cs" />
+    <Compile Include="Messages\MessageProcesser.cs" />
+    <Compile Include="Messages\MessageRouter.cs" />
+    <Compile Include="Messages\PriorityType.cs" />
+    <Compile Include="ModelBase\CUCodedModel.cs" />
+    <Compile Include="ModelBase\CUModel.cs" />
+    <Compile Include="ModelBase\CUNameCodedModel.cs" />
+    <Compile Include="ModelBase\CUNamedModel.cs" />
+    <Compile Include="ModelBase\DeptUserAuthQuery.cs" />
+    <Compile Include="ModelBase\ICodedModel.cs" />
+    <Compile Include="ModelBase\ICUModel.cs" />
+    <Compile Include="ModelBase\ICurrentDepartment.cs" />
+    <Compile Include="ModelBase\IIdModel.cs" />
+    <Compile Include="ModelBase\IModelConverter.cs" />
+    <Compile Include="ModelBase\IModelEntityConverter.cs" />
+    <Compile Include="ModelBase\INamedModel.cs" />
+    <Compile Include="ModelBase\LangDataMapper.cs" />
+    <Compile Include="ModelBase\ModelDataService.cs" />
+    <Compile Include="ModelBase\ModelRule.cs" />
+    <Compile Include="ModelBase\NamedModel.cs" />
+    <Compile Include="ModelBase\SameEntityModelConverter.cs" />
+    <Compile Include="Organization\IDAL\IOrganizationProvider.cs" />
+    <Compile Include="Organization\Manager\OrganizationManager.cs" />
+    <Compile Include="Organization\Manager\OrgManager.cs" />
+    <Compile Include="Organization\Model\DepartmentModel.cs" />
+    <Compile Include="Organization\Model\DepPostModel.cs" />
+    <Compile Include="Organization\Model\DepUserModel.cs" />
+    <Compile Include="Organization\Model\PostModel.cs" />
+    <Compile Include="Organization\Model\ViewDepartmentModel.cs" />
+    <Compile Include="Organization\Model\ViewUserModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs" />
+    <Compile Include="ResourceFileInfo.cs" />
+    <Compile Include="ResourceFileInfoExt.cs" />
+    <Compile Include="ResourceFileService.cs" />
+    <Compile Include="Schedule\EventModel.cs" />
+    <Compile Include="Schedule\IMenuExtInfoService.cs" />
+    <Compile Include="Schedule\MenuExtInfo.cs" />
+    <Compile Include="Schedule\ScheduleEvent.cs" />
+    <Compile Include="Schedule\ScheduleManager.cs" />
+    <Compile Include="ServerAuth\IDAL\IDataAuthorizeProvider.cs" />
+    <Compile Include="ServerAuth\IDAL\IServerAuthProvider.cs" />
+    <Compile Include="ServerAuth\IDAL\IServiceInfoProvider.cs" />
+    <Compile Include="ServerAuth\Manager\ApiManager.cs" />
+    <Compile Include="ServerAuth\Manager\DataAuthorizeManager.cs" />
+    <Compile Include="ServerAuth\Manager\ServerAuthManager.cs" />
+    <Compile Include="ServerAuth\Manager\ServiceInfoManager.cs" />
+    <Compile Include="ServerAuth\Model\AuthToken.cs" />
+    <Compile Include="ServerAuth\Model\DataNodeInfo.cs" />
+    <Compile Include="ServerAuth\Model\DataRelation.cs" />
+    <Compile Include="ServerAuth\Model\ServiceInfo.cs" />
+    <Compile Include="ServerAuth\Model\ServiceRelation.cs" />
+    <Compile Include="ServerAuth\Model\ViDataAuth.cs" />
+    <Compile Include="ServerAuth\Model\ViServiceAuth.cs" />
+    <Compile Include="SiteManager.cs" />
+    <Compile Include="UserProfile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\access2_128.png" />
+    <Content Include="Resources\excel.jpg" />
+    <Content Include="Resources\excel1_128.png" />
+    <Content Include="Resources\excel2_128.png" />
+    <Content Include="Resources\onenote2_128.png" />
+    <Content Include="Resources\outlook2_128.png" />
+    <Content Include="Resources\pdf.jpg" />
+    <Content Include="Resources\pdf2_128.png" />
+    <Content Include="Resources\ppt2_128.png" />
+    <Content Include="Resources\project2_128.png" />
+    <Content Include="Resources\unknown.png" />
+    <Content Include="Resources\visio2_128.png" />
+    <Content Include="Resources\word.jpg" />
+    <Content Include="Resources\word1_128.png" />
+    <Content Include="Resources\word2_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jurassic.AppCenter.Core\Jurassic.AppCenter.Core.csproj">
+      <Project>{333d850b-cf34-4466-b35d-eacc64e53d2c}</Project>
+      <Name>Jurassic.AppCenter.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jurassic.Com\Jurassic.Com.csproj">
+      <Project>{de9ba8dc-b7c3-4d8f-b2b0-38bbdfc16069}</Project>
+      <Name>Jurassic.Com</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

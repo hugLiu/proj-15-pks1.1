@@ -1,0 +1,34 @@
+﻿@*用户设置页面，用户头像的显示，为了满足头像自定义的更改需要，将这部分写在分部视图中*@
+@using Jurassic.WebUpload;
+@{ 
+    var avatarUrl = Url.Action("GetUserAvatar", "Files", new { userName = User.Identity.Name });
+}
+<div class="contentdivl">@UStr.SystemAvatar：</div>
+<div class="contentdivr"><img id="userAvatar" src="@avatarUrl" style="width:24px;height:24px" /></div>
+<div class="contentdivr"><a class="mini-button" onclick="changePicture">@UStr.ChangeAvatar</a></div>
+
+<script type="text/javascript">
+    function changePicture() {
+        mini.open({
+            url: "@Url.Action("Avatar","Files")",
+            title: "@UStr.ChangeAvatar",
+            width: 450,
+            height: 400,
+            //showFooter:"true",
+            ondestroy: function (data) {
+                var iframe = this.getIFrameEl();
+                var w = iframe.contentWindow;
+                var r = w.AvatarId;
+                $("#userAvatar").attr("src", '@avatarUrl&r=' + Math.random());
+
+                @*if (w.Mark == "tab1") {
+                   $("#picture", window.parent.document).html("<img id='main_avatar' src='/Files/GetUserAvatar?userName=" + '@User.Identity.Name' + '&r=' + Math.random() + " ' style='width:24px;height:24px;' />");
+                }
+                if (w.Mark == "tab2") {
+                    $("#contentdivr").html("<img id='avatar' src='/Files/Download?id=" + r + "' />");
+                    $("#picture", window.parent.document).html("<img id='main_avatar' src='/Files/Download?id=" + r + " ' style='width:24px;height:24px;'/>");
+                }*@
+            }
+        });
+    }
+</script>

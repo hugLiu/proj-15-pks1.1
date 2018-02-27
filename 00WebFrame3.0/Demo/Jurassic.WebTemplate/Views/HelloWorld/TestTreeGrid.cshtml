@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "TestTreeGrid";
+}
+@section UserToolbar
+{
+    <a class="mini-button frame-submit" id="submit">提交</a>
+}
+<h2>TestTreeGrid</h2>
+<div id="treegrid1" class="mini-treegrid" style="width:600px;height:280px;"
+     showtreeicon="true" url="@Url.Action("GetAll", "Functions", new { area = "AppCenter" })"
+     treecolumn="Name" idfield="Id" parentfield="ParentId" resultastree="false">
+    <div property="columns">
+        <div type="indexcolumn"></div>
+        <div name="Name" field="Name" width="200">名称</div>
+        <div field="Location" width="100">地址</div>
+        <div field="ControllerName" width="100">控制器</div>
+        <div field="ActionName" width="100">方法</div>
+    </div>
+</div>
+

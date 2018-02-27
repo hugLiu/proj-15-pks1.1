@@ -1,0 +1,621 @@
+﻿@using Jurassic.WebFrame;
+@using System.Reflection;
+@using Jurassic.CommonModels.Articles;
+@using Jurassic.AppCenter;
+@using Jurassic.Com.Tools;
+@using Jurassic.CommonModels.ModelBase;
+@using Jurassic.CommonModels.EntityBase;
+@using Jurassic.WebHtmlEditor;
+@using Jurassic.WebQuery;
+@using Jurassic.WebQuery.Models;
+
+@{
+    Type type = (Model as object).GetType();
+    var modelRule = ModelRule.Get(type);
+    var baseController = ViewContext.Controller as BaseController;
+    var gridDetailIds = JsonHelper.ToJson(modelRule.CollectionRules.Select(cr => cr.Name));
+
+    var defaultButtons = JsonHelper.ToJson(baseController.Function.GetChildren()
+    .Where(f => f.Id.StartsWith("Default"))
+    .Select(f => f.Id));
+
+    //获取与该页面关联的明细列表上的菜单项ID
+    var detailMenus = baseController.Function.GetChildren()
+        .Where(f => (f.Visible & VisibleType.QuckAccessBar) == VisibleType.QuckAccessBar
+            && baseController.User.Identity.HasRightId(f.Id))
+            .OrderBy(f => f.Ord)
+    .ToArray();
+
+    //找出子表中所有需要联动的列
+    var linkedDetailColumns = JsonHelper.ToJson(modelRule.CollectionRules.Select(r => r.SingleRules.Where(s => s.LinkedProperty != null).Select(a => new
+    {
+        prop = a.Name,
+        linked = a.LinkedProperty,
+    })));
+
+    int detailMenuIndex = 0;
+    var linkedProps = JsonHelper.ToJson(modelRule.SingleRules.Where(attr => !attr.LinkedProperty.IsEmpty() && attr.DataSourceType != ExtDataSourceType.Hidden)
+    .Select(a => new
+    {
+        prop = a.Name,
+        linked = a.LinkedProperty,
+    }));
+
+    var buttonEditProps = JsonHelper.ToJson(modelRule.SingleRules.Where(attr => attr.DataType == ExtDataType.ButtonEdit && !attr.DisplayProperty.IsEmpty())
+        .Select(a => new
+        {
+            prop = a.Name,
+            displayField = a.DisplayProperty
+        }));
+
+    //将各编辑界面按配置文件中存储的配置项进行排序
+    var formOrderItems = modelRule.SingleRules
+    .Select(r => new
+    {
+        Attr = r,
+        ConfigItem = AdvDataConfigManager.GetPropertyConfig(r, type.Name, r.Name),
+    }).OrderBy(item => item.ConfigItem.FormOrder).ToList();
+    AdvDataConfigManager.Save();
+    Func<string, object, HelperResult> userRenderer = ViewBag.UserRenderer as Func<string, object, HelperResult>;
+}
+
+@*Render Main Form Edit Control*@
+@helper MiniControl(CatalogExtAttribute catAttr, AdvDataConfigItem configItem, object val)
+{
+    PropertyInfo prop = catAttr.Property;
+    Type type = (Model as object).GetType();
+    string columnText = ResHelper.GetStr("Column." + type.Name + "." + catAttr.Name, catAttr.Name);
+    string emptyText = ResHelper.GetStr("Empty." + type.Name + "." + catAttr.Name, columnText);
+    if (emptyText.Equals("Empty." + type.Name + "." + catAttr.Name))
+    {
+        emptyText = columnText;
+    }
+    var idAttr = "id='master_" + prop.Name + "'";
+    var nameAttr = "name='" + prop.Name + "'";
+    var rdonlyAttr = catAttr.Editable ? "" : "readonly='true'";
+    var requiredAttr = catAttr.AllowNull ? "" : "required='true'";
+    var emptyTextAttr = "emptytext=" + "'" + emptyText + "'";
+    var valAttr = "value='" + val + "'";
+    var bdcss = catAttr.Editable ? "" : "border:0"; //在只读状态下的css样式
+    var autoAttrs = String.Join(" ", idAttr, nameAttr, valAttr, rdonlyAttr, requiredAttr, emptyTextAttr);
+
+    @*if (!catAttr.Editable)
+        {
+            <input type="hidden" class="mini-hidden" value="@val" name="@prop.Name" />
+        }*@
+    if (!catAttr.LinkedProperty.IsEmpty())
+    {
+        <input class="mini-combobox" allowinput="true" @Html.Raw(autoAttrs) />
+        return;
+    }
+    @*<span class="block input-icon input-icon-right">*@
+    switch (catAttr.DataSourceType)
+    {
+        //单项选择下拉列表
+        case ExtDataSourceType.UserDefine:
+        case ExtDataSourceType.SqlQuery:
+        case ExtDataSourceType.DirectList:
+            <input class="mini-combobox" allowinput="true" @Html.Raw(autoAttrs) valuefromselect="true" style="width:100%" url="@Url.Action("GetPropList", new { prop = prop.Name })" />
+            break;
+
+        //多项选择下拉列表
+        case ExtDataSourceType.SqlQueryMultipleList:
+        case ExtDataSourceType.MultipleList:
+        <input class="mini-combobox" allowinput="true" @Html.Raw(autoAttrs) valuefromselect="true" style="width:100%" url="@Url.Action("GetPropList", new { prop = prop.Name })" />
+            break;
+        case ExtDataSourceType.TreeSelect:
+        <input class="mini-treeselect" @Html.Raw(autoAttrs) />
+            break;
+        default:
+            var maxdate = catAttr.MaxValue == null ? null : "maxdate='" + catAttr.MaxValue + "'";
+            var mindate = catAttr.MinValue == null ? null : "mindate='" + catAttr.MinValue + "'";
+            var maxmindate = String.Join(" ", maxdate, mindate);
+            var maxvalue = catAttr.MaxValue == null ? null : "maxvalue='" + catAttr.MaxValue + "'";
+            var minvalue = catAttr.MinValue == null ? null : "minvalue='" + catAttr.MinValue + "'";
+            var maxminvalue = String.Join(" ", maxvalue, minvalue);
+            var maxlength = catAttr.MaxLength == 0 ? null : "maxlength='" + catAttr.MaxLength + "'";
+            var minlength = catAttr.MinLength == 0 ? null : "minlength='" + catAttr.MinLength + "'";
+            var maxminlength = string.Join(" ", maxlength, minlength);
+            switch (catAttr.DataType)
+            {
+                case ExtDataType.Date:
+                    <input class="mini-datepicker"
+                           format="@catAttr.InputFormat"
+                           showtime="false"
+                           showokbutton="false"
+                           showclearbutton="false"
+                           style="width:100%"
+                           @Html.Raw(maxmindate)
+                           @Html.Raw(autoAttrs) />
+                    break;
+                case ExtDataType.DateAndTime:
+                    var timeFormats = catAttr.InputFormat.ToStr().Split(' ', 'T');
+                    var tf = "H:mm";
+                    if (timeFormats.Length >= 2)
+                    {
+                        tf = timeFormats[1];
+                    }
+                    <input class="mini-datepicker"
+                           format="@catAttr.InputFormat"
+                           showtime="true"
+                           showokbutton="true"
+                           showclearbutton="false"
+                           timeformat="@tf"
+                           @Html.Raw(maxmindate)
+                           emptytext="@emptyText"
+                           style="width:100%"
+                           @Html.Raw(autoAttrs) />
+                    break;
+                case ExtDataType.Bool:
+                <input class="mini-checkbox" @Html.Raw(autoAttrs) truevalue="true" falsevalue="false" />
+                    break;
+                case ExtDataType.MultiLineText:
+                <input rows="3" style="width:100%" class="mini-textarea" @autoAttrs />
+                    break;
+                case ExtDataType.Html:
+                <input @Html.Raw(autoAttrs) style="width:100%" rows=6 class="mini-textarea" />
+                @Html.HtmlEditor(new EditorFormData { TextAreaId = "master_" + catAttr.TypeId })
+                    break;
+                case ExtDataType.Time:
+                <input class="mini-timespinner" @Html.Raw(autoAttrs) style="width:100%" format="@catAttr.InputFormat" />
+                    break;
+                case ExtDataType.SingleNumber:
+                case ExtDataType.FloatNumber:
+                case ExtDataType.Currency:
+                    valAttr = "value='" + (val == null ? "null" : val) + "'";
+                    autoAttrs = String.Join(" ", idAttr, nameAttr, valAttr, rdonlyAttr, requiredAttr, emptyTextAttr);
+                    <input class="mini-spinner" inputstyle="text-align:right" @Html.Raw(autoAttrs) @Html.Raw(maxminvalue) allownull="true" style="width:100%" format="@catAttr.InputFormat" />
+                    break;
+                case ExtDataType.Percent:
+                    valAttr = "value='" + (val == null ? "null" : val) + "'";
+                    autoAttrs = String.Join(" ", idAttr, nameAttr, valAttr, rdonlyAttr, requiredAttr, emptyTextAttr);
+                    <input class="mini-spinner" inputstyle="text-align:right" @Html.Raw(autoAttrs) @Html.Raw(maxminvalue) allownull="true" increment="0.01" style="width:100%" format="@catAttr.InputFormat" />
+                    break;
+                case ExtDataType.UserId:
+                    autoAttrs = String.Join(" ", rdonlyAttr, requiredAttr, emptyTextAttr);
+                    @Html.SelectUser(new SelectUserFormData
+                   {
+                       Id = "master_" + catAttr.Name,
+                       Name = catAttr.Name,
+                       Attributes = autoAttrs,
+                       StartValue = CommOp.ToStr(val),
+                       MultiSelect = (catAttr.DataType == ExtDataType.SingleNumber)
+                   })
+                    break;
+                case ExtDataType.ButtonEdit:
+                    var displayText = catAttr.DisplayProperty.IsEmpty() ? val : RefHelper.GetValue(Model, catAttr.DisplayProperty);
+                    <input class="mini-buttonedit" @Html.Raw(autoAttrs) text="@displayText" style="width:100%" />
+                    break;
+                case ExtDataType.MultiLanguage:
+                    autoAttrs = String.Join(" ", rdonlyAttr, requiredAttr, emptyTextAttr);
+                    var formData = Jurassic.CommonModels.SiteManager.Get<LangTextFormData>();
+                    @Html.LangTextInput(new LangTextFormData
+                    {
+                        Name = catAttr.Name,
+                        Attributes = autoAttrs,
+                        IconType = formData.IconType
+                    })
+                    break;
+                default:
+                    if (prop.PropertyType.IsEnum)
+                    {
+                        //枚举的ComboBox
+                        <input class="mini-combobox" allowinput="true" @Html.Raw(autoAttrs) style="width:100%" url="@Url.Action("GetPropList", new { prop = prop.Name })" />
+                    }
+                    else
+                    {
+                        //普通文本框
+                        <input class="mini-textbox" @Html.Raw(autoAttrs) @Html.Raw(maxminlength) style="width:100%;@bdcss" />
+                    }
+                    break;
+            }
+            break;
+    }
+}
+@*Render DetailsGrid EditControl*@
+@helper MiniGridEditControl(string collName, CatalogExtAttribute catAttr, AdvDataConfigItem configItem)
+{
+    PropertyInfo prop = catAttr.Property;
+    var name = "name='" + catAttr.Name + "'";
+    var field = "field='" + catAttr.Name + "'";
+    string vtype = catAttr.AllowNull ? null : "vtype='required'";
+    if (catAttr.Name == "Id" && catAttr.Property.PropertyType == typeof(int))
+    {
+        vtype = "";
+    }
+    var summaryType = configItem.SummaryType == SummaryType.None ? null : "summaryType='" + configItem.SummaryType + "'";
+    var rdonly = catAttr.Editable == false || catAttr.DataSourceType == ExtDataSourceType.Hidden ? "readonly='true'" : null;
+    var headalign = "headalign='center'";
+    var allowsort = "allowsort='true'";
+
+    var autoAttrs = String.Join(" ", name, field, vtype, summaryType, rdonly, headalign, allowsort);
+
+    var maxvalue = catAttr.MaxValue == null ? null : "maxvalue='" + catAttr.MaxValue + "'";
+    var minvalue = catAttr.MinValue == null ? null : "minvalue='" + catAttr.MinValue + "'";
+    var maxlength = catAttr.MaxLength == 0 ? null : "maxlength='" + catAttr.MaxLength + "'";
+    var minlength = catAttr.MinLength == 0 ? null : "minlength='" + catAttr.MinLength + "'";
+    var typeName = catAttr.Property.DeclaringType.Name;
+    string columnText = ResHelper.GetStr(String.Join(".", "Column", typeName, catAttr.Name), catAttr.Name);
+    string emptyText = ResHelper.GetStr(String.Join(".", "Empty", typeName, catAttr.Name), catAttr.Name);
+
+    if (catAttr.LinkedProperty != null)
+    {
+        <div @Html.Raw(autoAttrs) displayfield="@catAttr.DisplayProperty">
+            @columnText
+            <input property="editor" class="mini-combobox" allowinput="true" valuefromselect="true" emptytext="@emptyText" />
+        </div>
+        return;
+    }
+    switch (catAttr.DataSourceType)
+    {
+        //单项选择下拉列表
+        case ExtDataSourceType.UserDefine:
+        case ExtDataSourceType.SqlQuery:
+        case ExtDataSourceType.DirectList:
+            <div @Html.Raw(autoAttrs) type="comboboxcolumn">
+                @columnText
+                <input property="editor" class="mini-combobox" allowinput="true" emptytext="@emptyText" url="@Url.Action("GetDetailPropList", new {detail=collName, prop = prop.Name })" />
+            </div>
+            break;
+
+        //多项选择下拉列表
+        case ExtDataSourceType.SqlQueryMultipleList:
+        case ExtDataSourceType.MultipleList:
+        <div @Html.Raw(autoAttrs) type="comboboxcolumn">
+            <input property="editor" class="mini-combobox" multiselect="true" emptytext="@emptyText" url="@Url.Action("GetDetailPropList", new {detail=collName, prop = prop.Name })" />
+        </div>
+            break;
+        default:
+            switch (catAttr.DataType)
+            {
+                case ExtDataType.Date:
+                    var maxdate = catAttr.MaxValue == null ? null : "maxdate='" + catAttr.MaxValue + "'";
+                    var mindate = catAttr.MinValue == null ? null : "mindate='" + catAttr.MinValue + "'";
+                    <div @Html.Raw(autoAttrs) dateformat="@catAttr.DisplayFormat">
+                        @columnText
+                        <input property="editor"
+                               class="mini-datepicker"
+                               format="@catAttr.InputFormat"
+                               showtime="false"
+                               showokbutton="false"
+                               showclearbutton="false"
+                               @Html.Raw(maxdate)
+                               @Html.Raw(mindate)
+                               emptytext="@emptyText" />
+                    </div>
+                    break;
+                case ExtDataType.DateAndTime:
+                    maxdate = catAttr.MaxValue == null ? null : "maxdate='" + catAttr.MaxValue + "'";
+                    mindate = catAttr.MinValue == null ? null : "mindate='" + catAttr.MinValue + "'";
+                    var timeFormats = catAttr.InputFormat.ToStr().Split(' ', 'T');
+                    var tf = "H:mm";
+                    if (timeFormats.Length >= 2)
+                    {
+                        tf = timeFormats[1];
+                    }
+                    <div align="center" @Html.Raw(autoAttrs) dateformat="@catAttr.DisplayFormat">
+                        @columnText
+                        <input property="editor"
+                               class="mini-datepicker"
+                               format="@catAttr.InputFormat"
+                               showtime="true"
+                               showokbutton="true"
+                               showclearbutton="false"
+                               @Html.Raw(maxdate)
+                               @Html.Raw(mindate)
+                               timeformat="@tf"
+                               emptytext="@emptyText" />
+                    </div>
+                    break;
+                case ExtDataType.Bool:
+                <div @Html.Raw(autoAttrs) type="checkboxcolumn">
+                    @columnText
+                </div>
+                    break;
+                case ExtDataType.MultiLineText:
+                case ExtDataType.Html:
+                <div @Html.Raw(autoAttrs)>
+                    @columnText
+                    <input property="editor" class="mini-textarea" emptytext="@emptyText" />
+                </div>
+                    break;
+                case ExtDataType.Time:
+                <div @Html.Raw(autoAttrs) dateformat="@catAttr.DisplayFormat" align="center">
+                    @columnText
+                    <input property="editor" class="mini-timespinner" format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.FloatNumber:
+                <div @Html.Raw(autoAttrs) readonly="@rdonly">
+                    @columnText
+                    <input property="editor" class="mini-spinner" allownull="true" emptytext="@emptyText" @Html.Raw(maxvalue) @Html.Raw(minvalue) format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.Percent:
+                <div @Html.Raw(autoAttrs) align="right" datatype="float" numberformat="@catAttr.DisplayFormat">
+                    @columnText
+                    <input property="editor" class="mini-spinner" increment="0.01" allownull="true" emptytext="@emptyText" @Html.Raw(maxvalue) @Html.Raw(minvalue) format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.SingleNumber:
+                <div @Html.Raw(autoAttrs) align="right" datatype="int" numberformat="@catAttr.DisplayFormat">
+                    @columnText
+                    <input property="editor" class="mini-spinner" allownull="true" emptytext="@emptyText" @Html.Raw(maxvalue) @Html.Raw(minvalue) format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.Currency:
+                <div @Html.Raw(autoAttrs) align="right" numberformat="@catAttr.DisplayFormat">
+                    @columnText
+                    <input property="editor" class="mini-spinner" allownull="true" emptytext="@emptyText" @Html.Raw(maxvalue) @Html.Raw(minvalue) format="@catAttr.InputFormat" />
+                </div>
+                    break;
+                case ExtDataType.ButtonEdit:
+                <div @Html.Raw(autoAttrs) displayfield="@catAttr.DisplayProperty">
+                    @columnText
+                    <input property="editor" class="mini-buttonedit" @Html.Raw(maxlength) @Html.Raw(minlength) emptytext="@emptyText" />
+                </div>
+                    break;
+                case ExtDataType.UserId:
+                <div @Html.Raw(autoAttrs) displayfield="@catAttr.DisplayProperty">
+                    @columnText
+                    <input property="editor" class="mini-autocomplete" url="@Url.Action("GetAllDeptUsers", "SelectDepUser")"
+                           valuefield="Id" textfield="UserName" />
+                </div>
+                    break;
+                default:
+                    if (prop.PropertyType.IsEnum)
+                    {
+                        <div @Html.Raw(autoAttrs) type="comboboxcolumn">
+                            @columnText
+                            <input property="editor" class="mini-combobox" allowinput="true" emptytext="@emptyText" url="@Url.Action("GetDetailPropList", new {detail=collName, prop = prop.Name })" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div @Html.Raw(autoAttrs)>
+                            @columnText
+                            <input property="editor" class="mini-textbox" @Html.Raw(maxlength) @Html.Raw(minlength) emptytext="@emptyText" />
+                        </div>
+                    }
+                    break;
+            }
+            break;
+    }
+}
+
+@helper DrawSeparator(AppFunction func, IList<AppFunction> funcs)
+{
+    if ((func.Visible & VisibleType.GroupBegin) == VisibleType.GroupBegin && func != funcs[0])
+    {
+        <span class="separator"></span>
+    }
+}
+
+@helper PopupMenu(AppFunction parent)
+{
+    var buttons = parent.GetChildren().ToArray();
+    <a class="mini-menubutton" plain="true" menu="#popupMenu@(parent.Id)">@Html.Str(parent.Name)</a>
+    <ul id="popupMenu@(parent.Id)" class="mini-menu" style="display:none;">
+        @foreach (var btn in buttons)
+        {
+            @DrawSeparator(btn, buttons)
+            if (btn.HasChildren())
+            {
+                var popBtns = btn.GetChildren().ToArray();
+                <li>
+                    <span>@Html.Str(btn.Name)</span>
+                    <ul>
+                        @foreach (var popbtn in popBtns)
+                        {
+                            @DrawSeparator(popbtn, popBtns)
+                            <li class="frame-submit" iconcls="@popbtn.IconClass" id="@popbtn.Id">@Html.Str(popbtn.Name)</li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="frame-submit" iconcls="@btn.IconClass" id="@btn.Id">@Html.Str(btn.Name)</li>
+            }
+        }
+    </ul>
+}
+
+@helper Buttons(AppFunction btn)
+{
+    if (btn.IconClass != null && btn.IconClass.Contains("mini-"))
+    {
+        <a class="@btn.IconClass" id="@btn.Id" name="@Html.Str(btn.Name)" plain="true" emptytext="@ResHelper.GetStr((btn.Description.IsEmpty()?btn.Name:btn.Description))">@ResHelper.GetStr(btn.Name)</a>
+    }
+    else
+    {
+        <a class="mini-button frame-submit" iconcls="@btn.IconClass" id="@btn.Id" plain="true" tooltip="@(btn.Description.IsEmpty()?ResHelper.GetStr(btn.Name):ResHelper.GetStr(btn.Description))">@ResHelper.GetStr(btn.Name)</a>
+    }
+}
+
+
+@helper DetailMenu(string collName, AppFunction detailMenu)
+{
+    if (detailMenu == null || detailMenu.GetChildren().IsEmpty())
+    {
+        return;
+        @*<a class="mini-button frame-submit" iconcls="icon-new-add" plain="true" id="DefaultAdd_@collName">@JStr.Add</a>
+            <a class="mini-button frame-submit" iconcls="icon-new-delete" plain="true" id="DefaultDelete_@collName">@JStr.Delete</a>*@
+    }
+    var buttons = detailMenu.GetChildren().ToArray();
+    <div class="mini-toolbar">
+        <table width="100%">
+            <tr>
+                <td id="detailmenu_@collName">
+                    @foreach (var btn in buttons)
+                    {
+                        @DrawSeparator(btn, buttons)
+                        if (btn.HasChildren())
+                        {
+                            @PopupMenu(btn)
+                        }
+                        else
+                        {
+                            @Buttons(btn)
+                        }
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+
+@{
+    var m = Model as object;
+    string modelName = m.GetType().Name;
+    var id = CommOp.ToStr(RefHelper.GetValue(m, "Id"));
+    bool isNew = id == "0" || id.IsEmpty();
+    ViewBag.Title = isNew ? Html.Str("New_" + modelName) : Html.Str("Edit_" + modelName) + " - " + modelName;
+}
+<div class="mini-panel-border nospacing frame-fit master-detail-form" id="DefaultForm">
+    <div class="master-detail-form-infoedit">
+        <div class="container-fluid">
+            <div class="row">
+                @foreach (var item in formOrderItems)
+                {
+                    HelperResult r = null;
+                    var attr = item.Attr;
+                    string labelText = ResHelper.GetStr("Label." + type.Name + "." + item.Attr.Name);
+                    if (labelText == "Label." + type.Name + "." + item.Attr.Name)
+                    {
+                        labelText = ResHelper.GetStr("Column." + type.Name + "." + item.Attr.Name, item.Attr.Name);
+                    }
+                    
+                    object val = attr.Property.GetValue(Model, null);
+                    if (attr.Property.PropertyType.IsEnum)
+                    {
+                        val = CommOp.ToInt(val);
+                    }
+                    else if (val is DateTime && ((DateTime)val) == default(DateTime))
+                    {
+                        val = null;
+                    }
+
+                    else if (val is int && ((int)val == 0))
+                    {
+                        val = null;
+                    }
+
+                    if (userRenderer != null && item.Attr.DataSourceType == ExtDataSourceType.Custom)
+                    {
+                        r = userRenderer(attr.Name, val);
+                    }
+                    if (!CommOp.ToStr(r).IsEmpty())
+                    {
+                        @r
+                    }
+                    else if (attr.DataSourceType == ExtDataSourceType.Hidden)
+                    {
+                        val = CommOp.ToStr(val);
+                        <input id="master_@attr.Property.Name" name="@attr.Property.Name" value="@val" class="mini-hidden" />
+                    }
+                    else
+                    {
+                        //case 1:
+                        string boxcls = "col-xs-12 col-sm-6 col-md-4 col-lg-3";
+                        switch (item.ConfigItem.Cols)
+                        {
+                            case 2:
+                                boxcls = "col-xs-12 col-sm-12 col-md-8 col-lg-6";
+                                break;
+                            case 3:
+                                boxcls = "col-xs-12 col-sm-12 col-md-12 col-lg-9";
+                                break;
+                            case 4:
+                                boxcls = "col-xs-12 col-sm-12 col-md-12 col-lg-12";
+                                break;
+                        }
+                        <div class="@boxcls">
+                            <table class="boxcls">
+                                <tr>
+                                    <td width="120px" class="right"><label>@labelText</label></td>
+                                    <td>@MiniControl(attr, item.ConfigItem, val)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    @if (modelRule.CollectionRules.Count > 0)
+    {
+        <div id="tabs" class="mini-tabs frame-fit" buttons="#tabsButtons" activeindex="0" style="width:100%;height:100%;">
+            @foreach (var rule in modelRule.CollectionRules
+                .OrderBy(r => AdvDataConfigManager.GetPropertyConfig(r.Attr, modelRule.ModelType.Name, r.Name).FormOrder))
+            {
+                //将各编辑界面按配置文件中存储的配置项进行排序
+                var detailsOrderItems = rule.SingleRules
+                    .Where(r => r.Browsable)
+                .Select(r => new
+                {
+                    Attr = r,
+                    ConfigItem = AdvDataConfigManager.GetPropertyConfig(r, rule.ModelType.Name, r.Name),
+                }).OrderBy(item => item.ConfigItem.GridOrder).ToList();
+                AdvDataConfigManager.Save();
+                string detilstabText = ResHelper.GetStr("Details." + type.Name + "." + rule.Name, rule.Name);
+
+                AppFunction detailMenu = null;
+                if (detailMenuIndex < detailMenus.Length)
+                {
+                    detailMenu = detailMenus[detailMenuIndex++];
+                }
+                var showSummary = detailsOrderItems.Any(item => !item.ConfigItem.SummaryType.IsEmpty()) ? "true" : "false";
+                string collName = rule.Name;
+                <div title="@detilstabText" name="tab_@rule.Name">
+                    @DetailMenu(collName, detailMenu)
+                    <div class="mini-fit">
+                        <div id="detailsgrid_@collName" showsummaryrow="@showSummary" class="mini-datagrid" sortmode="client" showreloadbutton="false"
+                             multiselect="true" idfield="Id" style="width: 100%; height: 100%"
+                             editnextonenterkey="true" editnextrowcell="true" allowcelledit="true" allowcellselect="true"
+                             showpager="false" virtualscroll="true"
+                             allowresize="true">
+                            <div property="columns">
+                                <div type="indexcolumn"></div>
+                                <div type="checkcolumn"></div>
+                                @foreach (var item in detailsOrderItems)
+                                {
+                                    @MiniGridEditControl(collName, item.Attr, item.ConfigItem)
+                                }
+                            </div>
+                        </div>
+                        <input type="hidden" name="DetailChanges_@collName" id="hdn_@collName" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div id="tabsButtons" class="tabsbuttons" style="height:30px;">
+            <div class="searchinfo  frame-search input-group" id="DetailsSerachBox">
+                <input class="form-control" placeholder="关键词">
+                <span class="input-group-btn">
+                    <button class="btn btn-default frame-submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                        <span class="hidden">Filter</span>
+                    </button>
+                </span>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript" src="~/Scripts/webframe-advdataedit.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.advDataEdit(
+        {
+            gridDetailIds : @Html.Raw(gridDetailIds),
+            linkedPropertys : @Html.Raw(linkedProps),
+            defaultButtons : @Html.Raw(defaultButtons),
+            linkedDetailColumns : @Html.Raw(linkedDetailColumns),
+            buttonEditProps : @Html.Raw(buttonEditProps),
+            getLinkedListUrl : "@Url.Action("GetLinkedList")?linkedValue=",
+            getDetailsLinkedUrl : "@Url.Action("GetDetailLinkedList")?linkedValue=",
+            detailsUrl : "@Url.Action("Details")?name=",
+            copyUrl :"@Url.Action("Copy")"
+        });
+    });
+</script>

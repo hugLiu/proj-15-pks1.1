@@ -1,0 +1,489 @@
+﻿@using System.Security.Policy
+<style>
+.datalist {
+    background-color: #f0f0f0;
+    border: 1px solid #acacac;
+    padding: 5px;
+    width: 25%;
+    margin: 5px;
+    display:inline-block;
+}
+
+.datalist table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.datalist tr {
+    height: 20px;
+}
+.datalist thead th {
+    border:none;
+    text-align:left;
+}
+.datalist td {
+    border: 1px solid #c9c6bd;
+    background-color: #fff;
+    vertical-align:middle;
+}
+
+td.list1 {
+    background-color: #f0f0f0;
+    text-align:center;
+    width:10%
+}
+td.list2 {
+    width:65%;
+}
+td.list3 {
+    width: 10%;
+    text-align:center;
+}
+.mini-listbox-items tr{
+    height:0px;
+}
+
+
+    .mini-buttonedit-border {
+        background-color:white;
+        padding-right:initial;
+    }
+
+    .mini-buttonedit-input {
+        background-color:#fff;
+    }
+
+    .mini-popupedit {
+        vertical-align:top;
+    }
+</style>
+
+@*框架的高度要改成按百分比设定*@
+<div id="layout1" class="mini-layout" width="100%"  height="540px" splitsize="1">
+    <div region="center">
+        @*左侧*@
+        <div id="layout3" class="mini-layout" width="100%" height="100%" splitsize="1">
+            <div region="north" showheader="false" height="300">
+                @*上*@
+                <div id="layout4" class="mini-layout" width="100%" height="100%" splitsize="1">
+                    <div title="待选表" region="west" width="350">
+                        @*左*@
+                        <div id="TableTree">
+                            @*这里树的style样式的height: 90%会在新版MiniUI造成树不显示*@
+                            <ul id="tree1" class="mini-tree" style="width: 90%; padding: 5px;"
+                                showtreeicon="true" textfield="CHName" idfield="Id" parentfield="PId" resultastree="false" expandonload="true"
+                                ondrawnode="onDrawNode" showcheckbox="true" onnodecheck="onNodeCheck"></ul>
+                            @*drawnode 绘制节点时发生*@
+                        </div>
+                    </div>
+                    <div title="查询显示字段" showheader="true" region="center" showcollapsebutton="false">
+                        @*右*@
+                        <div id="SelectField"></div>
+                    </div>
+                </div>
+            </div>
+            <div title="选中的表" region="center" showheader="true" showcollapsebutton="false">
+                @*下*@
+                <div id="SelectTables"></div>
+            </div>
+        </div>
+    </div>
+    <div region="east" showheader="false" width="400px">
+        @*右侧*@
+        <div id="layout2" class="mini-layout" width="100%" height="100%" splitsize="1">
+            <div title="表连接条件" region="north" height="150">
+                @*上*@
+                <div id="SelectJoins"></div>
+            </div>
+            <div title="筛选条件" region="center" showheader="true" showcollapsebutton="false">
+                @*中间*@
+                <div id="SelectWheres"></div>
+            </div>
+            <div title="排序条件" region="south" showheader="true" height="120">
+                @*下*@
+                <div id="SelectOrdes"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+          //miniuiselect的赋值提不用没此在AddSelect中执行，应该提取出来。
+         mini.parse();
+         var minitree = mini.get("tree1");
+         var tables;
+         var selectList;
+         var comboxList = [];
+         var field = [];
+    //树收起来后再添加表会重复
+         //debugger;
+         $.ajax({
+             url: "/Query/GetTableTree",
+             type: "GET",
+             //async: false,
+             dataType: "json",
+             success: function (data) {
+                 tables = data;
+                 minitree.loadData(tables);
+                 //$(".selfield").append("<option value='' selected='selected'></option>");
+                 //miniuiselect = "[";
+                 $.each(tables, function() {
+                     if (this.Fields != null && this.Fields.length > 0)
+                     {
+                         $.each(this.Fields, function ()
+                         {
+                             field.push(this);
+                             //miniuiselect += "{id: '" + this.TableId + "." + this.Id + "' , text: '" + this.TableENName + "." + this.ENName + "'},";
+
+                             //$(".selfield").append("<option value=" + this.TableId + "." + this.Id + ">" + this.TableENName + "." + this.ENName + "</option>");
+                         });
+
+                     }
+                 });
+                 //miniuiselect = miniuiselect.substr(0, miniuiselect.length - 1);
+                 //miniuiselect += "]";
+                 //mini.parse();
+             }
+         });
+
+     //--------------表的树js代码------------------------------------------
+     function onDrawNode(e) {
+         var tree = e.sender;
+         var node = e.node;
+
+         ////更改所有子节点
+         //if (isLeaf == true)
+         //{
+         //e.nodeHtml = "<input type=\"checkbox\" onclick=\"SelectTableCheckbox(this.checked,'" + node.Id + "')\" />      " + node.CHName + "    (" + node.ENName + ")";
+         //    e.nodeHtml = "<input type=\"checkbox\" onclick=\"SelectTableCheckbox(this.checked,'" + node.Id + "')\" />      " + node.CHName ;
+
+         //}
+
+
+         var isLeaf = tree.isLeaf(node);
+         //父节点高亮显示；子节点斜线、蓝色、下划线显示
+         if (isLeaf == false) {
+             e.nodeStyle = 'font-weight:bold;';
+         } else {
+             e.nodeStyle = "font-style:italic;"; //nodeStyle
+             e.nodeCls = "blueColor";            //nodeCls
+         }
+
+         //修改默认的父子节点图标
+         //if (isLeaf == false) {
+         //    e.iconCls = "folder";
+         //} else {
+         //    e.iconCls = "file";
+         //}
+
+         //父节点的CheckBox全部隐藏
+         if (isLeaf == false) {
+             e.showCheckBox = false;
+         }
+     }
+
+     function onNodeCheck(e) {
+         var tree = e.sender;
+         var node = e.node;
+
+         //var node1 = tree.getCheckedNodes(false);
+         //alert(node1[0].CHName);
+         
+         var isLeaf = tree.isLeaf(node);
+         var isCheckedNode = tree.isCheckedNode(node);
+         if (isLeaf)
+         {
+             SelectTableCheckbox(isCheckedNode, node.Id);
+         }
+     }
+
+     function SelectTableCheckbox(sel, id)  //此id是表的id
+     {
+         if (sel == true)
+         {
+             //选中表
+             $.each(tables, function ()
+             {
+                 if (this.Id == id && this.Fields != null && this.Fields.length > 0) {
+                     var html = "<div   id=table_" + this.Id + " class=\"datalist\" >" +
+                         "<table><thead><tr><th colspan=\"3\">" +
+                         "<input type=\"hidden\"  value='" + this.Id + "." + this.ENName + "'/>" +
+                         "<span id=CHName" + this.Id + ">" + this.ENName + "</span>" +
+                         "</th></tr></thead><tbody>";
+                     //var html = "<table id=table_" + this.Id + "style=\" float:left; display: inline\"><thead><tr><td><input type=\"hidden\" value='" + this.Id + "." + this.ENName + "'/><span>" + this.CHName + "   (" + this.ENName + ")</span></td></tr></thead><tbody>";
+                     $.each(this.Fields, function() {
+                         html += "<tr><td class=\"list1\">k</td><td class=\"list2\">" + this.ENName + "</td><td class=\"list3\"><input type=\"checkbox\" onclick=\"SelectFieldCheckbox(this.checked,'" + this.TableId + "','" + this.Id + "')\" /></td></tr>";
+                         //html += "<tr><td><span><input type=\"checkbox\" onclick=\"SelectFieldCheckbox(this.checked,'" + this.TableId + "','" + this.Id + "')\" />      " + this.CHName + "    (" + this .ENName+ ")</span></td></tr>";
+                     });
+                     //html += "</tbody></table>";
+                     html += "</tbody></table></div>";
+
+                     $('#SelectTables').append(html);
+                 }
+             });
+             //选中表就更新下拉
+             setSelectDrop();
+         }
+         else
+         {
+             //取消选中表，取消表的时候需要取消掉选中的这个表中的字段
+             var selecttab = $("#SelectTables #table_" + id + "").html();
+             var tableName = $("#SelectTables #table_" + id + "  #CHName" + id + "").text();
+             if (selecttab)
+             {
+                 $("#table_" + id + "").remove();
+             }
+
+             var divs = $("#SelectField input").each(function () {
+                 var ids = $(this).val().split('.');
+                 if (ids[0] == id) {
+                     $("#field_" + ids[1] + "").remove();
+                 }
+             });
+             //取消选中表就更新下拉
+             setSelectDrop();
+         }
+     }
+
+    //按选中的表更新下拉(为包含Comebox)
+    function setSelectDrop() {
+        var table = $('#SelectTables input[type="hidden"]').map(function () {
+            return this.value;
+        });
+        //$("select").html("");
+        $(".selfield").html("");
+        selectList = "<option value='' selected='selected'></option>";
+        comboxList = [];
+        $.each(table, function (i,item1) {
+            $.each(tables, function (j, item2) {
+                if (item1.split('.')[0] === item2.Id) {
+                    $.each(item2.Fields,function(k,item3) {
+                        selectList += "<option value=" + item2.Id + "." + item3.Id + ">" + item2.ENName + "." + item3.ENName + "</option>";
+                        comboxList.push({ id: item2.Id + "." + item3.Id + "." + item2.ENName + "." + item3.ENName, text: item2.ENName + "." + item3.ENName });
+                    });
+                }
+            });
+        });
+        debugger;
+        $(".selfield").append(selectList);
+        //mini.parse();
+        $('#SelectWheres div').each(function () {
+            var html = this.id;
+            var id = html.substring(6, html.length);
+            var combobox = mini.get("combobox_" + id);
+            combobox.load(comboxList);
+        });
+    }
+
+     function SelectFieldCheckbox(sel, tid,fid) {
+         if (sel == true) {
+             //选中
+             $.each(tables, function () {
+                 if (this.Id == tid && this.Fields != null && this.Fields.length > 0) {
+                     var html = "";
+                     var tableCHname = this.CHName;
+                     $.each(this.Fields, function () {
+                         if (this.Id == fid) {
+                             html += "<div id='field_" + this.Id + "'>" +
+                                 "<input type=\"hidden\"  value='" + this.TableId + "." + this.Id + "." + this.TableENName + "." + this.ENName + "'/>" + this.TableENName + "  ---  " + this.ENName + "</div>";
+                         }
+                     });
+
+                     $('#SelectField').append(html);
+                 }
+             });
+         } else {
+             //取消
+             var selecttab = $("#SelectField #field_" + fid + "").html();
+             if (selecttab) {
+                 $("#field_" + fid + "").remove();
+             }
+         }
+     }
+     //----------------------表的树js代码-----------------------------------------------
+
+
+
+
+     //var json = eval("(" + miniuiselect + ")");
+     //alert(json);
+     function AddSelect(i) {
+         $("#seldiv" + i + " .selfield").append(selectList);
+         //miniuiselect = "[";
+         //$("#seldiv" + i + " .selfield").append("<option value='' selected='selected'></option>");
+         //$("#seldiv" + i + " .mini-combobox").append("<option value='' selected='selected'></option>");
+         //$.each(field, function () {
+         //    $("#seldiv" + i + " .selfield").append("<option value=" + this.TableId + "." + this.Id + ">" + this.TableENName + "." + this.ENName + "</option>");
+             // miniuiselect += "{id: '" + this.TableId + "." + this.Id + "' , text: '" + this.TableENName + "." + this.ENName + "'},";
+             //$("#seldiv" + i + " .mini-combobox").append("<option value=" + this.TableId + "." + this.Id + ">" + this.TableENName + "." + this.ENName + "</option>");
+             //var val = $("#seldiv" + i + " .mini-combobox").append({ "TableId": this.Id, "Id": this.Id, "TableENName": this.TableENName, "ENName": this.ENName });
+         //});
+         //$("#seldiv"+i+" .mini-combobox").
+         //miniuiselect = miniuiselect.substr(0, miniuiselect.length - 1);
+         //miniuiselect += "]";
+     }
+
+
+     function DelSelect(i) {
+         var length = $("#seldiv" + i).siblings().length;// $("#SelectWheres .where").length;
+         var firstid = $("#SelectWheres .where").first().attr("id");
+         if(firstid=="seldiv" + i+"")
+         {
+             $("#SelectWheres .where").first().next("div").children("div").remove();
+             $("#seldiv" + i).remove();
+         }
+         else
+         {
+             $("#seldiv" + i).remove();
+         }
+     }
+     ////移除筛选条件的时候连接符没有删除
+     //function DelConnectors(i) {
+     //}
+
+     $.regButton({
+         text: "添加链接条件",
+         noSubmit: function (e) {
+             var i = $("select").length + 1;
+             var html = "<div id=\"seldiv" + i + "\"><select  class=\"selfield\" style=\"width: 125px\"></select><select><option value=\"INNER\">INNER</option></select><select  class=\"selfield\" style=\"width: 125px\"></select>   <img src=\"/images/icon/recycle.png\" onclick=\"DelSelect(" + i + ")\"/></div>";
+             $('#SelectJoins').append(html);
+             AddSelect(i);
+         }
+     });
+     //移除掉第一个条件的时候后面的连接符应该去掉
+
+
+     $.regButton({
+         text: "添加筛选条件",
+         noSubmit: function (e) {
+             //右边的条件有用户手动输入的情况需要添加
+             var i = $("select").length + 1;
+             var html = "";
+             if ($('#SelectWheres select').length > 0) {
+                 //html = "<div id=\"seldiv" + i + "\"  class ='where'><div id=\"sel" + i + "\"><select><option value=\"AND\">AND</option><option value=\"OR\">OR</option></select></div><select  class=\"selfield\"></select><select ><option value=\"=\">=</option><option value=\"!=\">!=</option><option value=\">\">></option><option value=\">=\">>=</option><option value=\"<\"><</option><option value=\"<=\"><=</option></select><select  class=\"selfield\"></select>   <img src=\"/images/icon/remove.png\" onclick=\"DelSelect(" + i + ")\"/></div>";
+                 html = "<div id=\"seldiv" + i + "\"  class ='where'>" +
+                     "<span id=\"sel" + i + "\" style=\"display: block\">" +
+                     "<select><option value=\"AND\">AND</option><option value=\"OR\">OR</option></select>" +
+                     "</span>" +
+                     "<select  class=\"selfield\" style=\"float:left; width: 125px\"></select>" +
+                     "<select style=\"float:left;\">" +
+                     "<option value=\"=\">=</option>" +
+                     "<option value=\"!=\">!=</option><option value=\">\">></option>" +
+                     "<option value=\">=\">>=</option><option value=\"<\"><</option>" +
+                     "<option value=\"<=\"><=</option>" +
+                     "</select>" +
+                     //"<input class=\"button\"/>" +
+                     //"<select  class=\"selfield\" onkeypress=\"writeSelect(this)\"></select> " +
+                  //  ' <input id="combo1" class="mini-combobox" style="visibility:none;" textField="text" valueField="id" emptyText="请选择..."'+
+                   // 'value="cn"  required="true" allowInput="true" showNullItem="true" nullItemText="请选择..."/>'+
+                   "<input class=\"mini-combobox\" id=\"combobox_"+i+"\" nullItemText=\"请选择或手动输入\" allowinput=\"true\" style=\"visibility:visible;margin-top:0px;\"  textField=\"text\" valueField=\"id\" />" +
+                     "  <img src=\"/images/icon/recycle.png\" onclick=\"DelSelect(" + i + ")\"/></div>";
+             }
+             else {
+                 //添加第一行
+                 html = "<div id=\"seldiv" + i + "\" class ='where'><select  class=\"selfield\" style=\"width: 125px\"></select><select ><option value=\"=\">=</option><option value=\"!=\">!=</option><option value=\">\">></option><option value=\">=\">>=</option><option value=\"<\"><</option><option value=\"<=\"><=</option></select><input  id=\"combobox_" + i + "\" class=\"mini-combobox\"  nullItemText=\"请选择或手动输入\" allowinput=\"true\" style=\"visibility:visible;\"   textField=\"text\" valueField=\"id\"/> <img src=\"/images/icon/recycle.png\" onclick=\"DelSelect(" + i + ")\"/></div>";
+             }
+             $('#SelectWheres').append(html);
+             mini.parse();
+             var combobox = mini.get("combobox_" + i);
+             combobox.load(comboxList);
+             AddSelect(i);
+         }
+     });
+
+     $.regButton({
+         text: "添加排序条件",
+         noSubmit: function (e) {
+             var i = $("select").length + 1;
+             var html = "<div id=\"seldiv" + i + "\"><select  class=\"selfield\" style=\"width: 125px\"></select><select><option>ASC</option><option>DESC</option></select>   <img src=\"/images/icon/recycle.png\" onclick=\"DelSelect(" + i + ")\"/></div>";
+             $('#SelectOrdes').append(html);
+             AddSelect(i);
+         }
+     });
+
+     $.regButton({
+         text: "生成SQL语句",
+         noSubmit: function (e) {
+             var isup = false;
+             var table = $('#SelectTables input[type="hidden"]').map(function () {
+                 return this.value;
+             });
+             var selfil = $('#SelectField input[type="hidden"]').map(function () {
+                 return this.value;
+             });
+             var join = $('#SelectJoins select option:selected').map(function () {
+                 //if (this.text === "") {
+                 //    isup = true;
+                 //    return;
+                 //}
+                 return this.text;
+             });
+             var where = $('#SelectWheres select option:selected').map(function () {
+                 //if (this.text === "") {
+                 //    isup = true;
+                 //    return;
+                 //}
+                 return this.text;
+             });
+             var whereCom = $('.mini-buttonedit-input  option:selected').map(function () {
+                 //if (this.text === "") {
+                 //    isup = true;
+                 //    return;
+                 //}
+                 return this.text;
+             });
+            
+             var combo = $('#SelectWheres  input[type="hidden"]').map(function () {
+                 //if (this.defaultValue === "") {
+                 //    isup = true;
+                 //    return;
+                 //}
+                 return this.defaultValue;
+                 //d.push($(this).val);
+             });
+            
+               
+             var order = $('#SelectOrdes select option:selected').map(function () {
+                 //if (this.text === "") {
+                 //    isup = true;
+                 //    return;
+                 //}
+                 return this.text;
+             });
+             if (table.length == 0) {
+                 alert("必须选择表和显示字段！");
+                 return;
+             }
+             if (isup) {
+                 alert("有为空的条件！");
+                 return;
+             }
+             $.ajax({
+                 url: "/Query/GetSQL/",
+                 type: "Post",
+                 
+                 data: {
+                     
+                     table: table.toArray().join(','),
+                     selfil: selfil.toArray().join(','),
+                     join: join.toArray().join(','),
+                     where: where.toArray().join(','),
+                     combo:combo.toArray().join(','),
+                     order: order.toArray().join(',')
+                 },
+                 dataType: "text",
+                 success: function (data) {
+                     mini.open({
+                         url: "/Query/SQLView",
+                         title: "查询结果",
+                     width: 800,
+                     height: 900
+                 });
+                 }
+             });
+         }
+     });
+
+
+</script>

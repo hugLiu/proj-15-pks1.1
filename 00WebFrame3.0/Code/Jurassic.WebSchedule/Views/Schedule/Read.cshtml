@@ -1,0 +1,30 @@
+﻿@using  Jurassic.CommonModels.Articles;
+@using Jurassic.WebRepeater;
+@using Jurassic.CommonModels.Schedule;
+@using Jurassic.CommonModels;
+@model Base_Article
+<div class="row">
+    <label class="col-xs-2">
+        @JStr.Title
+    </label>
+    <div class="col-xs-10">
+        @Model.Title
+    </div>
+</div>
+<div class="row">
+    <label class="col-xs-2">
+        @JStr.Content
+    </label>
+    <div class="col-xs-10">
+        @Html.Raw(Model.Text)
+    </div>
+</div>
+<div class="row">
+    <label class="col-xs-2">
+        @JStr.Time
+    </label>
+    <div class="col-xs-10">
+        @Model.GetExt(SiteManager.Catalog.GetExtId(ScheduleEvent.Root.Id, ScheduleEvent.Root.StartTime)) -
+        @Model.GetExt(SiteManager.Catalog.GetExtId(ScheduleEvent.Root.Id, ScheduleEvent.Root.EndTime)) 
+    </div>
+</div>

@@ -1,0 +1,328 @@
+﻿@using Jurassic.WebUpload;
+@using Jurassic.WebFrame;
+@using Jurassic.CommonModels;
+@model   List<ResourceFileInfo>
+@{
+
+    ViewBag.ShowBreadCrumb = false;
+}
+
+<style>
+    .active {
+        border: 2px solid #2b7cd8;
+    }
+
+    .mini-tabs-body {
+        height: 280px !important;
+    }
+    /*头像设置-系统头像样式*/
+.useravatar div {
+    float: left;
+    width:24px;
+    height:24px;
+    margin: 2px 1px;
+    display: inline-block;
+}
+    .useravatar div table {
+        height:26px;
+        width: 100%;
+    }
+    .useravatar div td {
+        text-align: center;
+        padding: 1px 0 0 0;
+        height: auto;
+    }
+.useravatar img {
+    width:24px;
+    height:24px;
+    margin: 2px 0 0 0;
+}
+    .useravatar img:hover {
+        border-width: 2px;
+        border-style: solid;
+    }
+/*头像设置-自定义头像样式*/
+.customavatarleft{
+    float:left;
+    width:240px;
+}
+.customavatarright{
+    float:right;
+    width:140px;
+    padding-left:10px;
+    text-align:center;
+}
+.customavatar .localimg{
+    padding:1px;
+    border-width:1px;
+    border-style:solid;
+    width:235px;
+    height:235px;
+}
+.customavatar .localimg img{
+    width:235px;
+    height:235px;
+}
+</style>
+    <div class="frame-fit">
+        <div id="tabs1" class="mini-tabs" activeindex="0" plain="false" onactivechanged="loadtab()">
+            <div title="@UStr.SystemAvatar">
+                <div class="useravatar">
+                    @{
+                foreach (var file in Model)
+                {
+                    var id = file.Id;
+                            <div>
+                                <img src="@Url.Content(file.FileKey)" data-id="@id" />
+                            </div>
+                }
+                    }
+                </div>
+            </div>
+
+            <div title="自定义头像">
+                <div class="customavatar" id="localImg">
+                    <div class="customavatarleft">
+                        <div class="localimg">
+                            <img id="preview">
+                        </div>
+                        <div style="text-align:center; padding-top:10px;">
+                            @*使用上传组件来上传图片*@
+                            @Html.Upload(new UploadFormData()
+                {
+                    FormId = "avatarUpload",
+                    JsPreviewFunction = "previewPicture",// 文件添加到上传列表后没上传前的js函数名称,先预览图片
+                    AutoUpload = false,//不自动上传
+                    ShowManager = false,  //不显示文件管理按钮
+                    JsAddFunction = "addCatalogId",
+                    JsDoneFunction = "changeAvatar",
+                    ActionName = "GetArticleId",
+                    ControllerName = "Files",
+                })
+                        </div>
+                    </div>
+                    <div class="customavatarright">
+                        <span style="display:block;">@JStr.Preview</span>
+                        <canvas id="thecanvas1" style="border:1px solid #d2d2d2;width:100px;height:100px;"></canvas>
+                        <span style="display:block;">100*100</span>
+                        <canvas id="thecanvas2" style="border: 1px solid #d2d2d2;width:60px;height:60px;"></canvas>
+                        <span style="display:block;">60*60</span>
+                    </div>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+        <div style="padding:5px;">
+            <a class="mini-button frame-submit">@JStr.OK</a>
+            <a class="mini-button frame-submit">@JStr.Cancel</a>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    mini.parse();
+    var tabs = mini.get("tabs1");
+    var AvatarId;
+    var Mark;//用来标记tab页
+
+    //隐藏上传组件不必要的按钮
+    $("button[type='submit']").css("display", "none");
+    $("button[type='reset']").css("display", "none");
+    $("button[type='button']").css("display", "none");
+    $("input[type='checkbox']").css("display", "none");
+    $("#chooseAll").css("display", "none");
+    $(".table-striped").css("display", "none");
+    $("#progress").css("display", "none");
+
+    //选择系统头像，根据头像获得ID，并且赋值给全局变量AvatarId
+    $(".useravatar img").click(function (event) {
+        var self = event.target;
+        $(".useravatar img").removeClass("active");
+        $(self).toggleClass("active");
+        AvatarId = $(self).attr("data-id");
+        Mark = "tab1";
+    })
+
+    $.regButton({
+        text: "@JStr.OK",
+        beforeSubmit: function () {
+            if (Mark == "tab1") {
+                $.newPOST("@Url.Action("SaveSysAvatar", "Files")", { id: AvatarId }, function () {
+                    window.CloseOwnerWindow();
+                });
+            }
+            else {
+                //避免空传
+                var getPic = $("#preview");
+                var picSrc = getPic.attr("src");
+                if (picSrc === undefined) {
+                    showTips("warning", "@UStr.PlzSelectAPicture");
+                    return;
+                }
+                //判断自定义头像是否改变了
+                var newSrc = $("#preview").attr("src");
+                if (newSrc.indexOf("?") != -1) {
+                    window.CloseOwnerWindow();//如果没有重新选择图片，直接关闭弹窗
+                }
+                else {
+                    $("button[type='submit']").click();//用js触发点击事件
+                    Mark = "tab2";
+                }
+            }
+        },
+    });
+
+    $.regButton({
+        text: "@JStr.Cancel",
+        noSubmit: function () {
+            window.CloseOwnerWindow();
+        }
+    });
+
+    //预览图片
+    function previewPicture() {
+        // 获得文件上传组件上传的文件流
+        var docObj = document.getElementById("file");
+        var fileName = docObj.value;
+        if (!fileName.match(/.jpg|.gif|.png|.bmp/i)) {
+            alert('@UStr.PlzSelectImgFile');
+            return false;
+        }
+        var imgObjPreview = document.getElementById("preview");
+        if (docObj.files && docObj.files[0]) {
+            imgObjPreview.style.display = 'block';
+            imgObjPreview.style.width = '230px';
+            imgObjPreview.style.height = '230px';
+            //imgObjPreview.src = docObj.files[0].getAsDataURL();
+            //判断浏览器兼容
+            if (window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1) {
+                imgObjPreview.src = window.webkitURL.createObjectURL(docObj.files[0]);//创建图片的src
+            }
+            else {
+                imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+            }
+        } else {
+
+            docObj.select();
+            docObj.blur();
+            var imgSrc = document.selection.createRange().text;
+            var localImgId = document.getElementById("localimg");
+
+            localImgId.style.width = "230px";
+            localImgId.style.height = "230px";
+
+            try {
+                localImgId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                localImgId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+            } catch (e) {
+                //alert(" ");
+                return false;
+            }
+            imgObjPreview.style.display = 'none';
+            document.selection.empty();
+        }
+
+
+        //压缩显示
+        /*  将页面选择的图片等比压缩成指定大小（长边固定）
+            file:图片文件
+            callBack：回调函数
+            maxLen:长边的长度    */
+        function makePic1(file, callBack, maxLen) {
+            var url = URL.createObjectURL(file);
+            /* 生成图片 */
+            var $img = new Image();
+            $img.src = url;
+            // $('body').append($img);
+            $img.onload = function () {
+                $img.width = maxLen;
+                $img.height = maxLen;
+
+                var $canvas = $('#thecanvas1');
+                var ctx = $canvas[0].getContext('2d');
+                $canvas.attr({ width: $img.width, height: $img.height });
+                ctx.drawImage($img, 0, 0, $img.width, $img.height);
+                var base64 = $canvas[0].toDataURL('image/jpeg', 0.9);
+                callBack(base64);//
+            }
+
+        }
+        function makePic2(file, callBack, maxLen) {
+            var url = URL.createObjectURL(file);
+            /* 生成图片 */
+            var $img = new Image();
+            $img.src = url;
+            // $('body').append($img);
+            $img.onload = function () {
+                //生成比例
+                var width = $img.width, height = $img.height;
+
+                $img.width = maxLen;
+                $img.height = maxLen;
+
+                var $canvas = $('#thecanvas2');
+                var ctx = $canvas[0].getContext('2d');
+                $canvas.attr({ width: $img.width, height: $img.height });
+                ctx.drawImage($img, 0, 0, $img.width, $img.height);
+                var base64 = $canvas[0].toDataURL('image/jpeg', 0.9);
+                callBack(base64);//
+            }
+
+        }
+        makePic1(docObj.files[0], function (imgStr) {
+            $('#previewBig').src = imgStr;
+        }, 100);
+        makePic2(docObj.files[0], function (imgStr) {
+            $('#previewMiddle').src = imgStr;
+        }, 60);
+
+    }
+
+
+    //文件上传成功后的回调函数
+    function changeAvatar(r) {
+        AvatarId = r[0];
+        window.CloseOwnerWindow();
+    }
+
+    //自定义上传图像时插入头像目录ID
+    function addCatalogId(data) {
+        var catalogId = $.getSync("@Url.Action("GetAvatarCatalog","Files")");
+        data.formData.CatalogId = catalogId;
+    }
+
+    //初始化自定义头像显示
+    function loadtab() {
+        var tab = tabs.getActiveTab();
+        var title = tab.title;
+        if (title == "自定义头像") {
+            var file = $.getSync("@Url.Action("GetUserAvatarInfo", "Files")", { userName: '@User.Identity.Name' });
+            fileId = file.Id;
+            fileState = file.ContentType;
+            if (fileState != 32) {
+                $(".localimg").html("<img id='preview' src='/Files/GetUserAvatar?userName=" + '@User.Identity.Name' + '&r=' + Math.random() + "' />");
+                //在预览中显示头像
+                var avatar = new Image();
+                avatar.src = $("#preview").attr("src");
+                if (avatar.complete) {
+                    drawAvatar(avatar);
+                }
+                else {
+                    avatar.onload = function () {
+                        drawAvatar(avatar);
+                    };
+                    avatar.onerror = function () {
+                        window.alert('@UStr.LoadFailedTryAgain');
+                    };
+                }
+                function drawAvatar(avatar) {
+                    var mycv1 = document.getElementById("thecanvas1");
+                    var myctx1 = mycv1.getContext("2d");
+                    myctx1.drawImage(avatar, 0, 0, 300, 150);
+                    var mycv2 = document.getElementById("thecanvas2");
+                    var myctx2 = mycv2.getContext("2d");
+                    myctx2.drawImage(avatar, 0, 0, 300, 150);
+                }
+            }
+        }
+    }
+</script>

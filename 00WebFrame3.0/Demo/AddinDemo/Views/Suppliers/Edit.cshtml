@@ -1,0 +1,18 @@
+﻿@using Jurassic.WebQuery;
+@Html.AdvDataEdit()
+
+@*如果需要自定义控件的显示，则下面的代码：
+@Html.AdvDataEdit(CustomEmailControl)
+
+@helper CustomEmailControl(string propName, object value)
+{
+    if (propName == "Email")
+    {
+        <label>电子邮件：</label>
+        @Html.TextBox("Email", value, new{ vtype="email", @class="mini-textbox"})
+    }
+}
+*@
+<script type="text/javascript">
+    mini.parse();
+</script>

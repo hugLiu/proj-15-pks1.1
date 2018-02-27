@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = FStr.UserManager;
+}
+<div class="mini-xs mini-sm mini-md mini-md-active">
+    <div class="container-fluid ">
+        <div class="mini-clearfix"> 
+            <div class="mini-col-12">
+                <div id="usersGrid" class="mini-datagrid frame-fit frame-search-grid" style="width:100%;"
+                     url="@Url.Action("GetAll")" pagesize="20" allowresize="true" multiselect="true"
+                     onrowdblclick="edit()">
+                    <div property="columns">
+                        <div type="checkcolumn" headeralign="center"></div>
+                        <div field="Id" headeralign="center" allowsort="true">ID</div>
+                        <div field="Name" headeralign="center" allowsort="true">@JStr.UserName</div>
+                        <div field="Email" headeralign="center" allowsort="true">@JStr.Email</div>
+                        <div field="PhoneNumber" headeralign="center" allowsort="true">@JStr.PhoneNumber</div>
+                        <div field="RoleNames" headeralign="center" allowsort="true">@FStr.RoleNames</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="win1" class="mini-window" title="Window" style="width:400px;height:250px;"
+     showmaxbutton="false" showcollapsebutton="false" showshadow="true"
+     showtoolbar="true" showfooter="true" showmodal="true" allowresize="false" allowdrag="true">
+    <div property="toolbar" style="padding:5px;">
+        <input type='button' value='Hide' onclick="hideWindow()" style='vertical-align:middle;' />
+    </div>
+    <div property="footer" style="text-align:right;padding:5px;padding-right:15px;">
+        <input type='button' value='Hide' onclick="hideWindow()" style='vertical-align:middle;' />
+    </div>
+</div>
+<script type="text/javascript">
+                    mini.parse();
+                    var usersGrid = mini.get('#usersGrid')
+                    usersGrid.load();
+
+
+                    function getSelectedIds() {
+                        var idArr = [];
+                        var rows = usersGrid.getSelecteds();
+                        for (var i = 0; i < rows.length; i++) {
+                            idArr.push(rows[i].Id);
+                        }
+                        return idArr.join(',');
+                    }
+
+                    function reloadData() {
+                        usersGrid.reload();
+                    }
+
+                    function edit(grid, row) {
+                        var row = row || usersGrid.getSelected();
+                        if (row) {
+                            mini.open({
+                                url: "@Url.Action("Edit")" + "?id=" + row.Id,
+                                title: "@FStr.EditUser",
+                                width: 500,
+                                height: 400
+                            });
+
+                        } else {
+                            showTips("warning", "@FStr.PlzSelectUser");
+                        }
+                    }
+
+                    function addNew() {
+                        mini.open({
+                            url: "@Url.Action("Edit")",
+                            title: "@FStr.NewUser",
+                            width: 500,
+                            height: 400
+                        });
+                    }
+
+                    //打开授权窗体 by_zjf
+                    function userToAction() {
+                        var row = usersGrid.getSelected();
+                        if (row) {
+                            mini.open({
+                                url: "@Url.Action("UserToAction")" + "?id=" + row.Id,
+                                title: "@JStr.User" + row.Name + "@JStr.Authorize",
+                                width: 400,
+                                height: 500
+                            });
+
+                        } else {
+                            showTips("warning", "@FStr.PlzSelectUser");
+                        }
+                    }
+
+                    //授权按钮事件 by_zjf
+                    $.regButton({
+                        text: "@JStr.Authorize",
+                        noSubmit: userToAction
+                    });
+
+                    $.regButton({
+                        text: "@JStr.Edit",
+                        noSubmit: edit
+                    });
+
+                    $.regButton({
+                        text: "@JStr.Add",
+                        noSubmit: addNew
+                    });
+
+                    $.regButton({
+                        text: "@JStr.Delete",
+                        beforeSubmit: function (ajax) {
+                            var ids = getSelectedIds();
+                            if (ids.length == 0) {
+                                showTips("warning", "@FStr.PlzSelectUser");
+                                return false;
+                            }
+                            if (!confirm("@JStr.ConfirmDelete")) {
+                                return false;
+                            }
+                            ajax.data = { ids: ids }
+                        },
+                        afterSubmit: reloadData
+                    });
+
+                    //重置密码
+                    $.regButton({
+                        text: "@FStr.ResetPassword",
+                        beforeSubmit: function (ajax) {
+
+                            var idArr = "";
+                            var rows = usersGrid.getSelecteds();
+                            for (var i = 0; i < rows.length; i++) {
+                                idArr = idArr + rows[i].Name + ",";
+                            }
+
+                            if (rows.length == 0) {
+                                showTips("warning", "@FStr.PlzSelectUser");
+                                return false;
+                            }
+                            if (!confirm("@FStr.ConfirmResetPassword")) {
+                                return false;
+                            }
+                            ajax.data = { ids: idArr }
+                        },
+                        afterSubmit: reloadData
+                    });
+
+
+</script>

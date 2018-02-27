@@ -1,0 +1,727 @@
+﻿@{
+    ViewBag.Title = FStr.FunctionManager;
+}
+<link href="~/Scripts/bootstrap/css/icon-picker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap/js/iconPicker.js"></script>
+<style type="text/css">
+    #mainForm .mini-textbox, #mainForm .mini-combobox, #mainForm textarea {
+        width: 400px;
+    }
+
+    #IconClass {
+        width: 312px !important;
+        height: 21px !important;
+        border: 1px solid #a5acb5 !important;
+        border-radius: 0px !important;
+        border-right: 0px !important;
+    }
+
+    .pointer {
+        width: 40px !important;
+        height: 21px !important;
+        border: 1px solid #a5acb5 !important;
+        padding: 2px 10px !important;
+        border-radius: 0px !important;
+        background: white !important;
+    }
+    *{
+    }
+</style>
+<div class="mini-xs mini-sm mini-md mini-md-active">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-4">
+                <div class="mini-panel layout-panel  frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+                    <ul id="catalogTree" class="mini-tree frame-search-tree" url="@Url.Action("GetAll", "Functions")" style="width:100%"
+                        checkrecursive="true" showcheckbox="true" showtreeicon="true" textfield="Name" idfield="Id" parentfield="ParentId" iconfield="IconClass" resultastree="false" expandonload="1"
+                        onnodeselect="zTreeOnClick" onload="reLocateNode()" ondrawnode="onDrawNode"
+                        allowdrop="true" allowleafdropin="true"></ul>
+                </div>
+            </div>
+            <div class="mini-col-8">
+                <div class="mini-panel layout-panel frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+                    <table id="mainForm" class="boxcls">
+                        <tr>
+                            <td class="right"><label for="Id$text"><span style="color:red">*</span>ID</label></td>
+                            <td>
+                                <input name="Id" id="Id" class="mini-textbox" required="true" requirederrortext="@FStr.IDRequried" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="Name"><span style="color:red">*</span> @JStr.Name</label></td>
+                            <td>
+                                <div name="Name" id="Name" class="mini-combobox" url="@Url.Action("GetResKeys", "Functions")" allowInput="true" required="true" requirederrortext="@FStr.FunctionNameRequired">
+                                    <div property="columns">
+                                        <div header="@JStr.Key" field="id"></div>
+                                        <div header="@JStr.Text" field="text"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="Location">@JStr.Address</label></td>
+                            <td>
+                                <input name="Location" id="Location" class="mini-textbox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="Location">@JStr.Parameter</label></td>
+                            <td>
+                                <div>@FStr.HowToDefineParameter</div>
+                                <textarea name="Parameter" id="Parameter" class="mini-textarea"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="IconLocation">@FStr.IconAddress</label></td>
+                            <td>
+                                <input name="IconLocation" id="IconLocation" class="mini-textbox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="IconClass">@FStr.IconCSSName</label></td>
+                            <td>
+                                <input name="IconClass" id="IconClass" type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="Method">@FStr.SubmitMethod</label></td>
+                            <td>
+                                <input name="Method" id="Method" class="mini-combobox" value="@((int)WebMethod.GET)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="AuthType">@FStr.AuthorizeType</label></td>
+                            <td>
+                                <input name="AuthType" id="AuthType" class="mini-combobox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="chkVisible">@FStr.VisibleType</label></td>
+                            <td>
+                                <input type="hidden" name="Visible" id="Visible" />
+                                <div name="chkVisible" id="chkVisible" class="mini-checkboxlist" repeatitems="4"
+                                     repeatlayout="flow"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="Description">@JStr.Description</label></td>
+                            <td>
+                                <input name="Description" id="Description" class="mini-textbox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="ParentId">@JStr.ParentID</label></td>
+                            <td>
+                                <input name="ParentId" id="ParentId" class="mini-textbox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="Ord">@JStr.Order</label></td>
+                            <td>
+                                <input name="Ord" id="Ord" class="mini-textbox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="ControllerName">@FStr.ClassName</label></td>
+                            <td>
+                                <input name="ControllerName" id="ControllerName" class="mini-textbox" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="ActionName">@FStr.MethodName</label></td>
+                            <td>
+                                <input name="ActionName" id="ActionName" class="mini-textbox" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    var currentId;
+    var visibleOptions = [
+        { id: "@((int)VisibleType.Menu)", text: "@FStr.UserMenu" },
+        { id: "@((int)VisibleType.Role)", text: "@FStr.RoleMenu" },
+        { id: "@((int)VisibleType.GroupBegin)", text: "@FStr.GroupBegin" },
+        { id: "@((int)VisibleType.Container)", text: "@FStr.UserContainer" },
+        { id: "@((int)VisibleType.Button)", text: "@FStr.Button" },
+        { id: "@((int)VisibleType.QuckAccessBar)", text: "@FStr.QuckAccessBar" },
+        { id: "@((int)VisibleType.Top)", text: "@FStr.SetTop" },
+        { id: "@((int)VisibleType.Widget)", text: "@FStr.Widget" }
+    ];
+
+    var postOptions = [
+        { id: "@((int)WebMethod.GET)", text: "GET" },
+        { id: "@((int)WebMethod.POST)", text: "POST" },
+        { id: "@((int)WebMethod.PUT)", text: "PUT" },
+            { id: "@((int)WebMethod.DELETE)", text: "DELETE" },
+            { id: "@((int)WebMethod.OPTIONS)", text: "OPTIONS" },
+            { id: "@((int)WebMethod.PATCH)", text: "PATCH" }
+    ];
+
+    var authOptions = [
+        { id: "@((int)JAuthType.AllUsers)", text: "@FStr.AllLoginUsers" },
+        { id: "@((int)JAuthType.EveryOne)", text: "@FStr.EveryOne" },
+        { id: "@((int)JAuthType.Forbidden)", text: "@JStr.Disabled" },
+        { id: "@((int)JAuthType.NeedAuth)", text: "@FStr.NeedAuth" }
+    ];
+
+    var formInfo;
+
+    function getFormInfo() {
+        var r;
+        $('#mainForm input').each(function () {
+            r += $(this).val();
+        });
+        return r;
+    }
+    function getFormNodeInfo() {
+        // ---- 取得数据
+        var updatedData = {};
+
+        var mainFormForm = new mini.Form("mainForm");
+
+        //表单数据，整体的取值也有问题，当输入焦点还在文本输入框内时，取得是老的值。
+
+        //获取表单的数据
+        var mainForm = mainFormForm.getData();
+
+        updatedData.Id = mainForm.Id;
+        updatedData.Name = mainForm.Name;
+
+        updatedData.Location = mainForm.Location;
+        updatedData.Parameters = mainForm.Parameters;
+        updatedData.IconLocation = mainForm.IconLocation;
+        updatedData.IconClass = mainForm.IconClass;
+        updatedData.Method = mainForm.Method;
+        updatedData.AuthType = mainForm.AuthType;
+        updatedData.Visible = mainForm.Visible;
+        updatedData.chkVisible = mainForm.chkVisible;
+        updatedData.Description = mainForm.Description;
+        updatedData.ParentId = mainForm.ParentId;
+        updatedData.Ord = mainForm.Ord;
+        updatedData.ControllerName = mainForm.ControllerName;
+        updatedData.ActionName = mainForm.ActionName;
+
+        updatedData.IconClass = $("#IconClass").val();
+        updatedData.Visible = $('#Visible').val();
+
+        return updatedData;
+    }
+
+    mini.parse();
+    var treeObj = mini.get("#catalogTree");
+    mini.get('#chkVisible').setData(visibleOptions);
+    mini.get("#Method").setData(postOptions);
+    mini.get("#AuthType").setData(authOptions);
+
+    //2016/3/30 图标CSS样式表添加可视化图标选择组件
+    var cssBox = $("#IconClass");
+    cssBox.iconPicker();
+
+
+    //定义全局变量，在点击节点后重新赋值，
+    //点击下一个节点前判断是否有改变，若改变了则保存Node
+    //为了后期对比匹配做的准备工作
+    $('#Visible').val(0);
+
+    formInfo = getFormInfo();
+
+    function onDrawNode(e) {
+
+        var node = e.node;
+
+        e.nodeHtml = GetShowText(node);
+
+    }
+    function GetShowText(node) {
+        var post = "";
+        if (node.Method == "@((int)WebMethod.POST)") {
+            post = "[POST]";
+        }
+        var para = "";
+        if (node.Parameters.length > 0) {
+            para = "(" + node.Parameters.cast(function (p) { return p.Name }).join(', ') + ")";
+        }
+        var p = node.Id + ":" + node.Name + post + " " + para;
+        return p;
+    }
+
+    var selectedNode;
+
+    function zTreeOnClick(e) {
+
+        if (!e.node) {
+
+            selectedNode == null;
+            return;
+        }
+
+        if (selectedNode != null) {
+            getVisible();//从新获取“可见类型”的值
+
+            var temp = getFormInfo();
+            //判断数据是否被修改
+            if (temp != formInfo) {
+
+                //获取数据
+                var updatedData = getFormNodeInfo();
+
+                //判断节点Id值是否改变，如果有改变，必须修改此节点的下级节点parentId值
+                if (!(selectedNode.Id == updatedData.Id)) {
+                    var children = treeObj.getChildNodes(selectedNode);
+                    for (var i = 0; i < children.length; i++) {
+                        children[i].ParentId = updatedData.Id;
+                    }
+                }
+
+                //更新节点
+                treeObj.updateNode(selectedNode, updatedData);
+
+
+            }
+        }
+
+        selectedNode = e.node;
+
+        setFormNodeInfo(e.node)
+
+        formInfo = "";
+        setVisible();
+        formInfo = getFormInfo();
+
+    };
+
+    //function dodragstart(e) {
+    //    alert("dodragstart");
+    //};
+
+    //function dobeforenodeselect(e) {
+    //    alert("dobeforenodeselect");
+    //};
+
+    function setFormNodeInfo(func) {
+
+        //页面的ID属性需要和传过来的ReuturnValue中的属性名相同
+        for (p in func) {
+            var control = mini.get('#' + p);
+            if (control)
+                control.setValue(func[p]);
+            else {
+                $('#' + p).val(func[p]);
+            }
+        }
+
+        if (func.Parameters.length > 0) {
+            mini.get('#Parameter').setValue(func.Parameters.cast(function (p) { return p.Name + '=' + p.ValuePattern }).join('\n'));
+        }
+        else {
+            mini.get('#Parameter').setValue('');
+        }
+
+
+        if (mini.get('#Id').getValue()) {
+            //    alert(mini.get('#Id').getValue());
+            //这里如用mini.get('#Id').disable(),不知为何提交不了ID
+            //在前期调整后id值将不会为空,因此每次都会进入该判断,
+            //由于浏览器兼容问题在ie下此文本组件永远为只读的情况,
+            //而且现在保存时验证了重复id的情况因此取消该组件的控制 by_zjf,
+            //mini.get('#Id').getEl().disabled = true;
+        }
+        else {
+
+            var node = GetCurrentNode();
+
+            //对于新增结点右侧的表单，直接引用树结点自带的数据
+            mini.get('#Ord').setValue(node.ord);
+            mini.get("#ParentId").setValue(node.pId);
+            mini.get('#Name').setValue(node.name);
+
+            mini.get('#Id').getEl().disabled = false;
+            mini.get('#Id').focus();
+        }
+
+    };
+
+    function ztreeCss(treeId, treeNode) {
+        //给菜单可见的元素加粗
+        var css = {};
+        if ((treeNode.visible & 1) == 1)
+            css["font-weight"] = "bold";
+        if ((treeNode.visible & 2) == 2) {
+            css["color"] = "blue";
+        }
+        return css;
+    }
+
+
+    function GetCurrentNode() {
+        var node = treeObj.getSelectedNode();
+        return node;
+    }
+
+    function addBrother() {
+
+        var node = GetCurrentNode();
+        if (!node) {
+            return;
+        }
+        if (node) node = treeObj.getParentNode(node);
+
+        var newNode = { Name: "New Node", Ord: GetMaxOrd(node), ParentId: node ? node.Id : null, Id: "0", IconClass: "", Method: "@((int)WebMethod.GET)", Parameters: [] };
+        treeObj.addNode(newNode, newNode.Ord, node);
+        treeObj.selectNode(newNode);
+
+    }
+
+    function addChild() {
+
+        var node = GetCurrentNode();
+        if (!node) {
+            return;
+        }
+        if (!node.Id) {
+            return;
+        }
+
+        var newNode = { Name: "New Node", Ord: GetMaxOrd(node), ParentId: node.Id, Id: "0", IconClass: "", Method: "@((int)WebMethod.GET)", Parameters: [] };
+        treeObj.addNode(newNode, newNode.Ord, node);
+        treeObj.expandNode(node);
+        treeObj.selectNode(newNode);
+
+    }
+
+    function isRepeat(ary) {
+        var nary = ary.sort();
+
+        for (var i = 0; i < nary.length; i++) {
+            for (var k = i + 1; k < nary.length; k++) {
+                if (nary[i] == nary[k]) {
+                    return nary[i];
+                }
+            }
+        }
+        return null;
+    }
+    function isRepeat2(arr) {
+        var hash = {};
+        for (var i in arr) {
+            if (hash[arr[i]])
+                return arr[i];
+            hash[arr[i]] = true;
+        }
+        return null;
+    }
+
+    //获取结点的同级内索引序号
+    function getNodeIndex(node) {
+        var pNode = treeObj.getParentNode(node);
+        var children = treeObj.getChildNodes(pNode);
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] == node) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //获取结点的上层兄弟
+    function getPrevNode(node) {
+        var pNode = treeObj.getParentNode(node);
+        var children = treeObj.getChildNodes(pNode);
+        for (var i = 1; i < children.length; i++) {
+            if (children[i] == node) {
+                return children[i - 1];
+            }
+        }
+        return null;
+    }
+
+    //获取结点的下层兄弟
+    function getNextNode(node) {
+        var pNode = treeObj.getParentNode(node);
+        var children = treeObj.getChildNodes(pNode);
+        for (var i = 0; i < children.length - 1; i++) {
+            if (children[i] == node) {
+                return children[i + 1];
+            }
+        }
+        return null;
+    }
+
+    function GetMaxOrd(parentNode) {
+        parentNode = parentNode || treeObj.getRootNode();
+        var nodes = treeObj.getChildNodes(parentNode);
+        var ord = 0;
+        if (nodes) {
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].Ord > ord) ord = nodes[i].Ord;
+            }
+        }
+        return ord + 1;
+    }
+
+    function getCheckedNodeIds() {
+        var nodes = treeObj.getCheckedNodes();
+
+        var idArr = [];
+        for (var i = 0; i < nodes.length; i++) {
+            idArr.push(nodes[i].Id);
+        }
+        return idArr;
+    }
+
+    function reLocateNode() {
+        if (currentId) {
+            var node = treeObj.getNode({ id: currentId });
+            var pNode = treeObj.getParentNode(node);
+            if (pNode) treeObj.expandNode(pNode);
+            treeObj.selectNode(node);
+        }
+    }
+
+    //重新加载数据
+    function reloadData() {
+        treeObj.load('@Url.Action("GetAll","Functions")');
+    }
+
+    function checkNode() {
+        var node = GetCurrentNode();
+        if (!node) {
+            showTips({ Type: "warning", Message: "You should select a node" });
+        }
+
+        if (!node.id) {
+            showTips({ Type: "warning", Message: "You should save this node before this operation." });
+        }
+        return node;
+    }
+
+
+    var restValue = 0;
+    function getVisible() {
+        var visibleStr = mini.get('#chkVisible').getValue() || "";
+        var val = 0;
+        var arr = visibleStr.split(',');
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i]) {
+                val += parseInt(arr[i]);
+            }
+        }
+        $('#Visible').val(val + restValue);
+    }
+
+    $('form').bind("beforeSubmit", getVisible);//绑定在提交前重新计算Visible的值
+
+    function setVisible() {
+        var val = parseInt($('#Visible').val());
+        var arr = [];
+        for (var i in visibleOptions) {
+            if ((val & visibleOptions[i].id) == visibleOptions[i].id) {
+                val = val - parseInt(visibleOptions[i].id);
+                arr.push(visibleOptions[i].id);
+            }
+        }
+        mini.get('#chkVisible').setValue(arr.join(','));
+        restValue = val;
+    }
+
+    $.regButton({ text: "@FStr.AddBrother", noSubmit: addBrother });
+    $.regButton({ text: "@FStr.AddChild", noSubmit: addChild });
+
+    $.regButton({ text: "@JStr.Delete", noSubmit: deleteSelectedNode });
+    function deleteSelectedNode() {
+
+        var nodes = treeObj.getCheckedNodes();
+
+        if (!nodes.length) {
+            alert("@FStr.NoNodeSelected");
+            return;
+        }
+        if (!confirm('@JStr.ConfirmDelete')) {
+            return;
+        }
+
+        treeObj.removeNodes(nodes);
+        treeObj.uncheckAllNodes();
+
+        //删除操作之后，默认选择第一个节点
+        treeObj.selectNode(treeObj.getList()[0]);
+    }
+
+    $.regButton({ text: "@JStr.MoveUp", noSubmit: upMoveNode });
+    function upMoveNode() {
+
+        var node = GetCurrentNode();
+        if (!node) {
+            return;
+        }
+        if (!node.Id) {
+            return;
+        }
+
+        treeObj.moveNode(node, getPrevNode(node), "before")
+        treeObj.selectNode(node);
+
+    }
+
+    $.regButton({ text: "@JStr.MoveDown", noSubmit: downMoveNode });
+    function downMoveNode() {
+
+        var node = GetCurrentNode();
+        if (!node) {
+            return;
+        }
+        if (!node.Id) {
+            return;
+        }
+
+        treeObj.moveNode(node, getNextNode(node), "after")
+        treeObj.selectNode(node);
+
+    }
+
+    $.regButton({ text: "@JStr.Move", noSubmit: freeMoveNode });
+    function freeMoveNode() {
+
+        var node = GetCurrentNode();
+        if (!node) {
+            return;
+        }
+        if (!node.Id) {
+            return;
+        }
+
+        var pId = prompt("@FStr.PlzInputParentNodeId", '0');
+        if (!pId) {
+            return;
+        }
+
+        //移动到顶级
+        if (pId == "0") {
+            var root = treeObj.getRootNode();
+            treeObj.moveNode(node, root, "add");
+
+            treeObj.updateNode(node, { ParentId: "" });
+            mini.get("#ParentId").setValue("");
+            return;
+        }
+
+
+        //获得所有子节点集合
+        var children = treeObj.getAllChildNodes(node);
+        children.push(node);
+
+        //判断
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].Id == pId) {
+                showTips("error", "@FStr.NodeCannotMoveToItself");
+                return;
+            }
+        }
+
+        //查找父节点
+        var pnodes = treeObj.findNodes(function (node) {
+            if (node.Id == pId) return true;
+        });
+        if (pnodes.length < 1) {
+            showTips("error", "@FStr.ParentNodeNotFound" + pId);
+            return;
+        }
+
+        //移动节点
+        treeObj.moveNode(node, pnodes[0], "add");
+
+    }
+
+    $.regButton({
+        text: "@JStr.Save",
+        beforeSubmit: function (ajax) {
+            //当前节点的编辑信息更新
+            var snode = GetCurrentNode();
+            if (snode != null) {
+                zTreeOnClick({
+                    sender: null,         //树对象
+                    node: snode,           //节点对象
+                    isLeaf: false
+                });
+            }
+
+            if (!treeObj.isChanged()) {
+                showTips("error", "@FStr.NoDataToSave");
+                ajax.cancel = true;
+                return;
+            }
+
+            //获取节点数组
+            var data = treeObj.getList();
+
+            //判断id是否有空值
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].Id == "") {
+                    showTips("error", "@FStr.NodeIdIsEmpty");
+                    ajax.cancel = true;
+                    return;
+                }
+            }
+            //判断id是否有“0”值
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].Id == "0") {
+                    showTips("error", "@FStr.NodeIdIsEmpty");
+                    ajax.cancel = true;
+                    return;
+                }
+            }
+            //判断重复的节点ID
+            var tempNodeIds = [];
+            for (var i = 0; i < data.length; i++) {
+                tempNodeIds.push(data[i].Id);
+            }
+
+            var nodeid = isRepeat(tempNodeIds)
+            if (nodeid != null) {
+                showTips("error", "@FStr.DupliatedNodeId" + nodeid);
+                ajax.cancel = true;
+                return;
+            }
+
+            var json = mini.encode(data);
+            //请求数据
+            ajax.data = { data: json };
+
+            //清除所有行修改痕迹
+            treeObj.accept();
+
+        }
+    });
+
+    $.regButton({ text: "@JStr.Clone", noSubmit: cloneNode });
+    function cloneNode() {
+
+        var node = GetCurrentNode();
+        if (!node) {
+            return;
+        }
+        if (!node.Id) {
+            return;
+        }
+
+        pnode = treeObj.getParentNode(node);
+
+        // 浅层复制（只复制顶层的非 object 元素）
+        // var newObject = jQuery.extend({}, oldObject);
+        // 深层复制（一层一层往下复制直到最底层）
+        // var newObject = jQuery.extend(true, {}, oldObject);
+
+        var newnode = $.extend(true, {}, node);
+
+        treeObj.addNode(newnode, newnode.Ord, pnode);
+        treeObj.selectNode(newnode);
+    }
+
+</script>

@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.SearchEmptyText = FStr.PlzInputClientName;
+}
+<div class="mini-xs mini-sm mini-md mini-md-active">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-12">
+                <div class="frame-fit" style="width: 100%;">
+                    <div id="dataGridMain" class="mini-datagrid frame-search-grid" style="width:100%;height:100%;" pagesize="50" multiselect="true" sizelist="[20,50,100]"
+                         url="@Url.Action("GetMainPageData")" selectonload="true">
+                        <div property="columns">
+                            <div type="indexcolumn"></div>
+                            <div field="TokeyId" headeralign="center" align="center" allowsort="false" visible="false">@JStr.Key</div>
+                            <div field="IsvalId" headeralign="center" align="center" allowsort="false" visible="false">@JStr.Status</div>
+
+                            <div field="ClientName" headeralign="center" align="center" allowsort="false">@FStr.ClientName</div>
+                            <div field="ClientId" headeralign="center" align="center" allowsort="false">@FStr.ClientId</div>
+                            <div field="TokeyCode" headeralign="center" align="center" width="200" allowsort="false">@FStr.AuthorizeKey</div>
+
+                            <div field="ValidityDate" headeralign="center" align="center" width="80" allowsort="false" dateformat="yyyy-MM-dd">@FStr.ValidityDate</div>
+                            <div field="AccreditDate" headeralign="center" align="center" width="70" allowsort="false" dateformat="yyyy-MM-dd">@FStr.AuthorizeDate</div>
+                            <div field="AccreditBy" headeralign="center" align="center" width="40" allowsort="false">@FStr.AccreditBy</div>
+                            <div type="checkboxcolumn" field="IsvalId" trueValue="1" falseValue="0" width="60" headerAlign="center">@FStr.AuthorizeStatus</div>
+                            <div field="Memo" headeralign="center" width="160" allowsort="false">@JStr.Remark</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+                    mini.parse();
+
+                    var dataGridMain = mini.get('#dataGridMain')
+                    dataGridMain.load();
+
+                    //Grid刷新事件
+                    function reloadMainData() {
+                        dataGridMain.reload();
+                    }
+
+                    //双击或点击编辑按钮事件
+                    function edit() {
+                        var row = dataGridMain.getSelected();
+                        if (row) {
+                            mini.open({
+                                url: "@Url.Action("FormInfo")" + "?id=" + row.ToKeyId,
+                                title: "@FStr.EditAuthorize",
+                                width: 450,
+                                height: 400
+                            });
+
+                        } else {
+                            alert("@JStr.PlzSelectARecord");
+                        }
+                    }
+
+                    //新增按钮事件
+                    function addNew() {
+                        mini.open({
+                            url: "@Url.Action("FormInfo")",
+                            title: "@FStr.AddAuthorize",
+                            width: 450,
+                            height: 400
+                        });
+                    }
+
+                    //获取选择的集合
+                    function getSelectedIds() {
+                        var idArr = [];
+                        var rows = dataGridMain.getSelecteds();
+                        for (var i = 0; i < rows.length; i++) {
+                            idArr.push(rows[i].ToKeyId);
+                        }
+                        return idArr.join(',');
+                    }
+
+                    $.regButton({
+                        text: "删除授权",
+                        beforeSubmit: function (ajax) {
+                            var ids = getSelectedIds();
+                            if (ids.length == 0) {
+                                alert("@JStr.PlzSelectARecord");
+                                return false;
+                            }
+                            if (!confirm("@JStr.ConfirmDelete") {
+                                return false;
+                            }
+                            ajax.data = { delList: ids }
+                        },
+                        afterSubmit: function () {
+                            reloadMainData();
+                        }
+                    });
+
+                    $.regButton({
+                        text: "@FStr.AddAuthorize",
+                        noSubmit: addNew
+                    });
+
+                    $.regButton({
+                        text: "@FStr.EditAuthorize",
+                        noSubmit: edit
+                    });
+
+                    $.regButton({
+                        text: "@FStr.DataAuthorize",
+                        noSubmit: function () {
+                            var row = dataGridMain.getSelected();
+                            if (row) {
+                                mini.open({
+                                    url: "@Url.Action("DataRelation")" + "?id=" + row.ToKeyId,
+                                    title: row.ClientName + "_" + "@FStr.DataAuthorize",
+                                    width: 400,
+                                    height: 500
+                                });
+                            } else {
+                                alert("@JStr.PlzSelectARecord");
+                            }
+                        }
+                    });
+
+                    $.regButton({
+                        text: "@FStr.ServiceAuthorize",
+                        noSubmit: function () {
+                            var row = dataGridMain.getSelected();
+                            if (row) {
+                                mini.open({
+                                    url: "@Url.Action("ServiceRelation")" + "?id=" + row.ToKeyId,
+                                    title: row.ClientName + "_" + "@FStr.ServiceAuthorize",
+                                    width: 400,
+                                    height: 500
+                                });
+                            } else {
+                                alert("@JStr.PlzSelectARecord");
+                            }
+                        }
+                    });
+
+
+</script>

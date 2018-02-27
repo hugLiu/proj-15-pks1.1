@@ -1,0 +1,170 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var baseController = this.ViewContext.Controller as BaseController;
+    var buttons = baseController.Function.GetChildren()
+        .Where(f => (f.Visible & VisibleType.Button) == VisibleType.Button && User.Identity.HasRightId(f.Id))
+        .OrderBy(f => f.Ord)
+        .ThenBy(f => f.Id)
+        .ToArray();
+
+    ViewBag.Title = ResHelper.GetStr(ViewBag.Title ?? baseController.Function.Name);
+
+    //用户自定义的面包屑导航
+    var UserBreadCrumb = RenderSection("UserBreadCrumb", false);
+
+    //用户自定义的工具栏
+    var UserToolBar = RenderSection("UserToolBar", false);
+}
+
+@helper DrawSeparator(AppFunction func, IList<AppFunction> funcs)
+{
+if ((func.Visible & VisibleType.GroupBegin) == VisibleType.GroupBegin && func != funcs[0])
+{
+        <span class="separator"></span>
+}
+}
+
+@helper PopupMenu(AppFunction parent)
+{
+var buttons = parent.GetChildren().ToArray();
+    <a class="mini-menubutton" plain="true" menu="#popupMenu@(parent.Id)">@ResHelper.GetStr(parent.Name)</a>
+    <ul id="popupMenu@(parent.Id)" class="mini-menu" style="display:none;">
+        @foreach (var btn in buttons)
+        {
+            @DrawSeparator(btn, buttons)
+            if (btn.HasChildren())
+            {
+                var popBtns = btn.GetChildren().ToArray();
+                <li>
+                    <span>@Html.Str(btn.Name)</span>
+                    <ul>
+                        @foreach (var popbtn in popBtns)
+                        {
+                            @DrawSeparator(popbtn, popBtns)
+                            <li class="frame-submit" iconcls="@popbtn.IconClass" id="@popbtn.Id">@ResHelper.GetStr(popbtn.Name)</li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="frame-submit" iconcls="@btn.IconClass" id="@btn.Id">@ResHelper.GetStr(btn.Name)</li>
+            }
+        }
+    </ul>
+}
+
+@helper Buttons(AppFunction btn)
+{
+if (btn.IconClass != null && btn.IconClass.Contains("mini-"))
+{
+        <a class="@btn.IconClass" id="@btn.Id" name="@btn.Name" plain="true" emptytext="@ResHelper.GetStr((btn.Description.IsEmpty()?btn.Name:btn.Description))">@ResHelper.GetStr(btn.Name)</a>
+}
+else
+{
+        <a class="mini-button frame-submit" iconcls="@btn.IconClass" id="@btn.Id" tooltip="@ResHelper.GetStr((btn.Description.IsEmpty()?btn.Name:btn.Description))">@ResHelper.GetStr(btn.Name)</a>
+}
+}
+
+@if (ViewBag.ReloadMenu == true)
+{
+    <script type="text/javascript">
+        top._userMenus = $.getSync(_userMenusUrl);
+    </script>
+}
+
+@if (ViewBag.IsFlowView == null || !ViewBag.IsFlowView)
+{
+    @UserBreadCrumb
+    if (ViewBag.ShowBreadCrumb != false || ViewBag.ShowNextTool == true)
+    {
+        <div class="top_crumb">
+            @if (ViewBag.ShowBreadCrumb != false)
+            {
+                <div class="top_crumb_left">
+                    @foreach (var func in baseController.BreadCrumbList.Take(baseController.BreadCrumbList.Count - 1))
+                    {
+                        <span><i class="iconfont icon-shouye_shouye"></i> @Html.Str(func.Name)</span>
+                        <span> / </span>
+                    }
+                    <a href="@Request.Url">@ViewBag.Title</a>
+                </div>
+            }
+
+            @if (ViewBag.ShowNextTool == true)
+            {
+                <div class="top_crumb_right">
+                    <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default" id="nexttool-first"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default" id="nexttool-before"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default" id="nexttool-after"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default" id="nexttool-last"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    if (ViewBag.IsFlowView != null && ViewBag.IsFlowView)
+    {
+        @Html.Partial("_workflow");
+    }
+    if (ViewBag.ShowToolBar != false)
+    {
+        <div class="mini-xs mini-sm mini-md mini-md-active mini-col">
+            <div class="container-fluid">
+                <div class="mini-clearfix">
+                    <div class="mini-col-12">
+                        <div class="mini-toolbar">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td>
+                                        @foreach (var btn in buttons)
+                                        {
+                                            @DrawSeparator(btn, buttons)
+                                            if (btn.HasChildren())
+                                            {
+                                                @PopupMenu(btn)
+                                            }
+                                            else
+                                            {
+                                                @Buttons(btn)
+                                            }
+                                        }
+                                        @UserToolBar
+                                    </td>
+                                    @if (ViewBag.ShowSearchBox != false)
+                                    {
+                                        <td>
+                                            <div class="searchinfo  frame-search input-group">
+                                                <input class="form-control" placeholder='@(ViewBag.SearchEmptyText==null ? FStr.PlzEnterKeyword:ViewBag.SearchEmptyText )' />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default frame-submit">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                        <span class="hidden">搜索</span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    }
+                                    @if (ViewBag.QueryType != null)
+                                    {
+                                        <td style="padding-left:10px;width:50px;">
+                                            @Html.Partial("_AdvQuery")
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @RenderBody()
+}

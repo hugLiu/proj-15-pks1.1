@@ -1,0 +1,82 @@
+﻿@*用于展示Base_Article的扩展属性集Base_Article.Exts的展示器*@
+@using Jurassic.CommonModels.Articles
+@using Jurassic.CommonModels;
+@using Jurassic.WebRepeater;
+@using Jurassic.WebHtmlEditor;
+@model Base_ArticleExt
+@{
+    Base_CatalogExt catExt = SiteManager.Catalog.GetExtById(Model.CatlogExtId);
+    ExtRenderEvent extEvent = this.Html.ViewDataContainer.ViewData["ExtRenderEvent"] as ExtRenderEvent ?? new ExtRenderEvent();
+    HelperResult userRenderResult = null;
+    if (extEvent != null && extEvent.UserRenderer != null)
+    {
+        userRenderResult = extEvent.UserRenderer(this.Html);
+    }
+}
+@helper DefaultRenderer(Base_CatalogExt catExt)
+{
+    <div class="row">
+        <label class="col-xs-2 control-label no-padding-right">@ResHelper.GetStr(catExt.Name)</label>
+        <div class="col-xs-10">
+            @*<span class="block input-icon input-icon-right">*@
+            @switch (catExt.DataType)
+            {
+                case ExtDataType.Html:
+                    @Html.Raw(Model.Value)
+                    break;
+                case ExtDataType.Bool:
+                    if (CommOp.ToBool(Model.Value))
+                    {
+                        <intput type="checkbox" checked="checked" readonly="readonly"></intput>
+                    }
+                    else
+                    {
+                        <intput type="checkbox" readonly="readonly"></intput>
+                    }
+                    break;
+
+                default:
+                @Html.DisplayFor(model => model.Value)
+                    break;
+            }
+        </div>
+    </div>
+}
+@helper DefaultRendererInline(Base_CatalogExt catExt)
+{
+    <td style="width:100px">
+        @switch (catExt.DataType)
+        {
+            case ExtDataType.Bool:
+                if (CommOp.ToBool(Model.Value))
+                {
+                    <intput type="checkbox" checked="checked" readonly="readonly"></intput>
+                }
+                else
+                {
+                    <intput type="checkbox" readonly="readonly"></intput>
+                }
+                break;
+
+            default:
+            @Html.DisplayFor(model => model.Value)
+                break;
+        }
+    </td>
+}
+@if (CommOp.ToStr(userRenderResult) != String.Empty)
+{
+    @userRenderResult
+}
+else if ((catExt.State & ArticleState.ReadOnly) == ArticleState.ReadOnly)
+{
+    @Html.HiddenFor(model => model.Value)
+}
+else
+{
+    @(extEvent.Inline ? DefaultRendererInline(catExt) : DefaultRenderer(catExt))
+}
+@if (extEvent != null && extEvent.OnExtRendered != null)
+{
+    @extEvent.OnExtRendered(this.Html)
+}

@@ -1,0 +1,39 @@
+﻿@using Jurassic.WebHtmlEditor;
+@using Jurassic.WebUpload;
+@model Jurassic.WebTemplate.Controllers.EditorModel
+
+@{
+    ViewBag.Title = "HtmlEditor";
+    ViewBag.ShowToolbar = false;
+}
+
+<h2>HtmlEditor</h2>
+
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, new {@class="col-md-2" })
+        <div class="col-md-10">@Html.TextBoxFor(model => model.Title, new { @class = "mini-textbox" })</div>
+    </div>
+    <div class="form-group">
+       @Html.LabelFor(model => model.Text, new { @class = "col-md-2" })
+        <div>
+            @Html.TextAreaFor(model => model.Text, new { style = "width:800px;height:360px" })
+            @Html.HtmlEditor("Text", "myEditor", true)
+        </div>
+    </div>
+    <div>
+        <div class="col-md-10 col-md-offset-2">
+            <a class="frame-submit mini-button">提交</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+    myEditor.html("<p>Hello world!</p>");
+    $.regButton({
+        text: "提交",
+        afterSubmit: function (data) {
+            alert(data.ReturnValue.Text);
+        }
+    });
+</script>

@@ -1,0 +1,22 @@
+﻿@using Jurassic.WebReport;
+ 
+@{
+    var property = new ReportProperty()
+    {
+        ReportFileName="/Reports/Report1.rdlc",
+        DataSourceName="DataSet1",
+        DataSource = ViewData["DataSet"],
+        width=1150,
+        height=500,
+        ShowToolBar=true,
+        ShowFindControls=true,
+        ShowPrintButton=true,
+        ShowRefreshButton=true
+    };
+}
+ 
+<div style="width:100%;height:580px;overflow-x:hidden;overflow-y:hidden;">
+    @Html.Report(property)
+</div>
+
+

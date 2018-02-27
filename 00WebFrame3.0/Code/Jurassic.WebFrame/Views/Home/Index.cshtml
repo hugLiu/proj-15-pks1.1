@@ -1,0 +1,252 @@
+﻿@model Jurassic.WebFrame.Models.UserConfig
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = JStr.SystemName;
+
+    //排除按钮的菜单
+    List<AppFunction> UserMenus = AppManager.Instance.GetUserMenus(User.Identity.Name)
+        .Where(func => (func.Visible & VisibleType.Button) != VisibleType.Button)
+        .ToList();
+
+    var baseController = this.ViewContext.Controller as BaseController;
+
+    //outlookbar顶部自定义区
+    var topFuncs = UserMenus.Where(f => f.ParentId.IsEmpty()
+                     && (f.Visible & VisibleType.Container) == VisibleType.Container && !f.Location.IsEmpty())
+                    .OrderBy(f => f.Ord);
+    int grpIndex = 0;
+
+    //右上角快捷导航
+    var topRightFuncs = UserMenus.Where(f => f.ParentId.IsEmpty()
+                     && (f.Visible & VisibleType.QuckAccessBar) == VisibleType.QuckAccessBar && !f.Location.IsEmpty())
+                    .OrderBy(f => f.Ord);
+
+    var outlookFuncs = UserMenus.Where(f => f.ParentId.IsEmpty()
+&& (f.Visible & (VisibleType.Container | VisibleType.QuckAccessBar)) == 0)
+.OrderBy(f => f.Ord);
+}
+<style>
+    .mini-tabs-table {
+        width: 100%;
+    }
+</style>
+
+<div id="layout1" class="mini-layout" style="width:100%;height:100%;" splitsize="-2">
+    <div class="header" region="north" height="56" showsplit="false" showheader="false">
+        <h1>@JStr.SystemName</h1>
+        <div class="shortcut_menu">
+            @foreach (var func in topRightFuncs)
+            {
+                @Html.Partial(func.Location)
+            }
+            @*@Html.Partial("_MessageAlert")
+                @Html.Partial("UserAvatar")*@
+        </div>
+    </div>
+
+    @*底部*@
+    <div title="south" region="south" showsplit="false" showheader="false" bodystyle="overflow:hidden" height="30">
+        <div style="clear:both"></div>
+        <div style="line-height: 28px; text-align: center; cursor: default;">@Html.Raw(JStr.SystemCopyright) </div>
+    </div>
+
+    @*内容部分*@
+    <div title="center" region="center" bodystyle="overflow:hidden;" style="border: 0px solid">
+        <div class="mini-splitter" style="width:100%;height:100%;" borderstyle="border:0;">
+            @*左边菜单*@
+            <div size="200" maxsize="250" minsize="100" showcollapsebutton="true" style="border:0;" id="nav_left">
+                @if (!topFuncs.IsEmpty())
+                {
+                    <div id="nav_leftTop">
+                        @foreach (var func in topFuncs)
+                        {
+                            @Html.Partial(func.Location, func)
+                        }
+                    </div>
+                }
+                <!--OutlookMenu-->
+                <div class="mini-outlookbar drawer-menu" id="nav_leftMenuBar" activeindex="0" style="width:100%;height:100%" autocollapse="true">
+                    @foreach (var func in outlookFuncs)
+                    {
+                        <div title="@ResHelper.GetStr(func.Name)" name="@func.Id">
+                            <a name="grp_@func.Id" id="grp_@grpIndex"></a>@*用于标记当前outlookbar的Group序号*@
+                            @{
+                                bool partial = false;
+                                foreach (var f in func.GetChildren())
+                                {
+                                    if ((f.Visible & VisibleType.Container) == VisibleType.Container && !f.Location.IsEmpty())
+                                    {
+                                        partial = true;
+                                        @Html.Partial(f.Location)
+                                    }
+                                }
+                                if (!partial)
+                                {
+                                    <div id="leftTree_@func.Id" class="mini-tree" @*左边菜单树*@
+                                         style="width:100%;height:100%"
+                                         idfield="Id" parentfield="ParentId" textfield="Name" iconfield="IconClass"
+                                         onnodeclick="onNodeClick" expandonnodeclick="true"
+                                         showtreelines="true" showexpandbuttons="true" ShowTreeIcon="true"
+                                         borderstyle="border:0" expandonload="true">
+                                    </div>
+                                }
+                            }
+                        </div>
+                                    grpIndex++;
+                                }
+                </div>
+            </div>
+            @*主子框架*@
+            <div showcollapsebutton="false" style="border:0;">
+                @if (Model.ShowTab)
+                {
+                    <div id="mainTabs" class="mini-tabs" activeindex="0" style="width:100%;height:100%;"
+                         plain="false" onactivechanged="onTabsActiveChanged">
+                    </div>
+                }
+                else
+                {
+                    <iframe id="mainframe" frameborder="0" name="main" style="width:100%;height:100%;" border="0"></iframe>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    if (this != top) {
+        top.location = this.location;
+    }
+    _userMenus = $.getSync(_userMenusUrl);
+    mini.parse();
+
+    function bindTreeMenu(id) {
+        var tree = mini.get("#leftTree_" + id);
+        if (tree == null) return;
+        tree.loadList(FilterMenu(id), "Id", "ParentId");
+    }
+
+    function FilterMenu(id) {
+        var arr = [];
+        for (var i = 0; i < _userMenus.UserMenu.length; i++) {
+            if ((_userMenus.UserMenu[i].Visible & 16) == 0 && _userMenus.UserMenu[i].ParentId == id) {
+                arr.push(_userMenus.UserMenu[i]);
+                arr = arr.concat(FilterMenu(_userMenus.UserMenu[i].Id));
+            }
+        }
+        return arr;
+    }
+
+    @foreach (var func in UserMenus.Where(f => f.ParentId.IsEmpty()))
+    {
+        @Html.Raw("bindTreeMenu('" + func.Id + "');\r\n")
+    }
+    try {
+        var startPage = $.parseJSON(getCookie("startPage" + location.port));
+    } catch (e) {
+    }
+    startPage = startPage || {
+        Id: "shortcut_startpage",
+        Name: "起始页",
+        Location: '@Url.Action("StartPage")'
+    };
+    if ($('#nav_leftTop').length > 0) {
+        $(function () {
+            var h = $('#nav_leftMenuBar').height();
+            $('#nav_leftMenuBar').height(h - $('#south').height() - $('#nav_leftTop').height() + 18);
+        });
+    }
+</script>
+
+@if (Model.ShowTab)
+            {
+    <script type="text/javascript">
+        var tree = mini.get("leftTree");
+        var iframe;
+        function showTab(node) {
+            var tabs = mini.get("mainTabs");
+
+            var id = "tab$" + node.Id;
+            var tab = tabs.getTab(id);
+            if (!tab) {
+                tab = {};
+                tab._nodeid = node.Id;
+                tab.name = id;
+                tab.title = node.Name;
+                tab.showCloseButton = true;
+
+                tab.url = node.Location;
+                setCookie("startPage" + location.port, '{"Id":"' + node.Id + '","Name":"' + node.Name + '","Location":"' + node.Location + '"}');
+                tabs.addTab(tab);
+            }
+            tabs.activeTab(tab);
+        }
+
+        function onNodeClick(e) {
+            var node = e.node;
+            var isLeaf = e.isLeaf;
+
+            if (isLeaf) {
+                showTab(node);
+            }
+        }
+        showTab(startPage);
+
+        function onTabsActiveChanged(e) {
+            var tabs = e.sender;
+            var tab = tabs.getActiveTab();
+            setTimeout(function () {
+                iframe = tabs.getTabIFrameEl(tab);
+            }, 0);
+
+            //TODO:根据Tab的切换动态选择对应的树结点
+            //if (tab && tab._nodeid) {
+            //    var node = tree.getNode(tab._nodeid);
+            //    if (node && !tree.isSelectedNode(node)) {
+            //        tree.selectNode(node);
+            //    }
+            //}
+        }
+
+        $('.shortcut_menu a').click(function (e) {
+            if (this.target != "main") return;
+            e.preventDefault();
+            var txt = $(this).text().trim();
+            showTab({
+                Id: "shortcut_" + (this.id || txt),
+                Name: txt,
+                Location: this.href
+            });
+        });
+
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        var iframe = document.getElementById("mainframe");
+        function onNodeClick(e) {
+            var node = e.node;
+            if (!node.Location) return;
+            iframe.src = node.Location;
+            setCookie("startPage" + location.port, '{"Id":"' + node.Id + '","Name":"' + node.Name + '","Location":"' + node.Location + '"}');
+        }
+
+        $('.shortcut_menu a').click(function (e) {
+            if (this.target != "main") return;
+            e.preventDefault();
+            var txt = $(this).text().trim();
+            onNodeClick({
+                node: {
+                    Id: "shortcut_" + (this.id || txt),
+                    Name: txt,
+                    Location: this.href
+                }
+            });
+        });
+
+        onNodeClick({ node: startPage });
+    </script>
+}
+
+
+

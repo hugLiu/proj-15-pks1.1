@@ -1,0 +1,53 @@
+﻿@using Jurassic.CommonModels.Articles;
+@using Jurassic.CommonModels;
+
+@model Base_Article
+
+<div class="form-horizontal" role="form" id="form1">
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-group">
+        <label for="Title">@JStr.Title</label>
+        <div>
+            @Html.TextBoxFor(model => model.Title)
+        </div>
+    </div>
+    <!-- /section:elements.form -->
+    <div class="space-4"></div>
+
+    <div class="form-group">
+        <label for="Text">@JStr.Keyword</label>
+        <div>
+            @Html.TextAreaFor(model => model.Keywords)
+        </div>
+    </div>
+    <div class="space-4"></div>
+
+    <div class="form-group">
+        <label for="Text">@JStr.Abstract</label>
+        <div>
+            @Html.TextAreaFor(model => model.Abstract, new { style = "width:480px;", rows = "3" })
+        </div>
+    </div>
+    <div class="space-4"></div>
+    <!--排序号-->
+    <div class="space-4"></div>
+
+    <!--文章标签的展示和编辑，使用EditorTemplates/Base_ArticleExt.cshtml-->
+    @Html.ExtsEditor()
+</div>
+@Html.HtmlEditor("Text")
+<script type="text/javascript">
+    mini.parse();
+    $.regButton({
+        text: "@JStr.Save",
+        afterSubmit: function (data) {
+            top.iframe.contentWindow.location.reload();
+            closeWindow();
+        }
+    });
+
+    function closeWindow() {
+        if (window.CloseOwnerWindow) return window.CloseOwnerWindow();
+        else window.close();
+    }
+</script>

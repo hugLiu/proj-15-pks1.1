@@ -1,0 +1,38 @@
+﻿@using Jurassic.WebUpload;
+@{
+    ViewBag.Title = "文件上传演示";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+
+<h2>上传组件1</h2>
+@Html.Upload("uploadresult1", "UploadGetName", "HelloWorld", "uploadDone1")
+<p>下面的文本框显示上传后的服务端文件ID，它在实际中应该用隐藏域实现或不用实现。<br/>
+    如果不实现，系统会自动加上</p>
+<input name="uploadresult1" class="mini-textbox" emptytext="组件1上传结果ID">
+
+
+<h2>上传组件2</h2>
+
+@Html.Upload("uploadresult2", "UploadGetLength", "HelloWorld", "uploadDone2")
+<p>
+    下面的文本框显示上传后的服务端文件ID，它在实际中应该用隐藏域实现或不用实现。<br />
+    如果不实现，系统会自动加上
+</p>
+<input name="uploadresult2" class="mini-textbox" emptytext="组件2上传结果ID">
+<hr />
+<p>下面的提交按钮摸拟包含上传组件的表单整体提交：</p>
+<div>
+    <a class="mini-button frame-submit">提交表单</a>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    function uploadDone1(r) {
+        alert("此处表示组件1上传后的回调，它显示上传的文件名： Name=" + r);
+    }
+
+    function uploadDone2(r) {
+        alert("此处表示组件2上传后的回调，它显示上传的文件流长度： Length=" + r);
+    }
+</script>

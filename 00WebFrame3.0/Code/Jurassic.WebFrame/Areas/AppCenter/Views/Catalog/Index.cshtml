@@ -1,0 +1,598 @@
+﻿@using Jurassic.CommonModels.Articles;
+@using Jurassic.CommonModels;
+@model Base_Catalog
+<link href="~/Scripts/bootstrap/css/icon-picker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap/js/iconPicker.js"></script>
+<style type="text/css">
+    #mainForm .mini-textbox, #mainForm textarea {
+        width: 400px;
+    }
+
+    #mainForm .form-group {
+        margin: 3px;
+    }
+
+    #IconClass {
+        width: 360px !important;
+        height: 21px !important;
+        border: 1px solid #a5acb5 !important;
+        border-radius: 0px !important;
+        border-right: 0px !important;
+    }
+
+    .pointer {
+        width: 40px !important;
+        height: 21px !important;
+        border: 1px solid #a5acb5 !important;
+        padding: 2px 10px !important;
+        float: left !important;
+        border-radius: 0px !important;
+        background: white !important;
+    }
+
+    .input-group .form-control {
+        padding: 0px !important;
+    }
+</style>
+<div class="mini-splitter frame-fit" style="width:100%;padding:0">
+    <div size="30%" showcollapsebutton="true" style="padding:5px;">
+        <ul id="catalogTree" class="mini-tree frame-fit frame-search-tree" url="@Url.Action("GetAll", new { id = Model.Id })" style="width:100%"
+            checkrecursive="true" showcheckbox="true" showtreeicon="true" textfield="name" idfield="id" parentfield="pId" resultastree="false" expandonload="1"
+            onnodeselect="zTreeOnClick" onload="reLocateNode()"></ul>
+    </div>
+    <div style="overflow:auto">
+        <div class="form-horizontal" id="mainForm">
+            <fieldset>
+                <legend>@Html.Str(Model.Name + "_PropertyManager")</legend>
+                <div class="form-group">
+                    <label for="Id" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">
+                        @Html.Str(Model.Name + "_CatalogID")：
+                    </label>
+                    <div class="col-xs-12 col-sm-5">
+                        <span class="block input-icon input-icon-right">
+                            <input name="Id" id="Id" class="mini-textbox" readonly="readonly" value="0" requirederrortext="ID_Required" />
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Name" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">@Html.Str(Model.Name + "_CatalogName")：</label>
+
+                    <div class="col-xs-12 col-sm-5">
+                        <span class="block input-icon input-icon-right">
+                            <input name="Name" id="Name" class="mini-textbox" required="true" requirederrortext="@FStr.NameRequired" />
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ParentId" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">@Html.Str("ParentId")：</label>
+
+                    <div class="col-xs-12 col-sm-5">
+                        <span class="block input-icon input-icon-right">
+                            <input type="text" id="ParentId" name="ParentId" class="mini-textbox" />
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Abstract" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">@JStr.Abstract：</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <span class="block input-icon input-icon-right">
+                            <input type="text" id="Abstract" name="Abstract" class="mini-textarea" />
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Location" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">@JStr.Address：</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <span class="block input-icon input-icon-right">
+                            <input type="text" id="Location" name="Location" class="mini-textbox" />
+                        </span>
+                    </div>
+                    <div class="help-block col-xs-12 col-sm-reset ace-icon fa fa-times-circle red field-validation-valid" data-valmsg-for="Location" data-valmsg-replace="true"></div>
+                </div>
+                <div class="form-group">
+                    <label for="IconLocation" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">@FStr.IconAddress：</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <span class="block input-icon input-icon-right">
+                            <input type="text" id="IconLocation" name="IconLocation" class="mini-textbox" />
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Language" class="col-xs-12 col-sm-3 control-label no-padding-right">@JStr.Language：</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <span class="input-icon block">
+                            <select id="Language" name="Language">
+                                @*
+                                    <option value=""></option>*@
+                                @foreach (var langKey in ResHelper.GetUsedCultureNames())
+                                {
+                                    var culture = new System.Globalization.CultureInfo(langKey);
+                                    <option value="@langKey">@culture.DisplayName</option>
+                                }
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="State">@JStr.Status：</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <select name="State" id="State">
+                            @*
+                                <option value=""></option>*@
+                            <option value="@((int)ArticleState.Published)">@JStr.Enabled</option>
+                            <option value="@((int)ArticleState.SetTop)">@FStr.SetTop</option>
+                            <option value="@((int)ArticleState.Static)">@JStr.ReadOnly</option>
+                            <option value="@((int)ArticleState.None)">@JStr.Disabled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="Ord">@JStr.Order：</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <input type="text" class="mini-textbox" id="Ord" name="Ord" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-6">@FStr.Properties：</label>
+                    <!--菜单按钮-->
+                    <div class="col-sm-9">
+                        <a id="add" title="@JStr.Add" href="javascript:void(0)" class="btn btn-info btn-xs">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                        <a id="sub" title="@JStr.Delete" href="javascript:void(0)" class="btn btn-warning btn-xs">
+                            <i class="glyphicon glyphicon-minus"></i>
+                        </a>
+                        <a id="moveup" title="@JStr.MoveUp" href="javascript:void(0)" class="btn btn-info btn-xs">
+                            <i class="glyphicon glyphicon-arrow-up"></i>
+                        </a>
+                        <a id="movedown" title="@JStr.MoveDown" href="javascript:void(0)" class="btn btn-warning btn-xs">
+                            <i class="glyphicon glyphicon-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="extForm" style="background-color :#beedea">
+                    <table>
+                        <tr style="display:none;">
+                            <td><input type="text" name="ExtId" style="display:none;" /></td>
+                            <td><input type="text" name="ExtName" placeholder="@Html.Str("PropertyName")" class="col-xs-10" /></td>
+                            <td><input type="text" name="DefaultValue" placeholder="@Html.Str("DefaultValue")" class="col-xs-10" /></td>
+                            <td>
+                                <select name="DataType" class="col-xs-12">
+                                    @foreach (var dt in Enum.GetValues(typeof(ExtDataType)))
+                                    {
+                                        <option value="@((int)dt)">@dt</option>
+                                    }
+                                </select>
+                            </td>
+                            <td><input type="text" name="MaxLength" placeholder="@JStr.Length" class="col-xs-10" /></td>
+                            <td>
+                                <select name="DataSourceType" class="col-xs-12">
+                                    @foreach (var dt in Enum.GetValues(typeof(ExtDataSourceType)))
+                                    {
+                                        <option value="@((int)dt)">@dt</option>
+                                    }
+                                </select>
+                            </td>
+                            <td><input type="text" name="DataSource" placeholder="@Html.Str("DataSourceValue")" /></td>
+                            <td>
+                                <input class="hidden" name="ExtState" id="ExtState" type="text" />
+                            </td>
+                        </tr>
+                        <tr id="first">
+                            <td><input type="text" name="ExtId" style="display:none;" /></td>
+                            <td><input type="text" name="ExtName" placeholder="@Html.Str("PropertyName")" class="col-xs-10" /></td>
+                            <td><input type="text" name="DefaultValue" placeholder="@Html.Str("DefaultValue")" class="col-xs-10" /></td>
+                            <td>
+                                <select name="DataType" class="col-xs-14">
+                                    @foreach (var dt in Enum.GetValues(typeof(ExtDataType)))
+                                    {
+                                        <option value="@((int)dt)">@dt</option>
+                                    }
+                                </select>
+                            </td>
+                            <td><input type="text" name="MaxLength" placeholder="@JStr.Length" class="col-xs-10" /></td>
+                            <td>
+                                <select name="DataSourceType" class="col-xs-14">
+                                    @foreach (var dt in Enum.GetValues(typeof(ExtDataSourceType)))
+                                    {
+                                        <option value="@((int)dt)">@dt</option>
+                                    }
+                                </select>
+                            </td>
+                            <td><input type="text" name="DataSource" placeholder="@Html.Str("DataSourceValue")" /></td>
+                            <td>
+                                <input class="hidden" name="ExtState" id="ExtState" type="text" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var currentId;
+
+    mini.parse();
+    var treeObj = mini.get("#catalogTree");
+
+    //定义全局变量，在点击节点后重新赋值，
+    //点击下一个节点前判断是否有改变，若改变了则保存Node
+    //为了后期对比匹配做的准备工作
+    var form = $('form').append("<input type='hidden' name='submitValue' value='' />");
+    form = $('form').append("<input type='hidden' name='Flow_Status' value='' />")
+    form = $('form').append("<input type='hidden' name='Flow_Remark' value='' />")
+    $('#Visible').val(0);
+    //2015/12/2
+    //如果修改后未保存，切换前提示用户是否保存
+    var check = false;//用来判断用户是否点击了“保存”按钮
+
+    function zTreeOnClick(e) {
+        if (!e.node) return;
+        $.newGET('@Url.Action("Edit")', { id: e.node.id }, function (tips) {
+            var func = tips.ReturnValue;
+
+            //页面的ID属性需要和传过来的ReuturnValue中的属性名相同
+            for (p in func) {
+                getUButton('#' + p).setValue(func[p]);
+            }
+
+            /* 否则只能用下面的赋值：
+            $('#Id').val(func.Id);
+            $('#Name').val(func.Name);
+            $('#ParentId').val(treeNode.ParentId);
+            ... */
+
+            var node = GetCurrentNode();
+            if (getUButton('#Id').getValue() == "0") {
+
+                //对于新增结点右侧的表单，直接引用树结点自带的数据
+                getUButton('#Ord').setValue(node.ord);
+                getUButton("#ParentId").setValue(node.pId);
+                getUButton('#Name').setValue(node.name);
+            }
+            ShowExts(func);
+            if (func.Id == (@Model.Id) && func.Id > 0){
+                $('.icon-new-addpeers').hide();
+            }
+            else{
+                $('.icon-new-addpeers').show();
+            }
+        });
+    }
+
+    function GetCurrentNode() {
+        var node = treeObj.getSelectedNode();
+        return node;
+    }
+
+    function addBrother() {
+        var node = GetCurrentNode();
+        if (node) node = treeObj.getParentNode(node);
+
+        var newNode = { name: "New Node", ord: GetMaxOrd(node), pId: node ? node.id : null, id: 0 };
+        treeObj.addNode(newNode, newNode.ord, node);
+        treeObj.selectNode(newNode);
+        // zTreeOnClick(treeObj, newNode);
+    }
+
+    function addChild() {
+        var node = GetCurrentNode();
+        if (!node.id) {
+            alert(JStr.ParentNoId);
+            return;
+        }
+        var newNode = { name: "New Node", ord: GetMaxOrd(node), pId: node.id, id: 0 };
+        treeObj.addNode(newNode, newNode.ord, node);
+        treeObj.expandNode(node);
+        treeObj.selectNode(newNode);
+        //zTreeOnClick({nodenewNode);
+    }
+
+    //获取结点的同级内索引序号
+    function getNodeIndex(node) {
+        var pNode = treeObj.getParentNode(node);
+        var children = treeObj.getChildNodes(pNode);
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] == node) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //获取结点的上层兄弟
+    function getPrevNode(node) {
+        var pNode = treeObj.getParentNode(node);
+        var children = treeObj.getChildNodes(pNode);
+        for (var i = 1; i < children.length; i++) {
+            if (children[i] == node) {
+                return children[i - 1];
+            }
+        }
+        return null;
+    }
+
+    //获取结点的下层兄弟
+    function getNextNode(node) {
+        var pNode = treeObj.getParentNode(node);
+        var children = treeObj.getChildNodes(pNode);
+        for (var i = 0; i < children.length - 1; i++) {
+            if (children[i] == node) {
+                return children[i + 1];
+            }
+        }
+        return null;
+    }
+
+    function GetMaxOrd(parentNode) {
+        parentNode = parentNode || treeObj.getRootNode();
+        var nodes = treeObj.getChildNodes(parentNode);
+        var ord = 0;
+        if (nodes) {
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].ord > ord) ord = nodes[i].ord;
+            }
+        }
+        return ord + 1;
+    }
+
+    function getCheckedNodeIds() {
+        var nodes = treeObj.getCheckedNodes();
+        if (nodes.length == 0) {
+            nodes = [GetCurrentNode()];
+        }
+        var idArr = [];
+        for (var i = 0; i < nodes.length; i++) {
+            idArr.push(nodes[i].id);
+        }
+        return idArr;
+    }
+
+    function reLocateNode() {
+        if (currentId) {
+            var node = treeObj.getNode({ id: currentId });
+            var pNode = treeObj.getParentNode(node);
+            if (pNode) treeObj.expandNode(pNode);
+            treeObj.selectNode(node);
+        }
+    }
+
+    //重新加载数据
+    function reloadData() {
+        treeObj.load('@Url.Action("GetAll","Functions")');
+    }
+
+    //$.validator.setDefaults({
+    //    onkeyup: false
+    //})
+
+    function checkNode() {
+        var node = GetCurrentNode();
+        if (!node) {
+            showTips({ Type: "warning", Message: "You should select a node" });
+        }
+
+        if (!node.id) {
+            showTips({ Type: "warning", Message: "You should save this node before this operation." });
+        }
+        return node;
+    }
+
+
+    var restValue = 0;
+
+    $.regButton({ text: "@FStr.AddBrother", noSubmit: addBrother });
+    $.regButton({ text: "@FStr.AddChild", noSubmit: addChild });
+
+    $.regButton({
+        text: "@JStr.Delete
+        beforeSubmit: function (ajax) {
+            ajax.validate = false;
+            var ids = getCheckedNodeIds();
+            if (!ids.length) {
+                return false;
+            }
+
+            //如果是未保存的新结点，则直接删除不提示
+            if (ids.length == 1 && !ids[0]) {
+                treeObj.removeNode(treeObj.getSelectedNode());
+                return false;
+            }
+            if (!confirm('@JStr.ConfirmDelete')) {
+                return false;
+            }
+            ajax.data = { ids: ids.join(',') };
+        },
+        afterSubmit: reloadData
+    });
+
+
+    $.regButton({
+        text: "@JStr.MoveUp
+        beforeSubmit: function (ajax) {
+            var node = checkNode();
+            if (!node) {
+                return false;
+            }
+            //上移结点
+            ajax.data = { id: node.id, dir: -1 };
+        },
+        afterSubmit: function () {
+            var node = GetCurrentNode();
+            treeObj.moveNode(node, getPrevNode(node), "before")
+            treeObj.selectNode(node);
+        }
+    });
+
+    $.regButton({
+        text: "@JStr.MoveDown",
+        beforeSubmit: function (ajax) {
+            var node = checkNode();
+            if (!node) {
+                return false;
+            }
+            //下移结点
+            ajax.data = { id: node.id, dir: 1 };
+        },
+        afterSubmit: function () {
+            var node = GetCurrentNode();
+            treeObj.moveNode(node, getNextNode(node), "after")
+            treeObj.selectNode(node);
+        }
+    });
+
+    $.regButton({
+        text: "@JStr.Move",
+        beforeSubmit: function (ajax) {
+            var ids = getCheckedNodeIds();
+            if (!ids.length) {
+                return false;
+            }
+            var pId = prompt("@FStr.PlzInputParentNodeId", '0');
+            if (!pId) ajax.cancel = true;
+            ajax.data = { ids: ids.join(','), pId: pId };
+        },
+        afterSubmit: function (data) {
+            currentId = data.ReturnValue.id;
+            reloadData();
+        }
+    });
+
+    $.regButton({
+        text: "@JStr.Save",
+        afterSubmit: function (data) {
+            data = data.ReturnValue;
+            if (!data) return false;
+            var node = GetCurrentNode();
+            treeObj.updateNode(node, data);
+            zTreeOnClick({ node: node });
+            //新增判断
+            check = true;
+        }
+    });
+
+    $.regButton({
+        text: "@JStr.Clone",
+        beforeSubmit: function (ajax) {
+            var ids = getCheckedNodeIds();
+            if (!ids) {
+                return false;
+            }
+            if (!confirm('@FStr.ConfirmCloneNodeAndChildren')) {
+                return false;
+            }
+            ajax.data = { ids: ids.join(',') };
+        },
+        afterSubmit: function (data) {
+            currentId = data.ReturnValue.id;
+            reloadData();
+        }
+    });
+
+    function ShowExts(func) {
+        $("#extForm tr:not(:first)").remove();
+        $.each(func.Exts, function (key, val) {
+            if (val.State != 1) {
+                //先将第一行隐藏，然后克隆一下
+                $("#extForm tr:first").clone(true).appendTo("#extForm");
+                $("#extForm tr:last").removeAttr("style");
+                //Id赋值
+                $("#extForm tr:last td").eq(0).find("input").val(val.Id);
+                //属性名称赋值
+                $("#extForm tr:last td").eq(1).find("input").val(val.Name);
+                //属性默认值赋值
+                $("#extForm tr:last td").eq(2).find("input").val(val.DefaultValue);
+                //类型赋值
+                $("#extForm tr:last td").eq(3).find("select").val(val.DataType);
+                //长度赋值
+                $("#extForm tr:last td").eq(4).find("input").val(val.MaxLength);
+                //数据源类型
+                $("#extForm tr:last td").eq(5).find("select").val(val.DataSourceType);
+                //数据源赋值
+                $("#extForm tr:last td").eq(6).find("input").val(val.DataSource);
+                //是否为空赋值
+                //$("tr:last td").eq(7).find("input").val(val.AllowNull);
+                //是否为空赋值
+                $("#extForm tr:last td").eq(7).find("input").val(val.State);
+            }
+        });
+        //先将第一行隐藏，然后克隆一下
+        $("#extForm tr:first").clone(true).appendTo("#extForm");
+        $("#extForm tr:last").removeAttr("style");
+    }
+
+    $('#add').click(function () {
+        //先将第一行隐藏，然后克隆一下
+        $("#extForm tr:first").clone(true).appendTo("#extForm");
+        $("#extForm tr:last").removeAttr("style");
+    });
+
+    $('#sub').click(function () {
+
+        if ($("#extForm").find("tr").length > 1) {
+            $("#light td").eq(7).find("input").val(1);
+            $('#light').hide();
+            //$("table tr:gt(1):last").remove();
+        }
+        if ($("#extForm").find("tr").length == 1) {
+            $("#light td").eq(7).find("input").val(1);
+            $('#light').hide();
+            $("#extForm tr:first").clone(true).appendTo("#extForm");
+            $("#extForm tr:last").removeAttr("style");
+        }
+        $('form').submit();
+    });
+
+    $('#extForm tr').click(function () {
+        $('#extForm tr').css("background-color", "#beedea");
+        $('#extForm tr').removeAttr("id");
+        $(this).css("background-color", "#ff0000");
+        $(this).attr("id", "light");
+    });
+
+    //元素上移
+    $('#moveup').click(function () {
+        var obj = $('#light');
+        var getUp = obj.prev();
+        if ($(getUp).css("display") == 'none') {
+            showTips("error", "@JStr.Error" + ":" + "@JStr.MoveUp");
+            return;
+        }
+        obj.after(getUp);
+    });
+
+    //元素下移
+    $('#movedown').click(function () {
+        var obj = $('#light');
+        var getdown = obj.next();
+        if ($(getdown).has("input").size() == 0) {
+            showTips("error", "@JStr.Error" + ":" + "@JStr.MoveDown");
+            return;
+        }
+        $(getdown).after(obj);
+    });
+
+    treeObj.selectNode(treeObj.getData()[0]);
+    zTreeOnClick({ Id: (@Model.Id)});
+    //  如果需要自定义搜索行为，可参考以下代码：
+    /*
+     $(function () {
+         //搜索框的事件处理
+         $.regButton({
+             text: '搜索',
+             noSubmit: function () {
+                 var key = $('.frame-search :text').val();
+                // todo: 写自定义搜索逻辑
+
+             }
+         });
+     });
+   */
+</script>

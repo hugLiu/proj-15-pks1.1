@@ -1,0 +1,36 @@
+﻿@using Jurassic.WebMap;
+@using System.Collections;
+@model MapFormData
+@{
+
+    var viewBag = this.ViewContext.Controller.ViewBag;
+    bool firstLoad = !CommOp.ToBool(viewBag.MapScriptsLoaded);
+    if (Model.Width.IsEmpty())
+    {
+        Model.Width = "100%";
+    }
+    if (Model.Height.IsEmpty())
+    {
+        Model.Height = "100%";
+    }
+    if (Model.Id.IsEmpty())
+    {
+        Model.Id = CommOp.NewId();
+    }
+    if (Model.JsMapName.IsEmpty())
+    {
+        Model.JsMapName = Model.Id;
+    }
+}
+<!--百度地图容器-->
+<div style="width:@(Model.Width);height:@(Model.Height);border:#ccc solid 1px;" id="@Model.Id"></div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=rNLVWB1bzVEkSafrGDVXoCRY"></script>
+<script type="text/javascript" src="~/Scripts/webframe.map.js"></script>
+<script type="text/javascript">
+    $(function () {
+        window["@Model.JsMapName"] = $('#@Model.Id').initMap(@Html.Raw(JsonHelper.ToJson(Model)));
+    });
+</script>
+@{
+    viewBag.MapScriptsLoaded = true;
+}

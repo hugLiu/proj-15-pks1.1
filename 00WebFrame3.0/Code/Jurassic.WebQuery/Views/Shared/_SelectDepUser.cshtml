@@ -1,0 +1,88 @@
+﻿@using Jurassic.WebQuery;
+@model SelectUserFormData
+@{
+    string startValue = Model.StartValue;
+    if (startValue == "0" || startValue.IsEmpty())
+    {
+        startValue = "";
+    }
+    var userIds = startValue.Split(',');
+    var userNames = (userIds.Length > 0) ? String.Join(",", AppManager.Instance.UserManager.GetAll().Where(u => userIds.Contains(u.Id))
+        .Select(u => u.Name)) : "";
+}
+<style>
+    .boxcls td td {
+        padding: 0;
+    }
+</style>
+<table style="width:100%" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td>
+            <input class="mini-textboxlist " id="@Model.Id" name="@Model.Name" @Html.Raw(Model.Attributes) value="@startValue" text="@userNames" style="width:100%;"
+                   url="@Url.Action("GetAllDeptUsers", "SelectDepUser")"
+                   valuefield="Id" textfield="UserName" />
+        </td>
+        <td class="textlist-btn">
+            <span class="mini-button " iconcls="icon-new-adduser" id="btn_@Model.Id"></span>
+        </td>
+    </tr>
+</table>
+<div id="win_@Model.Id" class="mini-window" title="@Html.Str("SelectUser")" style="width:500px;height:400px;"
+     showmaxbutton="true" showcollapsebutton="true" showshadow="true"
+     showtoolbar="false" showfooter="true" showmodal="false" allowresize="true" allowdrag="true">
+    <div property="footer" style="text-align:center;padding:5px;padding-right:15px;">
+        <a class="mini-button" id="ok_@Model.Id">@Html.Str("OK")</a>
+        <a class="mini-button" id="close_@Model.Id">@Html.Str("Close")</a>
+    </div>
+    <iframe frameborder="0" id="iframe_@Model.Id" style="width:100%;height:100%"></iframe>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var btn = mini.get("btn_@Model.Id");
+        var txt = mini.get("@Model.Id");
+        var closebtn = mini.get("close_@Model.Id");
+        var okbtn = mini.get("ok_@Model.Id");
+        var win = mini.get("win_@Model.Id");
+        var winframe = document.getElementById("iframe_@Model.Id");
+
+        closebtn.on("click", function(){win.hide();});
+        okbtn.on("click",  function (action) {
+            var users = winframe.contentWindow.getSelectedUsers();
+            txt.setValue(users.cast(function (u) { return u.Id }).join(','));
+            txt.setText(users.cast(function (u) { return u.UserName }).join(','));
+            win.hide();
+        });
+
+        btn.on("click", function (e) {
+            var startValue = txt.getValue();
+            if (!winframe.src)
+            {
+                winframe.onload = function(){
+                    winframe.contentWindow.setSelectedUsers(startValue);
+                };
+                winframe.src = "@Url.Action("Index", "SelectDepUser", new { multiSelect = Model.MultiSelect })";
+            }
+            else{
+                winframe.contentWindow.setSelectedUsers(startValue);
+            }
+            win.show();
+        });
+
+        var multiselect = @(Model.MultiSelect? "true":"false");
+
+        //当禁止多选时，只用最后一个
+        function setSingleValue(){
+            if (multiselect) return;
+            var val = txt.getValue();
+            var text = txt.getText();
+            var valArr = val.split(',');
+            if (valArr.length > 1)
+            {
+                var len = valArr.length - 1;
+                txt.setValue(val.split(',')[len]);
+                txt.setText(text.split(',')[len]);
+            }
+        }
+        txt.on("valuechanged", setSingleValue);
+    });
+</script>

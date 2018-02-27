@@ -1,0 +1,184 @@
+﻿/*公共样式*/
+
+body {
+    color: #000;
+    margin: 0px;
+    background-color: #ebeded ;
+    /*背景颜色改为渐变色*/
+    /*background: -moz-linear-gradient(top,#5c95d1,#5c95d1,#80b6ee); Firefox，Flock*/
+    /*background: -webkit-linear-gradient(top,#5c95d1,#5c95d1,#80b6ee);Safari、Chrome-new*/
+    /*background: -webkit-gradient(linear,top,#5c95d1,#5c95d1,#80b6ee); Safari、Chrome-old*/
+    /*background: -o-linear-gradient(top,#5c95d1,#639cd7,#80b6ee); opera*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 0, startColorstr=#201e1f, endColorstr =#2780dc); IE浏览器*/
+    overflow:hidden;
+}
+
+/*------定义输入框------*/
+.mini-textbox-border {
+    background-color: #ecf5fa;
+}
+.login .mini-textbox-border,
+.login .mini-textbox-focus .mini-textbox-border{
+    border: solid 1px #ecf5fa;
+}
+.mini-textbox-input {
+    background-color: #ecf5fa;
+}
+.mini-required .mini-textbox-border,
+.mini-required .mini-buttonedit-border {
+    background: #ecf5fa;
+    color: #999999;
+}
+
+/*------定义button-----*/
+.login .mini-button, a.mini-button,.login a:hover.mini-button {
+    background: url(images/login/loginbuttonbg.png) repeat-x #de811d;
+    background: -moz-linear-gradient(top,#f9a817,#dd790d);/* Firefox，Flock*/
+    background: -webkit-linear-gradient(top,#f9a817,#dd790d);/*Safari、Chrome-new*/
+    background: -webkit-gradient(linear,top,#f9a817,#dd790d);/* Safari、Chrome-old*/
+    background: -o-linear-gradient(top,#f9a817,#dd790d); /*opera*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 0, startColorstr=#f9a817, endColorstr =#dd790d);/* IE浏览器*/   
+}
+
+
+.login .mini-button-pressed, a:hover.mini-button-pressed,
+.mini-button-checked, a:hover.mini-button-checked,
+ a.mini-button-popup, a:hover.mini-button-popup
+{
+    background:#f9a817  url(images/icon/disabled1.png) repeat-x 0 0px;    
+}
+ /*------------------Login.cshtml--------------------*/
+
+.login {
+    margin: auto;
+    background: none;
+    /*box-shadow: 0 5px 10px rgba(0,0,0,.6);*/
+}
+.logintitle {
+    background-color: none;
+    margin-bottom:30px;   
+}
+    .logintitle .logo {
+        background-image: url("Images/login/logoblue.png");
+    }
+        .logintitle p.p1 {
+            color: #044898;
+            text-shadow: 1px 1px 1px #bfbfbf;
+        }
+        .logintitle p.p2 {
+            color: #b5b5b5;
+        }
+.loginForm {
+    margin: 0px 245px;
+    padding: 30px 40px;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 5px 7px #949494;
+}
+.loginForm_bg{
+    background:url(images/login/bg.jpg) repeat-x;
+}
+.loginForm_loginbg {
+    background: url(images/login/loginbg.jpg) no-repeat;
+    margin:0 auto;
+    width:867px;
+}
+
+.form_username,.form_password {
+    border-color: #dcecfb;
+    background-color:#ecf5fa;
+}
+.form_username {
+    background-image: url("Images/login/username.png");
+}
+.form_password {
+    background-image: url("Images/login/password.png") ;
+    margin-top: 30px;
+}
+.login_RememberMe a,
+.login_RememberMe a:hover {
+    color: #5b9fe4;
+}
+/*语言选择区*/
+.en_zh a.mini-button,
+.en_zh a:hover.mini-button {
+    background: url(images/login/en_zhbg.png) repeat-x #f2f2f2;
+    border: 1px solid #cbcbcb;
+}
+    .en_zh a:hover.mini-button {
+        box-shadow: none;
+    }
+.footerlogo{
+     background: url(images/login/Logobottom.png) no-repeat;
+}
+    .footertext ul {
+        color: #b5b5b5;
+    }
+
+/*-----------Login.cshtml-----------------*/
+
+/*---------------ForgotPassword.cshtml---------------*/
+.fp-header {
+    height: 60px;
+    width: 100%;
+}
+.fp-logobar {
+    margin: 0 auto;
+    padding:0 150px;
+    height: 60px;
+    line-height: 60px;
+}
+    .fp-logobar h2 {
+        float: left;
+        margin: 0;
+        
+    }
+        .fp-logobar h2 span {
+            color: #ff6a00;
+        }
+    .fp-logobar span {
+        float: right;
+    }
+
+.fp a {
+    color: #0297f5;
+    text-decoration: none;
+}
+    .fp a:hover {
+        text-decoration: underline;
+    }
+.fp-main {
+    width: 100%;
+    padding:0 150px;
+    background-color:#f4f4f4;
+}
+.fp-info {
+    width: 250px;
+    height: 150px;
+    padding:10px 0;
+}
+.fp .mini-textbox {
+    width: 100%;
+    height: 25px;
+    border-radius: 3px;
+}
+.fp .mini-textbox-border {
+    height: 23px;
+}
+.fp .mini-textbox-input {
+    height: 23px;
+}
+.fp .mini-button-text{
+    font-size:14px;
+}
+.fp .mini-button ,.fp a.mini-button{
+    border-radius:2px;
+    padding:3px 0;
+    background:#cbcbcb;
+}
+body .fp a:hover.mini-button {
+    padding:3px 0px;
+    
+}
+/*---------------ForgotPassword.cshtml---------------*/
+

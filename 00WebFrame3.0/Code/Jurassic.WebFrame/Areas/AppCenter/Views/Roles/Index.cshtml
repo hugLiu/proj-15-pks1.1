@@ -1,0 +1,199 @@
+﻿<div class="mini-splitter frame-fit" style="width: 100%">
+    <div size="50%">
+        <div class="mini-splitter" vertical="true" style="width: 100%; height: 100%;">
+            <div size="50%">
+                <h4>
+                    @FStr.RolesList
+                </h4>
+                <div class="mini-fit">
+                    <div id="rolesGrid" class="mini-datagrid" style="width:100%;height:100%;"
+                         url="@Url.Action("GetAll")" showpager="false" onselectionchanged="edit">
+                        <div property="columns">
+                            <div type="indexcolumn"></div>
+                            <div field="Id" width="120">ID</div>
+                            <div field="Name" width="100">@JStr.Role</div>
+                            <div field="Description" width="100">@JStr.Description</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4>
+                    @Html.Str("Users")
+                </h4>
+                <div class="mini-fit">
+                    <div id="usersGrid" class="mini-datagrid" style="width: 100%; height: 100%;"
+                         url="@Url.Action("GetRoleUsers", "Users")"
+                         showpager="false" allowresize="true" multiselect="true">
+                        <div property="columns">
+                            <div field="Id" headeralign="center" allowsort="true">ID</div>
+                            <div field="Name" headeralign="center" allowsort="true">@JStr.UserName</div>
+                            @*<div field="TrueName" headeralign="center" allowsort="true">@JStr.TrueName</div>*@
+                            <div field="Email" headeralign="center" allowsort="true">@JStr.Email</div>
+                            <div field="PhoneNumber" headeralign="center" allowsort="true">@JStr.PhoneNumber</div>
+                            <div field="RoleNames" headeralign="center" allowsort="true">@FStr.RoleNames</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h4>
+            @JStr.BaseInfo
+        </h4>
+        <input type="hidden" name="FuncIds" id="FuncIds" value="" />
+        <table width="100%">
+            <tr>
+                <td>
+                    ID
+                </td>
+                <td>
+                    <input id="Id" class="mini-textbox" enabled="false" />
+                    <input name="Id" id="hdnId" type="hidden" enabled="false" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @JStr.Name
+                </td>
+                <td>
+                    <input name="Name" id="Name" class="mini-textbox" required="true" onvalidation="remoteCheckName" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @JStr.Description
+                </td>
+                <td>
+                    <input name="Description" id="Description" class="mini-textbox" />
+                </td>
+            </tr>
+        </table>
+        <h4>
+            @FStr.RolePermission
+        </h4>
+
+        <div class="mini-fit">
+            <ul id="catalogTree" class="mini-tree" style="width: 100%"
+                checkrecursive="true" showcheckbox="true" showtreeicon="true"
+                textfield="name" idfield="id" parentfield="pId" resultastree="false" expandonload="1"></ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    function getCheckedIds() {
+        var nodes = treeObj.getCheckedNodes(true);
+        var idArr = [];
+        for (var i = 0; i < nodes.length; i++) {
+            idArr.push(nodes[i].id);
+        }
+        var ids = idArr.join(',');
+        $('#FuncIds').val(ids);
+    }
+
+    var treeObj = mini.get("#catalogTree");
+    var rolesGrid = mini.get("#rolesGrid");
+    rolesGrid.load();
+    var allFunctions;
+    var currentId = "@(ViewBag.CurrentId)";
+
+
+    $.newGET('@Url.Action("GetAllRoleMenus", "Functions")', function (zNodes) {
+        allFunctions = zNodes;
+        treeObj.loadList(allFunctions, "id", "pId");
+        setFocus(currentId);
+    });
+
+    function setCheckStates(functionIds) {
+        treeObj.uncheckAllNodes();
+        $(allFunctions).each(function () {
+            var checked = $.inArray(this.id, functionIds) >= 0;
+            //当结点有权限，并且是叶子结点时，勾选结点
+            if (checked && treeObj.isLeaf(this)) {
+                treeObj.checkNode(this);
+            }
+        });
+    }
+
+    //function allchildrenUnchecked(node,functionIds) {
+    //    var children = treeObj.getChildNodes(node);
+    //    if (!children) return true;
+    //    for (var i=0; i <children.length;i++){
+    //        if ($.inArray(children[i].id, functionIds) >= 0) {
+    //            return false;
+    //        }
+    //    };
+    //    return true;
+    //}
+
+    function edit(e) {
+        var grid = e.sender;
+        var usertable = mini.get("usersGrid");
+        var record = grid.getSelected();
+        if (record) {
+            $.newGET('@Url.Action("Edit")', { id: record.Id }, showEdit);
+            usertable.load({ roleId: record.Id });
+        }
+    }
+
+    function showEdit(tips) {
+        mini.get('#Id').setValue(tips.ReturnValue.Id);
+        $('#hdnId').val(tips.ReturnValue.Id);
+        mini.get('#Name').setValue(tips.ReturnValue.Name);
+        mini.get('#Description').setValue(tips.ReturnValue.Description);
+        setCheckStates(tips.ReturnValue.FunctionIds);
+        if (!(mini.get('#Name').getValue())) {
+            mini.get('#Name').focus();
+        }
+    }
+
+    function setFocus(id) {
+        var row = rolesGrid.findRow(function (row) {
+            return row.Id == id;
+        });
+        rolesGrid.select(row, true);
+    }
+
+    function remoteCheckName(e) {
+        if (e.isValid) {
+            var re = $.getSync("@Url.Action("CheckRoleName")", { name: e.value });
+            if (!re) {
+                e.errorText = "@FStr.DuplicatedRoleName";
+                e.isValid = false;
+            }
+        }
+    }
+
+    $.regButton({
+        text: "@JStr.Add",
+        beforeSubmit: function (ajax) {
+            ajax.validate = false;
+            ajax.data = null;
+        },
+        afterSubmit: showEdit
+    });
+
+    $.regButton({
+        text: "@JStr.Save",
+        beforeSubmit: getCheckedIds,
+        afterSubmit: function (data) {
+            rolesGrid.reload();
+            setFocus(data.ReturnValue.Id);
+        }
+    });
+
+    $.regButton({
+        text: "@JStr.Delete",
+        beforeSubmit: function (ajax) {
+            ajax.data = { id: mini.get("#Id").getValue() };
+            return confirm("@JStr.ConfirmDelete");
+        },
+        afterSubmit: function (data) {
+            rolesGrid.reload();
+        }
+    });
+
+</script>

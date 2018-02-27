@@ -1,0 +1,57 @@
+﻿[
+  {
+    "Id": "0210",
+    "Name": "系统首页",
+    "Location": "/",
+    "IconClass": "icon-new-home",
+    "Method": 0,
+    "AuthType": 1,
+    "Description": "配置该页面是为了明确系统首页也是需要登录才能进的",
+    "Ord": 0,
+    "Visible": 0,
+    "Parameters": [],
+    "ControllerName": "Jurassic.WebFrame.Controllers.HomeController",
+    "ActionName": "Index",
+    "LogType": 0,
+    "RelatedIds": []
+  },
+  {
+    "Id": "topnav",
+    "Name": "导航栏顶部",
+    "Location": "~/views/shared/_topnav.cshtml",
+    "IconClass": "",
+    "Method": 0,
+    "AuthType": 1,
+    "Ord": 0,
+    "Visible": 9,
+    "Parameters": [],
+    "LogType": 2,
+    "RelatedIds": []
+  },
+  {
+    "Id": "quickacc",
+    "Name": "消息",
+    "Location": "_MessageAlert",
+    "IconClass": "",
+    "Method": 0,
+    "AuthType": 1,
+    "Ord": 1,
+    "Visible": 65,
+    "Parameters": [],
+    "LogType": 2,
+    "RelatedIds": []
+  },
+  {
+    "Id": "quickacc",
+    "Name": "用户设置",
+    "Location": "UserAvatar",
+    "IconClass": "",
+    "Method": 0,
+    "AuthType": 1,
+    "Ord": 2,
+    "Visible": 65,
+    "Parameters": [],
+    "LogType": 2,
+    "RelatedIds": []
+  }
+]

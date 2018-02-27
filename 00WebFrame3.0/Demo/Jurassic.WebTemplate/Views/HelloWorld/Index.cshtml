@@ -1,0 +1,116 @@
+﻿@model Jurassic.WebTemplate.Controllers.HelloWorldModel
+<div class="mini-panel" title="说明"
+     style="width:100%">
+    <p>
+        本页面用作简单的框架演示。<br />
+        当点击添加时，会把用户输入的商品添加进去。当超过8个时，会不让添加。<br />
+        当点击删除时，会提示是否删除。当只剩一个时，再删除会抛一个异常。<br />
+    </p>
+</div>
+<div id="grid1" class="mini-datagrid frame-search-grid" style="width:100%"
+     url="@Url.Action("GetData")" showpager="false" allowresize="true">
+    <div property="columns">
+        <div type="indexcolumn"></div>
+        <div field="Id" headeralign="center" allowsort="true">ID</div>
+        <div field="Name" headeralign="center" allowsort="true">@Html.Str("Product+Name")</div>
+        <div field="Price" headeralign="center" allowsort="true">@Html.Str("Price")</div>
+        <div field="CreateTime" headeralign="ce nter" dateformat="yyyy-MM-dd HH:mm:ss" allowsort="true">@Html.Str("Time")</div>
+        <div field="SalerName" headeralign="center" allowsort="false">@Html.Str("Saler")</div>
+    </div>
+</div>
+<div>
+    <table>
+        <tr>
+            <td>@Html.Str("Product+Name")：<input type="text" id="Name" name="Name" class="mini-textbox" required="true"></td>
+            <td>@Html.Str("Price")：<input type="text" id="Price" name="Price" class="mini-textbox"></td>
+            @*一般情况下，页面操作按钮应该集中在顶部工具栏，并且由配置文件自动维护。
+                    如果有特殊需要，也可以手动写在页面中，但要加上frame-submit样式
+                以便于框架自动处理，如下面的“添加”按钮*@
+            <td><a class="mini-button frame-submit frame-default">添加</a></td>
+        </tr>
+    </table>
+</div>
+
+<div class="mini-panel" title="动态显示隐藏"
+     style="width:100%">
+    <p>
+        加了frame-clicktoggle伪样式名称的元素会点击除它自身以外任一地方消失。<br />
+        该元素的ID后带-toggle的ID会控制它的显示/隐藏
+    </p>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <a class="mini-button" id="popdiv-toggle" style="margin:6px;">显示/隐藏下面的DIV</a>
+        <div id="popdiv" style="height:120px;border:1px solid #aaa;" class="frame-clicktoggle">
+            点击我以外的其他地方我会消失。
+        </div>
+    </div>
+    <div class="col-md-6">
+        <a class="mini-button" id="popcode-toggle" style="margin:6px;">HTML代码</a>
+<pre id="popcode" style="border:1px solid #aaa;height:120px;" class="frame-clicktoggle">
+    &lt;a class="mini-button" id="popdiv-toggle" style="margin:6px;">显示/隐藏下面的DIV&lt;/a&gt;
+    &lt;div id="popdiv" style="height:120px;border:1px solid #aaa;" class="frame-clicktoggle"&gt;
+        点击我以外的其他地方我会消失。
+    &lt;/div&gt;
+</pre>
+    </div>
+</div>
+<script type="text/javascript">
+
+    mini.parse();
+    var grid = mini.get("grid1");
+    grid.load();
+
+
+    $('form').bind('afterSubmit', function () {
+        grid.reload();
+    });
+
+    $.regButton({
+        text: "添加", //添加按钮是硬编码的
+        beforeSubmit: function (ajax) {
+            debugger;
+            ajax.url = "@Url.Action("Add")";
+        },
+    });
+
+    $.regButton({
+        text: "删除", //删除按钮是在配置中自动生成的
+        beforeSubmit: function (ajax) {
+            ajax.validate = false; //防止自动验证表单
+            if (!grid.getSelected()) {
+                alert('请先选中一行。');
+                return false;
+            }
+            ajax.data = { id: grid.getSelected().Id };
+            return confirm('是否删除？');
+        },
+    });
+
+    $.regButton({
+        text: "报表输出",
+        noSubmit: function () {
+            location.href = "@Url.Action("ReportViewer")";
+        },
+    });
+
+    $.regButton({
+        text: "报表输出",
+        noSubmit: function () {
+            location.href = "@Url.Action("ReportViewer")";
+        },
+    });
+
+    $.regButton({
+        text: "文件管理",
+        noSubmit: function (data) {
+            mini.open({
+                url: "@Url.Action("ResourceManageImage")",
+                title: "文件管理",
+                width: 500,
+                height: 400
+            });
+        }
+    });
+
+</script>

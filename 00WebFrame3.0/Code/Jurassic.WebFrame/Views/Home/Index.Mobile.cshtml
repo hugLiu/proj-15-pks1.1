@@ -1,0 +1,164 @@
+﻿@model Jurassic.WebFrame.Models.UserConfig
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = JStr.SystemName;
+
+    //排除按钮的菜单
+    List<AppFunction> UserMenus = AppManager.Instance.GetUserMenus(User.Identity.Name)
+        .Where(func => (func.Visible & VisibleType.Button) != VisibleType.Button)
+        .ToList();
+
+    var baseController = this.ViewContext.Controller as BaseController;
+    //导航栏顶部
+    var topFuncs = UserMenus.Where(f => f.ParentId.IsEmpty()
+                     && (f.Visible & VisibleType.Container) == VisibleType.Container && !f.Location.IsEmpty());
+    int grpIndex = 0;
+}
+<style>
+    #btnLeftMenu.mini-button {
+        border: none;
+        background: none;
+    }
+
+    #btnLeftMenu .mini-button-text {
+        padding-top: 15px;
+    }
+
+    .glyphicon-menu-hamburger {
+        font-size: 24px;
+        color: white;
+    }
+</style>
+<div id="layout1" class="mini-layout" style="width:100%;height:100%;" splitsize="-1">
+    <div class="header" region="north" height="56" showsplit="false" showheader="false">
+        <a href="#" id="btnLeftMenu" class="mini-button mini-button-iconTop"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+        <div class="shortcut_menu">
+            @*引用分部视图显示用户配置入口*@
+            @Html.Partial("UserAvatar")
+            @Html.Partial("_MessageAlert")
+            @Html.JAuthLink(FStr.ChangePassword, "ChangePassword", "Account", null, new { @class = "mini-button mini-button-iconTop", target = "main", iconcls = "icon-new-changepassword", plain = "true" })
+            @Html.JAuthLink(FStr.Logout, "Logout", "Account", null, new { @class = "mini-button mini-button-iconTop", iconcls = "icon-new-exit", plain = "true" })
+        </div>
+    </div>
+
+
+    @*内容部分*@
+    <div title="center" region="center" bodystyle="overflow:hidden;" style="border: 0px solid">
+        <div style="-webkit-overflow-scrolling:touch;overflow:auto;width:100%;height:100%">
+            <iframe id="mainframe" frameborder="0" name="main" style="width:100%;height:100%;" border="0"></iframe>
+        </div>
+    </div>
+</div>
+<div class="frame-fit" id="leftMenu" style="border:0; position:absolute;left:0px; top:50px; width:50%;height:100%;z-index:1002">
+    @if (!topFuncs.IsEmpty())
+    {
+        <div id="nav_leftTop">
+            @foreach (var func in topFuncs)
+            {
+                @Html.Partial(func.Location, func)
+            }
+        </div>
+    }
+    <!--OutlookMenu-->
+    <div class="mini-outlookbar drawer-tree" id="nav_leftMenuBar" activeindex="0" style="width:100%;height:100%" autocollapse="true">
+        @foreach (var func in UserMenus.Where(f => f.ParentId.IsEmpty()
+                    && (f.Visible & VisibleType.Container) == 0))
+        {
+            <div title="@func.Name" name="grp_@func.Id">
+                <a name="grp_@func.Id" id="grp_@grpIndex"></a>@*用于标记当前outlookbar的Group序号*@
+                @{
+            bool partial = false;
+            foreach (var f in func.GetChildren())
+            {
+                if ((f.Visible & VisibleType.Container) == VisibleType.Container && !f.Location.IsEmpty())
+                {
+                    partial = true;
+                    @Html.Partial(f.Location)
+                }
+            }
+            if (!partial)
+            {
+                <div id="leftTree_@func.Id" class="mini-tree" @*左边菜单树*@
+                     idfield="Id" parentfield="ParentId" textfield="Name" iconfield="IconClass"
+                     onnodeclick="onNodeClick" expandonnodeclick="true"
+                     borderstyle="border:0" expandonload="true">
+                </div>
+            }
+                }
+            </div>
+            grpIndex++;
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    _userMenus = $.getSync(_userMenusUrl);
+    mini.parse();
+    $('#btnLeftMenu').click(function () {
+        $('#leftMenu').toggle();
+    });
+    function bindTreeMenu(id) {
+        var tree = mini.get("#leftTree_" + id);
+        if (tree == null) return;
+        tree.loadList(FilterMenu(id), "Id", "ParentId");
+    }
+
+    function FilterMenu(id) {
+        var arr = [];
+        for (var i = 0; i < _userMenus.UserMenu.length; i++) {
+            if ((_userMenus.UserMenu[i].Visible & 16) == 0 && _userMenus.UserMenu[i].ParentId == id) {
+                arr.push(_userMenus.UserMenu[i]);
+            }
+        }
+        return arr;
+    }
+
+    @foreach (var func in UserMenus.Where(f => f.ParentId == null))
+    {
+        @Html.Raw("bindTreeMenu('" + func.Id + "');\r\n")
+    }
+    var startPage = eval("(" + getCookie("startPage") + ")");
+    startPage = startPage || {
+        Id: "shortcut_startpage",
+        Name: "起始页",
+        Location: '@Url.Action("StartPage")'
+    };
+    var iframe = document.getElementById("mainframe");
+    function onNodeClick(e) {
+        var node = e.node;
+        iframe.src = node.Location;
+        setCookie("startPage", '{Id:"' + node.Id + '",Name:"' + node.Name + '",Location:"' + node.Location + '"}');
+        $('#leftMenu').hide();
+    }
+
+    $('.shortcut_menu a').click(function (e) {
+        if (this.target != "main") return;
+        e.preventDefault();
+        var txt = $(this).text().trim();
+        onNodeClick({
+            node: {
+                Id: "shortcut_" + (this.id || txt),
+                Name: txt,
+                Location: this.href
+            }
+        });
+    });
+
+    onNodeClick({ node: startPage });
+
+    var lastUrl = null;
+    function goUrl(url) {
+        lastUrl = iframe.contentWindow.location.href;
+        iframe.contentWindow.location.href = url;
+    }
+
+    function goBack() {
+        iframe.contentWindow.location.href = lastUrl;
+    }
+
+    $(function () {
+        $('#nav_leftMenuBar').height($(window).height() - $('#nav_leftTop').height() - 50);
+    });
+</script>
+
+
+
