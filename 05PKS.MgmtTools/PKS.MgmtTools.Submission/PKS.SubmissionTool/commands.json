@@ -1,0 +1,14 @@
+{
+  "commands": {
+    "发布": {
+      "fileName": "cmd.exe",
+      "workingDirectory": ".",
+      "arguments": "/c Command\\发布.bat"
+    },
+    "发布 -1902812892": {
+      "fileName": "cmd.exe",
+      "workingDirectory": ".",
+      "arguments": "/c Command\\发布.bat"
+    }
+  }
+}

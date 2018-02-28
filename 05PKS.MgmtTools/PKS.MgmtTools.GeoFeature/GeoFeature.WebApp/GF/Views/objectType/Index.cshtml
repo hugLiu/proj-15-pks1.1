@@ -1,0 +1,550 @@
+﻿@{
+    Layout = "~/Views/Shared/_FormLayout.cshtml";
+    ViewBag.ShowSearchBox = false;
+}
+
+<style>
+    .mini-textbox,.mini-ComboBox {
+        width: 400px;
+    }
+    .frame-form legend {
+        width: auto;
+        font-size: 14px;
+        margin-left: 15px;
+        border-width: 0px;
+    }
+    .frame-form fieldset {
+        border: solid 1px #d5d5d5;
+        position: relative;
+    }
+</style>
+
+<div class="mini-splitter frame-fit" style="width: 100%; height: 100%">
+    <div size="300" showcollapsebutton="true">
+        <ul id="treeData" class="mini-tree" style="height:100%" url="@Url.Action("GetTreeData")" 
+            showtreeicon="true" 
+            textfield="Name" 
+            idfield="Id"
+            parentfield="PId" ,
+            onnodeselect="nodeselect" 
+            expandOnLoad ="true"
+            resultastree="false"
+            >
+        </ul>
+    </div>
+    <div>
+        <div id="classf" class="frame-form" style="padding: 2px 2px 2px 10px; visibility: hidden;">
+            <fieldset style="height: 25px; border-width: 0px; border-top-width: 1px;">
+                <legend>
+                    <label>
+                        @Html.Str("对象类型分类")
+                    </label>
+                </legend>
+            </fieldset>
+            <table id="mainForm1" class="boxcls">
+                <tr>
+                    <td class="right" style="width: 300px">
+                        <label for="Id$text">ID：</label></td>
+                    <td>
+                        <input name="Id" id="Id" class="mini-textbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right">
+                        <label for="TypeClass">分类名称：</label></td>
+                    <td>
+                        <input name="TypeClass" id="TypeClass" class="mini-textbox" onkeyup="nameKeyup"/>
+                    </td>
+                </tr>                    <tr>
+                        <td class="right">
+                            <label for="IsUserDefine">是否内置：</label></td>
+                        <td>
+                            <input name="IsUserDefine" id="IsUserDefin" class="mini-ComboBox"  readonly="true"/>
+                        </td>
+                    </tr>
+
+            </table>
+        </div>
+        <div class="mini-fit" id="formData" style="overflow: scroll;">
+            <div id="objtypef" class="frame-form" style="padding: 2px 2px 2px 10px; visibility: hidden; width: 100%;">
+                <fieldset style="height: 25px; border-width: 0px; border-top-width: 1px;">
+                    <legend>
+                        <label>
+                            @Html.Str("对象类型分类")
+                        </label>
+                    </legend>
+                </fieldset>
+                <table id="mainForm2" class="boxcls">
+                    <tr>
+                        <td class="right" style="width: 300px">
+                            <label for="Name">对象类型：</label></td>
+                        <td>
+                            <input name="Name" id="Name" class="mini-textbox" onkeyup="nameKeyup"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right" style="width: 300px">
+                            <label for="EName">对象名称：</label></td>
+                        <td>
+                            <input name="EName" id="EName" class="mini-textbox" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="right">
+                            <label for="FT">特征类型：</label></td>
+                        <td>
+                            <input name="FT" id="FT" class="mini-textbox" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right">
+                            <label for="UseGeometry">是否有坐标：</label></td>
+                        <td>
+                            <input name="UseGeometry" id="UseGeometry" class="mini-ComboBox" onvaluechanged="onGeometryChanged" />
+                        </td>
+                    </tr>
+                    <tr id="trShape">
+                        <td class="right">
+                            <label for="Shape">几何类型：</label></td>
+                        <td>
+                            <input name="Shape" id="Shape" class="mini-ComboBox" textfield="text" valuefield="id" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right">
+                            <label for="IsUserDefine">是否内置：</label></td>
+                        <td>
+                            <input name="IsUserDefine" id="IsUserDefine" class="mini-ComboBox"  readonly="true"/>
+                           
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <div id="tabs1" class="mini-tabs" activeindex="0" style="width: 100%; min-height: 300px ;" buttons="#tabsButtons" bodyStyle="padding:0;border:0;" onactivechanged="onactiveTabchange" onbeforecloseclick="beforecloseclick">
+                </div>
+                <div id="tabsButtons" style="padding-right:15px;padding-top:3px" >
+                    <input id="txtNS" class="mini-textbox" style="width:170px" emptytext="请输入参数应用场景名称" onkeyup="onkeyup"/>
+                    <a class="mini-button" id="btnAddNS" onclick="addTab()" enabled="false">+</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    mini.parse();
+    //是否可编辑系统内置 
+    var DefSys = false;
+    var treeData = mini.get('#treeData')
+    var form = new mini.Form("formData");
+    var tabs = mini.get("#tabs1");
+    var btnAddNS = mini.get("btnAddNS");
+    var txtns = mini.get("txtNS");
+    var shapeCom = mini.get("Shape");
+    var userDefinCom = mini.get("IsUserDefine");
+    var hasGeoCom = mini.get("UseGeometry");
+    var txtTypeClass = mini.get("TypeClass");
+    var txtBotName = mini.get("Name");
+    var userDefin = mini.get("IsUserDefin");
+
+    var shapeData = [{ id: "Point", text: "点" }, { id: "Line", text: "线" }, { id: "Polygon", text: "面" }, { id: "", text: "" }];
+    shapeCom.setData(shapeData);
+    var userDefinData = [{ id: "1", text: "是" }, { id: "0", text: "否" }];
+    userDefinCom.setData(userDefinData);
+    userDefin.setData(userDefinData);
+    var hasGeoData = [{ id: "1", text: "是" }, { id: "0", text: "否" }];
+    hasGeoCom.setData(hasGeoData);
+    var dataType = [{ id: "String", text: "字符串" }, { id: "Decimal", text: "数字" }, { id: "Date", text: "日期" }];
+
+    //添加对象类型分类
+    $.regButton({ id: "Addbrd", noSubmit: addTypeClass });
+    //添加对象类型
+    $.regButton({ id: "addchd", noSubmit: addObjType });
+
+    $(function () {
+        //打开页面默认选中根节点
+        var nodes = treeData.getList().length;
+        if (nodes > 0) {
+            treeData.selectNode(treeData.getList()[0]);
+        }
+    });
+
+    var selectedNode;
+    var nodeLevel;
+    //树节点选中事件,刷新明细数据，保存上个节点的改变
+    function nodeselect(e) {
+        if (tabs && tabs.getActiveTab()) {
+            var grid = mini.get("datagrid" + tabs.getActiveTab().title);
+            grid.cancelEdit();
+        }
+        if (!e.node) {
+            selectedNode == null;
+            return;
+        }
+        setReadOnly(e.node);
+        updateNode();
+        selectedNode = e.node;
+        nodeLevel = treeData.getLevel(e.node);
+
+        var node = treeData.getSelectedNode();
+        if (node == null || node["Id"] == '') {
+            return;
+        }
+        var dataID = node["Id"];
+        tabs.removeAll();
+        //var classf = mini.get('#classf');
+        //var objtypef = mini.get('#objtypef');
+
+        if (treeData.getLevel(node) == 1) {
+            $("#objtypef").attr("style", "visibility:visible;");
+            $("#classf").attr("style", "display: none;");
+        } else {
+            $("#objtypef").attr("style", "display: none;");
+            $("#classf").attr("style", "visibility:visible;");
+            //分类的表单赋值
+            mini.get('#Id').setValue(node["Id"]);
+            mini.get('#TypeClass').setValue(node["Name"]);
+            userDefin.setValue(node["IsUserDefine"]);
+        }
+
+        //添加树组件加载遮罩,避免频繁点击树节点造成卡死
+        treeData.mask();
+        //对象类型的表单赋值
+        form.setData(node);
+
+        if (node.UseGeometry == null || node.UseGeometry == "0")
+            $("#trShape").attr("style", "display: none;");
+        else
+            $("#trShape").attr("style", "visibility:visible;");
+
+        if (!node.OPL) {
+            $.ajax({
+                url: "@Url.Action("GetObjTypeProperty")" + "?ObjTypeId=" + dataID,
+                type: "GET",
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (text) {
+                    var o = mini.decode(text);
+                    initTab(o);
+                    e.node.OPL = o;
+                }, error: function (x) {
+                    showTips({ Type: "warning", Message: "未能获取对象类型。" });
+                },
+            });
+        }
+        else initTab(node.OPL);
+    }
+
+    function setReadOnly(e) {
+
+        if (tabs.getActiveTab()) {
+            var grid = mini.get("datagrid" + tabs.getActiveTab().title);
+            
+        }
+
+        if (e.IsUserDefine == 0 || DefSys) {
+            //设置分类是否只读
+            txtTypeClass.setReadOnly(false);
+            mini.get("Id").setReadOnly(false);
+            //设置类型定义是否只读
+            txtBotName.setReadOnly(false);
+            mini.get("EName").setReadOnly(false);
+            mini.get("FT").setReadOnly(false);
+            hasGeoCom.setReadOnly(false);
+            shapeCom.setReadOnly(false);
+            //设置应用场景是否只读
+            if (grid) {
+                grid.set({ "allowCellEdit": true });
+                grid.showColumn(grid.getColumn("action"));
+            }
+        }
+        else {
+
+            //设置分类是否只读
+            txtTypeClass.setReadOnly(true);
+            mini.get("Id").setReadOnly(true);
+            //设置类型定义是否只读
+            txtBotName.setReadOnly(true);
+            mini.get("EName").setReadOnly(true);
+            mini.get("FT").setReadOnly(true);
+            hasGeoCom.setReadOnly(true);
+            shapeCom.setReadOnly(true);
+            //设置应用场景是否只读
+            if (grid) {
+                grid.set({ "allowCellEdit": false });
+                grid.hideColumn(grid.getColumn("action")) ;
+            }
+        }
+    }
+
+    function updateNode() {
+        //把上一个selectnode的值用表单的值更新
+        var updatedData = {};
+        var opl = [];
+        if (selectedNode != null) {
+            if (nodeLevel == 0) {
+                updatedData.Id = mini.get('#Id').getValue();
+                updatedData.Name = txtTypeClass.getInputText();
+            }
+            else {
+                var objForm = form.getData();
+                updatedData.Id = selectedNode.Id;
+                updatedData.Name = txtBotName.getInputText();
+                updatedData.FT = objForm.FT;
+                updatedData.Shape = objForm.Shape;
+                updatedData.UseGeometry = objForm.UseGeometry;
+                updatedData.IsUserDefine = objForm.IsUserDefine;
+                updatedData.PId = selectedNode.PId;
+                updatedData.EName = objForm.EName;
+                for (var i = 0; i < tabs.tabs.length; i++) {
+                    var op = {};
+                    op.Ns = tabs.tabs[i].title;
+                    op.Pl = mini.get("datagrid" + tabs.tabs[i].title).data;
+                    op.Botid = selectedNode.Id;
+                    op.IsUserDefine = tabs.tabs[i].IsUserDefine;
+                    opl[i] = op;
+                }
+            }
+            treeData.updateNode(selectedNode, updatedData);
+            selectedNode.OPL = opl;
+        }
+    }
+
+    function initTab(o) {
+        if (o.length <= 0) tabs.setHeight("100px"); else tabs.setHeight("auto");
+        for (i = 0; i < o.length; i++) {
+            var tab = { title: o[i].Ns, name: o[i].Ns, showCloseButton: !(o[i].IsUserDefine == "1"), IsUserDefine: o[i].IsUserDefine };
+            tab = tabs.addTab(tab);
+            var el = tabs.getTabBodyEl(tab);
+            initGrid(tab, o[i].Ns);
+            var p_grid = mini.get("datagrid" + o[i].Ns);
+            var data = o[i].Pl;
+            p_grid.setData(data);
+            if (o[i].Ns == "基础参数") {
+                tabs.moveTab(tab, 0);
+            }
+            treeData.unmask();
+        }
+        tabs.activeTab(0);
+        treeData.unmask();
+    }
+
+    //设置单位的取值
+    function OnCellBeginEdit(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var field = e.field;
+        var editor = e.editor;
+        if (field == "U") {
+            var dim = record.D;
+            if (dim) {
+                var url = "@Url.Action("GetUnit")?dim=" + encodeURI(dim)
+                editor.setUrl(url);
+            } else {
+                var data = [{ U: "" }];
+                editor.setData(data);
+            }
+        }
+    }
+    //名字列输入有值时，结束编辑将多加一行
+    function cellendedit(e) {
+        var grid = e.sender;
+        var field = e.field;
+        var record = e.record;
+        if (field == "N" && record.N && e.rowIndex==grid.data.length-1) {
+            var row = { T: "String" };
+            var selectrow = grid.getSelected();
+            grid.addRow(row);
+            grid.beginEditRow(row);
+        }
+    }
+
+    function addTab() {
+        tabs.setHeight("auto");
+        var tab = { title: txtns.value, name: txtns.value, showCloseButton: true, IsUserDefine: "0" };
+        tab = tabs.addTab(tab);
+        initGrid(tab, txtns.value);
+        tabs.activeTab(tab);
+        addNewRow(tab)
+    }
+
+    function initGrid(tab,id) {
+        var el = tabs.getTabBodyEl(tab);
+        var d = '<div id="datagrid' + id + '" class="mini-datagrid" style="width: 700px;height:auto"  idField="N" allowCellEdit="true" allowCellSelect="true"  showPager="false" oncellbeginedit="OnCellBeginEdit" oncellendedit="cellendedit"><div property="columns"><div field="N" width="120" align="center" headeralign="center">名称<input property="editor" class="mini-textbox" style="width:100%;"/></div><div type="comboboxcolumn" field="T" width="100" align="center" headeralign="center">类型<input property="editor" class="mini-combobox" style="width:100%;" data="dataType" textfield="text" valuefield="id"/> </div><div field="D" width="100" align="center" headeralign="center">量纲<input property="editor" class="mini-combobox" style="width:100%;" url= "@Url.Action("GetDimUnit")" textfield="dim" valuefield="dim" allowInput="true"/> </div><div displayfield="U" field="U" width="100" align="center" headeralign="center">单位<input property="editor" class="mini-combobox" style="width:100%;"  valueField="U" textField="U"  allowInput="true"/> </div><div field="V" width="100" align="center" headeralign="center">值域<input property="editor" class="mini-textbox" style="width:100%;"/></div><div name="action" width="50" headerAlign="center" align="center" renderer="onActionRenderer" cellStyle="padding:0;"></div></div></div>';
+         $(el).append(d)
+         mini.parse(d)
+         
+
+    }
+
+    function addNewRow(tab){
+        var row = { T: "String" };
+        var grid = mini.get("datagrid" + tab.title);
+        var selectrow = grid.getSelected();
+        grid.addRow(row, grid.indexOf(selectrow));
+        grid.beginEditRow(row);
+    }
+
+    function delRow(row_uid) {
+        if (tabs.getActiveTab()) {
+            var grid = mini.get("datagrid" + tabs.getActiveTab().title);
+            var row = grid.getRowByUID(row_uid);
+            if (row) {
+                if (confirm("确定删除此记录？")) {
+                    grid.removeRow(row, true);
+                    grid.cancelEdit();
+                }
+            }
+        }
+    }
+
+    function onActionRenderer(e) {
+        if (tabs.getTab(e.sender.id.substr(8))&&tabs.getTab(e.sender.id.substr(8)).IsUserDefine == 1 && !DefSys) return;
+        var grid = e.sender;
+        var record = e.record;
+        var uid = record._uid;
+        var rowIndex = e.rowIndex;
+        var s = '<a class="mini-button" style="border:none" href="javascript:void(0)"><span class="mini-button-icon icon-remove" onclick="delRow(\'' + uid + '\');return false;"></span></a>';
+        return s;
+    }
+
+    function onactiveTabchange(e) {
+        if (tabs.getActiveTab()) {
+            var grid = mini.get("datagrid" + tabs.getActiveTab().title);
+            if (tabs.getActiveTab().IsUserDefine == 0||DefSys) {
+                grid.set({ "allowCellEdit": true });
+            }
+            else
+                grid.set({ "allowCellEdit": false });
+        }
+    }
+    function beforecloseclick(e) {
+        if (tabs.getActiveTab()) {
+            if (!confirm('确定删除应用场景及参数?')) {
+                e.cancel = true;
+                return;
+            }
+        }
+    }
+
+    function onGeometryChanged(e) {
+        var id = hasGeoCom.getValue();
+        if (id == "1") {
+            $("#trShape").attr("style", "visibility:visible;");
+        }
+        else {
+            $("#trShape").attr("style", "display: none;");
+            mini.get('#Shape').setValue("");
+        }
+    }
+
+    function onkeyup(e) {
+        if (txtns.getInputText() != "") {
+            btnAddNS.setEnabled(true);
+        }
+        else btnAddNS.setEnabled(false);
+    }
+
+    function nameKeyup() {
+        updateNode();
+        mini.get("FT").setValue(txtBotName.getInputText());
+    }
+
+    function addTypeClass() {
+        var newNode = { Name: "New Node", Id: guid(), PId: "0", Type: "TypeClass", IsUserDefine: "0" };
+        treeData.addNode(newNode, treeData.data.length + 1, null);
+        treeData.selectNode(newNode);
+    }
+
+    function guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+    }
+
+    function addObjType() {
+        var node = treeData.getSelectedNode();
+        if (!node) {
+            showTips({ Type: "warning", Message: "请先添加分类。" });
+            return;
+        }
+        if (!node.Id) {
+            return;
+        }
+        if (treeData.getLevel(node) == 1)
+            node = treeData.getParentNode(node);
+        var newNode = { Name: "New Node", PId: node.Id, Id: guid(), Type: "ObjType", IsUserDefine: "0", UseGeometry: "0" };
+        treeData.addNode(newNode, node.children == undefined ? 0 : node.children.length, node);
+        treeData.expandNode(node);
+        treeData.selectNode(newNode);
+    }
+
+    $.regButton({
+        id: "Save",
+        noSubmit: function (ajax) {
+            updateNode();
+            //获取节点数组
+            var data = treeData.getList();
+            var json = mini.encode(data);
+            //清除所有行修改痕迹
+            treeData.accept();
+            $.ajax({
+                url: "@Url.Action("Edit")",
+                type: "POST",
+                data: { json: encodeURI(json) },
+                success: function (text) {
+                    showTips({ Type: "success", Message: "保存成功。" });
+                }, error: function (x) {
+                    showTips({ Type: "error", Message: "操作失败，请先删除对象实例。" });
+                },
+                complete: function (text) {
+                }
+            });
+        }
+    });
+
+    $.regButton({ id: "Del", noSubmit: deleteSelectedNode });
+    function deleteSelectedNode() {
+        var nodes = treeData.getSelectedNode();
+        if (!nodes) {
+            showTips({ Type: "warning", Message: "没有节点被选中。" });
+            return;
+        }
+        if (nodes.IsUserDefine == 1) {
+            showTips({ Type: "warning", Message: "系统内置类型不允许删除。" });
+            return;
+        }
+        if (!confirm('是否删除选中节点及子节点?')) {
+            return;
+        }
+        treeData.removeNode(nodes);
+        //删除操作之后，默认选择第一个节点
+        treeData.selectNode(treeData.getList()[0]);
+    }
+
+    $.regButton({
+        id: "DefSys",
+        noSubmit: function (ajax) {
+            if (DefSys) DefSys = false;
+            else DefSys = true;
+
+            setReadOnly(treeData.getSelectedNode());
+        }
+    });
+
+    window.onbeforeunload = function () {
+        updateNode();
+        var changeData = treeData.getChanges(null, true)
+        if (changeData.length > 0)
+            return "有未保存的改变";
+    }
+
+</script>
+

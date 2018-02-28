@@ -1,0 +1,166 @@
+﻿@using Jurassic.WebUpload
+@{
+    ViewBag.Title = "对象关系管理";
+    ViewBag.ShowSearchBox = false;
+}
+@section UserToolBar
+{
+    <a class="mini-button "  href='@Url.Action("DownLoadFile")'>下载模板文件</a>
+    <a class="mini-button frame-submit" id="import2">保存入库</a>
+    <a class="mini-button " id="DelRel" onclick="DelRel()">删除对象间关系</a>
+}
+
+<input type="hidden" id="fileId12" name="fileId12" />
+@Html.Upload("fileId12", "LoadXls", "BORelationManage", "LoadExcelData")
+
+<div class="mini-splitter frame-fit" style="width: 100%; height: 100%">
+    <div id="LeftDiv" size="280" showcollapsebutton="true">
+        <div style="width: 280px;">
+              对象类型：
+    <input id="combo1" class="mini-combobox" style="width: 195px; color:red; " textfield="text" valuefield="id"
+       url='@Url.Action("GetBOTName")'  onitemclick="CheckObjType()" emptytext="选择对象类型过滤数据" />
+    @*<input id="tb" class="mini-textbox" style="width: 80px; margin-left:4px;" />
+    <a class="mini-button frame-submit" id="import3">查询对象</a>*@
+            @*<input id="tb" class="mini-textbox" style="width: 190px;" />
+            <a class="mini-button frame-submit" id="import3">查  询</a>*@
+        </div>
+
+        <div id="listbox1" class="mini-listbox" style="width: 100%; height: 95%; margin-top:5px"@* borderStyle="border:0*@"
+             textfield="text" valuefield="id" url='@Url.Action("GetRelTypeName")?RelName=''' onitemclick="GetItemValue()">
+             <div property="columns">               
+                <div header="关系名称" field="text"></div>             
+            </div>
+        </div>
+
+    </div>
+    <div id="RightDiv">
+        <div id="datagrid1" class="mini-datagrid" style="height:100%"
+             idfield="RTID" url=" @Url.Action("GetRelTypeNameByID") " allowresize="false" showpageinfo="false" showreloadbutton="false" showpagerbuttontext="false" showpagesize="false" showpageindex="false" multiselect="true" fit="false">
+            <div property="columns">
+                <div type="checkcolumn"></div>
+                <div field="关系名称" width="250" headeralign="center">关系名称</div>
+                <div field="关系类型" width="120" headeralign="center">关系类型</div>
+                <div field="对象类型1" width="170" renderer="onGenderRenderer" align="center" headeralign="center">对象类型1</div>
+                <div field="对象类型2" align="center" width="170">对象类型2</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    var grid = mini.get("datagrid1");
+    var ObjTypelistbox = mini.get('listbox1');
+    var ExcelError = "";
+    var tbtext = mini.get('tb');
+    function LoadExcelData(data) {
+        ExcelError = data;
+        if (ExcelError == "Error")
+            alert('选择Excel模板数据有误！');
+        else
+            grid.loadData(data);
+    }
+
+    function CheckObjType() {
+        var BOTID = mini.get('combo1').getValue();
+
+        ObjTypelistbox.load('@Url.Action("GetRelTypeNameByBOTID")' + "?BOTID=" + BOTID);
+    }
+    $.regButton({
+        id: 'import3',
+        beforeSubmit: function (ajax) {
+            var tmpvalue = tbtext.getValue();
+            ajax.url = '@Url.Action("GetRelTypeName")' + "?RelName=" + escape(tmpvalue);
+        },
+        afterSubmit: function (data) {
+            ObjTypelistbox.loadData(data);
+        }
+    });
+
+    $.regButton({
+        id: 'import2',
+        beforeSubmit: function (ajax) {
+            var tmpvalue = tbtext.getValue();
+            if (ExcelError == "Error") {
+                alert('数据有误，无法保存！');
+                return false;
+            }
+            else if (ExcelError == "") {
+                alert('请先选择模板文件！');
+                return false;
+            }
+            else {
+                mini.mask({
+                    el: document.body,
+                    cls: 'mini-mask-loading',
+                    html: '加载中...'
+                });
+                ajax.url = '@Url.Action("SaveData")';
+            }
+        },
+        afterSubmit: function (data) {
+            ExcelError = "";
+            mini.unmask(document.body);
+            if (data == "保存成功！") {
+                RefreshObjType();
+            }
+            alert(data);
+        }
+    });
+    function GetItemValue() {
+        var ItemValue = ObjTypelistbox.getValue();
+        var icount = ObjTypelistbox.getCount();
+        GetRelTypeNameByID(ItemValue);
+    }
+
+    function GetRelTypeNameByID(ItemID) {
+        grid.load({ ItemID: ItemID });
+
+    }
+
+    //刷新对象类型列表
+    function RefreshObjType() {
+        ObjTypelistbox.load('@Url.Action("GetRelTypeName")');
+    }
+
+    function DelRel() {
+        var data = grid.getSelecteds();
+        var json = mini.encode(data);
+        if (data.length > 0) {
+            if (confirm("确定删除选中的记录？")) {
+                $.ajax({
+                    url: '@Url.Action("DelBORel")',
+                    data: { data: json },
+                    type: "post",
+                    success: function (text) {
+                        if (text == "True") {
+                            GetItemValue();
+                            RefreshObjType();
+                        }
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        }
+        else {
+            alert('请选择要删除的对象！');
+        }
+    }
+
+    $.regButton({
+        id: "DownLoad",
+        beforeSubmit: function (ajax) {
+            ajax.url = '@Url.Action("DownLoadFile")' + "?FilePath=" + escape("../data/对象关系模板表.xlsx")
+        },
+        afterSubmit: function (data) {
+            //alert(data);
+            window.location.href = 'http://localhost:14097/Read3GXData/对象关系模板表.xlsx';
+        }
+    });
+
+
+
+
+</script>

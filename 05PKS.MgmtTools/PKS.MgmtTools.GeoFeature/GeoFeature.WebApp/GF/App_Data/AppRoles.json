@@ -1,0 +1,67 @@
+﻿[
+  {
+    "Id": "4",
+    "Name": "admin",
+    "FunctionIds": [
+      "GeoFeature",
+      "GeoTypeManage",
+      "Addbrd",
+      "addchd",
+      "Del",
+      "Save",
+      "DefSys",
+      "GeoFeatureManage",
+      "GeoFeatureRelManage",
+      "0211",
+      "021101",
+      "021101brd",
+      "021101chd",
+      "021101sv",
+      "021101del",
+      "021101up",
+      "021101dn",
+      "021101mv",
+      "021102",
+      "021103",
+      "021104",
+      "021104newlang",
+      "00000004",
+      "021104sv",
+      "00000006",
+      "021105",
+      "021105-01",
+      "init"
+    ]
+  },
+  {
+    "Id": "8",
+    "Name": "users",
+    "FunctionIds": [
+      "GeoFeature",
+      "GeoTypeManage",
+      "Addbrd",
+      "addchd",
+      "Del",
+      "Save",
+      "addP",
+      "delP",
+      "GeoFeatureManage",
+      "GeoFeatureRelManage"
+    ]
+  },
+  {
+    "Id": "1",
+    "Name": "ad",
+    "FunctionIds": []
+  },
+  {
+    "Id": "5",
+    "Name": "admina",
+    "FunctionIds": []
+  },
+  {
+    "Id": "7",
+    "Name": "admin3",
+    "FunctionIds": []
+  }
+]

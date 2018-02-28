@@ -1,0 +1,415 @@
+﻿@using Jurassic.WebFrame
+@{
+    ViewBag.Title = "对象管理";   
+    ViewBag.ShowSearchBox = false;
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="TopDiv" style="float: left; width: 700px;margin-bottom:4px">
+    对象类型：
+    <input id="combo1" class="mini-combobox" style="width: 200px; color:red; " textfield="text" valuefield="id"
+       url='@Url.Action("GetBOTName")'  onitemclick="CheckObjType()" emptytext="请选择对象类型" />
+    <input id="tb" class="mini-textbox" style="width: 180px; margin-left:4px;" />
+    <a class="mini-button frame-submit" id="import3">查询对象</a>&nbsp;&nbsp;&nbsp;&nbsp;
+   
+</div>
+<div class="mini-splitter frame-fit" style="width: 100%; height: 100%;padding-top:4px">
+    <div id="LeftTree" size="280" showcollapsebutton="true">
+        <div id="listbox1" class="mini-listbox" style="width:100%; height:100%"
+            @*textfield="text" valuefield="id"*@ onitemclick="GetItemValue()">
+
+            <div property="columns">
+                @*<div header="ID" field="id" style="display:none;"></div>*@
+                <div header="对象名称" field="text"></div>
+                <div header="对象类型" field="BOC"></div>
+            </div>
+        </div>
+    </div>
+     <div>
+    <div id="DivRight" class="mini-tabs" activeindex="0" style="float: left; width: 70%; width: 100%;height:100%" bodyStyle="padding:0;border:0;">
+        <div id="DivObj" title="对象信息">
+        
+                <div class="mini-toolbar" style="border-bottom: 0; padding: 2px; width: 100%;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 100%;">
+                                <a class="mini-button" iconcls="icon-add" onclick="addOBJ()">添加对象</a>
+                                <a class="mini-button" iconcls="icon-edit" onclick="editOBJ()">编辑对象</a>
+                                <a class="mini-button" iconcls="icon-remove" onclick="removeOBJ()">删除对象</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="datagrid1" class="mini-datagrid" fit="false" style="height:93%"
+                    idfield="BOID" allowresize="false" showpageinfo="false">
+                    <div property="columns">
+                        <!--<div type="indexcolumn"></div>        -->
+                        <div type="checkcolumn"></div>
+                        <div field="NAME" width="220" headeralign="center">对象名称</div>
+                        <div field="ISUSE" width="100" headeralign="center">是否在用</div>
+
+
+                    </div>
+                </div>
+            
+        </div>
+        <div title="参数信息">
+         
+                <div class="mini-toolbar" style="border-bottom: 0; padding: 2px; width: 100%;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 100%;">应用场景：<input id="comboNS" class="mini-combobox" style="width: 150px;" textfield="id" valuefield="text"
+                                onitemclick="CheckParaDemain()" />
+                                <a class="mini-button" iconcls="icon-edit" onclick="editPara()">编辑参数</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="datagrid2" class="mini-datagrid" fit="false" allowresize="false" style="height:93%"
+                    idfield="BOID">
+                    <div property="columns">
+                        <div type="indexcolumn"></div>
+
+                        <div field="NS" width="120" headeralign="center">应用主题</div>
+                        <div field="Name" width="120" headeralign="center">参数名称</div>
+                        <div field="Value" width="100" headeralign="center">参数值</div>
+
+                    </div>
+                </div>
+       
+        </div>
+        <div title="别名信息">
+            
+                <div class="mini-toolbar" style="border-bottom: 0; padding: 2px; width: 100%">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 100%;">
+                                <a class="mini-button" iconcls="icon-add" onclick="addBM()">添加别名</a>
+                                <a class="mini-button" iconcls="icon-edit" onclick="editBM()">编辑别名</a>
+                                <a class="mini-button" iconcls="icon-remove" onclick="removeBM()">删除别名</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="datagrid3" class="mini-datagrid" fit="false" allowresize="false" style="height:93%"
+                    idfield="BOID" multiselect="false">
+                    <div property="columns">
+                        <!--<div type="indexcolumn"></div>        -->
+                        <div type="checkcolumn"></div>
+                        <div field="NAME" width="120" headeralign="center">对象别名</div>
+                        <div field="APPDOMAIN" width="120" headeralign="center">应用域</div>
+
+                    </div>
+                </div>
+       
+        </div>
+
+    </div>
+          </div>
+</div>
+<script type="text/javascript">
+    var BOTID
+    mini.parse();
+    ObjTypelistbox = mini.get('listbox1');
+    gridBO = mini.get('datagrid1');
+    gridBOPara = mini.get('datagrid2');
+    gridBOBM = mini.get('datagrid3');
+    //
+    comboNS = mini.get('comboNS');
+
+    $.regButton({
+        id: 'import3',
+        beforeSubmit: function (ajax) {
+            BOTID = mini.get('combo1').getValue();
+            var BONAME = mini.get('tb').getValue();
+            if (BONAME == "") {
+                alert('请填写对象名称！');
+                return;
+            }
+            else {
+                ObjTypelistbox.load('@Url.Action("GetBoListByBOTID")' + "?BOTID=" + BOTID + "&BONAME=" + escape(BONAME));
+                alert('查询完毕！');
+            }
+        },
+        afterSubmit: function (data) {
+
+
+        }
+    });
+
+    function CheckObjType() {
+        GetOBJNS();
+        RefreshOBJType();
+    }
+
+    function RefreshOBJType() {
+        BOTID = mini.get('combo1').getValue();
+
+        ObjTypelistbox.load('@Url.Action("GetBoListByBOTID")' + "?BOTID=" + BOTID + "&BONAME=");
+    }
+
+    function GetItemValue() {
+        GetOBJInfo();
+        GetOBJPara();
+        GetOBJBM();
+    }
+    //获取当前对象信息
+    function GetOBJInfo() {
+        var BOID = ObjTypelistbox.getValue();
+        gridBO.setUrl('@Url.Action("GetBoListByID")');
+        gridBO.load({ BOID: BOID });
+
+
+    }
+    //获取参数信息
+    function GetOBJPara() {
+        var BOID = ObjTypelistbox.getValue();
+        NS = comboNS.getValue();
+        gridBOPara.setUrl('@Url.Action("GetBOParaByID")' + "?NS=" + escape(NS));
+        gridBOPara.load({ BOID: BOID });
+
+    }
+    //获取别名
+    function GetOBJBM() {
+        var BOID = ObjTypelistbox.getValue();
+        gridBOBM.setUrl('@Url.Action("GetALIASNAME")');
+        gridBOBM.load({
+            BOID: BOID
+        });
+    }
+    //获取应用域
+    function GetOBJNS() {
+        BOTID = mini.get('combo1').getValue();
+        comboNS.load('@Url.Action("GetOBJNS")' + "?BOTID=" + BOTID);
+        comboNS.select(0);
+    }
+    function editPara() {
+
+        BOID = ObjTypelistbox.getValue();
+        NS = comboNS.getValue();
+        if (BOID == "") {
+            alert("请选择对象，然后修改参数！");
+            return;
+        }
+        mini.open({
+            url: '@Url.Action("BOParaEdit")',
+            title: "参数编辑", width: 570, height: 480,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                var data = {
+                    NS: NS,
+                    BOID: BOID,
+                    BOTID:BOTID
+                };
+                iframe.contentWindow.SetData(data);
+            },
+            ondestroy: function (action) {
+                var ss = action;
+                GetOBJPara()
+            }
+        });
+    }
+    @* function EditBOPara() {
+        var BOTID = mini.get('combo1').getValue();
+        if (BOTID == "") {
+            alert("请选择对象类型，然后添加对象！");
+            return;
+        }
+        mini.open({
+            url: '@Url.Action("BOEdit")',
+            title: "新增对象", width: 600, height: 600,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                var data = {
+                    action: "new",
+                    BOTID: BOTID
+                };
+                iframe.contentWindow.SetData(data);
+            },
+            ondestroy: function (action) {
+                // gridBO.reload();
+            }
+        });
+    }*@
+    function addBM() {
+        BOID = ObjTypelistbox.getValue();
+        if (BOID == "") {
+            alert("请选择对象，然后添加别名！");
+            return;
+        }
+        mini.open({
+            url: '@Url.Action("BOBMEdit")',
+            title: "添加别名", width: 590, height: 250,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                var data = {
+                    action: 'add',
+                    BOID: BOID
+                };
+                iframe.contentWindow.SetData(data);
+            },
+            ondestroy: function (action) {
+                var ss = action;
+                GetOBJBM();
+            }
+        });
+    }
+
+    function editBM() {
+        BOID = ObjTypelistbox.getValue();
+        var BONAME;
+        if (BOID == "") {
+            alert("请选择对象，然后修改别名！");
+            return;
+        }
+        var rows = gridBOBM.getSelecteds();
+        if (rows.length > 0) {
+
+            var ids = [];
+            for (var i = 0, l = rows.length; i < l; i++) {
+                var r = rows[i];
+                ids.push(r.id);
+                APPDOMAIN = r.APPDOMAIN;
+                BONAME = r.NAME
+            }
+            var id = ids.join(',');
+            gridBOBM.loading("操作中，请稍后......");
+            mini.open({
+                url: '@Url.Action("BOBMEdit")',
+                title: "修改别名", width: 590, height: 250,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = {
+                        action: 'edit',
+                        BOID: BOID,
+                        BONAME: BONAME,
+                        APPDOMAIN: APPDOMAIN
+                    };
+                    iframe.contentWindow.SetData(data);
+                },
+                ondestroy: function (action) {
+                    GetOBJBM();
+                }
+            });
+
+        } else {
+            alert("请选中一条记录");
+        }
+    }
+    function editOBJ() {
+        BOID = ObjTypelistbox.getValue();
+        if (BOID == "") {
+            alert("请选择对象，然后修改对象！");
+            return;
+        }
+        mini.open({
+            url: '@Url.Action("BONameEdit")',
+                title: "编辑对象", width: 590, height: 220,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = { BOID: BOID };
+                    iframe.contentWindow.SetData(data);
+                },
+                ondestroy: function (action) {
+                    var ss = action;
+                    GetOBJInfo();
+                }
+            });
+        }
+        function addOBJ() {
+            BOTID = mini.get('combo1').getValue();
+            if (BOTID == "") {
+                alert("请选择对象类型，然后添加对象！");
+                return;
+            }
+            mini.open({
+                url: '@Url.Action("BOEdit")',
+            title: "新增对象", width: 560, height: 560,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                var data = {
+                    action: "new",
+                    BOTID: BOTID
+                };
+                iframe.contentWindow.SetData(data);
+            },
+            ondestroy: function (action) {
+                // gridBO.reload();
+                RefreshOBJType();
+                GetOBJInfo();
+                GetOBJPara();
+                GetOBJBM();
+            }
+        });
+    }
+
+
+    //选择不同的应用场景切换当前对象下的参数信息
+    function CheckParaDemain() {
+        NS = comboNS.getValue();
+        var BOID = ObjTypelistbox.getValue();
+        gridBOPara.setUrl('@Url.Action("GetBOParaByID")' + "?BOID=" + BOID + "&NS=" + escape(NS));
+        gridBOPara.load();
+    }
+
+    function removeBM() {
+        BOID = ObjTypelistbox.getValue();
+        if (BOID == "") {
+            alert("请选择对象，然后删除别名！");
+            return;
+        }
+        var rows = gridBOBM.getSelecteds();
+        if (rows.length > 0) {
+            if (confirm("确定删除选中记录？")) {
+                var ids = [];
+                for (var i = 0, l = rows.length; i < l; i++) {
+                    var r = rows[i];
+                    APPDOMAIN = r.APPDOMAIN;
+                }
+                gridBOBM.loading("操作中，请稍后......");
+                $.ajax({
+                    url: '@Url.Action("DelAliasNameByID")?BOID=' + BOID + "&AppDomain=" + escape(APPDOMAIN),
+                    success: function (text) {
+                        RefreshOBJType();
+                        gridBOBM.reload();
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        } else {
+            alert("请选中一条记录");
+        }
+    }
+    function removeOBJ() {
+        BOID = ObjTypelistbox.getValue();
+        if (BOID == "") {
+            alert("请选择对象，然后删除对象！");
+            return;
+        }
+        var rows = gridBO.getSelecteds();
+        if (rows.length > 0) {
+            if (confirm("确定删除选中记录？")) {
+                var ids = [];
+                for (var i = 0, l = rows.length; i < l; i++) {
+                    var r = rows[i];
+                    ids.push(r.BOID);
+                }
+                var id = ids.join(',');
+                gridBO.loading("操作中，请稍后......");
+                $.ajax({
+                    url: '@Url.Action("DelBOByID")?BOID=' + id,
+                    success: function (text) {
+                        RefreshOBJType();
+                        gridBO.reload();
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        } else {
+            alert("请选中一条记录");
+        }
+    }
+</script>

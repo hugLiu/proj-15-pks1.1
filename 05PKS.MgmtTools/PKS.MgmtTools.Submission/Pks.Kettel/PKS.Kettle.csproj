@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D8D87E8-462E-4488-B070-E86C6BF901FA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PKS.Kettle</RootNamespace>
+    <AssemblyName>PKS.Kettle</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\Indexer.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\Indexer.js" />
+    <Content Include="ExplorationDynamic\Drilling\drillingcomplex.ktr" />
+    <Content Include="ExplorationDynamic\Drilling\drillingform.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\AppData.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationDynamic\Logging\loggingform.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationDynamic\Detection\drillingcomplex.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationDynamic\Detection\drillingform.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationDynamic\Geophysical\drillingcomplex.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationDynamic\Geophysical\drillingform.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationDynamic\Testing\drillingcomplex.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationDynamic\Testing\drillingform.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationDataAchievement\分析化验\古生物分析_基础数据\孢粉相分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\古生物分析_基础数据\孢粉相分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\古生物分析_基础数据\有孔虫分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\古生物分析_基础数据\有孔虫分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\全烃色谱分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\全烃色谱分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\包裹体分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\包裹体分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\孢粉颜色指数测定数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\孢粉颜色指数测定数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\岩石有机质元素分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\岩石有机质元素分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\岩石热解分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\岩石热解分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\干酪根显微组分分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\干酪根显微组分分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\干酪根灰分测定数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\干酪根灰分测定数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\正构烷烃单体烃氢同位素分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\正构烷烃单体烃氢同位素分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\正构烷烃单体烃碳同位素分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\正构烷烃单体烃碳同位素分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\沉积岩中有机碳同位素测定数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\沉积岩中有机碳同位素测定数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\沉积岩中镜质组反射率测定数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\沉积岩中镜质组反射率测定数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\沥青A及族组份分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\沥青A及族组份分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\碳硫铁分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\碳硫铁分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\轻烃气相色谱分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\轻烃气相色谱分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\饱和烃气相色谱分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\地球化学分析_基础数据\饱和烃气相色谱分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\X-衍射全岩分析_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\X-衍射全岩分析_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\X-衍射粘土矿物分析_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\X-衍射粘土矿物分析_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\变质岩薄片鉴定_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\变质岩薄片鉴定_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\同位素分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\同位素分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\岩浆岩薄片鉴定_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\岩浆岩薄片鉴定_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\岩石化学_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\岩石化学_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\岩石微量元素分析_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\岩石微量元素分析_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\扫描电镜_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\扫描电镜_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\砂岩薄片鉴定_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\砂岩薄片鉴定_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\碳酸盐薄片鉴定_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\碳酸盐薄片鉴定_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\粒度分析_基本参数%28深圳%29_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\粒度分析_基本参数%28深圳%29_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\荧光薄片鉴定_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\荧光薄片鉴定_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\重矿物鉴定_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\重矿物鉴定_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\铸体薄片孔隙图像分析_参数 _Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\铸体薄片孔隙图像分析_参数 _Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\阴极发光薄片鉴定_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\岩矿分析\阴极发光薄片鉴定_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\原油分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\原油分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\天然气同位素测定数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\天然气同位素测定数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\天然气组分分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\天然气组分分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\水常规分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\水常规分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\罐顶气分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\油气水分析_基础数据\罐顶气分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\流体高压物性分析\凝析油PVT分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\流体高压物性分析\凝析油PVT分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\流体高压物性分析\黑油PVT分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\流体高压物性分析\黑油PVT分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\物性分析\压汞分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\物性分析\压汞分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\物性分析\孔渗饱分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\分析化验\物性分析\孔渗饱分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\QFT数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\QFT数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\井壁取心描述数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\井壁取心描述数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\井壁取心统计数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\井壁取心统计数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\储层岩性统计表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\储层岩性统计表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\储集岩热解分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\储集岩热解分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\储集岩热解解释成果表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\储集岩热解解释成果表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\地层分层数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\地层分层数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\地层分层数据表（钻后评价）_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\地层分层数据表（钻后评价）_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\完井地质图岩性综述表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\完井地质图岩性综述表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\完井油气显示综合表（完井总结）_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\完井油气显示综合表（完井总结）_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\岩心岩屑录井成果数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\岩心岩屑录井成果数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\岩性数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\岩性数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\岩石热蒸发烃气相色谱分析表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\岩石热蒸发烃气相色谱分析表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\录井油气显示综合表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\录井油气显示综合表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\气测解释成果数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\气测解释成果数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\烃源岩热解分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\烃源岩热解分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\烃源岩热解解释成果表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\烃源岩热解解释成果表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\热蒸发烃气相色谱仪校验记录表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\热蒸发烃气相色谱仪校验记录表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\热解分析图谱格式数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\热解分析图谱格式数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\热解分析数据总表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\热解分析数据总表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场井壁取心描述表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场井壁取心描述表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场岩屑和井壁取心核磁录井分析数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场岩屑和井壁取心核磁录井分析数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场岩心岩屑录井原始数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场岩心岩屑录井原始数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场热解样品采集分析记录_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场热解样品采集分析记录_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场碳酸盐岩含量测定数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场碳酸盐岩含量测定数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场蒸发样品采集分析记录_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\现场蒸发样品采集分析记录_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\综合录井图岩性综述表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\综合录井图岩性综述表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\钻井取心描述数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\钻井取心描述数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\钻井取心统计数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\钻井取心统计数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\钻时气测数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_录井\钻时气测数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_时深关系\VSP时深数据数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_时深关系\VSP时深数据数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_测试\地层测试作业日报表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_测试\地层测试作业日报表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_测试\地层测试求产成果数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_测试\地层测试求产成果数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\井斜数据表_Child.ktr">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\井斜数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\井身结构数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\井身结构数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\固井水泥返深及质量评价_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\固井水泥返深及质量评价_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\泥浆漏失数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\泥浆漏失数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\钻井参数表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\钻井参数表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\钻井地质作业动态表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\钻井地质作业动态表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\钻井液性能数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\钻井液性能数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\钻头、套管程序表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\钻头、套管程序表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\靶心数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\探井成果_钻井\靶心数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\油气信息_录井成果\气测解释成果数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\油气信息_录井成果\气测解释成果数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\油气信息_试油成果\地层测试求产成果数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\探井资料\油气信息_试油成果\地层测试求产成果数据表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\物化探\地震资料三维采集作业动态表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\物化探\地震资料三维采集作业动态表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\物化探\地震资料二维作业动态表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\物化探\地震资料二维作业动态表_Parent.ktr" />
+    <Content Include="ExplorationDataAchievement\物化探\地震采集基本数据表_Child.ktr" />
+    <Content Include="ExplorationDataAchievement\物化探\地震采集基本数据表_Parent.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationOverview\勘探动态\地层测试作业日报表_Form.ktr" />
+    <Content Include="ExplorationOverview\勘探动态\地震资料采集作业动态表_Form.ktr" />
+    <Content Include="ExplorationOverview\勘探动态\现场岩心岩屑录井原始数据表_Form.ktr" />
+    <Content Include="ExplorationOverview\勘探动态\钻井地质作业动态表_Form.ktr" />
+    <Content Include="ExplorationOverview\勘探油气最新发现\地层测试求产成果数据.ktr" />
+    <Content Include="ExplorationOverview\勘探油气最新发现\气测参数_Child.ktr" />
+    <Content Include="ExplorationOverview\勘探油气最新发现\气测参数_Parent.ktr" />
+    <Content Include="ExplorationOverview\年度勘探总况\三维地震采集完成情况统计图_Chart.ktr" />
+    <Content Include="ExplorationOverview\年度勘探总况\二维地震采集完成情况统计图_Chart.ktr" />
+    <Content Include="ExplorationOverview\年度勘探总况\钻井完成情况统计图_Chart.ktr" />
+    <Content Include="ExplorationOverview\年度勘探总况\钻井完成情况统计图（进尺）_Chart.ktr" />
+    <Content Include="ExplorationOverview\钻井复杂情况\钻井地质作业动态表.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExplorationDecision\勘探计划job.kjb" />
+    <Content Include="ExplorationDecision\勘探计划\勘探计划.kjb" />
+    <Content Include="ExplorationDecision\勘探计划\合作勘探部署表_Child.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\合作勘探部署表_Parent.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度勘探主要研究工作量统计表_Child.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度勘探主要研究工作量统计表_Parent.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度勘探成果表_Child.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度勘探成果表_Parent.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度地震处理工作量表_Child.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度地震处理工作量表_Parent.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度探井工作量表_Child.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度探井工作量表_Parent.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度新发现地质储量汇总表_Child.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度新发现地质储量汇总表_Parent.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度物化探采集工作量表_Child.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度物化探采集工作量表_Parent.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度自营勘探预算执行情况表_Child.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\年度自营勘探预算执行情况表_Parent.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\自营勘探部署表_Child.ktr" />
+    <Content Include="ExplorationDecision\勘探计划\自营勘探部署表_Parent.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ProjectDynamic\作业项目job.kjb" />
+    <Content Include="ProjectDynamic\作业项目进展情况统计图.ktr" />
+    <Content Include="ProjectDynamic\作业项目进展情况统计表.ktr" />
+    <Content Include="ProjectDynamic\项目运行头条_地震.ktr" />
+    <Content Include="ProjectDynamic\项目运行头条_探井.ktr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="协同研究环境job.kjb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

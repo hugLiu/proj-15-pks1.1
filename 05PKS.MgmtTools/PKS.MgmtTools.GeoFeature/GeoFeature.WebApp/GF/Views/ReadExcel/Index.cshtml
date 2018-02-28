@@ -1,0 +1,61 @@
+﻿@using Jurassic.WebUpload
+@{
+    //Layout = "~/Views/Shared/MyLaout.cshtml";
+    ViewBag.Title = "Index";
+}
+@section UserToolBar
+{
+    <a class="mini-button frame-submit" id="import3">导入3</a>
+}
+@Html.Upload("fileId")
+
+<div id="datagrid1" class="mini-datagrid" style="width:700px;height:250px;"
+     idfield="id" allowresize="true"
+     sizelist="[20,30,50,100]" pagesize="20">
+    <div property="columns">
+        <div type="indexcolumn"></div>
+        <div field="文件名" width="120" headeralign="center" allowsort="true">文件名</div>
+        <div field="成果类型" width="120" headeralign="center" allowsort="true">成果类型</div>
+        <div field="作者" width="120" headeralign="center" allowsort="true">作者</div>
+        <div field="时间" width="120" headeralign="center" allowsort="true">时间</div>
+        <div field="关键词" width="120" headeralign="center" allowsort="true">关键词</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    var grid = mini.get("datagrid1");
+
+    function uploadDown() {
+        var fileId = $('[name=fileId]').val();
+        grid.setUrl('@Url.Action("ReadXls")' + "?fileId=" + fileId);
+        grid.reload();
+    }
+
+    $.regButton({
+        text: '导入',
+        noSubmit: uploadDown
+    });
+
+    $.regButton({
+        text: '导入2',
+        beforeSubmit: function (ajax) {
+            var fileId = $('[name=fileId]').val();
+            ajax.url = '@Url.Action("ReadXls")';
+            ajax.data = { fileId: fileId };
+        },
+        afterSubmit: function (data) {
+            grid.loadData($.parseJSON(data));
+        }
+    });
+
+    $.regButton({
+        id: 'import3',
+        noSubmit: function () {
+            showTips({
+                Type: "error", //warning//sucess
+                Title: "You make a error",
+                Message:"error is ..."
+            });}
+    });
+</script> 

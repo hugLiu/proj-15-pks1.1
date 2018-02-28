@@ -1,0 +1,266 @@
+﻿@{   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="form1">
+    <div>
+        <span style="margin-left: 6px;">对象信息</span>
+        <fieldset style="width: 550px; border: solid 1px #aaa;">
+            <div id="editForm1" style="padding: 5px;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>对象名称：</td>
+                        <td>
+                            <input id="BOname" class="mini-textbox" required="true" emptytext="请填写对象名称" />
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <span style="margin-left: 6px;">参数信息</span>
+      
+        <div id="Tabs" class="mini-tabs" activeindex="0" style="width: 552px; min-height: 300px;" bodystyle="padding:0;border:0;" >
+        </div>
+        <div style="display: none;">
+            <input class="mini-textbox" id="textboxEditor" />
+            <input class="mini-spinner" id="spinnerEditor" />
+            <input class="mini-datepicker" id="datepickerEditor" />
+            <input class="mini-timespinner" id="timeEditor" />
+            <input class="mini-combobox" id="selectvalueEditor" />
+            
+        </div>
+        <span style="margin-left: 6px;">对象别名信息</span>
+        <fieldset style="width: 550px; border: solid 1px #aaa;">
+            <div id="editForm2" style="padding: 5px;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>对象别名：</td>
+                        <td>
+                            <input id="nameBM" class="mini-textbox" required="true" emptytext="请填写对象别名" />
+                        </td>
+                        <td>应用域：</td>
+                        <td>
+                            <input id="AppDomain" class="mini-textbox" required="true" emptytext="请填写应用域" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <div style="float: right; padding-right: 4px;">
+            <a class="mini-button" onclick="saveData()">保 存</a>
+            <a class="mini-button " id="BtnClose" onclick="CloseWindow('false')">关 闭</a>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    var NS;
+    var BOTID;
+    mini.parse();
+
+    var tbBOname = mini.get('BOname');
+    var tbSource = mini.get('Source');
+    var tbnameBM = mini.get('nameBM');
+    var tbAppDomain = mini.get('AppDomain');
+    var $selectvalueEditor = mini.get('selectvalueEditor');
+    var tabs = mini.get('Tabs');
+    var GridList=[];
+ 
+    var comboNS = mini.get('comboNS');
+    function getEditor(record) {
+        var id = record.editor + "Editor";
+        var editor = mini.get(id);
+        return editor;
+    }
+
+    function CheckParaDemain(n) {
+        var p_grid = mini.get(n);
+        p_grid.setUrl('@Url.Action("GetParaInfo")' + "?BOTID=" + BOTID + "&NS=" + escape(n));
+        p_grid.load();
+
+        p_grid.on("drawcell", function (e) {
+            if (e.field == "value") {
+                var record = e.record;
+                e.cellHtml = !mini.isNull(record.text) ? record.text : record.value;
+            }
+        });
+
+        p_grid.on("cellbeginedit", function (e) {
+            var record = e.record;
+            var grid = e.sender;
+            var NS;
+            var ParaName;
+            var record = grid.getSelected();
+            if (e.field == "value") {
+                var editor = getEditor(e.record);
+                e.editor = editor;
+                e.column.editor = editor;
+                if (editor.id == "selectvalueEditor")
+                {
+                    if (record)
+                    {
+                        NS = grid.id;
+                        ParaName = record.name;
+                        $selectvalueEditor.load('@Url.Action("GetParaValue")' + "?BOTID=" + BOTID + "&NS=" + escape(NS) + "&ParaName=" + escape(ParaName));
+                    }
+                }
+            }
+        
+        });
+        p_grid.on("cellcommitedit", function (e) {
+            var record = e.record;
+            if (e.field == "value") {
+                var format = e.record.format;
+                if (format) {
+                    e.value = mini.formatDate(e.value, format);
+                }
+            }
+
+            if (e.editor.getText) {
+                record.text = e.editor.getText();
+            } else {
+                record.text = e.value;
+            }
+
+        });
+    }
+
+    function initTab(o) {     
+        if (o.length <= 0) tabs.setHeight("100px"); else tabs.setHeight("auto");
+        for (i = 0; i < o.length; i++) {
+            var tab = { title: o[i].text, name: o[i].text };
+            tab = tabs.addTab(tab);
+            var el = tabs.getTabBodyEl(tab);
+            initGrid(tab, o[i].text);
+           
+        }
+        tabs.activeTab(0);
+    }
+    function onSelectionChanged(e) {
+        var grid = e.sender;
+        var NS;
+        var ParaName;
+        var record = grid.getSelected();
+        if (record) {
+            NS = grid.id;
+            ParaName = record.name;
+            $selectvalueEditor.load('@Url.Action("GetParaValue")' + "?BOTID=" + BOTID + "&NS=" + escape(NS) + "&ParaName=" + escape(ParaName));            
+        }
+        return;
+    }
+   
+    function initGrid(tab, n) {        
+        var el = tabs.getTabBodyEl(tab);
+        var d = '<div id="' + n + '" class="mini-datagrid" style="width: 545px; height: 280px; margin-left: 5px; margin-top:4px;" idfield="id"   allowresize="false" showpageinfo="false" showreloadbutton="false" showpagerbuttontext="false" showpagesize="false" sizelist="[20,30,50,100]" showpageindex="false" pagesize="20"  allowcelledit="true" allowcellselect="true" allowcolumnsort="false"> <div property="columns"> <div type="indexcolumn"></div> <div field="name" allowresize="false" width="150" headeralign="center">参数名称</div> <div field="value" width="250">参数值</div></div></div>';
+        $(el).append(d);
+        mini.parse(d);
+        GridList.push( n );
+        CheckParaDemain(n);
+    }
+
+    function SetData(data) {
+        BOTID = data.BOTID;       
+        if (data.action == "new") {
+            //跨页面传递的数据对象，克隆后才可以安全使用
+            data = mini.clone(data);
+            //comboNS.load('@Url.Action("GetOBTNS")' + "?BOID=" + BOTID);
+            // comboNS.select(0);
+            //NS = comboNS.getText();
+            //CheckParaDemain();
+
+            $.ajax({
+                url: '@Url.Action("GetOBTNS")' + "?BOID=" + BOTID,
+                cache: false,
+                success: function (text) {
+                    var o = mini.decode(text);
+                    initTab(o);
+                }
+            });
+        }
+    }
+
+    function onactiveTabchange(e) {      
+        var grid = mini.get(tabs.getActiveTab().title);
+        grid.on("drawcell", function (e) {
+            if (e.field == "value") {
+                var record = e.record;
+                e.cellHtml = !mini.isNull(record.text) ? record.text : record.value;
+            }
+        });
+
+        grid.on("cellbeginedit", function (e) {
+            var record = e.record;
+            if (e.field == "value") {
+                var editor = getEditor(e.record);
+                e.editor = editor;
+                e.column.editor = editor;
+            }
+            
+        });
+        grid.on("cellcommitedit", function (e) {
+            var record = e.record;
+            if (e.field == "value") {
+                var format = e.record.format;
+                if (format) {
+                    e.value = mini.formatDate(e.value, format);
+                }
+            }
+
+            if (e.editor.getText) {
+                record.text = e.editor.getText();
+            } else {
+                record.text = e.value;
+            }
+
+        });
+
+    }
+    function saveData() {    
+        var json;
+        for (var i = 0; i < GridList.length; i++) {
+            var $Grid = GridList[i];
+            var grid = mini.get($Grid);
+            var data = grid.data;
+            if (i == 0)
+                json = "[{'" + grid .id+ "':" + mini.encode(data) + "}]";
+            else
+                json = json + "|" + "[{'" + grid.id + "':" + mini.encode(data) + "}]";
+        }  
+        var BOname = tbBOname.getValue();
+        var nameBM = tbnameBM.getValue();
+        var AppDomain = tbAppDomain.getValue();
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '保存中，请稍后......'
+        });
+
+        $.ajax({
+            url: '@Url.Action("SaveObjInfo")',
+            data: { data: json, BOname: BOname, nameBM: nameBM, AppDomain: AppDomain, BOTID: BOTID },
+            type: "post",
+            success: function (text) {
+                mini.unmask(document.body);
+                if (text == "OK")
+                    alert('保存成功！');
+                else if (text == "Fails")
+                    alert('保存失败！');
+                else
+                    alert('该对象名称已经存在，无法保存！');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+    }
+
+    function CloseWindow(action) {
+        if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+        else window.close();
+    }
+
+    function onCancel(e) {
+        CloseWindow("cancel");
+    }
+
+</script>

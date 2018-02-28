@@ -1,0 +1,94 @@
+﻿@{
+  
+    //ViewBag.ShowSearchBox = false;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+
+    <div id="editForm1" style="padding: 5px;">
+        <table >
+            <tr>
+                <td>对象名称：</td>
+                <td>
+                    <input id="BOname" class="mini-textbox" required="true" emptytext="请填写对象名称" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="float: right;">
+        <a class="mini-button" onclick="saveParaData()">保 存</a>
+        <a class="mini-button " id="BtnClose" onclick="CloseWindow('false')">关 闭</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+    var tbBOname = mini.get('BOname');
+    var tbSource = mini.get('Source');
+    var BOID;
+    var BOTID;
+    var ISUSE;
+    var GATHERUSER;
+    var GATHERDATE;
+    function SetData(data) {
+        BOID = data.BOID;
+        $.ajax({
+            url: '@Url.Action("GetBoListByID")',
+            data: { BOID: BOID },
+            type: "post",
+            success: function (text) {
+                var str = text;
+                toJson(str);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+        function toJson(str) {
+            var json = $.parseJSON(str);//(new Function("return " + str))();
+            tbBOname.setValue(json[0].NAME);
+
+            BOTID = json[0].BOTID;
+            ISUSE = json[0].ISUSE;
+            GATHERUSER = json[0].GATHERUSER;
+            GATHERDATE = json[0].GATHERDATE;
+        }
+    }
+
+    function saveParaData() {
+        var BONAME = tbBOname.getValue();
+        $.ajax({
+            url: '@Url.Action("UpdatBOBYID")',
+            data: {
+                BOID: BOID,
+                BONAME: BONAME,
+                BOTID: BOTID,
+                ISUSE: ISUSE
+            },
+            type: "post",
+            success: function (text) {
+                if (text == "OK")
+                    alert('保存成功！');
+                else if (text == "Fails")
+                    alert('保存失败！');
+                else
+                    alert('该对象名称已经存在，无法保存！');
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+        }
+
+        function CloseWindow(action) {
+            if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+            else window.close();
+        }
+
+        function onCancel(e) {
+            CloseWindow("cancel");
+        }
+
+</script>

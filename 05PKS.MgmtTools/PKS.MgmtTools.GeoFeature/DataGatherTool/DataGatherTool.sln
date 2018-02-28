@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jurassic.GF.DataGatherTool", "DataGatherTool\Jurassic.GF.DataGatherTool.csproj", "{457C4B41-B4A0-4035-9825-DCED472DEFE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jurassic.GF.Server", "Jurassic.GF.Server\Jurassic.GF.Server.csproj", "{D65E0E35-A549-4199-B2A7-C127240DA859}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jurassic.GF.Server.Oracle", "Jurassic.GF.Server.Oracle\Jurassic.GF.Server.Oracle.csproj", "{4B8BCEF1-EDF0-4DA0-A11C-57BD5F7C32C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jurassic.GF.Server.Factory", "Jurassic.GF.Server.Factory\Jurassic.GF.Server.Factory.csproj", "{3D392EBD-19A3-411D-90CD-432F6B532CD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jurassic.GF.Interface", "Jurassic.GF.Interface\Jurassic.GF.Interface.csproj", "{371D5E63-6678-4EC9-B531-EEA2A367E8A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jurassic.GF.Server.DBUtility", "Jurassic.GF.DBUtility\Jurassic.GF.Server.DBUtility.csproj", "{AC808B02-A567-4E9B-9C69-A8789C1080BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jurassic.GF.Server.SqlServer", "Jurassic.GF.Server.SqlServer\Jurassic.GF.Server.SqlServer.csproj", "{38F2DFC9-2CDD-4912-BF3C-26F7CB5D2661}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{457C4B41-B4A0-4035-9825-DCED472DEFE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{457C4B41-B4A0-4035-9825-DCED472DEFE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{457C4B41-B4A0-4035-9825-DCED472DEFE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{457C4B41-B4A0-4035-9825-DCED472DEFE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D65E0E35-A549-4199-B2A7-C127240DA859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D65E0E35-A549-4199-B2A7-C127240DA859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D65E0E35-A549-4199-B2A7-C127240DA859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D65E0E35-A549-4199-B2A7-C127240DA859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B8BCEF1-EDF0-4DA0-A11C-57BD5F7C32C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B8BCEF1-EDF0-4DA0-A11C-57BD5F7C32C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B8BCEF1-EDF0-4DA0-A11C-57BD5F7C32C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B8BCEF1-EDF0-4DA0-A11C-57BD5F7C32C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D392EBD-19A3-411D-90CD-432F6B532CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D392EBD-19A3-411D-90CD-432F6B532CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D392EBD-19A3-411D-90CD-432F6B532CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D392EBD-19A3-411D-90CD-432F6B532CD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{371D5E63-6678-4EC9-B531-EEA2A367E8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{371D5E63-6678-4EC9-B531-EEA2A367E8A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{371D5E63-6678-4EC9-B531-EEA2A367E8A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{371D5E63-6678-4EC9-B531-EEA2A367E8A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC808B02-A567-4E9B-9C69-A8789C1080BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC808B02-A567-4E9B-9C69-A8789C1080BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC808B02-A567-4E9B-9C69-A8789C1080BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC808B02-A567-4E9B-9C69-A8789C1080BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38F2DFC9-2CDD-4912-BF3C-26F7CB5D2661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F2DFC9-2CDD-4912-BF3C-26F7CB5D2661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38F2DFC9-2CDD-4912-BF3C-26F7CB5D2661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38F2DFC9-2CDD-4912-BF3C-26F7CB5D2661}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
