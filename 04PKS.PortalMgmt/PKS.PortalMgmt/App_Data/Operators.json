@@ -1,0 +1,151 @@
+﻿{
+  "TextArea": [
+    {
+      "id": "1",
+      "text": "包含",
+      "value": "包含",
+      "description": ""
+    },
+    {
+      "id": "2",
+      "text": "不包含",
+      "value": "不包含",
+      "description": ""
+    }
+  ],
+  "TextBox": [
+    {
+      "id": "1",
+      "text": "包含",
+      "value": "包含",
+      "description": ""
+    },
+    {
+      "id": "2",
+      "text": "不包含",
+      "value": "不包含",
+      "description": ""
+    }
+  ],
+  "Date": [
+    {
+      "id": "1",
+      "text": "等于",
+      "value": "等于",
+      "description": ""
+    },
+    {
+      "id": "2",
+      "text": ">=",
+      "value": ">=",
+      "description": ""
+    },
+    {
+      "id": "3",
+      "text": "<=",
+      "value": "<=",
+      "description": ""
+    },
+    {
+      "id": "4",
+      "text": "介于",
+      "value": "介于",
+      "description": ""
+    }
+  ],
+  "Number": [
+    {
+      "id": "1",
+      "text": "等于",
+      "value": "等于",
+      "description": ""
+    },
+    {
+      "id": "2",
+      "text": ">=",
+      "value": ">=",
+      "description": ""
+    },
+    {
+      "id": "3",
+      "text": "<=",
+      "value": "<=",
+      "description": ""
+    },
+    {
+      "description": "",
+      "id": "4",
+      "text": "介于",
+      "value": "介于"
+    }
+  ],
+  "DropdownList": [
+    {
+      "id": "1",
+      "text": "等于",
+      "value": "等于",
+      "description": ""
+    },
+    {
+      "id": "2",
+      "text": "不等于",
+      "value": "不等于",
+      "description": ""
+    }
+  ],
+  "List": [
+    {
+      "id": "1",
+      "text": "等于",
+      "value": "等于",
+      "description": ""
+    },
+    {
+      "id": "2",
+      "text": "不等于",
+      "value": "不等于",
+      "description": ""
+    },
+    {
+      "id": "3",
+      "text": "包含",
+      "value": "包含",
+      "description": ""
+    },
+    {
+      "id": "4",
+      "text": "不包含",
+      "value": "不包含",
+      "description": ""
+    }
+  ],
+  "Label": [
+    {
+      "id": "1",
+      "text": "等于",
+      "value": "等于",
+      "description": ""
+    },
+    {
+      "id": "2",
+      "text": "不等于",
+      "value": "不等于",
+      "description": ""
+    },
+    {
+      "id": "3",
+      "text": "包含",
+      "value": "包含",
+      "description": ""
+    },
+    {
+      "id": "4",
+      "text": "不包含",
+      "value": "不包含",
+      "description": ""
+    }
+  ]
+
+  
+
+}

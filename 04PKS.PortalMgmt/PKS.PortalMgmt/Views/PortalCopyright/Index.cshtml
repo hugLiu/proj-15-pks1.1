@@ -1,0 +1,44 @@
+﻿@model PKS_PORTAL_LINKEDIN_TEXT
+@{
+    ViewBag.Title = "Index";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div class="frame-fit" style="width: 100%;margin-top: -10px;">
+    <div class="mini-toolbar" style="margin-bottom:0;">
+        <table style="width:100%;">
+            <tr>
+                <td style="width:100%;">
+                    <a class="mini-button" iconcls="icon-new-save" onclick="save()">@Html.Str("保存")</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit" style="padding:10px">
+        <input id="id" type="hidden" name="Id" value="@(Model?.Id)" />
+        <div class="form-group">
+            <label for="text" style="text-indent:3px">外链文本</label>
+            <textarea id="text" name="Text" class="form-control" rows="5"> @(Model?.Text)</textarea>
+        </div>
+    </div>
+</div>
+<script>
+    var save = function () {
+        var model = {};
+        model.Id = $("#id").val();
+        model.Text = $("#text").val();
+        $.ajax({
+            url: "./save",
+            type: "post",
+            data: model,
+            success: function () {
+                showTips("success", "保存成功");
+            },
+            error: function (data) {
+                showTips("error", "保存失败");
+            }
+        })
+    };
+</script>
+

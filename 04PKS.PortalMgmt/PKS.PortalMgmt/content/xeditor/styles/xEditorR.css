@@ -1,0 +1,92 @@
+html,body{
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+a{
+    text-decoration:none;
+}
+#knowledge_doc_template {
+    box-sizing: border-box;
+    position: absolute;
+    margin: 10px;
+    padding: 0px;
+    width: 200px;
+    height: 37%;
+    left: 0px;
+    top: 0px;
+    overflow-y: auto;
+    background-color:rgb(252,252,252);
+    border:1px solid rgb(230,230,230)
+}
+
+#knowledge_doc_directory {
+    box-sizing: border-box;
+    position: absolute;
+    margin: 5px 10px;
+    padding: 0;
+    width: 200px;
+    height: 32%;
+    left: 0px;
+    top: 40%;
+    overflow-y: auto;
+    border:1px solid rgb(230,230,230);
+    background-color:rgb(252,252,252);
+}
+
+#knowledge_doc_fragments {
+    box-sizing: border-box;
+    position: absolute;
+    margin: 10px;
+    padding: 0;
+    width: 200px;
+    height: 29%;
+    left: 0px;
+    top: 73%;
+    overflow-y: auto;
+    border:1px solid rgb(230,230,230);
+    background-color:rgb(252,252,252);
+}
+
+#knowledge_control_manager {
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#knowledge_doc_layout_designer {
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+   // border-top: 1px solid rgba(222,222,222,1);
+}
+#toolbar-box{
+    width:calc(100% - 232px);
+    float:right;
+    padding-left:20px;
+    line-height:36px;
+}
+#toolbar-box a{
+    text-decoration:none;
+    cursor:pointer;
+    color:gray;
+    display:inline-block;
+}
+#toolbar-box a:hover{
+    color:rgb(112,179,249);
+}
+#toolbar-box a:nth-of-type(3){
+    float:right;
+    padding:2px 10px;
+    margin-top:4px;
+    color:gray;
+}

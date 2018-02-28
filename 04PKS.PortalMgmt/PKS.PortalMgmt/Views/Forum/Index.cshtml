@@ -1,0 +1,23 @@
+﻿@using PKS.Web
+@using PKS.Models
+@{
+    ViewBag.Title = "论坛系统管理";
+    string forumSiteUrl = this.Context.GetSubSystemUrl(PKSSubSystems.Forum).TrimEnd('/');
+}
+<script type="text/javascript">
+    mini.parse();
+    var forumAdminWindow;
+    $.regButton({
+        text: "进入论坛后台管理",
+        beforeSubmit: function (ajax) {
+            ajax.type = "post";
+            ajax.url = "/Forum/GetForumAdminToken";
+            ajax.validate = false;
+            forumAdminWindow = window.top.open("", "PKSForumAdmin");
+        },
+        afterSubmit: function (token) {
+            var forumAdminUrl = "@Html.Raw(forumSiteUrl)" + "/redirect/admin.aspx?type=login&token=" + token;
+            forumAdminWindow.location.href = forumAdminUrl;
+        }
+    });
+</script>

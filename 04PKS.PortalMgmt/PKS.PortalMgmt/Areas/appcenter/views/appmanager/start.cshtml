@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = FStr.ApplicationManagerStartPage;
+    var functionCount = AppManager.Instance.FunctionManager.Count;
+    var usersCount = AppManager.Instance.UserManager.Count;
+    var rolesCount = AppManager.Instance.RoleManager.Count;
+}
+<div class="mini-xs mini-sm mini-md mini-md-active mini-col">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-12 " id="formData">
+                <div class="mini-panel layout-panel mini-fit" style="margin-bottom:15px;" title="@FStr.SystemStatus" width="auto" showCollapseButton="flase" showCloseButton="flase">
+                    <h4>
+                        @FStr.SystemInitFinishedAndRuningPerfect")
+                    </h4>
+                    <p>
+                        @FStr.FunctionsCount：<b>@functionCount</b><br />
+                        @FStr.RolesCount：<b>@rolesCount</b><br />
+                        @FStr.UsersCount：<b>@usersCount</b>
+                    </p>
+                    <p class="alert-danger">
+                        @FStr.ReGenerateFunctions<br />
+                        @Html.JAuthLink(FStr.ReGenerateFunctions, "ReStart", htmlAttributes: new { @class = "btn btn-default", target = "_self", onclick = "return confirm(JStr.ConfirmReInit)" })
+                    </p>
+                    <p class="alert-danger">
+                        @FStr.RewriteAllResFiles<br />
+                        @Html.JAuthLink(FStr.RewriteAllResFiles, "RewriteResFiles", htmlAttributes: new { @class = "btn btn-default frame-submit mini-button" })
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    $.regButton({
+        text: '@FStr.RewriteAllResFiles',
+        beforeSubmit: function (ajax) {
+            ajax.url = '@Url.Action("WriteResFiles")';
+        }
+    });
+</script>

@@ -1,0 +1,168 @@
+blockquote, body, button, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, pre, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+li{list-style-type:none;}
+.lemmaWgt-lemmaCatalog .lemma-catalog {
+       float: left;
+       border-top: 1px solid #ddd;
+       border-bottom: 1px solid #ddd;
+       background: #fbfbfb;
+       font-family: arial,tahoma,'Microsoft Yahei','\5B8B\4F53',sans-serif;
+   }
+::-webkit-scrollbar {
+       width: 10px;
+       height: 10px;
+   }
+::-webkit-scrollbar-corner, ::-webkit-scrollbar-track {
+       background-color: #e2e2e2;
+   }
+::-webkit-scrollbar-thumb {
+       border-radius: 0;
+       background-color: rgba(0,0,0,.3);
+   }
+::-webkit-scrollbar-corner, ::-webkit-scrollbar-track {
+       background-color: #e2e2e2;
+   }
+.lemmaWgt-lemmaCatalog .lemma-catalog .block-title {
+       float: left;
+       margin: 22px 0 0 20px;
+       width: 60px;
+       height: 48px;
+       text-align: center;
+       font-size: 18px;
+       line-height: 48px;
+       font-weight: 400;
+   }
+/* #bkml  h2 {
+       display: block;
+       font-size: 1.5em;
+       -webkit-margin-before: 0.83em;
+       -webkit-margin-after: 0.83em;
+       -webkit-margin-start: 0px;
+       -webkit-margin-end: 0px;
+       font-weight: bold;
+   } */
+.lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list {
+       display: block;
+       float: left;
+       border-left: 1px solid #ebebeb;
+       width: 696px;
+       position: relative;
+       overflow: hidden;
+       padding-top: 15px;
+       padding-bottom: 20px;
+       background-color: #fff;
+   }
+.lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol:first-child {
+       border-left: 0;
+   }
+.lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol {
+       float: left;
+
+   }
+.lemmaWgt-lemmaCatalog .lemma-catalog .column-3 ol {
+       width: 230.5px;
+   }
+.lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol li.level1 {
+       line-height: 28px;
+   }
+.lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol li.level1 .index {
+       display: -moz-inline-box;
+       -moz-box-orient: vertical;
+       display: inline-block;
+       width: 18px;
+       font-size: 16px;
+       padding-left: 20px;
+       padding-right: 8px;
+       vertical-align: top;
+       text-align: right;
+       color: #63a0df;
+   }
+.lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol li.level1 .text {
+       display: -moz-inline-box;
+       -moz-box-orient: vertical;
+       display: inline-block;
+       font-size: 16px;
+       font-weight: 500;
+       background-color: #fff;
+       vertical-align: top;
+       width: 120px;
+   }
+#bkml  a {
+       color: #333;
+   }
+.lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol li.level2 {
+       line-height: 21px;
+   }
+
+.lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol li.level2 .index {
+
+       display: inline-block;
+       padding-left: 41px;
+       padding-right: 5px;
+       width: 5px;
+       line-height: 16px;
+       font-size: 12px;
+       vertical-align: top;
+       color: #ccc;
+   }
+
+.lemmaWgt-lemmaCatalog .lemma-catalog .column-3 ol li.level2 .text {
+
+       display: inline-block;
+       line-height: 16px;
+       font-size: 12px;
+       width: 172px;
+       vertical-align: top;
+   }
+
+
+.lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol li.level3 {
+    line-height: 21px;
+}
+
+    .lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol li.level3 .index {
+        display: inline-block;
+        padding-left: 41px;
+        padding-right: 5px;
+        width: 5px;
+        line-height: 16px;
+        font-size: 12px;
+        vertical-align: top;
+        color: #ccc;
+    }
+
+.lemmaWgt-lemmaCatalog .lemma-catalog .column-3 ol li.level3 .text {
+    display: inline-block;
+    line-height: 16px;
+    font-size: 12px;
+    width: 172px;
+    vertical-align: top;
+}
+#bkml  li {
+       list-style: none;
+   }
+.lemmaWgt-lemmaCatalog {
+       margin: 35px 0;
+   }
+    .lemmaWgt-lemmaCatalog:after {
+        content: '\0020';
+        display: block;
+        height: 0;
+        font-size: 0;
+        clear: both;
+        overflow: hidden;
+        visibility: hidden;
+    }
+     #bkml   a{
+                       text-decoration:none
+                   }
+        .lemmaWgt-lemmaCatalog .lemma-catalog .catalog-list ol {
+               float: left;
+               border-left: 1px solid #f5f5f5;
+           }
+#bkml   a:hover{
+               opacity: .7;
+           }

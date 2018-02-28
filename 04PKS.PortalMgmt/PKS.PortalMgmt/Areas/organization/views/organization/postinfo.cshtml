@@ -1,0 +1,181 @@
+﻿@{
+    Layout = "~/Views/Shared/_FormLayout.cshtml";
+    ViewBag.ShowBreadCrumb = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div class="frame-fit" style="width: 100%;">
+    
+    <div class="frame-form" >
+      
+        <div style="padding-top: 2px; width: 100%;">
+            <div id="toolbar1" class="mini-toolbar">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <a class="mini-button" iconcls="icon-new-add" plain="true" onclick="add('dataGrid')">@FStr.AddPost</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div id="dataGrid" class="mini-datagrid " style="width: 100%; height: auto;" multiselect="true"
+                    url="@Url.Action("GetPostDataInfo")"
+                    showpager="false"
+                    sortmode="client"
+                    allowcelledit="true"
+                    editnextrowcell="true"
+                    editnextonenterkey="true"
+                    allowcellselect="true"
+                    oncellvalidation="onCellValidation"
+                    allowcellvalid="true">
+            <div property="columns">
+                <div field="Id" headeralign="center" allowsort="true" visible="false">ID</div>
+                <div field="OperatorID" headeralign="center" allowsort="true" visible="false">@JStr.Operator</div>
+                <div field="IsDeleted" headeralign="center" allowsort="true" visible="false">@JStr.IsDeleted</div>
+                <div field="CreateDatetime" headeralign="center" allowsort="true" visible="false">@JStr.CreatedDate</div>
+
+                <div field="handel" headeralign="center" align="center" width="40" renderer="onActionRenderer"><span class='glyphicon glyphicon-minus'></span></div>
+                <div name="PostName" field="PostName" vtype="required" headeralign="center">
+                    @FStr.PostName
+                    <input property="editor" class="mini-textbox" minwidth="1" maxlength="50" />
+                </div>
+                <div field="PostType" headeralign="center" allowsort="true"  >
+                    @FStr.PostType
+                    <input property="editor" class="mini-textbox" minwidth="1" maxlength="20" />
+                </div>
+                <div field="PostLevelType" headeralign="center" allowsort="true">
+                    @JStr.Level
+                    <input property="editor" class="mini-textbox" minwidth="1" maxlength="20" />
+                </div>
+                <div field="PostEngageType headeralign="center" allowsort="true" >
+                    @FStr.PostHireType
+                    <input property="editor" class="mini-textbox" minwidth="1" maxlength="20" />
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+</div>
+<script type="text/javascript">
+    mini.parse();
+    var dataGrid = mini.get('#dataGrid')
+    dataGrid.load();
+    //添加单元格内部删除图标以及删除行事件
+    function onActionRenderer(e) {
+        var grid = e.sender;
+        var s = "<a href='javaScript:remove(" + grid.id + ")'><span class='glyphicon glyphicon-minus' title='@JStr.Delete'></span></a>"
+        return s;
+    }
+
+    //新增一个行对象 新增行是在数据列表最后
+    //参数g = grid组件ID
+    function add(g) {
+        var grid = mini.get(g)
+        //var rowIndex = grid.getData().length;
+        var newRow = {};
+        grid.addRow(newRow, 0);
+    }
+
+    //验证名称重复
+    function onCellValidation(e) {
+        if (e.isValid) {
+            if (e.field != "PostName")
+                return;
+            var data = dataGrid.getData(null, false);
+
+            for (i = 0; i < data.length; i++) {
+                var id = data[i]["PostName"];
+                //排除当前正在编辑的行
+                if (id == e.value && data[i]._uid != e.node._uid) {
+                    e.errorText = "@FStr.DuplicatedName";
+                    e.isValid = false;
+                    return;
+                }
+            }
+        }
+    }
+
+
+    //删除一个行对象(支持多选删除)
+    //参数g = grid组件ID
+    function remove(g) {
+        var grid = mini.get(g)
+        var rows = grid.getSelecteds();
+
+        if (rows.length == 0) {
+            alert("@JStr.PlzSelectDataRowsToDelete");
+            return;
+        }
+        if (!confirm("@JStr.ConfirmDelete")) {
+            return;
+        }
+
+        for (var i = 0; i < rows.length; i++) {
+            var id = rows[i]["Id"]
+            $.ajax({
+                async: false,   //此处必须同步执行才允许删除grid
+                url: "@Url.Action("IsNotLinkPost")" + "?id=" + id,
+                success: function (text) {
+                    var o = mini.decode(text);
+                    if (o) {
+                            grid.removeRow(rows[i], true);
+                    } else {
+                        alert("@ResHelper.GetStr("该岗位已经被其他部门或人员引用!")");
+                    }
+                }
+            });
+        }
+    }
+
+    //验证Grid表单
+    //参数grid = grid组件对象
+    //参数msg = 验证消息前缀描述(通常是grid表格业务名称)
+    function gridValid(grid, msg) {
+        //提交Grid编辑的数据
+        grid.commitEdit();
+        //开始验证Grid表单
+        grid.validate();
+        //判断验证Grid数据填写是否完整
+        if (grid.isValid() == false) {
+            var error = grid.getCellErrors()[0];
+            //去空格以及/r/n
+            var columnName = $.trim(error.column.header.replace(/[\r\n]/g, ""));
+            alert(msg + " " + columnName + ":" + error.errorText);
+            grid.beginEditCell(error.record, error.column);
+            return false;
+        }
+        return true;
+    }
+     
+    $.regButton({
+        id: "02110600501",
+        beforeSubmit: function (ajax) {
+            //验证grid数据
+            if (!gridValid(dataGrid, "@FStr.PostInfo")) {
+                return false;
+            }
+           
+            var data1 = dataGrid.getChanges(null, false);
+            var json1 = mini.encode(data1);
+
+            //打包提交数据
+            ajax.data = {
+                grid1: json1
+            };
+        },
+        afterSubmit: function (data) {
+            data = data.ReturnValue;
+            if (!data) {
+                if (top.iframe.contentWindow.reloadMainData) {
+                    top.iframe.contentWindow.reloadMainData();
+                }
+                window.CloseOwnerWindow();
+            }
+        }
+     });
+
+</script>

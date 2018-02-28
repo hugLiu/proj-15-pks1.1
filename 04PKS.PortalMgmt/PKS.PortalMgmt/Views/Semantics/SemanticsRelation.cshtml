@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = ResHelper.GetStr("SDMenuTitleSemanticsRelation");
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div id="SemanticsRelation" class="mini-layout frame-fit" style="width: 100%; height: 100%; margin-top: -10px;">
+
+    <div title="@Html.Str("Managed_ConceptClass")" region="west" width="300px" expanded="true" showspliticon="true" showheader="true">
+        <div>
+            <table style="width: 100%; height: 10%; padding-left: 10px">
+                <tr>
+                    <td>
+                        <div id="CClist" class="mini-combobox" style="width: 120px;" emptytext=""
+                             textfield="Text" valuefield="Id" allowinput="true" onitemclick="CClistchanged()"
+                             url="/Semantics/GetNeedManageCc">
+                        </div>
+                    </td>
+                    <td>
+                        <input id="Selecttree" class="mini-treeselect" style="width: 180px; overflow: hidden;"
+                               textfield="Term" idfield="TermClassId" valuefield="TermClassId" parentfield="PId"
+                               expandonload="1" showtreeicon="true" url="/Semantics/GetTermTrees?cc=BP"
+                               showtreelines="true" text="@Html.Str("empty_Select")" onnodeclick="filterNodeClick()" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="width: 95%;height: 90%;padding-left: 10px">
+            <ul id="CCtree" class="mini-tree" style="width:100%;height: 100%"
+                idfield="TermClassId" parentfield="PId" textfield="Term" valuefield="IsPT" expandonload="2"
+                url="/Semantics/GetTermTrees/?cc=BP" resultastree="false"
+                showtreeicon="true" onnodeselect="TreeNodeClick()" ondrawnode="onDrawNode"></ul>
+
+        </div>
+    </div>
+    <div title="@Html.Str("Managed_SemanticsRelation")" region="center" expanded="true" showheader="true">
+        <div id="tabs1" class="mini-tabs" activeindex="0" style="width:100%;height:100%;" maskonload="false"
+             titlefield="Description" url="/Semantics/GetRelationOfCc?cc='BP'" datafield="CCCode2" valuefield="SR"
+             onactivechanged="activechanged()">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*********公共变量************************/
+    mini.parse();
+
+    var tabs = mini.get("tabs1");
+    var cclist = mini.get("CClist");
+    var selecttree = mini.get("Selecttree");
+    var cctree = mini.get("CCtree");
+    var selectPT = "@Html.Str("SelectPT_Required")";
+
+    /****************************************/
+    //选取维护的概念类时发生
+    function CClistchanged() {
+        var selectccValue = cclist.getValue();
+        //if (selectccValue == "PT") {
+        //    cctree.load("/Semantics/GetBPAndPtTreeResult?id=null&show=false");
+        //    selecttree.load("/Semantics/GetBPAndPtTreeResult?id=null&show=false");
+        //} else {
+            cctree.load("/Semantics/GetTermTrees?cc=" + selectccValue);
+            selecttree.load("/Semantics/GetTermTrees?cc=" + selectccValue);
+        //}
+        tabs.load("/Semantics/GetRelationOfCc?cc=" + selectccValue);
+    }
+
+    //切换面板时发生
+    function activechanged() {
+        loadTab();
+    }
+
+    function loadTab() {
+        var tab = tabs.getActiveTab();
+        if (typeof (tab) != "undefined") {
+            var text = tab.CCCode2;
+            var sr = tab.SR;
+            var term = "";
+            var id = "";
+            if (typeof (cctree.getSelectedNode()) != "undefined") {
+                term = cctree.getSelectedNode().Term;
+                id = cctree.getSelectedNode().TermClassId;
+            }
+            tabs.loadTab("@Url.Action("CCTrees", "Semantics")" + "?cc=" + text + "&term=" + term + "&sr=" + sr + "&id=" + id, tab);
+        }
+    }
+
+    //筛选树节点点击时发生
+    function filterNodeClick() {
+        var selectnode = selecttree.getSelectedNode();
+        var nodes = cctree.getAllChildNodes(selectnode);
+        var boolNode = cctree.isLeaf(selectnode);
+        if (boolNode == false) {
+            cctree.loadData(nodes);
+        } else {
+            cctree.loadNode(selectnode);
+        }
+    }
+
+    //绘制树节点时发生
+    function onDrawNode(e) {
+        var node = e.node;
+        var isPt = node.IsPT;
+
+        //BPPT树，只有成果类型可以被选中
+        if (isPt == 'Y') {
+            e.nodeStyle = 'font-weight:bold;';
+        }
+    }
+
+    function TreeNodeClick() {
+        if (cctree.getSelectedNode().IsPT == 'N') {
+            mini.showTips({
+                content: selectPT,
+                state: "warning",
+                x: "left",
+                y: "center",
+                timeout: 1500
+            });
+        } else {
+            var term = cctree.getSelectedNode().Term;
+            var id = cctree.getSelectedNode().TermClassId;
+            var tab = tabs.getActiveTab();
+            var text = tab.CCCode2;
+            var sr = tab.SR;
+            tabs.loadTab("@Url.Action("CCTrees", "Semantics")" + "?cc=" + text + "&term=" + term + "&sr=" + sr + "&id=" + id, tab);
+        }
+    }
+</script>
+

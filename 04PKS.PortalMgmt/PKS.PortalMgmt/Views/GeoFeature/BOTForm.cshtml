@@ -1,0 +1,284 @@
+﻿@{
+    ViewBag.Title = ResHelper.GetStr("BOMenuItemTitle");
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+
+    var apiServiceUrl = ViewData["API_SERVICE_URL"];
+    var access_token = ViewData["ACCESS_TOKEN"];
+}
+
+<div id="formData" class="frame-fit" style="width: 100%;">
+   
+        <div class="mini-toolbar" style="margin-bottom:5px;">
+            <table style="width:100%;" cellpadding="2" cellspacing="2">
+                <tr>
+                    <td style="width: 50%">
+                        <input labelfield="true" label="类型名称：" id="name_txt" name="name" value="" required="true" class="mini-textbox" maxlength="50" style="width:98%;" onvaluechanged ="do_valuechanged"/>
+                    </td>
+                    <td style="width: 50%">
+                        <input labelfield="true" label="坐标类型：" id="locationtype_txt" name="locationtype" value=""  class="mini-combobox" data="locationtypeData" maxlength="50" textfield="text" valuefield="id" shownullitem="false" emptytext="请选择..." style="width:98%;" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    <div class="mini-toolbar" style="margin-bottom:5px;">
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td colspan="2" style="width:100%;">
+                    <a class="mini-button" iconcls="icon-new-add" plain="true" id="botAdd" onclick="addBot()">@ResHelper.GetStr("新增")</a>
+                    <a class="mini-button" iconcls="icon-new-delete" plain="true" id="botDel" onclick="removeBot()">@ResHelper.GetStr("删除")</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <div id="gridBot" class="mini-datagrid "
+             style="width:100%;height:100%;"
+             multiselect="true"
+             selectonload="true"
+             showPager="false"
+             sortMode="client"
+             allowalternating="true"
+             allowcelledit="true"
+             editnextrowcell="true"
+             editnextonenterkey="true"
+             allowcellselect="true"
+             allowcellvalid="true"
+             ondrawcell="onDrawCellBot"
+             oncellcommitedit="OnCellCommitEditBot"
+          
+             >
+
+            <div property="columns">
+                <div type="indexcolumn" width="30"></div>
+                <div type="checkcolumn" width="30"></div>
+                <div field="options" headeralign="center" visible="false">主键ID</div>
+                <div field="name" headeralign="center" allowsort="true" vtype="required" width="100">
+                    @ResHelper.GetStr("名称(name)")
+                    <input property="editor" class="mini-textbox" minwidth="1" maxlength="80" />
+                </div>
+                <div field="displayname" headeralign="center" allowsort="true" vtype="required" width="130">
+                    @ResHelper.GetStr("显示名称(displayname)")
+                    <input property="editor" class="mini-textbox" minwidth="1" maxlength="80" />
+                </div>
+                <div field="type" headeralign="center" allowsort="true" vtype="required" width="100">
+                    @ResHelper.GetStr("数据类型(type)")
+                    <input property="editor" class="mini-combobox" value="1" data="[{text:'String',id:'String'},{text:'Number',id:'Number'},{text:'ISODate',id:'ISODate'}]" valuefield="text" shownullitem="id" emptytext="请选择..." />
+                </div>
+                <div field="scenario" headeralign="center" allowsort="true" vtype="required" width="120">
+                    @ResHelper.GetStr("应用场景(scenario)")
+                    <input property="editor" class="mini-combobox" value="1" data="[{text:'Data',id:'Data'},{text:'Filter',id:'Filter'},{text:'Both',id:'Both'}]" valuefield="text" shownullitem="id" emptytext="请选择..." />
+                </div>
+                <div field="optionsStr" headeralign="center" allowsort="true"  emptyText="多个options请用','分割...">
+                    @ResHelper.GetStr("数据选项(options)")
+                    <input property="editor" class="mini-textbox" minwidth="1" maxlength="1000"  />
+                </div>
+                <div field="sequence" headeralign="center" allowsort="true" vtype="required" width="100">
+                    @ResHelper.GetStr("序列(sequence)")
+                    <input property="editor" class="mini-spinner" changeonmousewheel="false" maxvalue="9999" maxlength="10" />
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="mini-toolbar" style="margin-bottom:5px;">
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td align="right" style="width:100%;">
+                    <a class="mini-button" iconcls="icon-new-save" plain="true" id="botAdd" onclick="saveBot()">@ResHelper.GetStr("保存")</a>
+                    <a class="mini-button" iconcls="icon-new-initialize" plain="true" id="botExit" onclick="javascript:window.CloseOwnerWindow();">@ResHelper.GetStr("取消")</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    //有新的类型继续添加
+    var locationtypeData = [
+        { text: 'Point', id: 'Point' },
+        { text: 'MultiPoint', id: 'MultiPoint' },
+        { text: 'LineString', id: 'LineString' },
+        { text: 'MultiLineString', id: 'MultiLineString' }, 
+        { text: 'Polygon', id: 'Polygon' },
+        { text: 'MultiPolygon', id: 'MultiPolygon' },
+        { text: 'GeometryCollection', id: 'GeometryCollection' }
+    ];
+    mini.parse();
+    //
+    var gridBot = mini.get('#gridBot')
+    //表单对象
+    var form = new mini.Form("#formData");
+
+    function initForm(row)
+    {
+        var name_txt=  mini.get('#name_txt');
+        name_txt.setValue(row["name"]);
+        //设置不允许编辑
+        //name_txt.setReadOnly(true);
+        name_txt.setIsValid(true);
+        //坐标类型设置
+        mini.get('#locationtype_txt').setValue(row["locationtype"]);
+        //获取属性列的数据并渲染到grid
+        gridBot.setData(row["properties"]);
+
+        gridBot.sortBy("sequence", "asc");
+    }
+
+    function do_valuechanged(e)
+    {
+        var pattern = new RegExp("[\"_+-`%~!@@#$^&*()=|{}':;',\\[\\].<>/?~！@@#￥……&*（）——|{}【】‘；：”“'。，、？]")
+        var rs = "";
+        for (var i = 0; i < e.value.length; i++) {
+            rs = rs + e.value.substr(i, 1).replace(pattern, '');
+        }
+        //
+        mini.get('#name_txt').setValue(rs);
+    }
+
+    /*
+        单元格渲染事件,转换数据显示方式
+    */
+    function onDrawCellBot(e) {
+        //
+        if (e.field == "optionsStr") {
+
+            var o = e.row["options"]
+            if (o) {
+                e.value = o.join(',');
+                e.row["optionsStr"] = e.value;
+                e.cellHtml = e.value;
+            }
+            else {
+                e.row["options"] = "";
+                e.row["optionsStr"] = "";
+                e.cellHtml = "";
+            }
+        }
+    }
+
+    /*
+        对于下拉框形式的属性列分割字符便于数据保存
+    */
+    function OnCellCommitEditBot(e) {
+
+        if (e.field == "optionsStr")
+        {
+            //字符分割
+            e.row["options"] =  e.value.split(",");
+        }
+    }
+
+    /*
+        新增属性列数据
+    */
+    function addBot() {
+        var rowIndex = gridBot.getData().length;
+        var newRow = {
+            sequence: rowIndex + 1
+        };
+        gridBot.addRow(newRow, 0);
+    }
+
+    /*
+        删除数列数据
+    */
+    function removeBot() {
+        var rows = gridBot.getSelecteds();
+        if (rows.length > 0) {
+            gridBot.removeRows(rows, true);
+        }
+    }
+
+    /*
+        保存
+    */
+    function saveBot() {
+        //
+        var dataGrid = gridBot.getData();
+        //取消属性grid设置的必填验证
+        //if (dataGrid.length == 0) {
+        //    showTips({ Type: "warning", Message:"@ResHelper.GetStr("请设置业务类型的属性!")" });
+        //    return false;
+        //}
+        //验证Grid
+        if (!gridValid(gridBot, "@ResHelper.GetStr("业务类型属性")"))
+            return false;
+
+        //验证表单
+        if (form.isValid() == false)
+        {
+            showTips({ Type: "warning", Message: "@ResHelper.GetStr("请设置业务类型的信息是否填写完整!")" });
+            return false;
+        }
+
+        //获取Grid的数据并且添加到表单集合
+        var dataForm = form.getData();
+        dataForm["properties"] = dataGrid;
+
+        //装入集合
+        var dataPost = [];
+        dataPost.push(dataForm);
+
+        //转换为json字符串格式
+        var formJson = mini.encode(dataPost);
+
+        $.ajax({
+            //该方法根据name判断重复就覆盖,反之就插入
+            url: "@apiServiceUrl" + "/BO2Service/SaveBOTs",
+            type: "Post",
+            data: formJson,
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + "@access_token"
+            },
+            complete: function (e, status) {
+                //alert('完成');
+                if (e.statusText == "OK") {
+                    window.CloseOwnerWindow();
+                    showTips({ Type: 'success', Message: "保存成功" });
+                } else {
+
+                    showTips({ Type: 'error', Message: "保存失败" });
+                }
+            },
+            //error: function (e, status, resData) { alert('err完成');},
+            //success: function (data, status, e) {}
+        });
+    }
+
+
+
+    /*
+    验证Grid表单
+    参数grid = grid组件对象
+    参数msg = 验证消息前缀描述(通常是grid表格业务名称)
+    */
+    function gridValid(grid, msg) {
+        //提交Grid编辑的数据
+        grid.commitEdit();
+        //开始验证Grid表单
+        grid.validate();
+        //判断验证Grid数据填写是否完整
+        if (grid.isValid() == false) {
+            var error = grid.getCellErrors()[0];
+            //去空格以及/r/n
+            var columnName = $.trim(error.column.header.replace(/[\r\n]/g, ""));
+            //去掉html标签
+            columnName = columnName.replace(/<[^>]+>/g, "");
+
+            //验证完成后选中错误单元格
+            grid.beginEditCell(error.record, error.column);
+            //验证完成后选中错误当前行
+            var row = grid.findRow(function (row) {
+                if (row._id == error.record._id) return true;
+            });
+            grid.select(row, false);
+
+            alert(msg + " " + columnName + ":" + error.errorText);
+            return false;
+        }
+        return true;
+    }
+</script>

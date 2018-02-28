@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "案例查询";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div id="layout1" class="mini-layout frame-fit" style="width: 100%;margin-top: -10px;">
+    <div title="案例主题" showproxytext="false" region="west" width="300px" height="100%" showclosebutton="false" showspliticon="false" showcollapsebutton="false" showsplit="false" style="background-color:aliceblue;">
+        <div id="treeCase" class="mini-tree" url="@Url.Action("GetCaseTree", "KCaseTheme")" style="width:290px;padding:5px;margin:5px;"
+             showTreeIcon="true"
+             textField="Name" idField="Id" parentField="Pid" resultAsTree="false"
+             expandonload="1"
+             expandOnDblClick="true"
+             onnodeselect="onNodeSelect"></div>
+    </div>
+    <div title="案例查询" id="center" region="center" width="80%" height="100%">
+        <table style="margin-left:10px;margin-top:10px;">
+            <tr>
+                <td height="30px">描述目标：</td>
+                <td width="200px">
+                    <input id="textBo" class="mini-textbox" width="200px" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>案例名称：</td>
+                <td>
+                    <input  id="textCaseName" class="mini-textbox" width="200px" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td height="40px">
+                    <a id="btnSearch" class="mini-button" style="margin:1px;" onclick="search">
+                        <span class="mini-button-text  mini-button-icon icon-new-search">查询</span>
+                    </a>
+                </td>
+                <td>
+                    <a id="btnAdd" class="mini-button" style="margin:1px;" onclick="addCase(-1)">
+                        <span class="mini-button-text  mini-button-icon icon-new-add">新增案例</span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+                       
+        <div id="gridInstance" class="mini-datagrid" url="@Url.Action("GetInstancesByThemeId", "KCaseInput")" idfield="Id"
+             style="width: 80%; height: 76%;margin-top:10px;margin-left:0px;margin-right:0px;" multiselect="false" showpager="true"
+             allowresize="false" allowcellselect="false" allowcelledit="false">
+            <div property="columns">
+                <div type="indexcolumn" headeralign="center" align="center" width="10%"></div>
+                <div name="Name" field="Name" headeralign="center" width="40%" align="center">
+                    案例名称
+                </div>
+                <div name="BoDescription" field="BoDescription"  headeralign="center" width="40%" align="center">
+                    描述目标
+                </div>
+                <div name="Remark" field="Remark" headeralign="center" width="40%" align="center">
+                    案例说明
+                </div>
+                <div name="action" headeralign="center" width="40%" align="center" renderer="onActionRenderer">
+                    #
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+
+    var treeCase = mini.get("treeCase");
+    var gridInstance = mini.get("gridInstance");
+
+    function search() {
+        var boValue = mini.get("textBo").getValue();
+        var caseNameValue = mini.get("textCaseName").getValue();
+        gridInstance.filter(function (row) {
+            var r1 = true;
+            if (boValue) {
+                r1 = String(row.BoDescription).indexOf(boValue) != -1;
+            }
+            var r2 = true;
+            if (caseNameValue) {
+                r2 = String(row.Name).indexOf(caseNameValue) != -1;
+            }
+            return r1 && r2;
+        })
+    }
+
+    function onNodeSelect(e) {
+        var node = e.node;
+        if (node.IsCase) {
+            // 渲染数据
+            gridInstance.load({ themeId: node.ThemeId });
+        } else {
+            gridInstance.load({ themeId: 0 });
+        }
+    }
+
+    function addCase(instanceId) {
+        var node = treeCase.getSelectedNode();
+        if (node.IsCase) {
+            var theme = node.Name;
+            var title = "编辑案例";
+            if (instanceId == -1) title = "新增案例";
+            mini.open({
+                url: "@Url.Action("AddCase","KCaseInput")" + "?themeId=" + node.ThemeId + "&instanceId=" + instanceId + "&theme=" + theme,
+                allowResize: false,
+                title: title,
+                width: 750,
+                height: 550,
+                onload: function () { },
+                ondestroy: function (action) {
+                    gridInstance.reload({ themeId: node.ThemeId });
+                }
+
+            });
+            // 新建案例
+        } else {
+            showTips({ Type: "warning", Message: "请先选择一个案例节点！" });
+            return;
+        }
+    }
+
+    function onEdit(row_uid) {
+        var r = gridInstance.getRowByUID(row_uid);
+        var row = gridInstance.findRow(function (row) {
+            if (row.Id == r.Id) return true;
+        });
+        addCase(row.Id);
+    }
+
+    function onDelete(row_uid) {
+        var r = gridInstance.getRowByUID(row_uid);
+        var row = gridInstance.findRow(function (row) {
+            if (row.Id == r.Id) return true;
+        });
+        var id = row.Id;
+        $.ajax({
+            url: "@Url.Action("DeleteInstance", "KCaseInput")",
+            data: { id: id },
+            type: "post",
+            success: function (result) {
+                showTips({ Type: "success", Message: "删除实例成功！" });
+                gridInstance.reload();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "删除实例失败！" });
+                console.log(e);
+            }
+        })
+    }
+
+    function onActionRenderer(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var uid = record._uid;
+        var rowIndex = e.rowIndex;
+        var s = '<a class="mini-button" href = "javascript:onEdit(\'' +
+            uid +
+            '\')"  style="width:60px">编辑</a>'
+        var t = '<a class="mini-button"  href = "javascript:onDelete(\'' +
+            uid +
+            '\')"  style="width:60px">删除</a>'
+            ;
+        return s + t;
+    }
+</script>

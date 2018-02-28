@@ -1,0 +1,54 @@
+﻿@*顶部导航栏自定义搜索框*@
+<input class="mini-textbox" id="txtSearchNav" style="width:100%" emptytext='@FStr.SearchNav' />
+<script type="text/javascript">
+    var searchNavTimeout;
+    $(function () {
+        $('#txtSearchNav :text').keydown(function (e) {
+            clearTimeout(searchNavTimeout);
+            if (e.which == 13) {
+                e.preventDefault();
+                searchAllNav();
+            }
+            else {
+                searchNavTimeout = setTimeout(searchAllNav, 500);
+            }
+        });
+    });
+
+    function searchAllNav() {
+        //获取搜索框文本
+        var key = $('#txtSearchNav :text').val();
+        var exped = false;
+        //根据Key查找outlookbar中的所有树，并自动定位到第一个找到的树
+        $('#nav_left .mini-tree').each(function () {
+            var treeId = this.id;
+            var tree = mini.get(treeId);
+            if (!tree) return;
+            if (!key) {
+                tree.clearFilter();
+                return;
+            }
+            var found = false;
+            var txtField = tree.getTextField();
+            tree.filter(function (node) {
+                for (var i in node) {
+                    if (node[txtField]) {
+                        if ((node[txtField] || "").indexOf(key) >= 0) {
+                            found = true;
+                            return true;
+                        }
+                    }
+                };
+            });
+
+            if (found && !exped) {
+                var a = $(this).parents(".mini-outlookbar-groupBody").find('a:first');
+                var idx = parseInt((a.attr("id") || "-1").replace("grp_", ""));
+                if (idx >= 0) {
+                    mini.get("nav_leftMenuBar").setActiveIndex(idx);
+                    exped = true;
+                }
+            }
+        });
+    }
+</script>

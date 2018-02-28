@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PKS.DbModels</name>
+    </assembly>
+    <members>
+        <member name="T:PKS.DbModels.IAuditedModel">
+            <summary>IAuditedModel</summary>
+        </member>
+        <member name="P:PKS.DbModels.IAuditedModel.CreatedBy">
+            <summary>
+             CREATEDBY (length: 50)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.IAuditedModel.CreatedDate">
+            <summary>
+             CREATEDDATE
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.IAuditedModel.LastUpdatedBy">
+            <summary>
+             LASTUPDATEDBY (length: 50)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.IAuditedModel.LastUpdatedDate">
+            <summary>
+             LASTUPDATEDDATE
+            </summary>
+        </member>
+        <member name="T:PKS.DbModels.PKS_AuditedModel">
+            <summary>PKS_AuditedModel</summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_AuditedModel.Id">
+            <summary>
+             Id (Primary key)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_AuditedModel.CreatedBy">
+            <summary>
+             CREATEDBY (length: 50)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_AuditedModel.CreatedDate">
+            <summary>
+             CREATEDDATE
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_AuditedModel.LastUpdatedBy">
+            <summary>
+             LASTUPDATEDBY (length: 50)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_AuditedModel.LastUpdatedDate">
+            <summary>
+             LASTUPDATEDDATE
+            </summary>
+        </member>
+        <member name="T:PKS.DbModels.PKS_AuditedModelExtension">
+            <summary>IAuditedModel扩展</summary>
+        </member>
+        <member name="M:PKS.DbModels.PKS_AuditedModelExtension.SetInsert(PKS.DbModels.IAuditedModel)">
+            <summary>插入赋值</summary>
+        </member>
+        <member name="M:PKS.DbModels.PKS_AuditedModelExtension.SetUpdate(PKS.DbModels.IAuditedModel)">
+            <summary>更新赋值</summary>
+        </member>
+        <member name="T:PKS.DbModels.PKS_KG_PrivateCatalog">
+            <summary>PKS_KG_PrivateCatalog</summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.Code">
+            <summary>
+             CODE (length: 100)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.Name">
+            <summary>
+             NAME (length: 100)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.PKS#Models#ITreeNode#Text">
+            <summary>
+             NAME (length: 100)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.Description">
+            <summary>
+             DESCRIPTION (length: 255)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.LevelNumber">
+            <summary>
+             LEVELNUMBER
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.OrderNumber">
+            <summary>
+             ORDERNUMBER
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.ParentId">
+            <summary>
+             PARENTID
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.ImageURL">
+            <summary>
+             IMAGEURL (length: 255)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.Children">
+            <summary>
+            Child PksKgprivateCatalogs where [PKS_KGPRIVATE_CATALOG].[PARENTID] point to this entity (FK_PKS_KGPRIVATE_CATALOG_PKS_KGPRIVATE_CATALOG)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.Topics">
+            <summary>
+            Child PksKgprivateTopics where [PKS_KGPRIVATE_TOPIC].[CATALOGID] point to this entity (FK_PKS_KGPRIVATE_TOPIC_PKS_KGPRIVATE_CATALOG)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PrivateCatalog.Parent">
+            <summary>
+            Parent PksKgprivateCatalog pointed by [PKS_KGPRIVATE_CATALOG].([Parentid]) (FK_PKS_KGPRIVATE_CATALOG_PKS_KGPRIVATE_CATALOG)
+            </summary>
+        </member>
+        <member name="T:PKS.DbModels.PKS_KG_PrivateCatalogConfiguration">
+            <summary>PKS_KGPRIVATE_CATALOG</summary>
+        </member>
+        <member name="T:PKS.DbModels.PKS_KG_PublicCatalog">
+            <summary>PKS_KGPUBLIC_CATALOG</summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.Code">
+            <summary>
+             CODE (length: 100)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.Name">
+            <summary>
+             NAME (length: 100)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.PKS#Models#ITreeNode#Text">
+            <summary>
+             NAME (length: 100)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.Description">
+            <summary>
+             DESCRIPTION (length: 255)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.LevelNumber">
+            <summary>
+             LEVELNUMBER
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.OrderNumber">
+            <summary>
+             ORDERNUMBER
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.ParentId">
+            <summary>
+             PARENTID
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.ImageURL">
+            <summary>
+             IMAGEURL (length: 255)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.Topics">
+            <summary>
+            Parent (One-to-One) PksKgpublicCatalog pointed by [PKS_KGPUBLIC_TOPIC].[Id] (FK_PKS_KGSHARETOPIC_PKS_KGPUBLICCATALOG)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.Children">
+            <summary>
+            Child PksKgpublicCatalogs where [PKS_KGPUBLIC_CATALOG].[PARENTID] point to this entity (FK_PKS_KGPUBLICCATALOG_PKS_KGPUBLICCATALOG)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_PublicCatalog.Parent">
+            <summary>
+            Parent PksKgpublicCatalog pointed by [PKS_KGPUBLIC_CATALOG].([Parentid]) (FK_PKS_KGPUBLICCATALOG_PKS_KGPUBLICCATALOG)
+            </summary>
+        </member>
+        <member name="T:PKS.DbModels.PKS_KG_PublicCatalogConfiguration">
+            <summary>PKS_KG_PublicCatalogConfiguration</summary>
+        </member>
+        <member name="T:PKS.DbModels.PKS_KG_Topic">
+            <summary>PKS_KG_PublicTopic</summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_Topic.PrivateCatalogId">
+            <summary>
+             私有图谱分类ID
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_Topic.PublicCatalogId">
+            <summary>
+             公共图谱分类ID
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_Topic.Title">
+            <summary>
+             Title (length: 255)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_Topic.LinkUrl">
+            <summary>
+             LinkUrl (length: 255)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_Topic.Contents">
+            <summary>
+             CONTENTS (length: 4000)
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_Topic.PublicCatalog">
+            <summary>
+            公共图谱分类
+            </summary>
+        </member>
+        <member name="M:PKS.DbModels.PKS_KG_Topic.GetPublicCatalogs">
+            <summary>
+            获得私有图谱分类层次
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KG_Topic.PrivateCatalog">
+            <summary>
+            私有图谱分类
+            </summary>
+        </member>
+        <member name="M:PKS.DbModels.PKS_KG_Topic.GetPrivateCatalogs">
+            <summary>
+            获得私有图谱分类层次
+            </summary>
+        </member>
+        <member name="T:PKS.DbModels.PKS_KG_TopicConfiguration">
+            <summary>PKS_KG_PublicTopicConfiguration</summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KFRAGMENT.MPLACEHOLDERID">
+            <summary>
+            知识片段从属于对应标题知识片段的PlaceHolderId
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.PKS_KTEMPLATE.TEMPLATE">
+            <summary>
+            编辑工具生成的字符串
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.OilWiki.PKS_OILWIKI_CATALOG.IMAGEURL">
+            <summary>
+            该字段存储目录图标base64编码的字符串
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.Portal.PKS_Remark.UserId">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.Portal.PKS_Remark.CreatedBy">
+            <summary>
+            评论者
+            </summary>
+        </member>
+        <member name="P:PKS.DbModels.Portal.PKS_Remark.CreatedDate">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="T:PKS.DbModels.UserAuthSessions">
+            <summary>
+            用户认证会话
+            </summary>
+        </member>
+        <member name="T:PKS.DBModels.PKSDbEntityMappingConfiguration">
+            <summary>数据访问实体映射配置</summary>
+        </member>
+        <member name="P:PKS.DBModels.PKSDbEntityMappingConfiguration.MapTypes">
+            <summary>映射实体集合</summary>
+        </member>
+        <member name="P:PKS.DBModels.PKSDbEntityMappingConfiguration.ChangePublishTypes">
+            <summary>变化发布实体集合</summary>
+        </member>
+        <member name="P:PKS.DBModels.PKSDbEntityMappingConfiguration.ModelBuilder">
+            <summary>配置生成器</summary>
+        </member>
+        <member name="M:PKS.DBModels.PKSDbEntityMappingConfiguration.Entity``1(System.Boolean)">
+            <summary>初始化实体映射</summary>
+        </member>
+        <member name="M:PKS.DBModels.PKSDbEntityMappingConfiguration.Entity``1(System.Data.Entity.ModelConfiguration.EntityTypeConfiguration{``0},System.Boolean)">
+            <summary>初始化实体映射</summary>
+        </member>
+        <member name="M:PKS.DBModels.PKSDbEntityMappingConfiguration.OnModelCreating(System.Data.Entity.DbModelBuilder)">
+            <summary>初始化实体映射</summary>
+        </member>
+        <member name="M:PKS.DBModels.PKSDbEntityMappingConfiguration.OnModelCreating">
+            <summary>初始化实体映射</summary>
+        </member>
+        <member name="T:PKS.DBModels.SysFrameDbEntityMappingConfiguration">
+            <summary>SysFrame数据访问实体映射配置</summary>
+        </member>
+        <member name="M:PKS.DBModels.SysFrameDbEntityMappingConfiguration.OnModelCreating">
+            <summary>初始化实体映射</summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,391 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PKS.Web</name>
+    </assembly>
+    <members>
+        <member name="T:PKS.Web.Controllers.SSOAccountController">
+            <summary>单点登录控制器</summary>
+        </member>
+        <member name="M:PKS.Web.Controllers.SSOAccountController.#ctor(PKS.WebAPI.Services.ISecurityService)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="F:PKS.Web.Controllers.SSOAccountController._securityService">
+            <summary>安全服务</summary>
+        </member>
+        <member name="M:PKS.Web.Controllers.SSOAccountController.Login(System.String,System.String)">
+            <summary>单点登录</summary>
+        </member>
+        <member name="M:PKS.Web.Controllers.SSOAccountController.Logout">
+            <summary>注销</summary>
+        </member>
+        <member name="T:PKS.Web.Controllers.PKSBaseController">
+            <summary>PKS Web MVC基类控制器</summary>
+        </member>
+        <member name="P:PKS.Web.Controllers.PKSBaseController.Token">
+            <summary>认证令牌</summary>
+        </member>
+        <member name="P:PKS.Web.Controllers.PKSBaseController.PKSUser">
+            <summary>获得登录用户</summary>
+        </member>
+        <member name="M:PKS.Web.Controllers.PKSBaseController.GetPrincipals">
+            <summary>获得登录用户</summary>
+        </member>
+        <member name="M:PKS.Web.Controllers.PKSBaseController.DefaultNewtonJson``1(``0,System.Web.Mvc.JsonRequestBehavior)">
+            <summary>使用Newton库序列化</summary>
+        </member>
+        <member name="M:PKS.Web.Controllers.PKSBaseController.NewtonJson``1(``0,System.Web.Mvc.JsonRequestBehavior,Newtonsoft.Json.JsonSerializerSettings)">
+            <summary>使用Newton库序列化</summary>
+        </member>
+        <member name="P:PKS.Web.Controllers.PKSBaseController.ServiceProvider">
+            <summary>服务提供者</summary>
+            <remarks>不要使用MVC控制器提供的Resolver,内部使用的是缓存未使用Scope</remarks>
+        </member>
+        <member name="M:PKS.Web.Controllers.PKSBaseController.GetService``1">
+            <summary>获得注入服务</summary>
+        </member>
+        <member name="T:PKS.Web.Core.CommonInfoController">
+            <summary>信息提供控制器</summary>
+        </member>
+        <member name="M:PKS.Web.Core.CommonInfoController.GetHeadMenuInfo">
+            <summary>
+            获取菜单及头部信息
+            </summary>
+        </member>
+        <member name="M:PKS.Web.Core.CommonInfoController.GetPortalMenuUrl">
+            <summary>
+            菜单Url
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Web.Core.CommonInfoController.GetPortalMenuUrl(System.String,PKS.Models.IPKSPrincipal)">
+            <summary>
+            菜单Url
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PKS.Web.MVC.NewtonJsonResult">
+            <summary>Represents a class that is used to send JSON-formatted content to the response.</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.NewtonJsonResult.ContentEncoding">
+            <summary>Gets or sets the content encoding.</summary>
+            <returns>The content encoding.</returns>
+        </member>
+        <member name="P:PKS.Web.MVC.NewtonJsonResult.ContentType">
+            <summary>Gets or sets the type of the content.</summary>
+            <returns>The type of the content.</returns>
+        </member>
+        <member name="P:PKS.Web.MVC.NewtonJsonResult.Data">
+            <summary>Gets or sets the data.</summary>
+            <returns>The data.</returns>
+        </member>
+        <member name="P:PKS.Web.MVC.NewtonJsonResult.JsonRequestBehavior">
+            <summary>Gets or sets a value that indicates whether HTTP GET requests from the client are allowed.</summary>
+            <returns>A value that indicates whether HTTP GET requests from the client are allowed.</returns>
+        </member>
+        <member name="P:PKS.Web.MVC.NewtonJsonResult.Settings">
+            <summary>获取或设置序列化参数</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.NewtonJsonResult.ResponseHandler">
+            <summary>应答处理器</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.NewtonJsonResult.#ctor">
+            <summary>Initializes a new instance of the class.</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.NewtonJsonResult.ExecuteResult(System.Web.Mvc.ControllerContext)">
+            <summary>Enables processing of the result of an action method by a custom type that inherits from the <see cref="T:System.Web.Mvc.ActionResult" /> class.</summary>
+            <param name="context">The context within which the result is executed.</param>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="context" /> parameter is null.</exception>
+        </member>
+        <member name="T:PKS.Web.MVC.Filter.PKSMgmtExceptionFilterAttribute">
+            <summary>后台管理异常处理拦截器</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSMgmtExceptionFilterAttribute.#ctor(Common.Logging.ILog)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.Filter.PKSMgmtExceptionFilterAttribute.Logger">
+            <summary>日志</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSMgmtExceptionFilterAttribute.OnException(System.Web.Mvc.ExceptionContext)">
+            <summary>Called when an exception occurs.</summary>
+            <param name="filterContext">The action-filter context.</param>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="filterContext" /> parameter is null.</exception>
+        </member>
+        <member name="T:PKS.Web.MVC.Filter.PKSExceptionFilterAttribute">
+            <summary>异常处理拦截器</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSExceptionFilterAttribute.#ctor(Common.Logging.ILog,PKS.Core.IWebExceptionHandler)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.Filter.PKSExceptionFilterAttribute.Logger">
+            <summary>日志</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.Filter.PKSExceptionFilterAttribute.Handler">
+            <summary>异常处理器</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.Filter.PKSExceptionFilterAttribute.ContentType">
+            <summary>内容类型</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSExceptionFilterAttribute.OnException(System.Web.Mvc.ExceptionContext)">
+            <summary>Called when an exception occurs.</summary>
+            <param name="filterContext">The action-filter context.</param>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="filterContext" /> parameter is null.</exception>
+        </member>
+        <member name="T:PKS.Web.MVC.Filter.PKSMgmtAuthorizeAttribute">
+            <summary>后台管理授权验证特性</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSMgmtAuthorizeAttribute.#ctor(PKS.WebAPI.Services.ISecurityService)">
+            <summary>PKS授权验证特性</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.Filter.PKSMgmtAuthorizeAttribute.SecurityService">
+            <summary>安全服务实例</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSMgmtAuthorizeAttribute.AuthorizeCore(System.Web.HttpContextBase)">
+            <summary>When overridden, provides an entry point for custom authorization checks.</summary>
+            <returns>true if the user is authorized; otherwise, false.</returns>
+            <param name="context">The HTTP context, which encapsulates all HTTP-specific information about an individual HTTP request.</param>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="context" /> parameter is null.</exception>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSMgmtAuthorizeAttribute.HandleUnauthorizedRequest(System.Web.Mvc.AuthorizationContext)">
+            <summary>Processes HTTP requests that fail authorization.</summary>
+            <param name="filterContext">Encapsulates the information for using <see cref="T:System.Web.Mvc.AuthorizeAttribute" />. The <paramref name="filterContext" /> object contains the controller, HTTP context, request context, action result, and route data.</param>
+        </member>
+        <member name="T:PKS.Web.MVC.Filter.PKSAuthorizeAttribute">
+            <summary>PKS授权验证特性</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSAuthorizeAttribute.#ctor(PKS.WebAPI.Services.ISecurityServiceWrapper)">
+            <summary>PKS授权验证特性</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.Filter.PKSAuthorizeAttribute.SecurityService">
+            <summary>安全服务实例</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSAuthorizeAttribute.OnAuthorization(System.Web.Mvc.AuthorizationContext)">
+            <summary>Called when a process requests authorization.</summary>
+            <param name="filterContext">The filter context, which encapsulates information for using <see cref="T:System.Web.Mvc.AuthorizeAttribute" />.</param>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="filterContext" /> parameter is null.</exception>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSAuthorizeAttribute.AuthorizeCore(System.Web.HttpContextBase)">
+            <summary>When overridden, provides an entry point for custom authorization checks.</summary>
+            <returns>true if the user is authorized; otherwise, false.</returns>
+            <param name="httpContext">The HTTP context, which encapsulates all HTTP-specific information about an individual HTTP request.</param>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="httpContext" /> parameter is null.</exception>
+        </member>
+        <member name="M:PKS.Web.MVC.Filter.PKSAuthorizeAttribute.HandleUnauthorizedRequest(System.Web.Mvc.AuthorizationContext)">
+            <summary>Processes HTTP requests that fail authorization.</summary>
+            <param name="filterContext">Encapsulates the information for using <see cref="T:System.Web.Mvc.AuthorizeAttribute" />. The <paramref name="filterContext" /> object contains the controller, HTTP context, request context, action result, and route data.</param>
+        </member>
+        <member name="T:PKS.Web.MVC.PKSAuthenticationConfig">
+            <summary>认证配置</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.PKSAuthenticationConfig.Initialize">
+            <summary>初始化</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.PKSAuthenticationConfig.AuthenticationSection">
+            <summary>获得授权节</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.PKSAuthenticationConfig.AuthenticationType">
+            <summary>授权认证类型</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.PKSAuthenticationConfig.IsWindowsAuthentication">
+            <summary>是否Windows授权认证</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.PKSAuthenticationConfig.IsFormsAuthentication">
+            <summary>是否Forms授权认证</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.PKSAuthenticationConfig.IsMixedAuthentication">
+            <summary>是否混合授权认证</summary>
+        </member>
+        <member name="T:PKS.Web.MVC.PKSMvcConfig">
+            <summary>MVC全局配置</summary>
+        </member>
+        <member name="P:PKS.Web.MVC.PKSMvcConfig.DefaultRouteName">
+            <summary>默认路由名</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.PKSMvcConfig.RegisterGlobalFilters(System.Web.Mvc.GlobalFilterCollection)">
+            <summary>注册全局过滤器</summary>
+        </member>
+        <member name="M:PKS.Web.MVC.PKSMvcConfig.RegisterGlobalFiltersForPortalMgmt(System.Web.Mvc.GlobalFilterCollection)">
+            <summary>注册全局过滤器</summary>
+        </member>
+        <member name="T:PKS.Web.PKSMvcExtension">
+            <summary>PKS Web MVC扩展</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetService``1">
+            <summary>获得注入服务</summary>
+        </member>
+        <member name="P:PKS.Web.PKSMvcExtension.AuthenticationConfig">
+            <summary>授权配置</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetHttpContextWrapper(System.Web.HttpContext)">
+            <summary>获得HttpContextWrapper</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.SetControllerContext(System.Web.Mvc.ControllerContext)">
+            <summary>设置控制器上下文</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetControllerContext(System.Web.HttpContextBase)">
+            <summary>获得控制器上下文</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetSubSystemCode(System.Web.HttpContextBase)">
+            <summary>获得当前子系统代码</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.IsPortalSite(System.Web.HttpContextBase)">
+            <summary>是否门户子系统站点</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetSubSystemUrls(System.Web.HttpContextBase)">
+            <summary>获得子系统URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetSubSystemUrl(System.Web.HttpContextBase,System.String)">
+            <summary>获得子系统URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetThisSiteUrl(System.Web.HttpContextBase)">
+            <summary>获得本站URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetWebApiSiteUrl(System.Web.HttpContextBase)">
+            <summary>获得WebAPI子系统URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetWebApiServiceUrl(System.Web.HttpContextBase)">
+            <summary>获得WebAPI子系统服务URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetPortalSiteUrl(System.Web.HttpContextBase)">
+            <summary>获得门户子系统URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.IsLogined(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService,System.String@,PKS.Models.IPKSPrincipal@)">
+            <summary>是否已登录</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.IsRenewToken(System.Web.HttpContextBase,PKS.Models.IPKSPrincipal,PKS.WebAPI.Services.ISecurityService)">
+            <summary>是否续期Token</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.Login(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService,PKS.Models.AuthenticationType,System.String,System.String)">
+            <summary>登录</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.WindowsAutoLogin(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService)">
+            <summary>Windows集成自动登录</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.WindowsLogin(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService,System.String,System.String,System.Boolean)">
+            <summary>Windows集成登录</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.WindowsLogin(System.Web.HttpContextBase,System.Security.Principal.WindowsIdentity)">
+            <summary>Windows集成登录</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.MixedLogin(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService,System.String,System.String)">
+            <summary>混合登录</summary>
+        </member>
+        <member name="F:PKS.Web.PKSMvcExtension.AutoRegisterDomainUserUrl">
+            <summary>域用户自动注册URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.AutoRegisterDomainUser(System.Web.HttpContextBase,System.String)">
+            <summary>域用户自动注册</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.OnLoginSuccess(System.Web.HttpContextBase,PKS.WebAPI.Models.LoginResult)">
+            <summary>登录成功的处理</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetTokenFromSession(System.Web.HttpContextBase)">
+            <summary>从会话获得认证令牌</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetTokenFromCookies(System.Web.HttpContextBase)">
+            <summary>从Cookies获得认证令牌</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetTicketFromCookies(System.Web.HttpContextBase)">
+            <summary>从Cookies获得认证票据</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.ExistsTicketFromCookies(System.Web.HttpContextBase,PKS.Models.IPKSPrincipal)">
+            <summary>检查Cookies中是否存在认证票据</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.AddAuthCookie(System.Web.HttpContextBase,System.String,PKS.Models.IPKSPrincipal,System.Nullable{System.Boolean})">
+            <summary>加入授权Cookie</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetPrincipal(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService,System.String)">
+            <summary>获得登录用户</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetLoginUserName(System.Web.HttpContextBase)">
+            <summary>获得登录名</summary>
+        </member>
+        <member name="F:PKS.Web.PKSMvcExtension.PortalLoginUrl">
+            <summary>门户登录URL</summary>
+        </member>
+        <member name="F:PKS.Web.PKSMvcExtension.SSOLoginUrl">
+            <summary>其它网站单点登录URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetPortalLoginUrl(System.Web.HttpContextBase)">
+            <summary>获得门户登录URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.IsPortalLoginUrl(System.Web.HttpContextBase)">
+            <summary>当前请求是否门户登录URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetRedirectUrlToPortalLogin(System.Web.HttpContextBase,System.String)">
+            <summary>获得重定向的门户登录URL</summary>
+        </member>
+        <member name="F:PKS.Web.PKSMvcExtension.PortalNoAuthorizeUrl">
+            <summary>门户未授权URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetPortalNoAuthorizeUrl(System.Web.HttpContextBase)">
+            <summary>获得门户未授权URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetRedirectUrlToPortalNoAuthorize(System.Web.HttpContextBase,System.String)">
+            <summary>获得重定向的门户未授权URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetPortalUrl(System.Web.HttpContextBase,System.String)">
+            <summary>获得门户URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetPortalMenu(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService,PKS.Models.IPKSPrincipal)">
+            <summary>获得某个角色门户菜单</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetRoleDefaultUrl(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService,PKS.Models.IPKSPrincipal)">
+            <summary>获得某个角色默认地址</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetRedirectUrlToReturnUrl(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService,System.String,System.String)">
+            <summary>获得重定向到某个角色默认地址</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetPortalLoginReturnUrl(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService,System.String,PKS.Models.IPKSPrincipal,System.String)">
+            <summary>获得门户登录返回地址</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.Logout(System.Web.HttpContextBase,PKS.WebAPI.Services.ISecurityService)">
+            <summary>注销</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.OnLogoutSuccess(System.Web.HttpContextBase)">
+            <summary>注销成功的处理</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetModelError(System.Web.Mvc.Controller)">
+            <summary>获得Model验证失败信息</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.BuildPrincipals(System.Web.Mvc.Controller)">
+            <summary>生成登录用户</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.BuildIdentity(System.Security.Principal.IIdentity)">
+            <summary>生成用户身份信息</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetAuthorizeUrl(System.Web.Mvc.ControllerContext)">
+            <summary>获得授权URL</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcExtension.GetRoutePath(System.Web.Mvc.ControllerContext)">
+            <summary>获得路由路径</summary>
+        </member>
+        <member name="T:PKS.Web.PKSMvcBaseApplication">
+            <summary>PKS Web MVC应用程序</summary>
+        </member>
+        <member name="P:PKS.Web.PKSMvcBaseApplication.s_Bootstrapper">
+            <summary>WEB启动器</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcBaseApplication.Application_Start">
+            <summary>启动</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcBaseApplication.Application_Error(System.Object,System.EventArgs)">
+            <summary>处理应用程序错误</summary>
+        </member>
+        <member name="M:PKS.Web.PKSMvcBaseApplication.Application_End">
+            <summary>停止</summary>
+        </member>
+        <member name="T:PKS.Web.PKSWebBootstrapper">
+            <summary>WEB启动器</summary>
+        </member>
+        <member name="M:PKS.Web.PKSWebBootstrapper.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.Web.PKSWebBootstrapper.Initialize">
+            <summary>初始化</summary>
+        </member>
+        <member name="M:PKS.Web.PKSWebBootstrapper.SetRepositoryConfig(PKS.Core.RepositoryLoaderConfig)">
+            <summary>设置仓储数据访问配置</summary>
+        </member>
+    </members>
+</doc>

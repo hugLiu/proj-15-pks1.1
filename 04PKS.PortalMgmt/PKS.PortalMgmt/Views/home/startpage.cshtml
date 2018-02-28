@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.ShowBreadCrumb = false;
+    ViewBag.ShowToolBar = false;
+    Layout = "~/Views/Shared/_FormLayout.cshtml";
+    var model = ViewData["userCookie"] as Jurassic.WebFrame.Models.UserCookieModel;
+    HtmlString widget = new HtmlString(Jurassic.AppCenter.JsonHelper.ToJson(model, false));
+}
+
+<link href="~/Scripts/portal/portal.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/portal/Portal.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    var widget = @widget;
+    var portal = new mini.ux.Portal();
+ 
+    portal.set({
+        style: "width: "+ widget.PanelWidth +"%;height:"+widget.PanelHeight+"%",
+        columns: mini.decode(widget.PanelIncision)
+    });
+    portal.render(document.body);
+    //debugger;
+    //mini.parse();
+    //panel
+    var panels = [];
+    for (var i = 0; i < widget.Widgets.length; i++) {
+        panels.push({
+            column: widget.Widgets[i].WidgetColumn, 
+            id: widget.Widgets[i].WidgetId, 
+            title: widget.Widgets[i].WidgetTitle, 
+            showCollapseButton: widget.Widgets[i].WidgetShowCloseButton, 
+            body: "#"+widget.Widgets[i].WidgetBody, 
+            height: widget.Widgets[i].WidgetHeight,
+            url: widget.Widgets[i].RenderUrl
+        });
+    };
+    portal.setPanels(panels);
+
+    //var bodyEl = portal.getPanelBodyEl("p2");
+    //bodyEl.appendChild(document.getElementById("Button2"));
+
+    ////获取配置的panels信息
+    //var panels = portal.getPanels();
+    //alert(panels.length);
+
+    function renderFlowNameCell(e) {
+        var s = "<a href='@Url.Action("DoStep","Flow")" + "/" + e.record.RunId + "'>" + e.record.Name + "</a>";
+        return s;
+    }
+
+   
+</script>

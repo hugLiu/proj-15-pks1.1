@@ -1,0 +1,468 @@
+﻿@{
+    ViewBag.Title = "主页模块配置";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div id="layout1" class="mini-layout frame-fit" style="width: 100%;margin-top: -10px;">
+    <div title="首页模块" showproxytext="false" region="west" width="250px" height="100%" showclosebutton="false" showspliticon="false" showcollapsebutton="false" showsplit="false" style="background-color:aliceblue;">
+        <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:100%;">
+                        <a class="mini-button" iconCls="icon-add" onclick="addCategory()">增加分类</a>
+                        <a class="mini-button" iconCls="icon-add" onclick="addModule()">增加模块</a>
+                        <a class="mini-button" iconCls="icon-edit" onclick="editNode()">编辑</a>
+                        <a class="mini-button" iconCls="icon-remove" onclick="removeNode()">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <ul id="treeModule" class="mini-tree" url="@Url.Action("GetModuleTree", "KHome")" style="width:230px;padding:5px;margin:5px;"
+            showTreeIcon="true"
+            textField="Name" idField="Id" parentField="Pid" resultAsTree="false"
+            expandonload="1"
+            expandOnDblClick="true"
+            onendedit="endModuleEdit"
+            onnodeselect="onNodeSelect">
+        </ul>
+    </div>
+
+    <div title="center" id="center" region="center" width="100%" height="100%" style="position:absolute;overflow:auto;">
+        <div id="panel1" class="mini-panel" title="模块描述" style="width:100%;height:20%;border:solid 1px #aaa;position:relative;">
+            <textarea id="moduleDescText" class="mini-textarea" emptyText="请输入描述文字" style="width:100%;height:100%;"></textarea>
+        </div>
+
+        <div id="panel2" class="mini-panel" title="模块组件" style="width:100%;height:15%;border:solid 1px #aaa;position:relative;">
+            <div>
+                组件类型：
+                <input id="componentType" property="editor" class="mini-combobox" style="width:100%;" data="ComponentTypeList" onvaluechanged="componentTypeChanged" />
+            </div>
+        </div>
+
+        <div id="panel3" class="mini-panel" title="模块查询条件" style="width:100%;height:64%;border:solid 1px #aaa;position:relative;">
+            <table style="width:98%;height:100%">
+                <tr>
+                    <td width="218px">
+                        <div style="width:218px;height:98%">
+                            <div style="width:218px;height:7%;">
+                                <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+                                    <table style="width:218px;">
+                                        <tr>
+                                            <td style="width:218px">
+                                                <a class="mini-button" iconCls="icon-add" onclick="addQuery()">增加</a>
+                                                <a class="mini-button" iconCls="icon-edit" onclick="editQuery()">编辑</a>
+                                                <a class="mini-button" iconCls="icon-remove" onclick="removeQuery()">删除</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="gridQuery" class="mini-datagrid" style="width:218px;height:85%;" allowResize="false" showPager="false"
+                                 url="@Url.Action("GetModuleQueries", "KHome")" idField="Id" 
+                                 allowCellEdit="false" oncellendedit="endeditQuery" onselect="querySelected">
+                                <div property="columns">
+                                    <div width="20" type="indexcolumn"></div>
+                                    <div name="Name" field="Name" width="120" headerAlign="center" align="center" >
+                                        查询条件
+                                        <input property="editor" class="mini-textbox" style="width: 100%;" />                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>          
+                    </td>
+                    <td>
+                        <div style="width:100%;height:98%;padding-left:10px;">
+                            <div id="gridParam" class="mini-datagrid" style="width:100%;height:92%;" allowResize="false" showPager="false"
+                                 url="@Url.Action("GetModuleQueryParams", "KHome")" idField="Id" 
+                                 emptyText="数据为空，<a href='javascript:newParam()'>增加一条</a>" showEmptyText="true">
+                                <div property="columns">
+                                    <div name="action" width="120" headerAlign="center" align="center" renderer="onActionRenderer" cellStyle="padding:0;">#</div>
+                                    <div type="comboboxcolumn" name="Name" field="Name" width="110" headerAlign="center">
+                                        参数名
+                                        <input property="editor" class="mini-combobox" style="width:100%;" data="Metadata" />
+                                    </div>
+                                    <div type="comboboxcolumn" name="Operator" field="Operator" width="110" headerAlign="center">
+                                        操作符
+                                        <input property="editor" class="mini-combobox" style="width:100%;" data="OperatorList" />
+                                    </div>
+                                    <div name="Value" field="Value" width="150" headerAlign="center">
+                                        值
+                                        <input property="editor" class="mini-textbox" style="width:100%;" />
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    var Metadata = @Html.Raw(ViewBag.Metadata);
+
+    var ComponentTypeList = [
+        {
+            id: 1,
+            text: "标题列表"
+        }
+    ];
+
+    var OperatorList = [
+        {
+            id: "eq",
+            text: "等于"
+        },
+        {
+            id: "phrase",
+            text: "前缀等于"
+        },
+        {
+            id: "ne",
+            text: "不等于"
+        }
+    ];
+
+    mini.parse();
+
+    var treeModule = mini.get("treeModule");
+    var gridQuery = mini.get("gridQuery");
+    var gridParam = mini.get("gridParam");
+    var moduleDescText = mini.get("moduleDescText");
+    var componentType = mini.get("componentType");
+
+
+    var bFocus = false;
+    $("#moduleDescText textarea").focus(function () {
+        bFocus = true;
+    }
+    );
+
+    $("#moduleDescText textarea").blur(function () {
+        if (bFocus == false) return;
+        bFocus = false;
+        var node = treeModule.getSelectedNode();
+        if (node == null || (node.IsModule == false)) {
+            return;
+        }
+        node.Description = moduleDescText.getValue();
+        SaveModuleNode();
+    });
+
+    function componentTypeChanged() {
+        var node = treeModule.getSelectedNode();
+        if (node == null || (node.IsModule == false)) {
+            return;
+        }
+        node.ComponentType = componentType.getValue();
+        SaveModuleNode();
+    }
+
+    function onNodeSelect(e) {
+        var node = e.node;
+        if (node.IsModule) {
+            moduleDescText.setValue(node.Description);
+            componentType.setValue(node.ComponentType);
+            gridQuery.load({ moduleId: node.ModuleId });
+        } else {
+            moduleDescText.setValue(null);
+            componentType.setValue(null);
+            gridQuery.load({ moduleId: 0 });
+        }
+    }
+
+    /* 模块树维护 */
+    function addCategory() {
+        var newNode = { Id: 0, Pid: null, Name: "新增分类", IsModule: false, ModuleId: null, Description: null, ComponentType: null };
+        treeModule.addNode(newNode);
+        treeModule.beginEdit(newNode);
+    }
+
+    function addModule() {
+        var node = treeModule.getSelectedNode();
+        if (node == null) {
+            showTips({ Type: "warning", Message: "请先选择一个分类节点！" });
+            return;
+        }
+        var newNode = { Id: 0, Pid: node.Id, Name: "新增模块", IsModule: true, ModuleId: 0, Description: "", ComponentType: 1 };
+        if (node.IsModule == true) {
+            newNode.Pid = node.Pid;
+            treeModule.addNode(newNode, "after", node);
+        } else {
+            treeModule.addNode(newNode, "add", node);
+        }
+        treeModule.beginEdit(newNode);
+    }
+
+    function editNode() {
+        var node = treeModule.getSelectedNode();
+        treeModule.beginEdit(node);
+    }
+
+    function removeNode() {
+    var node = treeModule.getSelectedNode();
+    if (node == null) {
+        showTips({ Type: "warning", Message: "请先选中一个节点！" });
+        return;
+    }
+    if (!treeModule.isLeaf(node)) {
+        showTips({ Type: "warning", Message: "该分类下还有数据，不可删除" });
+        return;
+    }
+
+    if (node) {
+        if (confirm("确定删除选中节点？")) {
+            var id = node.Id;
+            if (node.IsModule) id = node.ModuleId;
+            $.ajax({
+                url: "@Url.Action("DeleteModuleNode", "KHome")",
+                data: { id: id, isModule: node.IsModule },
+                type: "post",
+                success: function (data) {
+                    treeModule.removeNode(node);
+                    treeModule.accept();
+                },
+                error: function (e) {
+                    showTips({ Type: "error", Message: "删除失败！" });
+                    console.log(e);
+                }
+            });
+        }
+    }
+}
+
+    function endModuleEdit(e) {
+        var node = e.node;
+        if (node != null) {
+            if (node.Name == "") {
+                if (node.IsModule) {
+                    node.Name = "新建模块";
+                } else {
+                    node.Name = "新建分类";
+                }
+            }
+
+            if (node.Id == 0) {
+                SaveNewModuleNode(node);
+            } else {
+                SaveModuleNode();
+            }
+        }
+    }
+
+    function SaveNewModuleNode(node) {
+        var selectedNode = treeModule.getSelectedNode();
+        var data = treeModule.getChanges();
+        var nodeParams = mini.encode(data);
+
+        $.ajax({
+            url: "@Url.Action("SaveNewModuleNode", "KHome")",
+            data: { nodeParams: nodeParams },
+            type: "post",
+            success: function (idtext) {
+                if (idtext != 0) {
+                    if (node.IsModule) {
+                        node.Id = -idtext;
+                        node.ModuleId = idtext;
+                    } else {
+                        node.Id = idtext;
+                    }
+                    treeModule.accept();
+                } else {
+                    showTips({ Type: "error", Message: "添加新节点出错！" });
+                    treeModule.reload();
+                    treeModule.selectNode(selectedNode);
+                    treeModule.scrollIntoView(selectedNode);
+                }
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "添加新节点出错" });
+                console.log(e);
+                treeModule.reload();
+                treeModule.selectNode(selectedNode);
+                treeModule.scrollIntoView(selectedNode);
+            }
+        })
+    }
+
+    function SaveModuleNode() {
+        var selectedNode = treeModule.getSelectedNode();
+        var data = treeModule.getChanges();
+        var nodeParams = mini.encode(data);
+
+        $.ajax({
+            url: "@Url.Action("SaveModuleNode", "KHome")",
+            data: { nodeParams: nodeParams },
+            type: "post",
+            success: function (text) {
+                treeModule.accept();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新节点出错！" });
+                console.log(e);
+                treeModule.reload();
+                treeModule.selectNode(selectedNode);
+                treeModule.scrollIntoView(selectedNode);
+            }
+        })
+    }
+
+    /* 模块查询条件维护 */
+
+    function querySelected(e) {
+        console.log(e.record.Id);
+        gridParam.load({ queryId: e.record.Id });
+    }
+
+    function addQuery() {
+        var node = treeModule.getSelectedNode();
+        if (node == null) return;
+        if (node.IsModule) {
+            var newRow = { Id: -1, Name: "新增条件", QueryParameter: "", ModuleId: node.ModuleId };
+            gridQuery.addRow(newRow, gridQuery.data.length);
+            gridQuery.allowCellEdit = true;
+            gridQuery.cancelEdit();
+            gridQuery.beginEditCell(newRow, "Name");
+        }
+    }
+
+    function editQuery() {
+        var row = gridQuery.getSelected();
+        if (row) {
+            gridQuery.allowCellEdit = true;
+            gridQuery.cancelEdit();
+            gridQuery.beginEditCell(row, "Name");
+        }
+    }
+
+    function endeditQuery(e) {
+        var data = mini.encode(e.row);
+        $.ajax({
+            url: "@Url.Action("UpdateQuery", "KHome")",
+            data: { data: data },
+            type: "post",
+            success: function (text) {
+                if (e.row.Id == -1) {
+                    e.row.Id = text;
+                }
+                gridQuery.allowCellEdit = false;
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新记录失败！" });
+                console.log(e);
+            }
+        })
+    }
+
+    function removeQuery() {
+        var row = gridQuery.getSelected();
+        if (row == null) {
+            showTips({ Type: "warning", Message: "请勾选需要删除的记录！" });
+            return;
+        }
+        $.ajax({
+            url: "@Url.Action("DeleteQuery", "KHome")?queryId=" + row.Id,
+            success: function (text) {
+                gridQuery.removeRow(row, true);
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "删除记录失败！" });
+                console.log(e);
+            }
+        })
+    }
+
+    /* 模块查询参数维护 */
+    function onActionRenderer(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var uid = record._uid;
+        var rowIndex = e.rowIndex;
+
+        var s = '<a class="New_Button" href="javascript:newParam()">新增</a>'
+            + ' <a class="Edit_Button" href="javascript:editParam(\'' + uid + '\')" >编辑</a>'
+            + ' <a class="Delete_Button" href="javascript:delParam(\'' + uid + '\')">删除</a>';
+
+        if (grid.isEditingRow(record)) {
+            s = '<a class="Update_Button" href="javascript:updateParam(\'' + uid + '\')">更新</a>'
+                + '<a class="Cancel_Button" href="javascript:cancelParam(\'' + uid + '\')">取消</a>'
+        }
+        return s;
+    }
+
+    function newParam() {
+        var selectedRow = gridQuery.getSelected();
+        if (selectedRow == null) {
+            showTips({ Type: "warning", Message: "请先选中一条查询条件！" });
+            return;
+        }
+
+        var row = {};
+        gridParam.addRow(row, 0);
+
+        gridParam.cancelEdit();
+        gridParam.beginEditRow(row);
+    }
+
+    function editParam(row_uid) {
+        var row = gridParam.getRowByUID(row_uid);
+        if (row) {
+            gridParam.cancelEdit();
+            gridParam.beginEditRow(row);
+        }
+    }
+
+    function delParam(row_uid) {
+        var selectedRow = gridQuery.getSelected();
+        var queryId = selectedRow.Id;
+
+        var row = gridParam.getRowByUID(row_uid);
+        gridParam.removeRow(row);
+        gridParam.commitEdit();
+        var data = gridParam.data;
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("UpdateQueryParam", "KHome")",
+            data: { queryId: queryId, data: json },
+            type: "post",
+            success: function (text) {
+                gridParam.reload();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新参数记录失败！" });
+                console.log(e);
+            }
+        })
+    }
+
+    function updateParam(row_uid) {
+        var selectedRow = gridQuery.getSelected();
+        var queryId = selectedRow.Id;
+
+        gridParam.commitEdit();
+        var data = gridParam.data;
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("UpdateQueryParam", "KHome")",
+            data: { queryId: queryId, data: json },
+            type: "post",
+            success: function (text) {
+                gridParam.reload();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新参数记录失败！" });
+                console.log(e);
+            }
+        })
+    }
+
+    function cancelParam(row_uid) {
+        gridParam.reload();
+    }
+
+</script>

@@ -1,0 +1,59 @@
+﻿.headline-1 {
+    display: block;
+    clear: both;
+    zoom: 1;
+    overflow: hidden;
+    border-left: 12px solid #4F9CEE;
+    line-height: 24px;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: "微软雅黑,黑体,Microsoft YaHei,SimHei,Verdana";
+    margin: 35px 0 18px -10px;
+    background: url(paraTitle-line_c5e6d61.png);
+    position: relative;
+}
+
+    .headline-1 .headline-content {
+        float: left;
+        display: block;
+        padding: 0 8px 0 18px;
+        line-height: 24px;
+        font-size: 22px;
+        font-weight: 400;
+        color: #000;
+        background: #fff;
+    }
+
+.headline-2 {
+    display: block;
+    clear: both;
+    zoom: 1;
+    overflow: hidden;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 800;
+    font-family: "微软雅黑,黑体,Microsoft YaHei,SimHei,Verdana";
+    position: relative;
+}
+
+    .headline-2 .headline-content {
+        float: left;
+        display: block;
+        padding: 0 8px 0 18px;
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 800;
+        color: #000;
+        background: #fff;
+    }
+
+
+.para {
+    font-size: 14px;
+    word-wrap: break-word;
+    color: #333;
+    margin-bottom: 15px;
+    text-indent: 2em;
+    line-height: 24px;
+    zoom: 1;
+}

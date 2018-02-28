@@ -1,0 +1,1045 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = ResHelper.GetStr("SDMenuTitleGlossary");
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+    var apiServiceUrl = this.Context.GetWebApiServiceUrl();
+}
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .mini-grid-rowstable tr, .mini-grid-columns-view .mini-grid-table {
+        height: 20px;
+    }
+
+    .mini-tools span {
+        width: 60px;
+        height: 20px;
+    }
+
+    .mini-panel .mini-tools {
+        top: -1px;
+    }
+
+    .mini-panel .mini-panel-title {
+        line-height: 20px;
+    }
+
+    .mini-button .mini-button-icon {
+        padding-left: 10px;
+        background-position: 3px 20%;
+    }
+
+    .mini-toolbar {
+        background-color: rgb(238,240,244);
+        line-height: 24px;
+        min-height: 24px;
+    }
+
+    .mini-splitter .mini-splitter-pane2 {
+        padding: 0;
+    }
+
+    .mini-panel-body {
+        padding: 0;
+    }
+</style>
+
+<div id="layout1" class="mini-layout frame-fit" style="width:100%;margin-top: -10px;">
+    <div title="@Html.Str("GlossaryManage")" showproxytext="false" region="west" width="400px" height="100%" showclosebutton="false" showspliticon="false" showcollapsebutton="false" showsplit="false">
+        <div style="width: 100%;height: 3%">
+            <table>
+                <tr>
+                    <td>
+                        <input id="CodeCombox" class="mini-combobox" style="width:90%;" emptytext="" textfield="CC" valuefield="CCCode"
+                               url="@Url.Action("GetConceptClassList", "Semantics")" onvaluechanged="ChangeTerm"
+                               required="true" allowinput="true" shownullitem="false" />
+                    </td>
+                    <td style="width: 10px"></td>
+                    <td style="width:60% ">
+                        <input id="cmbtree" class="mini-treeselect" style="width:100%;"
+                               url="/Semantics/GetCcTermResult/?strccterm="
+                               valuefield="TermClassId" textfield="Term" idfield="TermClassId" parentfield="PId" expandonload="false" onnodeclick="cmbtreenodeclick">
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div style="width: 100%;height: 5%;margin-top: 15px;">
+            <table>
+                <tr style="overflow: hidden;height: 23px">
+                    <td align="right" style="width: 25%">
+                        <a class="mini-button" onclick="onAddBrotherNode">@Html.Str("AddBrotherNode")</a>
+                    </td>
+                    <td align="right" style="width: 25%">
+                        <a id="addchildren" class="mini-button" onclick="onAddChildNode">@Html.Str("AddChildNode")</a>
+                    </td>
+                    <td align="right" style="width:15%">
+                        <a class="mini-button" onclick="onRemoveNode">@Html.Str("Delete")</a>
+                    </td>
+                    <td align="right" style="width:15%">
+                        <a class="mini-button" onclick="refresh">@Html.Str("Refresh")</a>
+                    </td>
+                    <td align="right" style="">
+                        <a class="mini-button" onclick="refreshDic">刷新词库</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="width: 97%;height: 88%;padding-left: 10px">
+            <ul id="Lazytree" class="mini-tree" style="width:100%;height: 98%"
+                idfield="TermClassId" parentfield="PId" textfield="Term" valuefield="IsPT"
+                allowdrag="true" allowdrop="true" allowleafdropin="true" onnodedblclick="nodoubleclick" expandonload="false"
+                onbeforenodeselect="changenodecheck" url="/Semantics/GetCcTermResult/?strccterm="
+                resultastree="false" showcheckbox="true" onendedit="endedit" checkrecursive="false"
+                onbeforedrop="beforedrop" ondrop="drop" ondrawnode="onDrawNode" showtreeicon="true" onnodeclick="singleclick"></ul>
+
+        </div>
+    </div>
+    <div title="center" id="center" region="center">
+        <div class="mini-splitter" style="width:100%;height:100%;">
+            <div size="45%" showcollapsebutton="false">
+                <div id="description" class="mini-panel" title="@Html.Str("Description")" style=" width:100%;height:30%;" onbuttonclick="onbuttonclick">
+                    <div style="padding-left:5%;padding-top: 3%">
+                        <textarea id="textareaMs" class="mini-textarea" emptytext="@Html.Str("empty_Input")"
+                                  onvaluechanged="changedescrition"
+                                  style="width: 300px; height: 100px;" maxlength="500"></textarea>
+                    </div>
+                </div>
+                <div id="p2" class="mini-panel" showheader="false" title="@Html.Str("Alias")" style="width:100%;height:36%;" @*onbuttonclick="onbuttonclick2"*@>
+                    <div style="width:100%;">
+                        <div class="mini-toolbar" style="border-bottom:0;padding:0;">
+                            <table style="padding-bottom: 2px">
+                                <tr style="height: 24px">
+                                    <td style="height: 24px;width: 50px">
+                                        @Html.Str("Alias"):
+                                    </td>
+                                    <td style="height: 24px;width:200px ">
+                                        <input id="txtOtherName" class="mini-textbox"
+                                               onvaluechanged="changeotherName"
+                                               emptytext="@Html.Str("empty_Input")" required="true" style="width:100%;" />
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div id="othernamegrid" class="mini-datagrid" style="width:100%;height:80%;" allowresize="false"
+                         url="/Semantics/GetTermAlias/"
+                         idfield="id" showcolumns="true"
+                         showloading="false" showpager="false">
+                        <div property="columns">
+                            <div name="LTerm" field="LTerm" width="20px" headeralign="center" allowsort="true"> @Html.Str("Alias")</div>
+                            <div name="action" width="20px" headeralign="center" align="center" renderer="onActionRenderer1" cellstyle="padding:0;">@Html.Str("Opretion")</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="p3" class="mini-panel" showheader="false" title="@Html.Str("Translation")" style="width:100%;height:45%;" @*onbuttonclick="onbuttonclick2"*@>
+                    <div style="width:100%;">
+                        <div class="mini-toolbar" style="border-bottom:0;padding:0;">
+                            <table style="padding-bottom: 2px">
+                                <tr style="height: 24px">
+                                    <td style="height: 24px;width: 80px">
+                                        @Html.Str("Language"):
+                                    </td>
+                                    <td>
+                                        <input id="comboLang" class="mini-combobox" style="width:100px;" textfield="text" valuefield="id" emptytext="@Html.Str("empty_Input")" required="true" url="/Common/LanguageType.txt" allowinput="true" shownullitem="true" nullitemtext="@Html.Str("empty_Input")" />
+                                    </td>
+                                    <td style="height: 24px;width: 80px">
+                                        @Html.Str("Translation"):
+                                    </td>
+                                    <td style="width: 10px"></td>
+                                    <td style="height: 24px;width:200px" align="left">
+                                        <input id="txtTraslation" class="mini-textbox"
+                                               onvaluechanged="changetran"
+                                               emptytext="@Html.Str("empty_Input")" required="true" style="width:100%;" />
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <div id="Translationgrid" class="mini-datagrid" style="width:100%;height:160px;" allowresize="false"
+                             url="/Semantics/GetTermTraslations/"
+                             idfield="id" showcolumns="true"
+                             showloading="false" showpager="false">
+                            <div property="columns">
+                                <div field="LangCode" name="LangCode" width="50px" headeralign="center" allowsort="true">@Html.Str("Language")</div>
+                                <div name="Translation" field="Translation" width="50px" allowsort="true" renderer="onGenderRenderer" align="center" headeralign="center">@Html.Str("Translation")</div>
+                                <div name="action" width="50px" headeralign="center" align="center" renderer="onActionRenderer" cellstyle="padding:0;">@Html.Str("Opretion")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div size="55%" showcollapsebutton="false">
+                <div id="p4" class="mini-panel" showheader="false" title="@Html.Str("Source")" style=" width:100%;height:100%;">
+                    <div style="width:100%;">
+                        <div class="mini-toolbar" style="border-bottom:0;padding:0;">
+                            <div class="mini-toolbar" style="border-bottom:0;padding:0;">
+                                <table style="padding-bottom: 2px">
+                                    <tr style="height: 24px">
+                                        <td style="height: 24px;width: 60px">
+                                            @Html.Str("Source") :
+                                        </td>
+                                        <td style="height: 24px;width:300px ">
+                                            <input id="txtSource" class="mini-textbox"
+                                                   onvaluechanged="sourcechange"
+                                                   emptytext="@Html.Str("empty_Input")" required="true" style="width:100%;" />
+                                        </td>
+                                        <td style="height: 24px;width:100px" align="right">
+                                            <a class="mini-button" enabled="true" onclick="saveource" style="width: 60px;height:22px">@Html.Str("Save")</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div id="gridSource" class="mini-datagrid" style="width: 100%; height:500px;"
+                             showloading="false" showpager="false" allowresize="false"
+                             showcolumns="true"
+                             multiselect="true"
+                             url="/Semantics/GetSourceListOfCc/?strccterm=">
+                            <div property="columns">
+                                <div type="checkcolumn"></div>
+                                <div name="Source" field="Source" headeralign="center" allowsort="true" width="80">
+                                    @Html.Str("Source")
+                                </div>
+                                <div name="action" width="50px" headeralign="center" align="center" renderer="deleteonActionRenderer" cellstyle="padding:0;">@Html.Str("Opretion")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    $(document).ready(function () {
+        var wheight = $(window).height();
+        if (wheight > 500 && wheight < 600) {
+            $(".mini-layout").css("height", "559px");
+            $(".mini-layout-border").css("height", "559px");
+        }
+        if (wheight > 600) {
+            $(".mini-layout").css("height", "691px");
+            $(".mini-layout-border").css("height", "691px");
+        }
+    });
+    var ltree = mini.get("Lazytree");
+    var gridddd = mini.get("gridSource");
+    gridddd.load();
+
+    function disableBPforPTManage() {
+
+        var nodes = ltree.findNodes(function (node) {
+            if (node.IsPT == 'N')
+                return true;
+            return false;
+        });
+
+        for (var i = nodes.length - 1; i >= 0; i--) {
+            var item = nodes[i];
+            ltree.disableNode(item);
+        }
+    }
+
+    function onDrawNode(e) {
+        var node = e.node;
+        var isPt = node.IsPT;
+
+        //突出显示PT
+        if (isPt == 'Y') {
+            e.nodeStyle = 'font-weight:bold;';
+        }
+    }
+</script>
+
+@*_________扩展新的功能______________________________________________*@
+<script type="text/javascript">
+    var termvalue = mini.get("CodeCombox");
+    var conceptClasstype = "";
+    function ChangeTerm() {
+        conceptClasstype = termvalue.getValue();
+        var sourcegrid = mini.get("gridSource");
+        var ltree = mini.get("Lazytree");
+        var button = mini.get("addchildren");
+
+        var selecttree = mini.get("cmbtree");
+        var selectText = termvalue.getText();
+
+        if (selectText == "业务对象类别" || selectText == "业务域" || selectText == "作者" || selectText == "格式" || selectText == "介质" || selectText == "工具") {
+            button.disable();
+        }
+        else {
+            button.enable();
+        }
+
+        //if (selectText == "成果类型") {
+        //    ltree.load("/Semantics/GetBPAndPtTreeResult?id=null&show=false");
+        //    selecttree.load("/Semantics/GetBPAndPtTreeResult?id=null&show=false");
+        //    sourcegrid.load({ strccterm: "成果类型" });
+        //} else {
+        ltree.load("/Semantics/GetCcTermResult/?strccterm=" + encodeURI(selectText));
+        selecttree.load("/Semantics/GetCcTermResult/?strccterm=" + encodeURI(selectText));
+        sourcegrid = mini.get("gridSource");
+        sourcegrid.load({ strccterm: selectText });
+        //}
+    }
+</script>
+
+<script type="text/javascript">
+    mini.parse();
+    var layout = mini.get("layout1");
+    var lazyTree = mini.get("Lazytree");
+    function hideHeader() {
+        layout.updateRegion("north", { visible: false });
+    }
+    function showHeader() {
+        layout.updateRegion("north", { visible: true });
+    }
+    function onBeforeTreeLoad(e) {
+        var tree = e.sender;    //树控件
+        var node = e.node;      //当前节点
+        var params = e.params;  //参数对象
+        //可以传递自定义的属性
+        params.childGuid = node.TermClassId; //后台：request对象获取"myField"
+        if (node) {
+            tree.loadNode(node);
+        }
+    }
+</script>
+@*--------------布局加载树结束---------------------*@
+
+<script type="text/javascript">
+    mini.parse();
+    var lazyTree = mini.get("Lazytree");
+    var sss;//最初的结点名称
+    var rootNodes;
+    var childNodes;
+    var leftnodes;
+    var flag;
+
+    var existnode = "@Html.Str("NodeAlreadyExist")";
+    var confirmDelete = "@Html.Str("Confirm_Delete")";
+    var emptyInput = "@Html.Str("empty_Input")";
+    var Delete = "@Html.Str("Delete")";
+    var deleted = "@Html.Str("Success_Delete")";
+    var added = "@Html.Str("Success_Add")";
+    var saved = "@Html.Str("Success_Save")";
+    var selectNode = "@Html.Str("SelectNode")";
+    var ptNoChild = "@Html.Str("PT_No_Child")";
+
+    //双击编辑节点
+    function nodoubleclick(e) {
+        var selectnode = lazyTree.getSelectedNode();
+        var parent = lazyTree.getParentNode(selectnode);
+        childNodes = lazyTree.getChildNodes(parent);
+        sss = selectnode.Term;
+        lazyTree.beginEdit(selectnode);
+    }
+    function endedit(e) {
+        rootNodes = lazyTree.getRootNode();
+        var hadselectnode = lazyTree.getSelectedNode();
+        var level = lazyTree.getLevel(hadselectnode);
+        var parentnode = lazyTree.getParentNode(hadselectnode);
+        //var re = /^[\u4e00-\u9fa5a-z]+$/gi;   //只允许输入中文英文
+        var re = /^[\w\u4E00-\u9FA5a-z\（）\()\、]+$/gi;//只允许输入中文英文和（）和数字、中文顿号的正则表达式
+        var rebool = re.test(hadselectnode.Term);
+        //if (rebool == true) {  ???
+        if (level == 0) {
+            var boolnode = false;
+            for (var i = 0; i < rootNodes.children.length; i++) {
+                if (hadselectnode._id == rootNodes.children[i]._id) {
+                    continue;
+                } else {
+                    if (hadselectnode.Term == rootNodes.children[i].Term) {
+                        mini.showTips({
+                            content: existnode,
+                            state: "warning",
+                            x: "left",
+                            y: "center",
+                            timeout: 1500
+                        });
+                        boolnode = true;
+                        lazyTree.setNodeText(hadselectnode, sss);
+                        return;
+                    }
+                }
+            }
+            if (boolnode == false) {
+                $.ajax({
+                    url: "/Semantics/EditTermById/",
+                    data: { termGuid: hadselectnode.TermClassId, term: hadselectnode.Term, path: hadselectnode.Term },
+                    dataType: "json"
+                });
+            }
+        }
+        if (level > 0) {
+            if (childNodes.length > 0) {
+                var flag = false;
+                for (var j = 0; j < childNodes.length; j++) {
+                    if (hadselectnode._id == childNodes[j]._id) {
+                        continue;
+                    } else {
+                        if (hadselectnode.Term == childNodes[j].Term) {
+                            mini.showTips({
+                                content: existnode,
+                                state: "warning",
+                                x: "left",
+                                y: "center",
+                                timeout: 1500
+                            });
+                            flag = true;
+                            lazyTree.setNodeText(hadselectnode, sss);
+                            return;
+                        }
+                    }
+                }
+                if (flag == false) {
+                    $.ajax({
+                        url: "/Semantics/EditTermById/",
+                        data: { termGuid: hadselectnode.TermClassId, term: hadselectnode.Term, path: parentnode.PathTerm },
+                        dataType: "json"
+                    });
+                    lazyTree.expandNode(hadselectnode);
+                    lazyTree.scrollIntoView(hadselectnode);
+                }
+            }
+        }
+        var selectText = termvalue.getText();
+        if (selectText == "") {
+            return;
+        };
+        lazytree.load("/Semantics/GetCcTermResult?strccterm=" + selectText);
+    }
+</script>
+@*--------------添加，删除，编辑树节点开始---------------------*@
+<script type="text/javascript">
+    mini.parse();
+    var nodecount;
+    var dragNodeModel = "";
+    var dropNodeModel = "";
+    var jsonData = "";
+    var dropJson = "";
+    var termText = "";
+    var lazyNode = "";
+
+    var lazytree = mini.get("Lazytree");
+    var cmbTree = mini.get("cmbtree");
+
+    function refresh() {
+        var selectText = termvalue.getText();
+        if (selectText == "") {
+            return;
+        };
+        //if (selectText == "成果类型") {
+        //    lazytree.load("/Semantics/GetBPAndPtTreeResult?id=null&show=false");
+        //} else {
+        selectText = encodeURI(selectText);
+        lazytree.load("/Semantics/GetCcTermResult?strccterm=" + selectText);
+        //}
+    }
+    function refreshDic() {
+        var url = "@apiServiceUrl/SemanticService/ReloadDict";
+        $.ajax({
+            url: url,
+            success: function () {
+            }
+        });
+    }
+    //下拉树和展示树的联动
+    function cmbtreenodeclick() {
+        var cmbTree = mini.get("cmbtree");
+        var selectnode = cmbTree.getSelectedNode();
+        var lazy = mini.get("Lazytree");
+        var lazyNode = lazy.getChildNodes(selectnode);
+        var boolNode = lazy.isLeaf(selectnode);
+        if (boolNode == false) {
+            lazy.loadData(lazyNode);
+        }
+    }
+    //删除树的节点
+    function onRemoveNode(e) {
+        var lazytree = mini.get("Lazytree");
+        var checknodes = lazytree.getCheckedNodes(false);
+        if (checknodes.length > 0) {
+            if (confirm(confirmDelete, Delete)) {
+                for (var i = 0; i < checknodes.length; i++) {
+                    var id = checknodes[i].TermClassId;
+                    $.ajax({
+                        url: "/Semantics/DeleteCcTermByid/",
+                        data: { id: id },
+                        success: function () {
+                            lazytree.removeNodes(checknodes);
+                        }
+                    });
+                }
+            }
+        } else {
+            mini.showTips({
+                content: selectNode,
+                state: "warning",
+                x: "left",
+                y: "center",
+                timeout: 1500
+            });
+        }
+    }
+    //添加同级节点
+    function onAddBrotherNode(e) {
+        var node = lazytree.getSelectedNode();
+        var parentNode = lazytree.getParentNode(node);
+        addNode(parentNode);
+    }
+
+    //添加子节点
+    function onAddChildNode(e) {
+        var node = lazytree.getSelectedNode();
+        addNode(node);
+    }
+
+    //添加节点
+    function addNode(node) {
+        var termText = termvalue.getText();
+        if (termText == "") {
+            return;
+        };
+        var newPathTerm;
+        var guid;
+        var source;
+        //针对选中的节点本身就是根节点
+        if (node == null || typeof (node.TermClassId) == "undefined") {
+            newPathTerm = '';
+            guid = "-1";
+            source = "侏罗纪";
+        }
+        else {
+            newPathTerm = node.PathTerm;
+            guid = node.TermClassId;
+            source = node.Source;
+        }
+
+        var chlnodes = lazytree.getChildNodes(node);
+
+        if (typeof (chlnodes) == "undefined") {
+            nodecount = 1 * 1;
+        } else {
+            nodecount = chlnodes.length + 1 * 1;
+        }
+        var jsonData = { TermClassId: guid, CCCode: conceptClasstype, Term: "新建节点", PathTerm: newPathTerm + "/新建节点", Source: source, OrderIndex: nodecount, CreatedDate: "2015-10-1", CreatedBy: "pmis", Description: "描述", LastUpdatedDate: "2015-10-1", LastUpdatedBy: "pmis", Remark: "" };
+        var json = mini.encode(jsonData);
+
+        //if (termText != "成果类型") {
+        $.ajax({
+            url: "/Semantics/AddChildNode",
+            data: { termGuid: guid, model: json, textterm: termText },
+            success: function () {
+                lazytree.load("/Semantics/GetCcTermResult/?strccterm=" + encodeURI(termText));
+                cmbTree.loadData("/Semantics/GetCcTermResult/?strccterm=" + encodeURI(termText));
+                mini.showTips({
+                    content: termText + added,
+                    state: "success",
+                    x: "left",
+                    y: "center",
+                    timeout: 1500
+                });
+            }
+        });
+        //}
+        //else {
+        //    if (node.IsPT == 'N') {
+        //        $.ajax({
+        //            url: "/Semantics/AddChildNode/",
+        //            data: { termGuid: guid, model: json, textterm: termText },
+        //            success: function () {
+        //                var selectNode = cmbTree.getSelectedNode();
+        //                if (typeof (selectNode) == "undefined")
+        //                    lazyTree.load("/Semantics/GetBPAndPtTreeResult?id=null&show=false");
+        //                else {
+        //                    var id = cmbTree.getSelectedNode().TermClassId;
+        //                    lazyTree.load("/Semantics/GetBPAndPtTreeResult?id=" + id + "&show=false");
+        //                }
+        //                cmbTree.load("/Semantics/GetBPAndPtTreeResult?id=null&show=false");
+        //                mini.showTips({
+        //                    content: termText + added,
+        //                    state: "success",
+        //                    x: "left",
+        //                    y: "center",
+        //                    timeout: 1500
+        //                });
+        //            }
+        //        });
+        //    }
+        //    else {
+        //        mini.showTips({
+        //            content: ptNoChild,
+        //            state: "warning",
+        //            x: "left",
+        //            y: "center",
+        //            timeout: 1500
+        //        });
+        //    }
+        //}
+    }
+
+</script>
+@*--------------添加，删除，编辑树节点结束---------------------*@
+<script type="text/javascript">
+    var Fterm = "";
+    var Lterm = "";
+    var str = "";
+
+    //展示树点击事件
+    function singleclick(e) {
+        var lazyTree = e.sender;
+        var node1 = lazyTree.getSelectedNode();
+        var Sourcegrid = mini.get("gridSource");
+        var translationgrid = mini.get("Translationgrid");
+        var othernamegrid = mini.get("othernamegrid");
+        var textArae = mini.get("textareaMs");
+        textArae.setValue(node1.Description == null ? emptyInput : node1.Description.trim());
+        if (node1) {
+            $.ajax({
+                url: "/Semantics/GetSourceListById",
+                data: { nodeId: node1.TermClassId },
+                success: function (sourcelist) {
+                    for (var i = 0; i < sourcelist.length; i++) {
+                        var rows = Sourcegrid.findRows(function (row) {
+                            if (row.Source == sourcelist[i]) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        });
+                        Sourcegrid.selects(rows);
+                    }
+                },
+            });
+
+            translationgrid.load({ termClassId: node1.TermClassId });
+            othernamegrid.load({ termClassId: node1.TermClassId });
+        } else {
+            mini.showTips({
+                content: selectNode,
+                state: "warning",
+                x: "left",
+                y: "center",
+                timeout: 1500
+            });
+        }
+    }
+
+    function changenodecheck() {
+        var grid = mini.get("gridSource");
+        grid.deselectAll(true);
+    }
+
+    //保存描述
+    function changedescrition() {
+        mini.parse();
+        var lazytree = mini.get("Lazytree");
+        var node = lazytree.getSelectedNode();
+        var sourceText = mini.get("textareaMs");
+        var texevalue = sourceText.getValue();
+        if (node != null) {
+            if (texevalue != "") {
+                $.ajax({
+                    url: "/Semantics/SavsDesc/",
+                    data: { strDesc: texevalue, termGuid: node.TermClassId },
+                    success: function () {
+                        lazytree.updateNode(node, { Description: texevalue });
+                    }
+                });
+                mini.showTips({
+                    content: added,
+                    state: "success",
+                    x: "right",
+                    y: "top",
+                    timeout: 1500
+                });
+            }
+        } else {
+            mini.showTips({
+                content: selectNode,
+                state: "warning",
+                x: "left",
+                y: "center",
+                timeout: 1500
+            });
+        }
+    }
+
+    //添加数据来源
+    function sourcechange() {
+        mini.parse();
+        var selectText = termvalue.getText();
+        var lazytree = mini.get("Lazytree");
+        var node = lazytree.getSelectedNode();
+        var parentNode = lazytree.getParentNode(node);
+        var sourcetxt = mini.get("txtSource");
+        var grid = mini.get("gridSource");
+        var txt = sourcetxt.getValue();
+        var newRow = { CCCode: node.CCCode, Source: txt, CreateDate: node.CreateDate };
+        grid.addRow(newRow, 0);
+        if (node != null) {
+            if (txt != "") {
+                var jsonData = { CCCode: node.CCCode, Source: txt, CreateDate: node.CreateDate };
+                var json = mini.encode(jsonData);
+                $.ajax({
+                    data: { termSourceModel: json, text: selectText },
+                    url: "/Semantics/AddTermSource",
+                    success: function () {
+                        mini.showTips({
+                            content: added,
+                            state: "success",
+                            x: "center",
+                            y: "center",
+                            timeout: 1500
+                        });
+                    }
+                });
+
+            }
+        }
+    }
+
+    //保存来源
+    function saveource() {
+        var grid = mini.get("gridSource");
+        var grids = grid.getSelecteds();
+        var lazytree = mini.get("Lazytree");
+        var node = lazytree.getSelectedNode();
+
+
+        if (node != null) {
+            if (grids.length > 0) {
+                str = "";
+                for (var i = 0; i < grids.length; i++) {
+                    str += grids[i].Source + ",";
+                }
+                str = str.substr(0, str.length - 1);
+                $.ajax({
+                    url: "/Semantics/SaveSource/",
+                    data: { source: str, termGuid: node.TermClassId },
+                    success: function () {
+                        mini.showTips({
+                            content: added,
+                            state: "success",
+                            x: "center",
+                            y: "center",
+                            timeout: 1500
+                        });
+                    }
+                });
+            }
+        } else {
+            mini.showTips({
+                content: selectNode,
+                state: "warning",
+                x: "center",
+                y: "center",
+                timeout: 1500
+            });
+        }
+    }
+</script>
+@*-----------------------------------*@
+
+
+<script type="text/javascript">
+    mini.parse();
+    function onActionRenderer1(e) {
+
+        var record = e.record;
+        var uid = record._uid;
+        var action = '<a class="Delete_Button" href="javascript:delRowOn(\'' + uid + '\')">' + Delete + '</a> ';
+        return action;
+    }
+    function delRowOn(row_uid) {
+        var othernamegrid = mini.get("othernamegrid");
+        var row = othernamegrid.getRowByUID(row_uid);
+        var deleteRow = { FTermClassId: row.FTermClassId, SR: row.SR, LTermClassId: row.LTermClassId, FTerm: row.FTerm, LTerm: row.LTerm };
+        var json = mini.encode(deleteRow);
+        if (row) {
+            if (confirm(confirmDelete, Delete)) {
+                $.ajax({
+                    url: "/Semantics/DeleteAlias",
+                    data: { semanticsModel: json },
+                    success: function (text) {
+                        othernamegrid.reload();
+                        mini.showTips({
+                            content: deleted,
+                            state: "success",
+                            x: "right",
+                            y: "center",
+                            timeout: 1500
+                        });
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        }
+    }
+
+    function changeotherName() {
+        var othernamegrid = mini.get("othernamegrid");
+        var lazytree = mini.get("Lazytree");
+        var node = lazytree.getSelectedNode();
+        var textName = mini.get("txtOtherName");
+        var txt = textName.getValue();
+        if (node != null) {
+            if (txt != "") {
+                var jsonData = { FTermClassId: node.TermClassId, SR: "D", LTermClassId: node.TermClassId, FTerm: node.Term, LTerm: txt };
+                var newrow = { FTermClassId: node.TermClassId, SR: "D", LTermClassId: node.TermClassId, FTerm: node.Term, LTerm: txt };
+                othernamegrid.addRow(newrow, 0);
+                var json = mini.encode(jsonData);
+                $.ajax({
+                    data: { semanticsModel: json },
+                    url: "/Semantics/AddAlias/",
+                    success: function () {
+                        mini.showTips({
+                            content: added,
+                            state: "success",
+                            x: "right",
+                            y: "center",
+                            timeout: 1500
+                        });
+                    }
+                });
+            }
+        }
+        else {
+            mini.showTips({
+                content: selectNode,
+                state: "warning",
+                x: "right",
+                y: "center",
+                timeout: 1500
+            });
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    mini.parse();
+    function onActionRenderer(e) {
+        var record = e.record;
+        var uid = record._uid;
+        var action = '<a class="Delete_Button" href="javascript:delRowtt(\'' + uid + '\')">' + Delete + '</a> ';
+        return action;
+    }
+    function delRowtt(row_uid) {
+        var grid = mini.get("Translationgrid");
+        var row = grid.getRowByUID(row_uid);
+        if (row) {
+            if (confirm(confirmDelete, Delete)) {
+                $.ajax({
+                    url: "/Semantics/DeleteTranslation",
+                    data: { tuid: row.TermClassID, tran: row.Translation },
+                    success: function (text) {
+                        grid.reload();
+                        mini.showTips({
+                            content: deleted,
+                            state: "success",
+                            x: "right",
+                            y: "bottom",
+                            timeout: 1500
+                        });
+                    },
+                    error: function () {
+                    }
+                });
+
+            }
+        }
+    }
+    function changetran() {
+
+        var lazy = mini.get("Lazytree");
+        var nodetree = lazy.getSelectedNode();
+
+        var ctxt2 = mini.get("comboLang");
+        var txtvalue = ctxt2.getValue();
+        var txtbox = mini.get("txtTraslation");
+        var boxvalue = txtbox.getValue();
+        var tran = mini.get("Translationgrid");
+        if (nodetree != null) {
+            if (txtvalue != null && boxvalue != "") {
+                var jsondt = { TermClassID: nodetree.TermClassId, LangCode: txtvalue, Translation: boxvalue, OrderIndex: nodetree.OrderIndex, IsMain: 1, CreatedDate: nodetree.CreatedDate, CreatedBy: nodetree.CreatedBy, LastUpdatedDate: nodetree.CreatedDate, LastUpdatedBy: nodetree.CreatedBy, Remark: "" };
+                var newrow = { TermClassID: nodetree.TermClassId, LangCode: txtvalue, Translation: boxvalue, OrderIndex: nodetree.OrderIndex, IsMain: 1, CreatedDate: nodetree.CreatedDate, CreatedBy: nodetree.CreatedBy, LastUpdatedDate: nodetree.CreatedDate, LastUpdatedBy: nodetree.CreatedBy, Remark: "" };
+                tran.addRow(newrow, 0);
+                var jsons = mini.encode(jsondt);
+                $.ajax({
+                    data: { model: jsons },
+                    url: "/Semantics/SaveTranslation/",
+                    success: function () {
+                        mini.showTips({
+                            content: added,
+                            state: "success",
+                            x: "right",
+                            y: "bottom",
+                            timeout: 1500
+                        });
+                    }
+                });
+            }
+        }
+        else {
+            mini.showTips({
+                content: selectNode,
+                state: "warning",
+                x: "right",
+                y: "bottom",
+                timeout: 1500
+            });
+        }
+    }
+</script>
+@*--------------对语言设置操作开始---------------------*@
+
+<script type="text/javascript">
+    mini.parse();
+    function deleteonActionRenderer(e) {
+        var record = e.record;
+        var uid = record._uid;
+        var action = '<a class="Delete_Button" href="javascript:delRowsource(\'' + uid + '\')">' + Delete + '</a> ';
+        return action;
+    }
+    function delRowsource(row_uid) {
+        var gridSource = mini.get("gridSource");
+        var row = gridSource.getRowByUID(row_uid);
+        if (row) {
+            if (confirm(confirmDelete, Delete)) {
+                $.ajax({
+                    url: "/Semantics/DeleteBySourceName",
+                    data: { source: row.Source },
+                    success: function (text) {
+                        gridSource.removeRow(row, false);
+                        mini.showTips({
+                            content: deleted,
+                            state: "success",
+                            x: "center",
+                            y: "center",
+                            timeout: 1500
+                        });
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        }
+    }
+</script>
+
+@*______________________________________________________*@
+<script type="text/javascript">
+    var CctermTree = mini.get("Lazytree");
+    var parentNode = "";
+    var Fguid = "";
+    var FTerm = "";
+    var TermtextValue = "";
+    var nodesColloction = "";
+    var paixuNodes = "";
+    var lazytree = mini.get("Lazytree");
+    var dropParentPath = "";
+    var dragnodelevel = "";
+    var CcdragNode = "";
+    function beforedrop(e) {
+        CcdragNode = e.dragNode;
+        dragnodelevel = CcdragNode._level;
+    }
+    function drop(e) {
+        //获得拖拽的节点
+        var dragNode = e.dragNode;
+        //获得投放的节点
+        var dropNode = e.dropNode;
+        var dragParent = CctermTree.getParentNode(dragNode);
+        var dropParent = CctermTree.getParentNode(dropNode);
+
+        var dropBrothers = CctermTree.getChildNodes(dropParent);
+        var dropChildren = CctermTree.getChildNodes(dropNode);
+
+        var roots = lazytree.getRootNode();
+        var rootsCount = roots.children;
+
+
+        //选择选择的概念类
+        var termtext = termvalue.getText();
+        if (termtext == "") {
+            return;
+        } else {
+            TermtextValue = termtext;
+        }
+        //拖放的地点是根节点，投放的方式是放在之前或者之后
+        if (dropNode._level == 0 && (e.dragAction == "before" || e.dragAction == "after")) {
+            paixuNodes = rootsCount;
+        }
+        if (dropNode._level != 0 && (e.dragAction == "before" || e.dragAction == "after")) {
+            paixuNodes = dropBrothers;
+        }
+        if (e.dragAction == "add") {
+            paixuNodes = dropChildren;
+        }
+        //构造投放节点的实体
+        var dropJsData = mini.encode({
+            FTermClassId: dragParent.TermClassId,
+            SR: dropNode.SR,
+            LTermClassId: dragNode.TermClassId,
+            FTerm: dragParent.Term,
+            LTerm: dragNode.Term,
+            OrderIndex: dropNode.OrderIndex,
+            CreatedDate: dropNode.CreatedDate,
+            CreatedBy: dropNode.CreatedBy,
+            LastUpdatedDate: dropNode.CreatedDate,
+            LastUpdatedBy: dropNode.CreatedBy,
+            Remark: "",
+        });
+        //构造拖拽节点的实体
+        var dragJsData = mini.encode({
+            TermClassID: dragNode.TermClassId,
+            CCCode: conceptClasstype,
+            Term: dragNode.Term,
+            PathTerm: dragNode.PathTerm,
+            Source: dragNode.Source,
+            Description: dragNode.Description,
+            OrderIndex: dragNode.OrderIndex,
+            CreatedDate: dragNode.CreatedDate,
+            CreatedBy: dragNode.CreatedBy,
+            LastUpdatedDate: dragNode.CreatedDate,
+            LastUpdatedBy: dragNode.CreatedBy,
+            Remark: "",
+        });
+        //投放并且拖拽的节点是同级节点，投放的方式是在目标节点之前或者之后
+        if ((dragnodelevel == dropNode._level) && (e.dragAction == "before" || e.dragAction == "after")) {
+            sequenceNodes(paixuNodes, dropParent);
+        }
+        else {
+            $.ajax({
+                url: "/Semantics/DragNodeResult",
+                data: { sdModel: dropJsData, Dragmodel: dragJsData, textValue: TermtextValue },
+                success: function () {
+                    sequenceNodes(paixuNodes, dropParent);
+                },
+            });
+        }
+    }
+    //对接点进行排序
+    function sequenceNodes(nodedcolls, parentNode) {
+        var newOrderIndex = "";
+        for (var i = 0; i < nodedcolls.length; i++) {
+            newOrderIndex = i + 1;
+            $.ajax({
+                url: "/Semantics/RefreshResult",
+                data: { nodeId: nodedcolls[i].TermClassId, parentName: parentNode.Term, newOrderIndex: newOrderIndex },
+            });
+        }
+    }
+</script>
+

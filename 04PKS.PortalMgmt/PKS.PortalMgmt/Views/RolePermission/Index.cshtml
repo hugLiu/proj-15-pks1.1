@@ -1,0 +1,216 @@
+﻿
+@{
+    ViewBag.Title = "角色 - 门户权限设置";
+}
+<style>
+    .mini-button-text {
+        padding:3px 8px 3px 20px;
+        border:1px solid rgb(255,255,255);
+    }
+    .icon-new-save {
+        background-position-y:center;
+        background-position-x:3px;
+    }
+    .mini-button-text:hover {
+        border-color: rgb(211,211,211);
+        cursor:pointer;
+    }
+</style>
+<div class="mini-xs mini-sm mini-md mini-md-active mini-col">
+    <div class="container-fluid">
+        <div class="mini-clearfix">
+            <div class="mini-col-12">
+                <div class="mini-toolbar">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="padding-left:8px">
+                               <span onclick="save()" class="mini-button-text  mini-button-icon icon-new-save" style="">保存</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mini-xs mini-sm mini-md mini-md-active mini-col">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-4 ">
+                <div class="mini-panel layout-panel frame-fit" showHeader="false" width="auto">
+                    <h4>角色列表</h4>
+                    <div id="datagrid1" class="mini-datagrid" style="width:100%;" 
+                         allowCellSelect="true" url="/RolePermission/GetRoles" idField="id" showPager="false"
+                         showEmptyText="true"
+                         emptyText="数据为空，<a href='javascript:newRow()'>增加一条</a>">
+                        <div property="columns">
+                            <div field="ROLEID" headeralign="center" allowsort="true">ID</div>
+                            <div name="ROLENAME" field="ROLENAME" headeralign="center" allowsort="true">角色</div>
+                            <div name="DESCRIPTION" field="DESCRIPTION" headeralign="center" allowsort="true">描述</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mini-col-8">
+                <div class="mini-panel layout-panel frame-fit" showHeader="false" width="auto">
+                    <h4>权限列表</h4>
+                    <div id="treegrid1" class="mini-treegrid" style="width:100%;" allowCellEdit="true" allowCellSelect="true"
+                         url="/RolePermission/GetPermissions" showTreeIcon="true" showCheckBox="true" checkedField ="IsChecked"
+                         treeColumn="permission_title" idField="Id" parentField="ParentId" resultAsTree="false">
+                        <div property="columns">
+                            <div field="Id" width="30" name="Id">ID</div>
+                            <div field="Title" width="130" name="permission_title">名称</div>
+                            <div field="PermissionType" width="130" name="PermissionType">类型</div>
+                            <div field="SystemName">系统名称</div>
+                            <div field="Description">描述</div>
+                            <div field="Url">系统链接</div>
+                            <div field="IsDefault" trueValue="true" falseValue="false" renderer="renderDefault" align="center">设为默认</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/scripts/xrepo.js"></script>
+<script type="text/javascript">
+    var xrepo = new XRepo();
+    var defaultNode = null;
+    var curRole = null;
+    var roleFilter = ["_id", "_uid"];
+    var permissionFilter = ["expanded", "_id", "_uid", "_pid", "_level"];
+
+    mini.parse();
+
+    var grid = mini.get("datagrid1");
+    var treeGrid = mini.get("treegrid1");
+
+    grid.load();
+    grid.sortBy("Id");
+   
+    //注册treegrid 事件
+    treeGrid.on("beforenodecheck", function (e) {
+        var n = e.node;
+        if (n.IsDefault) {
+            var vId = "radio_" + n.Id;
+            var el = document.getElementById(vId);
+            el.checked = false;
+        }
+    })
+    treeGrid.on("load", function (e) {
+        treeGrid.expandLevel(0);
+        xrepo.clear();
+    })
+
+    //注册grid 事件
+    grid.on("select", function (e) {
+        curRole = e.record;
+        treeGrid.load({ role: clone(curRole, roleFilter) });
+    });
+    grid.on("load", function (e) {
+        var row = grid.getRow(0);
+        grid.select(row, true);
+    })
+
+    //treegrid 添加radio列
+    function renderDefault(e) {
+        var treeGrid = e.sender,
+            record = e.record;
+        var s = '';
+        var clickFn = 'onDefaultClick(event, \'' + record.Id + '\')';
+        var vId = "radio_" + record.Id;
+        if (record.IsDefault == 0) {
+            s = '<input type="radio" id="' + vId + '" name="IsDefault" onclick="' + clickFn + '"/>';
+        } else {
+            defaultNode = record;
+            s = '<input type="radio" id="' + vId + '" name="IsDefault" onclick="' + clickFn + '" checked="checked"/>';
+        }
+        return s;
+    }
+
+    //treegrid radio 单击事件
+    function onDefaultClick(e, id) {
+        //检查是否选中角色
+        if (!curRole) {
+            alert("请选择一个角色");
+            return;
+        }
+        //检查树节点是否被选中
+        var n = treeGrid.getNode(id);
+        if (!n.IsChecked) {
+            e.preventDefault();
+            alert("请先勾选节点,再设置默认页面");
+            return;
+        }
+        //如果已经是默认节点，则取消默认节点
+        if (n.IsDefault == 1) {
+            n.IsDefault = 0;
+            e.currentTarget.checked = false;
+            return;
+        }
+        //检擦是否已有默认节点
+        if (defaultNode){
+            defaultNode.IsDefault = 0;
+        }
+        //将当前节点设置为默认节点
+        n.IsDefault = 1;
+        defaultNode = n;
+    }
+
+    //数据保存方法
+    function save() {
+        var data = getNewNodes();
+        var role = clone(curRole, roleFilter);
+        treeGrid.loading("保存中，请稍后......");
+        $.ajax({
+            url: "/RolePermission/SaveRolePermission",
+            type: "post",
+            data: { role: role, permissions: data },
+            success: function (res) {
+                treeGrid.load({ role: clone(curRole, roleFilter) });
+            },
+            error: function (res) {
+                console && console.log(res);
+                alert(res.statusText);
+                location.reload();
+            }
+        })
+    }
+
+    // 辅助方法
+    function cloneArray(array, filterPropArray) {
+        var res = [];
+        for (var i = 0, j = array.length; i < j; i++) {
+            res.push(clone(array[i], filterPropArray));
+        }
+        return res;
+    }
+
+    function clone(obj, filterPropArray) {
+        var o = {};
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr) && !isInArray(filterPropArray, attr)) {
+                o[attr] = obj[attr];
+            }
+        }
+        return o;
+    }
+
+    function isInArray(array, key) {
+        var isInArray = false;
+        for (var i = 0, j = array.length; i < j; i++) {
+            if (array[i] == key) {
+                isInArray = true;
+                break;
+            }
+        }
+        return isInArray;
+    }
+
+    function getNewNodes()
+    {
+        var checkedNodes = treeGrid.getCheckedNodes(true);
+        return cloneArray(checkedNodes, permissionFilter);
+    }
+</script>

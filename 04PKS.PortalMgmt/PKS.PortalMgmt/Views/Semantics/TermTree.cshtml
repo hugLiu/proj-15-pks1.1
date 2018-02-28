@@ -1,0 +1,180 @@
+﻿@{
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+
+<body>
+    <table>
+        <tr>
+            <td colspan="3">
+                <div class="mini-toolbar" style="text-align:left;line-height:30px;"
+                     borderstyle="border-left:0;border-top:0;border-right:0;">
+                    <label>@Html.Str("Name")</label>
+                    <input id="key" class="mini-textbox" style="width:120px;" onenter="onKeyEnter" />
+                    <a class="mini-button" style="width:80px;" onclick="search()" iconcls="icon-new-search" plain="true">@Html.Str("Search")</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="tree1" class="mini-tree" style="width:260px;height:300px;" checkrecursive="false"
+                     showtreeicon="true" resultastree="false" showcheckbox="true" onnodecheck="nodeCheck"
+                     url="/Semantics/GetPTTermTree?cc=@ViewBag.cc" allowselect="false"></div>
+            </td>
+            <td>
+                <a class="mini-button" style="width:60px;" plain="true">=>></a>
+            </td>
+            <td>
+                <div id="relations" class="mini-listbox" style="width:200px;height:300px;" allowresize="false"
+                     valuefield="id" multiselect="true">
+                    <div property="columns">
+                        <div name="text" field="text" width="20px" header="@Html.Str("CheckedItems")"></div>
+                        <div name="action" width="18px" renderer="onActionRenderer" cellstyle="padding:0;">@Html.Str("Delete")</div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="mini-toolbar" style="text-align:right;padding-top:8px;padding-bottom:8px;"
+         borderstyle="border-left:0;border-bottom:0;border-right:0;">
+        <a class="mini-button" style="width:60px;" onclick="onOk()">@Html.Str("OK")</a>
+        <span style="display:inline-block;width:25px;"></span>
+        <a class="mini-button" style="width:60px;" onclick="onCancel()">@Html.Str("Cancel")</a>
+    </div>
+</body>
+
+<script type="text/javascript">
+    mini.parse();
+    var tree = mini.get("tree1");
+    var relations = mini.get("relations");
+    var Delete = "@Html.Str("Delete")";
+    var deleted = "@Html.Str("Success_Delete")";
+    var sr = "@ViewBag.sr";
+    var ptid = "@ViewBag.ptid";
+
+    relations.load("/Semantics/GetPtRelationsOfCc?ptid=" + ptid + "&sr= " + sr);
+    var existNodes = tree.findNodes(function (n) {
+        var items = relations.getData();
+        for (var i = 0, l = items.length; i < l; i++) {
+            var item = items[i];
+            if (n.id.indexOf(item.id) != -1) return true;
+        }
+    });
+    tree.checkNodes(existNodes);
+    /////////////////////////////////////
+    function search() {
+        var key = mini.get("key").getValue();
+        if (key == "") {
+            tree.clearFilter();
+        } else {
+            key = key.toLowerCase();
+            tree.filter(function (node) {
+                var text = node.text ? node.text.toLowerCase() : "";
+                if (text.indexOf(key) != -1) {
+                    return true;
+                }
+            });
+            tree.expandAll();
+        }
+    }
+
+    function onKeyEnter(e) {
+        search();
+    }
+
+    ///////////////////////////////////////
+    function GetCheckedNodes() {
+        var nodes = tree.getCheckedNodes();
+        return nodes;
+    }
+
+    function GetData() {
+       // var nodes = tree.getCheckedNodes();
+        var items = relations.getData();
+        debugger;
+        var ids = [], texts = [];
+        for (var i = 0, l = items.length; i < l; i++) {
+            var item = items[i];
+            ids.push(item.id);
+            texts.push(item.text);
+        }
+        var data = {};
+        data.id = ids.join('|');
+        data.text = texts.join('|');
+        return data;
+    }
+
+    //////////////////////////////////
+    function CloseWindow(action) {
+        if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+        else window.close();
+    }
+
+    function onOk() {
+        CloseWindow("ok");
+    }
+
+    function onCancel() {
+        CloseWindow("cancel");
+    }
+
+    //////////////////////////////////////
+    function onActionRenderer(e) {
+        var action = '<a class="Delete_Button" href="javascript:delRowOn()">' + Delete + '</a> ';
+        return action;
+    }
+
+    function delRowOn() {
+        var item = relations.getSelected();
+        relations.removeItem(item);
+
+        var node = tree.findNodes(function (n) {
+            if (n.id.indexOf(item.id) != -1) return true;
+        });
+        tree.uncheckNodes(node);
+
+        deletePtSemantics(item);
+    }
+
+    function deletePtSemantics(item) {
+        $.ajax({
+            url: "/Semantics/DeletePtSemantics/",
+            data: { ptid: ptid, sr: sr, term: item.text },
+            type: "post",
+            success: function () {
+                mini.showTips({
+                    content: deleted,
+                    state: "success",
+                    x: "right",
+                    y: "center",
+                    timeout: 1500
+                });
+            },
+            error: function (err) {
+                toastr["error"](err.status + " - " + err.statusText);
+            }
+        });
+    }
+
+    function moveAdd() {
+        var checkeditems = tree.getCheckedNodes();
+        for (var i = 0; i < checkeditems.length; i++) {
+            var isExist = relations.findItems(checkeditems[i].id);
+            if (isExist.length == 0) relations.addItem(checkeditems[i]);
+        }
+    }
+
+    //////////////////////////////////////////////
+    function nodeCheck(e) {
+        if (e.checked) {
+            var node = e.node;
+            relations.removeItems(relations.findItems(node.id));
+            deletePtSemantics(node);
+        } else {
+            moveAdd();
+        }
+    }
+
+</script>

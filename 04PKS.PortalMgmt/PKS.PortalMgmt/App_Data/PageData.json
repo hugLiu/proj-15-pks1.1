@@ -1,0 +1,86 @@
+﻿{
+  "datatype": [
+    {
+      "value": "Json",
+      "text": "Json",
+      "selected": true
+    },
+    {
+      "value": "Image",
+      "text": "Image",
+      "selected": false
+    },
+    {
+      "value": "Pdf",
+      "text": "Pdf",
+      "selected": false
+    },
+    {
+      "value": "Audio",
+      "text": "Audio",
+      "selected": false
+    },
+    {
+      "value": "Video",
+      "text": "Video",
+      "selected": false
+    },
+    {
+      "value": "Html",
+      "text": "Html",
+      "selected": false
+    },
+    {
+      "value": "Raw",
+      "text": "Raw",
+      "selected": false
+    }
+  ],
+  "showtype": [
+    {
+      "value": "Table",
+      "text": "Table",
+      "selected": true
+    },
+    {
+      "value": "Chart",
+      "text": "Chart",
+      "selected": false
+    },
+    {
+      "value": "Image",
+      "text": "Image",
+      "selected": false
+    },
+    {
+      "value": "Pdf",
+      "text": "Pdf",
+      "selected": false
+    },
+    {
+      "value": "Audio",
+      "text": "Audio",
+      "selected": false
+    },
+    {
+      "value": "Video",
+      "text": "Video",
+      "selected": false
+    },
+    {
+      "value": "Html",
+      "text": "Html",
+      "selected": false
+    },
+    {
+      "value": "Raw",
+      "text": "Raw",
+      "selected": false
+    },
+    {
+      "value": "Mixing",
+      "text": "Mixing",
+      "selected": false
+    }
+  ]
+}

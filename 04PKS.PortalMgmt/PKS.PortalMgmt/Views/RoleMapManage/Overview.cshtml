@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "OverView";
+
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div id="formData" class="frame-fit" style="width: 100%;">
+    <div class="mini-toolbar" style="margin-bottom:5px;">
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <a class="mini-button" iconcls="icon-new-add" plain="true" onclick="addRoleMap()">@ResHelper.GetStr("新增")</a>
+                    <a class="mini-button" iconcls="icon-new-save" plain="true" onclick="saveRoleMap()">@ResHelper.GetStr("保存")</a>
+                    <a class="mini-button" iconcls="icon-new-delete" plain="true" onclick="removeRoleMap()">@ResHelper.GetStr("删除")</a>
+                    <a class="mini-button" iconcls="icon-reload" plain="true" onclick="SyncAD()">@ResHelper.GetStr("同步")</a>
+                    <input id="RootDept" class="mini-textbox" style="width: 50%;" emptyText="请输入根部门" value="有限公司/深圳分公司/SZoffice/科技与信息化部" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <div id="treegrid1" class="mini-treegrid" style="width:100%;" allowCellEdit="true" allowCellSelect="true"
+             url="/RoleMapManage/Maps" showTreeIcon="true" showCheckBox="false"
+             treeColumn="permission_title" idField="OriginalId" parentField="OriginalPId" resultAsTree="false">
+            <div property="columns">
+                <div field="Id" width="30" name="Id">ID</div>
+                <div field="OrgName" width="130" name="permission_title">名称</div>
+                <div field="Role.ROLENAME" width="100" headerAlign="center" >
+                    角色名称
+                    <input property="editor" class="mini-combobox" style="width:100%;" url="/RoleMapManage/Roles" valueField="ROLENAME" textField="ROLENAME" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    mini.parse();
+
+    var treeGrid = mini.get("treegrid1");
+
+    treeGrid.expandLevel(0);
+    var cw = void 0;
+    var addRoleMap = function () {
+        var row = treeGrid.getSelected();
+        cw = mini.open({
+            url: '@Url.Action("Add")',
+            title: "@ResHelper.GetStr("业务类型明细")",
+            width: 880,
+            height: 500,
+            showModal: true,
+            allowResize: false,
+            onload: function () {
+                this.getIFrameEl().contentWindow.ref(this);
+                this.getIFrameEl().contentWindow.initForm(row);
+            },
+            ondestroy: function (action) {
+                treeGrid.reload();
+                treeGrid.expandLevel(0);
+            }
+        });
+    };
+
+    var modifyRoleMap = function () {
+        var row = treeGrid.getSelected();
+        cw = mini.open({
+            url: '@Url.Action("Edit")',
+            title: "@ResHelper.GetStr("业务类型明细")",
+            width: 880,
+            height: 500,
+            showModal: true,
+            allowResize: false,
+            onload: function () {
+                this.getIFrameEl().contentWindow.ref(this);
+                //获取子窗体对象,来引用子窗体函数
+                this.getIFrameEl().contentWindow.initForm(row);
+            },
+            ondestroy: function (action) {
+                treeGrid.reload();
+                treeGrid.expandLevel(0);
+            }
+        });
+    };
+
+    var closeCW = function () {
+        cw.destroy();
+    }
+
+    var removeRoleMap = function () {
+        var t = treeGrid.getSelected();
+        var model = { roleMapId: t.Id};
+        $.ajax({
+            url: "./DeleteRoleMap",
+            type: "post",
+            data: model,
+            success: function (data) {
+                treeGrid.reload();
+                treeGrid.expandLevel(0);
+            },
+            error: function (data) {
+
+            }
+        })
+    };
+
+    var SyncAD = function () {
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '处理中...'
+        });
+
+        var rootDept = mini.get("RootDept").getValue();
+
+        $.ajax({
+            url: "SyncAD",
+            type: "post",
+            data: { ous: rootDept },
+            success: function (data) {
+                showTips("success", "同步成功！");
+            },
+            error: function () {
+                showTips("warning", "同步失败！");
+            },
+            complete: function (e) {
+                treeGrid.reload();
+                mini.unmask(document.body);
+            }
+        });
+    };
+
+    var saveRoleMap = function () {
+        var data = treeGrid.getList();
+
+        $.ajax({
+            url: "SaveRoleMap",
+            type: "post",
+            data: { roleMaps: data },
+            success: function (data) {
+                showTips("success", "保存成功！");
+            },
+            error: function () {
+                showTips("warning", "保存失败！");
+            },
+            complete: function (e) {
+                treeGrid.reload();
+            }
+        });
+    }
+
+</script>
+
+

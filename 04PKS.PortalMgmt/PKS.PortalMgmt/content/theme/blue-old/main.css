@@ -1,0 +1,523 @@
+﻿body {
+    background-color: #f5f2f2;
+}
+p,h1,h4{
+    color:#00316b;
+}
+/*整体边框颜色*/
+.mini-layout-region {
+    border-color: #fff;
+}
+/*调整版权区域*/
+.mini-layout-region-south {
+    background-color: #efefef;
+}
+/*----------------整体头部-----------------------*/
+.header{
+    background: #2b7cd8;
+}
+    .header h1 {
+        background-image:url(../../../Images/titlelogo.png);
+        color: white;
+    }
+/*----------------------定义右上角快捷菜单-------------------------*/
+/*定义快捷菜单button的样式*/
+.shortcut_menu .mini-button,
+.shortcut_menu a.mini-button {
+    color: #fff;
+}
+/*鼠标经过快捷菜单时背景颜色*/
+.shortcut_menu a:hover.mini-button {
+    background: #0557ab;
+    border-color:#0557ab;
+}
+.shortcut_menu .label,.mini-tree-nodeshow .label {
+    color: white;
+}
+.shortcut_menu .label-important,
+.mini-tree-nodeshow .label-important {
+    background-color: #db3434;
+}
+/*----------------------面包屑位置-----------------------------*/
+.top_crumb{
+    background-color:#fff;
+    color:#aab2bd
+}
+.top_crumb, .crumb,
+.top_crumb a:link, .crumb a:link,
+.top_crumb a:visited, .crumb a:visited,
+.top_crumb a:hover, .crumb a:hover {
+    color: #00316b;
+}
+/*----------------------------tree整体---------------------------*/
+/*顶部搜索栏#nav_leftTop*/
+ #nav_leftTop{
+    background:#e7e7e7;
+    border-right:1px solid #e7e7e7;
+}
+/*tree整体背景色-2种适用*/
+#nav_leftMenuBar.mini-outlookbar {
+    background-color: #e7e7e7;
+}
+/*tree整体边框样式---2种适用*/
+#nav_leftMenuBar .mini-outlookbar-border {
+    /*border:1px solid #D5D5D5;
+    border-top:none;*/
+}
+/*tree一级单边框颜色---2种适用*/
+#nav_leftMenuBar .mini-outlookbar-group{
+    border-color: #e7e7e7;
+}
+/*tree一级头部背景颜色*/
+#nav_leftMenuBar .mini-outlookbar-groupHeader  {
+    background: #e7e7e7;
+}
+#nav_leftMenuBar .mini-outlookbar-hover,
+#nav_leftMenuBar .mini-outlookbar-expand .mini-outlookbar-groupHeader {
+    background: url("images/tree/groupheader.png") no-repeat #dee8f3;
+}
+/*tree一级头部字体颜色*/
+#nav_leftMenuBar .mini-outlookbar-groupTitle{
+    background-image:url("images/icon/computer.png");
+}
+    #nav_leftMenuBar .mini-outlookbar-hover .mini-outlookbar-groupTitle,
+    #nav_leftMenuBar .mini-outlookbar-expand .mini-outlookbar-groupTitle {
+        color: #333;
+    }
+/*tree上下收缩展开工具样式*/
+#nav_leftMenuBar .mini-outlookbar-collapse .mini-tools-collapse,
+#nav_leftMenuBar .mini-outlookbar-collapse .mini-tools-collapse {
+    background: url("images/tree/expand.png") no-repeat 50% 50%;
+}
+
+#nav_leftMenuBar .mini-outlookbar-expand .mini-tools-collapse,
+#nav_leftMenuBar .mini-outlookbar-collapse.mini-outlookbar-expand{
+    background: url("images/tree/collapse.png") no-repeat 50% 50%;
+}
+/*tree字体图标颜色-主要针对下级icon*/
+#nav_leftMenuBar .iconfont {
+    font-size: 14px;
+}
+#nav_leftMenuBar .mini-tree-node-hover .iconfont ,
+#nav_leftMenuBar .mini-tree-selectedNode .iconfont {
+}
+/*tree展开后二级菜单背景、边框颜色*/
+#nav_leftMenuBar .mini-outlookbar-groupBody {
+    background: #f8f8f8;
+    border-top-color:#e7e7e7;
+}
+/*tree展开后二级菜单文字颜色*/
+#nav_leftMenuBar .mini-tree-nodetext{
+  color:#333
+}
+#nav_leftMenuBar .mini-tree-node-hover .mini-tree-nodetext,
+#nav_leftMenuBar .mini-tree-selectedNode .mini-tree-nodetext{
+  color:#fff
+}
+/*tree二级鼠标经过与选中背景样式*/
+#nav_leftMenuBar .mini-tree-node-hover .mini-tree-nodeshow,
+#nav_leftMenuBar .mini-tree-selectedNode .mini-tree-nodeshow {
+    border: 1px solid #5399ea;
+    background: #5399ea url(images/tree/button111.png) repeat-x 0 0;
+}
+/*二级菜单鼠标经过、选中时icon的样式---通用*/
+#nav_leftMenuBar .mini-tree-node-hover .iconfont ,
+#nav_leftMenuBar .mini-tree-selectedNode .iconfont {
+  color:#fff
+}
+/*tree展开后二级菜单中日历的颜色*/
+#nav_leftMenuBar .mini-outlookbar-groupBody  #calendar1{
+    background-color:#f8f8f8;
+}
+/*------------------------------抽屉式菜单--------------------------*/
+/*tree展开后二级菜单鼠标经过---1、整行背景样式*/
+#nav_leftMenuBar.drawer-menu .mini-tree-node-hover {
+    background-color: #dee8f3;
+    color: #333;
+}
+/*tree展开后二级菜单鼠标经过与选中背景样式*/
+#nav_leftMenuBar.drawer-menu .mini-tree-node-hover .mini-tree-nodetext,
+#nav_leftMenuBar.drawer-menu .mini-tree-selectedNode .mini-tree-nodetext{
+  color:#fff
+}
+#nav_leftMenuBar.drawer-menu .mini-tree-node-hover .mini-tree-nodeshow,
+#nav_leftMenuBar.drawer-menu .mini-tree-selectedNode .mini-tree-nodeshow {
+    background:#5399ea;
+    border:none;
+}
+/*tree整体收缩后的背景颜色*/
+.mini-layout-proxy {
+    background: #f2f2f2;
+}
+.mini-splitter-pane1-button {
+    background:url("images/tree/mini-left.png") no-repeat scroll 50% 50%;
+}
+.mini-splitter-pane2-button {
+    background:url("images/tree/mini-right.png") no-repeat scroll 50% 50%;
+}
+ 
+/*------------------------弹出框-----------------------*/
+.mini-window {
+}
+    .mini-window .mini-panel-border {  
+    }
+
+    .mini-window .mini-panel-header {
+    }
+    .mini-window .mini-panel-viewport {
+    }
+.popuplayer_button {
+}
+.mini-tools-close {
+    background: url(images/icon/shut.png) no-repeat 50% 1px;
+}
+/*-------------------定义内容区样式------------------------*/
+.mini-panel-border{
+    border:1px solid #d3d3d3;
+}
+.mini-splitter-border,
+.mini-splitter .mini-splitter-pane1,
+.mini-splitter .mini-splitter-pane2,
+.mini-toolbar,
+.mini-grid-border，
+.mini-panel-border{
+    border-color:#d3d3d3;   
+}
+form .mini-splitter .mini-splitter-pane1,
+form .mini-splitter .mini-splitter-pane2 {
+}
+/*-----定义操作区工具栏样式----*/
+.mini-toolbar {
+    background: #fff;
+}
+    .mini-toolbar a:hover.mini-button {
+        border-color:#d3d3d3;
+        background: #fff;
+        border-radius:2px;
+    }
+
+/*--定义搜索栏样式--
+.searchinfo {
+    border:1px solid #d3d3d3;
+}*/
+/*----定义表格----*/
+/*定义头部样式*/
+.mini-grid-headerCell {
+    border-bottom-color:#d3d3d3;
+    border-right-color:#d3d3d3;
+    background:#eaeaea;
+}
+/*定义鼠标经过/选中某行时样式*/
+body .mini-grid-row-hover,
+body .mini-grid-row-hover .mini-grid-frozenCell {
+    background:#ecedef;
+}
+html body .mini-grid-row-selected{
+    background: #dde7f2;
+    color:Black;
+}
+/*定义鼠标选中某单元格时样式*/
+html body .mini-datagrid .mini-grid-cell-selected {
+    background: #dfe8f6;
+}
+/*----------------------------定义tab页---------------------------*/
+.mini-tabs-scrollCt{
+width:100%;
+}
+/*tab页头部整体边框颜色*/
+.mini-tabs-scrollCt,
+.mini-tab{
+    border:1px solid #d3d3d3;
+}
+/*tab页头部整体背景和颜色*/
+.mini-tabs-scrollCt,
+.mini-tabs-space,
+.mini-tabs-space1,
+.mini-tabs-space2{
+    border-bottom: 1px solid #d3d3d3; 
+}
+.mini-tabs-scrollCt,
+.mini-tab{
+    background:#eff5fb;
+}
+/*选项卡的边框和背景颜色*/
+.mini-tab{
+    border-bottom:none;
+}
+.mini-tab-active{
+    background: white;
+    border-top:3px solid #2f6eaf;
+     -webkit-box-sizing: border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+.mini-tab-active .mini-tab-text{
+    font-weight:bold;
+}
+.mini-tab-text .badge{
+    background-color:#fff;
+    border:1px solid #2f6eaf;
+    color:#2b7cd8
+}
+/*tab页内容样式*/
+.mini-tabs-bodys {
+    border-color: #d2d2d2;
+    width:100%;
+}
+/*----定义内容区底部的样式----*/
+.mini-grid-footer, .mini-grid-pager {
+    border-top:1px solid  #d3d3d3;
+    border-bottom:1px solid #d3d3d3;
+    background: #ededed;
+}
+
+/*--------------定义用户设置界面样式--------------*/
+.topinfo{
+    background:#f8f8f8;
+}
+    .topinfo .titleline {
+        border-bottom-color:#a9c0df
+    }
+    .topinfo .contentline {
+        border-bottom-color:#bfc8d9;
+    }
+/*头像设置-系统头像样式*/
+.useravatar img:hover{
+    border-color:#2b7cd8
+}
+/*头像设置-自定义头像样式*/
+.customavatar .localimg{
+    border-color:#d2d2d2;
+}
+/*日历样式*/
+.fc-day-grid-event.fc-event .fc-content{
+    background:#2b7cd8;
+}
+/*------------以下是用于编译项目中的图标信息-----------------------*/
+.icon-new-clone{
+    background: url(images/icon/clone.png) no-repeat;
+}
+.icon-new-document{
+    background: url(images/icon/NewDocumentHS.png) no-repeat;
+}
+.icon-new-search{
+    background: url(images/icon/search.png) no-repeat 50% 3px;
+}
+.icon-new-deletefolder{
+    background: url(images/icon/DeleteFolderHS.png) no-repeat;
+}
+.icon-new-newfolder{
+    background: url(images/icon/NewFolderHS.png) no-repeat;
+}
+.icon-new-recycle{
+    background: url(images/icon/recycle.png) no-repeat;
+}
+.icon-new-add{
+    background: url(images/icon/add.png) no-repeat 50% 50%;
+}
+.icon-new-addpeers{
+    background: url(images/icon/addpeers.png) no-repeat;
+}
+.icon-new-addchild{
+    background: url(images/icon/addchild.png) no-repeat;
+}
+.icon-new-delete{
+    background: url(images/icon/delete.png) no-repeat;
+}
+.icon-new-copy{
+    background: url(images/icon/copy.png) no-repeat;
+}
+.icon-new-save{
+    background: url(images/icon/save.png) no-repeat;
+}
+.icon-new-move{
+    background: url(images/icon/move.png) no-repeat;
+}
+.icon-new-movedown{
+    background: url(images/icon/movedown.png) no-repeat;
+}
+.icon-new-moveup{
+    background: url(images/icon/moveup.png) no-repeat;
+}
+.icon-new-refres {
+    background: url(images/icon/refresh.png) no-repeat;
+}
+.icon-new-edit{
+    background: url(images/icon/edit.png) no-repeat;
+}
+.icon-new-empty{
+    background: url(images/icon/empty.png) no-repeat;
+}
+.icon-new-log{
+    background: url(images/icon/log.png) no-repeat;
+}
+.icon-new-initialize{
+    background: url(images/icon/initialize.png) no-repeat;
+}
+.icon-new-home{
+    background: url(images/icon/home.png) no-repeat;
+}
+.icon-new-download{
+    background: url(images/icon/download.png) no-repeat;
+}
+.icon-new-upload{
+    background: url(images/icon/upload.png) no-repeat;
+}
+.icon-new-management{
+    background: url(images/icon/management.png) no-repeat;
+}
+.icon-new-dontpass{
+    background: url(images/icon/dontpass.png) no-repeat;
+}
+.icon-new-user{
+    background: url(images/icon/user.png) no-repeat;
+}
+.icon-new-role{
+    background: url(images/icon/role.png) no-repeat;
+}
+.icon-new-baobiao{
+    background: url(images/icon/baobiao.png) no-repeat;
+}
+.icon-new-userinfo{
+    background: url(images/icon/userinfo.png) no-repeat;
+}
+.icon-new-message{
+    background: url(images/icon/message.png) no-repeat;
+}
+.icon-new-changepassword {
+    background: url(images/icon/changepassword.png) no-repeat;
+}
+.icon-new-exit{
+    background: url(images/icon/exit.png) no-repeat;
+}
+.icon-new-folder{
+    background: url(images/icon/folder.png) no-repeat;
+}
+.icon-new-adduser{
+     background: url(images/icon/adduser.png) no-repeat;
+}
+.icon-new-adduser-more{
+     background: url(images/icon/adduser-more.png) no-repeat;
+}
+.icon-new-return{
+    background: url(images/icon/return.png) no-repeat;
+}
+.icon-new-audit{
+    background: url(images/icon/audit.png) no-repeat;
+}
+.icon-new-homepage{
+    background: url(images/icon/homepage.png) no-repeat;
+}
+.icon-new-analysis-report{
+    background: url(images/icon/analysis-report.png) no-repeat;
+}
+.icon-new-authorization{
+    background: url(images/icon/authorization.png) no-repeat;
+}
+.icon-new-batch-set{
+    background: url(images/icon/batch-set.png) no-repeat;
+}
+.icon-new-breakup{
+    background: url(images/icon/breakup.png) no-repeat;
+}
+.icon-new-canlce-inventory{
+    background: url(images/icon/canlce-inventory.png) no-repeat;
+}
+.icon-new-choose{
+    background: url(images/icon/choose.png) no-repeat;
+}
+.icon-new-export-form{
+    background: url(images/icon/export-form.png) no-repeat;
+}
+.icon-new-import-form{
+    background: url(images/icon/import-form.png) no-repeat;
+}
+.icon-new-form{
+    background: url(images/icon/form.png) no-repeat;
+}
+.icon-new-from-generate{
+    background: url(images/icon/from-generate.png) no-repeat;
+}
+.icon-new-from-generate1{
+    background: url(images/icon/from-generate1.png) no-repeat;
+}
+.icon-new-generate-form{
+    background: url(images/icon/generate-form.png) no-repeat;
+}
+.icon-new-no-approval{
+    background: url(images/icon/no-approval.png) no-repeat;
+}
+.icon-new-ok-approval{
+    background: url(images/icon/ok-approval.png) no-repeat;
+}
+.icon-new-notice{
+    background: url(images/icon/notice.png) no-repeat;
+}
+.icon-new-personal-info{
+    background: url(images/icon/personal-info.png) no-repeat;
+}
+.icon-new-print{
+    background: url(images/icon/print.png) no-repeat;
+}
+.icon-new-printbarcode{
+    background: url(images/icon/printbarcode.png) no-repeat;
+}
+.icon-new-printpreview{
+    background: url(images/icon/printpreview.png) no-repeat;
+}
+.icon-new-process{
+    background: url(images/icon/process.png) no-repeat;
+}
+.icon-new-reback{
+    background: url(images/icon/reback.png) no-repeat;
+}
+.icon-new-system-restore{
+    background: url(images/icon/system-restore.png) no-repeat;
+}
+.icon-new-security{
+    background: url(images/icon/security.png) no-repeat;
+}
+.icon-new-start-inventory{
+    background: url(images/icon/start-inventory.png) no-repeat;
+}
+.icon-new-submit{
+    background: url(images/icon/submit.png) no-repeat;
+}
+.icon-new-switch-off{
+    background: url(images/icon/switch-off.png) no-repeat;
+}
+.icon-new-switch-on{
+    background: url(images/icon/switch-on.png) no-repeat;
+}
+.icon-new-attachment{
+    background: url(images/icon/attachment.png) no-repeat;
+}
+.icon-new-enable{
+    background: url(images/icon/enable.png) no-repeat;
+}
+.icon-new-disable{
+    background: url(images/icon/disable.png) no-repeat;
+}
+.icon-new-refused{
+    background: url(images/icon/refused.png) no-repeat;
+}
+.icon-new-pass{
+    background: url(images/icon/pass.png) no-repeat;
+}
+.icon-new-start{
+    background: url(images/icon/start.png) no-repeat;
+}
+.icon-new-suspend{
+    background: url(images/icon/suspend.png) no-repeat;
+}
+.icon-new-history{
+    background: url(images/icon/history.png) no-repeat;
+}
+.icon-new-historical-record{
+    background: url(images/icon/historical-record.png) no-repeat;
+}
+.icon-new-image{
+    background: url(images/icon/image.png) no-repeat;
+}
+/*------------以上是用于编译项目中的图标信息-----------------------*/

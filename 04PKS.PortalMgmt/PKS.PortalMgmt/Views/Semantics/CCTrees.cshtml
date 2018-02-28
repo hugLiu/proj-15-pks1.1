@@ -1,0 +1,210 @@
+﻿@{
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+
+<div>
+    <table>
+        <tr style="width: 95%; height: 10%; padding-left: 10px ">
+            <td>
+                <div>
+                    <input id="Selecttree" class="mini-treeselect" style="width: 220px;"
+                           textfield="Term" idfield="TermClassId" valuefield="TermClassId" parentfield="PId"
+                           expandonload="1" showtreeicon="true" url="/Semantics/GetTermTrees?cc=@ViewBag.cc"
+                           showtreelines="true" text="@Html.Str("empty_Select")" onnodeclick="filterNodeClick()" />
+                </div>
+            </td>
+            <td align="right">
+                <a plain="true" class="mini-button" iconcls="icon-new-moveup" onclick="onUpClick">@Html.Str("Up")</a>
+            </td>
+            <td align="right">
+                <a plain="true" class="mini-button" iconcls="icon-new-movedown" onclick="onDownClick">@Html.Str("Down")</a>
+            </td>
+            <td align="right">
+                <a plain="true" class="mini-button" iconcls="icon-new-empty" onclick="onRemoveClick">@Html.Str("Delete")</a>
+            </td>
+            <td align="right">
+                <a plain="true" class="mini-button" iconcls="icon-new-save" onclick="save">@Html.Str("Save")</a>
+            </td>
+        </tr>
+        <tr style="width: 95%; height: 80%; padding-left: 10px ">
+            <td>
+                <div style="padding-left: 10px;padding-top: 5px">
+                    <ul id="CCtree" class="mini-tree" idfield="TermClassId" parentfield="PId" textfield="Term" valuefield="IsPT" expandonload="2"
+                        url="/Semantics/GetTermTrees/?cc=@ViewBag.cc" resultastree="false" showcheckbox="true" checkrecursive="false"
+                        showtreeicon="true" onnodecheck="singleclick" style="width: 350px; height: 450px"></ul>
+
+                </div>
+            </td>
+            <td colspan="4">
+                <div id="relatedWords" class="mini-listbox" textfield="text" valuefield="id" multiselect="true"
+                     style="width: 300px; height:450px; padding-left: 10px;padding-top: 5px">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    var selecttree = mini.get("Selecttree");
+    var cctree = mini.get("CCtree");
+    var relatedWords = mini.get("relatedWords");
+
+    var sr = "@ViewBag.sr";
+    var term = "@ViewBag.term";
+    var fid = "@ViewBag.selectdId";
+
+    var minOneRecord = "@Html.Str("Min_One_Record")";
+    var deleted = "@Html.Str("Success_Delete")";
+    var added = "@Html.Str("Success_Add")";
+    var saved= "@Html.Str("Success_Save")";
+    var confirmDelete = "@Html.Str("Confirm_Delete")";
+    var Delete = "@Html.Str("Delete")";
+    var chooseCCfirst = "@Html.Str("SelectCC_Required")";
+    if (sr != "" && term != "") {
+        $.ajax({
+            url: "/Semantics/GetSemantics/",
+            data: { term: term, sr: sr },
+            success: function (data) {
+                $.each(data, function (i, j) {
+                    var nodes = cctree.findNodes(function (node) {
+                        if (node.TermClassId == j.TermClassID)
+                            return true;
+                    });
+                    cctree.checkNodes(nodes);
+                    singleclick();
+                });
+            }
+        });
+
+    }
+
+    //筛选树节点点击时发生
+    function filterNodeClick() {
+        var selectnode = selecttree.getSelectedNode();
+        var nodes = cctree.getAllChildNodes(selectnode);
+        var boolNode = cctree.isLeaf(selectnode);
+        if (boolNode == false) {
+            cctree.loadData(nodes);
+        } else {
+            cctree.loadNode(selectnode);
+        }
+    }
+
+    //展示树 节点点击时发生
+    function singleclick(e) {
+        if (term == "" && fid == "") {
+            cctree.uncheckNode(e.node);
+            mini.showTips({
+                content: chooseCCfirst,
+                state: "warning",
+                x: "center",
+                y: "center",
+                timeout: 1500
+            });
+        }
+        else {
+            var nodes = cctree.getCheckedNodes(false);
+            var list = [];
+            $.each(nodes, function (idx, obj) {
+                list.push({ id: obj.TermClassId, text: obj.Term });
+            });
+            relatedWords.loadData(list);
+        }
+    }
+
+    function onUpClick() //上移
+    {
+        var items = relatedWords.getSelecteds();
+        for (var i = 0, l = items.length; i < l; i++) {
+            var item = items[i];
+            var index = relatedWords.indexOf(item);
+            relatedWords.moveItem(item, index - 1);
+        }
+    }
+
+    function onDownClick() //下移
+    {
+        var items = relatedWords.getSelecteds();
+        for (var i = items.length - 1; i >= 0; i--) {
+            var item = items[i];
+            var index = relatedWords.indexOf(item);
+            relatedWords.moveItem(item, index + 1);
+        }
+    }
+
+    function onRemoveClick() //删除
+    {
+        var items = relatedWords.getSelecteds();
+        if (items.length == 0) {
+            mini.showTips({
+                content: minOneRecord,
+                state: "warning",
+                x: "right",
+                y: "top",
+                timeout: 1500
+            });
+        }
+        else {
+            mini.confirm(confirmDelete,Delete,
+              function (action) {
+                  if (action == "ok") {
+                      var list = [];
+                      $.each(items, function (idx, obj) {
+                          list.push({ FTermClassId: fid, SR: sr, LTermClassId: obj.id, FTerm: term, LTerm: obj.text });
+                      });
+                      var json = mini.encode(list);
+                      $.ajax({
+                          url: "/Semantics/DeleteSemantics/",
+                          data: { s: json },
+                          type: "post",
+                          success: function () {
+                              mini.showTips({
+                                  content: deleted,
+                                  state: "success",
+                                  x: "right",
+                                  y: "center",
+                                  timeout: 1500
+                              });
+                              relatedWords.removeItems(items);
+                          },
+                          error: function (err) {
+                              toastr["error"](err.status + " - " + err.statusText);
+                          }
+                      });
+                  }
+              }
+          );
+        }
+    }
+    function save()//保存（增加和更新）
+    {
+        relatedWords.selectAll();
+        var relations = relatedWords.getSelecteds();
+        var list = [];
+        $.each(relations, function (idx, obj) {
+            list.push({ FTermClassId: fid, SR: sr, LTermClassId: obj.id, FTerm: term, LTerm: obj.text });
+        });
+        var json = mini.encode(list);
+        $.ajax({
+            url: "/Semantics/SaveSemantics/",
+            data: { s: json },
+            type: "post",
+            success: function (data) {
+                mini.showTips({
+                    content: saved,
+                    state: "success",
+                    x: "right",
+                    y: "center",
+                    timeout: 1500
+                });
+            }, error: function (err) {
+                toastr["error"](err.status + " - " + err.statusText);
+            }
+        });
+        relatedWords.deselectAll();
+    }
+</script>

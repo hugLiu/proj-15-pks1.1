@@ -1,0 +1,159 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.xvision-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.xvision-side-bar{
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: red;
+}
+
+.xvision-content-body{
+    position: absolute;
+    left: 25%;
+    top:0;
+    width: 75%;
+    height: 100%;
+    background-color: purple;
+}
+
+.xvision-pre-container{
+    position: relative;
+    width: 100%;
+    border: 1px solid white;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+}
+.xvision-ctrl-container{
+    position: relative;
+    width: 100%;
+    padding: 5px;
+    min-height: 80px;
+    border: 1px solid white;
+    box-sizing: border-box;
+}
+.xvision-draggable-anchor{
+    float:right;
+    margin-right:5px;
+    font-size:12px;
+}
+/********************************************************************************************
+*************************************xvison-configurable*************************************
+*********************************************************************************************/
+.xvision-configurable{
+    text-align: right;
+    padding-right: 5px;
+}
+.xvision-configurable-edit{
+    margin: 5px;
+}
+.xvision-configurable-remove{
+    margin: 5px;
+}
+
+/********************************************************************************************
+*************************************xvison-tree*********************************************
+*********************************************************************************************/
+.xvision-tree{
+    margin: 0;
+    padding: 0px 5px;
+}
+.xvision-tree-header{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.xvision-tree-body{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.xvision-tree-body-container{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.xvision-tree-node{
+    list-style: none;
+}
+
+.xvision-tree-node-header{
+    cursor: pointer;
+}
+
+.xvision-tree-node-expander{
+    transition: all 300ms;
+}
+.xvision-tree-node-expander-holder{
+    transition: all 300ms;
+    color: transparent;
+}
+.xvision-tree-node-container{
+    margin: 0;
+    padding-left: 12px;
+    height: 0;
+    opacity: 0;
+    list-style: none;
+    transition: height 500ms;
+    transition: opacity 15ms;
+}
+.xvision-tree-node-expander.expanded{
+    transform: rotate(45deg);
+}
+.xvision-tree-node-container.expanded{
+    height: auto;
+    opacity: 1;
+}
+
+/********************************************************************************************
+*************************************xvison-accordion****************************************
+*********************************************************************************************/
+
+.xvision-accordion{
+
+}
+
+.xvision-accordion-header{
+
+}
+
+.xvision-accordion-body{
+
+}
+
+.xvision-accordion-body-container{
+    margin: 0;
+    padding: 3px;
+    list-style: none;
+}
+.xvision-accordion-catalog{
+    list-style: none;
+}
+
+.xvision-accordion-catalog-header{
+
+}
+
+.xvision-accordion-catalog-body{
+    margin: 0;
+    padding: 3px;
+    list-style: none;
+}
+
+.xvision-accordion-item{
+    list-style: none;
+}
+    

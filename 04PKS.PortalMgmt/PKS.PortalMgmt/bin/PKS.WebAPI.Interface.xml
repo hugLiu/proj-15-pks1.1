@@ -1,0 +1,1689 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PKS.WebAPI.Interface</name>
+    </assembly>
+    <members>
+        <member name="T:PKS.WebAPI.Models.BOT">
+            <summary>对象类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.BOT.Name">
+            <summary>名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.BOT.LocationType">
+            <summary>位置类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.BOT.Properties">
+            <summary>属性模板</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.ServiceCapabilities">
+            <summary>服务支持能力数据</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.ServiceCapabilities.Service">
+            <summary>服务信息</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.ServiceCapabilities.Requests">
+            <summary>支持请求集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.ServiceCapabilities.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.JavaScriptError">
+            <summary>前端脚本错误</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.JavaScriptError.Message">
+            <summary>信息</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.JavaScriptError.Content">
+            <summary>内容</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.JavaScriptError.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.ServiceInfo">
+            <summary>
+            服务信息
+            </summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.ServiceInfo.Name">
+            <summary>名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.ServiceInfo.Description">
+            <summary>描述</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.ServiceInfo.Developer">
+            <summary>开发者</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.ServiceInfo.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.UploadFolder">
+            <summary>文件下载结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFolder.Id">
+            <summary>ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFolder.ParentId">
+            <summary>父文件夹ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFolder.Level">
+            <summary>级别</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFolder.Name">
+            <summary>文件夹名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFolder.FullName">
+            <summary>文件夹全名称</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.UploadFolder.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexDataMatchRequest">
+            <summary>索引数据查询请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexDataMatchRequest.From">
+            <summary>返回结果索引</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexDataMatchRequest.Size">
+            <summary>返回结果数量</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexDataMatchRequest.Filter">
+            <summary>查询条件</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexDataMatchRequest.Sort">
+            <summary>排序(键是字段,值是顺序,0是升序1是降序)</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IndexDataMatchRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexDataMatchResult`1">
+            <summary>索引相关数据查询结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexDataMatchResult`1.Total">
+            <summary>总数</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexDataMatchResult`1.Values">
+            <summary>索引相关数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IndexDataMatchResult`1.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexDataSaveRequest`1">
+            <summary>索引相关数据保存请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexDataSaveRequest`1.Values">
+            <summary>数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IndexDataSaveRequest`1.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexPageData">
+            <summary>索引页面数据</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.Id">
+            <summary>文档ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.PKS#WebAPI#Services#IMongoDocument#Id">
+            <summary>文档ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.PageId">
+            <summary>页面数据ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.Name">
+            <summary>名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.IsTemplate">
+            <summary>是否模板</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.IsBaseRender">
+            <summary>是否基类渲染</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.StorageType">
+            <summary>存储类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.ContentRef">
+            <summary>内容引用，用于存储类型为URL和File</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.System">
+            <summary>系统</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.ShowType">
+            <summary>页面展示类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexPageData.DataType">
+            <summary>数据类型</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IndexPageData.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexAppContentType">
+            <summary>索引数据内容类型</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppContentType.Html">
+            <summary>HTML片段</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppContentType.Json">
+            <summary>JSON</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppContentType.File">
+            <summary>文件</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexAppDataType">
+            <summary>索引相关数据类型</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppDataType.Raw">
+            <summary>原生类型</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppDataType.Html">
+            <summary>HTML片段</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppDataType.Json">
+            <summary>JSON</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppDataType.Image">
+            <summary>图片</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppDataType.Pdf">
+            <summary>文档</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppDataType.Audio">
+            <summary>音频</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexAppDataType.Video">
+            <summary>视频</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.FileStorageType">
+            <summary>文件存储类型</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.FileStorageType.None">
+            <summary>无</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.FileStorageType.Mongo">
+            <summary>保存在Mongo库</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.FileStorageType.FileSystem">
+            <summary>保存在文件系统</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexStorageType">
+            <summary>索引相关数据存储类型</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexStorageType.Content">
+            <summary>数据内容保存在Content</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexStorageType.File">
+            <summary>文件内容保存在GridFS内</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexStorageType.Url">
+            <summary>使用URL指向内容</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.IndexStorageType.Adapter">
+            <summary>使用适配器获取内容</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.AppDataSaveRequest">
+            <summary>索引应用数据保存请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.DataId">
+            <summary>应用数据ID:如果不合法则使用资源键生成MD5值</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.Name">
+            <summary>名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.ContentType">
+            <summary>索引数据内容类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.Content">
+            <summary>索引数据内容：DataType IN (HTML,JSON)时有效</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.StorageType">
+            <summary>文件存储类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.GenerateThumbnail">
+            <summary>生成缩略图</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.GenerateFulltext">
+            <summary>生成全文</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.IsOnline">
+            <summary>是否使用在线方式上传:StorageType=FileSystem时有效，非在线方式指用手工或其它方式把文件上传到服务器</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.UploadFileId">
+            <summary>上传文件后生成的FileId</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.SourceFile">
+            <summary>源文件名：StorageType=FileSystem时有效，指定存储路径和文件名</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.Uploader">
+            <summary>上传人</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.RawAdapter">
+            <summary>获取内容的适配器信息</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.System">
+            <summary>系统</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.ResourceType">
+            <summary>资源类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveRequest.ResourceKey">
+            <summary>资源键，用来唯一标识数据源数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.AppDataSaveRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.AppDataSaveResult">
+            <summary>索引应用数据保存结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveResult.DataId">
+            <summary>应用数据ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveResult.Thumbnail">
+            <summary>缩略图</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.AppDataSaveResult.Fulltext">
+            <summary>全文</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexAppData">
+            <summary>索引应用数据</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.Id">
+            <summary>文档ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.PKS#WebAPI#Services#IMongoDocument#Id">
+            <summary>文档ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.DataId">
+            <summary>应用数据ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.Name">
+            <summary>名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.DataType">
+            <summary>数据类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.StorageType">
+            <summary>存储类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.ContentRef">
+            <summary>内容引用，用于存储类型为URL和File</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.Content">
+            <summary>内容，用于数据类型为HTML和JSON，存储类型为Content</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.SourceName">
+            <summary>源名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.SourceStorageType">
+            <summary>源存储类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.SourceContentRef">
+            <summary>源引用，用于存储类型为URL和File</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.IsOnline">
+            <summary>是否在线上传</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.RawAdapter">
+            <summary>获取内容的适配器信息</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.System">
+            <summary>系统</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.ResourceType">
+            <summary>资源类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.ResourceKey">
+            <summary>资源键，用来唯一标识数据源数据</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.CreateBy">
+            <summary>创建人</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.CreateDate">
+            <summary>创建时间</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.LastUpdatedBy">
+            <summary>上一次修改人</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexAppData.LastUpdatedDate">
+            <summary>上一次修改时间</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IndexAppData.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.DownloadRequest">
+            <summary>文件下载请求</summary>
+            <remarks>
+            有2种下载方式
+            1. 通过DataId和Source下载指定的文件
+            2. 通过StorageType和ContentRef下载
+            </remarks>
+        </member>
+        <member name="P:PKS.WebAPI.Models.DownloadRequest.Download">
+            <summary>是否使用下载保存文件方式，默认是False</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.DownloadRequest.DataId">
+            <summary>数据ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.DownloadRequest.Source">
+            <summary>下载源文件，默认是False</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.DownloadRequest.StorageType">
+            <summary>存储类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.DownloadRequest.ContentRef">
+            <summary>文件内容引用</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.DownloadRequest.FileName">
+            <summary>文件名称</summary>
+            <remarks>如果文件名称存在，则为下载文件名并设置ContentType头</remarks>
+        </member>
+        <member name="M:PKS.WebAPI.Models.DownloadRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.DownloadResult">
+            <summary>文件下载结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.DownloadResult.FileName">
+            <summary>文件名</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.DownloadResult.ContentType">
+            <summary>内容类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.DownloadResult.Content">
+            <summary>内容流</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.DownloadResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.UploadFileRequest">
+            <summary>文件上传请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFileRequest.FileName">
+            <summary>文件名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFileRequest.EnablePattern">
+            <summary>是否返回模式URL</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFileRequest.ServerFile">
+            <summary>服务端接收文件</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.UploadFileRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.UploadFileResult">
+            <summary>文件上传结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFileResult.RelativePath">
+            <summary>文件相对路径</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFileResult.FileUrl">
+            <summary>文件绝对URL</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadFileResult.PatternUrl">
+            <summary>文件模式URL</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.UploadFileResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.UploadRequest">
+            <summary>文件上传请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadRequest.Md5">
+            <summary>多个上传文件的MD5</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadRequest.Guid">
+            <summary>文件分片上传时的唯一标识</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadRequest.Chunk">
+            <summary>分片索引</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadRequest.Chunks">
+            <summary>分片数量</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadRequest.FileName">
+            <summary>文件名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadRequest.CharSet">
+            <summary>字符集</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.UploadRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.ServerUploadRequest">
+            <summary>服务端文件上传请求</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.ServerUploadRequest.#ctor">
+            <summary>文件上传请求</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.ServerUploadRequest.#ctor(PKS.WebAPI.Models.UploadRequest)">
+            <summary>文件上传请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.ServerUploadRequest.ServerFile">
+            <summary>服务端接收文件</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.ServerUploadRequest.RelativePath">
+            <summary>离线上传文件路径</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.ServerUploadRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.UploadResult">
+            <summary>上传结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadResult.TempFileIds">
+            <summary>临时文件ID集合</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadResult.FirstFileId">
+            <summary>第一个文件ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.UploadResult.Chunk">
+            <summary>分片索引</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.UploadResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.LoginRequest">
+            <summary>登录请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LoginRequest.AppCode">
+            <summary>
+            当前系统代码
+            </summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LoginRequest.UserName">
+            <summary>用户名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LoginRequest.Password">
+            <summary>用户密码</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LoginRequest.AuthenticationType">
+            <summary>认证方式</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LoginRequest.UserHostAddress">
+            <summary>
+            客户端Host
+            </summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.LoginRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IdentityValidationResult">
+            <summary>身份验证结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IdentityValidationResult.Valid">
+            <summary>是否合法</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IdentityValidationResult.Token">
+            <summary>新认证令牌</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IdentityValidationResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.TokenExpireSettings">
+            <summary>Token过期参数</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.TokenExpireSettings.RenewInterval">
+            <summary>续期间隔</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.TokenExpireSettings.ExpireInterval">
+            <summary>过期间隔</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.TokenExpireSettings.Parse(System.String)">
+            <summary>解析</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.TokenExpireSettings.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.LoginResult">
+            <summary>登录结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LoginResult.Token">
+            <summary>认证令牌</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LoginResult.Principal">
+            <summary>用户身份</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.LoginResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexInsertRequest">
+            <summary>索引插入请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexInsertRequest.Metadatas">
+            <summary>元数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IndexInsertRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexSaveRequest">
+            <summary>索引保存请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexSaveRequest.Replace">
+            <summary>是否替换</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IndexSaveRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.IndexResult">
+            <summary>索引操作结果</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IndexResult.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.IndexResult.IIIds">
+            <summary>元数据ID集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IndexResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.LinkCategoryInfo">
+            <summary>链接信息</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LinkCategoryInfo.Title">
+            <summary>标题</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LinkCategoryInfo.Links">
+            <summary>链接信息集合</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.LinkInfo">
+            <summary>链接信息</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LinkInfo.Title">
+            <summary>标题</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LinkInfo.Url">
+            <summary>链接</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.LinkInfo.IconUrl">
+            <summary>图标链接</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.PortalMenu">
+            <summary>门户菜单</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.PortalMenu.DefaultUrl">
+            <summary>角色默认打开的菜单</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.PortalMenu.Menus">
+            <summary>角色有权限的菜单信息集合</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.PortalFooterMenu">
+            <summary>门户底部菜单</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.PortalFooterMenu.Content">
+            <summary>底部显示的Html内容</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.PortalFooterMenu.Categories">
+            <summary>分类外链信息集合</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.MenuInfo">
+            <summary>菜单信息</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MenuInfo.Id">
+            <summary>Id</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MenuInfo.Key">
+            <summary>键</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MenuInfo.Name">
+            <summary>名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MenuInfo.URL">
+            <summary>链接</summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MenuInfo.Target">
+            <summary>链接打开目标:_blank|_self</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MenuInfo.HasThird">
+            <summary>是否有第三级子菜单(用于第一级菜单，表示本菜单是否有第三级菜单)</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MenuInfo.Children">
+            <summary>子菜单信息集合</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.ESSearchRequest">
+            <summary>ES原生搜索请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.ESSearchRequest.Query">
+            <summary>搜索短语</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.ESSearchRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchRequest">
+            <summary>搜索完全匹配请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchRequest.Sentence">
+            <summary>搜索短语</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchRequest.From">
+            <summary>起始索引</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchRequest.Size">
+            <summary>返回结果数量</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchRequest.Filter">
+            <summary>查询条件</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchRequest.Fields">
+            <summary>源字段过滤器</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchRequest.Boost">
+            <summary>提升权重集合(键是字段,值是权重提升)</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchRequest.Sort">
+            <summary>排序(键是字段,值是顺序,0是升序1是降序)</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchRequest.Group">
+            <summary>分组</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchMetadatasRequest">
+            <summary>按IIID数组搜索请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchMetadatasRequest.IIIds">
+            <summary>索引ID集合</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchMetadatasRequest.Fields">
+            <summary>源字段过滤器</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchMetadatasRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchQueryFilter">
+            <summary>查询条件</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchQueryFilter.And">
+            <summary>AND条件</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchQueryFilter.Ors">
+            <summary>OR数组条件</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchQueryFilter.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchGroupRules">
+            <summary>分组规则</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchGroupRules.Top">
+            <summary>最多的分组数量</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchGroupRules.Fields">
+            <summary>分组字段数组</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchGroupRules.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.MatchResult">
+            <summary>准确查询结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MatchResult.Total">
+            <summary>总数</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MatchResult.Metadatas">
+            <summary>索引集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.MatchResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchTermQueryOperator">
+            <summary>字段准确匹配查询</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.SearchTermQueryOperator.Equal">
+            <summary>相等</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.SearchTermQueryOperator.In">
+            <summary>在数组内</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.SearchTermQueryOperator.Range">
+            <summary>在数值范围内</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.SearchTermQueryOperator.Exits">
+            <summary>是否存在</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.SearchTermQueryOperator.Prefix">
+            <summary>前缀</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.SearchTermQueryOperator.Wildcard">
+            <summary>通配符</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.SearchTermQueryOperator.Regex">
+            <summary>正则</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Models.SearchTermQueryOperator.Fuzzy">
+            <summary>相似度</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchTermQuery">
+            <summary>字段准确匹配查询</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchTermQuery.Not">
+            <summary>取反</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchTermQuery.Name">
+            <summary>字段名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchTermQuery.Operator">
+            <summary>包含字段数组</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchTermQuery.Value">
+            <summary>字段值</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchTermQuery.Values">
+            <summary>用于需要数组的操作</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchTermQuery.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchSourceFilter">
+            <summary>源字段过滤条件</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchSourceFilter.Includes">
+            <summary>包含字段数组</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchSourceFilter.Excludes">
+            <summary>排除字段数组</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchSourceFilter.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchMetadataRequest">
+            <summary>按IIID搜索请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchMetadataRequest.IIId">
+            <summary>索引ID</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchMetadataRequest.Fields">
+            <summary>源字段过滤器</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchMetadataRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.MatchRequest">
+            <summary>准确查询请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MatchRequest.Top">
+            <summary>返回结果数量</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MatchRequest.Filter">
+            <summary>查询条件</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MatchRequest.Fields">
+            <summary>源字段过滤器</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.MatchRequest.Sort">
+            <summary>排序(键是字段,值是顺序,0是升序1是降序)</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.MatchRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchStatisticsRequest">
+            <summary>搜索统计请求</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchStatisticsRequest.Groups">
+            <summary>分组统计字段数组</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchStatisticsRequest.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchGroupResult">
+            <summary>搜索分组结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchGroupResult.Field">
+            <summary>分组统计字段</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchGroupResult.Count">
+            <summary>分组统计字段值数量</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchGroupResult.Children">
+            <summary>子分组统计</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchGroupResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchStatisticsResult">
+            <summary>搜索统计结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchStatisticsResult.Groups">
+            <summary>分组统计结果</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchStatisticsResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchResult">
+            <summary>搜索结果</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchResult.Groups">
+            <summary>聚合结果</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchResult.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Models.SearchSortRule">
+            <summary>排序规则</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchSortRule.Field">
+            <summary>字段</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Models.SearchSortRule.Order">
+            <summary>排序方向</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.SearchSortRule.ToString">
+            <summary>生成JSON串</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IUserBehaviorService.Add(PKS.Models.UserBehavior)">
+            <summary>
+            添加
+            </summary>
+            <param name="requestModel"></param>
+        </member>
+        <member name="M:PKS.WebAPI.Models.IUserBehaviorService.Search(System.String)">
+            <summary>
+            查询
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PKS.WebAPI.Services.BO2ServiceExceptionCode">
+            <summary>
+            对象服务异常代码
+            </summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IElasticConfig">
+            <summary>Elastic库配置接口</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IElasticConfig.Client">
+            <summary>客户端</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IElasticConfig.MetadataType">
+            <summary>元数据</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IElasticConfig.UserBehaviorType">
+            <summary>用户行为日志</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IMongoConfig">
+            <summary>Mongo库配置接口</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IMongoConfig.Database">
+            <summary>库</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IMongoConfig.GetColletionName(System.Type)">
+            <summary>根据文档类型获得集合名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IMongoConfig.IndexUploadFilesDir">
+            <summary>上传文件目录</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IMongoConfig.IndexUploadFilesPath">
+            <summary>上传文件保存路径，第一级是年月(201707)，第二级是日小时(0808)</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IMongoConfig.IndexUploadTempPath">
+            <summary>上传文件临时路径</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IMongoConfig.BOBsonDocumentCollection">
+            <summary>
+            业务对象属性及坐标信息使用Collection
+            </summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IMongoConfig.BOTBsonDocumentCollection">
+            <summary>
+            业务对象类型的属性定义集合
+            </summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IMongoDocument">
+            <summary>Mongo文档接口</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IMongoDocument.Id">
+            <summary>提供自定义ID</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IApiServiceConfig">
+            <summary>API服务配置接口</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.IApiServiceConfig.Url">
+            <summary>地址</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IApiServiceWrapper">
+            <summary>API服务配置接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IApiServiceWrapper.ResetServiceUrl">
+            <summary>重置服务URL</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IServerPageDataService">
+            <summary>服务端页面数据服务接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IServerPageDataService.Upload(PKS.WebAPI.Models.ServerUploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+            <remarks>
+            如果Guid为空表示不分片，否则表示分片
+            </remarks>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IServerPageDataService.UploadAsync(PKS.WebAPI.Models.ServerUploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataServiceWrapper.Upload(PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+            <remarks>
+            如果Guid为空表示不分片，否则表示分片
+            </remarks>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataServiceWrapper.UploadAsync(PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IPageDataService">
+            <summary>页面数据服务接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.InsertMany(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.InsertManyAsync(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.SaveMany(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.SaveManyAsync(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.DeleteMany(System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.DeleteManyAsync(System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.Get(System.String)">
+            <summary>根据PageID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.GetAsync(System.String)">
+            <summary>根据PageID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.GetMany(System.Collections.Generic.List{System.String})">
+            <summary>根据PageID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.GetManyAsync(System.Collections.Generic.List{System.String})">
+            <summary>根据PageID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.Match(PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.MatchAsync(PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.Download(PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据DataID或ContentRef获得相关文件流</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IPageDataService.DownloadAsync(PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据PageID或FileID获得相关文件流</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IServerAppDataService">
+            <summary>服务端应用数据服务接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IServerAppDataService.Upload(PKS.WebAPI.Models.ServerUploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+            <remarks>
+            如果Guid为空表示不分片，否则表示分片
+            </remarks>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IServerAppDataService.UploadAsync(PKS.WebAPI.Models.ServerUploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IServerAppDataService.UploadFileAsync(PKS.WebAPI.Models.UploadFileRequest)">
+            <summary>上传文件，小资源文件直接上传内容</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IServerAppDataService.BuildThumbnail(PKS.Models.Metadata,System.String)">
+            <summary>生成缩略图</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IServerAppDataService.BuildFulltext(PKS.Models.Metadata,System.String)">
+            <summary>生成全文</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IAppDataServiceWrapper">
+            <summary>应用数据包装器接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataServiceWrapper.Upload(PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+            <remarks>
+            如果Guid为空表示不分片，否则表示分片
+            </remarks>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataServiceWrapper.UploadAsync(PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataServiceWrapper.Upload(System.String,System.String,System.Int32)">
+            <summary>上传一个文件，支持秒传和分片(单位为K)</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataServiceWrapper.UploadAsync(System.String,System.String,System.Int32)">
+            <summary>上传一个文件，支持秒传和分片(单位为K)</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataServiceWrapper.GetFileFormats">
+            <summary>获得全部文件格式信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataServiceWrapper.GetFileFormatsAsync">
+            <summary>获得全部文件格式信息</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IAppDataService">
+            <summary>应用数据服务接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.InsertMany(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.InsertManyAsync(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.Save(PKS.WebAPI.Models.AppDataSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.SaveAsync(PKS.WebAPI.Models.AppDataSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.SaveMany(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.SaveManyAsync(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.DeleteMany(System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.DeleteManyAsync(System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.Get(System.String)">
+            <summary>根据DataID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.GetAsync(System.String)">
+            <summary>根据DataID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.GetMany(System.Collections.Generic.List{System.String})">
+            <summary>根据DataID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.GetManyAsync(System.Collections.Generic.List{System.String})">
+            <summary>根据DataID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.Match(PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.MatchAsync(PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.GetUploadFolders">
+            <summary>获得上传文件夹下全部子文件夹</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.GetUploadFoldersAsync">
+            <summary>获得上传文件夹下全部子文件夹</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.GetUploadFolderFiles(System.String)">
+            <summary>获得某个上传文件夹下全部文件列表</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.GetUploadFolderFilesAsync(System.String)">
+            <summary>获得某个上传文件夹下全部文件列表</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.ClearTempFiles">
+            <summary>清除临时文件夹中的过期文件</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.ClearTempFilesAsync">
+            <summary>清除临时文件夹中的过期文件</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.Download(PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据DataID或ContentRef获得相关文件流</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IAppDataService.DownloadAsync(PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据DataID或FileID获得相关文件流</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.ApiServiceExceptionCodes">
+            <summary>服务异常代码</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Services.ApiServiceExceptionCodes.DataIdNotExists">
+            <summary>应用数据ID不存在</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Services.ApiServiceExceptionCodes.PageIdNotExists">
+            <summary>页面数据ID不存在</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Services.ApiServiceExceptionCodes.FileIdNotExists">
+            <summary>文件ID不存在</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Services.ApiServiceExceptionCodes.FileExists">
+            <summary>文件已经存在</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Services.ApiServiceExceptionCodes.MD5VerifyFailed">
+            <summary>MD5校验失败</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Services.ApiServiceExceptionCodes.MetadataTagMissing">
+            <summary>缺少元数据标签</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Services.ApiServiceExceptionCodes.ESServerFailed">
+            <summary>ES服务器应答失败</summary>
+        </member>
+        <member name="F:PKS.WebAPI.Services.ApiServiceExceptionCodes.ResourceKeyNotExists">
+            <summary>资源键不存在</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.ISecurityServiceWrapper">
+            <summary>安全服务包装器接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityServiceWrapper.HasMenuPermission(System.Int32,System.String)">
+            <summary>判断指定用户对指定Url是否有权限</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityServiceWrapper.HasMenuPermissionAsync(System.Int32,System.String)">
+            <summary>判断指定用户对指定Url是否有权限</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.ISecurityService">
+            <summary>安全服务接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.GetTokenExpireSettings">
+            <summary>获得Token过期参数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.Login(PKS.WebAPI.Models.LoginRequest)">
+            <summary>登录</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.LoginAsync(PKS.WebAPI.Models.LoginRequest)">
+            <summary>登录</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.Renew(System.String)">
+            <summary>续期</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.RenewAsync(System.String)">
+            <summary>续期</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.GetPrincipal(System.String)">
+            <summary>获取登录用户信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.GetPrincipalAsync(System.String)">
+            <summary>获取登录用户信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.Logout(System.String)">
+            <summary>注销用户</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.LogoutAsync(System.String)">
+            <summary>注销用户</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.GetPortalMenu(System.Int32)">
+            <summary>获得指定角色的门户菜单</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.GetPortalMenuAsync(System.Int32)">
+            <summary>获得指定角色的门户菜单</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.GetPortalFooterMenu">
+            <summary>获得门户底部菜单</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.GetPortalFooterMenuAsync">
+            <summary>获得门户底部菜单</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.GetPermissions(System.Int32)">
+            <summary>获得指定用户的权限集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISecurityService.GetPermissionsAsync(System.Int32)">
+            <summary>获得指定用户的权限集合</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IIndexerService">
+            <summary>索引数据服务接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IIndexerService.Insert(PKS.WebAPI.Models.IndexInsertRequest)">
+            <summary>插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IIndexerService.InsertAsync(PKS.WebAPI.Models.IndexInsertRequest)">
+            <summary>插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IIndexerService.Save(PKS.WebAPI.Models.IndexSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IIndexerService.SaveAsync(PKS.WebAPI.Models.IndexSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IIndexerService.Delete(System.Collections.Generic.List{System.String})">
+            <summary>删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IIndexerService.DeleteAsync(System.Collections.Generic.List{System.String})">
+            <summary>删除</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.ISearchServiceWrapper">
+            <summary>搜索服务包装器接口</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.ISearchService">
+            <summary>搜索服务接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.Search(PKS.WebAPI.Models.SearchRequest)">
+            <summary>按短语搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.SearchAsync(PKS.WebAPI.Models.SearchRequest)">
+            <summary>按短语搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.ESSearch(System.String)">
+            <summary>按ES语法搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.ESSearchAsync(System.String)">
+            <summary>按ES语法搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.Match(PKS.WebAPI.Models.MatchRequest)">
+            <summary>按完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.MatchAsync(PKS.WebAPI.Models.MatchRequest)">
+            <summary>按完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.MatchMany(PKS.WebAPI.Models.MatchRequest[])">
+            <summary>按多个完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.MatchManyAsync(PKS.WebAPI.Models.MatchRequest[])">
+            <summary>按多个完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.GetMetadata(PKS.WebAPI.Models.SearchMetadataRequest)">
+            <summary>根据iiid搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.GetMetadataAsync(PKS.WebAPI.Models.SearchMetadataRequest)">
+            <summary>根据iiid搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.GetMetadatas(PKS.WebAPI.Models.SearchMetadatasRequest)">
+            <summary>根据iiid数组搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.GetMetadatasAsync(PKS.WebAPI.Models.SearchMetadatasRequest)">
+            <summary>根据iiid数组搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.Statistics(PKS.WebAPI.Models.SearchStatisticsRequest)">
+            <summary>根据聚合条件获取统计信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.StatisticsAsync(PKS.WebAPI.Models.SearchStatisticsRequest)">
+            <summary>根据聚合条件获取统计信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.GetMetadataDefinitions">
+            <summary>查询元数据定义信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ISearchService.GetMetadataDefinitionsAsync">
+            <summary>查询元数据定义信息</summary>
+        </member>
+        <member name="T:PKS.WebAPI.BOTScenarioType">
+            <summary>BOT场景类型</summary>
+        </member>
+        <member name="F:PKS.WebAPI.BOTScenarioType.Data">
+            <summary>数据</summary>
+        </member>
+        <member name="F:PKS.WebAPI.BOTScenarioType.Filter">
+            <summary>筛选</summary>
+        </member>
+        <member name="F:PKS.WebAPI.BOTScenarioType.Both">
+            <summary>都支持</summary>
+        </member>
+        <member name="P:PKS.WebAPI.BOTPropertyDefinition.Name">
+            <summary>属性名</summary>
+        </member>
+        <member name="P:PKS.WebAPI.BOTPropertyDefinition.DisplayName">
+            <summary>属性显示名</summary>
+        </member>
+        <member name="P:PKS.WebAPI.BOTPropertyDefinition.Type">
+            <summary>属性值类型</summary>
+        </member>
+        <member name="P:PKS.WebAPI.BOTPropertyDefinition.Options">
+            <summary>可选值列表</summary>
+        </member>
+        <member name="P:PKS.WebAPI.BOTPropertyDefinition.Sequence">
+            <summary>顺序</summary>
+        </member>
+        <member name="P:PKS.WebAPI.BOTPropertyDefinition.Scenario">
+            <summary>应用场景类型</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Semantics.ISemantics">
+            <summary>
+            语义服务接口
+            </summary>
+        </member>
+        <member name="M:PKS.WebAPI.Semantics.ISemantics.Segment(System.String,Jurassic.PKS.Service.Semantics.SegmentOption)">
+            <summary>
+            简单语义分词
+            </summary>
+            <param name="sentence">分词短语</param>
+            <param name="option">分词方法</param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.WebAPI.Semantics.ISemantics.ReloadDict">
+            <summary>
+            重载词库
+            </summary>
+        </member>
+        <member name="M:PKS.WebAPI.Semantics.ISemantics.GetTermInfo(System.Collections.Generic.List{System.String},System.String)">
+             <summary>
+            根据叙词名称获得指定概念类的叙词信息
+             </summary>
+             <param name="term">正式叙词</param>
+             <param name="cc">概念类</param>
+            <returns>叙词的详细信息</returns>
+        </member>
+        <member name="M:PKS.WebAPI.Semantics.ISemantics.GetTranslationById(System.String,System.String,System.Boolean)">
+            <summary>
+            根据叙词id获取指定语言的翻译词
+            </summary>
+            <param name="id">叙词id</param>
+            <param name="langcode">语言类型</param>
+            <param name="onlymain">只包含主词</param>
+            <returns>翻译词列表</returns>
+        </member>
+        <member name="M:PKS.WebAPI.Semantics.ISemantics.Hierarchy(System.String,System.String,System.Int32)">
+            <summary>
+            获得树的层级结构
+            </summary>
+            <param name="id">叙词ID</param>
+            <param name="cc">指定关系叙词的概念类</param>
+            <param name="deeplevel">返回树的层级</param>
+            <returns>树结构结果</returns>
+        </member>
+        <member name="M:PKS.WebAPI.Semantics.ISemantics.GetCC">
+            <summary>
+            获取 所有的概念类
+            </summary>
+            <returns>返回概念类表信息</returns>
+        </member>
+        <member name="M:PKS.WebAPI.Semantics.ISemantics.GetSemanticsType">
+            <summary>
+            获取语义关系类型（2017新增）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.WebAPI.Semantics.ISemantics.Semantics(System.String,System.String,System.String)">
+            <summary>
+            获取 语义关系
+            </summary>
+            <param name="term">叙词</param>
+            <param name="sr">指定语义关系</param>
+            <param name="direction">语义关系方向</param>
+            <returns>返回关联概念类的列表</returns>
+        </member>
+        <member name="M:PKS.WebAPI.Semantics.ISemantics.GetDictionary(System.Collections.Generic.List{System.String})">
+            <summary>
+            获得指定类型词库
+            </summary>
+            <param name="cc">字典类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:Jurassic.PKS.Service.Semantics.ConceptClass">
+             <summary>
+            概念类信息
+             </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.ConceptClass.CCCode">
+            <summary>
+            概念类编码
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.ConceptClass.CC">
+            <summary>
+            概念类名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.ConceptClass.Tag">
+            <summary>
+            概念类标签
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.ConceptClass.Type">
+            <summary>
+            概念类类型
+            </summary>
+        </member>
+        <member name="T:Jurassic.PKS.Service.Semantics.KeyWord">
+            <summary>
+            预处理返回结果
+            </summary>
+        </member>
+        <member name="M:Jurassic.PKS.Service.Semantics.KeyWord.#ctor">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.KeyWord.Term">
+            <summary>
+            叙词
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.KeyWord.Cc">
+            <summary>
+            概念类
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.KeyWord.Translates">
+            <summary>
+            翻译词
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.KeyWord.Aliases">
+            <summary>
+            同义词
+            </summary>
+        </member>
+        <member name="T:Jurassic.PKS.Service.Semantics.SemanticsType">
+            <summary>
+            语义关系类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.SemanticsType.SR">
+            <summary>
+            语义关系类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.SemanticsType.CCCode1">
+            <summary>
+            概念类编码1
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.SemanticsType.CCCode2">
+             <summary>
+            概念类编码2
+             </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.SemanticsType.Description">
+            <summary>
+            语义关系类型描述
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.SemanticsType.Remark">
+            <summary>
+            备注信息
+            </summary>
+        </member>
+        <member name="T:Jurassic.PKS.Service.Semantics.TermInfo">
+            <summary>
+            叙词信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TermInfo.TermClassID">
+            <summary>
+            叙词ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TermInfo.CCCode">
+            <summary>
+            概念类编码
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TermInfo.Term">
+            <summary>
+            叙词名称
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TermInfo.PathTerm">
+            <summary>
+            叙词路径
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TermInfo.Source">
+            <summary>
+            叙词来源
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TermInfo.Description">
+            <summary>
+            叙词描述
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TermInfo.Remark">
+            <summary>
+            备注信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TermInfo.CC">
+            <summary>
+            叙词所属概念类
+            </summary>
+        </member>
+        <member name="T:Jurassic.PKS.Service.Semantics.TreeResult">
+            <summary>
+            树结构
+            </summary>
+        </member>
+        <member name="M:Jurassic.PKS.Service.Semantics.TreeResult.#ctor">
+            <summary>
+            无参构造
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TreeResult.TreeItems">
+            <summary>
+            树节点集合
+            </summary>
+        </member>
+        <member name="M:Jurassic.PKS.Service.Semantics.TreeResult.AddRange(System.Collections.Generic.IList{Jurassic.PKS.Service.Semantics.TreeItem})">
+            <summary>
+            树添加多个节点
+            </summary>
+            <param name="collection"></param>
+        </member>
+        <member name="T:Jurassic.PKS.Service.Semantics.TreeItem">
+            <summary>
+            树节点定义
+            </summary>
+        </member>
+        <member name="M:Jurassic.PKS.Service.Semantics.TreeItem.#ctor">
+            <summary>
+            无参构造
+            </summary>
+        </member>
+        <member name="M:Jurassic.PKS.Service.Semantics.TreeItem.#ctor(System.String,System.String,System.String,System.Int32,System.String,System.String)">
+            <summary>
+            有参构造
+            </summary>
+            <param name="id">节点id</param>
+            <param name="pathTerm">叙词路径</param>
+            <param name="term">叙词名称</param>
+            <param name="orderIndex">节点排序</param>
+            <param name="source">叙词来源</param>
+            <param name="pid">父id</param>
+        </member>
+        <member name="M:Jurassic.PKS.Service.Semantics.TreeItem.#ctor(System.String,System.String,System.String)">
+            <summary>
+            有参构造
+            </summary>
+            <param name="id">节点id</param>
+            <param name="term">节点信息</param>
+            <param name="pid">父id</param>
+        </member>
+        <member name="M:Jurassic.PKS.Service.Semantics.TreeItem.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            有参构造
+            </summary>
+            <param name="id">节点id</param>
+            <param name="term">节点信息</param>
+            <param name="pathTerm">节点路径</param>
+            <param name="pid">父id</param>
+        </member>
+        <member name="M:Jurassic.PKS.Service.Semantics.TreeItem.#ctor(System.String)">
+            <summary>
+            有参构造
+            </summary>
+            <param name="term">叙词</param>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TreeItem.Id">
+            <summary>
+            节点id
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TreeItem.Term">
+            <summary>
+            叙词信息
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TreeItem.PathTerm">
+            <summary>
+            叙词路径
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TreeItem.Source">
+            <summary>
+            叙词来源
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TreeItem.OrderIndex">
+            <summary>
+            叙词排序
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.TreeItem.Pid">
+            <summary>
+            父id
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.WordResult.Term">
+            <summary>
+            Word
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.WordResult.Cc">
+            <summary>
+            Part of speech
+            </summary>
+        </member>
+        <member name="T:Jurassic.PKS.Service.Semantics.SegmentOption">
+            <summary>
+            分词条件
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.SegmentOption.Cc">
+            <summary>词库名称</summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.SegmentOption.IncludeTrans">
+            <summary>是否包含翻译词列表</summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.SegmentOption.IncludeAlias">
+            <summary>是否包含同义词列表</summary>
+        </member>
+        <member name="P:Jurassic.PKS.Service.Semantics.SegmentOption.MatchRule">
+            <summary>匹配规则</summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.GetTermInfoRequest.Term">
+            <summary>
+            指定的正式叙词列表
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.GetTermInfoRequest.Cc">
+            <summary>
+            指定的返回词项的类型
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.GetTranslationByIDRequest.Id">
+            <summary>
+            叙词ID
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.GetTranslationByIDRequest.LangCode">
+            <summary>
+            语言类型，如 en-US zh-CN
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.GetTranslationByIDRequest.OnlyMain">
+            <summary>
+            只包含主词
+            </summary>
+        </member>
+        <member name="T:Jurassic.PKS.WebAPI.Semantics.HierarchyRequest">
+            <summary>获得树的层级结构</summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.HierarchyRequest.Id">
+            <summary>叙词ID</summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.HierarchyRequest.Cc">
+            <summary>指定关系叙词的概念类</summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.HierarchyRequest.DeepLevel">
+            <summary>返回树的层级</summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.SegmentRequest.Sentence">
+            <summary>
+            待处理的短语
+            </summary>
+        </member>
+        <member name="P:Jurassic.PKS.WebAPI.Semantics.SegmentRequest.Option">
+            <summary>
+            分词选项
+            </summary>
+        </member>
+    </members>
+</doc>

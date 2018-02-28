@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div class="frame-fit" style="width: 100%;margin-top: -10px;">
+    <div class="mini-toolbar" style="margin-bottom:0;">
+        <table style="width:100%;">
+            <tr>
+                <td style="width:100%;">
+                    <a class="mini-button" iconcls="icon-new-add" onclick="add()">@Html.Str("增加")</a>
+                    <a class="mini-button" iconcls="icon-new-delete" onclick="remove()">@Html.Str("删除")</a>
+                    <a class="mini-button" iconcls="icon-new-save" onclick="save()">@Html.Str("保存")</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <div id="datagrid1" class="mini-datagrid" style="width:100%;" allowCellEdit="true"
+             allowCellSelect="true" url="/PortalExternLink/Links" idField="id" showPager="true"
+             editNextOnEnterKey="true" editNextRowCell="true" showEmptyText="true">
+            <div property="columns">
+                <div type="indexcolumn"></div>
+                <div field="Name" headeralign="center" allowsort="true">
+                    名称
+                    <input property="editor" class="mini-textbox" style="width:100%;" minWidth="130" />
+                </div>
+                <div field="Url" headeralign="center" allowsort="true">
+                    链接
+                    <input property="editor" class="mini-textbox" style="width:100%;" minWidth="130" />
+                </div>
+                <div field="Category" headeralign="center" allowsort="true">
+                    分类名称
+                    <input property="editor" class="mini-textbox" style="width:100%;" minWidth="130" />
+                </div>
+                <div field="OrderNum" headeralign="center" allowsort="true">
+                    排序号
+                    <input property="editor" class="mini-spinner" style="width:100%;" minWidth="130" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    mini.parse();
+
+    var grid = mini.get("datagrid1");
+    grid.load();
+    grid.sortBy("Id", "desc");
+
+    var add = function () {
+        grid.addRow({});
+    }
+
+    var remove = function () {
+        var l = grid.getSelected();
+        grid.removeRow(l);
+    };
+
+    function save() {
+        var data = grid.getChanges();
+        json = normalize(data);
+        grid.loading("保存中，请稍后......");
+        $.ajax({
+            url: "./UpIrd",
+            data: json,
+            type: "post",
+            success: function (text) {
+                showTips("success", "保存成功");
+                grid.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showTips("error", "保存失败");
+                grid.reload();
+            }
+        });
+    }
+    function normalize(json) {
+        var model = { alinks: [], ulinks: [], dlinks: [] };
+        var i = 0, j = json.length, d = void 0;
+        for (; i < j; i++) {
+            d = json[i];
+            switch (d._state) {
+                case "added":
+                    model.alinks.push(d);
+                    break;
+                case "removed":
+                    model.dlinks.push(d);
+                    break;
+                case "modified":
+                    model.ulinks.push(d);
+                    break;
+            }
+        }
+        return model;
+    }
+</script>
+

@@ -1,0 +1,171 @@
+﻿@model Jurassic.CommonModels.ServerAuth.DataNodeInfo
+@{
+    ViewBag.ShowSearchBox = false;
+}
+
+<div class="mini-splitter frame-fit" style="width: 100%;">
+    <div size="200" showcollapsebutton="true">
+
+        <ul id="treeData" class="mini-tree" style="height:100%" url="@Url.Action("GetAllTreeData")" 
+            showtreeicon="true" 
+            textfield="DataNodeName" 
+            idfield="DataNodeID"
+            parentfield="DataParentID" 
+            onnodeselect="nodeselect" 
+            expandOnLoad ="true"
+            resultastree="false"
+            showarrow="true" 
+            >
+        </ul>
+    </div> 
+    <div showcollapsebutton="false">
+        <div class="form-div frame-fit" id="formData">
+            <table border="0" cellpadding="1" cellspacing="2" style="width: 428px; table-layout: fixed;">
+                <tr>
+                    <td class="col-md-10">
+                        <input id="CreatedDate" name="CreatedDate" class="mini-hidden" value="@Model.CreatedDate" />
+                        <input id="CreatedBy" name="CreatedBy" class="mini-hidden" value="@Model.CreatedBy" />
+                        <input id="DataID" name="DataID" class="mini-hidden" value="@Model.DataID" />
+
+                        <input labelfield="true" label="@FStr.DataNodeCode：" name="DataNodeID" value="@Model.DataNodeID" required="true" class="mini-textbox" maxlength="50" style="width:400px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-10">
+                        <input labelfield="true" label="@FStr.DataNodeName：" name="DataNodeName" value="@Model.DataNodeName" required="true" class="mini-textbox" maxlength="50" style="width:400px;" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-10">
+                        <input id="lookTree" name="DataParentID" class="mini-treeselect" style="width:400px;"
+                                url="@Url.Action("GetTreeData")" 
+                                labelField="true" 
+                                label="@FStr.ParentNodeName："
+                                multiselect="false"
+                                valuefromselect="false"
+                                allowinput="false"
+                                showfoldercheckbox="false"
+                                showradiobutton="false"
+                                expandonload="0"
+                                popupwidth="600"
+                                showclose="true"
+                                oncloseclick="javascript:this.setText('');this.setValue('');"
+
+                                textfield="DataNodeName"
+                                valuefield="DataNodeID"
+                                parentfield="DataParentID" 
+                                emptyText=""
+                                value="@Model.DataParentID" />
+
+                        @*<input labelfield="true" label="上级节点编码：" id="DataParentID" name="DataParentID" value="@Model.DataParentID" class="mini-textbox" maxlength="50" style="width:400px;" />*@
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-10">
+                        <input labelfield="true" label="@FStr.DataStatus:" name="IsvalId" class="mini-radiobuttonlist"  value="@Model.IsvalId" data="[{id: 1, text: '启用'}, {id: 0, text: '@JStr.Disabled'}]" style="width:400px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="col-md-10">
+                        <input labelfield="true" label="@JStr.Remark:" value="@Model.Memo" name="Memo" maxlength="1000" style="width:400px;height:100px" class="mini-textarea" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    mini.parse();
+    //左侧树组件
+    var treeData = mini.get('#treeData')
+    var form = new mini.Form("formData");
+    var lookTree = mini.get('#lookTree')
+
+    //树节点选中事件
+    function nodeselect(e) {
+        var node = treeData.getSelectedNode()
+        if (node == null || node.DataNodeID == '') {
+            form.reset();
+            return;
+        }
+        var dataID = node.DataID;
+        form.loading();
+        $.ajax({
+            url: "@Url.Action("GetDataInfo")" + "?id=" + dataID,
+            success: function (text) { 
+                var o = mini.decode(text);
+                form.setData(o);
+                form.unmask();
+            },
+            complete: function () {
+                form.unmask();
+            }
+        });
+    }
+ 
+    //新增主节点按钮事件
+    function addNew() {
+        form.reset();
+
+        var node = treeData.getSelectedNode()
+        if (node == null) {
+            return;
+        }
+        lookTree.setText(node.DataNodeName);
+        lookTree.setValue(node.DataNodeID);
+    }
+
+    $.regButton({
+        text: "@FStr.DeleteDataNode",
+        beforeSubmit: function (ajax) {
+            var node = treeData.getSelectedNode()
+            if (node == null || node.DataID == '') {
+                alert("@ResHelper.GetStr("请选择一行数据!")");
+                return false;
+            }
+            if (!treeData.isLeaf(node)) {
+                alert("@ResHelper.GetStr("请先删除子节点!")");
+                return false;
+            }
+            if (!confirm("@ResHelper.GetStr("确定删除所选择的数据?")")) {
+                return false;
+            }
+            ajax.data = { id: node.DataID }
+        },
+        afterSubmit: function (data) {
+            var node = treeData.getSelectedNode()
+            if (data.Type == "success" && node) {
+                treeData.removeNode(node);
+                lookTree.load("@Url.Action("GetTreeData")")
+                form.reset();
+            }
+        }
+    });
+
+    $.regButton({
+        text: "@FStr.AddDataNode",
+        noSubmit: addNew
+    });
+     
+    $.regButton({
+        text: "@JStr.Save",
+        afterSubmit: function (data) {
+            data = data.ReturnValue;
+            if (!data) {
+                return;
+            }
+            //刷新并选中节点
+            var newNode = data.Data.data
+            if (newNode) {
+                //treeData.selectNode({});
+                treeData.load("@Url.Action("GetAllTreeData")")
+                treeData.selectNode(newNode);
+
+                lookTree.load("@Url.Action("GetTreeData")")
+            }
+        }
+    });
+</script>

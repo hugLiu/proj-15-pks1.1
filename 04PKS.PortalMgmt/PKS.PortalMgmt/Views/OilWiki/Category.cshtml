@@ -1,0 +1,334 @@
+﻿
+@{
+    ViewBag.Title = "石油百科类别维护";
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowToolBar = true;
+}
+
+<div class="mini-xs mini-sm mini-md mini-md-active">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-4">
+                <div class="mini-panel layout-panel  frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+                    <ul id="catalogTree" class="mini-tree frame-search-tree" style="width:100%;height:100%"
+                        checkrecursive="true" showcheckbox="true" showtreeicon="true"
+                        url="@Url.Action("GetCatalog", "OilWiki")"
+                        textfield="NAME" idfield="Id" parentfield="PARENTID"
+                        @*iconfield="IconClass"*@
+                        resultastree="false" expandonload="1"
+                        ondrawnode="onDrawNode"
+                        onnodeselect="onSelectNode"
+                        @*allowdrop="true" allowleafdropin="true"*@></ul>
+                </div>
+            </div>
+            <div class="mini-col-8">
+                <div id="mainForm" class="mini-panel layout-panel frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+                    <input name="Id" class="mini-hidden" />
+                    <input name="IMAGEURL" class="mini-hidden" />
+                    <input name="LEVELNUMBER" class="mini-hidden" />
+                    <input name="ORDERNUMBER" class="mini-hidden" />
+                    <input name="KMD" class="mini-hidden" />
+                    <input name="PARENTID" class="mini-hidden" />
+                    <input name="DOMAINID" class="mini-hidden" />
+                    <input name="CREATEDBY" class="mini-hidden" />
+                    <input name="CREATEDDATE" class="mini-hidden" />
+                    <input name="LASTUPDATEDBY" class="mini-hidden" />
+                    <input name="LASTUPDATEDDATE" class="mini-hidden" />
+                    <table border="0" cellpadding="1" cellspacing="2" style="width:100%;">
+                        <tr style="height:30px;">
+                            <td style="width:60px;text-align:right;">
+                                <label for="CODE" style="margin-right:5px;">编码: </label>
+                            </td>
+                            <td>
+                                <input name="CODE" id="CODE" class="mini-textbox" style="width:98%" />
+                            </td>
+                        </tr>
+                        <tr style="height:30px;">
+                            <td style="width:60px;text-align:right;">
+                                <label for="NAME" style="margin-right:5px;"><span style="color:red">*</span> @JStr.Name: </label>
+                            </td>
+                            <td>
+                                <input name="NAME" id="NAME" class="mini-textbox"
+                                       required="true"
+                                       requirederrortext="名称不能为空！"
+                                       onvalidation="onNameValidation"
+                                       style="width:98%" />
+                            </td>
+                        </tr>
+                        <tr style="height:65px;">
+                            <td style="width:60px;text-align:right;">
+                                <label for="DESCRIPTION" style="margin-right:5px;">描述: </label>
+                            </td>
+                            <td>
+                                <input name="DESCRIPTION"
+                                       id="DESCRIPTION"
+                                       class="mini-textarea"
+                                       style="width:98%" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    mini.parse();
+    var treeObj = mini.get("#catalogTree");
+
+    $.regButton({ text: "@FStr.AddBrother", noSubmit: addBrother });
+    $.regButton({ text: "@FStr.AddChild", noSubmit: addChild });
+    $.regButton({ text: "@JStr.Delete", noSubmit: deleteSelectedNode });
+    $.regButton({ text: "@JStr.Save", noSubmit: save});
+
+    function GetCurrentNode() {
+        var node = treeObj.getSelectedNode();
+        return node;
+    }
+
+    function GetMaxOrd(parentNode) {
+        parentNode = parentNode || treeObj.getRootNode();
+        var nodes = treeObj.getChildNodes(parentNode);
+        var ord = 0;
+        if (nodes) {
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].ORDERNUMBER > ord) ord = nodes[i].ORDERNUMBER;
+            }
+        }
+        return ord + 1;
+    }
+
+    function GetLevel(parentNode) {
+        if (!parentNode) {
+            return 1;
+        }
+
+        if ("PARENTID" in parentNode) {
+            return treeObj.getLevel(parentNode) + 1;
+        }
+
+        return 1;
+    }
+
+    function GetParentId(parentNode) {
+        if (!parentNode) {
+            return 0;
+        }
+
+        if ("Id" in parentNode) {
+            return parentNode.Id;
+        }
+
+        return 0;
+    }
+
+    function GetNewNode(node) {
+        var level= GetLevel(node);
+        var orderIndex= GetMaxOrd(node);
+        var parentId= GetParentId(node);
+        var newNode = {
+            Id: 0,
+            CODE: null,
+            NAME: "New Node",
+            DESCRIPTION: null,
+            IMAGEURL: null,
+            LEVELNUMBER: level,
+            ORDERNUMBER: orderIndex,
+            KMD: "",
+            PARENTID: node ? node.Id : null,
+            DOMAINID: 2,
+            CREATEDBY: null,
+            CREATEDDATE: null,
+            LASTUPDATEDBY: null,
+            LASTUPDATEDDATE: null
+        };
+
+        return newNode;
+    }
+    /**
+     * *
+     * 节点渲染
+     */
+    function onDrawNode(e) {
+        var tree = e.sender;
+        var node = e.node;
+
+        var text = e.cellHtml;
+        if (!text) {
+            return;
+        }
+        var index = text.indexOf("::");
+        if (index>0) {
+            text = text.substring(0, index);
+            e.cellHtml = text;
+        }
+    }
+
+    /*
+    *新增平级
+    */
+    function addBrother() {
+        var node = GetCurrentNode();
+        if (!node) {
+            mini.alert("请先选中分类节点！");
+            return;
+        }
+        if (node) node = treeObj.getParentNode(node);
+
+        var newNode = GetNewNode(node);
+        add(node,newNode);
+    }
+
+    /*
+    *新增子级
+    */
+    function addChild() {
+        var node = GetCurrentNode();
+        if (!node) {
+            mini.alert("请先选中分类节点！");
+            return;
+        }
+        if (!node.Id) {
+            mini.alert("请先选中分类节点！");
+            return;
+        }
+        var newNode = GetNewNode(node);
+
+        add(node,newNode);
+    }
+    /*
+    *新增后台请求方法
+    */
+    function add(node,newNode) {
+        var newNodeStr = mini.encode(newNode);
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        $.ajax({
+            url: "AddCatalog",
+            type: "post",
+            data: { model: newNodeStr },
+            success: function (data) {
+                console.log("loadsuccess", data);
+                newNode.Id = data.id;
+                treeObj.addNode(newNode, newNode.ORDERNUMBER, node);
+                treeObj.selectNode(newNode);
+            },
+            complete: function (e) {
+                mini.unmask(document.body);
+            }
+        });
+    }
+
+    /*
+    *删除
+    */
+    function deleteSelectedNode() {
+        var nodes = treeObj.getCheckedNodes();
+
+        if (!nodes.length) {
+            mini.alert("@FStr.NoNodeSelected");
+            return;
+        }
+        mini.confirm("确定删除记录？", "系统提示",
+            function (action) {
+                if (action == "ok") {
+                    var nodesStr = mini.encode(nodes);
+                    mini.mask({
+                        el: document.body,
+                        cls: 'mini-mask-loading',
+                        html: '加载中...'
+                    });
+                    $.ajax({
+                        url: "DeleteCatalog",
+                        type: "post",
+                        data: { models: nodesStr },
+                        success: function (data) {
+                            console.log("loadsuccess", data);
+                            treeObj.removeNodes(nodes);
+                            treeObj.uncheckAllNodes();
+                            //删除操作之后，默认选择第一个节点
+                            treeObj.selectNode(treeObj.getList()[0]);
+                        },
+                        complete: function (e) {
+                            mini.unmask(document.body);
+                        }
+                    });
+                }
+            }
+        );
+    }
+
+    function onSelectNode(e) {
+        var tree = e.sender;
+        var node = tree.getSelectedNode();
+        if (node) {
+            var form = new mini.Form("#mainForm");
+            form.reset();
+            form.setData(node);
+        }
+    }
+
+    function save() {
+        var form = new mini.Form("#mainForm");
+        form.validate();
+        if (form.isValid() == false) return;
+
+        var data = form.getData(true, false);
+        var model = mini.encode(data);
+
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        $.ajax({
+            url: "UpdateCatalog",
+            type: "post",
+            data: { model: model },
+            success: function (text) {
+                toastr["success"]("保存成功", "提示");
+                treeObj.reload();
+            },complete: function (e) {
+                mini.unmask(document.body);
+            }
+        });
+
+    }
+
+    /**
+     * 名称校验重复
+     */
+    function onNameValidation(e) {
+        if (e.isValid) {
+
+            var form = new mini.Form("#mainForm");
+            var data = form.getData(true, false);
+            var id = 0;
+            if (data.Id) {
+                id = data.Id;
+            }
+            $.ajax({
+                url: "CatalogNameExists",
+                type: "post",
+                data: { id: id,name: e.value },
+                async: false,
+                success: function (data) {
+                    if (data == true) {
+                        e.errorText = "当前名称已经存在";
+                        e.isValid = false;
+                    } else {
+                        e.isValid = true;
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+
+

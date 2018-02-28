@@ -1,0 +1,372 @@
+﻿@{
+    ViewBag.Title = "编辑器";
+    ViewBag.ShowToolbar = false;
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+
+<link rel="stylesheet" type="text/css" href="~/scripts/webuploader/webuploader.css">
+<script type="text/javascript" src="~/scripts/webuploader/webuploader.min.js"></script>
+<style type="text/css">
+    .webuploader-element-invisible {
+        position: absolute !important;
+        clip: rect(1px,1px,1px,1px);
+    }
+
+    .webuploader-pick-disable {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .webuploader-pick {
+        background: transparent;
+        width: 100%;
+        height: 100%;
+    }
+
+    .uploadPlaceholder {
+        position: absolute;
+        top: 4px;
+        left: 10px;
+        width: 107px;
+        height: 24px;
+    }
+
+    /*上传表格上传进度样式*/
+    .progressbar {
+        position: relative;
+        background: #bbb;
+        width: 100%;
+        height: 16px;
+        overflow: hidden;
+    }
+
+    .progressbar-percent {
+        position: absolute;
+        height: 18px;
+        background: blue;
+        left: 0;
+        top: 0px;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .progressbar-label {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        font-size: 13px;
+        color: White;
+        z-index: 10;
+        text-align: center;
+        height: 16px;
+        line-height: 16px;
+    }
+
+    .upicon-remove {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background: url("uploader_pic/cancel.gif") no-repeat 50% 50%;
+        cursor: pointer;
+    }
+</style>
+<!-- 加载编辑器的容器 -->
+<script id="container" name="content" type="text/plain">
+
+</script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="/scripts/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/scripts/ueditor/ueditor.all.js"></script>
+
+
+
+<div class="mini-splitter frame-fit nospacing" style="width:100%;">
+
+    @*左侧导航*@
+    <div size="26%" showcollapsebutton="true">
+        <div id="leftArea">
+            @*<div class="mini-toolbar">
+                    <a class="mini-button" iconcls="icon-new-add" plain="true" onclick="typeAdd()">新增</a>
+                    <a class="mini-button" iconcls="icon-new-edit" plain="true" onclick=" typeEdit()">编辑</a>
+                    <a class="mini-button" iconcls="icon-new-delete" plain="true" onclick="removeUnitType()">删除</a>
+                </div>*@
+            <div id="tabs1" class="mini-tabs" activeIndex="0" plain="false">
+                <div title="模板">
+                    <div>
+
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:100%;">
+                                    <div id="hascontent" name="hascontent" class="mini-checkbox" style="margin-left:20px;">模板内容</div>
+                                </td>
+                                <td style="white-space:nowrap;">
+                                    <input id="key" class="mini-textbox" style="width:150px;" onenter="onKeyEnter" />
+                                    <a class="mini-button" onclick="search()">查询</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div id="templatetree" class="mini-tree"
+                         showheader="true" title="模板" showtreeicon="true"
+                         textfield="name" idfield="nodeid" resultastree="false" expandonload="0">
+                    </div>
+
+                </div>
+                <div title="内容">
+                    <div id="cataloguetree" class="mini-tree"
+                         showheader="true" title="正文目录" showtreeicon="true"
+                         textfield="name" idfield="nodeid" resultastree="false" expandonload="0">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*左侧导航END*@
+
+    @*右侧Frame*@
+    <div showcollapsebutton="true">
+        <div id="rightArea" style="height:100%;">
+            @*工具条按钮*@
+            <div property="toolbar" style="height: 30px; line-height: 27px">
+                <a id="addFile" class="mini-button" iconcls="icon-new-add" plain="true" >选择文件上传</a>
+                <div class="uploadPlaceholder" id="uploadPlaceholder"></div>
+                <a id="edit" class="mini-button" iconcls="icon-new-save" plain="true" onclick="save()">保存</a>
+                <a id="preview" class="mini-button" iconcls="icon-new-preview" plain="true" onclick="preview()">预览</a>
+                <a id="del" class="mini-button" iconcls="icon-new-delete" plain="true" onclick="remove()">删除</a>
+            </div>
+
+            @*工具条按钮END*@
+            <div class="mini-fit">
+                <script id="editor" type="text/plain" style="height:100%;">
+                </script>
+            </div>
+            <div id="content"></div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+    mini.parse();//mini.parse() 把html标签解析成miniui控件对象
+
+
+    var templateTree = mini.get("#templatetree");
+    var catalogueTree = mini.get("#cataloguetree");
+    loadTemplateTree();
+    function loadTemplateTree() {
+        $.ajax({
+            url: "/xeditor/GetTemplateTree",
+            success: function (list) {
+                var data = mini.decode(list);
+                templateTree.loadList(data, "nodeid", "parentnodeid");
+                var treedata = templateTree.getList();
+                if (treedata.length > 0) {
+                    var node = treedata[0];
+
+                    templateTree.selectNode(node);//默认选中第一条
+
+                    //var isChild = includechildren.value;
+                    //grid.load({ akey: node.Id, isChild: isChild });
+                    //unitObj = mini.get('#templateTree').getSelectedNode();//新增传参
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("模板树失败")
+            }
+        });
+    }
+    function loadCatalogueTree(templateid) {
+        var url = "/xeditor/GetCatalogueInfosByTemplateId?templateid=" + templateid;
+        $.ajax({
+            url: url,
+            success: function (list) {
+                var data = mini.decode(list);
+                catalogueTree.loadList(data, "id", "parentid");
+                var treedata = catalogueTree.getList();
+                if (treedata.length > 0) {
+                    var node = treedata[0];
+                    catalogueTree.selectNode(node);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("加载文档目录失败")
+            }
+        });
+    }
+    //左侧类别双击事件
+    templateTree.on("nodeselect", function (e) {
+        var istemplate = e.selected.istemplate;
+        var id = istemplate ? e.selected.id:0;
+        //todo 切换时提醒保存
+        if (istemplate) {
+            var templateHtml = getTemplateContent(id);
+            //UE.getEditor('editor').setContent("111")
+            UE.getEditor('editor').execCommand('insertHtml', templateHtml)
+        }
+        else {
+            //if (UE.getEditor('editor').hasContents())
+            //    UE.getEditor('editor').execCommand('cleardoc');
+        }
+
+        loadCatalogueTree(id);
+    });
+
+
+    function search() {
+
+    }
+
+    function getTemplateContent(id) {
+        var html = '';
+        $.ajax({
+             async:false,
+             url: "/xeditor/GetTemplateContent",
+            type: 'get',
+            data: { templateid: id },
+            cache: false,
+            success: function (text) {
+                html = text;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+               alert("获取模板内容失败")
+            }
+        });
+         return html;
+    }
+
+
+    function onCheckBoxChanged(e) {
+
+    }
+
+
+    function addFile() {
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        $.ajax({
+            url: "@Url.Action("UploadFile")",
+            type: 'post',
+            //data: { templateid: id },         
+            success: function (text) {
+                //$("#content").html(text);
+                UE.getEditor('editor').setContent(text);
+                toastr["success"]("上传成功", "提示");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                mini.alert("文件上传失败");
+            },
+            complete: function (e) {
+                mini.unmask(document.body);
+            }
+        });
+    }
+
+    /**************弹框**************/
+
+    //类别保存方法
+    function typeSaveData(data) {
+        var node = templateTree.getNode(data.ParentId);
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("UnitTypeAdd")",
+            type: 'post',
+            data: { data: json },
+            cache: false,
+            success: function (text) {
+                templateTree.addNode(data, "add", node);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $.util.showError(jqXHR);
+            }
+        });
+    }
+
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: true,
+
+        // swf文件路径
+        swf: '/scripts/webuploader/Uploader.swf',
+
+        // 文件接收服务端。
+        server: '/weditor/uploadfile',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#uploadPlaceholder',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        },
+        formData: {
+            "templateId":11
+        },
+    });
+
+    // 当有文件添加进来的时候
+    uploader.on('fileQueued', function (file) {
+        var $li = $(
+            '<div id="' + file.id + '" class="file-item thumbnail">' +
+            '<img>' +
+            '<div class="info">' + file.name + '</div>' +
+            '</div>'
+        ),
+            $img = $li.find('img');
+
+
+        // $list为容器jQuery实例
+       // $list.append($li);
+
+
+    });
+
+    // 文件上传过程中创建进度条实时显示。
+    uploader.on('uploadProgress', function (file, percentage) {
+        var $li = $('#' + file.id),
+            $percent = $li.find('.progress span');
+
+        // 避免重复创建
+        if (!$percent.length) {
+            $percent = $('<p class="progress"><span></span></p>')
+                .appendTo($li)
+                .find('span');
+        }
+
+        $percent.css('width', percentage * 100 + '%');
+    });
+
+    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+    uploader.on('uploadSuccess', function (file) {
+        $('#' + file.id).addClass('upload-state-done');
+    });
+    // 文件上传失败，显示上传出错。
+    uploader.on('uploadError', function (file) {
+        var $li = $('#' + file.id),
+            $error = $li.find('div.error');
+
+        // 避免重复创建
+        if (!$error.length) {
+            $error = $('<div class="error"></div>').appendTo($li);
+        }
+
+        $error.text('上传失败');
+    });
+
+    // 完成上传完了，成功或者失败，先删除进度条。
+    uploader.on('uploadComplete', function (file) {
+        $('#' + file.id).find('.progress').remove();
+    });
+</script>

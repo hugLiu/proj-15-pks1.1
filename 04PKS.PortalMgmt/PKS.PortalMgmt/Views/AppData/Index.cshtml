@@ -1,0 +1,2292 @@
+﻿@using PKS.Web;
+@{
+    ViewBag.Title = "应用仓库数据维护";
+    var apiServiceUrl = this.Context.GetWebApiServiceUrl();
+
+    var getSearchServiceUrl = apiServiceUrl + "/SearchService/";//搜索服务
+    var getIndexerServiceUrl = apiServiceUrl + "/IndexerService/";//索引服务
+
+    var getAppDataServiceUrl = apiServiceUrl + "/AppDataService/";//数据服务
+    var getAppDataUploadFoldersUrl = getAppDataServiceUrl + "GetUploadFolders";
+    var getAppDataUploadUrl = getAppDataServiceUrl + "Upload";
+
+    var getPageServiceUrl = apiServiceUrl + "/PageService/";//页面服务
+    var getMDsUrl = getSearchServiceUrl + "GetMetadataDefinitions";//元数据
+    var getPageGridMatchUrl = getPageServiceUrl + "Match";  //查询页面数据
+
+    var portalServiceUrl = this.Context.GetPortalSiteUrl();
+    var apiServiceRoot = this.Context.GetWebApiSiteUrl();
+    //var apiServiceRoot = apiServiceUrl.Substring(0, apiServiceUrl.LastIndexOf("/")+1);
+    var getMomentUrl = apiServiceRoot + "/Scripts/moment.2.18.1/moment.js";
+
+}
+
+<style>
+    .field {
+        width: 28%;
+    }
+
+    .operator {
+        width: 20%;
+    }
+
+    .values {
+        width: 52%;
+    }
+
+    .mini-textboxlist-border {
+        border: 1px solid #ccc;
+    }
+
+    div.jsoneditorbody * {
+        font-family: droid sans mono, consolas, monospace, courier new, courier, sans-serif;
+        /*font-size:16px;*/
+        /*line-height: 1.3;
+        background-color: #fff;*/
+    }
+
+    code {
+        background-color: #f5f5f5;
+    }
+
+    .uploadbutton {
+        border-top-width: 0px;
+        border-bottom-width: 0px;
+        height: 22px;
+        border-right-width: 0px;
+        border-left-width: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        vertical-align: middle;
+    }
+
+    .webuploader-pick {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        background: #00b7ee;
+        padding: 0px 15px !important;
+        color: #fff;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    div#picker > div {
+        height: 22px;
+    }
+</style>
+
+<!--富文本控件-->
+<script type="text/javascript" charset="utf-8" src="~/scripts/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/scripts/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="~/scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
+<!--json控件-->
+<link type="text/css" rel="stylesheet" href="~/scripts/jsoneditor/jsoneditor.css" />
+<script type="text/javascript" src="~/scripts/jsoneditor/jsoneditor.js"></script>
+<!--上传控件-->
+<link rel="stylesheet" type="text/css" href="~/scripts/webuploader/webuploader.css">
+<script type="text/javascript" src="~/scripts/webuploader/webuploader.js"></script>
+<!--日期转iso-->
+<script type="text/javascript" src="@getMomentUrl"></script>
+
+<div class="mini-xs mini-sm mini-md mini-md-active mini-col">
+    <div class="container-fluid" style="padding:0px;">
+        <div class="mini-clearfix">
+            <div class="mini-col-12" style="padding:0px;">
+                <div class="mini-toolbar" style="box-shadow: none;margin-bottom: 0px;">
+                    <table style="width:100%;">
+                        <tr>
+                            <td>
+                                @*<a class="mini-button frame-submit" href="javascript:void(0)" id="02130704" title="查询">
+                                        <span class="mini-button-text  mini-button-icon icon-new-search" style="">查询</span>
+                                    </a>
+                                    <a class="mini-button frame-submit" href="javascript:void(0)" id="02130705" title="清除">
+                                        <span class="mini-button-text  mini-button-icon icon-new-move" style="">清除</span>
+                                    </a>*@
+                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130701" title="新增">
+                                    <span class="mini-button-text  mini-button-icon icon-new-add" style="">新增</span>
+                                </a>
+                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130701_1" title="复制新增">
+                                    <span class="mini-button-text  mini-button-icon icon-new-add" style="">复制新增</span>
+                                </a>
+                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130702" title="编辑">
+                                    <span class="mini-button-text  mini-button-icon icon-new-edit" style="">编辑</span>
+                                </a>
+                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130703" title="删除">
+                                    <span class="mini-button-text  mini-button-icon icon-new-delete" style="">删除</span>
+                                </a>
+                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130706" title="保存">
+                                    <span class="mini-button-text  mini-button-icon icon-new-save" style="">保存</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height:100%;">
+        <!--左侧-->
+        <div size="50%" showCollapseButton="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding:5px 15px;">
+                    条件过滤器
+                    <span style="float:right;">
+                        <span>增加过滤条件</span>
+                        <input id="sizerCombo" class="mini-combobox" style="width:150px;" textField="title" valueField="name"
+                               onvaluechanged="onSizerChanged" showNullItem="true" />
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div id="sizerForm" style="width:100%;">
+                        <table id="sizerTable" style="width:100%;"></table>
+                    </div>
+                </div>
+                <div class="mini-xs mini-sm mini-md mini-md-active mini-col">
+                    <div class="container-fluid" style="padding:0px;">
+                        <div class="mini-clearfix">
+                            <div class="mini-col-12" style="padding:0px;">
+                                <div class="mini-toolbar" style="box-shadow: none;margin-bottom: 0px;">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td>
+                                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130704" title="查询">
+                                                    <span class="mini-button-text  mini-button-icon icon-new-search" style="">查询</span>
+                                                </a>
+                                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130705" title="清除">
+                                                    <span class="mini-button-text  mini-button-icon icon-new-move" style="">清除</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Start 添加写表达式删除功能 licp 20170825 -->
+            <div id="panel1" class="mini-panel" title="表达式过滤器" iconCls="icon-add" style="width:inherit;height:380px;margin-bottom:20px"
+                showCollapseButton="true"  collapseOnTitleClick="true" expanded="false">
+                <div id="expressSizerForm" style="width:100%;">
+                    <textarea class="mini-textarea" id="expressTextArae" emptyText="请输入查询条件"
+                              style="height:300px;width:inherit">
+{   
+    "query": 
+        { 
+            "bool":
+                {
+                    "must":  
+                        { 
+                            "match_phrase": 
+                                 { 
+                                    "title": "图" 
+                                 } 
+                         } 
+                } 
+        }, 
+    "from": 0, 
+    "size": 10,
+    "sort":
+        { 
+            "indexeddate":
+                { 
+                    "order": "desc"
+                }  
+        } 
+}
+                    </textarea>
+                </div>
+
+                <div class="mini-xs mini-sm mini-md mini-md-active mini-col">
+                    <div class="container-fluid" style="padding:0px;">
+                        <div class="mini-clearfix">
+                            <div class="mini-col-12" style="padding:0px;">
+                                <div class="mini-toolbar" style="box-shadow: none;margin-bottom: 0px;">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td>
+                                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130706" title="表达式查询">
+                                                    <span class="mini-button-text  mini-button-icon icon-new-search" style="">表达式查询</span>
+                                                </a>
+                                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130707" title="直接删除">
+                                                    <span class="mini-button-text  mini-button-icon icon-new-delete" style="">直接删除</span>
+                                                </a>
+                                                <a class="mini-button frame-submit" href="javascript:void(0)" id="02130708" title="删除选中行">
+                                                    <span class="mini-button-text  mini-button-icon icon-new-delete" style="">删除选中行</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--End 添加写表达式删除功能 licp 20170825-->
+
+
+            <div class="mini-xs mini-sm mini-md mini-md-active">
+                <div class="container-fluid " style="padding:0px;">
+                    <div class="mini-clearfix">
+                        <div class="mini-col-12" style="padding:0px;">
+                            <div id="esMetaGrid" class="mini-datagrid " style="width:100%;margin-bottom: 0px;height:680px;"
+                                 pagesize="100" multiselect="true" url="@getMDsUrl"
+                                 onbeforeload="onBeforeLoadData" onselect="onRowClick">
+                                @*onrowclick*@
+                                <div property="columns">
+                                    <div type="checkcolumn" width="15" headeralign="center"></div>
+                                    <div name="action" width="30" headerAlign="center" align="center" renderer="onESMetaGrid_ActionRenderer" cellStyle="padding:0;">预览</div>
+                                    <div field="iiid" headeralign="center" width="30">IIID</div>
+                                    <div field="indexeddate" headeralign="center">索引时间</div>
+                                    <div field="title" headeralign="center">标题</div>
+                                    <div field="pt" headeralign="center">成果类型</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--右侧-->
+        <div>
+            <div class="panel panel-default">
+                <div id="tab_RightMetadata" class="mini-tabs" style="width:100%;">
+                    <div class="panel-body" title="元数据">
+                        <div id="kmdForm" style="width:100%;">
+
+                        </div>
+                    </div>
+                    <div class="panel-body" title="页面&数据">
+                        <div id="pageForm" style="width:100%;">
+                            <fieldset style="width:98%;">
+                                <legend>
+                                    <span>页面信息</span>
+                                </legend>
+                                <div class="fieldset-body">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="width:120px;text-align:right;">名称：</td>
+                                            <td>
+                                                <input id="lookupPage" name="pageid" class="mini-lookup" style="width:98%"
+                                                       textField="name" valueField="pageid" popupWidth="auto"
+                                                       popup="#pageGridPanel" grid="#pageGrid" multiSelect="false"
+                                                       onvaluechanged="onPageValueChanged" required="true" />
+
+                                                <div id="pageGridPanel" class="mini-panel" title="header" iconCls="icon-add" style="width:450px;height:250px;"
+                                                     showToolbar="true" showCloseButton="true" showHeader="false" bodyStyle="padding:0" borderStyle="border:0">
+                                                    <div property="toolbar" style="padding:5px;padding-left:8px;text-align:center;">
+                                                        <div style="float:left;padding-bottom:2px;">
+                                                            <span>名称：</span>
+                                                            <input id="txtPageGridPanelKey" class="mini-textbox" style="width:160px;" onenter="onPageGridPanelSearchClick" />
+                                                            <a class="mini-button" onclick="onPageGridPanelSearchClick">查询</a>
+                                                            <a class="mini-button" onclick="onPageGridPanelClearClick">清除</a>
+                                                        </div>
+                                                        <div style="float:right;padding-bottom:2px;">
+                                                            <a class="mini-button" onclick="onPageGridPanelCloseClick">关闭</a>
+                                                        </div>
+                                                        <div style="clear:both;"></div>
+                                                    </div>
+                                                    <div id="pageGrid" class="mini-datagrid" style="width:100%;height:100%;"
+                                                         borderStyle="border:0" showPageSize="false" showPageIndex="false"
+                                                         url="@getMDsUrl" onbeforeload="onPageGridPanelBeforeLoadData">
+                                                        <div property="columns">
+                                                            <div type="checkcolumn"></div>
+                                                            <div field="name" headeralign="center" allowsort="true">名称</div>
+                                                            <div field="system" headeralign="center">系统</div>
+                                                            <div field="showtype" headeralign="center">显示类型</div>
+                                                            <div field="datatype" headeralign="center">数据类型</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                        <div id="appDataForm" style="width:100%;">
+                            @*<input name="dataid" class="mini-hidden" />
+                                <input name="name" class="mini-hidden" />
+                                <input name="contenttype" class="mini-hidden" />
+                                <input name="generatethumbnail" class="mini-hidden" />
+                                <input name="generatefulltext" class="mini-hidden" />*@
+
+                            <input name="storagetype" class="mini-hidden" />
+                            <input name="content" class="mini-hidden" />
+                            <input id="hiddenUploadfileid" name="uploadfileid" class="mini-hidden" />
+                            <input name="isonline" class="mini-hidden" />
+                            @*StorageType=FileSystem时有效*@
+                            <input name="sourcefile" class="mini-hidden" />
+                            <input name="uploader" class="mini-hidden" />
+                            <input name="rawadapter" class="mini-hidden" />
+                            @*<input name="system" class="mini-hidden" />
+                                <input name="resourcetype" class="mini-hidden" />
+                                <input name="resourcekey" class="mini-hidden" />*@
+                            <fieldset style="width:98%;">
+                                <legend>
+                                    <span>数据信息</span>
+                                </legend>
+                                <div class="fieldset-body">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="width:120px;text-align:right;">ID：</td>
+                                            <td>
+                                                <input id="txtappdataid" name="dataid" class="mini-textbox" readonly="true" style="width:98%" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:120px;text-align:right;">名称：</td>
+                                            <td>
+                                                <input id="txtappdataname" name="name" class="mini-textbox" style="width:98%" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:right;">数据类型：</td>
+                                            <td>
+                                                <input id="cbodatatype" name="contenttype" class="mini-combobox" style="width:98%"
+                                                       value="Html" textField="text" valueField="value" onvaluechanged="onDataTypeValueChanged" />
+                                            </td>
+                                        </tr>
+                                        <tr id="trstoragetype">
+                                            <td style="text-align:right;">存储类型：</td>
+                                            <td>
+                                                <input id="cbostoragetype" class="mini-combobox" style="width:98%"
+                                                       textField="text" valueField="value" onvaluechanged="onStorageTypeValueChanged" />
+                                            </td>
+                                        </tr>
+                                        <tr id="truploadtype">
+                                            <td style="text-align:right;">上传方式：</td>
+                                            <td>
+                                                <input id="cbouploadtype" class="mini-combobox" style="width:98%"
+                                                       textField="text" valueField="value" onvaluechanged="onUploadTypeValueChanged" />
+                                            </td>
+                                        </tr>
+                                        <tr id="trhtmlcontent">
+                                            <td style="text-align:right;">内容：</td>
+                                            <td>
+                                                <script id="editor" type="text/plain" style="width:99%;height:500px;">
+                                                </script>
+                                            </td>
+                                        </tr>
+                                        <tr id="trjsoncontent">
+                                            <td style="text-align:right;">内容：</td>
+                                            <td>
+                                                <div id="jsoneditor" class="jsoneditorbody" style="width:98%;height:500px;"></div>
+                                            </td>
+                                        </tr>
+                                        <tr id="trfilestore_online_filepath">
+                                            <td style="text-align:right;">文件路径：</td>
+                                            <td>
+                                                <input id="txtfilestore_online_filepath" onvalidation="ontxtfilestore_online_filepathValidation" class="mini-textbox" style="width:73.5%" />
+                                                <input type='button' value='选择存放路径' onclick="onFileStoreOnlineFilePathClick()" class="uploadbutton" />
+                                            </td>
+                                        </tr>
+                                        <tr id="trfilestore_online_filename">
+                                            <td style="text-align:right;">文件：</td>
+                                            <td>
+                                                <input id="txtfilestore_online_filename" onvalidation="ontxtfilestore_online_filenameValidation" class="mini-textbox" style="width:62%;float:left;margin-top:1px;" />
+                                                <div id="picker" style="float:left;height: 22px;margin-top:1px;">选择文件</div>
+                                                <input id="ctlBtn" type='button' value='开始上传' style="float:left;margin:1px 1px 0px 1px;" class="uploadbutton" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td id="file_progress"></td>
+                                        </tr>
+                                        <tr id="trfilestore_offline_filepath">
+                                            <td style="text-align:right;">文件路径：</td>
+                                            <td>
+                                                <input id="txtfilestore_offline_filepath" onvalidation="ontxtfilestore_offline_filepathValidation" class="mini-textbox" style="width:80%" />
+                                                <input type='button' value='选择文件' onclick="onFileStoreOfflineFilePathClick()" class="uploadbutton" />
+                                            </td>
+                                        </tr>
+                                        <tr id="trdatastore_filestoragekey">
+                                            <td style="text-align:right;">文件ID：</td>
+                                            <td>
+                                                <input id="txtdatastore_filestoragekey" class="mini-textbox" readonly="true" style="width:98%" />
+                                            </td>
+                                        </tr>
+                                        @*<tr id="trdatastore_filepath">
+                                                <td style="text-align:right;">文件：</td>
+                                                <td>
+                                                    <input id="txtdatastore_filepath" onvalidation="ontxtdatastore_filepathValidation" class="mini-textbox"
+                                                           readonly="true"  style="width:62%;float:left;margin-top:1px;" />
+                                                    <div id="picker1" style="float:left;height: 22px;margin-top:1px;">选择文件</div>
+                                                    <input id="ctlBtn1" type='button' value='开始上传' style="float:left;margin:1px 1px 0px 1px;" class="uploadbutton" />
+                                                </td>
+                                            </tr>*@
+                                        <tr id="trdatastore_generatethumbnail">
+                                            <td style="text-align:right;">是否生成缩略图：</td>
+                                            <td>
+                                                <input name="generatethumbnail" value=true class="mini-checkbox" style="width:98%" />
+                                            </td>
+                                        </tr>
+                                        <tr id="trdatastore_generatefulltext">
+                                            <td style="text-align:right;">是否生成全文：</td>
+                                            <td>
+                                                <input name="generatefulltext" value=true class="mini-checkbox" style="width:98%" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:right;">系统：</td>
+                                            <td>
+                                                <input id="cbxSubSystem" name="system" class="mini-combobox" value="PORTALMGMT"
+                                                       textField="Name" valueField="Code" required="true" style="width:98%" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:right;">资源类型：</td>
+                                            <td>
+                                                <input name="resourcetype" class="mini-textbox" style="width:98%" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:right;">资源主键：</td>
+                                            <td>
+                                                <input id="txtresourcekey" name="resourcekey" class="mini-textbox" required="true" style="width:98%" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="selectFilePathWindow" class="mini-window" title="选择文件路径" style="width:600px;height:450px;"
+     showmaxbutton="false" showcollapsebutton="false" showshadow="true"
+     showtoolbar="true" showfooter="true" showmodal="true" allowresize="false" allowdrag="true">
+
+    <div id="selectFilePathsplitter" class="mini-splitter" style="width:100%;height:100%;padding:10px;">
+        <div size="240" showCollapseButton="true">
+            <ul id="uploadFoldersTree" class="mini-tree" showTreeIcon="true" textField="name"
+                idField="id" parentField="parentId" resultAsTree="false" expandOnNodeClick="true"
+                url="@getAppDataUploadFoldersUrl" ajaxOptions="{type:'get'}" onnodeselect="onUploadFoldersTreeNodeSelect"></ul>
+        </div>
+        <div showCollapseButton="true">
+            <div id="uploadFolderFilesGrid" class="mini-datagrid" style="width:100%;height:100%;"
+                 url="@getAppDataUploadFoldersUrl" onbeforeload="onUploadFolderFilesGridBeforeLoadData">
+                <div property="columns">
+                    <div field="name" headerAlign="center" allowSort="true">文件名称</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div property="footer" style="text-align:right;padding:5px;padding-right:15px;">
+        <input type='button' value='确定' onclick="confirmWindow()" style='vertical-align:middle;' />
+        <input type='button' value='取消' onclick="hideWindow()" style='vertical-align:middle;' />
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    var sizerCombo = mini.get('#sizerCombo');
+    var esMetaGrid = mini.get('#esMetaGrid');
+    var pageGrid = mini.get("#pageGrid");
+    var jsoneditor = null;
+    var uploader = null;
+    pageGrid.load();
+
+    function getAuthorization() {
+        var authorization = { "Authorization": "Bear " + "@ViewBag.Token" };
+        return authorization;
+    }
+
+    /******************************************************************
+     * 条件
+     ******************************************************************/
+    $(document).ready(function () {
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+
+        $.ajax({
+            url: "@getMDsUrl",
+            type: "get",
+            headers: getAuthorization(),
+            success: function (data) {
+                var props = [];
+                var sizer = [];
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].pid == undefined) continue;
+                    var prop = data[i].name;
+                    if (prop == "title" || prop == "pt") {
+                        sizer.push(data[i]);
+                    }
+
+                    if (prop == "thumbnail") {
+                        continue;
+                    }
+                    props.push(data[i]);
+                }
+                sizerCombo.setData(props);
+                buildDetailView(data);
+
+                //初始化筛选器
+                for (var i = 0; i < sizer.length; i++) {
+                    addSizer(sizer[i]);
+                }
+            },
+            complete: function (e) {
+                mini.unmask(document.body);
+            }
+        });
+
+        initializeFromData();
+    });
+
+    function initializeFromData() {
+        var ue = UE.getEditor('editor');//初始化HTML编辑器
+        var container = document.getElementById('jsoneditor');//初始化Json编辑器
+
+        var options = {
+            mode: 'code',
+            modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
+            onError: function (err) {
+                alert(err.toString());
+            },
+            onModeChange: function (newMode, oldMode) {
+                console.log('Mode switched from', oldMode, 'to', newMode);
+            }
+        };
+        var json = {
+            "array": [1, 2, 3],
+            "boolean": true,
+            "null": null,
+            "number": 123,
+            "object": { "a": "b", "c": "d" },
+            "string": "Hello World"
+        };
+        jsoneditor = new JSONEditor(container, options, json);
+
+        var dataTypeList = [{
+            value: 'Html',
+            text: 'Html'
+        }, {
+            value: 'Json',
+            text: 'Json'
+        }, {
+            value: 'File',
+            text: 'File'
+        }];
+
+        var storageTypeList = [{
+            value: 'FileSystem',
+            text: '文件系统'
+        }, {
+            value: 'Mongo',
+            text: '数据库'
+        }];
+
+        var uploadTypeList = [{
+            value: 'Online',
+            text: '线上'
+        }, {
+            value: 'Offline',
+            text: '线下'
+        }];
+
+        var cbodatatype = mini.get('#cbodatatype');
+        cbodatatype.setData(dataTypeList);
+        var cbostoragetype = mini.get('#cbostoragetype');
+        cbostoragetype.setData(storageTypeList);
+        var cbouploadtype = mini.get('#cbouploadtype');
+        cbouploadtype.setData(uploadTypeList);
+
+        var tab_RightMetadata = mini.get("#tab_RightMetadata");
+        tab_RightMetadata.methodType = "add";
+
+        dataTypeSwitcher(dataTypeList[0]);
+
+
+        loadSubSystemData();
+        //resetDetailData();
+    }
+    function loadSubSystemData() {
+        var cbxSubSystem = mini.get("#cbxSubSystem");
+        //cbxSubSystem.load("@Url.Action("GetSubSystem","PageRegister")");
+        var url = "@Url.Action("GetSubSystem","PageRegister")";
+        $.ajax({
+            url: url,
+            type: "get",
+            headers: getAuthorization(),
+            success: function (data) {
+                if (data) {
+                    cbxSubSystem.setData(data);
+                }
+            }
+        });
+    }
+    function dataTypeSwitcher(row, value1, value2) {
+        switch (row.value) {
+            case "Html":
+                $("#trstoragetype").hide();
+                $("#truploadtype").hide();
+                $("#trhtmlcontent").show();
+                $("#trjsoncontent").hide();
+                $("#trfilestore_online_filepath").hide();
+                $("#trfilestore_online_filename").hide();
+                $("#trfilestore_offline_filepath").hide();
+                $("#trdatastore_filestoragekey").hide();
+                $("#trdatastore_generatethumbnail").hide();
+                $("#trdatastore_generatefulltext").hide();
+                break;
+            case "Json":
+                $("#trstoragetype").hide();
+                $("#truploadtype").hide();
+                $("#trhtmlcontent").hide();
+                $("#trjsoncontent").show();
+                $("#trcontentref").hide();
+                $("#trfilestore_online_filepath").hide();
+                $("#trfilestore_online_filename").hide();
+                $("#trfilestore_offline_filepath").hide();
+                $("#trdatastore_filestoragekey").hide();
+                $("#trdatastore_generatethumbnail").hide();
+                $("#trdatastore_generatefulltext").hide();
+                break;
+            case "File":
+                $("#trstoragetype").show();
+                $("#trdatastore_generatethumbnail").show();
+                $("#trdatastore_generatefulltext").show();
+                $("#truploadtype").hide();
+                $("#trhtmlcontent").hide();
+                $("#trjsoncontent").hide();
+
+                var cbostoragetype = mini.get('#cbostoragetype');
+                var cbostoragetypeData = cbostoragetype.getData();
+                if (value1) {
+                    for (var i = 0; i < cbostoragetypeData.length; i++) {
+                        if (cbostoragetypeData[i].value == value1) {
+                            cbostoragetype.select(i);
+                            storageTypeSwitcher(cbostoragetypeData[i], value2);
+                            break;
+                        }
+                    }
+                } else {
+                    cbostoragetype.select(0);
+                    storageTypeSwitcher(cbostoragetypeData[0], value2);
+                }
+                break;
+            default:
+        }
+        $(window).resize();
+    }
+    function storageTypeSwitcher(row, value1) {
+        switch (row.value) {
+            case "FileSystem":
+                $("#truploadtype").show();
+                $("#trdatastore_filestoragekey").hide();
+                var cbouploadtype = mini.get('#cbouploadtype');
+                var cbouploadtypeData = cbouploadtype.getData();
+                if (value1) {
+                    for (var i = 0; i < cbouploadtypeData.length; i++) {
+                        if (cbouploadtypeData[i].value == value1) {
+                            cbouploadtype.select(i);
+                            cbouploadtypeSwitcher(cbouploadtypeData[i]);
+                            break;
+                        }
+                    }
+                } else {
+                    cbouploadtype.select(0);
+                    cbouploadtypeSwitcher(cbouploadtypeData[0]);
+                }
+                break;
+            case "Mongo":
+                $("#truploadtype").hide();
+                $("#trfilestore_online_filepath").hide();
+                $("#trfilestore_online_filename").show();
+                $("#trfilestore_offline_filepath").hide();
+                $("#trdatastore_filestoragekey").show();
+                break;
+            default:
+        }
+        $(window).resize();
+    }
+    function cbouploadtypeSwitcher(row) {
+        switch (row.value) {
+            case "Online":
+                $("#trfilestore_online_filepath").show();
+                $("#trfilestore_online_filename").show();
+                $("#trfilestore_offline_filepath").hide();
+                break;
+            case "Offline":
+                $("#trfilestore_online_filepath").hide();
+                $("#trfilestore_online_filename").hide();
+                $("#trfilestore_offline_filepath").show();
+                break;
+            default:
+        }
+        $(window).resize();
+    }
+    function onDataTypeValueChanged(e) {
+        var row = e.selected;
+        dataTypeSwitcher(row);
+    }
+    function onStorageTypeValueChanged(e) {
+        var row = e.selected;
+        storageTypeSwitcher(row);
+    }
+    function onUploadTypeValueChanged(e) {
+        var row = e.selected;
+        cbouploadtypeSwitcher(row);
+    }
+
+    /**
+    *根据元数据动态生成录入界面
+    */
+    function buildDetailView(props) {
+        if (!props) { return; }
+
+        var groupName = "";
+        var viewArray = [];
+        var dropdownListArray = [];
+        var isFrist = true;
+        for (var i = 0; i < props.length; i++) {
+            if (props[i].pid == undefined) continue;
+            if (groupName != props[i].groupcode) {
+                if (!isFrist) {
+                    viewArray.push(" </table> </div> </fieldset> ");
+                }
+                groupName = props[i].groupcode;
+                viewArray.push(" <fieldset style=\"width:98%;\"> ");
+                viewArray.push(" <legend><span>" + props[i].groupname + "</span></legend> ");
+                viewArray.push(" <div class=\"fieldset-body\"> ");
+                viewArray.push(" <table class=\"form-table\" style=\"width:100%;\"> ");
+                isFrist = false;
+            }
+
+            var isReadonly = "";
+            if (props[i].innertag) {
+                isReadonly = " readonly=\"true\" ";
+            }
+
+            //required="true"
+            switch (props[i].uitype) {
+                case "Label":
+                    viewArray.push(" <tr> <td style=\"width:120px;text-align:right;\">" + props[i].title + "：</td>");
+                    viewArray.push(" <td> <input id=\"metadata_txt" + props[i].name + "\"  name=\"" + props[i].name + "\" class=\"mini-textbox\" readonly=\"true\" style=\"width:98%\" /></td></tr>");
+                    break;
+                case "Image"://mini-hidden
+                    viewArray.push(" <tr> <td style=\"width:120px;text-align:right;\">" + props[i].title + "：</td>");
+                    viewArray.push(" <td> <input id=\"metadata_txt" + props[i].name + "\"  name=\"" + props[i].name + "\" class=\"mini-textbox\" readonly=\"true\" style=\"width:98%\" /></td></tr>");
+                    //viewArray.push(" <tr> <td style=\"width:120px;text-align:right;\">" + props[i].title + "：</td>");
+                    //viewArray.push(" <td> <img id=\"metadata_img" + props[i].name + "\" width=\"50\" height=\"50\"/></td></tr>");
+                    break;
+                case "Date":
+                    viewArray.push(" <tr> <td style=\"width:120px;text-align:right;\">" + props[i].title + "：</td>");
+                    viewArray.push(" <td> <input name=\"" + props[i].name + "\" class=\"mini-datepicker\" style=\"width:98%\" ");
+                    viewArray.push(" id=\"metadata_dpk" + props[i].name + "\"  nullValue=\"null\" format=\"yyyy-MM-dd hh:mm:ss\" timeFormat=\"H:mm:ss\" showTime=\"false\"  " + isReadonly + " showOkButton=\"true\" showClearButton=\"false\" /></td></tr>");
+                    break;
+                case "TextBox":
+                case "List":
+                    viewArray.push(" <tr> <td style=\"width:120px;text-align:right;\">" + props[i].title + "：</td>");
+                    viewArray.push(" <td> <input id=\"metadata_txt" + props[i].name + "\"  name=\"" + props[i].name + "\" class=\"mini-textbox\"   " + isReadonly + "  style=\"width:98%\" /></td></tr>");
+                    break;
+                case "TextArea":
+                    viewArray.push(" <tr> <td style=\"width:120px;text-align:right;\">" + props[i].title + "：</td>");
+                    viewArray.push(" <td> <input id=\"metadata_txt" + props[i].name + "\"  name=\"" + props[i].name + "\" class=\"mini-textarea\"   " + isReadonly + "  style=\"width:98%;\" /></td></tr>");
+                    break;
+                case "DropdownList":
+                    dropdownListArray.push(props[i]);
+                    viewArray.push(" <tr> <td style=\"width:120px;text-align:right;\">" + props[i].title + "：</td>");
+                    viewArray.push(" <td> <input id=\"metadata_cbo" + props[i].name + "\" name=\"" + props[i].name + "\" class=\"mini-combobox\" textField='text' valueField='value'   " + isReadonly + "  style=\"width:98%\" /></td></tr>");
+                    break;
+                default:
+            }
+        }
+
+        if (!isFrist) {
+            viewArray.push(" </table> </div> </fieldset> ");
+        }
+
+        if (viewArray.length > 0) {
+            var trStr = viewArray.join(" ");
+            $("#kmdForm").append(trStr);
+            mini.parse();
+
+            for (var i = 0; i < dropdownListArray.length; i++) {
+                var cboDropDow = mini.get("#metadata_cbo" + dropdownListArray[i].name);
+                if (cboDropDow) {
+                    cboDropDow.setData(dropdownListArray[i].items);
+                }
+            }
+        }
+        resetMateData();
+    }
+
+    /**
+    *过滤器combobox控件值改变时事件函数
+    */
+    function onSizerChanged(e) {
+        var row = e.selected;
+        addSizer(row);
+    }
+
+    /**
+    *增加筛选器
+    */
+    function addSizer(row) {
+        if (!row) {
+            return;
+        }
+
+        var name = row.name;
+        var title = row.title;
+        var type = row.uitype;
+
+        var fieldId = "field_" + name;
+        var operatorId = "operator_" + name;
+        var valuesId = "values_" + name;
+
+        if ($("#" + fieldId).length > 0) {
+            return;
+        }
+        loadView(fieldId, operatorId, valuesId, row, name, title, type);
+        loadData(fieldId, operatorId, valuesId, row, name, title, type);
+    }
+
+    /**
+     *加载视图
+     */
+    function loadView(fieldId, operatorId, valuesId, row, name, title, type) {
+
+        var viewArray = [];
+
+        viewArray.push("<tr><td class='field'><div id='" + fieldId + "' name='" + fieldId + "'  class='mini-checkbox' checked=true onvaluechanged='onFieldValueChanged' text=" + title + "></div></td> " +
+                 "<td class='operator'><input id='" + operatorId + "' name='" + operatorId + "' textField='text' valueField='value'  class='mini-combobox'  onvaluechanged='onOperatorValueChanged' style='width:90px;'  /></td>");
+
+        if (type == "Date") {
+            viewArray.push("<td class='values'><input id='" + valuesId + "' name='" + valuesId + "' class='mini-datepicker'/>&nbsp;&nbsp;<input id='" + valuesId + "1' name='" + valuesId + "1' class='mini-datepicker' style='display:none;'/></td>");
+        } else if (type == "DropdownList") {
+            viewArray.push("<td class='values'><input id='" + valuesId + "' name='" + valuesId + "'  textField='text' valueField='value' class='mini-combobox' /></td>");
+        } else if (type == "Number") {
+            viewArray.push("<td class='values'><input id='" + valuesId + "' name='" + valuesId + "' class='mini-spinner' /&nbsp;&nbsp;<input id='" + valuesId + "1' name='" + valuesId + "1' class='mini-spinner' style='display:none;' /></td>");
+        } else {
+            viewArray.push("<td class='values'><input id='" + valuesId + "' name='" + valuesId + "' class='mini-textbox' style='width:260px;' /></td>");
+        }
+
+
+        viewArray.push(" </tr> ");
+        var trStr = viewArray.join(" ");
+        $("#sizerTable").append(trStr);
+        mini.parse();
+    }
+
+
+    /**
+    *加载数据
+    */
+    function loadData(fieldId, operatorId, valuesId, row, name, title, type) {
+        if (type == "DropdownList") {
+            var valuesCombo = mini.get('#' + valuesId);
+
+            var items = row.items;
+            if (!items) {
+                return;
+            }
+            valuesCombo.setData(items);
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].selected) {
+                    valuesCombo.select(i);
+                    break;
+                }
+            }
+        }
+        var serverpath = "@Url.Action("GetOpratorData")";
+        $.ajax({
+            url: serverpath,
+            headers: getAuthorization(),
+            type: "get",
+            success: function (text) {
+                callback(text, type, operatorId);
+            }
+        });
+    }
+    /**
+    *加载数据回调函数
+    */
+    function callback(text, type, operatorId) {
+        var operatorCombo = mini.get('#' + operatorId);
+        var data = JSON.parse(text);
+        data = eval("data." + type);
+        if (!data) {
+            return;
+        }
+        operatorCombo.setData(data);
+        operatorCombo.select(0);
+    }
+
+
+    /**
+    *操作combobox控件值改变时事件函数
+    */
+    function onOperatorValueChanged(e) {
+        var row = e.selected;
+        var name = e.sender.id;
+        name = uinameConvertName(name);
+        var valuesCtr1 = mini.get('#values_' + name + "1");
+        if (valuesCtr1) {
+            if (row.value == "介于") {
+                valuesCtr1.show();
+            } else {
+                valuesCtr1.hide();
+            }
+        }
+    }
+
+
+    /**
+    *checkbox控件值改变时事件函数
+    *控制操作条件启用或禁用
+    */
+    function onFieldValueChanged(e) {
+        var name = e.sender.id;
+        name = uinameConvertName(name);
+        if (e.sender.checked === true) {
+            var operatorControl = mini.get('#operator_' + name);
+            operatorControl.show();
+            mini.get('#values_' + name).show();
+            if (operatorControl.value == "介于") {
+                var valuesControl = mini.get('#values_' + name + "1");
+                if (!valuesControl) { return; }
+                valuesControl.show();
+            }
+        } else {
+            mini.get('#operator_' + name).hide();
+            mini.get('#values_' + name).hide();
+            var valuesControl = mini.get('#values_' + name + "1");
+            if (!valuesControl) { return; }
+            valuesControl.hide();
+        }
+
+    }
+
+    /******************************************************************
+    * 查询
+    ******************************************************************/
+
+    $.regButton({
+        text: "清除",
+        noSubmit: onClear
+    });
+    $.regButton({
+        text: "查询",
+        noSubmit: onQuery
+    });
+    $.regButton({
+        text: "新增",
+        noSubmit: onAddNew
+    });
+    $.regButton({
+        text: "复制新增",
+        noSubmit: onCopyAddNew
+    });
+    $.regButton({
+        text: "编辑",
+        noSubmit: onEdit
+    });
+    $.regButton({
+        text: "删除",
+        noSubmit: onDelete
+    });
+    $.regButton({
+        text: "保存",
+        noSubmit: onSaveAll
+    });
+
+
+    $.regButton({
+        text: "表达式查询",
+        noSubmit: onExpressQuery
+    });
+    $.regButton({
+        text: "直接删除",
+        noSubmit: onExpressDelete
+    });
+    $.regButton({
+        text: "删除选中行",
+        noSubmit: onDelete
+    });
+
+
+    /**
+    *清除条件
+    */
+    function onClear() {
+        //刷新当前界面
+        window.location.reload();
+    }
+
+    /**
+     *查询
+     */
+    function onQuery() {
+        esMetaGrid.load();
+    }
+
+    function onExpressQuery() {
+        var expressTextArae = mini.get("#expressTextArae");
+        var expressStr = expressTextArae.getValue().toString();
+        loadIndexDataByExpress(expressStr);
+    }
+
+    /**
+   *表达式方式直接删除
+   */
+    function onExpressDelete() {
+        mini.confirm("确认删除所有符合条件的数据？", "系统提示",
+           function (action) {
+               if (action == "ok") {
+                   mini.mask({
+                       el: document.body,
+                       cls: 'mini-mask-loading',
+                       html: '处理中...'
+                   });
+                   var appdataIds = [];
+                   var searchIds = [];
+                   var expressTextArae = mini.get("#expressTextArae");
+                   var expressStr = expressTextArae.getValue().toString();
+                   var searchUrl = "@getSearchServiceUrl" + "ESSearch";
+                   $.ajax({
+                       url: searchUrl,
+                       type: "post",
+                       contentType: 'application/json; charset=utf-8',
+                       data: expressStr,
+                       headers: getAuthorization(),
+                       success: function (data) {
+                           console.log("onExpressDelete", data);
+                           if (!data || data.hits.hits.length==0) {
+                               toastr["success"]("删除成功", "系统提示");
+                           } else {
+                               for (var i = 0; i < data.hits.hits.length; i++) {
+                                   var model = data.hits.hits[i]._source;
+                                   appdataIds.push(model.dataid);
+                                   searchIds.push(model.iiid);
+                               }
+                               $.when(deleteAppData(appdataIds), deleteIndexer(searchIds)).then(function (e) {
+                                   console.log("删除成功", e);
+                                   toastr["success"]("删除成功", "系统提示");
+                               }, function (e) {
+                                   console.log("删除失败", e);
+                                   toastr["error"]("删除失败", "系统提示");
+                               }).always(function (e) {
+                                   mini.unmask(document.body);
+                               });
+                           }
+                       },
+                       error: function (XMLHttpRequest, textStatus, errorThrown) {
+                           mini.alert(errorThrown + ",请检查查询语句是否有误！");
+                       },
+                       complete: function (e) {
+                           //mini.unmask(document.body);
+                       }
+                   });
+               }
+           }
+        )
+    }
+
+
+
+    /**
+     *获取控件名称前缀
+     */
+    function subPrefix(name) {
+        return name.substring(0, name.indexOf("_"));
+    }
+    /**
+    *获取控件名称（剔除前缀）
+    */
+    function uinameConvertName(name) {
+        return name.substring(name.indexOf("_") + 1, name.length);
+    }
+
+    function getDataTypeByProName(name) {
+        var data = sizerCombo.getData();
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].name == name) {
+                return data[i];
+                break;
+            }
+        }
+        return null;
+    }
+
+    /**
+    *获取查询条件
+    */
+    function getQueryCondition(pageIndex, pageSize) {
+        var form = new mini.Form("#sizerForm");
+        form.validate();
+        if (form.isValid() == false) return
+
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+
+        var data = form.getData(true, false);
+
+        var queryExpression = [];
+        queryExpression.push(" { ");
+        var isFirst = true;
+        for (var prop in data) {
+            if (subPrefix(prop) == "field") {
+                if (data[prop] == "true") {
+                    var name = uinameConvertName(prop);
+                    var operatorValue = data["operator_" + name];
+                    var valuesValue = data["values_" + name];
+                    var row = getDataTypeByProName(name);
+
+                    if (operatorValue.length == 0 || valuesValue.length == 0) {
+                        continue;
+                    }
+
+                    if (isFirst) {
+                        queryExpression.push(" \"query\": { \"bool\":{  ");
+                        isFirst = false;
+                    }
+
+                    var namePro = name;
+                    if (row) {
+
+                        if (row.type != "Date") {
+                            namePro += ".keyword";
+                        }
+                    }
+                    switch (operatorValue) {
+                        case "等于":
+                            if (queryExpression.length > 3) { queryExpression.push(","); }
+                            queryExpression.push(" \"must\": ");
+                            queryExpression.push(" { \"term\": { \"" + namePro + "\": \"" + valuesValue + "\" } } ");
+                            break;
+                        case "不等于":
+                            if (queryExpression.length > 3) { queryExpression.push(","); }
+                            queryExpression.push(" \"must_not\": ");
+                            queryExpression.push(" { \"term\": { \"" + namePro + "\": \"" + valuesValue + "\" } } ");
+                            break;
+                        case "包含":
+                            if (queryExpression.length > 3) { queryExpression.push(","); }
+                            queryExpression.push(" \"must\": ");
+                            queryExpression.push(" { \"match_phrase\": { \"" + name + "\": \"" + valuesValue + "\" } } ");
+                            break;
+                        case "不包含":
+                            if (queryExpression.length > 3) { queryExpression.push(","); }
+                            queryExpression.push(" \"must_not\": ");
+                            queryExpression.push(" { \"match_phrase\": { \"" + name + "\": \"" + valuesValue + "\" } } ");
+                            break;
+                        case ">=":
+                            if (queryExpression.length > 3) { queryExpression.push(","); }
+                            queryExpression.push(" \"must\": ");
+                            queryExpression.push(" { \"range\": { \"" + name + "\": {\"gte\": \"" + valuesValue + "\"} } } ");
+                            break;
+                        case "<=":
+                            if (queryExpression.length > 3) { queryExpression.push(","); }
+                            queryExpression.push(" \"must\": ");
+                            queryExpression.push(" { \"range\": { \"" + name + "\": {\"lte\":\"" + valuesValue + "\"} } } ");
+                            break;
+                        case "介于":
+                            if (queryExpression.length > 3) { queryExpression.push(","); }
+                            var valuesValue1 = data["values_" + name + "1"];
+                            queryExpression.push(" \"must\": ");
+                            queryExpression.push(" { \"range\": { \"" + name + "\":{ \"gte\":\"" + valuesValue + "\",\"lte\":\"" + valuesValue1 + "\" } } } ");
+                            break;
+                        default:
+
+                    }
+                }
+            }
+        }
+
+        if (!isFirst) {
+            queryExpression.push("} }, ");
+        }
+        queryExpression.push("\"from\": " + pageIndex * pageSize + ", \"size\": " + pageSize + ",\"sort\": { \"indexeddate\": { \"order\": \"desc\" }  } }");//从第0条开始//查询10条记录
+
+        return queryExpression.join(" ");
+    }
+
+
+    function onBeforeLoadData(e) {
+        e.cancel = true;
+        var pageIndex = e.data.pageIndex, pageSize = e.data.pageSize;
+        loadIndexData(pageIndex, pageSize);
+
+    }
+    function loadIndexData(pageIndex, pageSize, selectid) {
+        resetDetailData();
+        var expressionStr = getQueryCondition(pageIndex, pageSize);
+        var searchUrl = "@getSearchServiceUrl" + "ESSearch";
+        $.ajax({
+            url: searchUrl,//"http://192.168.1.236:9200/szpks/metadata/_search?request_cache=false",
+            type: "post",
+            contentType: 'application/json; charset=utf-8',
+            data: expressionStr,
+            headers: getAuthorization(),
+            success: function (data) {
+                console.log("loadIndexData", data);
+                if (!data) {
+                    esMetaGrid.setData([]);
+                    esMetaGrid.setTotalCount(0);
+                } else {
+                    var esMetaList = [];
+                    var selectindex = 0;
+                    for (var i = 0; i < data.hits.hits.length; i++) {
+                        var model = data.hits.hits[i]._source;
+                        esMetaList.push(model);
+                        if (selectid) {
+                            if (selectid == model.iiid) { selectindex = i; }
+                        }
+                    }
+                    esMetaGrid.setData(esMetaList);
+                    esMetaGrid.setTotalCount(data.hits.total);
+                    esMetaGrid.select(esMetaList[selectindex], true);
+                }
+            },
+            complete: function (e) {
+                esMetaGrid.setPageIndex(pageIndex);
+                esMetaGrid.setPageSize(pageSize);
+                mini.unmask(document.body);
+            }
+        });
+    }
+
+    /**
+   *通过直接输入查询表达式来查询
+   */
+    function loadIndexDataByExpress(expressionStr) {
+        resetDetailData();
+        var searchUrl = "@getSearchServiceUrl" + "ESSearch";
+        $.ajax({
+            url: searchUrl,
+            type: "post",
+            contentType: 'application/json; charset=utf-8',
+            data: expressionStr,
+            headers: getAuthorization(),
+            success: function (data) {
+                console.log("loadIndexDataByExpress", data);
+                if (!data || data.hits.hits.length==0) {
+                    esMetaGrid.setData([]);
+                    esMetaGrid.setTotalCount(0);
+                    toastr["warning"]("没有符合条件的结果", "系统提示");
+                } else {
+                    var esMetaList = [];
+                    var selectindex = 0;
+                    for (var i = 0; i < data.hits.hits.length; i++) {
+                        var model = data.hits.hits[i]._source;
+                        esMetaList.push(model);
+                    }
+                    esMetaGrid.setData(esMetaList);
+                    esMetaGrid.setTotalCount(data.hits.total);
+                    esMetaGrid.select(esMetaList[selectindex], true);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                mini.alert("请检查查询语句是否有误: " + XMLHttpRequest.responseJSON.message);
+            },
+            complete: function (e) {
+                mini.unmask(document.body);
+            }
+        });
+    }
+
+
+
+
+
+
+    function onESMetaGrid_ActionRenderer(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var uid = record._uid;
+        var rowIndex = e.rowIndex;
+        var previewUrl = "@portalServiceUrl" + "/Render/Content?iiid=" + record.iiid;
+        //var s = '<a class="New_Button" href="javascript:preview(\'' + uid + '\')" >预览</a>';
+        var s = '<a  href="' + previewUrl + '" target="_blank">预览</a>';
+        return s;
+    }
+    //function preview(row_uid) {
+    //    var row = grid.getRowByUID(row_uid);
+    //    if (row) {
+    //        var path = "Render/Content?iiid=" + row.iiid;
+    //    }
+    //}
+
+    /**
+    *重置元数据明细、页面数据明细、应用数据明细
+    */
+    function resetDetailData() {
+        var kmdform = new mini.Form("#kmdForm");
+        kmdform.reset();
+        var pageform = new mini.Form("#pageForm");
+        pageform.reset();
+        resetMateData();
+        resetAppdata();
+    }
+
+    /**
+    *选中索引数据事件
+    */
+    function onRowClick(grid, row) {
+        var tab_RightMetadata = mini.get("#tab_RightMetadata");
+        tab_RightMetadata.methodType = "edit";
+        var row = row || esMetaGrid.getSelected();
+        if (row) {
+            resetDetailData();
+            setPageFormData(row);
+            setAppDataFormData(row);
+            setMetadataFormData(row);
+        } else {
+            toastr["warning"]("请选中记录", "系统提示");
+        }
+    }
+    /**
+    *加载选中的索引记录对应的数据信息
+    */
+    function setMetadataFormData(row) {
+        console.log("setMetadataFormData", row);
+        var kmdform = new mini.Form("#kmdForm");
+        //转换日期格式
+        var matedatalist = sizerCombo.getData();
+        for (var prop in row) {
+            if (!row[prop]) { continue; }
+            for (var i = 0; i < matedatalist.length; i++) {
+                if (matedatalist[i].type == "Date") {
+                    if (prop == matedatalist[i].name) {
+                        row[prop] = moment(row[prop], "YYYY-MM-DDTHH:mm:ss.SSSZ").toDate();
+                        break;
+                    }
+                }
+            }
+        }
+        //if (row.thumbnail) {
+        //    //设置缩略图
+        //    $("#metadata_imgthumbnail").attr("src", row.thumbnail);
+        //}
+
+        kmdform.setData(row);
+    }
+    /**
+    *加载选中的索引记录对应的页面信息
+    */
+    function setPageFormData(row) {
+        var pageform = new mini.Form("#pageForm");
+        var serverpath = "@getPageServiceUrl" + "Get?pageId=" + row.pageid;
+        $.ajax({
+            url: serverpath,
+            type: "get",
+            headers: getAuthorization(),
+            success: function (data) {
+                pageform.setData(data);
+                var lookupPage = mini.get("lookupPage");
+                lookupPage.setText(data.name);
+                lookupPage.setValue(data.pageid);
+            }
+        });
+    }
+    /**
+    *加载选中的索引记录对应的数据信息
+    */
+    function setAppDataFormData(row) {
+        var serverpath = "@getAppDataServiceUrl" + "Get?dataId=" + row.dataid;
+        $.ajax({
+            url: serverpath,
+            type: "get",
+            headers: getAuthorization(),
+            success: function (data) {
+                console.log('setAppDataFormData', data);
+                if (data) {
+                    setAppdata(data);
+                    var txtresourcekey = mini.get("#txtresourcekey");
+                    txtresourcekey.disable();//禁用
+                }
+            }
+        });
+    }
+
+    function resetAppdata() {
+        var appdataform = new mini.Form("#appDataForm");
+        appdataform.reset();
+
+        var cbodatatype = mini.get('#cbodatatype');
+        var cbodatatypelist = cbodatatype.getData();
+        cbodatatype.select(0);
+        dataTypeSwitcher(cbodatatypelist[0]);
+
+        UE.getEditor('editor').execCommand('cleardoc');
+        jsoneditor.set([]);
+
+        var txtfilestore_online_filepath = mini.get('#txtfilestore_online_filepath');
+        var txtfilestore_online_filename = mini.get('#txtfilestore_online_filename');
+        txtfilestore_online_filepath.setValue(null);
+        txtfilestore_online_filename.setValue(null);
+
+        var txtfilestore_offline_filepath = mini.get('#txtfilestore_offline_filepath');
+        txtfilestore_offline_filepath.setValue(null);
+        var txtdatastore_filestoragekey = mini.get('#txtdatastore_filestoragekey');
+        txtdatastore_filestoragekey.setValue(null);
+
+    }
+    function setAppdata(data) {
+        var model = {
+            dataid: data.dataid,
+            name: data.name,
+            isonline: data.isonline,
+            generatethumbnail: true,
+            generatefulltext: true,
+            uploadfileid: null,
+            system: data.system,
+            resourcekey: data.resourcekey,
+            resourcetype: data.resourcetype,
+            rawadapter: data.rawadapter,
+            uploader: "@ViewBag.UserName"
+        }
+
+        var cbodatatype = mini.get('#cbodatatype');
+        var cbodatatypelist = cbodatatype.getData();
+        switch (data.datatype) {
+            case "Html":
+                model.contenttype = data.datatype;
+                model.content = data.content;;
+                if (model.content) {
+                    //初始化控件数据
+                    if (Object.prototype.toString.call(data.content) === "[object String]") {
+                        UE.getEditor('editor').setContent(model.content);
+                    } else {
+                        UE.getEditor('editor').setContent(JSON.stringify(model.content));
+                    }
+                }
+                break
+            case "Json":
+                model.contenttype = data.datatype;
+                model.content = null;
+                if (data.content) {
+                    model.content = data.content;
+                }
+
+                //初始化控件数据
+                jsoneditor.set(model.content);
+                break
+            default:
+                model.contenttype = "File";
+                if (data.sourcestoragetype == "Url") {
+                    model.storagetype = "FileSystem";
+                    model.sourcefile = data.sourcecontentref;
+
+                    //初始化控件数据
+                    if (model.isonline) {
+                        if (model.sourcefile) {
+                            var lastIndex = model.sourcefile.lastIndexOf("\/");
+                            var fileName = model.sourcefile.substring(lastIndex + 1, model.sourcefile.length);
+                            var filePath = model.sourcefile.substring(0, lastIndex + 1);
+                            var txtfilestore_online_filename = mini.get('#txtfilestore_online_filename');
+                            txtfilestore_online_filename.setValue(fileName);
+                            var txtfilestore_online_filepath = mini.get('#txtfilestore_online_filepath');
+                            txtfilestore_online_filepath.setValue(filePath);
+                        }
+                    } else {
+                        var txtfilestore_offline_filepath = mini.get('#txtfilestore_offline_filepath');
+                        txtfilestore_offline_filepath.setValue(model.sourcefile);
+                    }
+
+                } else if (data.sourcestoragetype == "File") {
+                    model.storagetype = "Mongo";
+                    model.sourcefile = data.contentref;
+                    //初始化控件数据
+                    //var txtfilestore_online_filename = mini.get('#txtfilestore_online_filename');
+                    //txtfilestore_online_filename.setValue(model.sourcefile);
+                    var txtdatastore_filestoragekey = mini.get('#txtdatastore_filestoragekey');
+                    txtdatastore_filestoragekey.setValue(model.sourcefile);
+                }
+                break
+        }
+
+        var index = 2;
+        for (var i = 0; i < cbodatatypelist.length; i++) {
+            if (cbodatatypelist[i].value == model.contenttype) {
+                index = i;
+                break
+            }
+        }
+        cbodatatype.select(index);
+        dataTypeSwitcher(cbodatatypelist[index], model.storagetype, model.isonline ? "Online" : "Offline");
+
+        var appdataform = new mini.Form("#appDataForm");
+        appdataform.setData(model);
+    }
+    function getAppdata(model, type) {
+        model.isonline = false;
+        model.storagetype = "FileSystem";
+        var cbodatatype = mini.get('#cbodatatype');
+        switch (cbodatatype.value) {
+            case "Html":
+                model.content = UE.getEditor('editor').getContent();
+                break;
+            case "Json":
+                model.content = jsoneditor.get();
+                break;
+            default:
+                var cbodatatype = mini.get('#cbostoragetype');
+                if (cbodatatype.value == "Mongo") {
+                    //var txtdatastore_filepath = mini.get('#txtdatastore_filepath');
+                    model.storagetype = "Mongo"
+                } else {
+                    model.storagetype = "FileSystem";
+                    var cbodatatype = mini.get('#cbouploadtype');
+                    if (cbodatatype.value == "Online") {
+                        var txtfilestore_online_filepath = mini.get('#txtfilestore_online_filepath');
+                        var txtfilestore_online_filename = mini.get('#txtfilestore_online_filename');
+                        model.sourcefile = txtfilestore_online_filepath.getValue() + txtfilestore_online_filename.getValue();
+                        model.isonline = true;
+                    } else {
+                        var txtfilestore_offline_filepath = mini.get('#txtfilestore_offline_filepath');
+                        model.sourcefile = txtfilestore_offline_filepath.getValue();
+                        model.isonline = false;
+                    }
+                }
+                break
+        }
+
+        console.log("getMateData", model);
+        return model;
+    }
+
+    function resetMateData() {
+        $("#kmdForm").find('span[id*="metadata_dpk"]').each(function (index, element) {
+            var dbkdate = mini.get(element.id);
+            if (dbkdate) {
+                dbkdate.setValue(new Date());
+            }
+        });
+        $("#kmdForm").find('span[id*="metadata_cbo"]').each(function (index, element) {
+            var cboDropDow = mini.get(element.id);
+            if (cboDropDow) {
+                var dropdownListArray = cboDropDow.getData();
+                for (var j = 0; j < dropdownListArray.length; j++) {
+                    if (dropdownListArray[j].selected) {
+                        cboDropDow.select(j);
+                        break;
+                    }
+                }
+            }
+        });
+    }
+    function getMateData(model) {
+        //转换日期格式
+        var matedatalist = sizerCombo.getData();
+        for (var prop in model) {
+            if (!model[prop]) { continue; }
+            for (var i = 0; i < matedatalist.length; i++) {
+                if (matedatalist[i].type == "Date") {
+                    if (prop == matedatalist[i].name) {
+                        model[prop] = moment(model[prop]).toISOString();
+                        break;
+                    }
+                }
+            }
+        }
+        console.log("getMateData", model);
+        return model;
+    }
+
+    function onPageGridPanelSearchClick(e) {
+        var pageGrid = mini.get("#pageGrid");
+        pageGrid.load();
+    }
+    function onPageGridPanelCloseClick(e) {
+        var lookupPage = mini.get("lookupPage");
+        lookupPage.hidePopup();
+    }
+    function onPageGridPanelClearClick(e) {
+        var lookupPage = mini.get("lookupPage");
+        lookupPage.deselectAll();
+    }
+    function onPageValueChanged(e) {
+        var pageGrid = mini.get("#pageGrid");
+        var selectrow = pageGrid.getSelected();
+        console.log("onPageValueChanged", selectrow);
+        if (selectrow) {
+            var metadata_cboshowtype = mini.get("#metadata_cboshowtype");
+            if (metadata_cboshowtype) {
+                metadata_cboshowtype.setValue(selectrow.showtype);
+            }
+            var cbodatatype = mini.get("#cbodatatype");
+            if (cbodatatype) {
+                var cbodatatypedata = cbodatatype.getData();
+                var datatypeindex = 2;
+                for (var i = 0; i < cbodatatypedata.length; i++) {
+                    if (selectrow.datatype == cbodatatypedata[i].value) {
+                        datatypeindex = i;
+                        break;
+                    }
+                }
+                cbodatatype.select(datatypeindex);
+                dataTypeSwitcher(cbodatatypedata[datatypeindex]);
+            }
+        }
+        onPageGridPanelCloseClick();
+    }
+
+
+    function onPageGridPanelBeforeLoadData(e) {
+        e.cancel = true;
+        var keyText = mini.get("#txtPageGridPanelKey");
+        var pageGrid = mini.get("#pageGrid");
+
+        var pageIndex = e.data.pageIndex, pageSize = e.data.pageSize;
+        var queryData = { From: pageIndex * pageSize, Size: pageSize };
+        var key = keyText.value;
+        key = $.trim(key);
+        if (key) {
+            queryData.Filter = { name: [key] };
+        }
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        $.ajax({
+            url: "@getPageGridMatchUrl",
+            type: "post",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(queryData),
+            headers: getAuthorization(),
+            success: function (data) {
+                console.log("loadsuccess", data);
+                pageGrid.setTotalCount(data.total);
+                pageGrid.setData(data.values);
+            },
+            complete: function (e) {
+                pageGrid.setPageIndex(pageIndex);
+                pageGrid.setPageSize(pageSize);
+                mini.unmask(document.body);
+            }
+        });
+    }
+
+    /******************************************************************
+    * 添加
+    ******************************************************************/
+
+    /**
+    *添加
+    */
+    function onAddNew() {
+        resetDetailData();
+        var tab_RightMetadata = mini.get("#tab_RightMetadata");
+        tab_RightMetadata.methodType = "add";
+        var txtresourcekey = mini.get("#txtresourcekey");
+        txtresourcekey.enable();//启用
+    }
+    /**metadata_txtiiid
+    *复制添加
+    */
+    function onCopyAddNew() {
+        var row = esMetaGrid.getSelected();
+        if (row) {
+            var tab_RightMetadata = mini.get("#tab_RightMetadata");
+            tab_RightMetadata.methodType = "add";
+            var txtresourcekey = mini.get("#txtresourcekey");
+            txtresourcekey.enable();//启用
+            var metadata_txtiiid = mini.get("#metadata_txtiiid");
+            metadata_txtiiid.setValue("");
+            var txtappdataid = mini.get("#txtappdataid");
+            txtappdataid.setValue("");
+        } else {
+            mini.alert("请选中记录！");
+            //showTips("warning", "请选中记录！");
+        }
+    }
+
+    /******************************************************************
+    * 修改
+    ******************************************************************/
+
+    /**
+    *修改
+    */
+    function onEdit() {
+        onRowClick(null, null);
+    }
+
+    /**
+    *获取元数据明细、页面数据明细、应用数据明细
+    */
+    function getDetailData(method) {
+        var kmdform = new mini.Form("#kmdForm");
+        var appdataform = new mini.Form("#appDataForm");
+        var pageform = new mini.Form("#pageForm");
+
+        kmdform.validate();
+        appdataform.validate();
+        pageform.validate();
+
+        if (kmdform.isValid() && appdataform.isValid() && pageform.isValid()) {
+            var kmdformdata = kmdform.getData(true, false);
+            kmdformdata = getMateData(kmdformdata);
+            var pageformdata = pageform.getData(true, false);
+            var appdataformdata = appdataform.getData(true, false);
+            appdataformdata = getAppdata(appdataformdata, method);
+
+            //判断上传控件有未上传文件（提示用户上传，还是取消上传）
+
+            if (appdataformdata.contenttype == "File") {
+                if (uploader) {
+                    if (uploader.getFiles().length > 0) {
+                        mini.alert("文件未上传，请点击“开始上传”按钮上传文件!");
+                        return null;
+                    }
+                }
+            }
+
+            kmdformdata.pageid = pageformdata.pageid;
+            if (method == "Insert") {
+                kmdformdata.resourcekey = appdataformdata.resourcekey;
+                kmdformdata.resourcetype = appdataformdata.resourcetype;
+                kmdformdata.system = appdataformdata.system;
+            }
+            return { kmddata: kmdformdata, appdata: appdataformdata, pagedata: pageformdata };
+        }
+
+        return null;
+    }
+
+    /**
+    *保存信息（编辑||新增）
+    */
+    function onSaveAll() {
+        var tab_RightMetadata = mini.get("#tab_RightMetadata");
+        var method = tab_RightMetadata.methodType == "add" ? "Insert" : "Save";
+        var data = getDetailData(method);
+        if (!data) {
+            return;
+        }
+
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '处理中...'
+        });
+
+        console.log("onSaveAll", data);
+        existByKey(method, data);
+        //savaAppData(method, data);
+    }
+
+    function existByKey(method, data) {
+        if (method == "Insert") {
+            var matchUrl = "@getAppDataServiceUrl" + "Match";
+            var datastr = JSON.stringify({
+                From: 0,
+                Size: 10,
+                Filter: { resourcekey: [data.appdata.resourcekey] },
+                Sort: [{ key: "createby", value: 1 }]
+            });
+            $.ajax({
+                url: matchUrl,
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: datastr,
+                headers: getAuthorization(),
+                success: function (appdata) {
+                    console.log("是否存在主键", appdata);
+                    if (appdata) {
+                        if (appdata.total > 0) {
+                            mini.alert("资源主键已经存在，请重新在“页面&数据->资源主键”中修改!");
+                            mini.unmask(document.body);
+                        } else {
+                            savaAppData(method, data);
+                        }
+                    }
+                },
+                error: function (e) {
+                    toastr["error"]("保存失败!", "系统提示");
+                    mini.unmask(document.body);
+                }
+            });
+        } else {
+            savaAppData(method, data);
+        }
+    }
+
+
+    function savaAppData(method, data) {
+        var savaUrl = "@getAppDataServiceUrl" + "Save";
+        var datastr = JSON.stringify(data.appdata);
+        $.ajax({
+            url: savaUrl,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data.appdata),
+            headers: getAuthorization(),
+            success: function (e) {
+                console.log("savaAppData-success:", e);
+                if (e) {
+                    if (e.dataId) {
+                        data.kmddata.dataid = e.dataId;
+                    }
+                    if (e.thumbnail) {
+                        data.kmddata.thumbnail = e.thumbnail;
+                    }
+                    if (e.fulltext) {
+                        data.kmddata.fulltext = data.kmddata.fulltext + e.fulltext;
+                    }
+                    //if (e.indexDataType) {
+                    //    data.kmddata.indexdatatype = e.indexDataType;
+                    //}
+                }
+                savaIndexerData(method, data.kmddata);
+            },
+            error: function (e) {
+                toastr["success"]("保存失败", "系统提示");
+                mini.unmask(document.body);
+            }
+        });
+
+    }
+    function savaIndexerData(method, data) {
+        var savaUrl = "@getIndexerServiceUrl" + method;
+        console.log("savaIndexerData", JSON.stringify({ Metadatas: [data] }));
+        $.ajax({
+            url: savaUrl,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ Metadatas: [data] }),
+            headers: getAuthorization(),
+            success: function (e) {
+                console.log("savaIndexerData-success:", e);
+                if (e) {
+                    setTimeout(function () {
+                        //onQuery();
+                        loadIndexData(0, 10, e[0]);
+                        mini.unmask(document.body);
+                        toastr["success"]("保存成功", "系统提示");
+                    }, 1000);
+                } else {
+                    mini.unmask(document.body);
+                    toastr["success"]("保存失败，返回参数有问题", "系统提示");
+                }
+            },
+            error: function (e) {
+                var appdataIds = [];
+                appdataIds.push(data.dataid);
+                deleteAppData(appdataIds);
+                toastr["success"]("保存失败", "系统提示");
+                mini.unmask(document.body);
+            },
+            complete: function (e) {
+
+            }
+        });
+    }
+
+    //上传自定义校验
+    function ontxtfilestore_online_filepathValidation(e) {
+        if (e.isValid) {
+            var cbodatatype = mini.get("cbodatatype");
+            var cbostoragetype = mini.get("cbostoragetype");
+            var cbouploadtype = mini.get("cbouploadtype");
+            if (cbodatatype.getValue() == "File" && cbostoragetype.getValue() == "FileSystem" && cbouploadtype.getValue() == "Online") {
+                var value = $.trim(e.value);
+                if (!value) {
+                    e.errorText = "上传文件路径不能为空！";
+                    e.isValid = false;
+                }
+            }
+        }
+    }
+    function ontxtfilestore_online_filenameValidation(e) {
+        if (e.isValid) {
+            var cbodatatype = mini.get("cbodatatype");
+            var cbostoragetype = mini.get("cbostoragetype");
+            var cbouploadtype = mini.get("cbouploadtype");
+            if (cbodatatype.getValue() == "File" && cbostoragetype.getValue() == "FileSystem" && cbouploadtype.getValue() == "Online") {
+                var value = $.trim(e.value);
+                if (!value) {
+                    e.errorText = "上传文件名称不能为空！";
+                    e.isValid = false;
+                }
+            }
+        }
+    }
+    function ontxtfilestore_offline_filepathValidation(e) {
+        if (e.isValid) {
+            var cbodatatype = mini.get("cbodatatype");
+            var cbostoragetype = mini.get("cbostoragetype");
+            var cbouploadtype = mini.get("cbouploadtype");
+            if (cbodatatype.getValue() == "File" && cbostoragetype.getValue() == "FileSystem" && cbouploadtype.getValue() == "Offline") {
+                var value = $.trim(e.value);
+                if (!value) {
+                    e.errorText = "文件路径不能为空！";
+                    e.isValid = false;
+                }
+            }
+        }
+    }
+    function ontxtdatastore_filepathValidation(e) {
+        if (e.isValid) {
+            var cbodatatype = mini.get("cbodatatype");
+            var cbostoragetype = mini.get("cbostoragetype");
+            if (cbodatatype.getValue() == "File" && cbostoragetype.getValue() == "Mongo") {
+                var value = $.trim(e.value);
+                if (!value) {
+                    e.errorText = "上传文件路径不能为空！";
+                    e.isValid = false;
+                }
+            }
+        }
+    }
+
+    /******************************************************************
+    * 删除
+    ******************************************************************/
+    function onDelete() {
+        var appdataIds = [];
+        var searchIds = [];
+        var pageIds = [];
+        var rows = esMetaGrid.getSelecteds();
+        for (var i = 0; i < rows.length; i++) {
+            appdataIds.push(rows[i].dataid);
+            searchIds.push(rows[i].iiid);
+            pageIds.push(rows[i].pageid);
+        }
+
+        if (searchIds.length == 0) {
+            toastr["warning"]("请选中记录", "系统提示");
+            return false;
+        }
+        mini.confirm("@JStr.ConfirmDelete", "系统提示",
+            function (action) {
+                if (action == "ok") {
+                    mini.mask({
+                        el: document.body,
+                        cls: 'mini-mask-loading',
+                        html: '处理中...'
+                    });
+
+                    $.when(deleteAppData(appdataIds), deleteIndexer(searchIds)).then(function (e) {
+                        console.log("删除成功", e);
+                        toastr["success"]("删除成功", "系统提示");
+                    }, function (e) {
+                        console.log("删除失败", e);
+                        toastr["success"]("删除失败", "系统提示");
+                    }).always(function (e) {
+                        setTimeout(function () {
+                            onQuery();
+                            mini.unmask(document.body);
+                        }, 1000);
+                    });
+                }
+            }
+        )
+    }
+    function deleteAppData(ids) {
+        var dtd = $.Deferred();
+        var deleteUrl = "@getAppDataServiceUrl" + "DeleteMany";
+        $.ajax({
+            url: deleteUrl,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(ids),
+            headers: getAuthorization(),
+            success: function (data) {
+                dtd.resolve();
+            },
+            error: function (data) {
+                dtd.reject();
+            }
+        });
+        return dtd.promise();
+    }
+    function deleteIndexer(ids) {
+        var dtd = $.Deferred();
+        var deleteUrl = "@getIndexerServiceUrl" + "Delete";
+        $.ajax({
+            url: deleteUrl,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(ids),
+            headers: getAuthorization(),
+            success: function (data) {
+                dtd.resolve();
+            },
+            error: function (data) {
+                dtd.reject();
+            }
+        });
+        return dtd.promise();
+    }
+
+
+    /**************************选择服务器文件夹和文件列表********************************/
+    function onFileStoreOnlineFilePathClick() {
+        var selectFilePathsplitter = mini.get("#selectFilePathsplitter");
+        selectFilePathsplitter.hidePane(2);
+        var selectFilePathWindow = mini.get("#selectFilePathWindow");
+        selectFilePathWindow.show();
+    }
+
+    function onFileStoreOfflineFilePathClick() {
+        var selectFilePathsplitter = mini.get("#selectFilePathsplitter");
+        selectFilePathsplitter.showPane(2);
+        var selectFilePathWindow = mini.get("#selectFilePathWindow");
+        selectFilePathWindow.show();
+    }
+
+    function onUploadFoldersTreeNodeSelect(e) {
+        var cbodatatype = mini.get("cbodatatype");
+        var cbostoragetype = mini.get("cbostoragetype");
+        var cbouploadtype = mini.get("cbouploadtype");
+        if (cbodatatype.getValue() == "File" && cbostoragetype.getValue() == "FileSystem" && cbouploadtype.getValue() == "Offline") {
+            var uploadFolderFilesGrid = mini.get("#uploadFolderFilesGrid");
+            uploadFolderFilesGrid.load();
+        }
+    }
+
+    function onUploadFolderFilesGridBeforeLoadData(e) {
+        e.cancel = true;
+        var pageIndex = e.data.pageIndex, pageSize = e.data.pageSize;
+        var serverpath = "@getAppDataServiceUrl" + "GetUploadFolderFiles";
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+
+        var uploadFoldersTree = mini.get("#uploadFoldersTree");
+        var selectedNode = uploadFoldersTree.getSelectedNode();
+        if (!selectedNode) {
+            return;
+        }
+        var uploadFolderFilesGrid = mini.get("#uploadFolderFilesGrid");
+        $.ajax({
+            url: serverpath,
+            type: "get",
+            data: { fullName: selectedNode.fullName },
+            success: function (data) {
+                if (!data) {
+                    uploadFolderFilesGrid.setData([]);
+                    uploadFolderFilesGrid.setTotalCount(0);
+                } else {
+                    var list = [];
+                    for (var i = 0; i < data.length; i++) {
+                        list.push({ id: i, name: data[i] });
+                    }
+                    uploadFolderFilesGrid.setData(list);
+                    uploadFolderFilesGrid.setTotalCount(list.length);
+                }
+            },
+            complete: function (e) {
+                uploadFolderFilesGrid.setPageIndex(pageIndex);
+                uploadFolderFilesGrid.setPageSize(pageSize);
+                mini.unmask(document.body);
+            }
+        });
+    }
+
+
+    function hideWindow() {
+        var selectFilePathWindow = mini.get("#selectFilePathWindow");
+        selectFilePathWindow.hide();
+    }
+
+    function confirmWindow() {
+        var uploadFoldersTree = mini.get("#uploadFoldersTree");
+        var selectedNode = uploadFoldersTree.getSelectedNode();
+        if (!selectedNode) {
+            return;
+        }
+        var selectFilePathsplitter = mini.get("#selectFilePathsplitter");
+        var panel = selectFilePathsplitter.getPane(2);
+        console.log("panel", panel);
+        if (panel.visible) {
+            var uploadFolderFilesGrid = mini.get("#uploadFolderFilesGrid");
+            var selectrow = uploadFolderFilesGrid.getSelected();
+            if (!selectrow) {
+                return;
+            }
+            var txtfilestore_offline_filepath = mini.get("#txtfilestore_offline_filepath");
+            txtfilestore_offline_filepath.setValue(selectedNode.fullName + "/" + selectrow.name);
+        } else {
+            var txtfilestore_online_filepath = mini.get("#txtfilestore_online_filepath");
+            txtfilestore_online_filepath.setValue(selectedNode.fullName + "/");
+        }
+
+        var selectFilePathWindow = mini.get("#selectFilePathWindow");
+        selectFilePathWindow.hide();
+    }
+
+
+
+
+    /***********************************上传控件*************************************/
+    $(function () {
+        var $list = $("#thelist");
+        var $btn = $("#ctlBtn");
+        var chunkSize = 3 * 1024 * 1024;
+        var CHUNKS = 0;
+
+        uploader = WebUploader.create({
+            swf: '/scripts/webuploader/Uploader.swf',// swf文件路径
+            server: "@getAppDataUploadUrl",// 文件接收服务端
+            pick: { id: '#picker', multiple: false }, // 选择文件的按钮。可选。内部根据当前运行是创建，可能是input元素，也可能是flash.
+            resize: false,// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            chunked: true,//支持分片
+            formData: { guid: 'guid' },
+            //fileNumLimit: 1,
+            chunkSize: chunkSize//分片大小（3M）
+        });
+
+
+        //当文件被加入队列之前触发
+        uploader.on('beforeFileQueued', function (file) {
+            console.log('beforeFileQueued', file);
+            uploader.reset();
+        })
+
+        // 当文件被加入队列以后触发。
+        uploader.on('fileQueued', function (file) {
+            console.log('fileQueued', file);
+            var txtfilestore_online_filename = mini.get('#txtfilestore_online_filename');
+            txtfilestore_online_filename.setValue(file.name);
+
+            var txtappdataname = mini.get('#txtappdataname');
+            var txtappdatanamevalue = txtappdataname.getValue(file.name);
+            if (!txtappdatanamevalue || txtappdatanamevalue.length == 0) {
+                var filename = file.name;
+                txtappdataname.setValue(filename.substring(0, filename.lastIndexOf('.')));
+            } else {
+                mini.confirm("源文件名与名称不一致，是否覆盖名称？", "提示",
+                   function (action) {
+                       if (action == "ok") {
+                           var filename = file.name;
+                           txtappdataname.setValue(filename.substring(0, filename.lastIndexOf('.')));
+                       }
+                   }
+               );
+            }
+
+            uploader.options.formData.guid = WebUploader.Base.guid();
+        });
+
+        // 当文件被加入队列以后触发。
+        uploader.on('filesQueued', function (file) {
+            console.log('filesQueued', file);
+        });
+
+        //某个文件开始上传前触发，一个文件只会触发一次。
+        uploader.on('uploadStart', function (file) {
+            console.log('uploadStart', file);
+            CHUNKS = 0;
+        });
+
+        //当某个文件的分块在发送前触发
+        uploader.on('uploadBeforeSend', function (object, data, headers) {
+            //console.log('uploadBeforeSend-obj', object);
+            //console.log('uploadBeforeSend-requestdata', data);
+            //console.log('uploadBeforeSend-headers', headers);
+            if (object.chunks == 1) {
+                //单文件
+                data.guid = "";
+            }
+            CHUNKS = object.chunks;
+        });
+
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#file_progress'),
+                $percent = $li.find('.progress .progress-bar');
+
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<div class="progress progress-striped active">' +
+                  '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                  '</div>' +
+                '</div>').appendTo($li).find('.progress-bar');
+            }
+
+            $percent.css('width', percentage * 100 + '%');
+        });
+
+        uploader.on('uploadSuccess', function (file, response) {
+            //console.log('uploadSuccess-file', file);
+            //console.log('uploadSuccess-response', response);
+            var chunksTotal = 0;
+            if ((chunksTotal = Math.ceil(file.size / chunkSize)) > 1) {
+                $.ajax({
+                    type: "Post",
+                    url: "@getAppDataUploadUrl",
+                    data: {
+                        fileName: file.name,
+                        guid: uploader.options.formData.guid,
+                        chunk: CHUNKS,
+                        chunks: CHUNKS
+                    },
+                    headers: getAuthorization(),
+                    success: function (data) {
+                        //分片合并后返回值
+                        console.log('uploadSuccess-regn', data);
+                        if (data) {
+                            var hiddenUploadfileid = mini.get("#hiddenUploadfileid")
+                            hiddenUploadfileid.setValue(data.tempFileIds[0]);
+                        }
+                    }
+                });
+            } else {
+                //response单文件返回值
+                console.log('uploadSuccess-response', response);
+                if (response) {
+                    var hiddenUploadfileid = mini.get("#hiddenUploadfileid")
+                    hiddenUploadfileid.setValue(response.tempFileIds[0]);
+                }
+            }
+        });
+
+        uploader.on('uploadError', function (file) {
+            console.log('uploadError', file);
+        });
+
+        uploader.on('uploadComplete', function (file) {
+            console.log('uploadComplete', file);
+            uploader.reset();//重置
+            $('#ctlBtn').removeAttr("disabled");
+            $('#file_progress').find('.progress').fadeOut();
+        });
+
+        $btn.click(function () {
+            console.log('upload', uploader.getFiles());
+            if (uploader.getFiles().length > 0) {
+                uploader.upload();
+                //设置上传控件不可用
+                $('#ctlBtn').attr('disabled', 'disabled');
+
+                var $li = $('#file_progress'), $percent = $li.find('.progress .progress-bar');
+                //初始进度条
+                $percent.css('width', '0%');
+                //显示进度条
+                $li.find('.progress').fadeIn();
+            }
+        });
+
+
+
+    });
+
+</script>

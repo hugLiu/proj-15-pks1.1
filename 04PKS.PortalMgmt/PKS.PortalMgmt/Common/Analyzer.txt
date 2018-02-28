@@ -1,0 +1,10 @@
+﻿[
+	        { id: 'SynAnalyze', text: '全词(同义)分词器' },            
+	        { id: 'AllAnalyze', text: '全词分词器' },
+	        { id: 'Pro1Analyze', text: '专业分词器'},
+	        { id: 'BOAnalyze', text: '目标分词器' },
+	        { id: 'CommAnalyze', text: '通用分词器'},
+	        { id: 'Pro2Analyze', text: '专业(最全)分词器'},
+            { id: '2GramsAnalyze', text: '二元分词器' },
+            { id: 'PathAnalyze', text: '路径分词器' }
+        ]

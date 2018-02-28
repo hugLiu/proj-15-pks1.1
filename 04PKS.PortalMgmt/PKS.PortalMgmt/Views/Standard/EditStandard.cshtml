@@ -1,0 +1,67 @@
+﻿@using PKS.DbServices.Standard.Model
+@{ 
+    var oldInfo = (StandardModel)ViewBag.Data;
+}
+@{
+    ViewBag.Title = "编辑标准规范";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+<div style="width:300px;margin:0 auto;padding-top:20px;margin-left:50px;" id="form1">
+    <div style="width:100%">
+        <input name="id" class="mini-hidden" value="@oldInfo.Id" />
+        <table style="font-size:20px;">
+            <tr>
+                <td>
+                    <label for="Name$text">名称：</label>
+                </td>
+                <td style="text-align:center;line-height:40px;">
+                    <input id="Name" name="Name" class="mini-textbox" style="width:200px;" value="@oldInfo.Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Type$text">类型：</label>
+                </td>
+                <td style="text-align:center;line-height:40px;">
+                    <input id="Type" name="Type" class="mini-textbox" style="width:200px;" value="@oldInfo.Type" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Url$text">链接地址：</label>
+                </td>
+                <td style="text-align:center;line-height:40px;">
+                    <input id="Url" name="Url" class="mini-textbox" style="width:200px;" value="@oldInfo.Url" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align:right;">
+                    <input value="保存" type="button" onclick="EditForm()" style="font-weight: bolder;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function EditForm() {
+        var form = new mini.Form("#form1");
+        var data = form.getData();
+        var json = mini.encode(data);
+
+        $.ajax({
+            url: "@Url.Action("UpdateStandard", "Standard")",
+            type: "post",
+            data: {
+                model: json
+            },
+            success: function (e) {
+                showTips({ Type: "success", Message: "保存标准成功！" });
+                window.CloseOwnerWindow();
+            }
+        })
+    }
+
+</script>

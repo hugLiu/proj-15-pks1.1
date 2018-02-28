@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+
+@using PKS.DbServices.Semantic.Model
+@{
+    var oldInfor = (SemanticsTypeItem)ViewData["model"];
+}
+
+<div id="form1" style="width: 400px;margin:0 auto;padding-top:30px;margin-left: 80px">
+    <table>
+        <tr>
+            <td><h2 style="text-align:right">@Html.Str("SR")：</h2></td>
+            <td>
+                <input id="SR" class="mini-textbox" style=" width: 200px;" allowinput="false" required="true" name="SR" value="@oldInfor.SR" />
+            </td>
+        </tr>
+        <tr>
+            <td><h2 style="text-align: right">@Html.Str("CCCode1")：</h2></td>
+            <td>
+                <input id="CCCode1" class="mini-textbox" style=" width:200px;" required="true" name="CCCode1" value="@oldInfor.CCCode1" />
+            </td>
+        </tr>
+        <tr>
+            <td><h2 style="text-align: right">@Html.Str("CCCode2")：</h2></td>
+            <td>
+                <input id="CCCode2" class="mini-textbox" style=" width: 200px;" name="CCCode2" value="@oldInfor.CCCode2" />
+            </td>
+        </tr>
+        <tr>
+            <td><h2 style="text-align: right">@Html.Str("Description")：</h2></td>
+            <td>
+                <input id="Description" class="mini-textbox" style=" width: 200px;" required="true" name="Description" value="@oldInfor.Description" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input value="@Html.Str("Save")" type="button" onclick="EditForm()" style="width: 200px;height: 30px;font-size: 20px;font-weight: bolder; text-align: center" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function EditForm() {
+        var form = new mini.Form("#form1");
+        var data = form.getData();
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("UpdateSemanticsType", "Semantics")",
+            type: "post",
+            data: {
+                model: json,
+                state: "Update"
+            },
+            success: function (e) {
+                showTips({ Type: e.State, Message: e.Text });
+                window.CloseOwnerWindow();
+            }
+        });
+    }
+</script>

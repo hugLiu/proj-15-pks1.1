@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "全局参数";
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowToolBar = false;
+}
+@using PKS.Models;
+<style>
+    #mainForm .mini-textbox, #mainForm .mini-combobox {
+        width: 400px;
+    }
+</style>
+<div class="mini-panel layout-panel  frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+    <div class="mini-splitter frame-fit" style="width:100%;padding:0">
+        <div size="45%" style="padding:5px;">
+            <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+                <a class="mini-button" iconcls="icon-new-edit" onclick="onAddBrotherNode">@ResHelper.GetStr("新增同级类别")</a>
+                <a class="mini-button" iconcls="icon-new-edit" onclick="onAddChildNode">@ResHelper.GetStr("新增子级类别")</a>
+                <a class="mini-button" iconcls="icon-new-edit" onclick="onAddParameterNode">@ResHelper.GetStr("新增参数")</a>
+                <a class="mini-button" iconcls="icon-new-save" onclick="onSave">@ResHelper.GetStr("保存")</a>
+                <a class="mini-button" iconcls="icon-new-delete" onclick="onDelete">@ResHelper.GetStr("删除")</a>
+            </div>
+            <ul id="catalogTree" class="mini-tree frame-fit frame-search-tree" style="width:100%"
+                url="@Url.Action("GetGlobalParas", "KManage")" textfield="Name" idfield="Id" parentfield="ParentId"
+                resultastree="false" expandonload="1" showtreeicon="true" checkrecursive="true" showcheckbox="true"
+                onnodeselect="onTreeClick"></ul>
+        </div>
+        <div style="overflow:auto">
+            <table id="mainForm" class="boxcls">
+                <tr>
+                    <td class="right"><label for="Name">名称</label></td>
+                    <td>
+                        <input name="Name" id="Name" class="mini-textbox" required="required" requirederrortext="必填项" />
+                    </td>
+                </tr>
+                <tr class="parameter">
+                    <td class="right"><label for="Code">Code</label></td>
+                    <td>
+                        <input name="Code" id="Code" class="mini-textbox" required="required" requirederrortext="必填项" />
+                    </td>
+                </tr>
+                <tr class="parameter">
+                    <td class="right"><label for="DataType">数据类型</label></td>
+                    <td>
+                        <input name="DataType" id="DataType" class="mini-combobox" value="@(MetadataTagType.String)" />
+                    </td>
+                </tr>
+                <tr class="parameter">
+                    <td class="right"><label for="IsParameter">是否参数</label></td>
+                    <td>
+                        <input name="IsParameter" id="IsParameter" class="mini-checkbox" readonly="readonly" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="OrderNumber">序号</label></td>
+                    <td>
+                        <input name="OrderNumber" id="OrderNumber" class="mini-spinner" value="1" required="required" requirederrortext="必填项" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var dataTypeOptions = [
+         { id: "@(MetadataTagType.ISODate)", text: "日期(ISODate)" },
+         { id: "@(MetadataTagType.Number)", text: "数字(Number)" },
+         { id: "@(MetadataTagType.String)", text: "字符串(String)" }
+    ];
+
+    mini.parse();
+
+    var selectedNode;
+    var formInfo;
+
+    var treeObj = mini.get("catalogTree");
+    var mainForm = new mini.Form("mainForm");
+
+    mini.get("DataType").setData(dataTypeOptions);
+
+    function GetCurrentNode() {
+        return treeObj.getSelectedNode();
+    }
+
+    function onTreeClick(e) {
+        if (!e.node) {
+            selectedNode == null;
+            return;
+        }
+        if (e.node.IsParameter) {
+            $(".parameter").show();
+        } else {
+            $(".parameter").hide();
+        }
+        console.log(e.node);
+        if (selectedNode != null) {
+            var updatedData = getFormData();
+            //判断数据是否被修改
+            if (updatedData != formData) {
+                treeObj.updateNode(selectedNode, updatedData);
+            }
+        }
+        selectedNode = e.node;
+        setFormNodeInfo(e.node)
+        formData = mainForm.getData();
+    };
+
+    function setFormNodeInfo(func) {
+        //页面的ID属性需要和传过来的ReuturnValue中的属性名相同
+        for (p in func) {
+            var control = mini.get('#' + p);
+            if (control)
+                control.setValue(func[p]);
+            else {
+                $('#' + p).val(func[p]);
+            }
+        }
+    }
+
+    function getFormData() {
+        return mainForm.getData();
+    }
+
+    function onAddBrotherNode() {
+        var node = GetCurrentNode();
+        if (!node) {
+            return;
+        }
+        if (node.IsParameter) {
+            showTips("warning", "不能在参数节点添加子级！");
+            return;
+        }
+        if (node) node = treeObj.getParentNode(node);
+        var newNode = { Id: "0", Name: "", Code: "code", DataType: "@(MetadataTagType.String)", ParentId: node ? node.Id : null };
+        treeObj.addNode(newNode, 999, node);
+        treeObj.selectNode(newNode);
+    }
+
+    function onAddChildNode() {
+        var node = GetCurrentNode();
+        if (!node || !node.Id) {
+            return;
+        }
+        if (node.IsParameter) {
+            showTips("warning", "不能在参数节点添加子级！");
+            return;
+        }
+        var newNode = { Id: "0", Name: "", Code: "code", DataType: "@(MetadataTagType.String)", ParentId: node ? node.Id : null };
+        treeObj.addNode(newNode, 999, node);
+        treeObj.expandNode(node);
+        treeObj.selectNode(newNode);
+    }
+
+    function onAddParameterNode() {
+        var node = treeObj.getSelectedNode();
+        if (!node || !node.Id) {
+            return;
+        }
+        if (node.IsParameter) {
+            showTips("warning", "不能在参数节点添加子级！");
+            return;
+        }
+        var newNode = { Id: "0", Name: "", Code: "", DataType: "@(MetadataTagType.String)", ParentId: node ? node.Id : null, IsParameter: true };
+        treeObj.addNode(newNode, 999, node);
+        treeObj.expandNode(node);
+        treeObj.selectNode(newNode);
+    }
+
+
+    function onSave() {
+        //当前节点的编辑信息更新
+        var snode = GetCurrentNode();
+        if (snode != null) {
+            onTreeClick({ node: snode });
+        }
+        if (!treeObj.isChanged() && snode) {
+            showTips("success", "保存成功");
+            return;
+        }
+        var nodes = treeObj.getList();
+        if (nodes.length == 0) {
+            nodes.push(getFormData());
+        }
+
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].Name == "" || nodes[i].Code == "") {
+                showTips("error", "名称或Code不能为空!");
+                return;
+            }
+        }
+
+        var json = mini.encode(nodes);
+        $.ajax({
+            url: "SaveGlobalParas",
+            type: "post",
+            data: { data: json },
+            success: function () {
+                treeObj.accept();
+                treeObj.load();
+                treeObj.selectNode(snode);
+                showTips("success", "保存成功");
+            }
+        });
+    }
+
+    function onDelete() {
+        var nodes = treeObj.getCheckedNodes();
+        if (!nodes.length) {
+            showTips("error", "没有节点被勾选!");
+            return;
+        }
+        if (!confirm('是否删除选中节点?')) {
+            return;
+        }
+
+        //删除操作之后，默认选择第一个节点
+        treeObj.selectNode(treeObj.getList()[0]);
+
+        var ids = [];
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].Id != 0 || nodes[i].Id != null) { ids.push(nodes[i].Id); }
+        }
+        $.ajax({
+            url: "DeleteGlobalParas",
+            data: { ids: ids },
+            type: "post",
+            success: function (data) {
+                treeObj.removeNodes(nodes);
+                treeObj.uncheckAllNodes();
+                showTips("success", "删除成功");
+            },
+            error: function () {
+                showTips("error", "删除失败，参数被引用");
+            }
+        });
+    }
+</script>

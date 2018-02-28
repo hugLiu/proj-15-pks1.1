@@ -1,0 +1,322 @@
+﻿@{
+    ViewBag.Title = "元数据维护";
+    ViewBag.ShowSearchBox = false;
+}
+@using PKS.Models;
+<style>
+    #mainForm .mini-textbox, #mainForm .mini-textarea, #mainForm .mini-combobox {
+        width: 400px;
+    }
+</style>
+<div class="mini-panel layout-panel  frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+    <div class="mini-splitter frame-fit" style="width:100%;padding:0">
+        <div size="30%" style="padding:5px;">
+            <ul id="catalogTree" class="mini-tree frame-fit frame-search-tree" style="width:100%"
+                url="@Url.Action("GetMetas", "MetadataManager")" textfield="Title" idfield="Id" parentfield="PId"
+                iconfield="IconClass" resultastree="false" expandonload="1" showtreeicon="true" checkrecursive="true" showcheckbox="true"
+                ondrawnode="onDrawNode" onnodeselect="treeOnClick"></ul>
+        </div>
+        <div style="overflow:auto">
+            <table id="mainForm" class="boxcls">
+                <tr>
+                    <td class="right"><label for="Name">名称</label></td>
+                    <td>
+                        <input name="Name" id="Name" class="mini-textbox" required="required" requirederrortext="必填项" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="Title">标题</label></td>
+                    <td>
+                        <input name="Title" id="Title" class="mini-textbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="Description">描述</label></td>
+                    <td>
+                        <input name="Description" id="Description" class="mini-textarea" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="Required">必填</label></td>
+                    <td>
+                        <input name="Required" id="Required" class="mini-checkbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="InnerTag">内部标签</label></td>
+                    <td>
+                        <input name="InnerTag" id="InnerTag" class="mini-checkbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="Type">数据类型</label></td>
+                    <td>
+                        <input name="Type" id="Type" class="mini-combobox" value="@(MetadataTagType.String)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="Format">数据格式</label></td>
+                    <td>
+                        <input name="Format" id="Format" class="mini-textbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="UiType">展示类型</label></td>
+                    <td>
+                        <input name="UiType" id="UiType" class="mini-combobox" value="@(MetadataUiType.Label)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="CanSearch">支持搜索</label></td>
+                    <td>
+                        <input name="CanSearch" id="CanSearch" class="mini-checkbox" checked="checked" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="SearchWeight">搜索权重</label></td>
+                    <td>
+                        <input name="SearchWeight" id="SearchWeight" class="mini-spinner" value="1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="DataSource">数据源</label></td>
+                    <td>
+                        <input name="DataSource" id="DataSource" class="mini-radiobuttonlist" value="2" />
+                    </td>
+                </tr>
+            </table>
+            <input name="MetaItems" id="MetaItems" class="mini-textarea" style="width:400px;height:100px;margin-left:100px" emptyText="每行输入一个值" />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var dataTypeOptions = [
+          { id: "@(MetadataTagType.Date)", text: "Date" },
+          { id: "@(MetadataTagType.ISODate)", text: "ISODate" },
+          { id: "@(MetadataTagType.Number)", text: "Number" },
+          { id: "@(MetadataTagType.String)", text: "String" },
+          { id: "@(MetadataTagType.StringArray)", text: "StringArray" }
+    ];
+
+    var uiTypeOptions = [
+        { id: "@(MetadataUiType.Date)", text: "Date" },
+        { id: "@(MetadataUiType.Datetime)", text: "Datetime" },
+        { id: "@(MetadataUiType.DropdownList)", text: "DropdownList" },
+        { id: "@(MetadataUiType.Image)", text: "Image" },
+        { id: "@(MetadataUiType.Label)", text: "Label" },
+        { id: "@(MetadataUiType.List)", text: "List" },
+        { id: "@(MetadataUiType.TagEditor)", text: "TagEditor" },
+        { id: "@(MetadataUiType.TextArea)", text: "TextArea" },
+        { id: "@(MetadataUiType.TextBox)", text: "TextBox" }
+    ];
+
+    var dataSourceOptions = [
+        { id: "1", text: "输入" },
+        { id: "2", text: "枚举" },
+        { id: "3", text: "语义库" },
+        { id: "4", text: "对象库" },
+    ];
+
+    mini.parse();
+
+    var selectedNode;
+    var formInfo;
+
+    var treeObj = mini.get("catalogTree");
+    var mainForm = new mini.Form("mainForm");
+    var dataSourceRadio = mini.get("DataSource");
+
+    mini.get("Type").setData(dataTypeOptions);
+    mini.get("UiType").setData(uiTypeOptions);
+    mini.get("DataSource").setData(dataSourceOptions);
+
+    $.regButton({ text: "新增平级", noSubmit: addBrother });
+    $.regButton({ text: "新增子级", noSubmit: addChild });
+    $.regButton({ text: "删除", noSubmit: deleteSelectedNode });
+
+    function onDrawNode(e) {
+        var node = e.node;
+        e.nodeHtml = GetShowText(node);
+    }
+
+    function GetShowText(node) {
+        var showText = node.Title;
+        if (node.PId != null)
+            showText += "(" + node.Name + ")";
+        return showText;
+    }
+
+    function GetCurrentNode() {
+        return treeObj.getSelectedNode();
+    }
+
+    function treeOnClick(e) {
+        if (!e.node) {
+            selectedNode == null;
+            return;
+        }
+        console.log(e.node);
+        if (selectedNode != null) {
+            var updatedData = getFormData();
+            //判断数据是否被修改
+            if (updatedData != formData) {
+                treeObj.updateNode(selectedNode, updatedData);
+            }
+
+            if (dataSourceRadio.getValue() == "2") {
+                var items = mini.get("MetaItems");
+                values = items.getValue();
+                $.ajax({
+                    url: "SaveMetaItems",
+                    data: { metaId: selectedNode["Id"], values: values },
+                    success: function () {
+                        items.setValue("");
+                    }
+                });
+            }
+
+        }
+        selectedNode = e.node;
+        setFormNodeInfo(e.node)
+        formData = mainForm.getData();
+
+        if (dataSourceRadio.getValue() == "2") {
+            var items = mini.get("MetaItems");
+            items.setValue("");
+            $.ajax({
+                url: "GetMetaItems",
+                data: { metaId: e.node["Id"] },
+                success: function (re) {
+                    var values = "";
+                    for (var i = 0; i < re.length; i++) {
+                        values += re[i]["MetadataItemName"] + "\n";
+                    }
+                    items.setValue(values);
+                }
+            });
+        }
+    };
+
+    function setFormNodeInfo(func) {
+        //页面的ID属性需要和传过来的ReuturnValue中的属性名相同
+        for (p in func) {
+            var control = mini.get('#' + p);
+            if (control)
+                control.setValue(func[p]);
+            else {
+                $('#' + p).val(func[p]);
+            }
+        }
+        itemsTextShow(func["DataSource"]);
+    }
+
+    function getFormData() {
+        return mainForm.getData();
+    }
+
+    function addBrother() {
+        var node = GetCurrentNode();
+        if (!node) {
+            return;
+        }
+        if (node) node = treeObj.getParentNode(node);
+        var newNode = { Name: "New Node", Title: "New Title", Description: "", Required: false, InnerTag: false, Type: "@(MetadataTagType.String)", Format: "", UiType: "@(MetadataUiType.Label)", CanSearch: false, SearchWeight: 1, DataSource: 1, PId: node ? node.Id : null, Id: "0", ItemOrder: GetMaxOrd(node), };
+        treeObj.addNode(newNode, newNode.ItemOrder, node);
+        treeObj.selectNode(newNode);
+    }
+
+    function addChild() {
+        var node = GetCurrentNode();
+        if (!node || !node.Id) {
+            return;
+        }
+        var newNode = { Name: "New Node", Title: "New Title", Description: "", Required: false, InnerTag: false, Type: "@(MetadataTagType.String)", Format: "", UiType: "@(MetadataUiType.Label)", CanSearch: false, SearchWeight: 1, DataSource: 1, PId: node ? node.Id : null, Id: "0", ItemOrder: GetMaxOrd(node), };
+        treeObj.addNode(newNode, newNode.ItemOrder, node);
+        treeObj.expandNode(node);
+        treeObj.selectNode(newNode);
+    }
+
+    function GetMaxOrd(parentNode) {
+        parentNode = parentNode || treeObj.getRootNode();
+        var nodes = treeObj.getChildNodes(parentNode);
+        var ord = 0;
+        if (nodes) {
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].ItemOrder > ord) ord = nodes[i].ItemOrder;
+            }
+        }
+        return ord + 1;
+    }
+
+    $.regButton({
+        text: "保存",
+        beforeSubmit: function (ajax) {
+            //当前节点的编辑信息更新
+            var snode = GetCurrentNode();
+            if (snode != null) {
+                treeOnClick({ node: snode });
+            }
+
+            if (!treeObj.isChanged()) {
+                showTips("success", "保存成功");
+                ajax.cancel = true;
+                return;
+            }
+
+            //获取节点数组
+            var data = treeObj.getList();
+            var json = mini.encode(data);
+            //请求数据
+            ajax.data = { data: json };
+            ajax.url = "Save";
+            //清除所有行修改痕迹
+            treeObj.accept();
+        },
+        afterSubmit: function () {
+            treeObj.load();
+            showTips("success", "保存成功");
+        }
+    });
+
+    function deleteSelectedNode() {
+        var nodes = treeObj.getCheckedNodes();
+        if (!nodes.length) {
+            alert("没有节点被勾选。");
+            return;
+        }
+        if (!confirm('是否删除选中节点?')) {
+            return;
+        }
+        treeObj.removeNodes(nodes);
+        treeObj.uncheckAllNodes();
+        //删除操作之后，默认选择第一个节点
+        treeObj.selectNode(treeObj.getList()[0]);
+
+        var ids = [];
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].Id != 0 || nodes[i].Id != null) { ids.push(nodes[i].Id); }
+        }
+        $.ajax({
+            url: "Delete",
+            data: { ids: ids },
+            type: "post",
+            success: function (data) {
+                showTips("success", "删除成功");
+            }
+        });
+    }
+
+    dataSourceRadio.on("valuechanged", function (e) {
+        console.log(e);
+        itemsTextShow(e.value);
+    });
+
+    function itemsTextShow(showNum) {
+        if (showNum == "2") {
+            $("#MetaItems").show();
+        } else {
+            $("#MetaItems").hide();
+        }
+    }
+
+</script>

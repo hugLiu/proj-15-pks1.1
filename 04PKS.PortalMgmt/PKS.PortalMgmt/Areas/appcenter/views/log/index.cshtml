@@ -1,0 +1,73 @@
+﻿<div class="mini-xs mini-sm mini-md mini-md-active">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-12">
+                <div id="grid1" class="mini-datagrid frame-fit frame-search-grid"
+                     url="@Url.Action("GetAll")" pagesize="20" multiselect="true">
+                    <div property="columns">
+                        <div type="checkcolumn"></div>
+                        <div field="Id" headeralign="center" allowsort="true">ID</div>
+                        @*<div field="CatalogId" headeralign="center" allowsort="true">CatalogId</div>
+                            <div field="ObjectId" headeralign="center" allowsort="true">ObjectId</div>*@
+                        <div field="LogType" headeralign="center" allowsort="true">@JStr.Level</div>
+                        <div field="UserName" headeralign="center" allowsort="true">
+                            @JStr.User
+                            @*<input id="nameFilter" property="filter" class="mini-textbox" style="width:100%;"
+                                onvaluechanged="onFilterChanged" />*@
+                        </div>
+                        <div field="ModuleName" headeralign="center" allowsort="true">@FStr.Controller</div>
+                        <div field="ActionName" headeralign="center" allowsort="true">@FStr.Method</div>
+                        <div field="OpTime" headeralign="center" dateformat="yyyy-MM-dd HH:mm:ss" allowsort="true">@JStr.Time</div>
+                        <div field="Costs" headeralign="center" allowsort="true">@FStr.Costs (ms)</div>
+                        <div field="Request" headeralign="center" allowsort="true">@JStr.Request</div>
+                        <div field="Message" headeralign="center" allowsort="false">@JStr.Message</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    mini.parse()
+    var grid = mini.get("grid1");
+    grid.load();
+
+    //在此处声明所有操作完成后，统一发生的事件
+    $('form').on('afterSubmit', function (e, r) {
+        grid.reload();
+    });
+
+    //获取所选择的ID号列表
+    function getSelectedIds() {
+        var idArr = [];
+        var rows = grid.getSelecteds();
+        for (var i = 0; i < rows.length; i++) {
+            idArr.push(rows[i].Id);
+        }
+        return idArr.join(',');
+    }
+
+    $.regButton({
+        text: "@JStr.Clear",
+        beforeSubmit: function (data) {
+            return confirm("@FStr.ConfirmClearAllLogs");
+        }
+    });
+
+    $.regButton({
+        text: "@JStr.Delete",
+        beforeSubmit: function (ajax) {
+            var ids = getSelectedIds();
+            if (ids.length == 0) {
+                alert("@JStr.PlzSelectDataRowsToDelete");
+                return false;
+            }
+            if (!confirm("@JStr.ConfirmDelete")) {
+                return false;
+            }
+            ajax.data = { ids: ids }
+        }
+    });
+</script>

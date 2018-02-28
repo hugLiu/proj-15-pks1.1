@@ -1,0 +1,50 @@
+﻿[
+  {
+    "tablename": "钻井基本数据表",
+    "headers": [],
+    "columns": [
+      {
+        "field": "Basin",
+        "title": "盆地",
+        "type": "",
+        "align": "center",
+        "valign": "bottom"
+      },
+      {
+        "field": "SecondStructure",
+        "title": "目标区",
+        "type": "",
+        "align": "center",
+        "valign": "bottom"
+      },
+      {
+        "field": "Block_ID",
+        "title": "区块",
+        "type": "",
+        "align": "center",
+        "valign": "bottom"
+      },
+      {
+        "field": "Well",
+        "title": "井名",
+        "type": "",
+        "align": "center",
+        "valign": "bottom"
+      },
+      {
+        "field": "Op_Mode_ID",
+        "title": "作业方式",
+        "type": "",
+        "align": "center",
+        "valign": "bottom"
+      },
+      {
+        "field": "Well_t_ID",
+        "title": "井类",
+        "type": "",
+        "align": "center",
+        "valign": "bottom"
+      }
+    ]
+  }
+]

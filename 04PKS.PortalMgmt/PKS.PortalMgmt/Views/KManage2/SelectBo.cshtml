@@ -1,0 +1,136 @@
+﻿@using PKS.WebAPI.Models
+@using PKS.WebAPI
+@{
+    var botItem = (BOT)ViewData["model"];
+    var properties = botItem.Properties.Where(t => t.Options != null && t.Scenario == BOTScenarioType.Filter);
+    var bolist = (List<string>)ViewData["bolist"];
+    var templateId = (int)ViewData["templateId"];
+}
+@{
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+<style type="text/css">
+    .span1 {
+        font-weight: bold;
+    }
+    td {
+        white-space: nowrap;
+    }
+    .label1 {
+        margin-right: 10px;
+    }
+    * {
+        background-color:white;
+    }
+</style>
+<div id="panel1" class="frame-fit"  style="width:100%;position:relative;padding:10px;background-color:white;">
+    <table id="table1" border="0" cellpadding="1" cellspacing="2" style="width:100%;table-layout:fixed;margin:10px;">
+        @foreach (var p in properties)
+        {
+            <tr>
+                <td width="90"><span class="span1">@p.DisplayName</span></td>
+                <td width="45">不限</td>
+                <td>
+                    
+                        @foreach (var op in p.Options)
+                        {
+                            <input type="checkbox" name="@p.DisplayName" value="@op" />
+                            <label class="label1">@op</label>
+                            @*<div name="@p.Name" value="@op" class="mini-checkbox" readOnly="false" text="@op"></div>*@
+                        }
+                    
+                    
+                </td>
+            </tr>
+            }
+    </table>
+    <div style="margin:10px;">
+        <a class="mini-button" onclick="query()">查询</a>
+        <p style="margin:5px;">查询结果</p>
+        <div id="paramlistbox" class="mini-listbox" style="width:95%;height:240px;padding:5px;margin:5px;"
+             showCheckBox="true" multiSelect="true"
+             textField="text" valueField="id">
+            <div property="columns">
+                <div header="@botItem.Name" field="text"></div>
+                <div header="已有模板" field="id"></div>
+            </div>
+        </div>
+        <div id="skipck" name="skipck" class="mini-checkbox" checked="true" readOnly="false" text="是否跳过已有模板的对象"></div>
+        <a class="mini-button" style="margin-left:10px;" onclick="Save()">保存</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    var paramlistbox = mini.get("paramlistbox");
+    var skipck = mini.get("skipck");
+
+    function query() {
+        var model = [];
+        var checkboxs = $("#table1 input:checkbox:checked");
+        for (var i = 0; i < checkboxs.length; i++) {
+            var item = { name: checkboxs[i].name, value: checkboxs[i].value };
+            model.push(item);
+        }
+
+        $.ajax({
+            url: "@Url.Action("QueryBo" ,"KManage2")",
+            data: { bot: "@botItem.Name" ,model: mini.encode(model) },
+            success: function (result) {
+                paramlistbox.removeAll();
+                if (result != null) {
+                    paramlistbox.addItems(result);
+                }
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "获取对象失败！\n" + e });
+            }
+        })
+    }
+
+    function Save() {
+        var list = paramlistbox.getSelecteds();
+        var pushlist = [];
+        var bSkip = skipck.checked;
+        var bCover = false;
+        var bShow = true;
+        //跳过已有模板的项
+        if (bSkip) {
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].id == "否") {
+                    pushlist.push(list[i].text);
+                }
+            }
+        } else {
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].id == "否") {
+                    pushlist.push(list[i].text);
+                } else {
+                    if (bShow) {
+                        if (confirm("确认覆盖已有模板？")) {
+                            bCover = true;
+                        }
+                        bShow = false;
+                    }
+                    if (bCover) {
+                        pushlist.push(list[i].text);
+                    }
+                }
+
+            }
+        }
+        $.ajax({
+            url: "@Url.Action("SaveInstances", "KManage2")",
+            data: { tid: "@templateId", bot: "@botItem.Name" ,pushlist: mini.encode(pushlist) },
+            success: function (result) {
+                showTips({ Type: "success", Message: "保存实例成功！" });
+                window.CloseOwnerWindow();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "保存实例失败！\n" + e });
+            }
+        })
+    }
+</script>

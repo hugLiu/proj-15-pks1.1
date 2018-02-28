@@ -1,0 +1,395 @@
+﻿
+@{
+    ViewBag.Title = ResHelper.GetStr("SDMenuTitleKeyWords");
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div id="keyWordsManage" class="mini-layout frame-fit" style="width: 100%; height: 100%; margin-top: -10px;">
+
+    <div title="@Html.Str("Data_Show")" region="west" width="400px" expanded="true" showspliticon="true" showheader="true">
+        <div>
+            <table style="width: 100%;height: 10%">
+                <tr>
+                    <td style="width: 45%">
+                        <input id="Selecttree" class="mini-treeselect" style="width:100%;overflow: hidden;"
+                               textfield="Term" idfield="TermClassId" valuefield="TermClassId" parentfield="PId" expandonload="false" showtreeicon="true"
+                               url="/Semantics/GetBPAndPtTreeResult?id=null&show=false"
+                               showtreelines="true" text="@Html.Str("empty_Select")" valuefromselect="true"
+                               onnodeclick="filterNodeClick()" />
+                    </td>
+                    <td style="width: 30%;padding-left: 5px">
+                        <input id="showNoKeyWordsPT" class="mini-checkbox" checked="false" text="@Html.Str("Only_Display_Need_Manage_PT")" />
+                    </td>
+                    <td style="width:20%;padding-right: 2px">
+                        <a plain="true" class="mini-button" iconcls="icon-new-refresh" onclick="onRefreshClick" style="background-color:rgb(255,255,255);border-radius: 8px;">@Html.Str("Refresh")</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="bpAndPTTree" class="mini-treegrid" style="width: 100%;height: 90%"
+             url="/Semantics/GetBPAndPtTreeResult?id=null&show=false" showtreeicon="true"
+             onnodeselect="treeNodeSelect" checkrecursive="false" allowresize="true"
+             treecolumn="taskname" idfield="TermClassId" valuefield="TermClassId" parentfield="PId" resultastree="false">
+            <div property="columns">
+                <div type="indexcolumn" width=10%>@Html.Str("Index")</div>
+                <div name="taskname" field="Term" width=40%>BPPT树</div>
+                <div field="IsPT" width=13%>是否为PT</div>
+                <div field="OrderIndex" width=13%>节点序号</div>
+                <div field="kwCount" width=13%>关键词个数</div>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div title="@Html.Str("Analyze")" region="center" style="width:200px; height: 100%; display:none;" expanded="true" showspliticon="false" showheader="true">
+        <div>
+            <table style="width: 100%;height: 30%">
+                <tr style="width: 100%">
+                    <td>
+                        <input id="tbInputSentence" class="mini-textbox" emptytext="@Html.Str("empty_Input")" style="width: 200px" />
+                    </td>
+                </tr>
+                <tr style="width: 100%">
+                    <td>
+                        <div id="analyzerlist" class="mini-combobox" style="width: 200px;"
+                             textfield="text" valuefield="id" value="SynAnalyze" allowinput="true" url="/Common/Analyzer.txt">
+                        </div>
+                    </td>
+                </tr>
+                <tr style="width: 100%; padding-right: 2px">
+                    <td align="right"><a class="mini-button" onclick="DoAnalyze">@Html.Str("Segment")</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="cblTerms" class="mini-listbox" style="width: 100%;height: 50%;border: 1px;solid-color: black"
+             textfield="text" valuefield="id" showcheckbox="true" multiselect="true">
+        </div>
+        <table style="width: 100%;height: 20%">
+            <tr>
+                <td align="right" style="width: 100%">
+                    <a plain="true" style="margin-right: 5px" class="mini-button" onclick="selectAll">@Html.Str("Select_All")</a>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" style="width: 100%">
+                    <a plain="true" style="margin-right: 5px" class="mini-button" iconcls="icon-new-add" onclick="toKeyWords">@Html.Str("Add_to_KeyWord")=>></a>
+                </td>
+            </tr>
+        </table>
+    </div>*@
+
+    <div title="@Html.Str("KeyWord_Insert")" region="center" width="400px" expanded="true" showspliticon="true" showheader="true">
+        <table style="width: 100%;height: 10%; padding-left:5px;">
+            <tr>
+                <td align="left" style="width: 30%">
+                    <input id="tbInputKeyWord" class="mini-textbox" emptytext="@Html.Str("empty_Input")" style="width: 100px" />
+                </td>
+                <td align="right" style="width: 10%">
+                    <a plain="true" class="mini-button" iconcls="icon-new-add" onclick="onAddClick">@Html.Str("Add")</a>
+                </td>
+                <td align="right" style="width: 10%">
+                    <a plain="true" class="mini-button" iconcls="icon-new-empty" onclick="onRemoveClick">@Html.Str("Delete")</a>
+                </td>
+                <td align="right" style="width: 10%">
+                    <a plain="true" class="mini-button" iconcls="icon-new-movedown" onclick="onDownClick">@Html.Str("Down")</a>
+                </td>
+                <td align="right" style="width: 10%">
+                    <a plain="true" class="mini-button" iconcls="icon-new-moveup" onclick="onUpClick">@Html.Str("Up")</a>
+                </td>
+                <td align="right" style="width: 10%">
+                    <a plain="true" class="mini-button" iconcls="icon-new-save" onclick="updateKeyWords">@Html.Str("Save")</a>
+                </td>
+            </tr>
+        </table>
+        <div id="cblKeyWords" class="mini-listbox" textfield="text" valuefield="id" style="width: 100%; height: 80%" multiselect="true">
+            <div property="columns">
+                <div type="indexcolumn" width=10%>@Html.Str("Index")</div>
+                <div header=@Html.Str("KeyWord") field="text"></div>
+            </div>
+        </div>
+        <div style="width: 100%;height: 10%">
+            <a plain=" true" style="position: absolute; bottom: 8px;right: 5px" class="mini-button" onclick="clearAll">
+                @Html.Str("Clear_All")
+            </a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    /***************公共变量******************************************************/
+    mini.parse();
+    var bpptTree = mini.get("bpAndPTTree");
+    var showCk = mini.get("showNoKeyWordsPT");
+    var bpptChecknodes = bpptTree.getCheckedNodes(false); //获得check中的所有节点
+    var ptParent = bpptTree.getChildNodes(bpptChecknodes[0]);
+    var segmentResult = mini.get("cblTerms");
+    var keyWords = mini.get("cblKeyWords");
+    var selecteTree = mini.get("Selecttree");
+    var analyzerList = mini.get("analyzerlist");
+    var tbInputSentence = mini.get("tbInputSentence");
+    var tbInputKeyWord = mini.get("tbInputKeyWord");
+    var ServiceURL = "http://192.168.1.156:8066/";
+
+    var leafNodeAlert = "@Html.Str("Node_IsLeaf")";
+    var emptyInput = "@Html.Str("empty_Input")";
+    var minOneRecord = "@Html.Str("Min_One_Record")";
+    var confirmDelete = "@Html.Str("Confirm_Delete")";
+    var Delete = "@Html.Str("Delete")";
+    var deleted = "@Html.Str("Success_Delete")";
+    var added = "@Html.Str("Success_Add")";
+    var saved= "@Html.Str("Success_Save")";
+    //版本---public
+    var ServiceVersion = "Api";
+    //语义服务---one
+    var SemanticsService = "/SemanticsService";
+    //获取分词---two
+    var SegmentAnalyzer = "/Segment";
+    //获取token方法
+    var token = "/Token";
+    /*******************************************************************************/
+
+    //筛选树的节点
+    function filterNodeClick() {
+        var selectNode = selecteTree.getSelectedNode(); //获得选中树的节点
+        var selectChildNodes = bpptTree.getAllChildNodes(selectNode);
+        var isLeaf = bpptTree.isLeaf(selectNode); //判断是否是叶子节点
+        if (isLeaf == false) {
+            bpptTree.loadData(selectChildNodes);
+        } else {
+            mini.alert(leafNodeAlert);
+        }
+    }
+
+    //刷新树节点
+    function onRefreshClick() {
+        //获得当前选定节点的ID
+        var id = null;
+        if (selecteTree.getValue() !== "") {
+            id = selecteTree.getSelectedNode().TermClassId;
+        }
+        var show = showCk.checked;
+        bpptTree.load("/Semantics/GetBPAndPtTreeResult?id=" + id + "&show=" + show);
+    }
+
+    //树节点选中时，分词输入框内联动显示
+    function treeNodeSelect() {
+        var sentence = bpptTree.getSelectedNode().Term;
+        //tbInputSentence.setValue(sentence);
+
+        //点选节点直接分词
+        //DoAnalyze();
+        //清除关键词表中所有内容
+        clearAll();
+        //数据库中已存在的关键词现在在关键词列表当中
+        var id = bpptTree.getSelectedNode().TermClassId;
+        $.ajax({
+            url: "/Semantics/GetKeyWords?id=" + id,
+            type: "get",
+            success: function (data) {
+                var list = [];
+                $.each(data, function (idx, obj) {
+                    list.push({ id: obj.OrderIndex, text: obj.KeyWord });
+                });
+                keyWords.addItems(list);
+            },
+            error: function (err) {
+                toastr["error"](err.status + " - " + err.statusText);
+            }
+        });
+
+    }
+
+    //分词，可以使用不同的分词器
+    function DoAnalyze() {
+        var sentence = tbInputSentence.getValue();
+        var analyzer = analyzerList.getValue();
+        $.ajax({
+            url: "/KeyWordsManager/Segment",
+            data: { sentence: sentence, method: analyzer },
+            type: "post",
+            success: function (result) {
+                var resultObject = JSON.parse(result);
+                var list = [];
+                var i = 1;
+                var data = resultObject.Data;
+                $.each(data, function () {
+                    list.push({ id: i, text: data[i - 1] });
+                    i++;
+                });
+                segmentResult.loadData(list);
+            },
+            error: function (err) {
+                toastr["error"](err.status + " - " + err.statusText);
+            }
+        });
+    }
+
+    //选中所有的分词结果
+    function selectAll() {
+        segmentResult.selectAll();
+    }
+
+    //分词结果选中到关键词位置
+    function toKeyWords() {
+        //获取选中的分词结果
+        var items = segmentResult.getSelecteds();
+        keyWords.addItems(items);
+        keyWords.selectAll();
+        //添加之后默认全选，并保存到数据库中
+        addKeyWords();
+    }
+
+    /*****************关键词的操作*****************/
+    function onAddClick() //添加
+    {
+        var input = tbInputKeyWord.getValue();
+        if (input == "") {
+            return;
+        }
+        else {
+            var count = keyWords.getCount();
+            var item = { id: count + 1, text: input };
+            keyWords.addItem(item, count + 1);
+            //添加之后默认选中
+            keyWords.select(item);
+        }
+        //添加之后自动保存
+        addKeyWords();
+    }
+    function onRemoveClick() //删除
+    {
+        var items = keyWords.getSelecteds();
+        var id = bpptTree.getSelectedNode().TermClassId;
+        if (items.length == 0) {
+            mini.showTips({
+                content: minOneRecord,
+                state: "warning",
+                x: "right",
+                y: "top",
+                timeout: 1500
+            });
+        }
+        else {
+            mini.confirm(confirmDelete, Delete,
+              function (action) {
+                  if (action == "ok") {
+                      keyWords.removeItems(items);
+                      var json = mini.encode(items);
+                      json = encodeURI(json);
+                      $.ajax({
+                          url: "/Semantics/UpdateKeyWords?id=" + id + "&words=" + json + "&operatestr=Delete",
+                          type: "post",
+                          success: function () {
+                              mini.showTips({
+                                  content: deleted,
+                                  state: "success",
+                                  x: "right",
+                                  y: "top",
+                                  timeout: 1500
+                              });
+                          },
+                          error: function (err) {
+                              toastr["error"](err.status + " - " + err.statusText);
+                          }
+                      });
+                  }
+              }
+          );
+        }
+    }
+    function onUpClick() //上移
+    {
+        var items = keyWords.getSelecteds();
+        for (var i = 0, l = items.length; i < l; i++) {
+            var item = items[i];
+            var index = keyWords.indexOf(item);
+            keyWords.moveItem(item, index - 1);
+        }
+    }
+    function onDownClick() //下移
+    {
+        var items = keyWords.getSelecteds();
+        for (var i = items.length - 1; i >= 0; i--) {
+            var item = items[i];
+            var index = keyWords.indexOf(item);
+            keyWords.moveItem(item, index + 1);
+        }
+    }
+    function addKeyWords() //添加关键词到数据库
+    {
+        var id = bpptTree.getSelectedNode().TermClassId;
+        var data = keyWords.getSelecteds();
+        if (data.length == 0) {
+            mini.showTips({
+                content: minOneRecord,
+                state: "warning",
+                x: "right",
+                y: "top",
+                timeout: 1500
+            });
+        }
+        else {
+            var json = mini.encode(data);
+            json = encodeURI(json);
+            $.ajax({
+                url: "/Semantics/UpdateKeyWords?id=" + id + "&words=" + json + "&operatestr=Add",
+                type: "post",
+                success: function () {
+                    mini.showTips({
+                        content: added,
+                        state: "success",
+                        x: "right",
+                        y: "top",
+                        timeout: 1500
+                    });
+                },
+                error: function (err) {
+                    toastr["error"](err.status + " - " + err.statusText);
+                }
+            });
+        }
+        keyWords.deselectAll();
+    }
+    function updateKeyWords() //更新关键词到数据库
+    {
+        keyWords.selectAll();
+        var id = bpptTree.getSelectedNode().TermClassId;
+        var data = keyWords.getSelecteds();
+        if (data.length == 0) {
+            mini.showTips({
+                content: minOneRecord,
+                state: "warning",
+                x: "right",
+                y: "top",
+                timeout: 1500
+            });
+        }
+        else {
+            var json = mini.encode(data);
+            json = encodeURI(json);
+            $.ajax({
+                url: "/Semantics/UpdateKeyWords?id=" + id + "&words=" + json + "&operatestr=Update",
+                type: "post",
+                success: function () {
+                    mini.showTips({
+                        content: saved,
+                        state: "success",
+                        x: "right",
+                        y: "top",
+                        timeout: 1500
+                    });
+                },
+                error: function (err) {
+                    toastr["error"](err.status + " - " + err.statusText);
+                }
+            });
+        }
+        keyWords.deselectAll();
+    }
+    //清除关键字列表所有内容
+    function clearAll() {
+        keyWords.removeAll();
+    }
+</script>

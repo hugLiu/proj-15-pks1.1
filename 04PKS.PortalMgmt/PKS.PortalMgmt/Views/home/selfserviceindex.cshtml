@@ -1,0 +1,142 @@
+﻿@using Jurassic.WebFrame.Models;
+@model Jurassic.WebFrame.Models.UserConfig
+@{
+    ViewBag.Title = FStr.UserConfigPage;
+    Layout = "~/Views/Shared/_FormLayout.cshtml";
+    var baseController = this.ViewContext.Controller as BaseController;
+    var user = baseController.CurrentUser;
+}
+@Html.HiddenFor(model => model.Id)
+<div class="mini-xs mini-sm mini-md mini-md-active mini-col">
+    <div class="container-fluid">
+        <div class="mini-clearfix">
+            <div class="mini-col-12">
+                <div class="mini-panel layout-panel topinfo frame-fit" width="auto" showHeader="false">
+                    <div class="contentdiv">
+                        <div class="titlediv titleline"><p>@FStr.UserBaseInfo</p></div>
+                        <div>
+                            <span class="contentdivl">@JStr.UserName:</span>
+                            <div class="contentdivr">@user.Name</div>
+                        </div>
+                        <div class="contentline">
+                            @*引用分部视图显示用户头像及更改按钮*@
+                            @Html.Partial("SetUserAvatar")
+                        </div>
+                        <div>
+                            <span class="contentdivl">@FStr.LoginHistory</span>
+                            <div class="contentdivr">
+                                <div id="grid1" class="mini-datagrid frame-search-grid"
+                                     url="@Url.Action("GetUserLoginLogs", "Log", new{area="AppCenter"})" pagesize="10" multiselect="true" width="500" height="300">
+                                    <div property="columns">
+                                        <div field="Id" width="60" headeralign="center" allowsort="true">ID</div>
+                                        <div field="OpTime" headeralign="center" dateformat="yyyy-MM-dd HH:mm:ss" allowsort="true">@JStr.Time</div>
+                                        <div field="ClientIP" headeralign="center" allowsort="true">@FStr.ClientIP</div>
+                                        <div field="Result" headeralign="center" allowsort="true">@JStr.Status</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="titlediv titleline"><p>@FStr.FavoriteSettings</p></div>
+                        <div class="contentline">
+                            <div class="contentdivl">@FStr.Skin:</div>
+                            <div class="contentdivr" id="pnlTheme">
+                                @foreach (string theme in ViewData["ThemeList"] as IEnumerable<string>)
+                                {
+
+                                    <link href="@Url.Content("~/content/theme/" + theme + "/thumbnail.css")" type="text/css" rel="stylesheet" />
+                                    <div style="float:left;">
+                                        <label for="selTheme_@theme" style="height:73px; width:93px;display:inline-block" class="@theme">@theme</label>
+                                        <input type="radio" name="Theme" value="@theme" id="selTheme_@theme" @Html.Raw(Model.Theme == theme ? "checked='checked'" : "") style=" display:none" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="contentline">
+                            <div class="contentdivl">@FStr.TabShow:</div>
+                            <div class="contentdivr">
+                                <div id="ck1" class="mini-checkbox" checked="@(Model.ShowTab?"true":"false")" readonly="false"
+                                     name="ShowTab" onvaluechanged="onValueChanged">@FStr.TabShow</div>
+                                    @Html.HiddenFor(model => model.ShowTab)
+                                </div>
+                            </div>
+                            <div class="noline">
+                                <div class="contentdivl">@FStr.GridLine</div>
+                                <div class="contentdivr">
+                                    <input type="checkbox" value="1" name="chkGridLine" />
+                                    @FStr.Horizontal
+                                </div>
+                                <div class="contentdivr">
+                                    <input type="checkbox" value="2" name="chkGridLine" />
+                                    @FStr.Vertical
+                                </div>
+                            </div>
+                            <div class="online">
+                                <div class="contentdivl"></div>
+                                <div class="contentdivr">
+                                    <input type="hidden" value="@((int)Model.GridLineStyle)" name="GridLineStyle" />
+                                    <a class="mini-button frame-submit">@JStr.Save</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+             </div>
+        </div>
+    </div>
+</div>
+<div style="clear: both; height: 0; _overflow: hidden;"></div>
+    <script type="text/javascript">
+
+        mini.parse();
+        var logGrid = mini.get("#grid1");
+        logGrid.load();
+        var themeRoot = '@Url.Content("~/content/theme/")';
+        var indexThemeLink = window.top.document.getElementById("userConfigTheme");
+        var formThemeLink = window.document.getElementById("userConfigTheme");
+        var indexTheme = indexThemeLink.href;
+        var formTheme = formThemeLink.href;
+
+        function onValueChanged(e) {
+            var checked = this.getChecked();
+            $("[name='ShowTab']").val(checked);
+        }
+
+        function gridLineValueChanged(e) {
+            var gridLineStyle = 0;
+            $("[name=chkGridLine]").each(function () {
+                if (this.checked) {
+                    gridLineStyle |= $(this).val();
+                }
+            });
+            $("[name='GridLineStyle']").val(gridLineStyle);
+        }
+
+        $("[name=chkGridLine]").each(function () {
+            this.checked = ((this.value & $("[name='GridLineStyle']").val()) == this.value);
+            $(this).change(gridLineValueChanged);
+        });
+
+        function setThemeBorder() {
+            var theme = $('#' + $(this).attr('for')).val();
+            theme = theme || $('[name="Theme"]:checked').val();
+            $('#pnlTheme label').css("border", '2px solid white').css('cursor', 'pointer');
+            $('#pnlTheme .' + theme).css("border", '2px solid #b1b1b1');
+        }
+
+        function previewTheme() {
+            var theme = $('#' + $(this).attr('for')).val();
+            indexThemeLink.href = themeRoot + theme + "/main.css";
+            formThemeLink.href = themeRoot + theme + "/main.css";
+        }
+
+        function recoverTheme() {
+            indexThemeLink.href = indexTheme;
+            formThemeLink.href = formTheme;
+        }
+
+        $('#pnlTheme label').click(setThemeBorder)
+        .mouseover(previewTheme)
+        .mouseout(recoverTheme);
+
+        setThemeBorder();
+
+    </script>

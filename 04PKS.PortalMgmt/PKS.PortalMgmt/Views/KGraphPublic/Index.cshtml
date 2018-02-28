@@ -1,0 +1,515 @@
+﻿@using PKS.Web
+@using PKS.Models
+@{
+    ViewBag.Title = "公共图谱管理";
+    string webApiSiteUrl = this.Context.GetWebApiSiteUrl();
+}
+<link href="@webApiSiteUrl/Content/jQuery-File-Upload-9.19.2/css/jquery.fileupload.css" rel="stylesheet">
+<style type="text/css">
+    #mainForm .mini-textbox, #mainForm .mini-combobox, #mainForm textarea {
+        width: 400px;
+    }
+
+    #IconClass {
+        width: 312px !important;
+        height: 21px !important;
+        border: 1px solid #a5acb5 !important;
+        border-radius: 0px !important;
+        border-right: 0px !important;
+    }
+
+    .pointer {
+        width: 40px !important;
+        height: 21px !important;
+        border: 1px solid #a5acb5 !important;
+        padding: 2px 10px !important;
+        border-radius: 0px !important;
+        background: white !important;
+    }
+</style>
+<div class="mini-xs mini-sm mini-md mini-md-active">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-4">
+                <div class="mini-panel layout-panel frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+                    <ul id="catalogTree" class="mini-tree frame-search-tree" url="@Url.Action("GetAll")" style="width:100%"
+                        checkrecursive="true" showcheckbox="false" showtreeicon="false" textfield="Name" idfield="Id" parentfield="ParentId" resultastree="false" expandonload="1"
+                        onload="onLoadAll" onnodeselect="onClickNode" ondrawnode="onDrawNode"
+                        allowdrop="true" allowleafdropin="true"></ul>
+                </div>
+            </div>
+            <div class="mini-col-8">
+                <div class="mini-panel layout-panel frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+                    <table id="mainForm" class="boxcls">
+                        <tr>
+                            <td class="right"><label for="mainForm_parentId">父ID</label></td>
+                            <td>
+                                <input name="ParentId" id="mainForm_parentId" class="mini-textbox" allowInput="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_Id">ID</label></td>
+                            <td>
+                                <input name="Id" id="mainForm_Id" class="mini-textbox" allowInput="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_code"><span style="color:red">*</span>编码</label></td>
+                            <td>
+                                <input name="Code" id="mainForm_code" class="mini-textbox" required="true" vtype="maxLength:100" requirederrortext="编码不允许为空" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_name"><span style="color:red">*</span>名称</label></td>
+                            <td>
+                                <input name="Name" id="mainForm_name" class="mini-textbox" required="true" vtype="maxLength:100" requirederrortext="名称不允许为空" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_description">描述</label></td>
+                            <td>
+                                <input name="Description" id="mainForm_description" class="mini-textarea" vtype="maxLength:255" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_imageURL">图象URL</label></td>
+                            <td>
+                                <input name="PatternURL" id="mainForm_imageURL" class="mini-textbox" allowInput="false" style="width:335px;" />
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>浏览</span>
+                                    <input id="mainForm_imageFileUpload" type="file" name="file">
+                                </span>
+                            </td>
+                        </tr>
+                        <tr id="mainForm_image" style="display:none;">
+                            <td class="right"><label>图象</label></td>
+                            <td>
+                                <img src="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_level">级数</label></td>
+                            <td>
+                                <input name="Level" id="mainForm_level" class="mini-textbox" allowInput="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_order">顺序</label></td>
+                            <td>
+                                <input name="Order" id="mainForm_order" class="mini-textbox" allowInput="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_createdBy">创建者</label></td>
+                            <td>
+                                <input name="CreatedBy" id="mainForm_createdBy" class="mini-textbox" allowInput="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_createdDate">创建时间</label></td>
+                            <td>
+                                <input name="CreatedDate" id="mainForm_createdDate" class="mini-textbox" allowInput="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_lastUpdatedBy">最后更新者</label></td>
+                            <td>
+                                <input name="LastUpdatedBy" id="mainForm_lastUpdatedBy" class="mini-textbox" allowInput="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="right"><label for="mainForm_lastUpdatedDate">最后更新时间</label></td>
+                            <td>
+                                <input name="LastUpdatedDate" id="mainForm_lastUpdatedDate" class="mini-textbox" allowInput="false" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="@webApiSiteUrl/Content/jQuery-File-Upload-9.19.2/js/vendor/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="@webApiSiteUrl/Content/jQuery-File-Upload-9.19.2/js/jquery.fileupload.js"></script>
+<script type="text/javascript">
+    mini.parse();
+    var catalogTree = mini.get("#catalogTree");
+    var mainForm = new mini.Form("#mainForm");
+
+    //加载成功后执行
+    function onLoadAll(result) {
+        onLoadNodes(result.data);
+        //if (result.data.length > 0) catalogTree.selectNode(result.data[0]);
+    }
+
+    //加载成功后执行
+    function onLoadNodes(nodes) {
+        for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
+            formatDate(node);
+            if (node.children) onLoadNodes(node.children);
+        }
+    }
+
+    //处理时间格式
+    function formatDate(node) {
+        if (typeof node.CreatedDate === "object") node.CreatedDate = mini.formatDate(node.CreatedDate, "yyyy-MM-dd HH:mm:ss");
+        if (typeof node.LastUpdatedDate === "object") node.LastUpdatedDate = mini.formatDate(node.LastUpdatedDate, "yyyy-MM-dd HH:mm:ss");
+    }
+
+    //显示节点文本
+    var newCount = 1;
+    function onDrawNode(e) {
+        var node = e.node;
+        if (node.Code) {
+            e.nodeHtml = getNodeTitle(node);
+        } else if (node.newCount) {
+            e.nodeHtml = "新图谱" + node.newCount;
+        } else {
+            node.newCount = newCount;
+            e.nodeHtml = "新图谱" + newCount;
+            newCount++;
+        }
+    }
+
+    //获得节点标题
+    function getNodeTitle(node) {
+        return node.Code + ":" + node.Name;
+    }
+
+    //显示图象
+    function showImage(change, patternUrl, imageUrl) {
+        if (patternUrl) {
+            if (change) {
+                mini.get("#mainForm_imageURL").setValue(patternUrl);
+                mainForm.setChanged(true);
+            }
+            $("#mainForm_imageURL").attr("title", patternUrl);
+            $("#mainForm_image img").attr("src", imageUrl).attr("title", imageUrl);
+            $("#mainForm_image").show();
+        } else {
+            $("#mainForm_imageURL").attr("title", "");
+            $("#mainForm_image").hide();
+            $("#mainForm_image img").attr("src", "").attr("title", "");
+        }
+    }
+
+    //点击节点
+    function onClickNode(e) {
+        if (!e.node) return;
+        mainForm.setData(e.node);
+        showImage(false, e.node.PatternURL, e.node.ImageURL);
+        mainForm.setChanged(false);
+        mini.get('#mainForm_code').focus();
+    };
+
+    //创建新节点
+    function createNewNode(parentNode) {
+        var newNode = {
+            ParentId: (parentNode && parentNode.Id) ? parentNode.Id : null,
+            Id: null,
+            Code: "",
+            Name: "",
+            ImageURL: "",
+            Description: "",
+            Level: (parentNode && parentNode.Id) ? parentNode.Level + 1 : 0,
+            Order: getNextOrder(parentNode),
+            CreatedBy: "",
+            CreatedDate: "",
+            LastUpdatedBy: "",
+            LastUpdatedDate: "",
+        };
+        return newNode;
+    }
+
+    //获取某个节点的下一个顺序值
+    function getNextOrder(parentNode) {
+        if (!parentNode) return 0;
+        var nodes = parentNode.children;
+        var order = -1;
+        if (nodes) {
+            for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].Order > order) order = nodes[i].Order;
+            }
+        }
+        return order + 1;
+    }
+
+    //加入兄弟节点
+    $.regButton({ text: "@FStr.AddBrother", noSubmit: addBrother });
+    function addBrother() {
+        var selectedNode = catalogTree.getSelectedNode();
+        var parentNode = (selectedNode == null ? catalogTree.getRootNode() : catalogTree.getParentNode(selectedNode));
+        var newNode = createNewNode(parentNode);
+        catalogTree.addNode(newNode, newNode.Order, parentNode);
+        catalogTree.selectNode(newNode);
+    }
+
+    //加入子节点
+    $.regButton({ text: "@FStr.AddChild", noSubmit: addChild });
+    function addChild() {
+        var selectedNode = catalogTree.getSelectedNode();
+        if (!selectedNode) return;
+        if (!selectedNode.Id) return;
+        var newNode = createNewNode(selectedNode);
+        catalogTree.addNode(newNode, newNode.Order, selectedNode);
+        catalogTree.expandNode(selectedNode);
+        catalogTree.selectNode(newNode);
+    }
+
+    //是否重复节点
+    function isRepeat(treeNode, formNode) {
+        var parentNode = catalogTree.getParentNode(treeNode);
+        var children = catalogTree.getChildNodes(parentNode);
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            if (child == treeNode) continue;
+            if (child.Code == formNode.Code) return true;
+            if (child.Name == formNode.Name) return true;
+        }
+        return false;
+    }
+
+    //保存当前选择节点
+    var savedNode;
+    $.regButton({
+        text: "@JStr.Save",
+        beforeSubmit: function (ajax) {
+            var selectedNode = catalogTree.getSelectedNode();
+            if (selectedNode == null) {
+                showTips("warning", "请先新增或选择一个节点！");
+                ajax.cancel = true;
+                return;
+            }
+            if (!mainForm.isChanged()) {
+                showTips("warning", "@FStr.NoDataToSave");
+                ajax.cancel = true;
+                return;
+            }
+            ajax.selectedNode = selectedNode;
+        },
+        beforeAjax: function (ajax) {
+            var formNode = mainForm.getData();
+            if (isRepeat(ajax.selectedNode, formNode)) {
+                showTips("warning", "相同编码或名称的节点已经存在！");
+                ajax.cancel = true;
+                return;
+            }
+            if (!formNode.Id) formNode.Id = 0;
+            ajax.url = "@Url.Action("Save")";
+            ajax.data = mini.encode(formNode);
+            ajax.contentType = "application/json; charset=UTF-8";
+            savedNode = ajax.selectedNode;
+        },
+        afterSubmit: function (result) {
+            formatDate(result);
+            catalogTree.updateNode(savedNode, result);
+            catalogTree.accept();
+            var selectedNode = catalogTree.getSelectedNode();
+            if (savedNode == selectedNode) {
+                mainForm.setData(result);
+                mainForm.setChanged(false);
+            }
+            showTips("success", "图谱[" + getNodeTitle(result) + "]保存成功！");
+        }
+    });
+
+    //删除节点
+    var deletedNode;
+    $.regButton({
+        text: "@JStr.Delete",
+        beforeSubmit: function (ajax) {
+            var selectedNode = catalogTree.getSelectedNode();
+            if (selectedNode == null) {
+                showTips("warning", "请先选择一个节点！");
+                ajax.cancel = true;
+                return;
+            }
+            if (!selectedNode.Id) {
+                deleteNode(selectedNode);
+                ajax.cancel = true;
+                return;
+            }
+            if (selectedNode.children && selectedNode.children.length > 0) {
+                showTips("warning", "只允许删除叶子节点！");
+                ajax.cancel = true;
+                return;
+            }
+            if (!confirm("是否删除当前选择的图谱[" + getNodeTitle(selectedNode) + "]?")) {
+                ajax.cancel = true;
+                return;
+            }
+            ajax.validate = false;
+            ajax.url = "@Url.Action("Delete")";
+            ajax.data = mini.encode(selectedNode);
+            ajax.contentType = "application/json; charset=UTF-8";
+            deletedNode = selectedNode;
+        },
+        afterSubmit: function (result) {
+            deleteNode(deletedNode);
+            showTips("success", "图谱[" + getNodeTitle(result) + "]删除成功！");
+        }
+    });
+    function deleteNode(node) {
+        catalogTree.removeNode(node);
+        catalogTree.accept();
+        var nodes = catalogTree.getList();
+        if (nodes && nodes.length > 0) {
+            catalogTree.selectNode(nodes[0]);
+        } else {
+            mainForm.clear();
+        }
+    }
+
+    //上移节点
+    var movingNodes;
+    $.regButton({
+        text: "@JStr.MoveUp",
+        beforeSubmit: function (ajax) {
+            var selectedNode = catalogTree.getSelectedNode();
+            if (selectedNode == null) {
+                showTips("warning", "请先选择一个节点！");
+                ajax.cancel = true;
+                return;
+            }
+            var prevNode = getPrevNode(selectedNode);
+            if (prevNode == null) {
+                showTips("warning", "无法上移！");
+                ajax.cancel = true;
+                return;
+            }
+            var sortNodes = [];
+            var sortCount = 0;
+            sortCount += addSortNode(sortNodes, selectedNode, prevNode.Order);
+            sortCount += addSortNode(sortNodes, prevNode, selectedNode.Order);
+            if (sortCount == 0) {
+                moveNodes(selectedNode, prevNode, "before");
+                ajax.cancel = true;
+                return;
+            }
+            ajax.validate = false;
+            ajax.url = "@Url.Action("Sort")";
+            ajax.data = mini.encode(sortNodes);
+            ajax.contentType = "application/json; charset=UTF-8";
+            movingNodes = [selectedNode, prevNode];
+        },
+        afterSubmit: function (nodes) {
+            checkSortNode(movingNodes[0], nodes[0], movingNodes[1].Order);
+            checkSortNode(movingNodes[1], nodes[1], movingNodes[0].Order);
+            catalogTree.moveNode(movingNodes[0], movingNodes[1], "before");
+            catalogTree.selectNode(movingNodes[0]);
+            showTips("success", "上移成功！");
+        }
+    });
+
+    //获取结点前的兄弟
+    function getPrevNode(node) {
+        var parentNode = catalogTree.getParentNode(node);
+        var children = catalogTree.getChildNodes(parentNode);
+        for (var i = 0; i < children.length; i++) {
+            if (children[i] != node) continue;
+            if (i == 0) return null;
+            return children[i - 1];
+        }
+        return null;
+    }
+
+    //加入一个排序节点
+    function addSortNode(sortNodes, node, order) {
+        if (!node.Id) {
+            sortNodes.push(null);
+            return 0;
+        }
+        var newNode = {};
+        $.extend(newNode, node);
+        newNode.Order = order;
+        delete newNode.children;
+        sortNodes.push(newNode);
+        return 1;
+    }
+
+    //检查排序节点
+    function checkSortNode(node, newNode, order) {
+        if (newNode == null) {
+            node.Order = order;
+        } else {
+            catalogTree.updateNode(node, newNode);
+        }
+    }
+
+    //移动节点
+    function moveNodes(selectedNode, targetNode, action) {
+        var targetOrder = targetNode.Order;
+        targetNode.Order = selectedNode.Order;
+        selectedNode.Order = targetOrder;
+        catalogTree.moveNode(selectedNode, targetNode, action);
+        catalogTree.selectNode(selectedNode);
+    }
+
+    //下移节点
+    $.regButton({
+        text: "@JStr.MoveDown",
+        beforeSubmit: function (ajax) {
+            var selectedNode = catalogTree.getSelectedNode();
+            if (selectedNode == null) {
+                showTips("warning", "请先选择一个节点！");
+                ajax.cancel = true;
+                return;
+            }
+            var nextNode = getNextNode(selectedNode);
+            if (nextNode == null) {
+                showTips("warning", "无法下移！");
+                ajax.cancel = true;
+                return;
+            }
+            var sortNodes = [];
+            var sortCount = 0;
+            sortCount += addSortNode(sortNodes, selectedNode, nextNode.Order);
+            sortCount += addSortNode(sortNodes, nextNode, selectedNode.Order);
+            if (sortCount == 0) {
+                moveNodes(selectedNode, nextNode, "after");
+                ajax.cancel = true;
+                return;
+            }
+            ajax.validate = false;
+            ajax.url = "@Url.Action("Sort")";
+            ajax.data = mini.encode(sortNodes);
+            ajax.contentType = "application/json; charset=UTF-8";
+            movingNodes = [selectedNode, nextNode];
+        },
+        afterSubmit: function (nodes) {
+            checkSortNode(movingNodes[0], nodes[0], movingNodes[1].Order);
+            checkSortNode(movingNodes[1], nodes[1], movingNodes[0].Order);
+            catalogTree.moveNode(movingNodes[0], movingNodes[1], "after");
+            catalogTree.selectNode(movingNodes[0]);
+            showTips("success", "下移成功！");
+        }
+    });
+    //获取结点后的兄弟
+    function getNextNode(node) {
+        var pNode = catalogTree.getParentNode(node);
+        var children = catalogTree.getChildNodes(pNode);
+        for (var i = 0; i < children.length - 1; i++) {
+            if (children[i] == node) {
+                return children[i + 1];
+            }
+        }
+        return null;
+    }
+
+    $('#mainForm_imageFileUpload').fileupload({
+        url: "@webApiSiteUrl/api/AppDataService/UploadFile",
+        formData: { enablePattern: true },
+        dataType: 'json',
+        done: function (e, data) {
+            showImage(true, data.result.patternUrl, data.result.fileUrl);
+            showTips("success", "上传成功！");
+        },
+        fail: function (e, data) {
+            showTips("error", data.errorThrown);
+        }
+    });
+    //.prop('disabled', !$.support.fileInput)
+    //.parent().addClass($.support.fileInput ? undefined : 'disabled');
+</script>

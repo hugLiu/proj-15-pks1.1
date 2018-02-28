@@ -1,0 +1,76 @@
+﻿@model AppUser
+@{
+    ViewBag.Title = Model.Id.IsEmpty() ? FStr.NewUser : FStr.EditUserInfo + " - " + Model.Name;
+    ViewBag.ShowBreadCrumb = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div class="form-div frame-fit" id="form1" style="overflow:hidden;" >
+    <input type="hidden" name="Id" id="hdId" value="@Model.Id" />
+    <input type="hidden" name="Name" id="hdName" value="@Model.Name" />
+
+    <div class="mini-fit">
+        <ul id="catalogTree" class="mini-tree " style="width: 100%"
+            checkrecursive="true" showcheckbox="true" showtreeicon="true"
+            textfield="name" idfield="id" parentfield="pId" resultastree="false" expandonload="1">
+        </ul>
+    </div>
+    <input type="hidden" name="FuncIds" id="FuncIds" value="" />
+    <br />
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+
+    var treeObj = mini.get("#catalogTree");
+    var allFunctions;
+
+    //初始创建树结构,并绑定已经设置的权限
+    $.newGET('@Url.Action("GetAllRoleMenus", "Functions")', function (zNodes) {
+        allFunctions = zNodes;
+        treeObj.loadList(allFunctions, "id", "pId");
+        //获取已设置的状态并设置树节点选中状态
+        var uName = $('#hdName').val();
+        var uid = $('#hdId').val();
+        $.newGET('@Url.Action("InitTreeCheckStat")', { id: uid, uName: uName }, setCheckStates);
+    });
+
+    //设置权限树选择状态
+    function setCheckStates(tips) {
+        var functionIds = tips.ReturnValue;
+        treeObj.uncheckAllNodes();
+        $(allFunctions).each(function () {
+            var checked = $.inArray(this.id, functionIds) >= 0;
+            //当结点有权限，并且是叶子结点时，勾选结点
+            if (checked && treeObj.isLeaf(this)) {
+                treeObj.checkNode(this);
+            }
+        });
+    }
+
+    //获取选择的节点id
+    function getCheckedIds() {
+        var nodes = treeObj.getCheckedNodes(true);
+        var idArr = [];
+        for (var i = 0; i < nodes.length; i++) {
+            idArr.push(nodes[i].id);
+        }
+        var ids = idArr.join(',');
+        $('#FuncIds').val(ids);
+    }
+
+    $.regButton({
+        text: "@JStr.Save",
+        beforeSubmit: getCheckedIds
+    });
+ 
+    $.regButton({
+        text: "@FStr.RestoreToDefault",
+        afterSubmit: function (data) {
+            //保存成功关闭窗体
+            if (data.Type == "success") {
+                window.CloseOwnerWindow();
+            }
+        }
+    });
+</script>

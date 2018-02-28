@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "系统设置 - 开始";
+    AppManager.Instance.StartReInit();
+    var functionCount = AppManager.Instance.FunctionManager.Count;
+    var usersCount = AppManager.Instance.UserManager.Count;
+    var rolesCount = AppManager.Instance.RoleManager.Count;
+    Layout = null;
+}
+<h2>系统设置 - 开始</h2>
+<p>
+    系统功能数：<b>@functionCount</b><br/>
+    系统角色数：<b>@rolesCount</b><br/>
+    系统用户数：<b>@usersCount</b>
+</p>
+<p>
+    第一次使用本系统，需要进行一些初始化步骤。<br/>
+    在初始化完成之前，此步骤不需要任何的登录认证和权限。
+</p>
+@Html.ActionLink("下一步 >", "GetFunctions", null, new { @class = "btn btn-default" })

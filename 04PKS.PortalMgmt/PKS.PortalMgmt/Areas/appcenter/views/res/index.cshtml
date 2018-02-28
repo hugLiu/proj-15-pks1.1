@@ -1,0 +1,107 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = FStr.ResourceManager;
+}
+<div class="mini-xs mini-sm mini-md mini-md-active">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-12">
+                <div id="datagrid1" class="mini-datagrid frame-fit frame-search-grid" style="width:100%;"
+                     url="@Url.Action("GetAll")" idfield="Key"
+                     allowresize="true" virtualscroll="true" sortfield="Key" sortorder="asc"
+                     showpager="false" allowcellselect="true" multiselect="true" sortMode="client"
+                     editnextonenterkey="true" editnextrowcell="true" allowcelledit="true">
+                    <div property="columns">
+                        <div type="indexcolumn" width="50"></div>
+                        <div type="checkcolumn" width="30"></div>
+                        <div name="Key" field="Key" headeralign="center" allowsort="true" width="100">
+                            Key
+                            <input property="editor" class="mini-textbox" style="width:100%;" minwidth="200" />
+                        </div>
+                        @foreach (var cultureName in Model)
+                        {
+                        <div name="@cultureName" field="@cultureName" headeralign="center" allowsort="true" width="200">
+                            @cultureName<br />
+                            @(new System.Globalization.CultureInfo(cultureName).NativeName)
+                            <input property="editor" class="mini-textbox" style="width:100%;" minwidth="200" />
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var grid = mini.get("datagrid1");
+    grid.load();
+
+    $.regButton({
+        text: "@JStr.Save",
+        beforeSubmit: function (ajax) {
+            grid.commitEdit();
+            var data = grid.getData();
+            var json = mini.encode(data);
+            ajax.data = { data: json };
+        }
+    });
+
+    $.regButton({
+        text: "@FStr.DeleteItem",
+        noSubmit: function () {
+            if (!confirm("@JStr.ConfirmDelete")) return;
+            var rows = grid.getSelecteds();
+            grid.removeRows(rows);
+        }
+    });
+
+    $.regButton({
+        text: "@FStr.AddItem",
+        noSubmit: function () {
+            var newRow = { Key: "" };
+            grid.addRow(newRow, 0);
+            grid.beginEditCell(newRow, "Key");
+        }
+    });
+
+
+    $.regButton({
+        text: "@FStr.ClearAllResouce",
+        beforeSubmit: function () {
+            return confirm("@FStr.ConfirmClearAllResource");
+        },
+        afterSubmit: function () {
+            grid.reload();
+        }
+    });
+
+    $.regButton({
+        text: "@FStr.DeleteCulture",
+        beforeSubmit: function (ajax) {
+            var cell = grid.getCurrentCell();
+            if (cell == null || cell[1].field == "Key") {
+                alert("@FStr.PlzPointCultureColumnForDelete");
+                return false;
+            }
+            ajax.data = { culture: cell[1].field };
+            return confirm("@JStr.ConfirmDelete " + cell[1].field + "'?");
+        },
+        afterSubmit: function () {
+            location = location;
+        }
+    });
+
+    $.regButton({
+        text: "@FStr.AddCulture",
+        beforeSubmit: function (ajax) {
+            var culture = prompt('@FStr.PlzInputCultueSimpleName');
+            if (!culture) return;
+            ajax.data = { culture: culture };
+        },
+        afterSubmit: function () {
+            location = location;
+        }
+    });
+</script>

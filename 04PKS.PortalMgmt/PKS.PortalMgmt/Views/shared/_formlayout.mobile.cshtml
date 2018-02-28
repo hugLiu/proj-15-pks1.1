@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var baseController = this.ViewContext.Controller as BaseController;
+    var buttons = baseController.Function.GetChildren()
+        .Where(f => (f.Visible & VisibleType.Button) == VisibleType.Button && User.Identity.HasRightId(f.Id))
+        .OrderBy(f => f.Ord)
+        .ThenBy(f => f.Id)
+        .ToArray();
+
+    ViewBag.Title = ViewBag.Title ?? baseController.Function.Name;
+
+    //用户自定义的面包屑导航
+    var UserBreadCrumb = RenderSection("UserBreadCrumb", false);
+
+    //用户自定义的工具栏
+    var UserToolBar = RenderSection("UserToolBar", false);
+}
+
+@helper DrawSeparator(AppFunction func, IList<AppFunction> funcs)
+{
+    if ((func.Visible & VisibleType.GroupBegin) == VisibleType.GroupBegin && func != funcs[0])
+    {
+        <span class="separator"></span>
+    }
+}
+
+@helper PopupMenu(AppFunction parent)
+{
+    var buttons = parent.GetChildren().ToArray();
+    <a class="mini-menubutton" plain="true" menu="#popupMenu@(parent.Id)">@parent.Name</a>
+    <ul id="popupMenu@(parent.Id)" class="mini-menu" style="display:none;">
+        @foreach (var btn in buttons)
+        {
+            @DrawSeparator(btn, buttons)
+            if (btn.HasChildren())
+            {
+                var popBtns = btn.GetChildren().ToArray();
+                <li>
+                    <span>@btn.Name</span>
+                    <ul>
+                        @foreach (var popbtn in popBtns)
+                        {
+                            @DrawSeparator(popbtn, popBtns)
+                            <li class="frame-submit" iconcls="@popbtn.IconClass" id="@popbtn.Id">@popbtn.Name</li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="frame-submit" iconcls="@btn.IconClass" id="@btn.Id">@btn.Name</li>
+            }
+        }
+    </ul>
+}
+
+@helper Buttons(AppFunction btn)
+{
+    if (btn.IconClass != null && btn.IconClass.Contains("mini-"))
+    {
+        <a class="@btn.IconClass" id="@btn.Id" name="@btn.Name" plain="true" emptytext="@ResHelper.GetStr((btn.Description.IsEmpty()?btn.Name:btn.Description))">@ResHelper.GetStr(btn.Name)</a>
+    }
+    else
+    {
+        <a class="mini-button frame-submit" iconcls="@btn.IconClass" id="@btn.Id" plain="true" tooltip="@ResHelper.GetStr((btn.Description.IsEmpty()?btn.Name:btn.Description))">@ResHelper.GetStr(btn.Name)</a>
+    }
+}
+
+@UserBreadCrumb
+@if (ViewBag.ShowBreadCrumb != false && UserBreadCrumb == null)
+{
+    <div class="top_crumb">
+        @foreach (var func in baseController.BreadCrumbList.Take(baseController.BreadCrumbList.Count - 1))
+        {
+            <a href="@func.Location" class="crumb">@func.Name</a>
+            <span>&gt;&gt;</span>
+        }
+
+        <a href="@Request.Url">@ViewBag.Title</a>
+    </div>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    if (ViewBag.ShowSearchBox != false)
+    {
+        <div class="searchinfo mobile frame-search input-group">
+            <input class="form-control" placeholder='@(ViewBag.SearchEmptyText==null ? "请输入关键字":ViewBag.SearchEmptyText )' />
+            <span class="input-group-btn">
+                <button class="btn btn-default frame-submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="hidden">搜索</span>
+                </button>
+            </span>
+        </div>
+    }
+    @UserToolBar
+    if (!buttons.IsEmpty() && ViewBag.ShowToolBar != false && UserToolBar == null)
+    {
+        <div class="mini-toolbar" style="border-bottom:0;">
+            @foreach (var btn in buttons)
+            {
+                @DrawSeparator(btn, buttons)
+                if (btn.HasChildren())
+                {
+                    @PopupMenu(btn)
+                }
+                else
+                {
+                    @Buttons(btn)
+                }
+            }
+        </div>
+    }
+    @RenderBody()
+}

@@ -1,0 +1,340 @@
+﻿@{
+    ViewBag.Title = "组件注册";
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowToolBar = false;
+}
+@using PKS.Models;
+<style>
+    #mainForm .mini-textbox, #mainForm .mini-combobox {
+        width: 400px;
+    }
+</style>
+<div class="mini-panel layout-panel  frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+    <div class="mini-splitter frame-fit" style="width:100%;padding:0">
+        <div size="40%" style="padding:1px;">
+            <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+                <a class="mini-button" iconcls="icon-new-edit" onclick="onAdd">@ResHelper.GetStr("新增组件")</a>
+                <a class="mini-button" iconcls="icon-new-save" onclick="onSave">@ResHelper.GetStr("保存组件")</a>
+                <a class="mini-button" iconcls="icon-new-delete" onclick="onDelete">@ResHelper.GetStr("删除组件")</a>
+            </div>
+            <div id="widgetsGrid" class="mini-datagrid" style="width:100%;height:100%;"
+                 url="@Url.Action("GetWidgets")" showpager="false"
+                 onbeforedeselect="onWidgetsGridSBeforedeSelect" onselectionchanged="onWidgetsGridSelect">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div field="Code" width="120">组件标识</div>
+                    <div field="Name" width="100">组件名称</div>
+                    <div field="VueTag" width="100">vue标签</div>
+                    <div field="Category" width="100" renderer="onCategoryRenderer">组件类别</div>
+                </div>
+            </div>
+        </div>
+        <div style="overflow:auto">
+            <table id="mainForm" class="boxcls">
+                <tr>
+                    <td class="right"><label for="Code">组件标识</label></td>
+                    <td>
+                        <input name="Code" id="Code" class="mini-textbox" required="required" requirederrortext="必填项" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="Name">组件名称</label></td>
+                    <td>
+                        <input name="Name" id="Name" class="mini-textbox" required="required" requirederrortext="必填项" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="VueTag">vue标签</label></td>
+                    <td>
+                        <input name="VueTag" id="VueTag" class="mini-textbox" required="required" requirederrortext="必填项" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="HasTextTemplate">文本模板</label></td>
+                    <td>
+                        <input name="HasTextTemplate" id="HasTextTemplate" class="mini-checkbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="OrderNumber">序号</label></td>
+                    <td>
+                        <input name="OrderNumber" id="OrderNumber" class="mini-spinner" value="1" required="required" requirederrortext="必填项" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="ImageUrl">图片url</label></td>
+                    <td>
+                        <input name="ImageUrl" id="ImageUrl" class="mini-textbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label for="HasTextTemplate">组件类别</label></td>
+                    <td>
+                        <input name="Category" id="Category" class="mini-combobox" data="categoryOptions" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="right"><label>参数设置</label></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+                            <a class="mini-button" iconcls="icon-new-add" onclick="newRow">@ResHelper.GetStr("新增参数")</a>
+                            <a class="mini-button" iconcls="icon-new-edit" onclick="editRow">@ResHelper.GetStr("编辑参数")</a>
+                            <a class="mini-button" iconcls="icon-new-save" onclick="saveParas">@ResHelper.GetStr("保存参数")</a>
+                            <a class="mini-button" iconcls="icon-new-delete" onclick="delRow">@ResHelper.GetStr("删除参数")</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div id="widgetParamsGrid" class="mini-datagrid" style="width:100%;" showPager="false"
+                 idField="Id"
+                 onselectionchanged="beforeWidgetParamsGridselect">
+                <div property="columns">
+                    <div field="Code" width="120" headerAlign="center" allowSort="true">
+                        参数Code
+                        <input property="editor" class="mini-textbox" style="width:100%;" required="required" requirederrortext="必填项" />
+                    </div>
+                    <div field="Name" width="120" headerAlign="center" allowSort="true">
+                        参数名
+                        <input property="editor" class="mini-textbox" style="width:100%;" required="required" requirederrortext="必填项" />
+                    </div>
+                    <div type="comboboxcolumn" field="DataType" width="100" allowSort="true" align="center" headerAlign="center">
+                        数据类型
+                        <input property="editor" class="mini-combobox" style="width:100%;" data="dataTypeOptions" value="String" required="required" requirederrortext="必填项" />
+                    </div>
+                    <div type="comboboxcolumn" field="MetaData" width="150" allowSort="true" align="center" headerAlign="center">
+                        元数据
+                        <input property="editor" id="meta_treeselect" class="mini-treeselect"
+                               url="/MetadataPermission/GetMetas"
+                               textField="Title" valueField="Name" parentField="GroupName"
+                               multiSelect="false" valueFromSelect="false" allowInput="true"
+                               expandOnLoad="true" emptyText="请选择..." />
+                    </div>
+                    <div field="DefaultValue" width="120" headerAlign="center" allowSort="true">
+                        默认值
+                        <input property="editor" class="mini-textbox" style="width:100%;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var dataTypeOptions = [
+         { id: "@(MetadataTagType.Date)", text: "Date" },
+         { id: "@(MetadataTagType.ISODate)", text: "ISODate" },
+         { id: "@(MetadataTagType.Number)", text: "Number" },
+         { id: "@(MetadataTagType.String)", text: "String" },
+         { id: "@(MetadataTagType.StringArray)", text: "StringArray" },
+         { id: "Object", text: "Object" },
+         { id: "Array", text: "Array" }
+    ];
+
+    var categoryOptions = [
+         { id: 1, text: "文档结构" },
+         { id: 2, text: "组件结构" }
+    ];
+    var curRow;
+
+    mini.parse();
+    var widgetsGrid = mini.get("widgetsGrid");
+    var grid = mini.get("widgetParamsGrid");
+    var mainForm = new mini.Form("mainForm");
+    //var addParaBtn = mini.get("addParaBtn");
+
+    widgetsGrid.load(null, function () {
+        widgetsGrid.setSelected(widgetsGrid.data[0]);
+    });
+
+    function onWidgetsGridSBeforedeSelect() {
+        upDateWidgetsGrid();
+        //saveParas();
+    }
+
+    function onWidgetsGridSelect(e) {
+        curRow = e.records[0];
+        //设置右边Form中的值
+        setFormInfo(curRow);
+
+        $.ajax({
+            url: "GetWidgetParas",
+            type: "post",
+            data: { typeId: curRow["Id"] },
+            success: function (paras) {
+                //设置参数表的值
+                grid.setData(paras);
+                //if (paras.length == 0) {
+                //    addParaBtn.show();
+                //} else {
+                //    addParaBtn.hide();
+                //}
+            },
+            error: function () {
+                grid.setData([]);
+            }
+        });
+
+    };
+
+    setFormInfo = function (func) {
+        //页面的ID属性需要和传过来的ReuturnValue中的属性名相同
+        for (p in func) {
+            var control = mini.get('#' + p);
+            if (control)
+                control.setValue(func[p]);
+            else {
+                $('#' + p).val(func[p]);
+            }
+        }
+    }
+
+
+    function onAdd() {
+        var row = { WidgetTypeParams: [] };
+        widgetsGrid.addRow(row, 0);
+        widgetsGrid.setSelected(row);
+        curRow = row;
+    }
+    function onSave() {
+        upDateWidgetsGrid();
+
+        //saveParas();
+
+        var json = mini.encode(widgetsGrid.getData());
+        $.ajax({
+            url: "SaveWidgets",
+            type: "post",
+            data: { data: json },
+            success: function () {
+                showTips("success", "保存成功");
+                var code = curRow.Code;
+                var name = curRow.Name;
+                widgetsGrid.reload();
+                var oldRow = widgetsGrid.findRow(function (row) {
+                    if (row.Code == code && row.Name == name) return true;
+                });
+                //widgetsGrid.setSelected(widgetsGrid.data[0]);
+                widgetsGrid.setSelected(oldRow);
+            },
+            error: function () {
+                widgetsGrid.reload();
+                showTips("error", "保存失败，组件标识和组件名称应该唯一");
+            }
+        });
+    }
+
+    function onDelete() {
+        var rows = widgetsGrid.getSelecteds();
+        if (rows) {
+            if (confirm("确定删除此记录？")) {
+                var ids = [];
+                for (var i = 0; i < rows.length; i++) {
+                    ids.push(rows[i]["Id"]);
+                }
+                var json = mini.encode(rows);
+                $.ajax({
+                    url: "DeleteWidgets",
+                    type: "post",
+                    data: { ids: ids },
+                    success: function () {
+                        widgetsGrid.removeRows(rows, true);
+                        showTips("success", "删除成功");
+                    },
+                    error: function () {
+                        showTips("error", "删除失败，组件类型被引用");
+                    }
+                });
+            }
+        }
+    }
+
+    upDateWidgetsGrid = function () {
+        var rowData = mainForm.getData();
+        widgetsGrid.updateRow(widgetsGrid.getSelected(), rowData);
+    }
+
+    function onCategoryRenderer(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var s = "";
+        if (record.Category == 1) {
+            s = "文档结构";
+        }
+        else {
+            s = "组件结构";
+        }
+        return s;
+    }
+
+    function newRow() {
+        beforeWidgetParamsGridselect();
+        var row = {};
+        grid.addRow(row, 0);
+        grid.cancelEdit();
+        grid.beginEditRow(row);
+    }
+
+    function editRow() {
+        var row = grid.getSelected();
+        if (row) {
+            grid.cancelEdit();
+            grid.beginEditRow(row);
+        }
+    }
+    function cancelRow() {
+        grid.cancelEdit();
+    }
+    function delRow() {
+        var row = grid.getSelected();
+        if (row) {
+            if (confirm("确定删除此记录？")) {
+                grid.removeRow(row, true);
+                if (row["Id"] != 0) {
+                    $.ajax({
+                        url: "DeleteWidgetParas",
+                        type: "post",
+                        data: { id: row["Id"] },
+                        success: function () {
+                            showTips("success", "删除成功");
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    function beforeWidgetParamsGridselect() {
+        grid.commitEdit();
+        var row = grid.getSelected();
+        if (!row) return;
+        row["WidgetTypeId"] = curRow["Id"];
+        if (row["Code"] == undefined || row["Name"] == undefined || row["DataType"] == undefined ||
+            row["Code"] == "" || row["Name"] == "" || row["DataType"] == "") {
+            //showTips("warning", "参数Code/参数名/数据类型不允许有空值");
+            editRow();
+        }
+    }
+
+    saveParas = function () {
+        beforeWidgetParamsGridselect();
+        if (curRow["Id"] != 0 && curRow["Id"] != undefined) {
+            var data = grid.getData();
+            var json = mini.encode(data);
+            $.ajax({
+                url: "SaveWidgetParas",
+                type: "post",
+                data: { typeId: curRow["Id"], data: json },
+                success: function () {
+                    showTips("success", "参数保存成功");
+                },
+                error: function () {
+                    showTips("warning", "参数格式有误");
+                },
+            });
+        }
+        grid.accept();
+    }
+    // #endregion
+
+</script>

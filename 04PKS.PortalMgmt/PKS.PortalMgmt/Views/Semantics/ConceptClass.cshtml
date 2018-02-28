@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = ResHelper.GetStr("SDMenuTitleConceptClass");
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+<div class="frame-fit" style="width: 100%;margin-top: -10px;">
+    <div class="mini-toolbar" style="margin-bottom:0;">
+        <table style="width:100%;">
+            <tr>
+                <td style="width:100%;">
+                    <a class="mini-button" iconcls="icon-new-add" onclick="add()">@Html.Str("Add")</a>
+                    <a class="mini-button" iconcls="icon-new-edit" onclick="edit()">@Html.Str("Modify")</a>
+                    <a class="mini-button" iconcls="icon-new-empty" onclick="remove()">@Html.Str("Delete")</a>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <div id="gridConceptClass" class="mini-datagrid" 
+             style="width: 100%; height:100%;" 
+             showloading="false"
+             url="@Url.Action("GetConceptClassList")" 
+             multiselect="false" 
+             showpager="false">
+            <div property="columns">
+                <div type="indexcolumn" headeralign="center" width="10"></div>
+                <div type="checkcolumn" headeralign="center" width="10"></div>
+                <div name="CCCode" field="CCCode" headeralign="center" allowsort="true" width="50" style="height: 50px">
+                    @Html.Str("CCCode")
+                </div>
+                <div name="CC" field="CC" headeralign="center" width="70" allowsort="true" style="height: 50px">
+                    @Html.Str("Name")
+                </div>
+                <div name="Type" field="Type" headeralign="center" allowsort="true" width="60" style="height: 50px">
+                    @Html.Str("Type")
+                </div>
+                <div name="Source" field="Source" headeralign="center" allowsort="true" width="70" style="height: 50px">
+                    @Html.Str("Source")
+                </div>
+                <div name="Remark" field="Remark" headeralign="center" allowsort="true" width="100" style="height: 50px">
+                    @Html.Str("Remark")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    var grid = mini.get("gridConceptClass");
+    grid.load();
+
+    var addcc = "@Html.Str("AddConceptClass")";
+    var editcc = "@Html.Str("EditConceptClass")";
+    var minOneRecord = "@Html.Str("Min_One_Record")";
+    var confirmDelete = "@Html.Str("Confirm_Delete")";
+    var deletecc = "@Html.Str("Delete")";
+    var deleted = "@Html.Str("Success_Delete")";
+
+    function add() {
+        mini.open({
+            url: "@Url.Action("ConceptClassAdd", "Semantics")",
+            title: addcc,
+            allowResize: false,
+            width: 400,
+            height: 310,
+            onload: function () { },
+            ondestroy: function (action) {
+                grid.reload();
+            }
+        });
+    }
+
+    function edit() {
+        var row = grid.getSelected();
+        var json = encodeURI(mini.encode(row));
+
+        if (row) {
+            mini.open({
+                url: "/Semantics/ConceptClassEdit?model=" + json,
+                allowResize: false,
+                title: editcc,
+                width: 400,
+                height: 300,
+                onload: function () { },
+                ondestroy: function (action) {
+                    grid.reload();
+                }
+            });
+        } else {
+            mini.showTips({
+                content: minOneRecord,
+                state: "warning",
+                x: "center",
+                y: "center",
+                timeout: 1500
+            });
+        }
+    }
+
+    function remove() {
+        var row = grid.getSelected();
+        var json = mini.encode(row);
+
+        if (row) {
+            if (confirm(confirmDelete, deletecc)) {
+                $.ajax({
+                    url: "@Url.Action("UpdateConceptClass", "Semantics")",
+                    type: "post",
+                    data: {
+                        model: json,
+                        state: "Delete"
+                    },
+                    success: function (e) {
+                        grid.reload();
+                        showTips({ Type: e.State, Message: e.Text });
+                    },
+                    error: function () { }
+                });
+            }
+        } else {
+            mini.showTips({
+                content: minOneRecord,
+                state: "warning",
+                x: "center",
+                y: "center",
+                timeout: 1500
+            });
+        }
+    }
+</script>

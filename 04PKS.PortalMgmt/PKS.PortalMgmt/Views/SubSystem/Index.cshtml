@@ -1,0 +1,166 @@
+﻿@*@model IEnumerable<PKS.PortalMgmt.DataBaseAccess.Models.PKS_SUBSYSTEM>*@
+@using PKS.Web
+@using PKS.Models
+@{
+    ViewBag.Title = "子系统发布站点维护";
+    string forumSiteUrl = this.Context.GetSubSystemUrl(PKSSubSystems.Forum).TrimEnd('/');
+}
+
+@*<div style="width:100%;">
+        <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:100%;">
+                        <a class="mini-button" iconCls="icon-add" onclick="addRow()" plain="true" tooltip="增加...">增加</a>
+                        <a class="mini-button" iconCls="icon-remove" onclick="removeRow()" plain="true">删除</a>
+                        <span class="separator"></span>
+                        <a class="mini-button" iconCls="icon-save" onclick="saveData()" plain="true">保存</a>
+                    </td>
+                    <td style="white-space:nowrap;">
+                        <input id="key" class="mini-textbox" emptyText="请输入姓名" style="width:150px;" onenter="onKeyEnter" />
+                        <a class="mini-button" onclick="search()">查询</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="mini-xs mini-sm mini-md mini-md-active">
+            <div class="container-fluid ">
+                <div class="mini-clearfix">
+                    <div class="mini-col-12">
+                        <div id="subsiteGrid" class="mini-datagrid frame-fit frame-search-grid" style="width:100%;"
+                             url="/SubSystem/GetGridData" pagesize="20" allowresize="true" multiselect="true"
+                             onrowdblclick=""  allowCellEdit="true" allowCellSelect="true" multiSelect="true"
+            editNextOnEnterKey="true"  editNextRowCell="true">
+                            <div property="columns">
+                                <div type="checkcolumn" headeralign="center"></div>
+                                <div field="Id" headeralign="center" allowsort="true">编号
+                                    <input property="editor" class="mini-textbox" style="width:100%;" minWidth="130" />
+                                </div>
+                                <div name="Code" field="Code" headeralign="center" allowsort="true">编码
+                                    <input property="editor" class="mini-textbox" style="width:100%;" minWidth="130" />
+                                </div>
+                                <div field="Name" headeralign="center" allowsort="true">子系统名称
+                                    <input property="editor" class="mini-textbox" style="width:100%;" minWidth="130" />
+                                </div>
+                                <div field="RootUrl" headeralign="center" allowsort="true">站点地址
+                                    <input property="editor" class="mini-textbox" style="width:100%;" minWidth="130" />
+                                </div>
+                                <div name ="CreatedBy" field="CreatedBy" headeralign="center" allowsort="true">创建人
+
+                                </div>
+                                <div name ="CreatedDate" field="CreatedDate" headeralign="center" allowsort="true">创建日期
+
+                                </div>
+                                <div name ="LastUpdatedBy" field="LastUpdatedBy" headeralign="center" allowsort="true">修改人
+
+                                </div>
+                                <div name ="LastUpdatedDate" field="LastUpdatedDate" headeralign="center" allowsort="true">修改日期
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+<style type="text/css">
+    .New_Button, .Edit_Button, .Delete_Button, .Update_Button, .Cancel_Button {
+        font-size: 11px;
+        color: #1B3F91;
+        font-family: Verdana;
+        margin-right: 5px;
+    }
+
+    .mini-button-text {
+        padding: 3px 8px 3px 20px;
+        border: 1px solid rgb(255,255,255);
+    }
+
+    .icon-new-save {
+        background-position-y: center;
+        background-position-x: 3px;
+    }
+
+    .mini-button-text:hover {
+        border-color: rgb(211,211,211);
+        cursor: pointer;
+    }
+</style>
+
+<div class="mini-xs mini-sm mini-md mini-md-active mini-col">
+    <div class="container-fluid">
+        <div class="mini-clearfix">
+            <div class="mini-col-12">
+                <div class="mini-toolbar">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="padding-left:8px">
+                                <span onclick="save()" class="mini-button-text mini-button-icon icon-new-save">保存</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mini-xs mini-sm mini-md mini-md-active">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-12">
+                <div class="mini-panel layout-panel frame-fit" showHeader="false" width="auto">
+                    <div id="datagrid1" class="mini-datagrid" style="width:100%;" allowCellEdit="true"
+                         allowCellSelect="true" url="/SubSystem/EditConfig" idField="id" showPager="false"
+                         editNextOnEnterKey="true" editNextRowCell="true" showEmptyText="true"
+                         emptyText="数据为空，<a href='javascript:newRow()'>增加一条</a>">
+                        <div property="columns">
+                            <div field="Id" headeralign="center" allowsort="true">编号</div>
+                            <div name="Code" field="Code" headeralign="center" allowsort="true">编码</div>
+                            <div field="Name" headeralign="center" allowsort="true">
+                                子系统名称
+                                <input property="editor" class="mini-textbox" style="width:100%;" minWidth="130" />
+                            </div>
+                            <div field="RootUrl" headeralign="center">
+                                站点地址
+                                <input property="editor" class="mini-textbox" style="width:100%;" minWidth="130" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    mini.parse();
+
+    var grid = mini.get("datagrid1");
+    grid.load();
+    grid.sortBy("Id", "desc");
+
+    function save() {
+        var data = grid.getChanges();
+        var json = mini.encode(data);
+
+        grid.loading("保存中，请稍后......");
+        $.ajax({
+            url: "/SubSystem/SavaSubData",
+            data: { data: json },
+            type: "post",
+            success: function (text) {
+                grid.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+    }
+</script>
+

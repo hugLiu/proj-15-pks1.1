@@ -1,0 +1,116 @@
+﻿[
+  {
+    "value": "Json",
+    "text": "Json",
+    "selected": true,
+    "items": [      
+      {
+        "value": "Content",
+        "text": "Content",
+        "selected" : true
+      }
+    ]
+  },
+  {
+    "value": "Image",
+    "text": "Image",
+    "selected": false,
+    "items": [
+      {
+        "value": "Url",
+        "text": "Url",
+        "selected" : true
+      },
+      {
+        "value": "File",
+        "text": "File",
+        "selected" : false
+      }
+    ]
+  },
+  {
+    "value": "PDF",
+    "text": "PDF",
+    "selected": false,
+    "items": [
+      {
+        "value": "Url",
+        "text": "Url",
+        "selected" : true
+      },
+      {
+        "value": "File",
+        "text": "File",
+        "selected" : false
+      }
+    ]
+  },
+  {
+    "value": "Audio",
+    "text": "Audio",
+    "selected": false,
+    "items": [
+      {
+        "value": "Url",
+        "text": "Url",
+        "selected" : true
+      },
+      {
+        "value": "File",
+        "text": "File",
+        "selected" : false
+      }
+    ]
+  },
+  {
+    "value": "Video",
+    "text": "Video",
+    "selected": false,
+    "items": [
+      {
+        "value": "Url",
+        "text": "Url",
+        "selected" : true
+      },
+      {
+        "value": "File",
+        "text": "File",
+        "selected" : false
+      }
+    ]
+  },
+  {
+    "value": "Html",
+    "text": "Html",
+    "selected": false,
+    "items": [      
+      {
+        "value": "Content",
+        "text": "Content",
+        "selected" : true
+      }
+    ]
+  },
+  {
+    "value": "Raw",
+    "text": "Raw",
+    "selected": false,
+    "items": [
+      {
+        "value": "Url",
+        "text": "Url",
+        "selected" : true
+      },
+      {
+        "value": "File",
+        "text": "File",
+        "selected" : false
+      },
+      {
+        "value": "Content",
+        "text": "Content",
+        "selected" : false
+      }
+    ]
+  }  
+]

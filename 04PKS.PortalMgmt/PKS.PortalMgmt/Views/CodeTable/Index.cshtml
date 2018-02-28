@@ -1,0 +1,380 @@
+﻿@{
+    ViewBag.Title = "码表维护";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<style>
+    .tdStyle {
+        padding-top: 10px
+    }
+</style>
+
+@*height: 10%;*@
+<div class="frame-fit" style="width: 100%;margin-top: -10px;">
+    <table style="width:100%;height:100%;table-layout:fixed;">
+        <tr>
+            <td style="width:40%;height:100%;">
+                <div id="p1" class="mini-panel" title="码表维护" style="width:100%;height:100%;">
+                    <div style="padding:10px 0px 5px 10px">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label for="type$text">类型：</label>
+                                </td>
+                                <td>
+                                    <input name="combCodeType" id="combCodeType" @*shownullitem="true"*@ class="mini-combobox" value="" url="@Url.Action("GetAllCodeType", "CodeTable")" textfield="Title" valuefield="Id" style="width: 150px;" onvaluechanged="onCodeTypeChange" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="tdStyle">
+                                    <label for="type$text">编码：</label>
+                                </td>
+                                <td class="tdStyle">
+                                    <input id="textCode" class="mini-textbox" width="150" emptyText="请输入编码..." />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="tdStyle">
+                                    <label for="type$text">编码名称：</label>
+                                </td>
+                                <td class="tdStyle">
+                                    <input id="textCodeTitle" class="mini-textbox" width="150" emptyText="请输入编码名称..." />
+                                </td>
+                                <td class="tdStyle" style="padding-left: 10px;">
+                                    <a class="mini-button" iconcls="icon-new-search" onclick="GetCodeRecord">查询</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="mini-toolbar" style="width: 98%; height: 30px;">
+                        <a class="mini-button" onclick="onAddCode()">
+                            <span class="mini-button-text  mini-button-icon icon-new-add">添加</span>
+                        </a>
+                        <a class="mini-button" onclick="onRemoveCodes()">
+                            <span class="mini-button-text  mini-button-icon icon-new-delete">删除所选项</span>
+                        </a>
+                        <a class="mini-button" onclick="onSaveCodes()">
+                            <span class="mini-button-text  mini-button-icon icon-new-save">保存</span>
+                        </a>
+
+                    </div>
+
+                    <div id="gridCode" class="mini-datagrid" style="width: 99%; height: 65%;" allowresize="false" url="" idfield="Id" multiselect="true" @*pageSize="2" sizeList="[1,2,3]" totalfield="count" datafield="data"*@ showpager="false" allowcellselect="true" allowcelledit="true">
+                        <div property="columns">
+                            <div type="checkcolumn" headeralign="center" align="center" width="10%"></div>
+                            <div name="action" width="10%" headeralign="center" align="center" renderer="onActionRendererCode" cellstyle="padding:0;">操作</div>
+                            @*<div name="CodeTypeId" field="CodeTypeId" displayfied="CodeTypeId" headeralign="left" renderer="onTypeRenderer" width="25%" align="left">
+                        类型
+                        <input property="editor" class="mini-combobox" textfield="Title" valuefield="Id" url="@Url.Action("GetAllCodeType","GeoTopicCode")" style="width: 100%;" />
+                    </div>*@
+                            <div name="Code" field="Code" headeralign="left" width="30%" align="left">
+                                编码
+                                <input property="editor" class="mini-textbox" style="width: 100%;" />
+                            </div>
+                            <div name="Title" field="Title" headeralign="left" width="40%" align="left">
+                                编码名称
+                                <input property="editor" class="mini-textbox" style="width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+            <td style="width:40%;height:100%;">
+                <div id="p1" class="mini-panel" title="码表类型维护" style="width:100%;height:100%;">
+                    <div class="mini-toolbar" style="width: 98%; height: 30px;">
+                    <a class="mini-button" onclick="onAddType()">
+                        <span class="mini-button-text  mini-button-icon icon-new-add">添加</span>
+                    </a>
+                    <a class="mini-button" onclick="onRemoveType()">
+                        <span class="mini-button-text  mini-button-icon icon-new-delete">删除所选项</span>
+                    </a>
+                    <a class="mini-button" onclick="onSaveTypes()">
+                        <span class="mini-button-text  mini-button-icon icon-new-save">保存</span>
+                    </a>
+
+                </div>
+                    <div id="gridType" class="mini-datagrid" url="@Url.Action("GetAllCodeType", "CodeTable")" idfield="Id"
+                         style="width: 99%; height: 65%;"  multiselect="false" showpager="false" 
+                         allowresize="false" allowcellselect="true" allowcelledit="true">
+                        <div property="columns">
+                            <div type="indexcolumn" headeralign="center" align="center" width="10%"></div>
+                            <div name="Code" field="Code" headeralign="left" width="30%" align="left">
+                                类型编码
+                                <input property="editor" class="mini-textbox" style="width: 100%;" />
+                            </div>
+                            <div name="Title" field="Title" headeralign="left" width="40%" align="left">
+                                类型名称
+                                <input property="editor" class="mini-textbox" style="width: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+</div>
+<script>
+    mini.parse();
+    var combCodeType = mini.get("combCodeType");
+    var gridCode = mini.get("gridCode");
+    var textCodeTitle = mini.get("textCodeTitle");
+    var textCode = mini.get("textCode");
+    var gridType = mini.get("gridType");
+    gridType.load();
+
+    function SavePageManage() { alert("OK"); }
+
+    //默认类型选择第一项
+    combCodeType.select(0);
+    var typeValueDefault = combCodeType.getValue();
+    loadGridCode({ CodeTypeId: typeValueDefault });
+
+    @*function onAddType() {
+        var type = prompt("请输入类型名称：");
+        if (type == null || type == "") {
+            showTips({ Type: "warning", Message: "类型不可以为空" });
+            return;
+        }
+        for (var i = 0; i < combCodeType.data.length; i++) {
+            if (type.trim() == combCodeType.data[i].Title) {
+                showTips({ Type: "warning", Message: "类型重复" });
+                return;
+            }
+        }
+        $.ajax({
+            url: "@Url.Action("AddCodeType", "CodeTable")",
+            data: paramData,
+            type: "post",
+            async: false,
+            success: function (data) {
+                combCodeType.loadData(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+    }*@
+
+    function onAddType() {
+        var newRow = { Code: "", Title: ""};
+        gridType.addRow(newRow, gridType.data.length);
+        gridType.cancelEdit();
+        gridType.beginEditCell(newRow, "Code");
+    }
+
+    //删除所选行记录
+    function onRemoveType() {
+        var row = gridType.getSelected();
+        if (row == null) {
+            showTips({ Type: "warning", Message: "请选择需要删除的类型！" });
+            return;
+        }
+        if (confirm("删除类型的同时也会删除类型下面的码表，是否确认删除")) {
+            gridType.removeRow(row, true);
+        } else {
+            return;
+        }       
+    }
+
+    function onSaveTypes() {
+        var data = gridType.getChanges();
+
+        function checkGrid() {
+            var rowsNull = gridType.findRows(function (row) {
+                if (row.Code.trim() == "" || row.Title.trim() == "")
+                    return true;
+            });
+            if (rowsNull.length > 0) {
+                showTips({ Type: "warning", Message: "码表类型记录存在空值，数据无法保存！" });
+                return false;
+            }
+
+            //当存在相同属性编码值 不保存数据
+            var rowSame;
+            var rowLengthArr = [];
+            data.forEach(function (e) {
+                rowSame = gridType.findRows(function (row) {
+                    if (row.Code.trim() == e.Code || row.Title.trim() == e.Title)
+                        return true;
+                });
+                rowLengthArr.push(rowSame.length);
+            });
+            var rowMaxLength = Math.max.apply(null, rowLengthArr);
+            if (rowMaxLength >= 2) {
+                showTips({ Type: "warning", Message: "码表存在重复记录，数据无法保存！" });
+                return false;
+            }
+            return true;
+        }
+
+        //验证数据合法性
+        if (!checkGrid())
+            return;
+
+        //执行数据保存操作
+        var nodeParams = mini.encode(data);
+        //var msgid = mini.loading("数据保存中，请稍后......", "保存数据");
+        $.ajax({
+            url: "/CodeTable/UpdateCodeType",
+            data: { codeModelStr: encodeURIComponent(nodeParams) },
+            type: "post",
+            success: function (text) {
+                toastr["success"]("@Html.Str("保存成功!")");
+                //mini.hideMessageBox(msgid);
+                gridType.reload();
+                combCodeType.load("@Url.Action("GetAllCodeType", "CodeTable")");
+                GetCodeRecord();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+    }
+
+    function onAddCode() {
+        var newRow = { Code: "", Title: "", CodeTypeId: combCodeType.getValue() };
+        gridCode.addRow(newRow, gridCode.data.length);
+        gridCode.cancelEdit();
+        gridCode.beginEditCell(newRow, "Code");
+    }
+
+    function onActionRendererCode(e) {
+        var uid = e.record._uid;
+        var s = '<a class="mini-button frame-submit mini-button-plain" title="删除该行" onclick="deleteCodeRow(\'' + uid + '\')">'
+            + '<span class="mini-button-text mini-button-icon icon-new-delete"  style="margin-top:9px"></span></a>';
+        return s;
+    }
+
+    //获取到Type的数组所有值,渲染cellInfo中type值
+    function onTypeRenderer(e) {
+        var TypeArr = combCodeType.data;
+        for (var i = 0; i < TypeArr.length; i++) {
+            var typeRecord = TypeArr[i];
+            if (typeRecord.Id == e.value)
+                return typeRecord.Title;
+        }
+        return "";
+    }
+
+    function onCodeTypeChange(e) {
+        var selected = e.selected;
+        var paramData;
+        if (selected == undefined)
+            paramData = { codeTypeId: null, title: encodeURIComponent(textCodeTitle.getValue()), code: encodeURIComponent(textCode.getValue()) }
+        else {
+            paramData = { codeTypeId: encodeURIComponent(selected.Id), title: encodeURIComponent(textCodeTitle.getValue()), code: encodeURIComponent(textCode.getValue()) };
+        }
+        loadGridCode(paramData);
+    }
+
+    function loadGridCode(paramData) {
+        $.ajax({
+            url: "@Url.Action("GetCodes", "CodeTable")",
+            data: paramData,
+            type: "post",
+            async: false,
+            success: function (data) {
+                gridCode.loadData(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+    }
+
+
+    //删除行记录
+    function deleteCodeRow(uid) {
+        var row = gridCode.getRowByUID(uid);
+        gridCode.removeRow(row, true);
+    }
+
+
+    //删除所选行记录
+    function onRemoveCodes() {
+        var rows = gridCode.getSelecteds();
+        if (rows.length <= 0) {
+            toastr["info"]("请勾选需要删除码表记录！");
+            return;
+        }
+        gridCode.removeRows(rows, true);
+    }
+
+
+    function onSaveCodes() {
+        var data = gridCode.getChanges();
+
+        function checkGrid() {
+            var rowsNull = gridCode.findRows(function (row) {
+                if (row.Code.trim() == "" || row.Title.trim() == ""||row.CodeTypeId=="")
+                    return true;
+            });
+            if (rowsNull.length > 0) {
+                toastr["error"]("码表记录存在空值，数据无法保存！");
+                return false;
+            }
+
+            //当存在相同属性编码值 不保存数据
+            var rowSame;
+            var rowLengthArr = [];
+            data.forEach(function (e) {
+                rowSame = gridCode.findRows(function (row) {
+                    if (row.Code.trim() == e.Code || row.Title.trim() == e.Title)
+                        return true;
+                });
+                rowLengthArr.push(rowSame.length);
+            });
+            var rowMaxLength = Math.max.apply(null, rowLengthArr);
+            if (rowMaxLength >= 2) {
+                toastr["error"]("码表存在重复记录，数据无法保存！");
+                return false;
+            }
+            return true;
+        }
+
+        //验证数据合法性
+        if (!checkGrid())
+            return;
+
+        //执行数据保存操作
+        var nodeParams = mini.encode(data);
+        //var msgid = mini.loading("数据保存中，请稍后......", "保存数据");
+        $.ajax({
+            url: "/CodeTable/UpdateCode",
+            data: { codeModelStr: encodeURIComponent(nodeParams) },
+            type: "post",
+            success: function (text) {
+                toastr["success"]("@Html.Str("保存成功!")");
+                //mini.hideMessageBox(msgid);
+                GetCodeRecord();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+    }
+
+    function GetCodeRecord() {
+        var codeTypeId = combCodeType.getValue();
+        var title = textCodeTitle.getValue();
+        var code = textCode.getValue();
+        var paramData = { codeTypeId: codeTypeId, title: encodeURIComponent(title), code: encodeURIComponent(code) };
+        loadGridCode(paramData);
+    }
+
+    var reachIdArr = ["#textCode", "#textCodeTitle"];
+    reachIdArr.forEach(function(name) {
+        $(name).bind("keydown", function (e) {
+            if (e.keyCode == 13) {
+                GetCodeRecord();
+            }
+        });
+    });
+
+</script>

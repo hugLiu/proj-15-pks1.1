@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+
+<div style="width: 300px;margin:0 auto;padding-top:20px;margin-left: 50px" id="form1">
+    <div style="width: 100%">
+        <input name="id" class="mini-hidden" />
+        <table style="font-size:20px;">
+            <tr>
+                <td>
+                    <label for="CCCode">@Html.Str("CCCode")：</label>
+                </td>
+                <td style="text-align: center;line-height: 40px;">
+                    <input id="CCCode" name="CCCode" class="mini-textbox" type="text" height="300" style="width: 200px;" required="true" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="CC">@Html.Str("Name")：</label>
+                </td>
+                <td style="text-align: center;line-height: 40px;">
+                    <input id="CC" name="CC" class="mini-textbox" type="text" height="300" style="width: 200px;" required="true" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Type$text">@Html.Str("Type")：</label>
+                </td>
+                <td style="text-align: center;line-height: 40px;">
+                    <input id="Type" name="Type" class="mini-textbox" type="text" height="300" style="width: 200px;" required="true" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Source$text">@Html.Str("Source")：</label>
+                </td>
+                <td style="text-align: center;line-height: 40px;">
+                    <input id="Source" name="Source" class="mini-textbox" type="text" height="300" style="width: 200px;" required="true" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Remark$text">@Html.Str("Remark")：</label>
+                </td>
+                <td style="text-align: center;line-height: 40px;">
+                    <input id="Remark" name="Remark" class="mini-textbox" type="text" height="300" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right;">
+                    <input value="@Html.Str("Add")" type="button" onclick="submitForm()" style="font-weight: bolder;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+
+    function submitForm() {
+        debugger;
+        var form = new mini.Form("#form1");
+        var data = form.getData();
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("UpdateConceptClass", "Semantics")",
+            type: "post",
+            data: {
+                model: json,
+                state: "Create"
+            },
+            success: function (e) {
+                showTips({ Type: e.State, Message: e.Text });
+                window.CloseOwnerWindow();
+            }
+        });
+    }
+
+</script>
+

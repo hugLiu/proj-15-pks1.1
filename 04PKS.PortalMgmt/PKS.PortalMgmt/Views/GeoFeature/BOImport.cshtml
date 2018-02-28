@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<div id="winImport" style="width:100%;height:100%" >
+    @using (Html.BeginForm("UploadDataTemp", "GeoFeature", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadForm", name = "uploadForm" }))
+    {
+        <div style="text-align:center;width:400px;height:150px;padding:10px;">
+
+            <table>
+                <tr>
+                    <td colspan="2" style="text-align:left;">
+                        <p><b>导入须知:</b></p>
+                        <p>1:请使用下载的模板进行导入操作.</p>
+                        <p>2:请勿删除导入模板里面的第一行标题头数据.</p>
+                        <p>3:导入前请确定所选择的业务类型与所下载的模板对应.</p>
+                        <p>4:坐标的数据请用','(逗号)分割.</p>
+                        <p> 例如: </p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp; <b>Polygon</b>类型格式为: "1 2 3 2 4 5 1 2" 
+                            导入后会根据空格拆分成
+                            [1,2] [3,2] [4,5] [1,2]
+                        </p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp; <b>Point</b>类型格式为: "1 2"</p>
+                        <br />
+                        <p >
+                            当前业务信息
+                            <b>业务类型: [<label id="name" style="color:red;font-weight:800;"></label>]</b>
+                            <b>坐标类型: [<label id="type" style="color:red;font-weight:800;"></label>]</b>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <input id="locationtypeHd" name="locationtype" class="mini-hidden" value="" />
+                        <input type="file" name="myFile" id="myFile" style="width: 220px;" />
+                    </td>
+                    <td style="text-align:right;padding:5px;">
+                        <a class="mini-button" id="importExcel" style="display:inline-block;" onclick="ajaxfileImport()" iconcls="icon-new-add" plain="false">数据导入</a>
+                        <span style="height:100%; vertical-align: middle;display:inline-block;"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="rbType" class="mini-radiobuttonlist" repeatItems="1" repeatLayout="table" repeatDirection="vertical"
+                             textField="text" valueField="id" data="rdoData" value="false">
+                        </div>  
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+
+<script type="text/javascript">
+    //有新的类型继续添加
+    var rdoData = [{ text: '重复数据覆盖', id: 'false' }, { text: '忽略重复进行新增', id: 'true' }];
+     
+    mini.parse();
+    //
+    var rbType = mini.get('#rbType')
+    //导入的临时数据
+    var resBoData = [];
+    //是否导入完成
+    var isImport = false; 
+
+    function initImport(row) {
+
+        $("#name").html(row["name"]);
+        $("#type").html(row["locationtype"]);
+
+        mini.get('#locationtypeHd').setValue(row["locationtype"]);
+    }
+
+    //上传文件
+    function ajaxfileImport() {
+        var formData = new FormData($("#uploadForm")[0]);
+        //添加进度显示
+        //formData.mask("数据导入中...");
+
+        $.ajax({
+            url: "@Url.Action("UploadDataTemp")",
+            type: 'POST',
+            data: formData,
+            async: true,
+            cache: false,
+            contentType: false,
+            processData: false,
+            complete: function (e, status) {
+               
+                if (e.responseJSON.Type == "success") {
+                    isImport = true;
+                    //
+                    resBoData = e.responseJSON;
+                    //
+                    showTips({ Type: 'success', Message: "@ResHelper.GetStr("导入完成,数据载入中..")" });
+                    window.CloseOwnerWindow();
+                } else {
+
+                    showTips({ Type: 'error', Message: e.responseJSON.Message });
+                }
+                //formData.unmask();
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

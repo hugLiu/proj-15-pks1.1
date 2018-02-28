@@ -1,0 +1,94 @@
+﻿@model Jurassic.CommonModels.ServerAuth.AuthToken
+@{
+    ViewBag.Title = Model != null && Model.ToKeyId != null ? JStr.Add : JStr.Edit;
+
+    ViewBag.ShowBreadCrumb = false;
+    ViewBag.ShowSearchBox = false;
+}
+<div class="form-div frame-fit" id="form1">
+    <table border="0" cellpadding="1" cellspacing="2" style="width: 428px; table-layout: fixed;">
+        <tr>
+            <td class="col-md-10">
+                <input id="TokeyId" name="ToKeyId" class="mini-hidden" value="@Model.ToKeyId" />
+                <input id="AccreditDate" name="AccreditDate" class="mini-hidden" value="@Model.AccreditDate" />
+
+                <input labelfield="true" label="@FStr.ClientName：" name="ClientName" value="@Model.ClientName" required="true" class="mini-textbox" maxlength="50" style="width:400px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="col-md-10">
+                <input labelfield="true" label="@FStr.ClientId：" name="ClientId" value="@Model.ClientId" required="true" class="mini-textbox" maxlength="50" style="width:400px;" />
+            </td>
+        </tr>
+
+        <tr>
+            <td class="col-md-10">
+                <input labelfield="true" label="@FStr.AuthorizeKey：" name="TokeyCode" value="@Model.TokeyCode" required="true" readonly="true"  class="mini-textbox" maxlength="50" style="width:400px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="col-md-10">
+                <input labelfield="true" label="@FStr.ValidityDate：" name="ValidityDate" value="@Model.ValidityDate" required="true" class="mini-datepicker" style="width:400px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="col-md-10">
+                <input labelfield="true" label="@FStr.AccreditBy：" name="AccreditBy" value="@Model.AccreditBy" class="mini-textbox" readonly="true" maxlength="50" style="width:400px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="col-md-10"> 
+                <input labelfield="true" label="@FStr.AuthorizeStatus:" name="IsvalId" class="mini-radiobuttonlist"  value="@Model.IsvalId" data="[{id: 1, text: '@JStr.Enabled'}, {id: 0, text: '@JStr.Disabled'}]" style="width:400px;"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="col-md-10">
+                <input labelfield="true" label="@JStr.Remark：" value="@Model.Memo" name="Memo" maxlength="1000" style="width:400px;height:100px" class="mini-textarea" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+
+    $.regButton({
+        text: "@JStr.Save",
+        beforeSubmit: function (ajax) {
+            //获取表单对象进行表单验证
+            var form = new mini.Form("#form1");
+            if (form.isValid() == false)
+                return false;
+
+            //获取表单的数据
+            var data = form.getData();      //获取表单多个控件的数据
+            var formJson = mini.encode(data);
+            //打包提交数据
+            ajax.data = {
+                formData: formJson
+            };
+        },
+        beforeAjax: function () {
+            //添加等待并且阻断窗口访问
+            //mini.mask({
+            //    el: document.body,
+            //    cls: 'mini-mask-loading',
+            //    html: '数据保存中...'
+            //});
+        },
+        afterSubmit: function (data) {
+            //释放窗口阻断
+            //mini.unmask(document.body);
+            if (top.iframe.contentWindow.reloadMainData) {
+                top.iframe.contentWindow.reloadMainData();
+            }
+
+            //保存成功关闭窗体
+            if (data.Type == "success") {
+                window.CloseOwnerWindow();
+            }
+        }
+    });
+
+</script>
+

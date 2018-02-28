@@ -1,0 +1,164 @@
+﻿@model StandardModel
+@using PKS.DbServices.Standard.Model
+@{
+    ViewBag.Title = "标准规范";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+<div id="layout1" class="mini-layout frame-fit" style="width: 100%;margin-top: -10px;">
+    <div>
+        <div style="width:800px;">
+            <input id="fileUpload" type="file" name="file" style="display:none;" />
+            <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+                <table style="width:100%;">
+                    <tr>
+                        <td style="width:100%;">
+                            <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
+                            <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
+                            <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>
+                            <a class="mini-button" iconCls="icon-download" href="~/content/Standard/标准规范数据模板.xlsx" >下载模板</a>
+                            <a class="mini-button" iconCls="icon-upload" onclick="$('input[id=fileUpload]').click();">导入Excel</a>     
+                            <a class="mini-button" iconCls="icon-collapse" onclick="reindex()">重建索引</a>
+                        </td>
+                        <td style="white-space:nowrap;">
+                            <input id="key" class="mini-textbox" emptyText="请输入名称" style="width:150px;" onenter="onKeyEnter" />
+                            <a class="mini-button" iconCls="icon-search" onclick="search()">查询</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="datagrid1" class="mini-datagrid" style="width:99%;height:93%" allowResize="true"
+             url="@Url.Action("GetStandards")" idField="Id" multiSelect="true">
+            <div property="columns">
+                <div type="indexcolumn"></div>        
+                <div type="checkcolumn"></div>
+                <div field="Name" width="120" headerAlign="center" allowSort="true">名称</div>
+                <div field="Type" width="60" headerAlign="center" allowSort="true">标准类型</div>
+                <div field="Url" width="120" headerAlign="center" allowSort="true">链接地址</div>
+                <div field="CreatedBy" width="40" headerAlign="center" allowSort="true">上传人</div>
+                <div field="CreatedDate" width="60" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm">上传时间</div>
+            </div>
+        </div>
+
+    </div>
+</div>   
+
+<script type="text/javascript">
+    mini.parse();
+
+    var grid = mini.get("datagrid1");
+    grid.load();
+
+    var showSuccess = "@ViewBag.ShowSuccess";
+    if (showSuccess == "True") {
+        showTips({ Type: "success", Message: "上传成功！" });
+    }
+
+    $('input[id=fileUpload]').change(function () {
+        $('form').attr("enctype", "multipart/form-data");
+        $('form').attr("encoding", "multipart/form-data");
+        $('form').attr("action", "@Url.Action("Browse")");
+        $('form').attr('method', 'POST');
+        $('form').submit();
+    })
+
+    function search() {
+        var key = mini.get("key").getValue();
+        grid.filter(function (row) {
+            var r1 = true;
+            if (key) {
+                r1 = String(row.Name).indexOf(key) != -1;
+            }
+            return r1;
+        })
+    }
+
+    function onKeyEnter() {
+        search();
+    }
+
+    function add() {
+        mini.open({
+            url: "@Url.Action("AddStandard", "Standard")",
+            title: "新增标准规范",
+            allowResize: false,
+            width: 400,
+            height: 310,
+            onload: function () { },
+            ondestroy: function (action) {
+                grid.reload();
+            }
+        });
+    }
+
+    function edit() {
+        var row = grid.getSelected();
+        var json = encodeURI(mini.encode(row));
+
+        if (row) {
+            mini.open({
+                url: "@Url.Action("EditStandard", "Standard")?model=" + json,
+                allowResize: false,
+                title: "编辑标准规范",
+                width: 400,
+                height: 300,
+                onload: function () { },
+                ondestroy: function (action) {
+                    grid.reload();
+                }
+            });
+        } else {
+            mini.showTips({
+                content: "请先选择一行数据",
+                state: "warning",
+                x: "center",
+                y: "center",
+                timeout: 1500
+            });
+        }
+    }
+
+    function remove() {
+        var rows = grid.getSelecteds();
+        if (rows.length > 0) {
+            if (confirm("确定删除选中记录？")) {
+                var ids = [];
+                for (var i = 0, l = rows.length; i < l; i++) {
+                    var r = rows[i];
+                    ids.push(r.Id);
+                }
+                var data = mini.encode(ids);
+                //grid.load("操作中，请稍后......");
+                $.ajax({
+                    url: "@Url.Action("DeleteStandards")",
+                    data: { data: data },
+                    success: function () {
+                        showTips({ Type: "success", Message: "删除成功！" });
+                        grid.reload();
+                    },
+                    error: function (e) {
+                        showTips({ Type: "error", Message: "删除失败！" });
+                        console.log(e);
+                    }
+                })
+            }
+        }
+    }
+
+    function reindex() {
+        //grid.load("操作中，请稍后......");
+        $.ajax({
+            url: "@Url.Action("ReIndexData")",
+            success: function (text) {
+                showTips({ Type: "success", Message: "重建索引成功！" });
+                grid.reload();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "重建索引！" });
+                console.log(e);
+            }
+        })
+    }
+
+</script>

@@ -1,0 +1,1 @@
+﻿[{ id: 'en-US', text: 'en-US' }, { id: 'zh-CN', text: 'zh-CN' }]

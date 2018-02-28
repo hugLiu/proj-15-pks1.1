@@ -1,0 +1,342 @@
+﻿@{
+    ViewBag.Title = "角色 - 数据权限设置";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+<style>
+    .mini-button:hover {
+        border-color: rgb(211,211,211);
+        cursor: pointer;
+    }
+
+    hr {
+        border-top: 2px solid gray;
+        margin: 15px 5px 5px 5px;
+    }
+
+    .mini-treeselect {
+        width: 200px;
+    }
+
+    .mini-datagrid {
+        margin-top: 5px;
+    }
+</style>
+<div class="mini-panel layout-panel  frame-fit" showHeader="false" width="auto" showCollapseButton="flase" showCloseButton="flase">
+    <div id="part1" class="mini-xs mini-sm mini-md mini-md-active mini-col">
+        <div class="container-fluid">
+            <div class="mini-clearfix">
+                <div class="mini-col-3">
+                    <span> 角  色：</span>
+                    <input id="role_combox" class="mini-combobox" style="width:150px;" textField="ROLENAME" valueField="ROLEID"
+                           url="/MetadataPermission/GetRoles" allowInput="fasle" />
+                </div>
+                <div class="mini-col-3">
+                    <a id="save" class="mini-button" iconcls="icon-new-save" onclick="save_click">@ResHelper.GetStr("保存设置")</a>
+                    <a id="reset" class="mini-button" iconcls="icon-undo" onclick="reset_click">@ResHelper.GetStr("重置设置")</a>
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+
+    <div id="part2" class="mini-xs mini-sm mini-md mini-md-active mini-col">
+        <div class="container-fluid">
+            <div class="mini-clearfix">
+                <div class="mini-panel layout-panel frame-fit" showHeader="false" width="auto">
+                    <div class="mini-col-3">
+                        <div>
+                            <span>元数据：</span>
+                            <a id="meta_delete" class="mini-button" iconcls="icon-new-delete" onclick="meta_delete_click">删除</a>
+                        </div>
+                        <input id="meta_treeselect" class="mini-treeselect"
+                               url="/MetadataPermission/GetMetas"
+                               textField="Title" valueField="Id" parentField="PId"
+                               multiSelect="false" valueFromSelect="true" allowInput="true"
+                               expandOnLoad="true" emptyText="请选择..."
+                               onbeforenodeselect="beforenodeselect" />
+                        <div id="metaList_datagrid" class="mini-datagrid" style="width:100%;"
+                             allowCellSelect="true" url="/MetadataPermission/GetPermissionRoleMetas" idField="id" showPager="false"
+                             showEmptyText="true" emptyText="**未设置数据权限**" multiSelect="false" allowCellEdit="true">
+                            <div property="columns">
+                                <div type="indexcolumn" headeralign="center"></div>
+                                <div type="checkboxcolumn" field="IsChecked" readOnly="false">是否有效</div>
+                                <div id="name" field="Title" headeralign="center" allowsort="true">已选元数据</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mini-col-1" style="height:400px; width:1px; border-left:1px gray solid"></div>
+                    <div class="mini-col-3">
+                        <div>
+                            <span>允许访问</span>
+                            <a id="white_input" class="mini-button" iconcls="icon-new-edit" onclick="white_input_click">输入</a>
+                            <a id="white_delete" class="mini-button" iconcls="icon-new-delete" onclick="white_delete_click">删除</a>
+                        </div>
+                        <input id="white_treeselect" class="mini-treeselect"
+                               textField="MetadataItemName" valueField="Id" parentField="PId"
+                               multiSelect="false" valueFromSelect="true" allowInput="true"
+                               expandOnLoad="true" emptyText="请选择..."
+                               onbeforenodeselect="beforenodeselect" />
+                        <div id="whiteList_datagrid" class="mini-datagrid" style="width:100%;"
+                             allowCellSelect="true" idField="id" showPager="false"
+                             url="/MetadataPermission/GetWhitelist"
+                             showEmptyText="true" emptyText="**白名单为空**" multiSelect="true">
+                            <div property="columns">
+                                <div type="indexcolumn" headeralign="center"></div>
+                                <div id="name" field="MetadataItemName" headeralign="center" allowsort="true">允许访问</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mini-col-3">
+                        <div>
+                            <span>禁止访问</span>
+                            <a id="black_input" class="mini-button" iconcls="icon-new-edit"  onclick="black_input_click">输入</a>
+                            <a id="black_delete" class="mini-button" iconcls="icon-new-delete" onclick="black_delete_click">删除</a>
+                        </div>
+                        <input id="black_treeselect" class="mini-treeselect"
+                               textField="MetadataItemName" valueField="Id" parentField="PId"
+                               multiSelect="false" valueFromSelect="true" allowInput="true"
+                               expandOnLoad="true" emptyText="请选择..."
+                               onbeforenodeselect="beforenodeselect" />
+                        <div id="blackList_datagrid" class="mini-datagrid" style="width:100%;"
+                             allowCellSelect="true" idField="id" showPager="false"
+                             url="/MetadataPermission/GetBlacklist"
+                             showEmptyText="true" emptyText="**黑名单为空**" multiSelect="true">
+                            <div property="columns">
+                                <div type="indexcolumn" headeralign="center"></div>
+                                <div id="name" field="MetadataItemName" headeralign="center" allowsort="true">禁止访问</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="input_win" class="mini-window" title="输入元数据的值" style="width:420px;height:250px;"
+             showMaxButton="false" showCollapseButton="false" showShadow="true" onbuttonclick="input_win_close_click" showToolbar="true" showFooter="true" showModal="false" allowResize="false" allowDrag="true">
+            <div property="footer" style="text-align:right;padding:5px;padding-right:15px;">
+                <input type='button' value='确认' onclick="hideWindow()" style='vertical-align:middle;' />
+            </div>
+            <textarea id="input_textarea" class="mini-textarea" style="width:400px;height:160px;" emptyText="每行输入一个值"></textarea> <br />
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var defaultNode = 0;
+    var curRole = null;
+    var curMeta = null;
+    var tempPermissionRoleMetaItems = [];
+
+    mini.parse();
+
+    var role_combox = mini.get("role_combox");
+    role_combox.select(defaultNode);
+    curRole = role_combox.getValue();
+
+    var meta_treeselect = mini.get("meta_treeselect");
+    var metaList_datagrid = mini.get("metaList_datagrid");
+
+    var white_treeselect = mini.get("white_treeselect");
+    var whiteList_datagrid = mini.get("whiteList_datagrid");
+
+    var black_treeselect = mini.get("black_treeselect");
+    var blackList_datagrid = mini.get("blackList_datagrid");
+
+    var input_win = mini.get("input_win");
+    var input_textarea = mini.get("input_textarea");
+
+
+    role_combox.on("valuechanged", function (e) {
+        curRole = e.value;
+        permissionRoleMetasLoad(curRole);
+        tempPermissionRoleMetaItems = [];
+    });
+
+    permissionRoleMetasLoad = function (roleId) {
+        metaList_datagrid.load(
+            { roleId: roleId },
+            function (data) {
+                if (data.data.length != 0) {
+                    metaList_datagrid.setSelected(metaList_datagrid.data[0]);
+                    curMeta = metaList_datagrid.getSelected();
+                }
+                else {
+                    clear();
+                }
+            });
+    }
+
+    meta_treeselect.on("nodeclick", function (e) {
+        itemClick(metaList_datagrid, meta_treeselect.getSelectedNode(), "Id");
+    });
+
+    metaList_datagrid.on("beforedeselect", function (e) {
+        addTempPermission();
+        console.log("beforeDeselect", tempPermissionRoleMetaItems);
+    });
+
+    addTempPermission = function () {
+        if (curMeta == null) return;
+        var metaId = curMeta.Id;
+        var whiteList = whiteList_datagrid.getData();
+        var blackList = blackList_datagrid.getData();
+
+        var old = tempPermissionRoleMetaItems.find(function (t) {
+            if (t.metaId == metaId) return true;
+        });
+        if (old != null) {
+            tempPermissionRoleMetaItems.remove(old);
+        }
+
+        var tempPermissioin = { Id: metaId, metaId: metaId, whiteList: whiteList, blackList: blackList };
+        tempPermissionRoleMetaItems.push(tempPermissioin);
+    }
+
+    metaList_datagrid.on("select", function (e) {
+        newMeta = e.record;
+        if (newMeta == null) return;
+        curMeta = newMeta;
+        var url = "/MetadataPermission/GetMetaItems?metaId=" + curMeta.Id;
+        black_treeselect.setUrl(url);
+        black_treeselect.load();
+        white_treeselect.setUrl(url);
+        white_treeselect.load();
+
+        var old = tempPermissionRoleMetaItems.find(function (t) {
+            if (t.metaId == curMeta.Id) return true;
+        });
+        if (old != null) {
+            whiteList_datagrid.setData(old.whiteList);
+            blackList_datagrid.setData(old.blackList);
+        } else {
+            whiteList_datagrid.load({ roleId: curRole, metaId: curMeta.Id })
+            blackList_datagrid.load({ roleId: curRole, metaId: curMeta.Id })
+        }
+    });
+
+    white_treeselect.on("valuechanged", function (e) {
+        itemClick(whiteList_datagrid, white_treeselect.getSelectedNode(), "MetadataItemName");
+    });
+
+    black_treeselect.on("valuechanged", function (e) {
+        itemClick(blackList_datagrid, black_treeselect.getSelectedNode(), "MetadataItemName");
+    });
+
+
+    itemClick = function (to, item, filter) {
+        if (item[filter] == null || item[filter] == "") return;
+        var row = to.findRow(function (row) {
+            if (row[filter] == item[filter]) return true;
+        });
+        if (row == null) {
+            to.addRow(item);
+        }
+    }
+
+    function meta_delete_click() {
+        var row = tempPermissionRoleMetaItems.filter(function (t) {
+            if (t.Id == metaList_datagrid.getSelected().Id) {
+                return true;
+            }
+        });
+        console.log("deleteRow", row);
+        console.log("deleteRowIndex", tempPermissionRoleMetaItems.indexOf(row[0]));
+        tempPermissionRoleMetaItems.splice(tempPermissionRoleMetaItems.indexOf(row[0]), 1);
+        removeItems(metaList_datagrid);
+        console.log("afterDelete", tempPermissionRoleMetaItems);
+    }
+    function black_delete_click() {
+        removeItems(blackList_datagrid);
+    }
+
+    function white_delete_click() {
+        removeItems(whiteList_datagrid);
+    }
+
+
+    function save_click() {
+        addTempPermission();
+        console.log("onSave", tempPermissionRoleMetaItems);
+
+        var roleMetas = metaList_datagrid.data;
+        var roleMetaItems = tempPermissionRoleMetaItems;
+
+        $.ajax({
+            url: "/MetadataPermission/SavePermission",
+            type: "post",
+            data: {
+                roleId: curRole,
+                roleMetas: roleMetas,
+                roleMetaItems: roleMetaItems
+            },
+            success: function (res) {
+                metaList_datagrid.accept();
+                whiteList_datagrid.accept();
+                blackList_datagrid.accept();
+                toastr["success"]("保存成功", "系统提示");
+            },
+            error: function (res) {
+                toastr["error"]("保存失败", "系统提示");
+                console && console.log(res);
+                alert(res.statusText);
+                location.reload();
+            }
+        })
+    }
+    function reset_click() {
+        tempPermissionRoleMetaItems = [];
+        metaList_datagrid.reload();
+        metaList_datagrid.setSelected(metaList_datagrid.data[0]);
+        whiteList_datagrid.reload();
+        blackList_datagrid.reload();
+    }
+
+    removeItems = function (from) {
+        var items = from.getSelecteds();
+        if (items.length == 0) {
+            toastr["warning"]("未选择要删除的行", "系统提示");
+        }
+        else {
+            from.removeRows(items, true);
+        }
+    }
+
+    clear = function () {
+        curMeta = null;
+        tempPermissionRoleMetaItems = [];
+        white_treeselect.setData([]);
+        black_treeselect.setData([]);
+        whiteList_datagrid.clearRows();
+        blackList_datagrid.clearRows();
+    }
+
+    function beforenodeselect(e) {
+        //禁止选中父节点
+        if (e.isLeaf == false) e.cancel = true;
+    }
+
+    var win = null;
+    function white_input_click() {
+        win = whiteList_datagrid;
+        input_win.showAtPos("center", "middle");
+    }
+    function black_input_click() {
+        win = blackList_datagrid;
+        input_win.showAtPos("center", "middle");
+    }
+    function hideWindow() {
+        values = input_textarea.getValue();
+        var valueArr = values.split("\n");
+        for (var i = 0; i < valueArr.length; i++) {
+            itemClick(win, { MetadataItemName: valueArr[i] }, "MetadataItemName")
+        }
+        input_textarea.setValue("");
+        input_win.hide();
+    }
+    function input_win_close_click() {
+        input_textarea.setValue("");
+    }
+
+    permissionRoleMetasLoad(curRole);
+</script>

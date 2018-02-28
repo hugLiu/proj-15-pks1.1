@@ -1,0 +1,526 @@
+﻿@{
+    ViewBag.Title = "岗位模块配置";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div id="layout1" class="mini-layout frame-fit" style="width: 100%;margin-top: -10px;">  
+    <div>
+        <div style="width:30%;height:100%;float:left;margin-left:1%;">
+            <div style="width:100%;margin:1%;height:6%;">
+                <span><strong>岗位：</strong></span>
+                <input id="comboPost" property="editor" class="mini-combobox" data="Posts" onvaluechanged="postChanged" />
+            </div>
+
+            <div class="mini-panel" title="岗位模块" style="width:100%;height:92%;">
+                <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+                    <table>
+                        <tr>
+                            <td>
+                                <a class="mini-button" iconCls="icon-add" onclick="addPostModule()">增加模块</a>
+                                <a class="mini-button" iconCls="icon-remove" onclick="removePostModule()">删除模块</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="gridModule" class="mini-datagrid" style="width: 100%;" allowResize="false" showPager="false"
+                     url="@Url.Action("GetPostModules", "KHome")" idField="Id"
+                     onselect="gridModuleSelected">
+                    <div property="columns">
+                        <div type="indexcolumn"></div>
+                        <div name="Name" field="Name" width="120" headerAlign="center" align="center">模块名称</div>
+                        <div name="action" width="120" headerAlign="center" align="center" renderer="onModuleActionRender">#</div>
+                    </div>
+                </div>
+            </div>    
+        </div>   
+        <div class="mini-panel" title="模块过滤条件" style="width:67%;height:100%;float:right;margin-left:1%;margin-right:1%;">
+            <table style="width:100%;height:100%;">
+                <tr>
+                    <td width="25%">
+                        <div id="gridQuery" class="mini-datagrid" style="width: 100%;height:100%;" allowResize="false" showPager="false"
+                             url="@Url.Action("GetModuleQueries", "KHome")" idField="Id"
+                             onselect="gridQuerySelected">
+                            <div property="columns">
+                                <div name="Name" field="Name" width="120" headerAlign="center" align="center">条件列表</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="75%">
+                        <div style="height:100%;width:99%;margin-left:1%;">
+                            <div style="height:31%;margin-bottom:1%;">
+                                <span><strong>模块查询条件（仅供浏览）：</strong></span>
+                                <div id="gridQueryParam" class="mini-datagrid" style="width:100%;height:92%;" allowResize="false" showPager="false">
+                                    <div property="columns">
+                                        <div name="Name" field="Name" width="110" headerAlign="center">参数名</div>
+                                        <div type="comboboxcolumn" name="Operator" field="Operator" width="110" headerAlign="center">
+                                            操作符
+                                            <input property="editor" class="mini-combobox" style="width:100%;" data="OperatorList" />
+                                        </div>
+                                        <div name="Value" field="Value" width="150" headerAlign="center">值</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height:27%;margin-top:3%;">
+                                <span><strong>模块过滤条件：</strong></span>
+                                <div id="gridFilterParam" class="mini-datagrid" style="width:100%;height:90%;" allowResize="false" showPager="false"
+                                     url="@Url.Action("GetModuleFilterParams", "KHome")" idField="Id"
+                                     emptyText="数据为空，<a href='javascript:newFilterParam()'>增加一条</a>" showEmptyText="true">
+                                    <div property="columns">
+                                        <div name="action" width="120" headerAlign="center" align="center" renderer="onFilterRenderer" cellStyle="padding:0;">#</div>
+                                        <div type="comboboxcolumn" name="Name" field="Name" width="110" headerAlign="center">
+                                            参数名
+                                            <input property="editor" class="mini-combobox" style="width:100%;" data="Metadata" />
+                                        </div>
+                                        <div type="comboboxcolumn" name="Operator" field="Operator" width="110" headerAlign="center">
+                                            操作符
+                                            <input property="editor" class="mini-combobox" style="width:100%;" data="OperatorList" />
+                                        </div>
+                                        <div name="Value" field="Value" width="150" headerAlign="center">
+                                            值
+                                            <input property="editor" class="mini-textbox" style="width:100%;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height:25%;margin-top:3%;">
+                                <span><strong>模块排序条件：</strong></span>
+                                <div id="gridSortParam" class="mini-datagrid" style="width:75%;height:92%;" allowResize="false" showPager="false"
+                                     url="@Url.Action("GetModuleSortParams", "KHome")" idField="Id"
+                                     emptyText="数据为空，<a href='javascript:newSortParam()'>增加一条</a>" showEmptyText="true">
+                                    <div property="columns">
+                                        <div name="action" width="120" headerAlign="center" align="center" renderer="onSortRenderer" cellStyle="padding:0;">#</div>
+                                        <div type="comboboxcolumn" name="Name" field="Name" width="110" headerAlign="center">
+                                            参数名
+                                            <input property="editor" class="mini-combobox" style="width:100%;" data="Metadata" />
+                                        </div>
+                                        <div type="comboboxcolumn" name="Operator" field="Operator" width="110" headerAlign="center">
+                                            排序
+                                            <input property="editor" class="mini-combobox" style="width:100%;" data="SortOperatorList" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height:5%;margin-top:3%;">
+                                <span><strong>返回记录条数:</strong></span>
+                                <input id="txtCount" class="mini-textbox" emptyText="为空返回所有数据" vtype="int" onvaluechanged="txtCountValueChanged" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div> 
+
+<script type="text/javascript">
+
+    var Metadata = @Html.Raw(ViewBag.Metadata);
+    var Posts = @Html.Raw(ViewBag.Posts);
+    var OperatorList = [
+        {
+            id: "eq",
+            text: "等于"
+        },
+        {
+            id: "phrase",
+            text: "前缀等于"
+        },
+        {
+            id: "ne",
+            text: "不等于"
+        }
+    ];
+    var SortOperatorList = [
+        {
+            id: "asc",
+            text: "升序"
+        },
+        {
+            id: "desc",
+            text: "降序"
+        }
+    ];
+
+    mini.parse();
+    var comboPost = mini.get("comboPost");
+    var gridModule = mini.get("gridModule");
+    var gridQuery = mini.get("gridQuery");
+    var gridQueryParam = mini.get("gridQueryParam");
+    var gridFilterParam = mini.get("gridFilterParam");
+    var gridSortParam = mini.get("gridSortParam");
+    var txtCount = mini.get("txtCount");
+
+    // 切换岗位
+    function postChanged() {
+        var postid = comboPost.getValue();
+        gridModule.load({ postid: postid });
+    }
+
+    /* 岗位模块维护 */
+    function addPostModule() {
+        mini.open({
+            url: "@Url.Action("SelectModule", "KHome")",
+            showMaxButton: false,
+            title: "选择模块",
+            width: 350,
+            height: 350,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    if (data) {
+                        var newRow = { Id: -1, Name: data.Name, Order: 1, RoleId: comboPost.getValue(), ModuleId: data.ModuleId };
+                        $.ajax({
+                            url: "@Url.Action("AddPostModule", "KHome")",
+                            type: "post",
+                            data: { newRow: mini.encode(newRow) },
+                            success: function (text) {
+                                var postid = comboPost.getValue();
+                                gridModule.load({ postid: postid });
+                            },
+                            error: function (e) {
+                                showTips({ Type: "error", Message: "增加岗位模块失败" });
+                                console.log(e);
+                            }
+                        })
+                    }
+                }
+            }
+        })
+    }
+
+    function removePostModule() {
+        var row = gridModule.getSelected();
+        if (row == null) {
+            showTips({ Type: "warning", Message: "请先选中需要删除的记录" });
+            return;
+        }
+        $.ajax({
+            url: "@Url.Action("RemovePostModule", "KHome")?id=" + row.Id,
+            success: function (text) {
+                gridModule.removeRow(row, true);
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "删除记录失败！" });
+                console.log(e);
+            }
+        })
+    }
+
+    function gridModuleSelected(e) {
+        gridQueryParam.clearRows();
+        gridFilterParam.clearRows();
+        gridSortParam.clearRows();
+        txtCount.setValue(null);
+        var record = e.record;
+        gridQuery.load({ moduleId: record.ModuleId });
+    }
+
+    function onModuleActionRender(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var uid = record._uid;
+        var rowIndex = e.rowIndex;
+
+        var s = '<a class="Up_Button" href="javascript:upModule(\'' + uid + '\')">上移</a>'
+            + ' <a class="Down_Button" href="javascript:downModule(\'' + uid + '\')">下移</a>';
+        return s;
+    }
+
+    function upModule(row_uid, row_index) {
+        var row = gridModule.getRowByUID(row_uid);
+        if (row) {
+            var row_index = gridModule.indexOf(row);
+            if (row_index == 0) return;
+            var row2 = gridModule.getRow(row_index - 1);
+            $.ajax({
+                url: "@Url.Action("MovePostModule", "KHome")?postModuleId1=" + row.Id + "&postModuleId2=" + row2.Id,
+                async: false,
+                success: function () {
+                    gridModule.moveRow(row, row_index - 1);
+                },
+                error: function (e) {
+                    gridModule.reload();
+                    showTips({ Type: "error", Message: "移动行失败！" });
+                    console.log(e);
+                }
+            });
+
+        }
+    }
+
+    function downModule(row_uid, row_index) {
+        var row = gridModule.getRowByUID(row_uid);
+        if (row) {
+            var row_index = gridModule.indexOf(row);
+            if (row_index == gridModule.data.length - 1) return;
+            var row2 = gridModule.getRow(row_index + 1);
+            $.ajax({
+                url: "@Url.Action("MovePostModule", "KHome")?postModuleId1=" + row.Id + "&postModuleId2=" + row2.Id,
+                async: false,
+                success: function () {
+                    gridModule.moveRow(row, row_index + 2);
+                },
+                error: function (e) {
+                    gridModule.reload();
+                    showTips({ Type: "error", Message: "移动行失败！" });
+                    console.log(e);
+                }
+            });          
+        }
+    }
+
+    function gridQuerySelected(e) {
+
+        gridQueryParam.clearRows();
+        gridFilterParam.clearRows();
+        gridSortParam.clearRows();
+        txtCount.setValue(null);
+
+        /* 模块查询条件 */
+        var record = e.record;
+        if (record.QueryParameter == null || record.QueryParameter == "") return;
+        var list = JSON.parse(record.QueryParameter);
+        for (var i = 0; i < list.length; i++) {
+            gridQueryParam.addRow(list[i], gridQueryParam.data.length);
+        }
+
+        /* 模块过滤条件 */
+        var moduleRow = gridModule.getSelected();
+        var postModuleId = moduleRow.Id;
+        gridFilterParam.load({ queryId: record.Id, postModuleId: postModuleId });
+
+        /* 模块排序条件 */
+        gridSortParam.load({ queryId: record.Id, postModuleId: postModuleId });
+
+        /* 返回记录条数 */
+        $.ajax({
+            url: "@Url.Action("GetReturnCount", "KHome")?queryId=" + record.Id + "&postModuleId=" + postModuleId,
+            success: function (text) {
+                txtCount.setValue(text);
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "获取返回记录条数失败！" });
+                console.log(e);
+            }
+        })
+    }
+
+
+
+
+
+    /* 模块过滤条件 */
+    function onFilterRenderer(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var uid = record._uid;
+        var rowIndex = e.rowIndex;
+
+        var s = '<a class="New_Button" href="javascript:newFilterParam()">新增</a>'
+            + ' <a class="Edit_Button" href="javascript:editFilterParam(\'' + uid + '\')" >编辑</a>'
+            + ' <a class="Delete_Button" href="javascript:delFilterParam(\'' + uid + '\')">删除</a>';
+
+        if (grid.isEditingRow(record)) {
+            s = '<a class="Update_Button" href="javascript:updateFilterParam(\'' + uid + '\')">更新</a>'
+                + ' <a class="Cancel_Button" href="javascript:cancelFilterParam(\'' + uid + '\')">取消</a>'
+        }
+        return s;
+    }
+
+    function newFilterParam() {
+        var selectedRow = gridQuery.getSelected();
+        if (selectedRow == null) {
+            showTips({ Type: "warning", Message: "请先选中一条查询条件！" });
+            return;
+        }
+
+        var row = {};
+        gridFilterParam.addRow(row, 0);
+        gridFilterParam.cancelEdit();
+        gridFilterParam.beginEditRow(row);
+    }
+
+    function editFilterParam(row_uid) {
+        var row = gridFilterParam.getRowByUID(row_uid);
+        if (row) {
+            gridFilterParam.cancelEdit();
+            gridFilterParam.beginEditRow(row);
+        }
+    }
+
+    function delFilterParam(row_uid) {
+        var queryRow = gridQuery.getSelected();
+        var queryId = queryRow.Id;
+
+        var moduleRow = gridModule.getSelected();
+        var postModuleId = moduleRow.Id;
+
+        var row = gridFilterParam.getRowByUID(row_uid);
+        gridFilterParam.removeRow(row);
+        gridFilterParam.commitEdit();
+        var data = gridFilterParam.data;
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("UpdateFilterParam", "KHome")",
+            data: { queryId: queryId, postModuleId: postModuleId, data: json },
+            type: "post",
+            success: function (text) {
+                gridFilterParam.reload();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新过滤参数失败！" });
+                console.log(e);
+            }
+        });
+    }
+
+    function updateFilterParam(row_uid) {
+        var queryRow = gridQuery.getSelected();
+        var queryId = queryRow.Id;
+
+        var moduleRow = gridModule.getSelected();
+        var postModuleId = moduleRow.Id;
+
+        gridFilterParam.commitEdit();
+        var data = gridFilterParam.data;
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("UpdateFilterParam", "KHome")",
+            data: { queryId: queryId, postModuleId: postModuleId, data: json },
+            type: "post",
+            success: function (text) {
+                gridFilterParam.reload();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新过滤参数失败！" });
+                console.log(e);
+            }
+        });
+    }
+
+    function cancelFilterParam(row_uid) {
+        gridFilterParam.reload();
+    }
+
+    /* 模块排序条件 */
+    function onSortRenderer(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var uid = record._uid;
+        var rowIndex = e.rowIndex;
+
+        var s = '<a class="New_Button" href="javascript:newSortParam()">新增</a>'
+            + ' <a class="Edit_Button" href="javascript:editSortParam(\'' + uid + '\')" >编辑</a>'
+            + ' <a class="Delete_Button" href="javascript:delSortParam(\'' + uid + '\')">删除</a>';
+
+        if (grid.isEditingRow(record)) {
+            s = '<a class="Update_Button" href="javascript:updateSortParam(\'' + uid + '\')">更新</a>'
+                + ' <a class="Cancel_Button" href="javascript:cancelSortParam(\'' + uid + '\')">取消</a>'
+        }
+        return s;
+    }
+
+    function newSortParam() {
+        var selectedRow = gridQuery.getSelected();
+        if (selectedRow == null) {
+            showTips({ Type: "warning", Message: "请先选中一条查询条件！" });
+            return;
+        }
+
+        var row = {};
+        gridSortParam.addRow(row, 0);
+        gridSortParam.cancelEdit();
+        gridSortParam.beginEditRow(row);
+    }
+
+    function editSortParam(row_uid) {
+        var row = gridSortParam.getRowByUID(row_uid);
+        if (row) {
+            gridSortParam.cancelEdit();
+            gridSortParam.beginEditRow(row);
+        }
+    }
+
+    function delSortParam(row_uid) {
+        var queryRow = gridQuery.getSelected();
+        var queryId = queryRow.Id;
+
+        var moduleRow = gridModule.getSelected();
+        var postModuleId = moduleRow.Id;
+
+        var row = gridSortParam.getRowByUID(row_uid);
+        gridSortParam.removeRow(row);
+        gridSortParam.commitEdit();
+        var data = gridSortParam.data;
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("UpdateSortParam", "KHome")",
+            data: { queryId: queryId, postModuleId: postModuleId, data: json },
+            type: "post",
+            success: function (text) {
+                gridSortParam.reload();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新过滤参数失败！" });
+                console.log(e);
+            }
+        });
+    }
+
+    function updateSortParam(row_uid) {
+        var queryRow = gridQuery.getSelected();
+        var queryId = queryRow.Id;
+
+        var moduleRow = gridModule.getSelected();
+        var postModuleId = moduleRow.Id;
+
+        gridSortParam.commitEdit();
+        var data = gridSortParam.data;
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("UpdateSortParam", "KHome")",
+            data: { queryId: queryId, postModuleId: postModuleId, data: json },
+            type: "post",
+            success: function (text) {
+                gridSortParam.reload();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新过滤参数失败！" });
+                console.log(e);
+            }
+        });
+    }
+
+    function cancelSortParam(row_uid) {
+        gridSortParam.reload();
+    }
+
+    function txtCountValueChanged(e) {
+        var moduleRow = gridModule.getSelected();
+        if (moduleRow == undefined) return;
+        var postModuleId = moduleRow.Id;
+
+        var queryRow = gridQuery.getSelected();
+        if (queryRow === undefined) return;
+        var queryId = queryRow.Id;
+
+        if (!txtCount.validate()) return;
+        var count = txtCount.getValue();
+        $.ajax({
+            url: "@Url.Action("UpdateReturnCount", "KHome")",
+            data: { queryId: queryId, postModuleId: postModuleId, count: count },
+            success: function (text) {
+
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新返回记录条数失败！" });
+                console.log(e);
+            }
+        })
+    }
+
+</script>

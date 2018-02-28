@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.ShowBreadCrumb = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div id="toolTop" style="padding-top:5px;width:100%;z-index:100;">
+    <div id="toolbar1" class="mini-toolbar">
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="">
+                    <a class="mini-button" iconcls="icon-new-baobiao" plain="true" checked="true" checkonclick="true" groupname="financial" onclick="onColumns('2')">两列</a>
+                    <a class="mini-button" iconcls="icon-new-baobiao" plain="true" checked="false" checkonclick="true" groupname="financial" onclick="onColumns('3')">三列</a>
+                    <a class="mini-button" iconcls="icon-new-baobiao" plain="true" checked="false" checkonclick="true" groupname="financial" onclick="onColumns('4')">四列</a>
+                </td>
+                <td style="text-align:right;width:120px;">
+                    <a class="mini-button" iconcls="icon-new-save" plain="false" onclick="onUse()">应用</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="homeGrid" class="mini-datagrid " style="width: 100%;" multiselect="false"
+    showpager="false"
+    allowalternating="true"
+    sortmode="client"
+    allowcelledit="true"
+    editnextrowcell="true"
+    editnextonenterkey="true"
+    allowcellselect="true"
+    >
+    <div property="columns">
+        <div field="colNum" headeralign="center" align="center"  width="70">
+            列序号
+        </div>
+
+        <div field="colWidth" headeralign="center" align="center" >
+            列宽%
+            <input property="editor" class="mini-spinner" changeonmousewheel="false" maxvalue="100"  />
+        </div>
+    </div>
+</div>
+
+<script>
+    mini.parse();
+
+    var setPortalLayout;
+
+    //产生列数量
+    function onColumns(col) {
+        var homeGrid = mini.get('#homeGrid')
+        homeGrid.clearRows();
+        for (var i = 0; i < col; i++) {
+            var rowIndex = homeGrid.getData().length;
+            var colNum = i + 1;
+            var newRow = {colNum:colNum};
+            homeGrid.addRow(newRow, rowIndex);
+        }
+    }
+
+    //应用到首页中
+    function onUse(col) {
+        var homeGrid = mini.get('#homeGrid')
+        var data = homeGrid.getData();
+        var colv = [];
+        for (var i = 0; i < data.length; i++) {
+            colv.push(data[i]["colWidth"] + '%');
+        }
+        setPortalLayout(colv);
+    }
+
+  
+</script>

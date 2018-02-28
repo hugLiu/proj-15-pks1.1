@@ -1,0 +1,983 @@
+/********************************************************************************************
+*************************************xvision-raster******************************************
+*********************************************************************************************/
+.xvision-container{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+}
+
+.xvision-row{
+    position: relative;
+    padding: 0px; 
+    padding: 0px;
+}
+
+.xvision-row:before {
+    display: block;
+    content: "";
+}
+
+.xvision-row:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.xvision-row [class^=xvision-col-] {
+    position: relative;
+    float: left;
+}
+
+.xvision-col-12 {
+    width: 100%;
+}
+
+.xvision-col-11 {
+    width: 91.66666667%;
+}
+
+.xvision-col-10 {
+    width: 83.33333333%;
+}
+
+.xvision-col-9 {
+    width: 75%;
+}
+
+.xvision-col-8 {
+    width: 66.66666667%;
+}
+
+.xvision-col-7 {
+    width: 58.33333333%;
+}
+
+.xvision-col-6 {
+    width: 50%;
+}
+
+.xvision-col-5 {
+    width: 41.66666667%;
+}
+
+.xvision-col-4 {
+    width: 33.33333333%;
+}
+
+.xvision-col-3 {
+    width: 25%;
+}
+
+.xvision-col-2 {
+    width: 16.66666667%;
+}
+
+.xvision-col-1 {
+    width: 8.33333333%;
+}
+/********************************************************************************************
+*************************************xvision-margin******************************************
+*********************************************************************************************/
+div.xvision-margin-xm,
+div.xvision-margin-xm{
+    margin: 1px;
+}
+
+div.xvision-margin-sm,
+div.xvision-margin-sm{
+    margin: 3px;
+}
+
+div.xvision-margin,
+div.xvision-margin{
+    margin: 5px;
+}
+
+div.xvision-margin-md,
+div.xvision-margin-md{
+    margin: 8px;
+}
+
+div.xvision-margin-lg,
+div.xvision-margin-lg{
+    margin: 10px;
+}
+
+div.xvision-margin-hor-xm,
+div.xvision-margin-hor-xm{
+    margin-left:1px;
+    margin-right:1px; 
+}
+
+div.xvision-margin-hor-xm,
+div.xvision-margin-hor-xm{
+    margin-left: 3px;
+    margin-right:3px; 
+}
+
+div.xvision-margin-hor,
+div.xvision-margin-hor{
+    margin-left: 5px;
+    margin-right:5px; 
+}
+
+div.xvision-margin-hor-md,
+div.xvision-margin-hor-md{
+    margin-left: 8px;
+    margin-right:8px; 
+}
+
+div.xvision-margin-hor-lg,
+div.xvision-margin-hor-lg{
+    margin-left: 10px;
+    margin-right:10px; 
+}
+
+div.xvision-margin-ver-xm,
+div.xvision-margin-ver-xm{
+    margin-top: 1px;
+    margin-bottom:1px; 
+}
+
+div.xvision-margin-ver-sm,
+div.xvision-margin-ver-sm{
+    margin-top: 3px;
+    margin-bottom:3px; 
+}
+
+div.xvision-margin-ver,
+div.xvision-margin-ver{
+    margin-top: 5px;
+    margin-bottom:5px; 
+}
+
+div.xvision-margin-ver-md,
+div.xvision-margin-ver-md{
+    margin-top: 8px;
+    margin-bottom:8px; 
+}
+
+div.xvision-margin-ver-lg,
+div.xvision-margin-ver-lg{
+    margin-top: 10px;
+    margin-bottom:10px; 
+}
+
+div.xvision-margin-ver-xg,
+div.xvision-margin-ver-xg {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+/********************************************************************************************
+*************************************xvision-padding*****************************************
+*********************************************************************************************/
+div.xvision-padding-xm,
+div.xvision-padding-xm{
+    padding: 1px;
+}
+
+div.xvision-padding-sm,
+div.xvision-padding-sm{
+    padding: 3px;
+}
+
+div.xvision-padding,
+div.xvision-padding{
+    padding: 5px;
+}
+
+div.xvision-padding-md,
+div.xvision-padding-md{
+    padding: 8px;
+}
+
+div.xvision-padding-lg,
+div.xvision-padding-lg{
+    padding: 10px;
+}
+
+div.xvision-padding-hor-xm,
+div.xvision-padding-hor-xm{
+    padding-left:1px;
+    padding-right:1px; 
+}
+
+div.xvision-padding-hor-xm,
+div.xvision-padding-hor-xm{
+    padding-left: 3px;
+    padding-right:3px; 
+}
+
+div.xvision-padding-hor,
+div.xvision-padding-hor{
+    padding-left: 5px;
+    padding-right:5px; 
+}
+
+div.xvision-padding-hor-md,
+div.xvision-padding-hor-md{
+    padding-left: 8px;
+    padding-right:8px; 
+}
+
+div.xvision-padding-hor-lg,
+div.xvision-padding-hor-lg{
+    padding-left: 10px;
+    padding-right:10px; 
+}
+
+div.xvision-padding-ver-xm,
+div.xvision-padding-ver-xm{
+    padding-top: 1px;
+    padding-bottom:1px; 
+}
+
+div.xvision-padding-ver-sm,
+div.xvision-padding-ver-sm{
+    padding-top: 3px;
+    padding-bottom:3px; 
+}
+
+div.xvision-padding-ver,
+div.xvision-padding-ver{
+    padding-top: 5px;
+    padding-bottom:5px; 
+}
+
+div.xvision-padding-ver-md,
+div.xvision-padding-ver-md{
+    padding-top: 8px;
+    padding-bottom:8px; 
+}
+
+
+div.xvision-padding-ver-lg
+div.xvision-padding-ver-lg{
+    padding-top: 10px;
+    padding-bottom:10px; 
+}
+
+div.xvision-padding-bottom-lg {
+    padding-bottom: 20px;
+}
+/********************************************************************************************
+*************************************xvision-text********************************************
+*********************************************************************************************/
+.xvision-text-center {
+    text-align: center;
+}
+.xvision-text-right{
+    text-align: right;
+}
+
+/********************************************************************************************
+*************************************xvision-border******************************************
+*********************************************************************************************/
+
+.xvision-border{    
+    border: 1px solid rgba(233,233,233,1);
+    border-radius: 3px;
+}
+
+.xvision-border-b-gray {
+  //border-bottom:1px solid rgba(222,222,222,1);
+}
+/********************************************************************************************
+*************************************xvision-window******************************************
+*********************************************************************************************/
+.xvision-window {
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+   // overflow: auto;
+}
+
+.xvision-window-header{
+    box-sizing: border-box;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 36px;
+}
+
+.xvision-window-body{
+    box-sizing: border-box;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    left: 0px;
+    top: 36px;
+    bottom: 0px;
+}
+
+.xvision-window-header-md{
+    box-sizing: border-box;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 80px;
+}
+
+.xvision-window-body-md{
+    box-sizing: border-box;
+    position: absolute;
+    margin: 0;
+ 
+    width: 99%;
+    height: auto;
+    left: 0px;
+    top: 90px;
+    bottom: 0px;
+    padding: 0 0px 0 12px;
+    border: 1px solid rgb(230,230,230);
+    overflow:auto;
+}
+
+.xvision-window-sidebar{
+    box-sizing: border-box;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 220px;
+    height: 100%;
+    left: 0px;
+    top: -36px;
+    //border-right:1px solid rgba(222,222,222,1);
+}
+
+.xvision-window-main{
+    box-sizing: border-box;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: 100%;
+    left:220px;
+    right: 0px;
+    top: 0px;
+}
+
+/********************************************************************************************
+***************************************xvision-tree******************************************
+*********************************************************************************************/
+.xvision-tree{
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.xvision-tree-header{
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    height:35px;
+    line-height:35px;
+    text-align:left;
+    
+    border-bottom:1px solid rgb(230,230,230)
+}
+
+.xvision-tree-header span{
+    display:inline-block;
+    height:35px;
+    padding:0 10px;
+    border-bottom:3px solid rgb(80,156,234);
+}
+
+
+.xvision-tree-body{
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    list-style: none;
+}
+
+.xvision-tree-node{
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0px;
+    width: 100%;
+    list-style: none;
+}
+
+.xvision-tree-node-header{
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+    font-size: 12px;
+    border:1px solid transparent;
+}
+
+.xvision-tree-node-text{
+    position:absolute;
+    margin-left: 5px;
+}
+
+.xvision-tree-node-selector,
+.xvision-tree-node-editor{
+    position: absolute;
+    display: inline-block;
+    left:17px;
+    right: 8px;
+    top:1px;
+    bottom: 1px;
+    line-height: 18px;
+}
+.xvision-tree-node-selector{
+    background-color: transparent;
+}
+.xvision-tree-node-selector.selected{
+    background-color: rgb(245,245,245);
+    border:1px solid rgb(230,230,230);
+    color:rgb(147,181,225);
+}
+
+.xvision-tree-node-editor{
+    opacity: 0;
+    z-index: -2;
+}
+
+.xvision-tree-node-editor .xvision-tree-node-editor-input{
+    text-indent: 5px;
+    padding:0px;
+    width: 100%;
+    outline: none;
+    border: 1px solid gray;
+    border-radius: 3px;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.xvision-tree-node-editor-input:focus{
+    border-color:blue; 
+}
+
+
+.xvision-tree-node-body{
+    opacity:0;
+    height:0;
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0px 0px 0px 12px;
+    width: 100%;
+    list-style: none;
+}
+
+.xvision-tree-node-expander{
+    color:rgb(208,211,214);
+    margin: 3px;
+    transition: all 300ms;
+}
+
+.xvision-tree-node-body.expanded{
+    opacity: 1;
+    height: auto;
+}
+
+.xvision-tree-node-expander.leaf{
+    color: transparent;
+}
+
+.xvision-tree-node-expander.expanded{
+    transform: rotate(45deg);
+}
+
+/********************************************************************************************
+***************************************xvision-catalog***************************************
+*********************************************************************************************/
+.xvision-catalog{
+    position: relative;
+    width: 95%;
+    height: 80px;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    border:1px solid rgb(230,230,230);
+}
+
+.xvision-catalog-header{
+    height: 36px;
+    margin: 0px;
+    padding: 3px 8px;
+}
+
+.xvision-catalog-caption{
+    height:100%;
+    line-height: 36px;
+    text-align: left;
+    font-weight:bold;
+    font-size:16px;
+    margin-left:10px;
+}
+.xvision-catalog-caption img{
+    margin-right:40px;
+}
+.xvision-catalog-body{
+    position:relative;
+    height: 44px;
+    margin: 0;
+    padding: 0px 18px;
+}
+
+.xvision-catalog-scroller{
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0px;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 44px;
+}
+
+.xvision-scroll-left,
+.xvision-scroll-right{
+    opacity:0;
+    position: absolute;
+    padding:0px 1px;
+    margin: auto;
+    height: 34px;
+    line-height: 34px;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(231,231,231,0.6);
+    z-index:888;
+    cursor:pointer;
+    transition:all 300ms;
+}
+.xvision-scroll-left{
+    left: 8px;
+}
+.xvision-scroll-right{
+    right: 8px;
+}
+
+.xvision-row .xvision-col-4:nth-of-type(1) .xvision-catalog-scroller-item{
+    display: inline-block;
+    list-style: none;
+    width: 33px;
+    height: 28px;
+    margin: 0px 7px;
+    background-color:rgb(103, 108, 115);
+    border-radius: 2px;
+    
+    color:rgb(112,179,249);
+    cursor:pointer;
+    margin-top:6px;
+    transition:.5s all;
+    
+}
+.xvision-row .xvision-col-4:nth-of-type(1) .xvision-catalog-scroller-item:hover{
+    
+    box-shadow:2px 2px 3px gray;
+}
+
+
+
+.xvision-row .xvision-col-4:nth-of-type(2) .xvision-catalog-scroller-item{
+    display: inline-block;
+    list-style: none;
+    width: 33px;
+    height: 28px;
+    margin: 0px 7px;
+    background-color: rgb(103, 108, 115);
+    border-radius: 2px;
+    transition:.5s all;
+    color: rgb(112,179,249);
+}
+
+.xvision-row .xvision-col-4:nth-of-type(2) .xvision-catalog-scroller-item:hover{
+    cursor:pointer;
+
+    
+    box-shadow:2px 2px 3px gray;
+    color: rgb(112,179,249);
+}
+
+#knowledge_doc_layout_designer .xvision-window .xvision-window{
+   overflow:auto;
+}
+.xvision-row .xvision-col-4:nth-of-type(3) .xvision-catalog-scroller-item{
+    display: inline-block;
+    list-style: none;
+    width: 33px;
+    height: 28px;
+    margin: 0px 7px;
+    border-radius: 2px;  
+    color: rgb(112,179,249);
+    transition:.5s all;
+    
+}
+
+.xvision-row .xvision-col-4:nth-of-type(3) .xvision-catalog-scroller-item:hover{
+    cursor:pointer;
+    
+    box-shadow:2px 2px 3px gray;
+    
+    color: rgb(112,179,249);
+}
+#knowledge_control_manager .xvision-catalog-scroller:nth-of-type(1){
+    text-align:center;
+}
+
+
+/********************************************************************************************
+***************************************xvision-icon******************************************
+*********************************************************************************************/
+.xvision-icon{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 28px;
+}
+.xvision-draggable-anchor{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/********************************************************************************************
+*************************************xvision-contextmenu*************************************
+*********************************************************************************************/
+.xvision-contextmenu{
+    display: none;
+    position: absolute;
+    width: 120px;
+    padding: 3px;
+    background-color: rgba(221,212,221,1);
+    border-radius: 3px;
+}
+
+.xvision-contextmenu-item{
+    padding: 3px 3px 3px 8px;
+}
+
+.xvision-contextmenu-item:hover{
+    background-color: white;
+}
+
+/********************************************************************************************
+*************************************xvision-com-editor**************************************
+*********************************************************************************************/
+
+.xvision-com-editor {
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    background-color:rgba(36,36,36,0.8);
+    z-index:333;
+}
+
+.xvision-com-editor-container {
+    position:relative;
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+}
+
+.xvision-com-editor h3 {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0px;
+}
+
+.xvision-com-editor select {
+    width: 100%;
+    height: 100%;
+    border: none;
+    line-height: 24px;
+}
+
+.xvision-com-editor select option {
+    line-height: 24px;
+}
+
+.xvision-com-editor input[type="text"] {
+    width: 100%;
+}
+
+
+.xvision-com-editor-core{
+    position: absolute;
+    width: 800px;
+    height: 480px;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+    border:1px solid rgba(88,88,88,1);
+    box-shadow:rgba(44,44,44,0.8) 1px 1px  2px;
+    background-color:rgba(255,255,255,0.8);
+}
+
+.xvision-com-editor-core-header{
+    position:absolute;
+    width:100%;
+    height:30px;
+    background-color:blue;
+    color:rgb(255,255,255);
+    border-bottom:1px solid rgba(166,166,166,1);
+}
+
+.xvision-com-editor-core-header-container {
+    position:relative;
+    width:100%;
+    height:100%;
+    line-height:30px;
+    padding:0px 5px;
+}
+
+.xvision-com-editor-core-body {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 30px;
+    left: 0px;
+    bottom: 42px;
+    border-top: 1px solid rgba(254,254,254,1);
+    border-bottom: 1px solid rgba(166,166,166,1);
+}
+
+.xvision-com-editor-core-body-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding:10px;
+    overflow:auto;
+}
+.xvision-com-editor-core-footer {
+    position:absolute;
+    width:100%;
+    height:42px;
+    left:0px;
+    bottom:0px;
+    border-top:1px solid rgba(254,254,254,1);
+}
+
+.xvision-com-editor-core-footer-container {
+    position:relative;
+    padding-top:7px;
+    padding-left:8px;
+    width:100%;
+    height:100%;
+}
+
+.xvision-com-editor-core-footer-container > button {
+    margin-left:12px;
+    padding:0px 10px;
+}
+/********************************************************************************************
+*************************************xvision-table*******************************************
+*********************************************************************************************/
+.xvision-table {
+    border: none;
+    font-size: 12px;
+    
+}
+.xvision-table .xvision-table-body{
+    margin:5px;
+}
+.xvision-table th{
+    text-align: center;
+    background-color:rgb(245,245,245);
+}
+.activeTr{
+    background:rgb(225,225,245);
+    
+}
+#knowledge_doc_fragments .xvision-table th,
+.xvision-table td{
+    cursor:pointer;
+    line-height: 24px;
+    border-top: 1px solid rgb(230,230,230);
+    border-right: 1px solid rgb(230,230,230);
+    border-bottom: 1px solid rgb(230,230,230);
+    width: 135px;
+    text-align:center;
+}
+
+#knowledge_doc_fragments .xvision-table thead th:first-child,
+#knowledge_doc_fragments .xvision-table tr td:first-child{
+    border-left:1px solid rgb(230,230,230);
+    text-align:center;
+    width:40px;
+}
+.xvision-table tr td:nth-child(2n){
+    text-indent:1em;
+    text-align:left;
+
+}
+/********************************************************************************************
+*************************************xvision-tab********************************************
+*********************************************************************************************/
+.xvision-tab{
+    position: relative;
+}
+
+
+.xvision-table-header{
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    height:35px;
+    line-height:35px;
+    text-align:left;
+    
+    border-bottom:1px solid rgb(230,230,230)
+}
+.xvision-table-header span{
+    display:inline-block;
+    height:35px;
+    padding:0 10px;
+    border-bottom:3px solid rgb(80,156,234);
+}
+
+.xvision-tab-header{
+    position: relative;
+    border-bottom:1px solid rgba(254,254,254,1);
+}
+
+.xvision-tab-btn {
+    padding: 5px 10px;
+    display: inline-block;
+    margin-left: 5px;
+    border-top: 1px solid rgba(254,254,254,1);
+    border-left: 1px solid rgba(254,254,254,1);
+    border-right: 1px solid rgba(254,254,254,1);
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    cursor:pointer;
+}
+
+.xvision-tab-btn.active {
+    margin-bottom: -1px;
+    border-bottom: 1px solid rgba(217,217,217,1);
+}
+
+.xvision-tab-body {
+    position: relative;
+    padding-top:5px;
+}
+
+.xvision-tab-page{
+    display: none;
+}
+
+.xvision-tab-page.active{
+    display: block;
+}
+
+/********************************************************************************************
+*************************************xvision-tool********************************************
+*********************************************************************************************/
+.xvision-tool-btn{
+    border: 1px solid transparent;
+    border-radius: 3px;
+    margin:0px 2px;
+}
+.xvision-tool-btn:hover{
+    border-color: white;
+    color: red;
+}
+
+/********************************************************************************************
+*************************************xvision-min-height**************************************
+*********************************************************************************************/
+
+.xvision-min-height{
+    min-height: 180px;
+}
+
+/********************************************************************************************
+*************************************xvision-control-holder**********************************
+*********************************************************************************************/
+.xvision-control-holder{
+    border:2px dotted gray;
+    min-height: 160px;
+}
+
+/********************************************************************************************
+*************************************xvision-splitor*****************************************
+*********************************************************************************************/
+.xvision-splitor{
+    position: absolute;
+    width: 0px;
+    height: 60px;
+   // border-left: 1px solid rgb(196,196,196);
+   // border-right:1px solid white;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: 0;
+}
+
+/********************************************************************************************
+*************************************xvision-panel*******************************************
+*********************************************************************************************/
+.xvision-panel {
+    position:relative;
+    margin-bottom:5px;
+}
+.xvision-panel-header {
+    position: relative;
+    padding:3px 5px;
+}
+.xvision-panel-body {
+    position:relative;
+}
+
+.xvision-btn {
+
+}
+
+
+.xvision-layout {
+    background-color:rgba(245,245,245,0.8);
+}
+
+.xvision-layout-inner {
+    background-color:rgba(255,255,255,1);
+}
+
+
+.headline-content{
+    background:url('/content/xeditor/images/headline-bg.png') no-repeat ;
+    padding-left:12px;
+    background-size:11px 32px;
+}
+

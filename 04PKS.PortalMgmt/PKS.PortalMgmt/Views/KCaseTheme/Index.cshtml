@@ -1,0 +1,774 @@
+﻿@{
+    ViewBag.Title = "案例主题";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div id="layout1" class="mini-layout frame-fit" style="width: 100%;margin-top: -10px;">
+    <div title="案例主题" showproxytext="false" region="west" width="300px" height="100%" showclosebutton="false" showspliticon="false" showcollapsebutton="false" showsplit="false" style="background-color:aliceblue;">
+        <ul id="treeCase" class="mini-tree" url="@Url.Action("GetCaseTree", "KCaseTheme")" style="width:290px;padding:5px;margin:5px;"
+            showTreeIcon="true"
+            textField="Name" idField="Id" parentField="Pid" resultAsTree="false"
+            contextMenu="#treeCaseMenu"
+            expandonload="1"
+            expandOnDblClick="true"
+            onendedit="endCaseEdit"
+            onnodeselect="caseNodeSelect"></ul>
+
+        <ul id="treeCaseMenu" class="mini-contextmenu" onbeforeopen="onBeforeCaseOpen">
+            <li>
+                <span iconCls="icon-add">新增节点</span>
+                <ul>                  
+                    <li onclick="onAddCategory">新增分类</li>
+                    <li onclick="onAddChildCategory">新增子分类</li> 
+                    <li class="separator"></li>
+                    <li onclick="onAddCase">新增案例</li>
+                </ul>
+            </li>
+            <li name="caseEdit" iconCls="icon-edit" onclick="onEditCaseNode">编辑节点</li>
+            <li name="caseRemove" iconCls="icon-remove" onclick="onRemoveCaseNode">删除节点</li>
+        </ul>
+
+    </div>
+
+    <div title="center" id="center" region="center" width="80%" height="150%" style="position:absolute;overflow:auto;">
+        <div id="panel1" class="mini-panel" title="案例主题描述" style="width:80%;height:18%;border:solid 1px #aaa;position:relative;">
+            <textarea id="caseDescText" class="mini-textarea" emptyText="请输入主题描述" style="width:100%;height:100%;"></textarea>
+        </div>
+
+        <div id="panel2" class="mini-panel" title="案例主题参数" style="width:80%;height:310px;border:solid 1px #aaa;position:relative;" showToolbar="true">
+            <div property="toolbar">
+                <a id="btnAddFeature" class="mini-button" style="margin:1px;" onclick="addFeature">
+                    <span class="mini-button-text  mini-button-icon icon-new-add">新增特征分类</span>
+                </a>
+                <a id="btnSaveParam" class="mini-button" style="margin:1px;" onclick="saveParam">
+                    <span class="mini-button-text  mini-button-icon icon-new-save">保存修改</span>
+                </a>
+            </div>
+            <table style="width:98%;height:100%">
+                <tr>
+                    <td style="width:30%;background-color:aliceblue;">
+                        <ul id="treeParam" class="mini-tree" url="@Url.Action("GetParamTreeByThemeId", "KCaseTheme")?id=0" style="padding:5px;margin:5px;height:230px;"
+                            showTreeIcon="true"
+                            textField="Name" idField="Id" parentField="Pid" resultAsTree="false"
+                            contextMenu="#treeParamMenu"
+                            expandonload="1"
+                            expandOnDblClick="true"
+                            onendedit="endParamEdit"
+                            onnodeselect="paramNodeSelect"></ul>
+
+                        <ul id="treeParamMenu" class="mini-contextmenu" onbeforeopen="onBeforeParamOpen">
+                            <li name="paramEdit" iconCls="icon-add" onclick="onAddParam">新增参数节点</li>
+                            <li name="paramEdit" iconCls="icon-edit" onclick="onEditParamNode">编辑节点</li>
+                            <li name="paramRemove" iconCls="icon-remove" onclick="onRemoveParamNode">删除节点</li>
+                        </ul>
+                    </td>
+                    <td style="width:60%;">
+                        <div class="mini-panel-body" style="width:100%;height:100%;">
+                            <table style="margin: 10px 20px 0px 20px;">
+                                <tr>
+                                    <td height="30px">参数：</td>
+                                    <td width="200px">
+                                        <input id="paramName" class="mini-textbox" width="200px" value="" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30px">参数说明：</td>
+                                    <td>
+                                        <input id="paramDesc" class="mini-textbox" width="200px" value="" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30px">单位：</td>
+                                    <td>
+                                        <input id="unitText" class="mini-textbox" value="" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30px">特征值类型：</td>
+                                    <td>
+                                        <div id="paramType" class="mini-radiobuttonlist" repeatItems="5" repeatLayout="flow" repeatDirection="horizontal"
+                                             textField="text" valueField="id" value="id"
+                                             data="InputValueType"
+                                             onvaluechanged="optionsValuechanged">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="optionTr">
+                                    <td></td>
+                                    <td>
+                                        <input name="options" id="options" class="mini-textarea" style="width:270px;height:100px;margin-left:-65px" emptyText="每行输入一个值" />
+                                    </td>
+                                </tr>
+                                <tr id="rangeTr">
+                                    <td>范围：</td>
+                                    <td>
+                                        <input id="minText" class="mini-textbox" width="40px" value="" />
+                                        ~
+                                        <input id="maxText" class="mini-textbox" width="40px" value="" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="panel3" class="mini-panel" title="图版/公式" style="width:80%;height:50%;border:solid 1px #aaa;position:relative;" showToolbar="true">
+            <div property="toolbar">
+                <a id="btnAddChart" class="mini-button" style="margin:1px;" onclick="addChart">
+                    <span class="mini-button-text  mini-button-icon icon-new-add">新增</span>
+                </a>
+                <a id="btnSaveChart" class="mini-button" style="margin:1px;" onclick="saveChart">
+                    <span class="mini-button-text  mini-button-icon icon-new-save">保存</span>
+                </a>
+                <a id="btnDeleteChart" class="mini-button" style="margin:1px;" onclick="deleteChart">
+                    <span class="mini-button-text  mini-button-icon icon-new-delete">删除</span>
+                </a>
+            </div>
+            <table style="width:100%;height:100%">
+                <tr>
+                    <td width="40%">
+                        <div id="gridChart" class="mini-datagrid" url="@Url.Action("GetChartsByThemeId", "KCaseTheme")" idfield="Id"
+                             style="width: 99%; height: 97%;margin-top:-10px;margin-left:0px;margin-right:0px;" multiselect="true" showpager="false"
+                             allowresize="false" allowcellselect="true" allowcelledit="true">
+                            <div property="columns">
+                                <div type="indexcolumn" headeralign="center" align="center" width="10%"></div>
+                                <div name="Name" field="Name" headeralign="center" width="30%" align="center">
+                                    名称
+                                    <input property="editor" class="mini-textbox" style="width: 100%;" />
+                                </div>
+                                <div name="ChartType" field="ChartType" vtype="required" renderer="onChartTypeRenderer" headeralign="center" width="20%" align="center">
+                                    图版/公式
+                                    <input property="editor" class="mini-combobox" style="width:100%;" data="ChartType" />
+                                </div>
+                                <div name="Parameters" field="Parameters" headeralign="center" width="40%" align="center">
+                                    相关参数
+                                    <input property="editor" class="mini-textbox" style="width: 100%;" />
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var InputValueType = [
+        {
+            id: 1,
+            text: "文本"
+        },
+        {
+            id: 2,
+            text: "枚举"
+        },
+        {
+            id: 3,
+            text: "数值范围"
+        }
+    ];
+
+    var ChartType = [
+        {
+            id: 1,
+            text: "图版"
+        },
+        {
+            id: 2,
+            text: "公式"
+        }
+    ];
+
+    mini.parse();
+    setOptions(1);
+
+    var treeCase = mini.get("treeCase");
+    var treeParam = mini.get("treeParam");
+    var caseDescText = mini.get("caseDescText");
+    var paramName = mini.get("paramName");
+    var paramDesc = mini.get("paramDesc");
+    var paramType = mini.get("paramType");
+    var options = mini.get("options");
+    var minText = mini.get("minText");
+    var maxText = mini.get("maxText");
+    var unitText = mini.get("unitText");
+    var gridChart = mini.get("gridChart");
+
+    function optionsValuechanged(e) {
+        setOptions(e.value);
+    }
+
+    function setOptions(value) {
+        if (value == 2) {
+            $("#optionTr").show();
+            $("#rangeTr").hide();
+        } else if (value == 3) {
+            $("#rangeTr").show();
+            $("#optionTr").hide();
+        } else {
+            $("#rangeTr").hide();
+            $("#optionTr").hide();
+        }
+    }
+    var bFocus = false;
+    $("#caseDescText textarea").focus(function () {
+        bFocus = true;
+    }
+    );
+
+    $("#caseDescText textarea").blur(function () {
+        if (bFocus == false) return;
+        bFocus = false;
+        var node = treeCase.getSelectedNode();
+        if (node == null || (node.isCase == false)) {
+            return;
+        }
+        $.ajax({
+            url: "@Url.Action("UpdateThemeDesc", "KCaseTheme")",
+            data: { themeId: node.ThemeId, description: caseDescText.getValue() },
+            type: "post",
+            success: function (data) {
+
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "更新案例描述失败！" });
+                console.log(e);
+            }
+        })
+    });
+
+    function setDescText(themeId) {
+        $.ajax({
+            url: "@Url.Action("GetThemeDesc", "KCaseTheme")?themeId=" + themeId,
+            success: function (data) {
+                caseDescText.setValue(data);
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "获取案例描述失败！" });
+                console.log(e);
+            }
+        })
+    }
+
+    /* 主题树 */
+
+    function caseNodeSelect(e) {
+        var node = e.node;
+        if (node.IsCase) {
+            setDescText(node.ThemeId);
+            clearParamForm();
+            // 渲染数据
+            treeParam.load("@Url.Action("GetParamTreeByThemeId", "KCaseTheme")?id=" + node.ThemeId);
+            gridChart.load({ themeId: node.ThemeId });
+        } else {
+            caseDescText.setValue(null);
+            clearParamForm();
+            treeParam.load("@Url.Action("GetParamTreeByThemeId", "KCaseTheme")?id=0");
+            gridChart.load({ themeId: 0 });
+            // 不让修改
+        }
+    }
+
+
+    function onAddCategory(e) {
+        var node = treeCase.getSelectedNode();
+        var newNode = { Id: 0, Pid: node.Pid, Name: "新建分类", IsCase: false };
+        treeCase.addNode(newNode, "after", node);
+        treeCase.beginEdit(newNode);
+    }
+
+    function onAddChildCategory(e) {
+        var node = treeCase.getSelectedNode();
+        if (node.IsCase) {
+            showTips({ Type: "warning", Message: "无法在案例节点下新增分类节点！" });
+            return;
+        }
+        var newNode = { Id: 0, Pid: node.Id, Name: "新建分类", IsCase: false };
+        treeCase.addNode(newNode, "add", node);
+        treeCase.beginEdit(newNode);
+    }
+
+    function onAddCase(e) {
+        var node = treeCase.getSelectedNode();
+        if (node.IsCase) {
+            showTips({ Type: "warning", Message: "无法在案例节点下新增案例节点！" });
+            return;
+        }
+        var newNode = { Id: 0, Pid: node.Id, Name: "新建案例", IsCase: true, ThemeId: -1 };
+        treeCase.addNode(newNode, "add", node);
+        treeCase.beginEdit(newNode);
+    }
+
+    function onEditCaseNode(e) {
+        var node = treeCase.getSelectedNode();
+
+        treeCase.beginEdit(node);
+    }
+
+    function onRemoveCaseNode(e) {
+        var node = treeCase.getSelectedNode();
+
+        if (!treeCase.isLeaf(node)) {
+            showTips({ Type: "warning", Message: "该分类下还有数据，不可删除！" });
+            return;
+        }
+
+        if (node) {
+            if (confirm("确定删除选中节点?")) {
+                $.ajax({
+                    url: "@Url.Action("DeleteCaseNode", "KCaseTheme")",
+                    data: { id: node.Id, isCase: node.IsCase },
+                    type: "post",
+                    success: function (data) {
+                        treeCase.removeNode(node);
+                        treeCase.accept();
+                    },
+                    error: function (e) {
+                        showTips({ Type: "error", Message: "删除失败！" });
+                    }
+                });
+            }
+        }
+    }
+
+    function endCaseEdit(e) {
+        var node = e.node;
+        if (node != null) {
+            if (node.Name == "") {
+                if (node.IsCase) {
+                    node.Name = "新建案例";
+                } else {
+                    node.Name = "新建分类";
+                }
+            }
+
+            if (node.Id == 0) {
+                SaveNewCaseNode(node);
+            } else {
+                SaveCaseNode();
+            }
+        }
+    }
+
+    function SaveNewCaseNode(node) {
+        var selectedNode = treeCase.getSelectedNode();
+        var data = treeCase.getChanges();
+        var nodeParams = mini.encode(data);
+
+        $.ajax({
+            url: "@Url.Action("SaveNewCaseNode", "KCaseTheme")",
+            data: { nodeParams: nodeParams },
+            type: "post",
+            success: function (text) {
+                if (text != 0) {
+                    if (node.IsCase) {
+                        node.Id = -text;
+                        node.ThemeId = text;
+                    } else {
+                        node.Id = text;
+                    }
+                    treeCase.accept();
+                } else {
+                    showTips({ Type: "error", Message: "添加新节点出错！" });
+                    treeCase.reload();
+                }
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "添加新节点出错！" });
+                treeCase.reload();
+                treeCase.selectNode(selectedNode);
+                treeCase.scrollIntoView(selectedNode);
+            }
+        })
+    }
+
+    function SaveCaseNode() {
+        var selectedNode = treeCase.getSelectedNode();
+        var data = treeCase.getChanges();
+        var nodeParams = mini.encode(data);
+
+        $.ajax({
+            url: "@Url.Action("SaveCaseNode", "KCaseTheme")",
+            data: { nodeParams: nodeParams },
+            type: "post",
+            success: function (text) {
+                treeCase.accept();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "添加新节点出错！" });
+                treeCase.reload();
+                treeCase.selectNode(selectedNode);
+                treeCase.scrollIntoView(selectedNode);
+            }
+        })
+    }
+
+    function onBeforeCaseOpen(e) {
+        var menu = e.sender;
+
+        var node = treeCase.getSelectedNode();
+        if (!node) {
+            e.cancel = true;
+            return;
+        }
+        if (node && node.text == "Base") {
+            e.cancel = true;
+            //阻止浏览器默认右键菜单
+            e.htmlEvent.preventDefault();
+            return;
+        }
+
+        ////////////////////////////////
+        var editItem = mini.getbyName("caseEdit", menu);
+        var removeItem = mini.getbyName("caseRemove", menu);
+        editItem.show();
+        removeItem.enable();
+
+        if (node.id == "forms") {
+            editItem.hide();
+        }
+        if (node.id == "lists") {
+            removeItem.disable();
+        }
+    }
+
+    /* 主题参数树 */
+    function saveParam() {
+        var node = treeParam.getSelectedNode();
+        if (node == null || (node.IsParam == false)) {
+            return;
+        }
+        var paramInfo = {};
+        paramInfo.Id = node.ParamId;
+        paramInfo.Name = paramName.getValue();
+        paramInfo.Description = paramDesc.getValue();
+        paramInfo.ParamType = paramType.getValue();
+        if (paramInfo.ParamType == '2') {
+            paramInfo.Options = options.getValue().trim().split('\n').join(',');
+        }
+        if (paramInfo.ParamType == '3') {
+            paramInfo.Range = minText.getValue() + "," + maxText.getValue();
+        }       
+        paramInfo.Unit = unitText.getValue();
+        var postdata = mini.encode(paramInfo);
+        $.ajax({
+            url: "@Url.Action("SaveParamInfo", "KCaseTheme")",
+            data: { paramInfo: postdata },
+            type: "post",
+            success: function (data) {
+                showTips({ Type: "success", Message: "保存成功！" });
+                treeParam.reload();
+                treeParam.selectNode(node);
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "添加新节点出错！" });
+                console.log(e);
+                treeParam.reload();
+                treeParam.selectNode(node);
+            }
+        })
+    }
+
+    function paramNodeSelect(e) {
+        var node = e.node;
+        if (node.IsParam) {
+            // 渲染数据
+            $.ajax({
+                url: "@Url.Action("GetParamInfo", "KCaseTheme")",
+                data: { id: node.ParamId },
+                type: "post",
+                success: function (data) {
+                    if (data != null) {
+                        paramName.setValue(data.Name);
+                        paramDesc.setValue(data.Description);
+                        paramType.setValue(data.ParamType);
+                        unitText.setValue(data.Unit);
+                        setOptions(data.ParamType);
+                        if (data.ParamType == 2) {
+                            renderOptions(data.Options);
+                        }
+                        if (data.ParamType == 3) {
+                            renderRange(data.Range);
+                        }
+                    }
+                },
+                error: function (e) {
+                    showTips({ Type: "error", Message: "添加新节点出错！" });
+                    console.log(e);
+                }
+            });
+        } else {
+            clearParamForm();
+        }
+    }
+
+    function clearParamForm() {
+        paramName.setValue(null);
+        paramDesc.setValue(null);
+        paramType.setValue(1);
+        unitText.setValue(null);
+        setOptions(1);
+    }
+
+    function renderOptions(value) {
+        if (value == undefined || value == null || value == "") {
+            options.setValue(null);
+            return;
+        }
+        var values = "";
+        var arr = value.split(',');
+        for (var i = 0; i < arr.length; i++) {
+            values += arr[i] + "\n";
+        }
+        options.setValue(values);
+    }
+
+    function renderRange(value) {
+        if (value == undefined || value == null || value == "") {
+            minCombo.setValue(null);
+            maxCombo.setValue(null);
+            minText.setValue("");
+            maxText.setValue("");
+            return;
+        }
+        var range = value.split(',');
+        minText = range[0];
+        maxText = range[1];
+    }
+
+    function onBeforeParamOpen(e) {
+        var menu = e.sender;
+
+        var node = treeParam.getSelectedNode();
+        if (!node) {
+            e.cancel = true;
+            return;
+        }
+        if (node && node.text == "Base") {
+            e.cancel = true;
+            //阻止浏览器默认右键菜单
+            e.htmlEvent.preventDefault();
+            return;
+        }
+
+        ////////////////////////////////
+        var editItem = mini.getbyName("paramEdit", menu);
+        var removeItem = mini.getbyName("paramRemove", menu);
+        editItem.show();
+        removeItem.enable();
+
+        if (node.id == "forms") {
+            editItem.hide();
+        }
+        if (node.id == "lists") {
+            removeItem.disable();
+        }
+    }
+
+    function addFeature() {
+        var newNode = { Id: 0, Pid: null, Name: "新建分类", IsParam: false, ParamId: 0 };
+        treeParam.addNode(newNode, "add");
+        treeParam.beginEdit(newNode);
+        treeParam.scrollIntoView(newNode);
+    }
+
+    //function onAddChildFeature(e) {
+    //    var node = treeParam.getSelectedNode();
+    //    var newNode = {};
+    //    treeParam.addNode(newNode, "add");
+    //}
+
+    function onAddParam(e) {
+        var node = treeParam.getSelectedNode();
+        if (node.IsParam) {
+            showTips({ Type: "warning", Message: "无法在参数节点下新增参数节点！" });
+            return;
+        }
+        var newNode = { Id: 0, Pid: node.Id, Name: "新建参数", IsParam: true, ParamId: 0 };
+        treeParam.addNode(newNode, "add", node);
+        SaveNewParamNode(newNode);
+    }
+
+    function onEditParamNode(e) {
+        var node = treeParam.getSelectedNode();
+
+        treeParam.beginEdit(node);
+    }
+
+    function onRemoveParamNode(e) {
+        var node = treeParam.getSelectedNode();
+
+        if (!treeParam.isLeaf(node)) {
+            showTips({ Type: "warning", Message: "该分类下还有数据，不可删除！" });
+            return;
+        }
+
+        if (node) {
+            if (confirm("确定删除选中节点?")) {
+                $.ajax({
+                    url: "@Url.Action("DeleteParamNode", "KCaseTheme")",
+                    data: { id: node.Id, isParam: node.IsParam },
+                    type: "post",
+                    success: function (data) {
+                        treeParam.removeNode(node);
+                        treeParam.accept();
+                    },
+                    error: function (e) {
+                        showTips({ Type: "error", Message: "删除失败！" });
+                    }
+                });
+            }
+        }
+    }
+
+    function endParamEdit(e) {
+        var node = e.node;
+        if (node != null) {
+            if (node.Name == "") {
+                if (node.IsParam) {
+                    node.Name = "新建参数";
+                } else {
+                    node.Name = "新建分类";
+                }
+            }
+
+            if (node.Id == 0) {
+                SaveNewParamNode(node);
+            } else {
+                SaveParamNode();
+            }
+        }
+    }
+
+    function SaveNewParamNode(node) {
+        var themeNode = treeCase.getSelectedNode();
+        if (themeNode == null || (themeNode.IsCase == false)) {
+            showTips({ Type: "warning", Message: "请先选中一个案例主题节点！" });
+            return;
+        }
+        var selectedNode = treeParam.getSelectedNode();
+        var data = treeParam.getChanges();
+        var nodeParams = mini.encode(data);
+
+        $.ajax({
+            url: "@Url.Action("SaveNewParamNode", "KCaseTheme")",
+            data: { themeId: themeNode.ThemeId, nodeParams: nodeParams },
+            type: "post",
+            success: function (text) {
+                if (text != 0) {
+                    if (node.IsParam) {
+                        node.Id = -text;
+                        node.ParamId = text;
+                    } else {
+                        node.Id = text;
+                    }
+                    treeParam.accept();
+                    treeParam.selectNode(node);
+                } else {
+                    showTips({ Type: "error", Message: "添加新节点出错！" });
+                    treeParam.reload();
+                }
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "添加新节点出错！" });
+                treeParam.reload();
+                treeParam.selectNode(selectedNode);
+                treeParam.scrollIntoView(selectedNode);
+            }
+        })
+    }
+
+    function SaveParamNode() {
+        var selectedNode = treeParam.getSelectedNode();
+        var data = treeParam.getChanges();
+        var nodeParams = mini.encode(data);
+
+        $.ajax({
+            url: "@Url.Action("SaveParamNode", "KCaseTheme")",
+            data: { nodeParams: nodeParams },
+            type: "post",
+            success: function (text) {
+                treeParam.accept();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "添加新节点出错！" });
+                treeParam.reload();
+                treeParam.selectNode(selectedNode);
+                treeParam.scrollIntoView(selectedNode);
+            }
+        })
+    }
+
+    /* Grid */
+    function onChartTypeRenderer(e) {
+        for (var i = 0; i < ChartType.length; i++) {
+            if (ChartType[i].id == e.value) return ChartType[i].text;
+        }
+        return "";
+    }
+
+    function addChart() {
+        var newRow = { Name: "", ChartType: 1, Parameters: "" }
+        gridChart.addRow(newRow, gridChart.data.length);
+        gridChart.cancelEdit();
+        gridChart.beginEditCell(newRow, "Name");
+    }
+
+    //删除所选行记录
+    function deleteChart() {
+        var rows = gridChart.getSelecteds();
+        if (rows.length <= 0) {
+            showTips({ Type: "warning", Message: "请勾选需要删除的记录！" });
+            return;
+        }
+        gridChart.removeRows(rows, true);
+    }
+
+    function saveChart() {
+        var themeNode = treeCase.getSelectedNode();
+        if (themeNode == null || (themeNode.IsCase == false)) {
+            showTips({ Type: "warning", Message: "请先选中一个案例主题节点！" });
+            return;
+        }
+
+        var data = gridChart.getChanges();
+
+        function checkGrid() {
+            var rowsNull = gridChart.findRows(function (row) {
+                if (row.Name.trim() == "")
+                    return true;
+            });
+            if (rowsNull.length > 0) {
+                showTips({ Type: "warning", Message: "图版记录中名称字段存在空值，数据无法保存！" });
+                return false;
+            }
+            return true;
+        }
+
+        //验证数据合法性
+        if (!checkGrid())
+            return;
+
+        //执行数据保存操作
+        var nodeParams = mini.encode(data);
+        //var msgid = mini.loading("数据保存中，请稍后......", "保存数据");
+        $.ajax({
+            url: "@Url.Action("UpdataChart", "KCaseTheme")",
+            data: { themeId: themeNode.ThemeId, nodeParams: nodeParams },
+            type: "post",
+            success: function (text) {
+                showTips({ Type: "success", Message: "保存成功！" });
+
+                gridChart.load({ themeId: themeNode.ThemeId });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+    }
+</script>

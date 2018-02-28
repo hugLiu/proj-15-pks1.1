@@ -1,0 +1,856 @@
+﻿
+@{
+    ViewBag.Title = "石油百科维护";
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowToolBar = false;
+}
+
+<!--富文本控件-->
+<script type="text/javascript" charset="utf-8" src="~/scripts/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/scripts/ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="~/scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<style>
+    .entry-textboxlist-ul {
+        display: block;
+        list-style-type: disc;
+    }
+
+    .entry-textboxlist-li {
+        list-style-type: none;
+        float: left;
+        display: inline-block;
+        margin: 0 3px 0px 0;
+        position: relative;
+        padding: 0 6px;
+        border-radius: 9px;
+        border: 1px solid #CAD8F3;
+        background: #DEE7F8;
+        cursor: default;
+        padding-right: 15px;
+        height: 16px;
+        line-height: 16px;
+        margin-bottom: 2px;
+        white-space: nowrap;
+    }
+
+    .entry-textboxlist-li-hover {
+        background: #BBCEF1;
+        border: 1px solid #6D95E0;
+    }
+
+    .entry-textboxlist-close {
+        position: absolute;
+        right: 4px;
+        top: 5px;
+        display: block;
+        width: 7px;
+        height: 7px;
+        font-size: 1px;
+        background: url(images/textboxlist/close.gif);
+        cursor: pointer;
+    }
+
+    .entry-textboxlist-close-hover {
+        background-position: bottom;
+    }
+</style>
+
+<div class="mini-splitter frame-fit" style="width: 100%;">
+    <div size="25%" showcollapsebutton="true">
+        <div class="mini-panel layout-panel frame-fit" showHeader="false" width="auto">
+            <ul id="catalogTree" class="mini-tree" style="width:100%"
+                url="@Url.Action("GetCatalog", "OilWiki")"
+                textfield="NAME" idfield="Id" parentfield="PARENTID"
+                resultastree="false" expandonload="1" showtreeicon="true"
+                onnodeselect="onCatalogTreeSelect"></ul>
+        </div>
+    </div>
+    <div showcollapsebutton="true">
+        <div class="mini-toolbar" style="margin-bottom:5px;">
+            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="width:100%;">
+                        <div id="ckb_RelevanceCategory" checked="true" class="mini-checkbox" readOnly="false" text="关联分类" onvaluechanged="onRelevanceCategoryValueChanged"></div>
+                        <a class="mini-button" iconcls="icon-new-add" plain="true" id="entryAdd" onclick="do_boForm('add')">@ResHelper.GetStr("新增")</a>
+                        <a class="mini-button" iconcls="icon-new-save" plain="true" id="entryEdit" onclick="do_boForm('edit')">@ResHelper.GetStr("编辑")</a>
+                        <a class="mini-button" iconcls="icon-new-delete" plain="false" id="entryDel" onclick="onDeleteRow()">@ResHelper.GetStr("删除")</a>
+                        <a class="mini-button" iconcls="icon-new-download" plain="false" id="downloadExcelTemplate" onclick="do_downloadlTemplate()">@ResHelper.GetStr("下载模板")</a>
+                        <a class="mini-button" iconcls="icon-new-upload" plain="false" id="importEntryData" onclick="do_importEntryData()">@ResHelper.GetStr("导入数据")</a>
+                        <a class="mini-button" iconcls="icon-new-upload" plain="false" id="btnRebuildIndex" onclick="rebuildIndex()">重建索引</a>
+
+                    </td>
+                    <td>
+                        <div class="searchinfo input-group">
+                            <input id="search_txt" name="search_txt" placeholder="@ResHelper.GetStr("输入关键字查询")" class="form-control" />
+                            <span class="input-group-btn frame-submit">
+                                <button class="btn btn-default " onclick="onFilterBtn()">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    <span class="hidden">@ResHelper.GetStr("搜索")</span>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="entryDataGrid" class="mini-datagrid frame-fit frame-search-grid"
+             style="width:100%;"
+             pagesize="10"
+             multiselect="true"
+             @*url="@getPageGridMatchUrl" *@
+             onrowdblclick="do_boForm('edit')"
+             onbeforeload="onBeforeLoadData">
+            <div property="columns">
+                <div type="checkcolumn" width="20" headeralign="center"></div>
+                <div type="indexcolumn" headeralign="center">行号</div>
+                <div field="Name" headeralign="center" allowsort="true">中文名称</div>
+                <div field="EnglishName" headeralign="center" >英文名称</div>
+                <div field="Contents" headeralign="center" >词条解释</div>
+                <div field="Author" headeralign="center">作者</div>                 
+                <div field="Source" headeralign="center" >来源</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editWindow" class="mini-window" title="编辑词条" style="width:700px;height:470px;"
+     showMaxButton="false" showCollapseButton="false" showShadow="true"
+     showToolbar="true" showFooter="true" showModal="true" allowResize="false" allowDrag="true">
+    <div id="editform" style="padding:10px;">
+        <input name="Id" class="mini-hidden" />
+        <input name="ParentCatalogId" class="mini-hidden" />
+        <input name="Contents" class="mini-hidden" />
+        <input name="CreatedBy" class="mini-hidden" />
+        <input name="CreatedDate" class="mini-hidden" />
+        <input name="LastUpdatedBy" class="mini-hidden" />
+        <input name="LastUpdatedDate" class="mini-hidden" />
+
+        <table border="0" cellpadding="1" cellspacing="2" style="width:100%;">
+            <tr>
+                <td style="width:60px;text-align:right;">分类：</td>
+                <td>
+                    <input style="width:98%" name="CatalogId" class="mini-treeselect"
+                           url="@Url.Action("GetCatalog", "OilWiki")"
+                           textField="NAME" valueField="Id" parentField="PARENTID"
+                           resultastree="false" showtreeicon="true" required="true" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:60px;text-align:right;">中文名称：</td>
+                <td>
+                    <input style="width:98%" name="Name" class="mini-textbox" required="true" onvalidation="onEntryNameValidation" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:60px;text-align:right;">英文名称：</td>
+                <td>
+                    <input style="width:98%" name="EnglishName" class="mini-textbox" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:60px;text-align:right;">来源：</td>
+                <td>
+                    <input style="width:98%" name="Source" id="entrySourceCombox"
+                           textField="Text" valueField="Text" class="mini-combobox"
+                           allowInput="true" showNullItem="true"
+                           nullItemText="请选择..." emptyText="请选择..." />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:60px;text-align:right;">解释：</td>
+                <td>
+                    <script id="editor" type="text/plain" style="width:99%;height:300px;">
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:60px;text-align:right;">作者：</td>
+                <td>
+                    <input style="width:98%" name="Author" class="mini-textbox" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:60px;text-align:right;">同义词：</td>
+                <td><a class="mini-button " iconCls="icon-add" onclick="onAddAliasEntryClick" tooltip="增加"></a></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="margin-top:5px;margin-bottom:5px;">
+                    <ul id="aliastextboxlist" class="entry-textboxlist-ul">
+                        <li class="entry-textboxlist-li">咖啡<span class="mini-textboxlist-close"></span></li>
+                        <li class="entry-textboxlist-li">茶<span class="mini-textboxlist-close"></span></li>
+                        <li class="entry-textboxlist-li">牛奶<span class="mini-textboxlist-close"></span></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:80px;text-align:right;">相关词条：</td>
+                <td><a class="mini-button " iconCls="icon-add" onclick="onAddRelatedEntryClick" tooltip="增加"></a></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul id="relatedtextboxlist" class="entry-textboxlist-ul">
+                        <li class="entry-textboxlist-li">咖啡<span class="mini-textboxlist-close"></span></li>
+                        <li class="entry-textboxlist-li">茶<span class="mini-textboxlist-close"></span></li>
+                        <li class="entry-textboxlist-li">牛奶<span class="mini-textboxlist-close"></span></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <div property="footer" style="text-align:center;padding:5px;padding-right:15px;">
+            <input type='button' value='保存' onclick="onSaveForm()" style='vertical-align:middle;' />
+            <input type='button' value='关闭' onclick="onCloseForm()" style='vertical-align:middle;' />
+        </div>
+    </div>
+</div>
+
+<div id="aliasEntryWindow" class="mini-window" title="添加同义词" style="width:400px;height:140px;"
+     showMaxButton="false" showCollapseButton="false" showShadow="true"
+     showToolbar="true" showFooter="true" showModal="true" allowResize="false" allowDrag="true">
+    <div id="aliasform" style="padding:5px;">
+        <table border="0" cellpadding="1" cellspacing="2" style="width:100%;">
+            <tr>
+                <td style="width:60px;text-align:right;">同义词：</td>
+                <td>
+                    <input style="width:98%" name="NAME" class="mini-textbox" required="true" />
+                </td>
+            </tr>
+        </table>
+        <div property="footer" style="text-align:center;padding-right:15px;">
+            <input type='button' value='确定' onclick="onAliasEntrySaveForm()" style='vertical-align:middle;margin:10px;' />
+            <input type='button' value='取消' onclick="onAliasEntryCloseForm()" style='vertical-align:middle;margin:10px;' />
+        </div>
+    </div>
+</div>
+
+<div id="relatedEntryWindow" class="mini-window" title="添加相关词条" style="width:400px;height:140px;"
+     showMaxButton="false" showCollapseButton="false" showShadow="true"
+     showToolbar="true" showFooter="true" showModal="true" allowResize="false" allowDrag="true">
+    <div id="relatedform" style="padding:5px;">
+        <table border="0" cellpadding="1" cellspacing="2" style="width:100%;">
+            <tr>
+                <td style="width:60px;text-align:right;">词条：</td>
+                <td>
+                    <input id="relatedEntryLookup" name="NAME" class="mini-lookup" style="width:98%"
+                           textField="Name" valueField="Id" popupWidth="auto"
+                           popup="#relatedEntryGridPanel" grid="#relatedEntryDataGrid"
+                           multiSelect="true" required="true" />
+
+                    <div id="relatedEntryGridPanel" class="mini-panel" title="header" iconCls="icon-add"
+                         style="width:450px;height:250px;"
+                         showToolbar="true" showCloseButton="true" showHeader="false"
+                         bodyStyle="padding:0" borderStyle="border:0">
+                        <div property="toolbar" style="padding:5px;padding-left:8px;text-align:center;">
+                            <div style="float:left;padding-bottom:2px;">
+                                <span>词条：</span>
+                                <input id="relatedEntrySearchKeyText" class="mini-textbox" style="width:160px;" onenter="onRelatedEntrySearchClick" />
+                                <a class="mini-button" onclick="onRelatedEntrySearchClick">查询</a>
+                                <a class="mini-button" onclick="onRelatedEntryClearClick">清除</a>
+                            </div>
+                            <div style="float:right;padding-bottom:2px;">
+                                <a class="mini-button" onclick="onRelatedEntryCloseClick">关闭</a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div id="relatedEntryDataGrid" class="mini-datagrid" style="width:100%;height:100%;"
+                             borderStyle="border:0" showPageSize="false" showPageIndex="false"
+                             onbeforeload="onRelatedEntryGridPanelBeforeLoadData">
+                            <div property="columns">
+                                <div type="checkcolumn" width="20" headeralign="center"></div>
+                                <div type="indexcolumn" headeralign="center">行号</div>
+                                <div field="Name" headeralign="center" allowsort="true">词条名称</div>
+                                <div field="Contents" headeralign="center" allowsort="true">词条解释</div>
+                                <div field="Source" headeralign="center" allowsort="true">来源</div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<input style="width:98%" name="NAME"
+                        valueField="id" textField="text"
+                        url="@Url.Action("GetCatalog", "OilWiki")"
+                        class="mini-autocomplete" required="true" />*@
+                </td>
+            </tr>
+        </table>
+        <div property="footer" style="text-align:center;padding-right:15px;">
+            <input type='button' value='确定' onclick="onRelatedEntrySaveForm()" style='vertical-align:middle;margin:10px;' />
+            <input type='button' value='取消' onclick="onRelatedEntryCloseForm()" style='vertical-align:middle;margin:10px;' />
+        </div>
+    </div>
+</div>
+
+<script>
+    mini.parse();
+    var catalogTree = mini.get("catalogTree");
+    var entryDataGrid = mini.get("entryDataGrid");
+    var editWindow = mini.get("editWindow"); //弹出窗中的元素
+    var aliasEntryWindow = mini.get("aliasEntryWindow");
+    var relatedEntryWindow = mini.get("relatedEntryWindow");
+
+    function initialize() {
+        var SourceOption = [{ Text: "中国石油勘探开发百科全书-勘探卷（石油工业出版社）" }];
+        var entrySourceCombox = mini.get("entrySourceCombox");
+        entrySourceCombox.setData(SourceOption);
+
+        var ue = UE.getEditor('editor');//初始化HTML编辑器
+
+        entryDataGridLoad();
+    }
+
+    $(function () {
+        initialize();
+
+        $("ul.entry-textboxlist-ul").delegate("li", "mouseover", function () {
+            $(this).addClass("entry-textboxlist-li-hover");
+        });
+        $("ul.entry-textboxlist-ul").delegate("li", "mouseout", function () {
+            $(this).removeClass("entry-textboxlist-li-hover");
+        });
+
+        $("ul.entry-textboxlist-ul").delegate("span", "mouseover", function () {
+            $(this).addClass("mini-textboxlist-close-hover");
+        });
+        $("ul.entry-textboxlist-ul").delegate("span", "mouseout", function () {
+            $(this).removeClass("mini-textboxlist-close-hover");
+        });
+
+        $("ul.entry-textboxlist-ul").on("click", function (e) {
+            var $target = $(e.target);
+            if ($target.is("span")) {
+                $target.parent("li").remove();
+                console.log("当前元素" + e.currentTarget);
+                console.log("当前指针" + this);
+                console.log("委托元素" + e.delegateTarget);
+                console.log("目标元素" + e.target);
+            }
+        });
+
+        relatedEntryDataGrid.load();
+    });
+
+    /**
+     * 左侧树选中事件
+     */
+    function onCatalogTreeSelect(e) {
+        //if (!e.isLeaf) return;
+        entryDataGridLoad();
+    }
+    /**
+     * 关联分类
+     */
+    function onRelevanceCategoryValueChanged(e) {
+        entryDataGridLoad();
+    }
+
+    function onFilterBtn() {
+        entryDataGridLoad();
+    }
+
+    /**
+     * 重新加载DataGrid数据
+     */
+    function entryDataGridLoad() {
+        entryDataGrid.load();
+    }
+
+    /**
+     * DataGrid 加载前处理方法
+     */
+    function onBeforeLoadData(e) {
+        e.cancel = true;
+        var pageIndex = e.data.pageIndex,
+            pageSize = e.data.pageSize;
+
+        //分页
+        var queryData = { PageIndex: pageIndex, PageSize: pageSize };
+        //搜索文本
+        var key = $('#search_txt').val();
+        key = $.trim(key);
+        if (key) {
+            queryData.Filter = key;
+        }
+
+        //获取树选中节点
+        var ckb_RelevanceCategory = mini.get("ckb_RelevanceCategory");
+        var checked = ckb_RelevanceCategory.getChecked();
+        var catalogId = null;
+        if (checked) {
+            var selectedNode = catalogTree.getSelectedNode();
+            if (selectedNode) {
+                catalogId = selectedNode.Id;
+            }
+        }
+        queryData.CatalogId = catalogId;
+
+        //测试数据
+        console.log("加载数据前处理-pageIndex：", pageIndex);
+        console.log("加载数据前处理-Size：", pageSize);
+        console.log("加载数据前处理-Filter：", queryData.Filter);
+        console.log("加载数据前处理-CatalogId：", queryData.CatalogId);
+
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        $.ajax({
+            url: "GetGridData",
+            type: "post",
+            //contentType: 'application/json; charset=utf-8',
+            //data: JSON.stringify(queryData),
+            //headers: getAuthorization(),
+            data: queryData,
+            success: function (data) {
+                console.log("loadsuccess", data);
+                entryDataGrid.setTotalCount(data.total);
+                entryDataGrid.setData(data.data);
+            },
+            complete: function (e) {
+                entryDataGrid.setPageIndex(pageIndex);
+                entryDataGrid.setPageSize(pageSize);
+                mini.unmask(document.body);
+            }
+        });
+    }
+
+    /**
+     * 打开窗口
+     */
+    function do_boForm(action) {
+        clearEntry();
+
+        if (action === "edit") {
+            var row = entryDataGrid.getSelected();
+            if (row) {
+                editWindow.setTitle("编辑窗口");
+                var form = new mini.Form("#editform");
+                form.reset();
+                form.setData(row);
+                UE.getEditor('editor').setContent(escapeHtml(row.Contents));
+
+                //加载同义词
+                loadAliasEntrys(row.Id);
+                //加载相关词条
+                loadRelatedEntrys(row.Id);
+
+                editWindow.methodType = "edit";
+                editWindow.show();
+            } else {
+                showTips("warning", "请选中记录！");
+            }
+        } else {
+            editWindow.setTitle("新增词条");
+            var form = new mini.Form("#editform");
+            form.reset();
+            UE.getEditor('editor').setContent("");
+            editWindow.methodType = "add";
+            editWindow.show();
+        }
+    }
+    /**
+    * 保存窗口
+    */
+    function onSaveForm() {
+        var form = new mini.Form("#editform");
+        form.validate();
+        if (form.isValid() == false) return;
+
+        var contents = UE.getEditor('editor').getContent();
+        if (!contents) {
+            mini.alert("内容不能为空！");
+            return;
+        }
+
+        var data = form.getData(true, false);
+        data.Contents = htmlEscape(contents);
+
+        var aliasList = getAliasEntrys();
+        var aliasListStr = mini.encode(aliasList);
+        var relatedList = getRelatedEntrys();
+        var relatedListStr = mini.encode(relatedList);
+
+        if (editWindow.methodType === "add") {
+            data.Id = 0;
+            var dataStr = mini.encode(data);
+            $.ajax({
+                url: "AddEntry",
+                type: "post",
+                data: { EntryModel: dataStr, aliasList: aliasListStr, relatedList: relatedListStr },
+                success: function (text) {
+                    toastr["success"]("保存成功", "提示");
+                    entryDataGridLoad();
+                    editWindow.hide();
+                }
+            });
+        } else {
+            var dataStr = mini.encode(data);
+            $.ajax({
+                url: "UpdateEntry",
+                type: "post",
+                data: { EntryModel: dataStr, aliasList: aliasListStr, relatedList: relatedListStr },
+                success: function (text) {
+                    toastr["success"]("保存成功", "提示");
+                    entryDataGridLoad();
+                    editWindow.hide();
+                }
+            });
+        }
+    }
+    /**
+     * 关闭窗口
+     */
+    function onCloseForm() {
+        editWindow.hide();
+    }
+    /**
+     * 删除词条
+     */
+    function onDeleteRow() {
+        var row = entryDataGrid.getSelected();
+        if (row) {
+            if (confirm("确定删除此记录？")) {
+                $.ajax({
+                    url: "DeleteEntry",
+                    type: "post",
+                    data: { entryId: row["Id"] },
+                    success: function () {
+                        entryDataGrid.removeRow(row, true);
+                        showTips("success", "删除成功");
+                    }
+                });
+            }
+        } else {
+            mini.alert("请先选中一条记录！");
+        }
+    }
+    /**
+     * 词条名称校验重复
+     */
+    function onEntryNameValidation(e) {
+        if (e.isValid) {
+            var form = new mini.Form("#editform");
+            var data = form.getData(true, false);
+            var id = 0;
+            if (data.Id) {
+                id = data.Id;
+            }
+
+            $.ajax({
+                url: "EntryNameExists",
+                type: "post",
+                data: { id: id, name: e.value },
+                async: false,
+                success: function (data) {
+                    if (data == true) {
+                        e.errorText = "当前词条已经存在";
+                        e.isValid = false;
+                    } else {
+                        e.isValid = true;
+                    }
+                }
+            });
+        }
+    }
+
+    /*3.用正则表达式实现html转码*/
+    function htmlEscape(str) {
+        var s = "";
+        if (str.length == 0) return "";
+        s = str.replace(/&/g, "&amp;");
+        s = s.replace(/</g, "&lt;");
+        s = s.replace(/>/g, "&gt;");
+        s = s.replace(/ /g, "&nbsp;");
+        s = s.replace(/\'/g, "&#39;");
+        s = s.replace(/\"/g, "&quot;");
+        return s;
+    }
+
+    /*4.用正则表达式实现html解码*/
+    function escapeHtml(str) {
+        var s = "";
+        if (str.length == 0) return "";
+        s = str.replace(/&amp;/g, "&");
+        s = s.replace(/&lt;/g, "<");
+        s = s.replace(/&gt;/g, ">");
+        s = s.replace(/&nbsp;/g, " ");
+        s = s.replace(/&#39;/g, "\'");
+        s = s.replace(/&quot;/g, "\"");
+        return s;
+    }
+
+    /**
+    *清空
+    */
+    function clearEntry() {
+        $("li.entry-textboxlist-li").remove();
+    }
+
+
+    /**********************************同义词****************************************/
+
+    /**
+     * 添加别名(同义词)
+     */
+    function onAddAliasEntryClick() {
+        var form = new mini.Form("#editform");
+        form.validate();
+        //判断词条名称是否为空或重复
+        if (form.isValid() == false) {
+            mini.alert("请先完善词条信息！");
+            return;
+        };
+
+        var aliasform = new mini.Form("#aliasform");
+        aliasform.reset();
+        aliasEntryWindow.show();
+    }
+
+    /**
+     * 保存别名
+     */
+    function onAliasEntrySaveForm() {
+        var form = new mini.Form("#editform");
+        var data = form.getData(true, false);
+
+        var aliasform = new mini.Form("#aliasform");
+        aliasform.validate();
+        if (aliasform.isValid() == false) {
+            return;
+        };
+
+        //判断是否与词条名称重复
+        var aliasdata = aliasform.getData(true, false);
+        if (data.Name === aliasdata.NAME) {
+            mini.alert("与词条名称重复，请重新填写！");
+            return;
+        }
+
+        //判断是否有重复别名
+        var isRepeat = false;
+        $("#aliastextboxlist > li").each(function (e) {
+            if ($(this).text() === $.trim(aliasdata.NAME)) {
+                mini.alert("与词条名称重复，请重新填写！");
+                isRepeat = true;
+                return;
+            }
+        });
+        if (isRepeat) { return; }
+
+        $("#aliastextboxlist").append('<li class="entry-textboxlist-li">' + aliasdata.NAME + '<span class="mini-textboxlist-close"></span></li>');
+        aliasEntryWindow.hide();
+    }
+
+    /**
+     * 关闭别名窗口
+     */
+    function onAliasEntryCloseForm() {
+        aliasEntryWindow.hide();
+    }
+
+    /**
+    * 根据词条Id加载同义词
+    */
+    function loadAliasEntrys(entryId) {
+        $.ajax({
+            url: "GetAliasEntrys",
+            type: "get",
+            data: { entryId: entryId },
+            success: function (data) {
+                if (data) {
+                    data.forEach(function (e) {
+                        $("#aliastextboxlist").append('<li class="entry-textboxlist-li">' + e.NAME + '<span class="mini-textboxlist-close"></span></li>');
+                    });
+                }
+            }
+        });
+    }
+
+    /**
+    * 获取同义词
+    */
+    function getAliasEntrys() {
+        var list = [];
+        $("#aliastextboxlist > li").each(function (e) {
+            list.push($(this).text());
+        });
+        return list;
+    }
+
+
+
+    /**********************************相关词条****************************************/
+    var relatedEntryDataGrid = mini.get("relatedEntryDataGrid");
+
+    /**
+     * 添加相关词条
+     */
+    function onAddRelatedEntryClick() {
+        var relatedform = new mini.Form("#relatedform");
+        relatedform.reset();
+        var relatedEntryLookup = mini.get("relatedEntryLookup");
+        relatedEntryLookup.deselectAll();
+        relatedEntryWindow.show();
+    }
+
+    /**
+     * 保存相关词条
+     */
+    function onRelatedEntrySaveForm() {
+        var form = new mini.Form("#editform");
+        var data = form.getData(true, false);
+
+        var relatedform = new mini.Form("#relatedform");
+        relatedform.validate();
+        if (relatedform.isValid() == false) {
+            return;
+        };
+
+        //判断是否与词条名称重复
+        var relatedformData = relatedform.getData(true, false);
+        var idarray = relatedformData.NAME.split(',');
+        var lis = $("#relatedtextboxlist > li");
+        for (var i = 0; i < idarray.length; i++) {
+            if (data.Id) {
+                if (idarray[i] == data.Id) {
+                    continue;
+                }
+            }
+            var isRepeat = false;
+            lis.each(function (e) {
+                if ($(this).attr("relatedid") == idarray[i]) {
+                    isRepeat = true;
+                    return;
+                }
+            });
+            if (isRepeat) {
+                mini.alert("与词条名称重复，请重新填写！");
+                continue;
+            }
+
+            var selectRows = relatedEntryDataGrid.getSelecteds();
+            for (var j = 0; j < selectRows.length; j++) {
+                if (selectRows[j].Id == idarray[i]) {
+                    $("#relatedtextboxlist").append('<li class="entry-textboxlist-li" relatedid="' + idarray[i] + '">' + selectRows[j].Name + '<span class="mini-textboxlist-close"></span></li>');
+                    relatedEntryWindow.hide();
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * 关闭相关词条
+     */
+    function onRelatedEntryCloseForm() {
+        relatedEntryWindow.hide();
+    }
+
+    /**
+    * 根据词条Id加载相关词条
+    */
+    function loadRelatedEntrys(entryId) {
+        $.ajax({
+            url: "GetRelateEntrys",
+            type: "get",
+            data: { entryId: entryId },
+            success: function (data) {
+                if (data) {
+                    data.forEach(function (e) {
+                        $("#relatedtextboxlist").append('<li class="entry-textboxlist-li" relatedid="' + e.EntryId + '">' + e.EntryName + '<span class="mini-textboxlist-close"></span></li>');
+                    });
+                }
+            }
+        });
+    }
+
+    /**
+    * 获取相关词条
+    */
+    function getRelatedEntrys() {
+        var list = [];
+        $("#relatedtextboxlist > li").each(function (e) {
+            list.push($(this).attr("relatedid"));
+        });
+        return list;
+    }
+
+
+    function onRelatedEntrySearchClick(e) {
+        relatedEntryDataGrid.load();
+    }
+    function onRelatedEntryClearClick(e) {
+        var relatedEntryLookup = mini.get("relatedEntryLookup");
+        relatedEntryLookup.deselectAll();
+    }
+    function onRelatedEntryCloseClick(e) {
+        var relatedEntryLookup = mini.get("relatedEntryLookup");
+        relatedEntryLookup.hidePopup();
+    }
+    function onRelatedEntryGridPanelBeforeLoadData(e) {
+        e.cancel = true;
+        var pageIndex = e.data.pageIndex,
+            pageSize = e.data.pageSize;
+
+
+        //分页
+        var queryData = { PageIndex: pageIndex, PageSize: pageSize };
+
+        //搜索文本
+        var relatedEntrySearchKeyText = mini.get("relatedEntrySearchKeyText");
+        var key = relatedEntrySearchKeyText.value;
+        key = $.trim(key);
+        if (key) {
+            queryData.Filter = key;
+        }
+
+        var catalogId = null;
+        queryData.CatalogId = catalogId;
+
+        //测试数据
+        console.log("加载数据前处理-pageIndex：", pageIndex);
+        console.log("加载数据前处理-Size：", pageSize);
+        console.log("加载数据前处理-Filter：", queryData.Filter);
+        console.log("加载数据前处理-CatalogId：", queryData.CatalogId);
+
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        $.ajax({
+            url: "GetGridData",
+            type: "post",
+            data: queryData,
+            success: function (data) {
+                console.log("loadsuccess", data);
+                relatedEntryDataGrid.setTotalCount(data.total);
+                relatedEntryDataGrid.setData(data.data);
+            },
+            complete: function (e) {
+                relatedEntryDataGrid.setPageIndex(pageIndex);
+                relatedEntryDataGrid.setPageSize(pageSize);
+                mini.unmask(document.body);
+            }
+        });
+    }
+
+    function rebuildIndex() {
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        $.ajax({
+            url: "RebuildIndex",
+            type: "post",
+            //data: queryData,
+            success: function (data) {
+                if (data) {
+                    mini.alert("重建索引完成！");
+                }
+            },
+            complete: function (e) {
+                mini.unmask(document.body);
+            }
+        });
+    }
+</script>

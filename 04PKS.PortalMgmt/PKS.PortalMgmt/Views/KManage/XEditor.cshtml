@@ -1,0 +1,692 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "百科编辑";
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowToolBar = false;
+    var webApiSiteUrl = this.Context.GetWebApiSiteUrl();
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/content/xeditor/framework/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="/content/xeditor/styles/xVisionR.css" />
+    <link rel="stylesheet" href="/content/xeditor/styles/xEditorR.css" />
+
+    @*<link href="~/Content/baike/baike.css" rel="stylesheet" />*@
+    <link href="~/Content/baike/bkml.css" rel="stylesheet" />
+
+    <link href="~/Content/lib/viewer/viewer.min.css" rel="stylesheet" />
+    <link href="~/Content/lib/ResponsiveSlides/responsiveslides.css" rel="stylesheet" />
+    <link href="~/Content/lib/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/xvision/xvision.css" rel="stylesheet" />
+    <link href="/Content/toastr/toastr.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="xvision-window">
+        <div class="xvision-window-header">
+            <div class="xvision-window xvision-padding-hor-lg xvision-border-b-gray">
+                <div class="xvision-row">
+                    <div class="xvision-col-2 xvision-padding-sm">
+
+                    </div>
+                    <div class="xvision-col-10 xvision-padding-sm xvision-text-left" id="toolbar-box">
+                        <a onclick="save();"><img src="~/content/xeditor/images/保存1.png"> 保存 |</a>
+                        <a><img src="~/content/xeditor/images/预览.png"> 预览 </a>
+                        <a class="btn btn-default" href="#" role="button" onclick="toggleScale(event);">全屏</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="xvision-window-body">
+            <div class="xvision-window">
+                <div class="xvision-window-sidebar">
+                    <div class="xvision-window">
+                        <div id="knowledge_doc_template"></div>
+                        <div id="knowledge_doc_directory"></div>
+                        <div id="knowledge_doc_fragments"></div>
+                    </div>
+                </div>
+                <div class="xvision-window-main">
+                    <div class="xvision-window">
+                        <div class="xvision-window-header-md">
+                            <div class="xvision-window">
+                                <div id="knowledge_control_manager">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="xvision-window-body-md">
+                            <div class="xvision-window">
+                                <div id="knowledge_doc_layout_designer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/content/xeditor/js/lib/jquery-3.2.1.js"></script>
+    <script src="/content/xeditor/framework/bootstrap/js/bootstrap.js"></script>
+    <script src="~/scripts/util.js"></script>
+    <script src="@webApiSiteUrl/Scripts/moment.2.18.1/moment.min.js"></script>
+    <script src="~/Content/lib/viewer/viewer.min.js"></script>
+    <script src="~/Content/lib/elastislide/js/modernizr.custom.17475.js"></script>
+    <script src="~/Content/lib/elastislide/js/jquerypp.custom.js"></script>
+    <script src="~/Content/lib/ResponsiveSlides/responsiveslides.js"></script>
+    <script src="~/Content/lib/bootstrap-table/bootstrap-table.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="~/scripts/ueditor/ueditor.config.baike.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/scripts/ueditor/ueditor.all.baike.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+    <script src="/content/xeditor/js/vendor.js"></script>
+    <script src="/content/xeditor/js/szzsk.js"></script>
+    <script src="/content/xeditor/js/xEditorR.js"></script>
+    <script src="/Content/toastr/toastr.min.js"></script>
+
+    <script>
+
+        var templateManager = void 0,
+            directoryManager = void 0,
+            fragmentTrackManager=void 0,
+            controlManager = void 0,
+            layoutDesigner = void 0;
+
+        var ucEditor = void 0;
+
+        var knowledge_doc_template = "knowledge_doc_template",
+            knowledge_doc_directory = "knowledge_doc_directory",
+            knowledge_doc_fragments = "knowledge_doc_fragments",
+            knowledge_control_manager = "knowledge_control_manager",
+            knowledge_doc_layout_designer = "knowledge_doc_layout_designer";
+
+
+        var _cur_template_ = void 0;
+
+        var _dragVue_ = void 0;
+
+        var _vueMetas_ = {};
+
+        var _recursive_ = 0;
+
+
+        var logError = function (msg) {
+            console.log(msg);
+        };
+
+        var isOfDocType = function (ucMeta) {
+            return ucMeta.category == 1;
+        };
+        function getTemplateParamsByTemplateId(tmpid) {
+            var templateParams = {};
+            $.ajax({
+                async: false,
+                url: '/xeditor/GetTemplateParamsByTemplateId',
+                type: 'get',
+                data: { templateid: tmpid },
+                success: function (r) {
+                    templateParams = r;
+                },
+                error: function () {
+
+                }
+            });
+            return templateParams;
+        }
+        //重置目录
+        function resetDirTree(tempData) {
+            if (directoryManager && directoryManager.isInDocment)
+                directoryManager.remove();
+            var map = { id: "nodeid", parentId: "parentnodeid", text: "name" };
+            directoryManager = Tree._CreateFromFlatJson([], map);
+            directoryManager.caption = "文档目录";
+            directoryManager.mount(knowledge_doc_directory);
+        }
+        //重置知识片段跟踪
+        function resetFragmentTrack(tempData) {
+            var fragmentTrackData = {};
+            //todo 暂时只显示title
+            fragmentTrackData.head = ["序号", "标题"];
+            fragmentTrackData.rows = [];
+            fragmentTrackManager = Table._CreateFromFlatJson(fragmentTrackData);
+            fragmentTrackManager.caption = "知识片段";
+            fragmentTrackManager.mount(knowledge_doc_fragments);
+        }
+        // init control manager
+        (function () {
+
+            controlManager = ControlManager._CreateD();
+
+            controlManager.register(knowLayout._Create());
+            controlManager.register(Layout8_4._Create());
+            controlManager.register(Layout6_6._Create());
+            controlManager.register(Layout4_4_4._Create());
+
+            function reqUCMetas() {
+                return $.ajax({
+                    url: "/xeditor/GetMetadatas",
+                    type: "GET",
+                    dataType: "json"
+                });
+            }
+
+            function initUcEditor(meta) {
+                ucEditor = ComEditor._Create(meta.es);
+
+                ucEditor.on("save.xWander", function (source, xEventArgs) {
+                    var srcc = xEventArgs.srcTarget;
+                    var src = srcc.com;
+                    if (src.is(KnowVue) && src.isHeadline()) {
+                        var node = directoryManager.findNodeByDataId(src.id);
+                        node.text = src.text;
+                    }
+                });
+                return meta.component;
+            }
+
+            function indexingUcDatas(ucMetas) {
+                let i = 0, j = ucMetas.length, ucMeta = void 0;
+                for (; i < j; i++) {
+                    ucMeta = ucMetas[i];
+                    _vueMetas_[ucMeta.id] = ucMeta;
+                }
+                return ucMetas;
+            }
+
+            function initUcs(ucMetas) {
+                let ucArr = [],
+                    i = 0,
+                    j = ucMetas.length,
+                    ucMeta = void 0,
+                    o = void 0,
+                    cate = void 0;
+                for (; i < j; i++) {
+                    ucMeta = ucMetas[i];
+                    cate = isOfDocType(ucMeta) ? "文档结构" : "选择组件";
+                    o = KnowVue._Create(ucMeta, null, null, ucMeta.name, ucMeta.name, cate);
+                    ucArr.push(o);
+                }
+                return ucArr;
+            }
+
+            function regUcs(ucs) {
+                let i = 0, j = ucs.length, uc = void 0;
+                for (; i < j; i++) {
+                    uc = ucs[i];
+                    controlManager.register(uc);
+                }
+            }
+
+            function initUcM() {
+
+                controlManager.on("dragStart.xWander", function (source, xEventArgs) {
+                    var rs = xEventArgs.srcTarget;
+                    _dragVue_ = rs;
+                    var img = rs.getDragImage();
+                    if (img)
+                        xEventArgs.event.dataTransfer.setDragImage(img, -10, -10);
+                });
+
+                controlManager.mount(knowledge_control_manager);
+            }
+
+            reqUCMetas().then(initUcEditor)
+                .then(indexingUcDatas)
+                .then(initUcs)
+                .then(regUcs)
+                .then(initUcM)
+                .fail(logError);
+        })();
+
+
+        //init template manager
+        (function () {
+
+            function reqTempData() {
+                return $.ajax({
+                    url: "/xeditor/gettemplatetree",
+                    type: "GET",
+                    dataType: "json"
+                });
+            }
+
+            function initTempTree(tempData) {
+          
+                var map = { id: "nodeid", parentId: "parentnodeid", text: "name" };
+                templateManager = Tree._CreateFromFlatJson(tempData, map);
+                templateManager.caption = "选择模板";
+                templateManager.mount(knowledge_doc_template);
+            }        
+
+            function lisTempTree() {
+
+                templateManager.on("selectTreeNode.xWander", function (source, xEventArgs) {
+
+
+                    console.log(xEventArgs.srcTarget)
+
+
+                    if (_cur_template_ !== xEventArgs.srcTarget) {
+                        if (fragmentTrackManager && fragmentTrackManager._children_ && fragmentTrackManager._children_.values().length > 0) {
+                            resetFragmentTrack();
+                        }
+                        _cur_template_ = xEventArgs.srcTarget;
+                        if (_cur_template_.parent !== templateManager) {
+                            startSession();
+                        } else {
+                            layoutDesigner && layoutDesigner.remove();
+                            directoryManager && directoryManager.remove();
+                            resetDirTree();
+                        }
+                        source.selectNode(_cur_template_);
+                    }
+                });
+
+                templateManager.on("addTreeNode.xWander", function (source, xEventArgs) {
+                    var source = xEventArgs.srcTarget;
+                    var data = { pid: source.parent.data.id, name: source.text };
+                    $.ajax({
+                        url: '/xeditor/addtemplate',
+                        type: 'POST',
+                        data: data
+                    }).then(function (d) {
+                        source.data = d;
+                    })
+                });
+
+                templateManager.on("removeTreeNode.xWander", function (source, xEventArgs) {
+                    var source = xEventArgs.srcTarget;
+                    var data = { id: source.data.id };
+                    $.ajax({
+                        url: '/xeditor/deletetemplate',
+                        type: 'POST',
+                        data: data
+                    }).then(function (e) {
+                        layoutDesigner.remove();
+                        directoryManager.remove()
+                    })
+                });
+
+                templateManager.on("modifyTreeNode.xWander", function (source, xEventArgs) {
+                    var source = xEventArgs.srcTarget;
+                    source.data.name = source.text;
+                    var data = { id: source.data.id, name: source.text };
+                    $.ajax({
+                        url: '/xeditor/updatetemplatename',
+                        type: 'POST',
+                        data: data
+                    });
+                });
+            }
+
+   
+
+            reqTempData().then(initTempTree)
+                .then(lisTempTree).then(resetDirTree).then(resetFragmentTrack)
+                .fail(logError);
+        })();
+
+
+        function startSession() {
+            var ucFlag = "[data-class]";
+
+            var reqTempDetail = function (tempId) {
+                return $.ajax({
+                    url: '/xeditor/GetTemplateDetailInfos',
+                    type: 'GET',
+                    data: { templateid: tempId },
+                    dataType: 'json'
+                });
+            };
+            var parseTemp = function (temp) {
+                var temp$ = $(temp.templateinfo.template);
+                var frags = temp.fragments;
+                var ucs = parseUcs(temp$, frags);
+                if (layoutDesigner && layoutDesigner.isInDocment)
+                    layoutDesigner.remove();
+                layoutDesigner = Designer._Create();
+                let i = 0, j = ucs.length;
+                for (; i < j; i++) {
+                    layoutDesigner.addChild(ucs[i]);
+                }
+                layoutDesigner.mount(knowledge_doc_layout_designer);
+                return temp;
+            };
+            var parseUcs = function (temp$, frags) {
+                var ucs = [];
+                var ucsEle$ = hirUc(temp$, ucFlag);
+                if (ucsEle$.length > 0) {
+                    var root$ = void 0, uc = void 0;
+                    for (var i = 0, j = ucsEle$.length; i < j; i++) {
+                        root$ = ucsEle$[i];
+                        uc = parseUc(root$, frags);
+                        parseUcs(root$, frags).forEach(function (nuc) {
+                            uc.addChild(nuc);
+                        });
+                        ucs.push(uc);
+                    }
+                }
+                return ucs;
+            };
+            var hirUc = function (root$, ucFlag) {
+                var eles$ = [];
+                var cren$ = root$.children();
+                cren$.each(function (i, ele) {
+                    var ele$ = $(ele);
+                    if (ele$.is(ucFlag)) {
+                        eles$.push(ele$);
+                    } else {
+                        var ncren$ = hirUc(ele$, ucFlag);
+                        (ncren$.length > 0) && (eles$ = eles$.concat(ncren$));
+                    }
+                });
+                return eles$;
+            };
+            var parseUc = function (root$, frags) {
+                var uc = void 0;
+                var id = root$.attr("id");
+                var cName = root$.attr("data-class");
+                var cos = parseUcCos(cName);
+                var isLayout = root$.get(0).nodeName == 'DIV';
+                if (isLayout) {
+                    uc = cos._Create();
+                } else {
+                    var frag = queryFrag(id, frags);
+                    if (frag) {
+                        var ucMeta = queryMetaById(frag.fragmenttypeid);
+                        var query = JSON.parse(frag.queryparameter);
+                        var args = JSON.parse(frag.componentparameter);
+                        var cate = /^headline/.test(frag.fragmenttypecode) ? "文档结构" : "选择组件";
+                        uc = cos._Create(ucMeta, query, args, frag.title, frag.title, cate);
+                        uc.htmlText = frag.htmltext;
+                        if (uc.isHeadline()) {
+                            uc.vueData.text = frag.title;
+                        } else {
+                            uc.vueData.data = [frag.htmltext];
+                        }
+                    } else {
+                        uc = cos._Create();
+                    }
+                }
+                uc.id = id;
+                return uc;
+            };
+            var queryFrag = function (id, frags) {
+                var f = void 0;
+                for (var i = 0, j = frags.length; i < j; i++) {
+                    if (frags[i].placeholderid == id) {
+                        f = frags[i];
+                        break;
+                    }
+                }
+                return f;
+            };
+            var queryMetaById = function (id) {
+                return _vueMetas_[id];
+            };
+            var parseUcCos = function (cName) {
+                var c = "";
+                switch (cName) {
+                    case "LayoutContainer":
+                        c = LayoutContainer;
+                        break;
+                    case "Layout12":
+                        c = knowLayout;
+                        break;
+                    case "Layout8_4":
+                        c = Layout8_4;
+                        break;
+                    case "Layout6_6":
+                        c = Layout6_6;
+                        break;
+                    case "Layout4_4_4":
+                        c = Layout4_4_4;
+                        break;
+                    case "UserControl":
+                        c = KnowVue;
+                        break;
+                }
+                return c;
+            };
+            var lisDesigner = function () {
+
+                layoutDesigner.on("dragOver.xWander", function (source, xEventArgs) {
+                    var rs = xEventArgs.srcTarget;
+                    if (rs.canDrop(_dragVue_))
+                        xEventArgs.event.preventDefault();
+                });
+
+                layoutDesigner.on("drop.xWander", function (source, xEventArgs) {
+                    var rs = xEventArgs.srcTarget;
+                    var n = _dragVue_.createNew();
+                    // position
+                    var ox = xEventArgs.event.offsetX;
+                    var oy = xEventArgs.event.offsetY;
+                    var bf = rs.findChildNearestAfterPixel(ox, oy, 10);
+                    if (bf) {
+                        rs.addChildBefore(n, bf);
+                    } else {
+                        rs.addChild(n);
+                    }
+                    // add headline;
+                    if (n.is(KnowVue) && n.isHeadline()) {
+                        var tn = TreeNode._Create();
+                        tn.text = n.text;
+                        tn.data = n;
+                        var id = rs.findParentHeadlineId();
+                        var node = directoryManager.findNodeByDataId(id);
+                        if (!node) {
+                            node = directoryManager;
+                        }
+                        var next = void 0;
+                        var nl = rs;
+                        while (nl = nl.next) {
+                            if (nl.is(knowLayout) && nl.headlineId) {
+                                next = nl;
+                                break;
+                            }
+                        }
+                        if (next) {
+                            var bNode = directoryManager.findNodeByDataId(next.headlineId);
+                            node.addChildBefore(tn, bNode);
+                        } else {
+                            tn.parent = node;
+                        }
+                    }
+                    //
+                });
+
+                layoutDesigner.on("remove.xWander", function (source, xEventArgs) {
+                    var rmDir = function (id) {
+                        var bl = true;
+                        var node = directoryManager.findNodeByDataId(id);
+                        if (node) {
+                            if (node.isLeaf()) {
+                                node.remove();
+                            } else {
+                                alert("该节点下有下一集目录,不允许删除");
+                                bl = false;
+                            }
+                        }
+                        return bl;
+                    };
+                    var rs = xEventArgs.srcTarget;
+                    if (rs.is(KnowVue) && rs.isHeadline()) {
+                        if (!rmDir(rs.id))
+                            return;
+                    }
+                    if (rs.is(knowLayout) && rs.headlineId) {
+                        if (!rmDir(rs.headlineId))
+                            return;
+                    }
+                    rs.remove();
+                });
+
+                layoutDesigner.on("edit.xWander", function (source, xEventArgs) {
+                    var rs = xEventArgs.srcTarget;
+                    if (_cur_template_ && _cur_template_.data && _cur_template_.data.id) {
+                        window.UEDITOR_CONFIG.tplparams = getTemplateParamsByTemplateId(_cur_template_.data.id);
+                    }
+                    ucEditor.show(rs);
+                });
+            }
+        
+            var initDirTree = function (temp) {
+                var dirMeta = temp.catalogues;
+                var i = 0, j = dirMeta.length, d = void 0;
+                for (; i < j; i++) {
+                    d = dirMeta[i];
+                    d.id = d.placeholderid;
+                }
+                if (directoryManager && directoryManager.isInDocment)
+                    directoryManager.remove();
+                var map = { id: "nodeid", parentId: "parentnodeid", text: "name" };
+                directoryManager = Tree._CreateFromFlatJson(dirMeta, map);
+                directoryManager.caption = "文档目录";
+                directoryManager.mount(knowledge_doc_directory);
+            };
+            //查找某标题下所有的知识片段
+            var getFragmentsUnderDir = function (id) {
+                var fragInfos = [];
+                var collectFrags = function (container) {
+                    if (container && container._children_) {
+                        var values = container._children_.values();
+                        if (values && values.length > 0) {
+                            for (var k = 0; k < values.length; k++) {
+                                var v = values[k];
+                                if (v._categoryId_ && v._categoryId_ == id) {
+                                    fragInfos.push({ "_caption": v._caption_, "_catalog_": v._catalog_, "_id_": v._id_, "_metadata": v._metadata_, "text": v._text_ });
+                                }
+                                else {
+                                    collectFrags(values[k]);
+                                }                               
+                            }
+                        }
+                    }
+                }
+                collectFrags(layoutDesigner);
+                return fragInfos;
+            }
+            var lisDirTree=function() {
+
+                directoryManager.on("selectTreeNode.xWander", function (source, xEventArgs) {
+                    var srcTarget = xEventArgs.srcTarget;
+                    var data = srcTarget._data_;
+                    var placeholderid = data.id;
+                    if (fragmentTrackManager && fragmentTrackManager.isInDocment)
+                        fragmentTrackManager.remove();
+
+                    var fragmentInfos = getFragmentsUnderDir(placeholderid);
+                    var fragmentTrackData = {};
+                    //todo 暂时只显示title
+                    fragmentTrackData.head = ["序号","标题"];
+                    fragmentTrackData.rows = [];
+                    for (var index = 0; index < fragmentInfos.length; index++) {
+                        var frag = fragmentInfos[index];
+                        fragmentTrackData.rows.push({"index": index+1, "title": frag._caption });
+                    }
+                    fragmentTrackManager = Table._CreateFromFlatJson(fragmentTrackData);
+                    fragmentTrackManager.caption = "知识片段";
+                    fragmentTrackManager.mount(knowledge_doc_fragments);
+
+                    source.selectNode(srcTarget);
+                });            
+            }
+          
+            var id = _cur_template_.data.id;
+
+            reqTempDetail(id).then(parseTemp).then(initDirTree).then(lisDesigner).then(lisDirTree).fail(logError);
+        };
+
+        // manage save Editor
+        function save() {
+            var sel = _cur_template_;
+            var html = layoutDesigner.getModel();
+            var templateinfo = JSON.stringify({ templatecategoryid: sel.parent.data.id, id: sel.data.id, name: sel.text, template: html });
+            var jModel = [];
+            getJModel(layoutDesigner, jModel, sel.data.id);
+            var fragments = JSON.stringify(jModel);
+            var cModel = [];
+            getCModel(directoryManager, null, cModel);
+            var catalogues = JSON.stringify(cModel);
+            var data = { templateinfo: templateinfo, fragments: fragments, catalogues: catalogues };
+            $.ajax({
+                url: "/xeditor/savetemplate",
+                type: "POST",
+                data: data
+            }).then(startSession).then(toastr.success("保存成功!")).fail(logError);
+        };
+
+        function getJModel(cs, dic, tempId) {
+            var m = cs.getJModel(tempId);
+            m && dic.push(m);
+            if (cs.children.length > 0) {
+                cs.children.forEach(c => getJModel(c, dic, tempId));
+            }
+        };
+
+        function getCModel(dm, pCode, arr) {
+            _recursive_++;
+            var cm,
+                o,
+                cren = dm.children;
+            for (var i = 0, j = cren.length; i < j; i++) {
+                cm = cren[i];
+                o = { id: 0, code: (pCode == null ? `${i + 1}` : `${pCode}.${i + 1}`), name: cm.text, levelnumber: _recursive_, ordernumber: i + 1, parentid: 0, templateid: _cur_template_.data.id, nodeid: cm.id, parentnodeid: (cm.parent.id == directoryManager.id ? 0 : cm.parent.id), placeholderid: cm.data.id }
+                arr.push(o);
+                if (cm.children.length > 0)
+                    getCModel(cm, o.code, arr);
+            }
+            _recursive_--;
+        };
+
+
+        var isScale = false;
+        var styles = [];
+        function toggleScale(e) {
+            var p = window.parent;
+            var f = p.document.getElementById("mainframe");
+            var pe = f;
+            var style = void 0;
+            if (isScale) {
+                while ((pe = pe.parentNode)) {
+                    if (pe.tagName == 'BODY') break;
+                    style = styles.shift();
+                    pe.style.position = style.position || null;
+                    pe.style.height = style.height || null;
+                    pe.style.width = style.width || null;
+                    pe.style.left = style.left || null;
+                    pe.style.top = style.top || null;
+                }
+                isScale = false;
+                e.currentTarget.innerHTML = "全屏";
+            } else {
+                while ((pe = pe.parentNode)) {
+                    if (pe.tagName == 'BODY') break;
+                    style = {};
+                    style.position = pe.style.position;
+                    style.height = pe.style.height;
+                    style.width = pe.style.width;
+                    style.left = pe.style.left;
+                    style.top = pe.style.top;
+                    styles.push(style);
+                    pe.style.position = "absolute";
+                    pe.style.height = '100%';
+                    pe.style.width = '100%';
+                    pe.style.left = '0px';
+                    pe.style.top = '0px'
+                }
+                f.parentNode.style.zIndex = 99999;
+                isScale = true;
+                e.currentTarget.innerHTML = "窗口";
+            }
+        };
+
+    </script>
+</body>
+</html>

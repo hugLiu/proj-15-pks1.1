@@ -1,0 +1,581 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PKS.Utils</name>
+    </assembly>
+    <members>
+        <member name="T:PKS.Utils.CollectionUtil">
+            <summary>集合工具</summary>
+        </member>
+        <member name="M:PKS.Utils.CollectionUtil.GetValueBy``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+            <summary>根据键获得值，如果值不存在返回默认值</summary>
+        </member>
+        <member name="M:PKS.Utils.CollectionUtil.GetValueOrDefaultBy``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>根据键获得值，如果值不存在返回默认值</summary>
+        </member>
+        <member name="M:PKS.Utils.CollectionUtil.AddRange``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
+            <summary>加入集合</summary>
+        </member>
+        <member name="M:PKS.Utils.CollectionUtil.IsNullOrEmpty``1(System.Collections.Generic.ICollection{``0})">
+            <summary>是null或空</summary>
+        </member>
+        <member name="M:PKS.Utils.CollectionUtil.ForEach``1(System.Collections.Generic.ICollection{``0},System.Action{``0})">
+            <summary>迭代集合</summary>
+        </member>
+        <member name="M:PKS.Utils.CollectionUtil.TryDispose``1(System.Collections.Generic.ICollection{``0})">
+            <summary>检查并释放</summary>
+        </member>
+        <member name="M:PKS.Utils.CollectionUtil.ToList``2(System.Collections.Generic.IEnumerable{``1},``0)">
+            <summary>转换为强类型集合</summary>
+        </member>
+        <member name="M:PKS.Utils.CollectionUtil.ToDictionary``3(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``1,``2}},``0)">
+            <summary>转换为强类型字典</summary>
+        </member>
+        <member name="T:PKS.Utils.DateTimeUtil">
+            <summary>日期时间工具</summary>
+        </member>
+        <member name="F:PKS.Utils.DateTimeUtil.StandardFormat">
+            <summary>标准时间格式</summary>
+        </member>
+        <member name="M:PKS.Utils.DateTimeUtil.ToStandardString(System.DateTime)">
+            <summary>生成标准时间格式串</summary>
+        </member>
+        <member name="M:PKS.Utils.DateTimeUtil.ToStandardString(System.Nullable{System.DateTime})">
+            <summary>生成标准时间格式串</summary>
+        </member>
+        <member name="F:PKS.Utils.DateTimeUtil.StandardDateFormat">
+            <summary>标准日期格式</summary>
+        </member>
+        <member name="M:PKS.Utils.DateTimeUtil.ToStandardDateString(System.DateTime)">
+            <summary>生成标准日期格式串</summary>
+        </member>
+        <member name="F:PKS.Utils.DateTimeUtil.StandardFormats">
+            <summary>标准时间格式</summary>
+        </member>
+        <member name="M:PKS.Utils.DateTimeUtil.ToStandardDateTime(System.String)">
+            <summary>生成标准时间格式串</summary>
+        </member>
+        <member name="M:PKS.Utils.DateTimeUtil.ToNullableStandardDateTime(System.String)">
+            <summary>生成标准时间格式串</summary>
+        </member>
+        <member name="M:PKS.Utils.DateTimeUtil.TryParseStandardString(System.String)">
+            <summary>生成标准时间</summary>
+        </member>
+        <member name="P:PKS.Utils.DateTimeUtil.ISODateTimeFormat">
+            <summary>ISO日期时间格式</summary>
+        </member>
+        <member name="M:PKS.Utils.DateTimeUtil.ToISODate(System.String)">
+            <summary>
+            将ISODate字符串转为本地时间的<c>DateTime</c>
+            </summary>
+            <param name="isoDateTimeString">ISO Date格式的字符串，如：2012-11-02T07:58:51.718Z</param>
+            <returns><c>代表本地时间的<c>DateTime</c></c></returns>
+        </member>
+        <member name="M:PKS.Utils.DateTimeUtil.ToISODateTime(System.String)">
+            <summary>生成标准时间</summary>
+        </member>
+        <member name="M:PKS.Utils.DateTimeUtil.ToISODateString(System.DateTime)">
+            <summary>
+            将本地时间转为ISODate格式的字符串
+            </summary>
+            <param name="localTime">代表本地时间的<c>DateTime</c></param>
+            <returns>ISODate格式的字符串，格式如：2012-11-02T07:58:51.718Z</returns>
+        </member>
+        <member name="T:PKS.Utils.DictionaryUtil">
+            <summary>字典工具</summary>
+        </member>
+        <member name="M:PKS.Utils.DictionaryUtil.SortByValue(System.Collections.Generic.Dictionary{System.String,System.Int32},System.Boolean)">
+            <summary>
+            Dictionary根据值排序
+            </summary>
+            <param name="dic"></param>
+            <param name="isDesc">默认降序</param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Utils.DictionaryUtil.SortByValue(System.Collections.Generic.Dictionary{System.String,System.Nullable{System.Int64}},System.Boolean)">
+            <summary>
+            Dictionary根据值排序
+            </summary>
+            <param name="dic"></param>
+            <param name="isDesc">默认降序</param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Utils.DictionaryUtil.SortByKey(System.Collections.Generic.Dictionary{System.String,System.Int32},System.Boolean)">
+            <summary>
+            Dictionary根据key排序
+            </summary>
+            <param name="dic"></param>
+            <param name="isDesc">默认降序</param>
+            <returns></returns>
+        </member>
+        <member name="T:PKS.Utils.SecurityUtil">
+            <summary>安全工具</summary>
+        </member>
+        <member name="M:PKS.Utils.SecurityUtil.GetLocalDomainName">
+            <summary>获本机域名</summary>
+        </member>
+        <member name="M:PKS.Utils.SecurityUtil.LocalIsInDomain">
+            <summary>本机是否在域中</summary>
+        </member>
+        <member name="T:PKS.Utils.XmlUtil">
+            <summary>XML工具</summary>
+        </member>
+        <member name="M:PKS.Utils.XmlUtil.XmlSerialize(System.String,System.Object)">
+            <summary>把对象序列化为XML文件</summary>
+        </member>
+        <member name="M:PKS.Utils.XmlUtil.XmlDeserialize``1(System.String)">
+            <summary>把XML文件反序列化为对象</summary>
+        </member>
+        <member name="T:PKS.Utils.ReflectUtil">
+            <summary>反射工具</summary>
+        </member>
+        <member name="F:PKS.Utils.ReflectUtil.InstanceFlags">
+            <summary>实例成员标志</summary>
+        </member>
+        <member name="F:PKS.Utils.ReflectUtil.StaticFlags">
+            <summary>静态成员标志</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.CreateInstanceFromName(System.String)">
+            <summary>根据类型名称创建实例</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.CreateInstance``1(System.Type)">
+            <summary>创建强类型的实例</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.CreateInstance(System.Type)">
+            <summary>创建实例</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetTypeCode(System.Type)">
+            <summary>获得基础类型的类型代码</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetParentTypes(System.Type,System.Type)">
+            <summary>获得父类型集合</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetHostedAssembly(System.Type)">
+            <summary>获得类型所在的程序集</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.IsNumeric(System.Type)">
+            <summary>
+                判断指定类型是否为数值类型
+            </summary>
+            <param name="type">要检查的类型</param>
+            <returns>是否是数值类型</returns>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetFieldInfo(System.Object,System.String)">
+            <summary>反射获得类型字段信息</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetFieldInfo(System.Enum)">
+            <summary>反射获得枚举值的字段信息</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetFieldInfo(System.Type,System.String,System.Boolean)">
+            <summary>反射获得字段信息</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetFieldValue(System.Object,System.String)">
+            <summary>反射获得字段值</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetFieldValue``1(System.Object,System.String)">
+            <summary>反射获得字段值</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.SetFieldValue(System.Object,System.String,System.Object)">
+            <summary>反射设置字段值</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.SetFieldValueFromString(System.Object,System.String,System.String)">
+            <summary>根据字符串反射设置字段值</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.InvokeMethod(System.Object,System.String,System.Object[])">
+            <summary>反射调用实例方法</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.InvokeMethod(System.Type,System.String,System.Object[])">
+            <summary>反射调用静态方法</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.InvokeMethod``1(System.Type,System.String,System.Object[])">
+            <summary>反射调用静态方法</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.CreateActionDelegate``1(System.Type,System.String)">
+            <summary>创建静态方法委托</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.CreateActionDelegate``1(System.Object,System.String)">
+            <summary>创建静态方法委托</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.CreateActionDelegate(System.Reflection.MethodInfo)">
+            <summary>创建方法委托</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.CreateFuncDelegate``2(System.Type,System.String)">
+            <summary>创建静态方法委托</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.CreateFuncDelegate(System.Reflection.MethodInfo)">
+            <summary>创建方法委托</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetPropertyInfo(System.Object,System.String)">
+            <summary>反射获得属性信息</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetPropertyInfo(System.Type,System.String,System.Boolean)">
+            <summary>反射获得属性信息</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetPropertyValue(System.Object,System.String)">
+            <summary>反射获得属性值</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetPropertyValue``1(System.Object,System.String)">
+            <summary>反射获得属性值</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.SetPropertyValue(System.Object,System.String,System.Object)">
+            <summary>反射设置属性值</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.SetPropertyValueFromString(System.Object,System.String,System.String)">
+            <summary>根据字符串反射设置属性值</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.ChangeTo(System.String,System.Type)">
+            <summary>转换为目标类型</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.ParseEnum(System.String,System.Type)">
+            <summary>转换为枚举值</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetAttributes``1(System.Reflection.ICustomAttributeProvider,System.Boolean)">
+            <summary>获得特性数组</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.CreateInterfaceInstance``1(System.Reflection.Assembly)">
+            <summary>创建接口实例</summary>
+        </member>
+        <member name="M:PKS.Utils.ReflectUtil.GetAssemblies(System.Boolean,System.String)">
+            <summary>如果是加载全部，则获得已加载的所有程序集，否则从配置文件中加载</summary>
+        </member>
+        <member name="T:PKS.Utils.HashUtil">
+            <summary>Hash工具</summary>
+        </member>
+        <member name="M:PKS.Utils.HashUtil.ToMD5(System.String)">
+            <summary>生成MD5值</summary>
+        </member>
+        <member name="M:PKS.Utils.HashUtil.ToMD5(System.IO.Stream)">
+            <summary>生成MD5</summary>
+        </member>
+        <member name="M:PKS.Utils.HashUtil.ToMD5(System.Byte[])">
+            <summary>生成MD5</summary>
+        </member>
+        <member name="T:PKS.Utils.LowerCaseNamingStrategy">
+            <summary>成员名称小写命名策略</summary>
+        </member>
+        <member name="M:PKS.Utils.LowerCaseNamingStrategy.ResolvePropertyName(System.String)">
+            <summary>
+            Resolves the specified property name.
+            </summary>
+            <param name="name">The property name to resolve.</param>
+            <returns>The resolved property name.</returns>
+        </member>
+        <member name="T:PKS.Utils.JsonUtil">
+            <summary>JSON工具</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.#cctor">
+            <summary>静态构造函数</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.CreateSettings(Newtonsoft.Json.Serialization.NamingStrategy)">
+            <summary>静态构造函数</summary>
+        </member>
+        <member name="P:PKS.Utils.JsonUtil.CamelCaseJsonSerializerSettings">
+            <summary>支持成员名称CamelCase命名策略的序列化参数</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.CreateDefault">
+            <summary>创建默认参数</summary>
+        </member>
+        <member name="P:PKS.Utils.JsonUtil.LowerCaseJsonSerializerSettings">
+            <summary>支持成员名称小写命名策略的序列化参数</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.DefaultUseCamelCaseNamingStrategy">
+            <summary>设置默认为支持成员名称CamelCase命名策略的序列化参数</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.UseCamelCaseNamingStrategy(Newtonsoft.Json.JsonSerializerSettings)">
+            <summary>设置默认为支持成员名称CamelCase命名策略的序列化参数</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.ToJson(System.Object,Newtonsoft.Json.Formatting)">
+            <summary>生成指定格式的JSON串</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.ToJson(System.Object,Newtonsoft.Json.JsonSerializerSettings)">
+            <summary>根据指定参数生成JSON串</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.JsonTo(System.String,Newtonsoft.Json.JsonSerializerSettings)">
+            <summary>根据JSON串生成对象</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.JsonTo``1(System.String,Newtonsoft.Json.JsonSerializerSettings)">
+            <summary>根据JSON串生成对象</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.ToObject(System.Object)">
+            <summary>转换为对象</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.ToObject(Newtonsoft.Json.Linq.JToken)">
+            <summary>转换为对象</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.ToObjectArray(Newtonsoft.Json.Linq.JArray)">
+            <summary>转换为对象数组</summary>
+        </member>
+        <member name="M:PKS.Utils.JsonUtil.ToObjectDictionary(Newtonsoft.Json.Linq.JObject)">
+            <summary>转换为对象字典</summary>
+        </member>
+        <member name="T:PKS.Utils.StringUtil">
+            <summary>字符串工具</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.IsNullOrEmpty(System.String)">
+            <summary>是否NULL或Empty</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.JsonToCamelCase(System.String)">
+            <summary>转换为驼峰写法(JSON方式)</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.ToTitleCase(System.String)">
+            <summary>
+            转化字符串为首字母大写，同时会将首字符之后的转化为小写
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.ToUpperInitial(System.String)">
+            <summary>
+            字符串首字母转化大写，其他字符不变
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.Repeat(System.String,System.Int32)">
+            <summary>重复指定字符串指定次数</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.ToHex2(System.Byte)">
+            <summary>生成十六进制字符串</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.ToHexString(System.Byte[])">
+            <summary>生成字节数组的十六进制字符串</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.ToInt32(System.String)">
+            <summary>转成整数</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.ToEnum``1(System.String,System.Boolean)">
+            <summary>枚举转换</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.ToBool(System.String)">
+            <summary>布尔转换</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.ToGuid(System.String)">
+            <summary>转换为GUID</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.Base64Encode(System.String,System.Text.Encoding)">
+            <summary>Base64编码</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.Base64Utf8Encode(System.String)">
+            <summary>Base64(UTF8)编码</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.Base64Decode(System.String,System.Text.Encoding)">
+            <summary>Base64解码</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.Base64Utf8Decode(System.String)">
+            <summary>Base64(UTF8)解码</summary>
+        </member>
+        <member name="F:PKS.Utils.StringUtil.QueryStringChars">
+            <summary>查询串编码字符数组</summary>
+        </member>
+        <member name="F:PKS.Utils.StringUtil.QueryStringEncodeStrings">
+            <summary>查询串编码值数组</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.QueryStringEncode(System.String)">
+            <summary>查询串编码</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.QueryStringDecode(System.String)">
+            <summary>查询串解码</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.Divest(System.String,System.Char)">
+            <summary>脱壳,默认为引号</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.NormalizePath(System.String)">
+            <summary>规范化路径</summary>
+        </member>
+        <member name="M:PKS.Utils.StringUtil.NormalizeRelativePath(System.String)">
+            <summary>规范化相对路径</summary>
+        </member>
+        <member name="T:PKS.Utils.Utility">
+            <summary>通用工具</summary>
+        </member>
+        <member name="F:PKS.Utils.Utility.GuidLength">
+            <summary>GUID字符串长度</summary>
+        </member>
+        <member name="F:PKS.Utils.Utility.CompletedTask">
+            <summary>已完成任务</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.As``1(System.Object)">
+            <summary>转换类型</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.CastTo``1(System.Object)">
+            <summary>强制转换类型</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.ConvertTo``1(System.Object)">
+            <summary>自动转换类型</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.In``1(``0,``0[])">
+            <summary>值是否在数组中</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.FastIn``1(``0,``0[])">
+            <summary>值是否在数组中</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.DeepClone``1(``0)">
+            <summary>深克隆</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.ToByteArray(System.IO.Stream)">
+            <summary>生成字节数组</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.ToStream(System.Xml.XmlDocument)">
+            <summary>生成流</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.GetAssemblyConfigFile(System.Reflection.Assembly)">
+            <summary>获得程序集配置文件</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.ParseDescriptions``1">
+            <summary>解析描述特性值</summary>
+        </member>
+        <member name="M:PKS.Utils.Utility.GetEncodings(System.Boolean)">
+            <summary>获得支持的编码</summary>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.GetInitials(System.String)">
+            <summary>
+            取中文文本的拼音首字母
+            </summary>
+            <param name="text">编码为UTF8的文本</param>
+            <returns>返回中文对应的拼音首字母</returns>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.GetInitials(System.String,System.Text.Encoding)">
+            <summary>
+            取中文文本的拼音首字母
+            </summary>
+            <param name="text">文本</param>
+            <param name="encoding">源文本的编码</param>
+            <returns>返回encoding编码类型中文对应的拼音首字母</returns>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.GetPinyin(System.String)">
+            <summary>
+            取中文文本的拼音
+            </summary>
+            <param name="text">编码为UTF8的文本</param>
+            <returns>返回中文文本的拼音</returns>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.GetPinyin(System.String,System.Text.Encoding)">
+            <summary>
+            取中文文本的拼音
+            </summary>
+            <param name="text">编码为UTF8的文本</param>
+            <param name="encoding">源文本的编码</param>
+            <returns>返回encoding编码类型的中文文本的拼音</returns>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.GetChineseText(System.String)">
+            <summary>
+            取和拼音相同的汉字列表
+            </summary>
+            <param name="Pinyin">编码为UTF8的拼音</param>
+            <returns>取拼音相同的汉字列表，如拼音“ai”将会返回“唉爱……”等</returns>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.GetChineseText(System.String,System.Text.Encoding)">
+            <summary>
+            取和拼音相同的汉字列表，编码同参数encoding
+            </summary>
+            <param name="Pinyin">编码为encoding的拼音</param>
+            <param name="encoding">编码</param>
+            <returns>返回编码为encoding的拼音为pinyin的汉字列表，如拼音“ai”将会返回“唉爱……”等</returns>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.GetPinyin(System.Char)">
+            <summary>
+            返回单个字符的汉字拼音
+            </summary>
+            <param name="ch">编码为UTF8的中文字符</param>
+            <returns>ch对应的拼音</returns>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.GetPinyin(System.Char,System.Text.Encoding)">
+            <summary>
+            返回单个字符的汉字拼音
+            </summary>
+            <param name="ch">编码为encoding的中文字符</param>
+            <returns>编码为encoding的ch对应的拼音</returns>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.ConvertEncoding(System.String,System.Text.Encoding,System.Text.Encoding)">
+            <summary>
+            转换编码 
+            </summary>
+            <param name="text">文本</param>
+            <param name="srcEncoding">源编码</param>
+            <param name="dstEncoding">目标编码</param>
+            <returns>目标编码文本</returns>
+        </member>
+        <member name="M:PKS.Utils.NPinyin.Pinyin.GetHashIndex(System.Char)">
+            <summary>
+            取文本索引值
+            </summary>
+            <param name="ch">字符</param>
+            <returns>文本索引值</returns>
+        </member>
+        <member name="T:PKS.Base.DisposableObject">
+            <summary>释放资源对象</summary>
+        </member>
+        <member name="F:PKS.Base.DisposableObject.disposed">
+            <summary>是否已释放</summary>
+        </member>
+        <member name="M:PKS.Base.DisposableObject.Dispose">
+            <summary>释放资源</summary>
+        </member>
+        <member name="M:PKS.Base.DisposableObject.Dispose(System.Boolean)">
+            <summary>释放资源</summary>
+        </member>
+        <member name="M:PKS.Base.DisposableObject.DisposeInternal(System.Boolean)">
+            <summary>释放资源内部方法</summary>
+        </member>
+        <member name="T:PKS.Web.MimeTypes">
+            <summary>HTTP应答内容类型常量</summary>
+        </member>
+        <member name="F:PKS.Web.MimeTypes.Stream">
+            <summary>流</summary>
+        </member>
+        <member name="F:PKS.Web.MimeTypes.JSON">
+            <summary>JSON</summary>
+        </member>
+        <member name="F:PKS.Web.MimeTypes.Url">
+            <summary>Url</summary>
+        </member>
+        <member name="F:PKS.Web.MimeTypes.Exception">
+            <summary>异常</summary>
+        </member>
+        <member name="M:PKS.Web.MimeTypes.IsStream(System.String)">
+            <summary>MIME类型是否流</summary>
+        </member>
+        <member name="M:PKS.Web.MimeTypes.IsJsonMedia(System.String)">
+            <summary>MIME类型是否JSON数据</summary>
+        </member>
+        <member name="T:PKS.Web.IParameterValidation">
+            <summary>参数验证接口</summary>
+        </member>
+        <member name="T:PKS.Web.WebUtil">
+            <summary>WEB工具</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.GetDomainUrl(System.Uri)">
+            <summary>获得URL中的域名URL(类似http://www.temp.com/)</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.RemoveQueryString(System.Uri)">
+            <summary>删除查询串(类似http://www.temp.com/a/b)</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.RemoveQueryString(System.String)">
+            <summary>删除查询串(类似http://www.temp.com/a/b)</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.GetFirstQueryString(System.String,System.String)">
+            <summary>生成第一个查询参数</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.GetNextQueryString(System.String,System.String)">
+            <summary>生成下一个查询参数</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.BuildQueryParams(System.String,System.Object)">
+            <summary>生成查询串参数</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.GetQueryUrl(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>构造带查询串的URL(类似http://www.temp.com/Index?a=***&amp;b=***)</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.NormalizeUrl(System.String)">
+            <summary>规范化URL</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.BuildMediaType(System.String,System.String)">
+            <summary>生成媒体类型头串</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.UrlEncode(System.String)">
+            <summary>URL编码</summary>
+        </member>
+        <member name="M:PKS.Web.WebUtil.UrlDecode(System.String)">
+            <summary>URL解码</summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,722 @@
+﻿@{
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+    ViewBag.ShowBreadCrumb = false;
+}
+
+<style type="text/css">
+    #wizard {
+        border: 5px solid #789;
+        font-size: 12px;
+        height: 510px;
+        margin: 0px auto;
+        width: 740px;
+        overflow: hidden;
+        position: relative;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    }
+    
+    #wizard .items {
+        width: 20000px;
+        clear: both;
+        position: absolute;
+    }
+
+    #wizard .rightfloat {
+        float: right;
+    }
+
+    #wizard #status {
+        height: 35px;
+        background: #123;
+        padding-left: 25px !important;
+    }
+
+    #status li {
+        float: left;
+        color: #fff;
+        padding: 10px 30px;
+    }
+
+    #status li.active {
+        background-color: #369;
+        font-weight: normal;
+    }
+
+    .input {
+        width: 240px;
+        height: 18px;
+        margin: 10px auto;
+        line-height: 20px;
+        border: 1px solid #d3d3d3;
+        padding: 2px
+    }
+
+    .page {
+        padding: 20px 30px;
+        width: 740px;
+        float: left;
+    }
+
+    .page h3 {
+        height: 42px;
+        font-size: 16px;
+        border-bottom: 1px dotted #ccc;
+        margin-bottom: 20px;
+        padding-bottom: 5px
+    }
+
+    .page h3 em {
+        font-size: 12px;
+        font-weight: 500;
+        font-style: normal
+    }
+
+    .page p {
+        line-height: 24px;
+    }
+
+    .page p label {
+        font-size: 14px;
+        display: block;
+    }
+
+    .btn_nav {
+        height: 36px;
+        line-height: 36px;
+        margin: 20px auto;
+    }
+
+    .prev, .next, .btnok {
+        width: 100px;
+        height: 32px;
+        line-height: 32px;
+        /*background: url(btn_bg.gif) repeat-x bottom;*/
+        border: 1px solid #d3d3d3;
+        cursor: pointer
+    }
+
+    ol, ul {
+        list-style: none
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/content/Upload/webuploader.css" />
+
+
+
+<div class="frame-fit" style="width:100%;border:solid 1px #aaa;position:relative;">
+    <div id="wizard">
+        <ul id="status">
+            <li class="active"><strong>1.</strong>案例描述</li>
+            <li><strong>2.</strong>案例参数</li>
+            <li><strong>3.</strong>图版/公式</li>
+        </ul>
+        <div class="items">
+            <div class="page">
+                @*-----任意html内容-----*@
+                @*<div style="width:100%;height:350px;border:solid 1px #aaa;position:relative;">*@
+                    <table style="margin-left:200px;">
+                        <tr>
+                            <td height="30px">案例名称：</td>
+                            <td width="200px">
+                                <input id="caseName" class="mini-textbox" width="200px" required="true" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30px">案例主题：</td>
+                            <td>
+                                <input id="caseTheme" class="mini-textbox"  allowInput="false" width="200px" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30px">描述目标：</td>
+                            <td>
+                                <input id="caseBo" class="mini-textbox" width="200px" required="true" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30px">案例说明：</td>
+                            <td>
+                                <input id="caseDesc" class="mini-textbox" width="200px" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30px">作者：</td>
+                            <td>
+                                <input id="caseAuthor" class="mini-textbox" width="200px" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30px">审核人：</td>
+                            <td>
+                                <input id="caseAuditor" class="mini-textbox" width="200px" value="" />
+                            </td>
+                        </tr>
+                    </table>
+                @*</div>*@
+                <div class="btn_nav">
+                    <input type="button" class="next rightfloat btn btn-info" value="下一步»" />
+                </div>
+            </div>
+            <div class="page">
+                @*-----任意html内容-----*@
+                @*<div id="panel2" class="mini-panel" title="案例参数" showToolbar="true" style="width:100%;height:350px;border:solid 1px #aaa;position:relative;">*@
+                    @*<div property="toolbar">
+                        <a id="btnAddParam" class="mini-button" style="margin:1px;" onclick="addParam">
+                            <span class="mini-button-text  mini-button-icon icon-new-add">新增</span>
+                        </a>
+                        <a id="btnSaveParam" class="mini-button" style="margin:1px;" onclick="saveParam">
+                            <span class="mini-button-text  mini-button-icon icon-new-save">保存</span>
+                        </a>
+                        <a id="btnDeleteParam" class="mini-button" style="margin:1px;" onclick="deleteParam">
+                            <span class="mini-button-text  mini-button-icon icon-new-delete">删除</span>
+                        </a>
+                    </div>*@
+                    <table style="width:99%;height:100%">
+                        <tr>
+                            <td style="width:50%;height:340px;background-color:aliceblue;">
+                                <div id="treegrid" class="mini-treegrid" style="width:100%;height:340px;"
+                                     url="@Url.Action("GetParamTreeGrid", "KCaseInput")?themeId=@ViewBag.ThemeId&instanceId=@ViewBag.InstanceId" showTreeIcon="true"
+                                     treeColumn="paramName" idField="Id" parentField="Pid" resultAsTree="false"
+                                     allowResize="false" expandOnLoad="true" onnodeselect="onNodeSelect">
+                                    <div property="columns">
+                                        <div type="indexcolumn"></div>
+                                        <div name="paramName" field="Name" width="160">参数名称</div>
+                                        <div name="paramValue" field="ParamValue" width="120">参数值</div>
+                                        @*<div name="paramChart" field="ChartNumber" width="40">图版</div>
+                                        <div name="paramFormula" field="FormulaNumber" width="40">公式</div>*@
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width:50%;">
+                                <div style="width:100%;height:100%;">
+                                    <table style="margin-left:10px;">
+                                        <tr id="textTr">
+                                            <td height="65px" width="150px"><strong>参数值（文本）：</strong> </td>
+                                            <td>
+                                                <input name="paramText" id="paramText" class="mini-textarea" style="width:200px;height:60px;" />
+                                            </td>
+                                        </tr>
+                                        <tr id="optionTr">
+                                            <td height="155px"><strong>参数值（枚举）：</strong></td>
+                                            <td>
+                                                <div id="paramOptions" class="mini-listbox" style="width:200px;height:150px;" 
+                                                     showCheckBox="true" multiSelect="true"
+                                                     textField="text" valueField="id" onvaluechanged="optionValueChanged">
+                                                    <div property="columns">
+                                                        <div header="#" field="id"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr id="rangeTr">
+                                            <td><strong>参数值（范围）：</strong></td>
+                                            <td>
+                                                <input id="paramMinText" class="mini-textbox" width="40px" value="" />
+                                                ~
+                                                <input id="paramMaxText" class="mini-textbox" width="40px" value="" />
+                                                <p id="paramUnit"></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="65px"><strong>典型数据：</strong></td>
+                                            <td>
+                                                <input name="paramSampleData" id="paramSampleData" class="mini-textarea" style="width:200px;height:60px;" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="65px"><strong>补充说明：</strong></td>
+                                            <td>
+                                                <input name="paramRemark" id="paramRemark" class="mini-textarea" style="width:200px;height:60px;" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                @*</div>*@
+                <div class="btn_nav">
+                    <input type="button" class="prev btn btn-info" style="float:left" value="«上一步" />
+                    <input type="button" class="next rightfloat btn btn-info" value="下一步»" />
+                </div>
+            </div>
+            <div class="page">
+                @*-----任意html内容-----*@
+                @*<div id="panel3" class="mini-panel" title="图版/公式" style="width:100%;height:45%;border:solid 1px #aaa;position:relative;">*@
+                    <table style="width:100%;height:100%">
+                        <tr>
+                            <td width="50%" height="350px">
+                                <div id="gridChart" class="mini-datagrid" url="@Url.Action("GetChartsByThemeId", "KCaseTheme")?themeId=@ViewBag.ThemeId" idfield="Id"
+                                     style="width: 99%; height: 97%;" multiselect="false" showpager="false"
+                                     allowresize="false" allowcellselect="false" allowcelledit="false" onselect="onRowSelect">
+                                    <div property="columns">
+                                        <div type="indexcolumn" headeralign="center" align="center" width="10%"></div>
+                                        <div name="Name" field="Name" headeralign="center" width="30%" align="center">
+                                            名称
+                                            <input property="editor" class="mini-textbox" style="width: 100%;" />
+                                        </div>
+                                        <div name="ChartType" field="ChartType" vtype="required" renderer="onChartTypeRenderer" headeralign="center" width="20%" align="center">
+                                            图版/公式
+                                            <input property="editor" class="mini-combobox" style="width:100%;" data="ChartType" />
+                                        </div>
+                                        <div name="Parameters" field="Parameters" headeralign="center" width="40%" align="center">
+                                            相关参数
+                                            <input property="editor" class="mini-textbox" style="width: 100%;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="50%" valign="top">
+                                <table style="margin:10px;margin-left:20px;">
+                                    <tr >
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <!--dom结构部分-->
+                                                        <div id="uploader-demo">
+                                                            <!--用来存放item-->
+                                                            <div id="fileList" class="uploader-list"></div>
+                                                            <div id="filePicker">上传...</div>
+                                                        </div>
+                                                        <a class="btn btn-warning" id="noupload" style="margin-top:-5px;width:65px;height:42px;padding-top:8px;">上传...</a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-danger" id="deleteChart" style="margin-left:20px;margin-top:-5px;width:65px;height:42px;padding-top:8px;">删除</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img id="imgChart" src="~/content/theme/blue/images/login/login.png" alt="图版/公式" style="width:290px;height:290px;margin:10px;margin-left:0;" />
+                                        </td>
+                                    </tr>
+                                </table>                               
+                            </td>
+                        </tr>
+                    </table>
+                @*</div>*@
+                <div class="btn_nav">
+                    <input type="button" class="prev btn btn-info" style="float:left" value="«上一步" />
+                    <input type="button" class="btnok rightfloat btn btn-info" id="sub" value="确定" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+<script type="text/javascript" src="~/scripts/scrollable.js"></script>
+<script type="text/javascript" src="~/content/Upload/webuploader.min.js"></script>
+<script type="text/javascript">
+    var InputValueType = [
+        {
+            id: 1,
+            text: "文本"
+        },
+        {
+            id: 2,
+            text: "枚举"
+        },
+        {
+            id: 3,
+            text: "数值范围"
+        }
+    ];
+
+    mini.parse();
+    setOptions(1);
+
+    var treegrid = mini.get("treegrid");
+    var gridChart = mini.get("gridChart");
+    var caseName = mini.get("caseName");
+    var caseTheme = mini.get("caseTheme");
+    var caseBo = mini.get("caseBo");
+    var caseDesc = mini.get("caseDesc");
+    var caseAuthor = mini.get("caseAuthor");
+    var caseAuditor = mini.get("caseAuditor");
+
+    var paramText = mini.get("paramText");
+    var paramOptions = mini.get("paramOptions");
+    var paramMinText = mini.get("paramMinText");
+    var paramMaxText = mini.get("paramMaxText");
+    var paramSampleData = mini.get("paramSampleData");
+    var paramRemark = mini.get("paramRemark");
+
+    caseTheme.setValue("@ViewBag.Theme");
+    gridChart.load();
+
+    var instanceId = @ViewBag.InstanceId;
+
+    if (instanceId != -1) {
+        $.ajax({
+            url: "@Url.Action("GetInstance", "KCaseInput")?id=" + instanceId,
+            success: function (data) {
+                if (data != null) {
+                    caseName.setValue(data.Name);
+                    caseBo.setValue(data.BoDescription);
+                    caseDesc.setValue(data.Remark);
+                    caseAuthor.setValue(data.Author);
+                    caseAuditor.setValue(data.Auditor);
+                }
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "获取实例信息出错！" });
+                console.log(e);
+            }
+        })
+    }
+
+    function setOptions(value) {
+        if (value == 2) {
+            $("#optionTr").show();
+            $("#rangeTr").hide();
+            $("#textTr").hide();
+        } else if (value == 3) {
+            $("#rangeTr").show();
+            $("#optionTr").hide();
+            $("#textTr").hide();
+        } else {
+            $("#rangeTr").hide();
+            $("#optionTr").hide();
+            $("#textTr").show();
+        }
+    }
+    var bCanUpload = false;
+    canUpload(false);
+    function canUpload(value) {
+        if (value) {
+            $("#noupload").hide();
+            $("#uploader-demo").show();
+        } else {
+            $("#noupload").show();
+            $("#uploader-demo").hide();
+        }
+    }
+
+    $(function () {
+        $("#wizard").scrollable({
+            onSeek: function (event, i) {
+                $("#status li").removeClass("active").eq(i).addClass("active");
+            },
+            onBeforeSeek: function (event, i) {
+                if (i == 1) {
+                    var nameValue = caseName.getValue();
+                    if (nameValue == "") {
+                        showTips({ Type: "warning", Message: "请输入案例名称！" });
+                        return false;
+                    }
+                    var boValue = caseBo.getValue();
+                    if (boValue == "") {
+                        showTips({ Type: "warning", Message: "请输入案例描述目标！" });
+                        return false;
+                    }
+                    var info = {};
+                    info.Id = instanceId;
+                    info.Name = caseName.getValue();
+                    info.BoDescription = caseBo.getValue();
+                    info.Remark = caseDesc.getValue();
+                    info.Author = caseAuthor.getValue();
+                    info.Auditor = caseAuditor.getValue();
+                    info.KCaseThemeId = @ViewBag.ThemeId;
+                    var data = mini.encode(info);
+                    $.ajax({
+                        url: "@Url.Action("UpdateInstance", "KCaseInput")",
+                        data: { data: data },
+                        type: "post",
+                        success: function (result) {
+                            if (result == -1) {
+                                showTips({ Type: "error", Message: "保存实例数据出错" });
+                            }
+                            instanceId = result;
+                        },
+                        error: function (e) {
+                            showTips({ Type: "error", Message: "保存实例数据出错" });
+                            console.log(e);
+                            return false;
+                        }
+                    })
+                }
+                if (i == 2) {
+                    var changes = treegrid.getChanges();
+                    var data = mini.encode(changes);
+                    $.ajax({
+                        url: "@Url.Action("UpdateInstanceParam", "KCaseInput")",
+                        data: { instanceId: instanceId, data: data },
+                        type: "post",
+                        success: function (data) {
+                            treegrid.load("@Url.Action("GetParamTreeGrid", "KCaseInput")?themeId=@ViewBag.ThemeId&instanceId=" + instanceId);
+                        },
+                        error: function (e) {
+                            showTips({ Type: "error", Message: "保存参数数据出错" });
+                            console.log(e);
+                            return false;
+                        }
+                    })
+                }
+                return true;
+            }
+        });
+        $("#sub").click(function () {
+            $.ajax({
+                url: "@Url.Action("IndexInstance", "KCaseInput")?instanceId=" + instanceId,
+                success: function (data) {
+                    //关闭页面
+                    showTips({ Type: "success", Message: "保存实例成功！" });
+                    window.CloseOwnerWindow();
+                },
+                error: function (e) {
+                    showTips({ Type: "error", Message: "索引数据出错！" });
+                    console.log(e);
+                }
+            })
+        });
+    });
+
+    function onNodeSelect(e) {
+        clearParam();
+        var node = e.node;
+        if (node.IsParam) {
+            setOptions(node.ParamType);
+            if (node.ParamType == 1) {
+                paramText.setValue(node.ParamValue);
+            }
+            if (node.ParamType == 2) {
+                var options = node.Options.split(',');
+                var arr = [];
+                for (var i = 0; i < options.length; i++) {
+                    arr.push({ text: options[i], id: options[i] });
+                }
+                bOptionFocus = false;
+                paramOptions.loadData(arr);
+                if (node.ParamValue != null && node.ParamValue != "") {
+                    paramOptions.setValue(node.ParamValue);
+                }
+                bOptionFocus = true;
+            }
+            if (node.ParamType == 3) {
+                var pArr = node.ParamValue.split('~');
+                if (pArr.length == 2) {
+                    paramMinText.setValue(pArr[0]);
+                    paramMaxText.setValue(pArr[1]);
+                }
+                var arr = node.Range.split(',');
+                var str = node.Unit + " ("  + arr[0] + "~" + arr[1] + ")";
+                $("#paramUnit").html(node.Unit);
+            }
+            paramSampleData.setValue(node.SampleData);
+            paramRemark.setValue(node.Remark);
+        }
+    }
+
+    function clearParam() {
+        paramText.setValue(null);
+        paramSampleData.setValue(null);
+        paramRemark.setValue(null);
+        paramOptions.setValue(null);
+        paramMinText.setValue(null);
+        paramMaxText.setValue(null);
+    }
+
+    function saveParam(e) {
+        var node = treegrid.getSelectedNode();
+        if (node.IsParam) {
+
+        } else {
+            showTips({ Type: "warning", Message: "请先选择一个参数节点！" });
+        }
+    }
+
+    var bTextFocus = false;
+    $("#paramText textarea").focus(function () {
+        bTextFocus = true;
+    }
+    );
+
+    $("#paramText textarea").blur(function () {
+        if (bTextFocus == false) return;
+        bTextFocus = false;
+        var node = treegrid.getSelectedNode();
+        if (node.IsParam) {
+            if (node.ParamValue != paramText.getValue()) {
+                node.ParamValue = paramText.getValue();
+                node._state = "modified";
+            }
+        }
+    });
+
+    var bMinFocus = false;
+    $("#paramMinText input").focus(function () {
+        bMinFocus = true;
+    }
+    );
+
+    $("#paramMinText input").blur(function () {
+        if (bMinFocus == false) return;
+        bMinFocus = false;
+        var node = treegrid.getSelectedNode();
+        if (node.ParamValue != paramMinText.getValue() + "~" + paramMaxText.getValue()) {
+            node.ParamValue = paramMinText.getValue() + "~" + paramMaxText.getValue();
+            node._state = "modified";
+        }
+    });
+
+    var bMaxFocus = false;
+    $("#paramMaxText input").focus(function () {
+        bMaxFocus = true;
+    }
+    );
+
+    $("#paramMaxText input").blur(function () {
+        if (bMaxFocus == false) return;
+        bMaxFocus = false;
+        var node = treegrid.getSelectedNode();
+        if (node.IsParam) {
+            if (node.ParamValue != paramMinText.getValue() + "~" + paramMaxText.getValue()) {
+                node.ParamValue = paramMinText.getValue() + "~" + paramMaxText.getValue();
+                node._state = "modified";
+            }
+        }
+    });
+
+
+
+    var bOptionFocus = false;
+    function optionValueChanged() {
+        if (bOptionFocus == false) return;
+        var node = treegrid.getSelectedNode();
+        if (node.IsParam) {
+            if (node.ParamValue != paramOptions.getValue()) {
+                node.ParamValue = paramOptions.getValue();
+                node._state = "modified";
+            }
+        }
+    }
+
+    var bSampleFocus = false;
+    $("#paramSampleData textarea").focus(function () {
+        bSampleFocus = true;
+    }
+    );
+
+    $("#paramSampleData textarea").blur(function () {
+        if (bSampleFocus == false) return;
+        bSampleFocus = false;
+        var node = treegrid.getSelectedNode();
+        if (node.IsParam) {
+            if (node.SampleData != paramSampleData.getValue()) {
+                node.SampleData = paramSampleData.getValue();
+                node._state = "modified";
+            }
+        }
+    });
+
+    var bRemarkFocus = false;
+    $("#paramRemark textarea").focus(function () {
+        bRemarkFocus = true;
+    }
+    );
+
+    $("#paramRemark textarea").blur(function () {
+        if (bRemarkFocus == false) return;
+        bRemarkFocus = false;
+        var node = treegrid.getSelectedNode();
+        if (node.IsParam) {
+            if (node.Remark != paramRemark.getValue()){
+                node.Remark = paramRemark.getValue();
+                node._state = "modified";
+            }
+        }
+    });
+
+
+
+    // 图版
+    var chartId = -1;
+    function onRowSelect(e) {
+        if (bCanUpload == false) {
+            canUpload(true);
+            bCanUpload = true;
+            $("#filePicker").find("div").eq(1).width(65);
+            $("#filePicker").find("div").eq(1).height(42);
+        }
+        var record = e.record;
+        chartId = record.Id;
+        $("#imgChart").attr('src', "@Url.Action("GetInstanceChart", "KCaseInput")?instanceId=" + instanceId + "&chartId=" + record.Id);
+    }
+
+    $("#noupload").on('click', function () {
+        showTips({ Type: "warning", Message: "请先选择一行数据！" });
+    })
+
+    $("#deleteChart").on('click', function () {
+        if (chartId == -1) {
+            showTips({ Type: "warning", Message: "请先选择一行数据！" });
+            return;
+        }
+        $ajax({
+            url: "@Url.Action("DeleteInstanceChart", "KCaseInput")?instanceId=" + instanceId + "&chartId=" + chartId,
+            success: function (data) {
+                $("#imgChart").attr('src', "@Url.Action("GetInstanceChart", "KCaseInput")?instanceId=" + instanceId + "&chartId=" + record.Id);
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "删除图版/公式出错！" });
+                console.log(e);
+            }
+        })
+    })
+
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: true,
+
+        // swf文件路径
+        swf: '~/content/Upload/Uploader.swf',
+
+        // 文件接收服务端。
+        server: "@Url.Action("ChartUpload", "KCaseInput")",
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#filePicker',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        },
+
+        formData: {
+            instanceId: instanceId,
+            chartId: chartId
+        }
+    });
+
+    uploader.on('uploadBeforeSend', function (block, data) {
+        // 修改data可以控制发送哪些携带数据。
+        data.instanceId = instanceId;
+        data.chartId = chartId;
+    });
+
+    // 文件上传失败，显示上传出错。
+    uploader.on('uploadError', function (file) {
+        showTips({ Type: "error", Message: "上传图片失败" });
+    });
+
+    // 完成上传完了，成功或者失败，先删除进度条。
+    uploader.on('uploadComplete', function (file) {
+        $("#imgChart").attr('src', "@Url.Action("GetInstanceChart", "KCaseInput")?instanceId=" + instanceId + "&chartId=" + chartId);
+    });
+
+
+</script>
+

@@ -1,0 +1,813 @@
+﻿@{
+    ViewBag.Title = ResHelper.GetStr("BOMenuItemTitle");
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+
+    var apiServiceUrl = ViewData["API_SERVICE_URL"];
+    var access_token = ViewData["ACCESS_TOKEN"];
+}
+
+<link type="text/css" rel="stylesheet" href="~/scripts/jsoneditor/jsoneditor.css" />
+<script type="text/javascript" src="~/scripts/jsoneditor/jsoneditor.js"></script>
+
+<div class="mini-splitter frame-fit" style="width: 100%;">
+    <div size="25%" showcollapsebutton="true">
+        <div class="mini-toolbar" style="margin-bottom:5px;">
+            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="width:100%;">
+                        <a class="mini-button" iconcls="icon-new-add" plain="true" id="botAdd" onclick="do_botForm('add')">新增</a>
+                        <a class="mini-button" iconcls="icon-new-save" plain="true" id="botEdit" onclick="do_botForm('edit')">编辑</a>
+                        <a class="mini-button" iconcls="icon-new-delete" plain="false" id="botDel" onclick="do_delBot()">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mini-fit">
+            <div id="gridBot" class="mini-datagrid "
+                 style="width:100%;height:100%;"
+                 multiselect="false"
+                 selectonload="true"
+                 showPager="false"
+                 sortMode="client"
+                 onselectionchanged="gridBotSelect"
+                 url="@Url.Action("GetBotList")">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    @*<div type="checkcolumn"></div>*@
+                    <div field="_id" headeralign="center" allowsort="true" visible="false">_id</div>
+
+                    <div field="name" headeralign="center" align="left" allowsort="true">对象名称</div>
+                    <div field="locationtype" headeralign="center" align="left" allowsort="true">坐标类型</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div showcollapsebutton="true">
+        <div class="mini-toolbar" style="margin-bottom:5px;">
+            <table style="width:100%;" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="width:100%;">
+                        <a class="mini-button" iconcls="icon-new-add" plain="true" id="botAdd" onclick="do_boForm('add')">@ResHelper.GetStr("新增")</a>
+                        <a class="mini-button" iconcls="icon-new-save" plain="true" id="botEdit" onclick="do_boForm('edit')">@ResHelper.GetStr("编辑")</a>
+                        <a class="mini-button" iconcls="icon-new-delete" plain="false" id="botDel" onclick="do_delBo()">@ResHelper.GetStr("删除")</a>
+                        <a class="mini-button" iconcls="icon-new-download" plain="false" id="downExcel" onclick="do_downExcel()">@ResHelper.GetStr("下载模板")</a>
+                        <a class="mini-button" iconcls="icon-new-upload" plain="false" id="importExcel" onclick="do_importExcel()">@ResHelper.GetStr("导入数据")</a>
+                        <a class="mini-button" iconcls="icon-new-refresh" plain="false" id="btnRefreshDic" onclick="refreshDic()">刷新词库</a>
+
+                    </td>
+                    <td>
+                        <div class="searchinfo input-group">
+                            <input id="search_txt" name="search_txt" placeholder="@ResHelper.GetStr("输入关键字查询")" class="form-control" />
+
+                            <span class="input-group-btn frame-submit">
+                                <button class="btn btn-default " onclick="onFilterBtn()">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    <span class="hidden">@ResHelper.GetStr("搜索")</span>
+                                </button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="mini-fit">
+            <div id="gridBo" class="mini-datagrid  "
+                 style="width:100%;height:100%;"
+                 multiSelect="true"
+                 sizeList="[20,50,100,200]" pageSize="20"
+                 allowCellEdit="true"
+                 editNextRowCell="true"
+                 editNextOnEnterKey="true"
+                 allowCellSelect="true"
+                 allowCellValid="true" 
+                 showFilterRow="true" 
+                 ondrawcell="onDrawCellBo">
+                <div property="columns">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="locationPanel" class="mini-panel" title="location" style="width:300px;height:300px;" visible="false"
+     showToolbar="true" showCloseButton="true" showHeader="true" bodyStyle="padding:0" borderStyle="border:0">
+    <div id="jsoneditor" class="jsoneditorbody" style="width:100%;height:100%;"></div>
+</div> 
+
+
+
+<script type="text/javascript">
+    mini.parse();
+
+    //初始化Json编辑器
+    var jsoneditor = new JSONEditor(
+        //组件对象
+        document.getElementById('jsoneditor'),
+        //设置属性 options
+        {
+            mode: 'text',
+            search: false,
+            onEditable: function (e) { return false },
+            modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
+            onError: function (err) {
+                alert(err.toString());
+            },
+            onModeChange: function (newMode, oldMode) {
+                console.log('Mode switched from', oldMode, 'to', newMode);
+            }
+        },
+        //初始默认值
+        []
+        );
+
+    //
+    var gridBot = mini.get('#gridBot')
+    var gridBo = mini.get('#gridBo')
+
+    $(function () {
+        gridBotInitData();
+    });
+
+    /*
+        初始加载类型数据
+    */
+    function gridBotInitData() {
+        //debugger;
+        //设置参数对象
+        var filterRequest = {
+            query: {},
+            //fields: { _id: 0 },, properties: 1
+            fields: { name: 1, locationtype: 1, properties: 1 },
+            sort: { name: 1 },
+            skip: 0,
+            limit: 9999
+        };
+
+        $.ajax({
+            url: "@apiServiceUrl" + "/BO2Service/FilterBOTs",
+            type: "Post",
+            data: JSON.stringify(filterRequest),
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + "@access_token"
+            },
+            complete: function (e, status) {
+                if (e.statusText == "OK") {
+                    gridBot.setData(e.responseJSON);
+
+                    //默认选中第一行
+                    //if (gridBot.data.length > 0)
+                    //    gridBot.setSelected(gridBot.getRow(0));
+
+                } else {
+                    gridBot.setData(null);
+                    showTips({ Type: 'error', Message: "远程服务未返回到业务对象类型数据" });
+                }
+            },
+            //error: function (e, status, resData) { alert('err完成');},
+            //success: function (data, status, e) {}
+        });
+    }
+
+    /*
+        类型Grid选择行查询明细
+    */
+    function gridBotSelect(e) {
+        if (!e.selected) {
+            return
+        }
+
+        var bo = e.selected["name"];
+        var propertiesCol = e.selected["properties"];
+
+        //排序
+        propertiesCol = propertiesCol.sort(function (a, b) { return a["sequence"] > b["sequence"] ? 1 : -1 });
+
+        //动态创建列
+        createGrid(propertiesCol);
+
+        //设置查询条件
+        var queryObj = { bot: bo };
+        gridLoad(queryObj, null, 0);
+    }
+
+    /*
+       bo 动态渲染列
+    */
+    function createGrid(propertiesCol) {
+        //
+        var gridBoCol = [];
+        //创建固定列
+        gridBoCol.push({ type: 'indexcolumn', headerAlign: 'center', align: 'center',  visible: true });
+        gridBoCol.push({ type: 'checkcolumn', headerAlign: 'center', align: 'center',  visible: true });
+
+        gridBoCol.push({ field: 'bot', headerAlign: 'center', align: 'left', allowSort: true, header: '@ResHelper.GetStr("对象类型(bot)")', visible: true });
+        gridBoCol.push({ field: 'boid', headerAlign: 'center', align: 'left', allowSort: true, header: '@ResHelper.GetStr("对象ID(boid)")', visible: true });
+        gridBoCol.push({ field: 'bo', headerAlign: 'center', align: 'left', allowSort: true, header: '@ResHelper.GetStr("对象名称(bo)")', visible: true, filter: { type: "textbox", showClose: "true", onvaluechanged: "onFilterChanged", style: "width:100%;" } });
+        gridBoCol.push({ field: 'alias', headerAlign: 'center', align: 'left', allowSort: true, header: '@ResHelper.GetStr("别名(alias)")', visible: false });
+        gridBoCol.push({ field: 'aliasStr', name: "out", headerAlign: 'center', align: 'left', allowSort: true, header: '@ResHelper.GetStr("别名(alias)")', visible: true, filter: { type: "textbox", showClose: "true", onvaluechanged: "onFilterChanged", style: "width:100%;" } });
+        //坐标列
+        gridBoCol.push({ field: 'locationType', name: "out", headerAlign: 'center', align: 'left', header: '@ResHelper.GetStr("坐标类型(locationType)")', visible: false });
+        gridBoCol.push({ field: 'location', headerAlign: 'center', align: 'center', visible: false });
+        gridBoCol.push({ field: 'locationStr', name: "out", headerAlign: 'center', align: 'left', width: "300", header: '@ResHelper.GetStr("坐标(location)")', visible: true, editor: { type: "popupedit", style: "width:100%;", popupWidth: "auto", popup: "#locationPanel", showPopupOnClick: true, allowInput: true, onbeforeshowpopup: "onShowLocationPopup" } });
+
+        //创建属性动态列
+        propertiesCol.forEach(function (item, i) {
+
+            if (item["type"] == "Number") {
+                gridBoCol.push({
+                    field: item["name"],
+                    name: "properties",
+                    headerAlign: 'center',
+                    align: 'right',
+                    //allowSort: true,
+                    header: item["name"],
+                    dataType: "float",
+                    visible: true,
+                    width: 120,
+                    filter: { type: "textbox", showClose: "true", onvaluechanged: "onFilterChanged", style: "width:100%;" }
+                });
+            }
+            else if (item["type"] == "ISODate") {
+                gridBoCol.push({
+                    field: item["name"],
+                    name: "properties",
+                    headerAlign: 'center',
+                    align: 'center',
+                    //allowSort: true,
+                    header: item["name"],
+                    //dataType: "date",
+                    dateformat: "yyyy-MM-dd HH:mm:ss",
+                    visible: true,
+                    width: 120,
+                    filter: { type: "textbox", showClose: "true", onvaluechanged: "onFilterChanged", dateformat: "yyyy-MM-dd HH:mm:ss", style: "width:100%;" }
+                });
+            }
+            else {
+                //String
+                gridBoCol.push({
+                    field: item["name"],
+                    name: "properties",
+                    headerAlign: 'center',
+                    align: 'center',
+                    //allowSort: true,
+                    dataType: "string",
+                    header: item["name"],
+                    visible: true,
+                    width: 120,
+                    filter: { type: "textbox", showClose: "true", onvaluechanged: "onFilterChanged", style: "width:100%;" }
+                });
+            }
+
+        });
+
+        //插入创建的列对象
+        gridBo.setColumns(gridBoCol)
+    }
+
+    /*
+        展开窗口,切换坐标数据为Grid的呈现方式
+    */
+    function onShowLocationPopup(e)
+    {
+        var dataLocation = mini.get('#dataLocation')
+        //获取选择bo行的坐标数据对象
+        var row = gridBo.getSelected();
+        var locationList = row["location"];
+        if (!locationList) {
+            return;
+        }
+        var lType = locationList["type"];
+        var polygonList = locationList["coordinates"]
+        //
+        if (lType=="GeometryCollection") {
+            polygonList = locationList["geometries"]
+        }
+
+        //
+        if (polygonList) {
+            //写入数据到 jsoncode组件
+            jsoneditor.set(polygonList);
+            return;
+        }
+    }
+
+    /*
+        打开bot 表单
+    */
+    function do_botForm(type) {
+        //改为弹窗显示
+        mini.open({
+            url: '@Url.Action("BOTForm")',
+            title: "@ResHelper.GetStr("业务类型明细")",
+            width: 880,
+            height: 500,
+            showModal: true,
+            allowResize: false,
+            onload: function () {
+                //弹出页面加载完成后事件
+                if (type == "edit") {
+                    var row = gridBot.getSelected();
+                    //获取子窗体对象,来引用子窗体函数
+                    this.getIFrameEl().contentWindow.initForm(row);
+                }
+            },
+            ondestroy: function (action) {
+                //关闭窗口前事件
+                //gridBotInitData();
+            }
+        });
+    }
+
+    /*
+        打开bo 表单
+    */
+    function do_boForm(type) {
+
+        var row = gridBot.getSelected();
+        if (!row) {
+            showTips({ Type: "warning", Message: "@ResHelper.GetStr("请选择业务类型!")" });
+            return;
+        }
+        //获取所选择的业务类型明细
+        var row = gridBot.getSelected();
+        //获取所选择的业务类型
+        var rowBo = gridBo.getSelecteds();
+
+        var newBoObject;
+        if (type == "edit") {
+            if (rowBo.length==0) {
+                showTips({ Type: "warning", Message: "@ResHelper.GetStr("请选择业务明细!")" });
+                return;
+            }
+            //克隆对象
+            newBoObject = jQuery.extend(true, [], rowBo);
+        }
+        //打开业务类型明细表单(新增或编辑)
+        do_showBoForm(row, newBoObject, false);
+    }
+
+    /*
+        打开业务类型明细表单
+    */
+    function do_showBoForm(row, newBoObject, isDataAdd)
+    {
+        //改为弹窗显示
+        mini.open({
+            url: '@Url.Action("BOForm")',
+            title: "@ResHelper.GetStr("业务类型明细!")",
+            width: window.innerWidth ,
+            height: window.innerHeight + 20,
+            showModal: true,
+            allowResize: false,
+            onload: function () {
+                //获取子窗体对象,来引用子窗体函数
+                this.getIFrameEl().contentWindow.initGrid(row, newBoObject, isDataAdd);
+            },
+            ondestroy: function (action) {
+                gridBo.reload();
+            }
+        });
+    }
+
+    /*
+        删除业务类型明细
+    */
+    function do_delBo() {
+       //debugger;
+        var ids = gridBo.getSelecteds();
+        if (!ids.length) {
+            showTips({ Type: "warning", Message: "@ResHelper.GetStr("请选择业务类型!")" });
+            return false;
+        }
+
+        if (!confirm("@ResHelper.GetStr("确定删除所选择的数据？")")) {
+            return false;
+        }
+
+        delData = [];
+        ids.forEach(function (item, i) {
+            delData.push(item["bo"]);
+        });
+        //
+        var d = {
+            bot: ids[0]["bot"],
+            bos: delData
+        }
+
+        $.ajax({
+            url: "@apiServiceUrl" + "/BO2Service/DeleteBOs",
+            type: "Post",
+            data: JSON.stringify(d),
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + "@access_token"
+            },
+            complete: function (e, status) {
+                if (e.statusText == "OK") {
+                    //
+                    gridBo.reload();
+                    showTips({ Type: 'success', Message: "@ResHelper.GetStr("删除成功")" });
+                } else {
+
+                    showTips({ Type: 'error', Message: "@ResHelper.GetStr("删除失败")" });
+                }
+            }
+        });
+    }
+
+    /*
+        删除业务类型
+    */
+    function do_delBot() {
+        //debugger;
+        var ids = gridBot.getSelecteds();
+        if (!ids.length) {
+            showTips({ Type: "warning", Message: "@ResHelper.GetStr("请选择业务明细!")" });
+            return false;
+        }
+
+        var listBO = gridBo.getData();
+        if (listBO.length > 0) {
+            showTips({ Type: "warning", Message: "@ResHelper.GetStr("当前业务类型存在明细数据,请先清除所有明细数据!")" });
+            return false;
+        }
+
+        if (!confirm("@ResHelper.GetStr("确定删除所选择的数据？")")) {
+          return false;
+        }
+
+        delData = [];
+        ids.forEach(function (item, i) {
+            delData.push(item["name"]);
+        });
+
+        $.ajax({
+            url: "@apiServiceUrl" + "/BO2Service/DeleteBOTs",
+            type: "Post",
+            data: JSON.stringify(delData),
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + "@access_token"
+            },
+            complete: function (e, status) {
+                if (e.statusText == "OK") {
+                    //
+                    gridBotInitData();
+                    showTips({ Type: 'success', Message: "@ResHelper.GetStr("删除成功")" });
+                } else {
+
+                    showTips({ Type: 'error', Message: "@ResHelper.GetStr("删除失败")"});
+                }
+            }
+        });
+    }
+
+    /*
+        业务明细单元格渲染事件
+    */
+    function onDrawCellBo(e) {
+
+        if (e.field == "boid") {
+
+            //给动态生成的列创建数据
+            var dataList = e.row["properties"];
+            if (dataList) {
+                //json对象  objName=属性名称 objValue=属性值
+                $.each(dataList, function (objName, objValue) {
+                    e.row[objName] = objValue;
+                });
+            }
+
+            //拆分坐标列数据geometries
+            var locationData = e.row["location"];
+
+            if (locationData && locationData["geometries"]) {
+                e.row["locationStr"] = JSON.stringify(locationData["geometries"]);
+            }
+
+            if (locationData && locationData["coordinates"]) {
+                e.row["locationStr"] = JSON.stringify(locationData["coordinates"]);
+            }
+
+            if (locationData && locationData["type"])
+                e.row["locationType"] = locationData["type"];
+
+            //转换数组为字符串
+            var aliasData = e.row["alias"];
+            if (aliasData)
+                e.row["aliasStr"] = e.row["alias"].join(',');
+
+        }
+    }
+
+
+    /*
+        下载模板
+    */
+    function do_downExcel() {
+        //
+        var row = gridBot.getSelected();
+        //
+        var colBo = gridBo.getColumns();
+
+        var msg = "@ResHelper.GetStr("当前选择的模板是") [" + row["name"] + "] @ResHelper.GetStr("确定下载吗?")";
+        if (!confirm(msg)) {
+            return false;
+        }
+
+        //
+        var colData = []
+        for (var i = 0; i < colBo.length; i++) {
+            //排除掉name="out"的列不作为导入模板
+            if (colBo[i].name != "out" && colBo[i].field) {
+                colData.push({
+                    header: colBo[i].header,
+                    field: colBo[i].field,
+                });
+            }
+        }
+        //获取数据列集合
+        var colData = JSON.stringify(colData);
+        //获取数据列集合
+        var colproperties = row["properties"]
+        var colproperties = JSON.stringify(colproperties);
+        //定义一个form表单
+        var form = $("<form>");
+        form.attr('style', 'display:none');
+        form.attr('target', '');
+        form.attr('method', 'post');
+        form.attr('action', "/GeoFeature/DownTemplate");
+        //将查询参数控件提交到表单上
+        var input1 = $('<input>');
+        input1.attr('type', 'hidden');
+        input1.attr('name', 'colData');
+        input1.attr('value', colData);
+        //将查询参数控件提交到表单上
+        var input2 = $('<input>');
+        input2.attr('type', 'hidden');
+        input2.attr('name', 'colProperties');
+        input2.attr('value', colproperties);
+
+        //获取业务类型
+        var input3 = $('<input>');
+        input3.attr('type', 'hidden');
+        input3.attr('name', 'botName');
+        input3.attr('value', row["name"]);
+
+
+        //将表单放置在web中
+        $('body').append(form);
+        form.append(input3);
+        form.append(input2);
+        form.append(input1);
+        form.submit();
+
+    }
+
+    /*
+        导入excel 数据到页面Grid
+    */
+    function do_importExcel() {
+        //改为弹窗显示
+        mini.open({
+            url: '@Url.Action("BOImport")',
+            title: "@ResHelper.GetStr("业务明细数据导入")",
+            width: 450,
+            height: 400,
+            showModal: true,
+            allowResize: false,
+            onload: function () {
+                var row = gridBot.getSelected();
+                if (!row) {
+                    showTips({ Type: "warning", Message: "@ResHelper.GetStr("请选择业务类型!")" });
+                    return;
+                }
+                this.getIFrameEl().contentWindow.initImport(row);
+
+            },
+            ondestroy: function (action, e, c) {
+                //gridBot.reload();
+                //判断是否导入还是点击取消按钮
+                var isImport = this.getIFrameEl().contentWindow.isImport;
+                if (!isImport)
+                    return;
+                //获取选择的业务类型
+                var row = gridBot.getSelected();
+                //获取导入成功后的数据集合
+                var newBoObject = this.getIFrameEl().contentWindow.resBoData.ReturnValue.Content;
+                //
+                var isDataAdd = this.getIFrameEl().contentWindow.rbType.getValue();
+
+                //打开业务明细窗体,并显示导入的数据
+                do_showBoForm(row, mini.decode(newBoObject, true), isDataAdd);
+            }
+        });
+    }
+
+    /*
+        按钮全字段匹配查询
+    */
+    function onFilterBtn() {
+        //debugger;
+        //获取bo所有列
+        var colBo = gridBo.getColumns();
+        //获取当前类型,并添加到查询的必须条件
+        var bo = gridBot.getSelected()["name"];
+        //debugger;
+        var v = $("#search_txt").val();
+        //如果未设置查询参数默认以列的查询方式进行(主要是因为查询按钮被默认注册了回车事件)
+        if (!v) {
+            onFilterChanged();
+            return;
+        }
+        //设置筛选条件
+        var qStr = [
+                { "boid": { "$regex": v, "$options": "i" } },
+                { "bo": { "$regex": v, "$options": "i" } },
+                { "alias": { $all: [v] } },
+        ];
+
+        //获取所设置的查询参数,组装查询条件
+        for (var i = 0; i < colBo.length; i++) {
+            if (colBo[i].field) {
+                //组合查询参数,如果是属性表添加对象名称 "properties"
+                var aName = colBo[i].field;
+                if (colBo[i].name == "properties") {
+                    aName = "properties." + aName;
+
+                    var objJson = {};
+                    objJson[aName] = { "$regex": v, "$options": "i" };
+                    qStr.push(objJson);
+                }
+            }
+        }
+
+        var queryObj = { "$and": [{ "bot": bo }], "$or": qStr };
+        //调用bo 业务明细查询
+        gridLoad(queryObj, null, 0);
+    }
+
+    /*
+        grid列筛选(列与列之间是and方式关系)
+    */
+    function onFilterChanged() {
+        //debugger;
+        //获取bo所有列
+        var colBo = gridBo.getColumns();
+        //获取当前类型,并添加到查询的必须条件
+        var bo = gridBot.getSelected()["name"];
+        var andStr = [{ bot: bo }];
+        //获取所设置的查询参数
+        for (var i = 0; i < colBo.length; i++) {
+            if (colBo[i].field && colBo[i].filter && colBo[i].filter.value) {
+                //组合查询参数,如果是属性表添加对象名称 "properties"
+                var aName = colBo[i].field;
+                if (colBo[i].name == "properties") {
+                    aName = "properties." + aName;
+                }
+
+                //针对数组字段查询方式
+                if (colBo[i].field == "alias" || colBo[i].field == "aliasStr") {
+                    var objJson = {};
+                    objJson["alias"] = { $all: [colBo[i].filter.value] };
+                    andStr.push(objJson);
+                } else {
+                    var objJson = {};
+                    objJson[aName] = { "$regex": colBo[i].filter.value, "$options": "i" };
+                    andStr.push(objJson);
+
+                }
+            }
+        }
+
+        var queryObj = { "$and": andStr };
+
+        gridLoad(queryObj, null, 0);
+        @*var query = {
+            "$and": [
+           { "bot": "地震工区" },
+           { "bo": { "$regex": "@bo", "$options": "i" } },
+           { "properties.目标区": { "$regex": "@v", "$options": "i" } },
+           { "properties.作业方式": { "$regex": "@v", "$options": "i" } },
+           { "properties.工区性质": { "$regex": "@v", "$options": "i" } },
+           { "properties.采集时间": { "$regex": "@v", "$options": "i" } }
+            ]
+        };*@
+
+    }
+
+    /*
+    监听分页前事件，阻止后自行设置当前数据和分页信息
+    */
+    gridBo.on("beforeload", function (e) {
+        e.cancel = true;
+        var pageIndex = e.data.pageIndex, pageSize = e.data.pageSize;
+        //fillData(pageIndex, pageSize, dataResult, dataSubGrid1);
+        //
+        gridBo.setPageIndex(pageIndex);
+        gridBo.setPageSize(pageSize);
+
+        //
+        var bo = gridBot.getSelected()["name"];
+        var queryObj = { bot: bo };
+
+        var sortObj = {};
+        if (e.params["sortField"]) {
+            var o = -1;
+            if (e.params["sortOrder"] == "asc") {
+                o = 1;
+            }
+            //var sortObj = "{ " + e.params.sortField + ": " + o + " }";
+            sortObj[e.params["sortField"]] = o;
+        } else {
+            sortObj = null;
+        }
+
+
+        gridLoad(queryObj,sortObj, pageIndex);
+    });
+
+
+    /*
+    分页填充细节处理
+    */
+    function gridLoad(queryObj, sortObj, pageIndex) {
+        //
+        if (!queryObj) {
+            gridBo.setData(null);
+            return;
+        }
+
+        if (!sortObj)
+            sortObj= { bot: 1 }
+        //组装查询条件
+        var paramesData = {
+            query: queryObj,
+            fields: { boid: 1, bo: 1, bot: 1, alias: 1, properties: 1, location: 1 },
+            sort: sortObj,
+            skip: pageIndex * gridBo.pageSize,
+            limit: gridBo.pageSize
+        };
+
+        //获取数据总条数
+        $.ajax({
+            url: "@apiServiceUrl" + "/BO2Service/CountBOs",
+            type: "Post",
+            async: false,
+            data: JSON.stringify(queryObj),
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + "@access_token"
+            },
+            complete: function (e, status) {
+                if (e.statusText == "OK") {
+                    //设置数据总数
+                    gridBo.setTotalCount(e.responseJSON);
+                } else {
+                    //设置数据总数
+                    gridBo.setTotalCount(0);
+                    gridBo.setData(null);
+                }
+            }
+        });
+
+        //获取指定条数的数据
+        $.ajax({
+            url: "@apiServiceUrl" + "/BO2Service/FilterBOs",
+            type: "Post",
+            data: JSON.stringify(paramesData),
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + "@access_token"
+            },
+            complete: function (e, status) {
+                if (e.statusText == "OK") {
+                    gridBo.setData(e.responseJSON);
+                } else {
+                    gridBo.setData(null);
+                    //showTips({ Type: 'error', Message: "远程服务未返回到业务对象类型明细数据" });
+                }
+            }
+        });
+    }
+
+    /**
+     * 刷新分词API中的词库缓存
+     */
+    function refreshDic() {
+        var url = "@apiServiceUrl/SemanticService/ReloadDict";
+        $.ajax({
+            url: url,
+            success: function () {
+            }
+        });
+    }
+
+
+
+
+</script>

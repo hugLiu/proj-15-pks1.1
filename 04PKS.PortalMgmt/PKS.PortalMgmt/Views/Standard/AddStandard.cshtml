@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "新增标准规范";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div style="width:300px;margin:0 auto;padding-top:20px;margin-left:50px;" id="form1">
+    <div style="width:100%;">
+        <table style="font-size:20px;">
+            <tr>
+                <td>
+                    <label for="Name">名称：</label>
+                </td>
+                <td style="text-align:center;line-height:40px;">
+                    <input id="Name" name="Name" class="mini-textbox" type="text" height="300" style="width:200px" required="true" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Type">类型：</label>
+                </td>
+                <td style="text-align:center;line-height:40px;">
+                    <input id="Type" name="Type" class="mini-textbox" type="text" height="300" style="width:200px" required="true" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Url">链接地址：</label>
+                </td>
+                <td style="text-align:center;line-height:40px;">
+                    <input id="Url" name="Url" class="mini-textbox" type="text" height="300" style="width:200px" required="true" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align:right;">
+                    <input value="新增" type="button" onclick="submitForm()" style="font-weight:bolder;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+
+    function submitForm() {
+        var form = new mini.Form("#form1");
+        var data = form.getData();
+        var json = mini.encode(data);
+        $.ajax({
+            url: "@Url.Action("AddNewStandard", "Standard")",
+            type: "post",
+            data: {
+                model: json
+            },
+            success: function (e) {
+                showTips({ Type: "success", Message: "新增标准成功！" });
+                window.CloseOwnerWindow();
+            }
+        })
+    }
+</script>

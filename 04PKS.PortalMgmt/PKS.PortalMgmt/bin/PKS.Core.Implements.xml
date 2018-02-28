@@ -1,0 +1,459 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PKS.Core.Implements</name>
+    </assembly>
+    <members>
+        <member name="T:PKS.Core.ADIdentityService">
+            <summary>AD身份认证接口</summary>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.Core.ADIdentityService.DSContextType">
+            <summary>目录服务上下文类型</summary>
+        </member>
+        <member name="P:PKS.Core.ADIdentityService.AutoRegisterUser">
+            <summary>是否自动注册域用户</summary>
+        </member>
+        <member name="P:PKS.Core.ADIdentityService.Domain">
+            <summary>AD域名</summary>
+        </member>
+        <member name="P:PKS.Core.ADIdentityService.User">
+            <summary>某个域用户</summary>
+        </member>
+        <member name="P:PKS.Core.ADIdentityService.Pwd">
+            <summary>某个域用户密码</summary>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.LogonUser(System.String,System.String,System.String,System.Int32,System.Int32,System.IntPtr@)">
+            <summary>登录认证</summary>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.ValidateCredentials(System.Security.Principal.WindowsIdentity)">
+            <summary>验证凭据</summary>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.ValidateCredentials(System.String,System.String,System.String)">
+            <summary>验证凭据</summary>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.ADLogin(System.String,System.String,System.String)">
+            <summary>登录认证</summary>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.GetUserGroupId(System.String)">
+            <summary>获得用户组Id</summary>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.GetDepts(System.Collections.Generic.List{System.String})">
+            <summary>
+            同步部门
+            </summary>
+            <param name="ouNames"></param>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.Sync(System.DirectoryServices.DirectoryEntry,System.Collections.Generic.List{PKS.Core.Models.ADIdentity.AdDept})">
+            <summary>
+            同步
+            </summary>
+            <param name="root">根</param>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.SyncRootOU(System.DirectoryServices.DirectoryEntry,System.Collections.Generic.List{PKS.Core.Models.ADIdentity.AdDept})">
+            <summary>
+            同步根部门
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.SyncSubOU(System.DirectoryServices.DirectoryEntry,System.Collections.Generic.List{PKS.Core.Models.ADIdentity.AdDept})">
+            <summary>
+            递归，同步根部门的所有下级部门
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.Connected(System.String,System.String,System.String)">
+            <summary>
+            检查是否连接到域
+            </summary>
+            <param name="domainName">域名或IP</param>
+            <param name="userName">用户名</param>
+            <param name="userPwd">密码</param>
+            <param name="domain">域</param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Core.ADIdentityService.IsExistOU(System.DirectoryServices.DirectoryEntry,System.DirectoryServices.DirectoryEntry@,System.Collections.Generic.List{System.String},System.Collections.Generic.List{PKS.Core.Models.ADIdentity.AdDept})">
+            <summary>
+            检查域中是否有当前部门
+            </summary>
+            <param name="entry"></param>
+            <param name="ou"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PKS.Core.CacheProvider">
+            <summary>缓存提供者</summary>
+        </member>
+        <member name="P:PKS.Core.CacheProvider.InternalCacher">
+            <summary>本地缓存</summary>
+        </member>
+        <member name="P:PKS.Core.CacheProvider.ExternalCacher">
+            <summary>外部缓存</summary>
+        </member>
+        <member name="T:PKS.Core.ExceptionMapperLoader">
+            <summary>异常组件加载器</summary>
+        </member>
+        <member name="M:PKS.Core.ExceptionMapperLoader.Initialize(Ninject.IKernel,PKS.Core.ExceptionLoaderConfig)">
+            <summary>初始化</summary>
+        </member>
+        <member name="T:PKS.Core.ObjectMapperLoader">
+            <summary>对象映射加载器</summary>
+        </member>
+        <member name="M:PKS.Core.ObjectMapperLoader.Initialize(Ninject.IKernel,PKS.Core.ObjectMapperLoaderConfig)">
+            <summary>初始化</summary>
+        </member>
+        <member name="T:PKS.Core.BindingInjectLoader">
+            <summary>绑定注入加载器</summary>
+        </member>
+        <member name="M:PKS.Core.BindingInjectLoader.Initialize(Ninject.IKernel,PKS.Core.BindingInjectLoaderConfig)">
+            <summary>初始化</summary>
+        </member>
+        <member name="M:PKS.Core.BindingInjectLoader.BindByConvention(Ninject.IKernel,System.Reflection.Assembly,PKS.Core.BindingInjectLoaderConfig)">
+            <summary>根据约定绑定程序集</summary>
+        </member>
+        <member name="M:PKS.Core.BindingInjectLoader.BindByConvention``1(System.Reflection.Assembly,Ninject.Extensions.Conventions.Syntax.IFromSyntax,System.Func{System.Type,System.Boolean},Ninject.Extensions.Conventions.Syntax.ConfigurationAction)">
+            <summary>根据约定绑定</summary>
+        </member>
+        <member name="M:PKS.Core.BindingInjectLoader.LoadIndirectAssemblies">
+            <summary>加载间接DLL</summary>
+        </member>
+        <member name="T:PKS.Core.CacheLoader">
+            <summary>缓存加载器</summary>
+        </member>
+        <member name="M:PKS.Core.CacheLoader.Initialize(Ninject.IKernel,PKS.Core.CacheLoaderConfig)">
+            <summary>初始化</summary>
+        </member>
+        <member name="T:PKS.Core.Logging.PKSSubSystemLayoutRenderer">
+            <summary>子系统布局渲染器</summary>
+        </member>
+        <member name="M:PKS.Core.Logging.PKSSubSystemLayoutRenderer.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.Core.Logging.PKSSubSystemLayoutRenderer.Code">
+            <summary>系统代码</summary>
+        </member>
+        <member name="M:PKS.Core.Logging.PKSSubSystemLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>渲染</summary>
+        </member>
+        <member name="T:PKS.Core.Logging.PKSPrincipalLayoutRenderer">
+            <summary>Web用户布局渲染器</summary>
+        </member>
+        <member name="M:PKS.Core.Logging.PKSPrincipalLayoutRenderer.TryGetRequest(System.Web.HttpContextBase)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.Core.Logging.PKSPrincipalLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>渲染</summary>
+            <remarks>SessionID:${aspnet-sessionid}${newline}Token:${aspnet-session:Variable=PKS.AuthenticationToken} - ${aspnet-header-authorization}${newline}Principal:${pks-principal}</remarks>
+        </member>
+        <member name="T:PKS.Core.Logging.PKSRequestLayoutRenderer">
+            <summary>Web请求布局渲染器</summary>
+        </member>
+        <member name="M:PKS.Core.Logging.PKSRequestLayoutRenderer.TryGetRequest(System.Web.HttpContextBase)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.Core.Logging.PKSRequestLayoutRenderer.DoAppend(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>渲染</summary>
+            <remarks>${aspnet-request-method} ${aspnet-request-url:IncludeHost=true:IncludePort=true:IncludeQueryString=true}${newline}UserAgent:${aspnet-request-useragent}${newline}Referrer:${aspnet-request-referrer}</remarks>
+        </member>
+        <member name="T:PKS.Core.Logging.PKSExceptionSourceLayoutRenderer">
+            <summary>Web请求授权头布局渲染器</summary>
+        </member>
+        <member name="M:PKS.Core.Logging.PKSExceptionSourceLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>渲染</summary>
+        </member>
+        <member name="T:PKS.Core.Logging.PKSMessageLayoutRenderer">
+            <summary>消息布局渲染器</summary>
+        </member>
+        <member name="M:PKS.Core.Logging.PKSMessageLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>渲染</summary>
+        </member>
+        <member name="T:PKS.Core.LoggingLoader">
+            <summary>日志加载器</summary>
+        </member>
+        <member name="M:PKS.Core.LoggingLoader.Initialize(Ninject.IKernel,PKS.Core.LoggingLoaderConfig)">
+            <summary>初始化</summary>
+        </member>
+        <member name="M:PKS.Core.LoggingLoader.LoadIndirectAssemblies">
+            <summary>加载间接DLL</summary>
+        </member>
+        <member name="T:PKS.Core.WebExceptionHandler">
+            <summary>WEB异常处理器</summary>
+        </member>
+        <member name="P:PKS.Core.WebExceptionHandler.TypeMappers">
+            <summary>异常类型映射</summary>
+        </member>
+        <member name="P:PKS.Core.WebExceptionHandler.WebTypeMappers">
+            <summary>WEB异常类型映射</summary>
+        </member>
+        <member name="P:PKS.Core.WebExceptionHandler.WebCodeMappers">
+            <summary>WEB异常代码映射</summary>
+        </member>
+        <member name="M:PKS.Core.WebExceptionHandler.Handle(System.Exception,System.String,PKS.Core.ExceptionModel)">
+            <summary>处理异常类型映射</summary>
+            <param name="ex">异常实例</param>
+            <param name="service">服务名称，MVC控制器或API控制器默认为控制器名称(不包括后缀Controller)</param>
+            <param name="exceptionModel">异常数据</param>
+        </member>
+        <member name="M:PKS.Core.WebExceptionHandler.Initialize">
+            <summary>初始化</summary>
+        </member>
+        <member name="M:PKS.Core.WebExceptionHandler.InitTypeMappers">
+            <summary>配置异常类型映射</summary>
+        </member>
+        <member name="M:PKS.Core.WebExceptionHandler.InitCodeMappers">
+            <summary>配置异常代码映射</summary>
+        </member>
+        <member name="M:PKS.Core.WebExceptionHandler.LoadConfig(System.Collections.Generic.IEnumerable{System.Reflection.Assembly})">
+            <summary>从配置文件加载</summary>
+        </member>
+        <member name="T:PKS.Data.EFRepository`1">
+            <summary>EF数据仓储访问</summary>
+        </member>
+        <member name="F:PKS.Data.EFRepository`1._context">
+            <summary>EF数据访问</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.#ctor(PKS.Data.IDbContext)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.Data.EFRepository`1.Store">
+            <summary>实体集</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.Dispose">
+            <summary>释放对象</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.GetQuery">
+            <summary>
+                查询接口
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.Add(`0,System.Boolean)">
+            <summary>
+                增加
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.AddRange(System.Collections.Generic.IEnumerable{`0},System.Boolean)">
+            <summary>
+             批量增加
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.AddAsync(`0)">
+            <summary>增加</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.Update(`0,System.Boolean)">
+            <summary>附加实体</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.UpdateAsync(`0)">
+            <summary>
+            更新
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.IsModified(`0)">
+            <summary>是否变化</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.Delete(`0,System.Boolean)">
+            <summary>
+                删除
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.DeleteAsync(`0)">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.DeleteByKey(`0,System.Boolean)">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.DeleteList(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+                删除
+            </summary>
+            <param name="whereExpr"></param>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.DeleteList(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+                删除
+            </summary>
+            <param name="entities"></param>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.Exist(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+                判断是否存在
+            </summary>
+            <param name="whereExpr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.Count(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+                获取记录数
+            </summary>
+            <param name="whereExpr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.GetAll">
+            <summary>
+                获取全部
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.Find(System.Object)">
+            <summary>
+                查找实体对象
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.Find(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+                查找实体对象
+            </summary>
+            <param name="whereExpr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.FindList``1(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Int32)">
+            <summary>
+                查找实体对象列表
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.FindList``2(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Int32,System.Int32)">
+            <summary>
+                查找实体对象列表
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="whereExpr"></param>
+            <param name="selectExpr"></param>
+            <param name="orderbyExpr"></param>
+            <param name="orderDirection"></param>
+            <param name="returnCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.FindListByPage``1(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            分页查找实体对象列表
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.FindListByPage``2(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+                分页查找实体对象列表
+            </summary>
+        </member>
+        <member name="F:PKS.Data.EFRepository`1.m_StoreEntityType">
+            <summary>
+            存储实体类型
+            </summary>
+        </member>
+        <member name="P:PKS.Data.EFRepository`1.StoreEntityType">
+            <summary>
+            获得存储实体类型
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.GetStoreFieldName(System.String)">
+            <summary>
+            获得字段名关联的存储字段名
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.GetChildren(System.Object[],System.String,System.String)">
+            <summary>
+            获得自己及子实体层次集合
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.GetParents(System.Object[],System.String,System.String)">
+            <summary>
+            获得自己及父实体层次集合
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.BuildParamNames(System.Int32)">
+            <summary>生成参数名</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.Submit">
+            <summary>
+                提交保存所有变更操作
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.SubmitAsync">
+            <summary>
+            提交保存所有变更操作
+            </summary>
+        </member>
+        <member name="F:PKS.Data.EFRepository`1._trans">
+            <summary>
+                事务
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.BeginTrans">
+            <summary>
+                开启事务
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.EndTrans">
+            <summary>
+                事务提交
+                判断:_trans对象不为空前提下
+            </summary>
+        </member>
+        <member name="M:PKS.Data.EFRepository`1.RollbackTrans">
+            <summary>
+                事务回滚
+                判断:_trans对象不为空前提下
+            </summary>
+        </member>
+        <member name="T:PKS.Data.EFDbContext">
+            <summary>EF数据访问</summary>
+        </member>
+        <member name="M:PKS.Data.EFDbContext.#cctor">
+            <summary>静态构造函数</summary>
+        </member>
+        <member name="M:PKS.Data.EFDbContext.#ctor(PKS.Data.IDbContextConfig,EventBus.IEventBus)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.Data.EFDbContext.Config">
+            <summary>数据访问配置接口</summary>
+        </member>
+        <member name="P:PKS.Data.EFDbContext.EventBus">
+            <summary>事件总线</summary>
+        </member>
+        <member name="P:PKS.Data.EFDbContext.s_ChangePublishTypes">
+            <summary>变化发布实体集合</summary>
+        </member>
+        <member name="M:PKS.Data.EFDbContext.OnModelCreating(System.Data.Entity.DbModelBuilder)">
+            <summary>初始化实体映射</summary>
+        </member>
+        <member name="M:PKS.Data.EFDbContext.ConfigureEntityType``1(PKS.Data.IDbEntityMappingConfiguration,System.Data.Entity.ModelConfiguration.EntityTypeConfiguration{``0})">
+            <summary>配置实体类型</summary>
+        </member>
+        <member name="M:PKS.Data.EFDbContext.ConfigureProperty(System.Data.Entity.ModelConfiguration.Configuration.ConventionPrimitivePropertyConfiguration)">
+            <summary>配置属性类型</summary>
+        </member>
+        <member name="M:PKS.Data.EFDbContext.SaveChanges">
+            <summary>保存变化</summary>
+        </member>
+        <member name="M:PKS.Data.EFDbContext.SaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>保存变化</summary>
+        </member>
+        <member name="M:PKS.Data.EFDbContext.BuildChangedList">
+            <summary>生成变化实体集合</summary>
+        </member>
+        <member name="M:PKS.Data.EFDbContext.PublishChangedList(System.Collections.Generic.List{System.Tuple{System.Type,System.Data.Entity.EntityState,System.Object}})">
+            <summary>发布变化实体集合</summary>
+        </member>
+        <member name="T:PKS.Data.EFRepositoryLoader">
+            <summary>仓储数据访问组件加载器</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepositoryLoader.Initialize(Ninject.IKernel,PKS.Core.RepositoryLoaderConfig)">
+            <summary>初始化</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepositoryLoader.UseOracle">
+            <summary>加入Oracle数据库支持</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepositoryLoader.TestConnection(PKS.Data.IDbContextConfig)">
+            <summary>测试连接</summary>
+        </member>
+        <member name="M:PKS.Data.EFRepositoryLoader.LoadIndirectAssemblies">
+            <summary>加载间接DLL</summary>
+        </member>
+    </members>
+</doc>

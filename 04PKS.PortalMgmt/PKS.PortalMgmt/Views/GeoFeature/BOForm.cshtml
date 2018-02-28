@@ -1,0 +1,662 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+
+    ViewBag.Title = ResHelper.GetStr("BOMenuItemTitle");
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+
+    var apiServiceUrl = ViewData["API_SERVICE_URL"];
+    var access_token = ViewData["ACCESS_TOKEN"];
+
+}
+<!--json控件-->
+<link type="text/css" rel="stylesheet" href="~/scripts/jsoneditor/jsoneditor.css" />
+<script type="text/javascript" src="~/scripts/jsoneditor/jsoneditor.js"></script>
+
+<div id="formData" class="frame-fit" style="width: 100%;">
+    <div class="mini-toolbar" style="margin-bottom:5px;">
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td colspan="2" style="width:100%;">
+                    <a class="mini-button" iconcls="icon-new-add" plain="true" id="botAdd" onclick="addBo()">@ResHelper.GetStr("新增")</a>
+                    <a class="mini-button" iconcls="icon-new-delete" plain="true" id="botAdd" onclick="removeBo()">@ResHelper.GetStr("删除")</a>
+                    <a class="mini-button" iconcls="icon-new-save" plain="true" id="botAdd" onclick="saveBo()">@ResHelper.GetStr("保存")</a>
+
+                    <a class="mini-button" iconcls="icon-new-add" plain="true" id="boImportLocation" onclick="javascript: winImport.show()">@ResHelper.GetStr("导入坐标")</a>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <div id="gridBo" class="mini-datagrid "
+             style="width:100%;height:100%;"
+             multiselect="true"
+             selectonload="true"
+             showPager="false"
+             sortMode="client"
+             allowalternating="true"
+             allowcelledit="true"
+             editnextrowcell="true"
+             editnextonenterkey="true"
+             allowcellselect="true"
+             allowcellvalid="true"
+             ondrawcell="onDrawCellBo"
+             oncellcommitedit="OnCellCommitEditBot">
+
+            <div property="columns">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="locationPanel" class="mini-panel" title="location" style="width:100%;height:300px;" visible="false"
+     showToolbar="true" showCloseButton="true" showHeader="true" bodyStyle="padding:0" borderStyle="border:0">
+    <div id="jsoneditor" class="jsoneditorbody" style="width:100%;height:100%;"></div>
+</div>
+
+
+<div id="winImport" class="mini-window" title="坐标导入" style="width:400px;height:400px;" 
+    showMaxButton="false" showCollapseButton="false" showShadow="true"
+    showToolbar="true" showFooter="true" showModal="false" allowResize="true" allowDrag="true"
+   >
+    @using (Html.BeginForm("UploadLocationTemp", "GeoFeature", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadForm", name = "uploadForm" }))
+    {
+        <div style="text-align:center;width:95%;height:150px;padding:10px;">
+
+            <table>
+                <tr>
+                    <td colspan="2" style="text-align:left;">
+                        <p><b>导入须知:</b></p>
+                        <p>1:导入文件为 *.TXT 的文件.</p>
+                        <p>2:导入的文件名称根据数据的 bo 属性名称定义.</p>
+                        <p>TXT文件导入的坐标格式如下.</p>
+                        <p>例:文件名称为 <b>BY001.txt</b> (BY001 是来自bo属性名称)</p>
+                        <p>数据格式为(单个坐标之间用空格分割,每组坐标之间换行): </p>
+                        <p>
+                            1,2<br />
+                            3,3<br />
+                            4,4<br />
+                            1,2<br />
+                        </p>
+                        <br />
+                        <p>
+                            当前业务信息
+                            <b>业务类型: [<label id="nameBot" style="color:red;font-weight:800;"></label>]</b>
+                            <b>坐标类型: [<label id="locationtypeBot" style="color:red;font-weight:800;"></label>]</b>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="locationtypeHd" name="locationtype_hd" class="mini-hidden" value="" />
+                        <input type="file" name="myFile" id="myFile" style="width: 220px;" multiple />
+                    </td>
+                    <td style="text-align:right;padding:5px;">
+                        <a class="mini-button" id="importExcel" style="display:inline-block;" onclick="ajaxfileImport()" iconcls="icon-new-add" plain="false">数据导入</a>
+                        <span style="height:100%; vertical-align: middle;display:inline-block;"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    //有新的类型继续添加
+    mini.parse();
+
+    var winImport = mini.get("winImport");
+
+    //初始化Json编辑器
+    var jsoneditor = new JSONEditor(
+        //组件对象
+        document.getElementById('jsoneditor'),
+        //设置属性 options
+        {
+            mode: 'text',
+            search: false,
+            modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
+            onError: function (err) {
+                alert(err.toString());
+            },
+            onModeChange: function (newMode, oldMode) {
+                console.log('Mode switched from', oldMode, 'to', newMode);
+            }
+        },
+        //初始默认值
+        []
+        );
+
+    //
+    var rowMainBot;
+    //全列匹配查询文本框
+    var locationTxt = mini.get('#locationTxt')
+    //
+    var gridBo = mini.get('#gridBo')
+    //表单对象
+    var form = new mini.Form("#formData");
+    //isBoAdd=false 覆盖重复数据 isBoAdd=true 忽略重复数据直接新增
+    var isBoAdd = false;
+    /*
+        初始列表数据
+    */
+    function initGrid(rowBot, dataList, isDataAdd) {
+        if (dataList) {
+            mini.get('#boImportLocation').hide();
+        }
+
+        //属性列对象
+        var properties = rowBot["properties"];
+        //业务类型数据对象
+        rowMainBot = rowBot;
+       
+        //设置导入坐标类型
+        mini.get('#locationtypeHd').setValue( rowMainBot["locationtype"]);
+        $("#nameBot").html(rowMainBot["name"]);
+        $("#locationtypeBot").html(rowMainBot["locationtype"]);
+
+        //isBoAdd=false 覆盖重复数据 isBoAdd=true 忽略重复数据直接新增
+        isBoAdd = isDataAdd;
+        //动态创建数据列
+        createGrid(properties);
+
+        //填充数据到动态grid
+        if (dataList) {
+            gridBo.setData(dataList);
+        }
+    }
+
+    /*
+     bo 动态渲染列
+  */
+    function createGrid(properties) {
+
+        var gridBoCol = [];
+
+        //创建固定列
+        gridBoCol.push({ type: 'indexcolumn', headerAlign: 'center', align: 'center', visible: true});
+        gridBoCol.push({ type: 'checkcolumn', headerAlign: 'center', align: 'center', visible: true });
+
+        gridBoCol.push({ field: 'bot', headerAlign: 'center', align: 'center', allowSort: true, header: '对象类型(bot)', visible: true });
+        gridBoCol.push({ field: 'boid', headerAlign: 'center', align: 'center', allowSort: true, header: '对象ID(boid)', visible: true, editor: { type: "textbox" } });
+        gridBoCol.push({ field: 'bo', headerAlign: 'center', align: 'center', allowSort: true, header: '对象名称(bo)', visible: true, vtype: "required", editor: { type: "textbox" } });
+        gridBoCol.push({ field: 'alias', headerAlign: 'center', align: 'center', allowSort: true, header: '别名(alias)', visible: false });
+        gridBoCol.push({ field: 'aliasStr', headerAlign: 'center', align: 'center', allowSort: true, header: '别名(alias)', visible: true, editor: { type: "textbox" } });
+        //
+        gridBoCol.push({ field: 'locationType', headerAlign: 'center', align: 'center', allowSort: true, header: '坐标类型(locationType)', visible: true });
+        gridBoCol.push({ field: 'locationStr', headerAlign: 'center', align: 'center', allowSort: true, header: '坐标(location)', visible: true, width: "300",  editor: { type: "popupedit", style: "width:100%;", popup: "#locationPanel", onbeforeshowpopup: "onShowLocationPopup", onhidepopup: "onLocationHidepopup", showPopupOnClick: true, allowInput: false } });
+
+        //创建动态列
+        properties.forEach(function (item, i) {
+
+            if (item["type"] == "Number") {
+                gridBoCol.push({
+                    name: "PropertiesCol",
+                    field: item["name"],
+                    headerAlign: 'center',
+                    align: 'right',
+                    allowSort: true,
+                    header: item["name"],
+                    dataType: "float",
+                    editor: { type: "spinner", maxValue: 99999999 },
+                    visible: true
+                });
+            }
+            else if (item["type"] == "ISODate") {
+                gridBoCol.push({
+                    field: item["name"],
+                    name: "PropertiesCol",
+                    headerAlign: 'center',
+                    align: 'center',
+                    allowSort: true,
+                    header: item["name"],
+                    dataType: "date",
+                    dateFormat: "yyyy-MM-dd HH:mm:ss",
+                    visible: true,
+                    editor: { type: "datepicker", format: "yyyy-MM-dd HH:mm:ss" }
+                });
+            }
+            else {
+                //String
+                var colObj =
+                {
+                    field: item["name"],
+                    name: "PropertiesCol",
+                    headerAlign: 'center',
+                    align: 'center',
+                    allowSort: true,
+                    header: item["name"],
+                    dataType: "string",
+                    visible: true
+                };
+
+
+                //
+                if (item["options"]) {
+                    //创建复选框数据
+                    var cboData = [];
+                    item["options"].forEach(function (item, i) {
+                        cboData.push({ text: item, id: item })
+                    });
+                    colObj["editor"] = { type: "combobox", data: cboData }
+                } else {
+                    colObj["editor"] = { type: "textarea" }
+                }
+
+                gridBoCol.push(colObj);
+
+            }
+        });
+        //
+        gridBo.setColumns(gridBoCol)
+    }
+
+    /*
+        坐标下拉框文本框显示事件
+        获取原始对象数据显示到文本框上
+    */
+    function onShowLocationPopup(e) {
+        //获取选择bo行的坐标数据对象
+        var row = gridBo.getSelected();
+        //如果没有坐标不做处理
+        if (!row["location"]) {
+            row.location = {};
+        }
+
+        var polygonList = row["location"]["coordinates"]
+        var lType = rowMainBot["locationtype"];
+
+        //
+        if (lType == "GeometryCollection") {
+            polygonList = row["location"]["geometries"]
+        }
+
+        //
+        //var locationValue = "";
+        if (polygonList) {
+            //locationTxt.setValue(locationValue);
+            //
+            jsoneditor.set(polygonList);
+        } else {
+            jsoneditor.set([]);
+        }
+    }
+
+    /*
+       坐标下拉框文本框隐藏事件
+    */
+    function onLocationHidepopup(e) {
+
+        //获取选择bo行的坐标数据对象
+        var rowBo = gridBo.getSelected();
+
+        var lType = rowMainBot["locationtype"];
+
+        var listData = [];
+        if (!rowBo.location)
+            row.location = {};
+        //获取设置的文本值
+        var isJson = jsoneditor.getText();
+        if (isJson) {
+            //获取所设置的值
+            listData = jsoneditor.get();
+        }
+         
+        if (lType == "GeometryCollection") {
+            rowBo["location"]["geometries"] = listData;
+        } else {
+            rowBo["location"]["coordinates"] = listData;
+        }
+       
+        rowBo["locationStr"] = JSON.stringify(listData);
+
+        gridBo.updateRow(rowBo, rowBo);
+         
+    }
+
+    /*
+        单元格渲染事件
+        解析数据并重置主数据对象的数据信息便于保存
+    */
+    function onDrawCellBo(e) {
+
+        if (e.field == "boid") {
+          
+            //绑定到数据到grid的row
+            if (e.row["location"] && e.row["location"]["coordinates"]) {
+
+                e.row["locationStr"] = JSON.stringify(e.row["location"]["coordinates"]);
+                e.row["location"]["type"] = rowMainBot["locationtype"];
+
+            } else if (e.row["location"] && e.row["location"]["geometries"]) {
+
+                e.row["locationStr"] = JSON.stringify(e.row["location"]["geometries"]);
+                e.row["location"]["type"] = rowMainBot["locationtype"];
+
+            }
+
+            //默认根据所选择的类型添加坐标类型值
+            e.row["locationType"] = rowMainBot["locationtype"]; 
+
+            //转换数组为字符串
+            var aliasData = e.row["alias"];
+            if (aliasData) {
+                e.row["aliasStr"] = e.row["alias"].join(',');
+            } else {
+                e.row["alias"] = [];
+            }
+
+        }
+    }
+
+    /*
+    编辑后事件写入数据到原数据对象(便于保存转换对象)
+    */
+    function OnCellCommitEditBot(e) {
+
+        if (e.field == "aliasStr")
+        {
+            e.row["alias"] = e.value.split(",");
+        }
+
+        if (e.column.name == "PropertiesCol") {
+            //
+            e.row["properties"][e.field] = e.value;
+            //修改属性列时同步更新对象里相关属性对象的数据 value
+            //if (e.text) {
+            //    e.row["properties"][e.field] = e.text;
+            //} else {
+            //    e.row["properties"][e.field] = e.value;
+            //}
+        }
+    }
+
+    /*
+        添加业务类型明细
+    */
+    function addBo() {
+        var rowIndex = gridBo.getData().length;
+
+        var newRow = {
+            bo:"",
+            alias: "",
+            bot: rowMainBot["name"],
+            //location: { type: t, coordinates: null },
+            //locationType: rowMainBot["locationtype"],
+            properties: {}
+        };
+
+        if (rowMainBot["locationtype"]) {
+            newRow["location"] = { type: rowMainBot["locationtype"], coordinates: null }
+            newRow["locationType"] = rowMainBot["locationtype"]
+        }
+
+        gridBo.addRow(newRow, 0);
+    }
+
+    /*
+        删除数据
+    */
+    function removeBo() {
+        var rows = gridBo.getSelecteds();
+        if (rows.length > 0) {
+            gridBo.removeRows(rows, true);
+        }
+    }
+
+    /*
+        保存
+    */
+    function saveBo() {
+        //
+        var dataGrid = gridBo.getData();
+        if (dataGrid.length == 0) {
+            showTips({ Type: "warning", Message: "@ResHelper.GetStr("您还未添加数据!")" });
+            return false;
+        }
+        //验证Grid
+        if (!gridValid(gridBo, "@ResHelper.GetStr("业务明细")"))
+            return false;
+
+        //如果没有坐标值设置为null
+        var d = void 0;
+        for (var i = 0; i < dataGrid.length; i++) {
+
+            var isN = false;
+            d = dataGrid[i];
+
+            if (rowMainBot["locationtype"] == "GeometryCollection") {
+                if (!dataGrid[i]["location"]["geometries"] || dataGrid[i]["location"]["geometries"].length == 0 || !dataGrid[i]["locationStr"])
+                    isN = true;
+            } else {
+                if (!dataGrid[i]["location"]["coordinates"] || dataGrid[i]["location"]["coordinates"].length == 0 || !dataGrid[i]["locationStr"]) {
+                    isN = true;
+                } else {
+                    d.location = { type: d.locationType, coordinates: eval(d.locationStr)};
+                }
+            }
+
+            if (isN) {
+                //
+                dataGrid[i]["location"]["coordinates"] = null;
+                dataGrid[i]["location"]["type"] = null;
+            }
+        }
+
+
+        //转换为json字符串格式
+        var dataJson = mini.encode(dataGrid);
+
+        //debugger;
+        //var tmpobj = [
+        //              {
+        //                  "bo": "混合",
+        //                  "alias": [],
+        //                  "bot": "混合",
+        //                  "properties": {},
+        //                  "location": {
+        //                      "type": "GeometryCollection",
+        //                      "geometries": [
+        //                        {
+        //                            "type": "Point",
+        //                            "coordinates": [100.0, 0.0]
+        //                        },
+        //                        {
+        //                            "type": "LineString",
+        //                            "coordinates": [[101.0, 0.0], [102.0, 1.0]]
+        //                        }
+        //                      ]
+        //                  }
+        //              }
+        //];
+
+
+        //isDataAdd=false 覆盖重复数据 isDataAdd=true 忽略重复数据直接新增
+        var action = "SaveBOs";
+        if (isBoAdd == "true") {
+            action = "InsertBOs";
+        }
+
+        $.ajax({
+            //该方法根据name判断重复就覆盖,反之就插入
+            url: "@apiServiceUrl" + "/BO2Service/" + action,
+            type: "Post",
+            data: dataJson,
+
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + "@access_token"
+            },
+            complete: function (e, status) {
+                //alert('完成');
+            },
+            error: function (e, status, resData) {
+
+                showTips({ Type: 'error', Message: "@ResHelper.GetStr("保存失败")" });
+            },
+            success: function (data, status, e) {
+
+                window.CloseOwnerWindow();
+                showTips({ Type: 'success', Message: "@ResHelper.GetStr("保存成功")" });
+            }
+        });
+    }
+
+    //上传文件
+    function ajaxfileImport() {
+        var formData = new FormData($("#uploadForm")[0]);
+        //添加进度显示
+        winImport.mask("数据导入中...");
+
+        $.ajax({
+            url: "@Url.Action("UploadLocationTemp")",
+            type: 'POST',
+            data: formData,
+            async: true,
+            cache: false,
+            contentType: false,
+            processData: false,
+            complete: function (e, status) {
+                //debugger;
+                winImport.unmask();
+                if (status == "success") {
+                    //获取导入后的数据
+                    var boList = mini.decode(e.responseJSON.data);
+                    //查询匹配的坐标数据
+                    gridImportBoLoad(boList)
+                    //
+                    showTips({ Type: 'success', Message: "@ResHelper.GetStr("导入坐标完成,数据载入中..")" });
+
+                } else {
+
+                    showTips({ Type: 'error', Message: e.responseJSON.Message });
+                }
+                
+            }
+        });
+    }
+
+    /*
+    导入坐标后显示关系数据
+   */
+    function gridImportBoLoad(boList) {
+
+        var qbo = [];
+        for (var i = 0; i < boList.length; i++) {
+            qbo.push(boList[i]["bo"]);
+        }
+
+        //设置查询条件,仅查询当前导入的坐标的bo属性数据
+        var queryObj = {
+            "$and":
+                [
+                {
+                    "bo": { "$in": qbo }
+                },
+                {
+                    "bot": rowMainBot["name"]
+                }
+                ]
+        };
+
+        //组装查询条件
+        var paramesData = {
+            query: queryObj,
+            fields: { boid: 1, bo: 1, bot: 1, alias: 1, properties: 1, location: 1 },
+            sort: { bot: 1 },
+            skip: 0,
+            limit: 9999
+        };
+
+        //获取指定条数的数据
+        $.ajax({
+            url: "@apiServiceUrl" + "/BO2Service/FilterBOs",
+            type: "Post",
+            data: JSON.stringify(paramesData),
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + "@access_token"
+            },
+            complete: function (e, status) {
+                if (e.statusText == "OK") {
+                    //根据bo查询到的数据集合
+                    var data = e.responseJSON;
+                    //循环坐标集合与查询到的数据集合进行匹配,确定bo相同的数据关系
+                    for (var j = 0; j < boList.length; j++) {
+                        //
+                        boList[j]["boid"] = "";
+                        boList[j]["alias"] = "";
+                        boList[j]["bot"] = rowMainBot["name"];
+                        boList[j]["locationType"] = boList[j]["location"]["type"];
+                        boList[j]["properties"] = {};
+
+                        //遍历数据的扩展列属性信息
+                        $.each(rowMainBot["properties"], function (i, item) {
+
+                            boList[j][item.name] = "";
+                        });
+                        
+                        for (var i = 0; i < data.length; i++) {
+                            //
+                            //boList[j]["bot"] = data[i]["bot"];
+
+                            if (boList[j]["bo"] == data[i]["bo"]) {
+
+                                boList[j]["boid"] = data[i]["boid"];
+                                boList[j]["alias"] = data[i]["alias"];
+                                boList[j]["properties"] = data[i]["properties"];
+
+                                //遍历数组json对象,匹配设置属性值
+                                $.each(data[i]["properties"], function (text, value) {
+
+                                    boList[j][text] = value;
+                                });
+                                break;
+                            }
+                        }
+                    }
+                    gridBo.setData(boList);
+                } else {
+                    gridBo.setData(null);
+                    showTips({ Type: 'error', Message: "未获取坐标数据!" });
+                }
+            }
+        });
+    }
+
+
+    /*
+    验证Grid表单
+    参数grid = grid组件对象
+    参数msg = 验证消息前缀描述(通常是grid表格业务名称)
+    */
+    function gridValid(grid, msg) {
+        //提交Grid编辑的数据
+        grid.commitEdit();
+        //开始验证Grid表单
+        grid.validate();
+        //判断验证Grid数据填写是否完整
+        if (grid.isValid() == false) {
+            var error = grid.getCellErrors()[0];
+            //去空格以及/r/n
+            var columnName = $.trim(error.column.header.replace(/[\r\n]/g, ""));
+            //去掉html标签
+            columnName = columnName.replace(/<[^>]+>/g, "");
+
+            //验证完成后选中错误单元格
+            grid.beginEditCell(error.record, error.column);
+            //验证完成后选中错误当前行
+            var row = grid.findRow(function (row) {
+                if (row._id == error.record._id) return true;
+            });
+            grid.select(row, false);
+
+            alert(msg + " " + columnName + ":" + error.errorText);
+            return false;
+        }
+        return true;
+    }
+</script>

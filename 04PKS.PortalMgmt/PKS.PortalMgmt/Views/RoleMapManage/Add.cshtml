@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+<div class="mini-frame" style="padding:10px">
+<div class="mini-toolbar" style="margin-bottom:5px;">
+    <table style="width:100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td colspan="2" style="width:100%;">
+                <a class="mini-button" iconcls="icon-new-save" plain="true" id="botAdd" onclick="save()">@ResHelper.GetStr("保存")</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <input id="id" type="hidden" name="Id" />
+    <input id="parentOrgId" type="hidden" name="ParentOrgId" />
+    <div class="form-group">
+        <label for="orgName">名称</label>
+        <input id="orgName" type="text" name="OrgName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="roleId">角色</label>
+        <select id="roleId" name="RoleId" class="form-control"></select>
+    </div>
+</div>
+
+</div>
+<script>
+    var gl = void 0;
+    (function () {
+        var queryRoles = function () {
+            return $.ajax({
+                url: "./Roles",
+                type: "GET",
+                dataType: "json"
+            });
+        };
+        var procRoles = function (roles) {
+            var i = 0,
+                j = roles.length,
+                r = void 0;
+            var v = '';
+            for (; i < j; i++) {
+                r = roles[i];
+                v += cosRoleHtml(r);
+            }
+            $("#roleId").html(v);
+        };
+        var cosRoleHtml = function (role) {
+            return '<option value="' + role.ROLEID + '">' + role.ROLENAME + ' </option>';
+        };
+        queryRoles().done(procRoles);
+    })();
+
+    var ref = function (g) {
+        gl = g;
+    };
+
+    var initForm = function (rData) {
+        var pId = rData.Id;
+        $("#parentOrgId").val(pId);
+    };
+
+    var save = function () {
+        var id = $("#id").val();
+        var pId = $("#parentOrgId").val();
+        var orgName = $("#orgName").val();
+        var roleId = $("#roleId").val();
+        var model = { Id: id, OrgParentId: pId, OrgName: orgName, RoleId: roleId };
+        $.ajax({
+            url: "./AddOrUpdateRoleMap",
+            type: "POST",
+            data: model,
+            success: function () {
+                showTips("success", "保存成功");
+                gl.__onDestroy();
+                gl.destroy();
+            },
+            error: function () {
+                showTips("error", "保存失败");
+                gl.__onDestroy();
+                gl.destroy();
+            }
+        });
+    }
+</script>

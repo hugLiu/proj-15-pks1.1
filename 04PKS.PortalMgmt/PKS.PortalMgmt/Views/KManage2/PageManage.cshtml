@@ -1,0 +1,526 @@
+﻿@{
+    ViewBag.Title = ResHelper.GetStr("BKMenuTitlePageManage");
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+<style type="text/css">
+    #span1 {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+<div  id="layout1" class="mini-layout frame-fit" style="width: 100%;margin-top: -10px;">
+    <div title="百科模板" showproxytext="false" region="west" width="300px" height="100%" showclosebutton="false" showspliticon="false" showcollapsebutton="false" showsplit="false">
+        <div  id="treeTemplate" class="mini-tree" url="@Url.Action("GetKtemplateTree", "KManage2")" style="width:280px;padding:5px;margin:5px;" 
+             showTreeIcon="true" 
+             expandonload="1"
+             expandOnDblClick="true"
+             onnodeselect="tNodeSelect">
+        </div>
+    </div>
+    <div title="center" id="center" region="center" width="100%" height="100%">
+        <div id="panel1" class="mini-panel" title="页面设置" style="width:100%;height:100%;border:solid 1px #aaa;position:relative;">
+            <div id="editForm1" style="padding:5px;margin:10px;height:90%;">
+                <table style="width:100%;height:15%;">
+                    <tr>
+                        <td style="width:100px;">选择子系统：</td>
+                        <td style="width:170px;">
+                            <input id="SubSystems" name="SubSystems" class="mini-combobox" width="150"
+                                   url="@Url.Action("GetSubSystems", "KManage2")" />
+                        </td>
+                        <td style="width:100px;">选择实例类型：</td>
+                        <td>
+                            <input id="InstanceClass" name="InstanceClass" class="mini-combobox" width="150"
+                                   url="@Url.Action("GetInstanceClass", "KManage2")" />
+                            <a id="btnIndex" class="mini-button" iconCls="icon-edit" onclick="onIndex">建立索引</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>选择百科分类：</td>
+                        <td>
+                            <input id="GroupName" name="GroupName" class="mini-combobox" width="150"
+                                   data="GroupNameData" onvaluechanged="onGroupNameChange"/>
+                        </td>
+                        <td>选择研究目标：</td>
+                        <td>
+                            <input id="RObject" name="RObject" class="mini-combobox" width="150"
+                                   url="@Url.Action("GetInstanceClass", "KManage2")" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>选择展示页面：</td>
+                        <td>
+                            <input id="Urls" name="Urls" class="mini-combobox" width="150"
+                                   url="@Url.Action("GetUrls", "KManage2")" />
+                        </td>
+                        <td>选择默认模板：</td>
+                        <td>
+                            <input id="Templates" name="Templates" class="mini-combobox" width="150"/>
+                        </td>
+                    </tr>
+                </table>
+                <table style="width:100%;height:80%;">
+                    <tr>
+                        <br />
+                    </tr>
+                    <tr>
+                        <td style="width:30%;height:100%;">
+                            <div id="panel3" class="mini-panel" title="全局参数" style="width:100%;height:100%;solid 1px #aaa;position:relative;">
+                                <div id="treeParam" class="mini-tree" url="@Url.Action("GetParameterTree", "KManage2")" style="width:100%;padding:5px;margin:5px;"
+                                     textfield="Text" idfield="Id" parentfield="Pid"
+                                     resultastree="false" expandonload="1" showtreeicon="true" checkrecursive="true" showcheckbox="true"
+                                     onnodecheck="paramNodeCheck">
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width:10%;padding:5px;margin:5px;">
+                            <input type="button" value="===>" disabled="disabled" width="30"/>
+                            <br />
+                            <br />
+                        </td>
+                        <td style="width:30%;height:100%;">
+                            <div id="panel4" class="mini-panel" title="模板参数" style="width:100%;height:100%;solid 1px #aaa;position:relative;">
+                                <div id="paramlistbox" class="mini-listbox" style="width:95%;height:90%;padding:5px;margin:5px;"
+                                     textField="text" valueField="id">
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width:30%;">
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:30%;">
+                            <br />
+                            <a class="mini-button" onclick="SavePageManage()">保存</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="editForm2" style="padding:5px;margin:10px;height:90%;">
+                <p style="margin:5px;">选择<span id="span1">井</span>实例对象：</p>
+                <div id="selectDiv">
+                    <input id="boCombo" name="boCombo" class="mini-combobox" width="150" style="margin:5px;" />
+                    <a class="mini-button" onclick="SaveBo()" style="margin:5px;">保存</a>
+                    <a class="mini-button" onclick="selectBo()" style="margin:5px;">选择...</a>                   
+                </div>
+                <div id="datagrid1" class="mini-datagrid" style="width:99%;height:90%;margin:5px;"
+                     url="/KManage2/GetInstances?tid="
+                     idField="Id" allowResize="false" pageSize="20">
+                    <div property="columns">
+                        <div type="indexcolumn"></div>
+                        <div field="Instance" width="120" align="center" headerAlign="center" allowSort="true">实例对象</div>
+                        <div field="StaticUrl" width="120" align="center" headerAlign="center" allowSort="true">静态化页面</div>
+                        <div field="StaticDate" width="100" align="center" headerAlign="center" dateFormat="yyyy-MM-dd" allowSort="true">静态化时间</div>
+                        <div name="action" width="120" headerAlign="center" align="center" renderer="onActionRenderer" cellStyle="padding:0;">#</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $("#editForm2").css("display", "none");
+    var GroupNameData = [
+        {
+            id: "目标认识",
+            text: "目标认识"
+        },
+        {
+            id: "专业研究",
+            text: "专业研究"
+        }
+    ];
+
+    var RObjectData1 = [
+        {
+            id: "井",
+            text: "井"
+        },
+        {
+            id: "圈闭",
+            text: "圈闭"
+        },
+        {
+            id: "地震工区",
+            text: "地震工区"
+        },
+        {
+            id: "构造单元",
+            text: "构造单元"
+        },
+        {
+            id: "盆地",
+            text: "盆地"
+        }
+    ];
+    var RObjectData2 = [
+        {
+            id: "地层",
+            text: "地层"
+        },
+        {
+            id: "构造",
+            text: "构造"
+        },
+        {
+            id: "沉积",
+            text: "沉积"
+        },
+        {
+            id: "储层",
+            text: "储层"
+        },
+        {
+            id: "生油",
+            text: "生油"
+        },
+        {
+            id: "成藏",
+            text: "成藏"
+        }
+    ];
+
+    mini.parse();
+    //默认模板ID
+    var templateId = 0;
+    var instanceClass = "井";
+    var treeTemplate = mini.get("treeTemplate");
+    var treeParam = mini.get("treeParam");
+    var comboSubSystems = mini.get("SubSystems");
+    var comboInstanceClass = mini.get("InstanceClass");
+    var comboGroupName = mini.get("GroupName");
+    var comboRObject = mini.get("RObject");
+    var comboUrls = mini.get("Urls");
+    var comboTemplates = mini.get("Templates");
+    var paramlistbox = mini.get("paramlistbox");
+    var boCombo = mini.get("boCombo");
+    var datagrid = mini.get("datagrid1");
+    var btnIndex = mini.get("btnIndex");
+
+    function onGroupNameChange() {
+        var value = comboGroupName.getValue();
+        if (value == "目标认识") {
+            comboRObject.load(RObjectData1);
+        }
+        if (value == "专业研究") {
+            comboRObject.load(RObjectData2);
+        }
+    }
+    
+
+    function onActionRenderer(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var uid = record._uid;
+        var rowIndex = e.rowIndex;
+        var s = '<a class="mini-button" href = "javascript:onStatic(\'' +
+            uid +
+            '\')"  style="width:60px">静态化</a>'
+        var t = '<a class="mini-button"  href = "javascript:onDelete(\'' +
+            uid +
+            '\')"  style="width:60px">删除</a>'
+            ;
+        if (record.Id == 0) return s;
+        return s + t;
+    }
+
+    function onStatic(row_uid) {
+        var r = datagrid.getRowByUID(row_uid);
+        var row = datagrid.findRow(function (row) {
+            if (row.Id == r.Id && row.Instance == r.Instance) return true;
+        });
+        var instance = row.Instance;
+        $.ajax({
+            url: "@Url.Action("StaticInstance", "KManage2")",
+            data: { instance: instance, tid: templateId },
+            type: "post",
+            success: function (result) {
+                datagrid.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                //alert(jqXHR.responseText);
+            }
+        });
+    }
+
+    function onDelete(row_uid) {
+        var r = datagrid.getRowByUID(row_uid);
+        var row = datagrid.findRow(function (row) {
+            if (row.Id == r.Id && row.Instance == r.Instance) return true;
+        });
+        var id = row.Id;
+        $.ajax({
+            url: "@Url.Action("DeleteInstance", "KManage2")",
+            data: { id: id },
+            type: "post",
+            success: function (result) {
+                showTips({ Type: "success", Message: "删除实例成功！" });
+                datagrid.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                //alert(jqXHR.responseText);
+            }
+        });
+    }
+
+    function tNodeSelect(e) {
+        if (!e.node.IsCategory) {
+            $("#editForm1").css("display", "none");
+            $("#editForm2").css("display", "block");
+            datagrid.load({ tid: e.node.id });
+            templateId = e.node.id;
+            $.ajax({
+                url: "@Url.Action("GetTemplateInfo", "KManage2")",
+                data: { tid: e.node.id },
+                success: function (result) {
+                    if (result != null) {
+                        instanceClass = result.InstanceClass;
+                        $("#span1").text(instanceClass);
+                        if (result.IsDefault) $("#selectDiv").css("display", "none");
+                        else {
+                            $("#selectDiv").css("display", "block");
+                            boCombo.load("@Url.Action("GetBosByBot", "KManage2")" + "?bot=" + instanceClass);
+                        }
+                        console.log(result);
+                    }
+                },
+                error: function (e) {
+                    showTips({ Type: "error", Message: "获取模板类型失败！\n" + e });
+                }
+            });
+        }
+        else {
+            $("#editForm2").css("display", "none");
+            $("#editForm1").css("display", "block");
+            var newtemplateId = e.node.id;
+            if (newtemplateId != templateId) {
+                templateId = newtemplateId;
+                RenderPage();
+        }
+        }
+    }
+
+    function RenderPage() {
+        comboTemplates.load("@Url.Action("GetTemplates", "KManage2")" + "?id=" + templateId);
+        $.ajax({
+            url: "@Url.Action("GetPageManageData", "KManage2")",
+            data: { id: templateId },
+            success: function (result) {
+                if (result != null) {
+                    comboSubSystems.setValue(result.SubSystemId);
+                    comboInstanceClass.setValue(result.InstanceClass);
+                    comboGroupName.setValue(result.GroupName);
+                    comboRObject.setValue(result.RObject);
+                    comboUrls.setValue(result.UrlId);
+                    if (result.DefaultTempId == 0) comboTemplates.setValue("");
+                    else comboTemplates.setValue(result.DefaultTempId);
+                    paramlistbox.removeAll();
+                    treeParam.uncheckAllNodes();
+                    if (result.Params != null) {
+                        paramlistbox.addItems(result.Params);
+                        for (var i = 0; i < result.Params.length; i++) {
+                            var nodes = treeParam.findNodes(function (node) {
+                                if (node.Id == result.Params[i].id) return true;
+                            });
+                            treeParam.checkNode(nodes[0]);
+                        }
+                    }
+                }
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: e });
+            }
+        })
+    }
+
+    function SavePageManage()
+    {
+        var SubSystemId = comboSubSystems.getValue();
+        var InstanceClass = comboInstanceClass.getValue();
+        var GroupName = comboGroupName.getValue();
+        var RObject = comboRObject.getValue();
+        var UrlId = comboUrls.getValue();
+        var DefaultTempId = comboTemplates.getValue();
+        var Params = paramlistbox.data;
+        
+
+        if (templateId == 0) {
+            showTips({ Type: "warning", Message: "请选择一个模板！" });
+        }
+
+        $.ajax({
+            url: "@Url.Action("SavePageManage", "KManage2")",
+            type: "post",
+            data: {
+                id: templateId,
+                SubSystemId: SubSystemId,
+                InstanceClass: InstanceClass,
+                GroupName: GroupName,
+                RObject: RObject,
+                UrlId: UrlId,
+                DefaultTempId: DefaultTempId,
+                Params: mini.encode(Params)               
+            },
+            success: function (result) {
+                showTips({ Type: "success", Message: "保存成功！" });
+                var pNode = treeTemplate.getSelectedNode();
+                var id = pNode.id;
+                var text = pNode.text;
+                treeTemplate.reload()
+                var nodes = treeTemplate.findNodes(function (node) {
+                    if (node.id == id&&node.text == text) return true;
+                });
+                for (var i = 0; i < nodes.length; i++) {
+                    treeTemplate.selectNode(nodes[i]);
+                }
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "保存失败！\n" + e });
+            }
+        })
+    }
+
+    function paramNodeCheck(e) {
+        if (e.checked) {
+            removeRows(e.node);
+        } else {
+            addRows();
+        }
+    }
+
+    function removeRows(node) {
+        if (treeParam.isLeaf(node)) {
+            paramlistbox.removeItems(paramlistbox.findItems(node.Id));
+        }
+        else {
+            var nodes = treeParam.getChildNodes(node);
+            for (var i = 0; i < nodes.length; i++) {
+                removeRows(nodes[i]);
+            }
+        }
+
+    }
+
+    function addRows() {
+        var checkeditems = treeParam.getCheckedNodes(false);
+        for (var i = 0; i < checkeditems.length; i++) {
+            var isExist = paramlistbox.findItems(checkeditems[i].Id);
+            if (isExist.length == 0) {
+                var item = {};
+                item.id = checkeditems[i].Id;
+                item.text = checkeditems[i].Text;
+                paramlistbox.addItem(item);
+            }
+        }
+    }
+
+    function SaveBo() {
+        console.log(boCombo.getValue());
+        var bo = boCombo.getValue();
+        if (bo != null) {
+            $.ajax({
+            url: "@Url.Action("HasTemplate", "KManage2")",
+            type: "post",
+            data: {
+                tid: templateId,
+                instance: bo,
+                instanceClass: instanceClass
+            },
+            success: function (result) {
+                console.log(instanceClass);
+                if (result == "True") {
+                    if (confirm("确认覆盖已有模板？")) {
+                        var pushlist = [];
+                        pushlist.push(bo);
+                        $.ajax({
+                            url: "@Url.Action("SaveInstances", "KManage2")",
+                            data: { tid: templateId, bot: instanceClass, pushlist: mini.encode(pushlist) },
+                            success: function (result) {
+                                showTips({ Type: "success", Message: "保存实例成功！" });
+                            },
+                            error: function (e) {
+                                showTips({ Type: "error", Message: "保存实例失败！\n" + e });
+                            }
+                        })
+                    }
+                } else {
+                    showTips({ Type: "success", Message: "保存实例成功！" });
+                }
+                datagrid.reload();
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "错误！\n" + e });
+            }
+        })
+        }
+    }
+
+    function selectBo() {
+        mini.open({
+            url: "/KManage2/SelectBo?bot=" + instanceClass + "&templateId=" + templateId,
+            allowResize: false,
+            title: "选择" + instanceClass,
+            width: 600,
+            height: 600,
+            onload: function () { },
+            ondestroy: function (action) {
+                datagrid.load({ tid: templateId });
+            }
+
+        });
+    }
+
+    function onIndex() {
+        var node = treeTemplate.getSelectedNode();
+        if (node == null) return;
+        var category = node.text;
+        var categoryid = node.id;
+        var bot = comboInstanceClass.getValue();
+        if (bot == null) {
+            showTips({ Type: "warning", Message: "请先选择实例类型！\n" + e });
+            return;
+        }
+        var pageid = comboUrls.getSelected().code;
+        console.log(pageid);
+        if (pageid == null) {
+            showTips({ Type: "warning", Message: "请先选择展示页面！\n" + e });
+            return;
+        }
+        var groupname = comboGroupName.getValue();
+        if (groupname == null) {
+            showTips({ Type: "warning", Message: "请先选择百科分类！\n" + e });
+            return;
+        }
+        var robject = comboRObject.getValue();
+        if (robject == null) {
+            showTips({ Type: "warning", Message: "请先选择研究目标！\n" + e });
+            return;
+        }
+
+        $.ajax({
+            url: "@Url.Action("IndexTargetBaiKe", "KManage2")",
+            type: "post",
+            data: {
+                category: category,
+                categoryid: categoryid,
+                bot: bot,
+                pageid: pageid,
+                groupname: groupname,
+                robject: robject
+            },
+            success: function (data) {
+                showTips({ Type: "success", Message: "建立索引成功，索引了 " + data + " 条数据！\n" });
+            },
+            error: function (e) {
+                showTips({ Type: "error", Message: "建立索引失败！\n" + e });
+            }
+        })
+    }
+
+    
+</script>

@@ -1,0 +1,209 @@
+﻿@{
+    ViewBag.Title = ResHelper.GetStr("SDMenuTitlePtContext");
+    ViewBag.ShowToolBar = false;
+    ViewBag.ShowSearchBox = false;
+}
+
+<div id="PTContextManage" class="frame-fit" style="width: 100%; height: 100%; margin-top: -10px;">
+    <div class="mini-toolbar" style="border-bottom:0;padding:2px;">
+        <table style="width: 100%; height: 15%">
+            <tr>
+                <td style="white-space:nowrap;">
+                    @Html.Str("PT") <input id="key" class="mini-textbox" style="width:150px;" onenter="onKeyEnter" />
+                    <a class="mini-button" onclick="search" iconcls="icon-new-search" plain="true">@Html.Str("Search")</a>
+                </td>
+                <td> <span class="separator"></span>  </td>
+                <td style="width: 60%; white-space: nowrap; text-align: right">
+                    @Html.Str("Columns")
+                    <input id="columns" class="mini-combobox" style="width:150px;" textfield="SR" valuefield="Field" onvaluechanged="onColumnsChanged"
+                           url="/Semantics/GetPtRelations" />
+                    @Html.Str("Filter_Items")
+                    <input id="filterItems" class="mini-combobox" style="width:150px;" textfield="text" valuefield="id"
+                           multiselect="true" />
+                    <a class="mini-button" onclick="filter" iconcls="icon-filter" plain="true">@Html.Str("Filter")</a>
+                    <a class="mini-button" onclick="clearFilter" iconcls="icon-undo" plain="true">@Html.Str("Clear_Filter")</a>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+    <div id="PTContextGrid" class="mini-datagrid" style="width: 100%; height:93%;" allowresize="true"
+         url="/Semantics/FilterPtContext?pt= & filterItems= & field=" idfield="TermClassId" sizelist="[50,100,200,500]" pagesize="100"
+         allowcelledit="true" allowcellselect="true" oncellbeginedit="OnCellBeginEdit" showcolumnsmenu="true">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="PT" width="150px" headeralign="center">
+                成果类型
+            </div>
+            <div field="BPId" displayfield="BP" name="BP" width="150" headeralign="left">
+                业务过程产生成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="UBPId" displayfield="UBP" name="UBP"  width="150" headeralign="left">
+                业务过程使用的成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="BDId" displayfield="BD" name="BD" width="150" headeralign="left">
+                业务域产生成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="UBDId" displayfield="UBD" name="UBD" width="150" headeralign="left">
+                业务域使用成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="BTId" displayfield="BT" name="BT" width="150" headeralign="left">
+                业务类型产生成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="UBTId" displayfield="UBT" name="UBT" width="150" headeralign="left">
+                业务类型使用成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="BAId" displayfield="BA" name="BA" width="150" headeralign="left">
+                业务活动产生成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="UBAId" displayfield="UBA" name="UBA" width="150" headeralign="left">
+                业务活动使用成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="DSId" displayfield="DS" name="DS" width="150" headeralign="left">
+                学科产生成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="UDSId" displayfield="UDS" name="UDS" width="150" headeralign="left">
+                学科使用成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="UPTId" displayfield="UPT" name="UPT" width="150" headeralign="left">
+                成果类型使用成果类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="TLId" displayfield="TL" name="TL" width="150" headeralign="left">
+                成果类型关联工具
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="GNId" displayfield="GN" name="GN" width="150" headeralign="left">
+                成果类型关联体裁
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="BFId" displayfield="BF" name="BF" width="150" headeralign="left">
+                成果类型描述业务特征
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="BSId" displayfield="BS" name="BS" width="150" headeralign="left">
+                成果类型关联的主题词
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+            <div field="BOTId" displayfield="BOT" name="BOT" width="150" headeralign="left">
+                成果类型描述业务对象类型
+                <input property="editor" class="mini-buttonedit" onbuttonclick="onButtonEdit" style="width:95%;" allowinput="false" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var editCC = "BP";
+    var editSR = "R_BP_CS_PT";
+    var editField = "BPId";
+    var displayfield = "BP";
+    var currentPt = '';
+
+    var success_save = "@Html.Str("Success_Save")";
+    var choose_tree = "@Html.Str("Choose_Tree")";
+
+    mini.parse();
+
+    var grid = mini.get("PTContextGrid");
+    var searchPt = mini.get("key");
+    var selectColumns = mini.get("columns");
+    var filterItems = mini.get("filterItems");
+
+    var allColumns = selectColumns.data;
+    grid.frozenColumns(0, 1);
+    grid.load();
+
+    function saveData(ptId, pt, ccId, ccTerm) {
+        $.ajax({
+            url: "/Semantics/SavePtContext/",
+            data: { ptId: ptId, pt: pt, sr: editSR, ccId: ccId, ccTerm: ccTerm },
+            type: "post",
+            success: function () {
+                mini.showTips({
+                    content: success_save,
+                    state: "success",
+                    x: "center",
+                    y: "center",
+                    timeout: 1500
+                });
+                //grid.reload();
+            },
+            error: function (err) {
+                toastr["error"](err.status + " - " + err.statusText);
+            }
+        });
+    }
+
+    /***************************************************************/
+    function onButtonEdit(e) {
+        var btnEdit = this;
+        mini.open({
+            url: "@Url.Action("TermTree", "Semantics")" + "?cc=" + editCC + "&sr=" + editSR + "&ptid=" + currentPt,
+            showMaxButton: false,
+            title: choose_tree,
+            width: 550,
+            height: 450,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    if (data) {
+                        btnEdit.setValue(data.id);
+                        btnEdit.setText(data.text);
+                        var row = grid.getSelected();
+                        grid.updateRow(row, {
+                            editField: data.id,
+                            displayfield: data.text
+                        });
+                        saveData(row.TermClassId, row.PT, data.id, data.text);
+                    }
+                }
+
+            }
+        });
+    }
+    function OnCellBeginEdit(e) {
+        displayfield = e.column.displayField;
+        editField = e.column.field;
+        editCC = e.column.name.replace("U", "");
+        editSR = e.column.header;
+        currentPt = grid.getRow(e.rowIndex).TermClassId;
+
+    }
+    /***************************************************************/
+
+    function onColumnsChanged() {
+        var column = selectColumns.getValue();
+        filterItems.setUrl("/Semantics/GetTermGroup?pt=" + searchPt.value + "&field=" + column);
+    }
+    /***************************************************************/
+    function search() {
+        var column = selectColumns.getValue();
+        var items = filterItems.getText();
+        grid.load({ pt: searchPt.value, filterItems: items, field: column });
+    }
+    function onKeyEnter() {
+        search();
+    }
+    function clearFilter() {
+        searchPt.setValue("");
+        selectColumns.setValue("");
+        filterItems.setValue("");
+        grid.load({ pt: "", filterItems: "", field: "" });
+    }
+    function filter() {
+        search();
+    }
+</script>

@@ -1,0 +1,483 @@
+﻿@using PKS.Web;
+@{
+    //ViewBag.Title = "展示页面模版注册";
+    ViewBag.Title = ResHelper.GetStr("PKS.PortalMgmt.PageRegister");
+    var apiServiceUrl = this.Context.GetWebApiServiceUrl();
+    var getPageServiceUrl = apiServiceUrl + "/PageService/";//页面服务
+    var getPageGridMatchUrl = getPageServiceUrl + "Match";
+    var getUploadUrl = getPageServiceUrl + "Upload";
+
+}
+<!--上传控件-->
+<link rel="stylesheet" type="text/css" href="~/scripts/webuploader/webuploader.css">
+<script type="text/javascript" src="~/scripts/webuploader/webuploader.js"></script>
+<input id="hidToken" type="hidden" value="@ViewBag.Token" />
+
+<style>
+    .webuploader-pick {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        background: #00b7ee;
+        padding: 0px 10px;
+        color: #fff;
+        text-align: center;
+        border-radius: 3px;
+        overflow: hidden;
+    }
+</style>
+
+<div class="mini-xs mini-sm mini-md mini-md-active">
+    <div class="container-fluid ">
+        <div class="mini-clearfix">
+            <div class="mini-col-12">
+                <div id="pageGrid" class="mini-datagrid frame-fit frame-search-grid" style="width:100%;"
+                     pagesize="10" url="@getPageGridMatchUrl" multiselect="true"
+                     onbeforeload="onBeforeLoadData" onrowdblclick="edit()">
+                    <div property="columns">
+                        <div type="checkcolumn" headeralign="center"></div>
+                        <div type="indexcolumn" headeralign="center">行号</div>
+                        <div field="name" headeralign="center" allowsort="true">名称</div>
+                        <div field="istemplate" width="40" headeralign="center">是否模板</div>
+                        <div field="isbaserender" width="70" headeralign="center">是否基础组件展示</div>
+                        <div field="storagetype" width="40" headeralign="center">存储类型</div>
+                        <div field="contentref" headeralign="center">内容引用</div>
+                        <div field="system" headeralign="center">系统</div>
+                        <div field="showtype" headeralign="center">显示类型</div>
+                        <div field="datatype" headeralign="center">数据类型</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editWindow" class="mini-window" title="Window" style="width:500px;height:350px;"
+     showmaxbutton="false" showcollapsebutton="false" showshadow="true"
+     showtoolbar="true" showfooter="true" showmodal="true" allowresize="false" allowdrag="true">
+
+    <div id="editform" style="padding:10px;">
+        <input name="pageid" class="mini-hidden" />
+        <table border="0" cellpadding="1" cellspacing="2" style="width:100%;">
+            <tr>
+                <td style="width:80px;text-align:right;">名称：</td>
+                <td style="width:300px;">
+                    <input id="txtPageName" name="name" class="mini-textbox" required="true" style="width:100%" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:80px;text-align:right;">是否模板：</td>
+                <td style="width:300px;">
+                    <input name="istemplate" class="mini-checkbox" value="true" style="width:100%" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:80px;text-align:right;">是否基础组件：</td>
+                <td style="width:300px;">
+                    <input name="isbaserender" class="mini-checkbox" style="width:100%" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">存储类型：</td>
+                <td>
+                    <input id="cboStorageType" name="storagetype" class="mini-combobox" value="Url" textField="text" valueField="value" readonly="true" onvaluechanged="onStorageTypeValueChanged" style="width:100%" />
+                </td>
+            </tr>
+
+            <tr id="url_contentref">
+                <td style="text-align:right;">文件路径：</td>
+                <td>
+                    <input id="txturl_contentref" name="contentref" class="mini-textbox" required="true" style="width:100%" />
+                </td>
+            </tr>
+            @*<tr id="file_contentref">
+                    <td style="text-align:right;">文件key：</td>
+                    <td class="btns">
+                        <input id="txtfile_contentref" class="mini-textbox" readonly="readonly" style="float:left;" />
+                        <div id="picker" style="float:left;">选择文件</div>
+                        <button id="ctlBtn" style="float:left;">开始上传</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td id="file_progress"></td>
+                </tr>*@
+            <tr>
+                <td style="text-align:right;">系统：</td>
+                <td>
+                    <input name="system" class="mini-combobox" value="PORTAL" textField="Name" valueField="Code" url="@Url.Action("GetSubSystem")" required="true" style="width:100%" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">显示类型：</td>
+                <td>
+                    <input id="cboshowtype" name="showtype" class="mini-combobox" textField="text" valueField="value" required="true" style="width:100%" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">数据类型：</td>
+                <td>
+                    <input id="cbodatatype" name="datatype" class="mini-combobox" textField="text" valueField="value" required="true" style="width:100%" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!--
+    <div property="toolbar" style="padding:5px;">
+        <input type='button' value='Hide' onclick="hideWindow()" style='vertical-align:middle;' />
+    </div>-->
+    <div property="footer" style="text-align:right;padding:5px;padding-right:15px;">
+        <input type='button' value='确定' onclick="confirmWindow()" style='vertical-align:middle;' />
+        <input type='button' value='取消' onclick="hideWindow()" style='vertical-align:middle;' />
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+    var pageGrid = mini.get('#pageGrid');
+    var editWindow = mini.get("editWindow");
+    //var cboStorageType = mini.get("#cboStorageType");
+    pageGrid.load();
+
+    $(function () {
+        $.ajax({
+            url: "@Url.Action("GetData")",
+            type: "get",
+            headers: getAuthorization(),
+            success: function (data) {
+                if (data) {
+                    var data = JSON.parse(data);
+                    var cboshowtype = mini.get("#cboshowtype");
+                    cboshowtype.setData(data.showtype);
+                    var cbodatatype = mini.get("#cbodatatype");
+                    cbodatatype.setData(data.datatype);
+                    init();
+                }
+            }
+        });
+    });
+
+    function init() {
+        var cboshowtype = mini.get("#cboshowtype");
+        var cboshowtypelist = cboshowtype.getData();
+        for (var i = 0; i < cboshowtypelist.length; i++) {
+            if (cboshowtypelist[i].selected) {
+                cboshowtype.select(i);
+                //$("#cboshowtype").attr("value", cboshowtypelist[i].value);
+                break;
+            }
+        }
+        var cbodatatype = mini.get("#cbodatatype");
+        var cbodatatypelist = cbodatatype.getData();
+        for (var i = 0; i < cbodatatypelist.length; i++) {
+            if (cbodatatypelist[i].selected) {
+                cbodatatype.select(i);
+                //$("#cbodatatype").attr("value", cbodatatypelist[i].value);
+                break;
+            }
+        }
+    }
+
+    function onBeforeLoadData(e) {
+        e.cancel = true;
+        var pageIndex = e.data.pageIndex, pageSize = e.data.pageSize;
+        console.log("pageIndex", pageIndex);
+        var queryData = { From: pageIndex * pageSize, Size: pageSize };
+        var key = $('.frame-search :text').val();
+        key = $.trim(key);
+        if (key) {
+            queryData.Filter = { name: [key] };
+        }
+
+        mini.mask({
+            el: document.body,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        $.ajax({
+            url: "@getPageGridMatchUrl",
+            type: "post",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(queryData),
+            headers: getAuthorization(),
+            success: function (data) {
+                console.log("loadsuccess", data);
+                pageGrid.setTotalCount(data.total);
+                pageGrid.setData(data.values);
+            },
+            complete: function (e) {
+                pageGrid.setPageIndex(pageIndex);
+                pageGrid.setPageSize(pageSize);
+                mini.unmask(document.body);
+            }
+        });
+    }
+
+    function getAuthorization() {
+        var authorization = { "Authorization": "Bear " + "@ViewBag.Token" };
+        return authorization;
+    }
+
+    function edit(grid, row) {
+        var row = row || pageGrid.getSelected();
+        if (row) {
+            editWindow.setTitle("编辑窗口");
+            var form = new mini.Form("#editform");
+            form.reset();
+            form.setData(row);
+            editWindow.methodType = "edit";
+            editWindow.show();
+            //onStorageTypeValueChanged(null, row.storagetype);
+            //mini.get("#txturl_contentref").setValue(row.contentref);
+            //mini.get("#txtfile_contentref").setValue(row.contentref);
+        } else {
+            showTips("warning", "请选中记录！");
+        }
+    }
+
+    function addNew() {
+        editWindow.setTitle("新增窗口");
+        var form = new mini.Form("#editform");
+        form.reset();
+        editWindow.methodType = "add";
+        editWindow.show();
+        init();
+        //onStorageTypeValueChanged(null, "Url");
+        //mini.open({
+        //    url: "Url.Action("Edit")",
+        //    title: "新增",
+        //    width: 500,
+        //    height: 400
+        //});
+    }
+
+    function onStorageTypeValueChanged(e, field) {
+        var value = field;
+        if (e) {
+            value = e.value;
+        }
+        switch (value) {
+            case "Url":
+                $("#url_contentref").show();
+                $("#file_contentref").hide();
+                break;
+            case "File":
+                $("#url_contentref").hide();
+                $("#file_contentref").show();
+                break;
+            default:
+        }
+        $(window).resize();
+    }
+
+    function hideWindow() {
+        editWindow.hide();
+    }
+
+    function confirmWindow() {
+        var form = new mini.Form("#editform");
+        form.validate();
+        if (form.isValid() == false) return;
+
+        var data = form.getData(true, false);
+
+        var path = "Save";
+        if (editWindow.methodType == "add") {
+            path = "InsertMany";
+        } else {
+            path = "SaveMany";
+        }
+
+        var values = [];
+        values.push(data);
+        $.ajax({
+            url: "@getPageServiceUrl" + path,
+            type: "post",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ Values: values }),
+            headers: getAuthorization(),
+            success: function (text) {
+                toastr["success"]("保存成功", "提示");
+                reloadData();
+                editWindow.hide();
+            }
+        });
+    }
+
+    $.regButton({
+        text: "@JStr.Edit",
+        noSubmit: edit
+    });
+
+    $.regButton({
+        text: "@JStr.Add",
+        noSubmit: addNew
+    });
+
+    function reloadData() {
+        pageGrid.reload();
+    }
+
+    function getSelectedIds() {
+        var idArr = [];
+        var rows = pageGrid.getSelecteds();
+        for (var i = 0; i < rows.length; i++) {
+            idArr.push(rows[i].pageid);
+        }
+        return idArr;
+    }
+
+    $.regButton({
+        text: "@JStr.Delete",
+        noSubmit: function (ajax) {
+            var ids = getSelectedIds();
+            if (ids.length == 0) {
+                showTips("warning", "请选中记录！");
+                return false;
+            }
+            mini.confirm("@JStr.ConfirmDelete", "系统提示",
+                function (action) {
+                    if (action == "ok") {
+                        $.ajax({
+                            url: "@getPageServiceUrl" + "DeleteMany",
+                            type: "POST",
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(ids),
+                            headers: getAuthorization(),
+                            success: function (text) {
+                                toastr["success"]("删除成功", "提示");
+                                reloadData();
+                            }
+                        });
+                    }
+                }
+            )
+        }
+    });
+
+    $(function () {
+        var $list = $("#thelist");
+        var $btn = $("#ctlBtn");
+        var chunkSize = 3 * 1024 * 1024;
+
+        var uploader = WebUploader.create({
+            swf: '/scripts/webuploader/Uploader.swf',// swf文件路径
+            server: "@getUploadUrl",@*// '@Url.Action("Upload")',// 文件接收服务端。*@
+            pick: { id: '#picker', multiple: false }, // 选择文件的按钮。可选。内部根据当前运行是创建，可能是input元素，也可能是flash.
+            resize: false,// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            chunked: true,//支持分片
+            formData: { guid: 'guid' },
+            //fileNumLimit: 1,
+            chunkSize: chunkSize//分片大小（3M）
+        });
+
+
+        // 当文件被加入队列以后触发。
+        uploader.on('fileQueued', function (file) {
+            var txtPageName = mini.get('#txtPageName');
+            var pagename = txtPageName.getValue();
+            if (!pagename || pagename.length == 0) {
+                txtPageName.setValue(file.name);
+            }
+            uploader.options.formData.guid = WebUploader.Base.guid();
+            //mini.mask({
+            //    el: document.body,
+            //    cls: 'mini-mask-loading',
+            //    html: '文件加载中...'
+            //});
+            //var start = new Date().getTime();
+            //uploader.md5File(file).progress(function (percentage) {
+            //    console.log('md5-percentage:', percentage);// 及时显示进度
+            //}).then(function (val) {
+            //    console.log("总耗时&MD5 " + ((new Date().getTime()) - start) / 1000, val);
+            //    uploader.options.formData.md5 = val;
+            //    mini.unmask(document.body);
+            //});
+        });
+
+        // 当文件被加入队列以后触发。
+        uploader.on('filesQueued', function (file) {
+            console.log('fileQueued', file);
+        });
+
+        //某个文件开始上传前触发，一个文件只会触发一次。
+        uploader.on('uploadStart', function (file) {
+            console.log('uploadStart', file);
+        });
+
+        //当某个文件的分块在发送前触发
+        uploader.on('uploadBeforeSend', function (object, data, headers) {
+            console.log('uploadBeforeSend-obj', object);
+            console.log('uploadBeforeSend-requestdata', data);
+            console.log('uploadBeforeSend-headers', headers);
+            if (object.chunks == 1) {
+                //单文件
+                data.guid = "";
+            }
+        });
+
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#file_progress'),
+                $percent = $li.find('.progress .progress-bar');
+
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<div class="progress progress-striped active">' +
+                  '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                  '</div>' +
+                '</div>').appendTo($li).find('.progress-bar');
+            }
+            $percent.css('width', percentage * 100 + '%');
+        });
+
+        uploader.on('uploadSuccess', function (file, response) {
+            console.log('uploadSuccess-file', file);
+            console.log('uploadSuccess-response', response);
+            var chunksTotal = 0;
+            if ((chunksTotal = Math.ceil(file.size / chunkSize)) > 1) {
+                $.ajax({
+                    type: "Post",
+                    url: "@getUploadUrl",
+                    data: {
+                        fileName: file.name,
+                        guid: uploader.options.formData.guid,
+                        chunk: 2,
+                        chunks: 2
+                    },
+                    headers: getAuthorization(),
+                    success: function (data) {
+                        //分片合并后返回值
+
+                    },
+                    complete: function (e) {
+
+                    }
+                });
+            } else {
+                //response单文件返回值
+            }
+        });
+
+        uploader.on('uploadError', function (file) {
+            console.log('uploadError', file);
+        });
+
+        uploader.on('uploadComplete', function (file) {
+            console.log('uploadComplete', file);
+            $('#file_progress').find('.progress').fadeOut();
+            uploader.reset();//重置
+            $('#ctlBtn').removeAttr("disabled");
+        });
+
+        $btn.click(function () {
+            console.log('upload', uploader.getFiles());
+            if (uploader.getFiles().length > 0) {
+                uploader.upload();
+                $('#ctlBtn').attr('disabled', 'disabled');
+            }
+        });
+
+    });
+</script>
