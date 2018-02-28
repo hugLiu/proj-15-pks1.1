@@ -1,0 +1,142 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "圈闭要素表",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "showtype.keyword": "Html"
+              }
+            },
+            {
+              "term": {
+                "pt.keyword": "圈闭要素表"
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": "1",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "圈闭潜在资源量表-原油",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "showtype.keyword": "Html"
+              }
+            },
+            {
+              "term": {
+                "pt.keyword": "圈闭原油资源量表"
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": "1",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "圈闭潜在资源量表-天然气",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "showtype.keyword": "Html"
+              }
+            },
+            {
+              "term": {
+                "pt.keyword": "圈闭天然气资源量表"
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": "1",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+  "grid": "G4",
+  "title": "圈闭评价报告",
+  "query": {
+    "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "term": {
+              "pt.keyword": "圈闭评价报告"
+            }
+          },
+          {
+            "term": {
+              "trap.keyword": "@trap"
+            }
+          }
+        ]
+      }
+    },
+    "size": "1000",
+    "sort": [
+      {
+        "indexeddate": {
+          "order": "desc"
+        }
+      }
+    ]
+  }
+}
+]
+

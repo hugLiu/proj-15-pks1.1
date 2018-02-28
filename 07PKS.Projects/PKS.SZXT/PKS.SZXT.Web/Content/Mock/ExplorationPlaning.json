@@ -1,0 +1,2600 @@
+﻿[
+  {
+    "modular": "M1_1",
+    "pt": "勘探规划过滤条件",
+    "data": [
+      {
+        "fiveplan": "十一五",
+        "year": [ 2006, 2007, 2008, 2009, 2010 ]
+      },
+      {
+        "fiveplan": "十二五",
+        "year": [ 2011, 2012, 2013, 2014, 2015 ]
+      },
+      {
+        "fiveplan": "十三五",
+        "year": [ 2016, 2017 ]
+      }
+    ]
+  },
+  {
+    "modular": "M2_1_1",
+    "pt": "历年勘探工作量及储量增长数据",
+    "data": [
+      {
+        "tablename": "历年勘探工作量及储量增长数据",
+        "header": [
+          [
+            {
+              "field": "Year",
+              "align": "center",
+              "rowspan": 2,
+              "title": "年度"
+            },
+            {
+              "field": "2D",
+              "align": "center",
+              "colspan": 2,
+              "title": "二维(km)"
+            },
+            {
+              "field": "3D",
+              "align": "center",
+              "colspan": 2,
+              "title": "三维(km2)"
+            },
+            {
+              "field": "Workload",
+              "align": "center",
+              "colspan": 6,
+              "title": "钻井工作量"
+            },
+            {
+              "field": "3Oil",
+              "align": "center",
+              "colspan": 2,
+              "title": "三级原油(万方)"
+            },
+            {
+              "field": "3Gas",
+              "align": "center",
+              "colspan": 2,
+              "title": "三级天然气(亿方)"
+            },
+            {
+              "field": "ProvenOil",
+              "align": "center",
+              "colspan": 2,
+              "title": "探明原油(万方)"
+            },
+            {
+              "field": "ProvenGas",
+              "align": "center",
+              "colspan": 2,
+              "title": "探明天然气(亿方)"
+            }
+          ],
+          [
+            {
+              "field": "2DProprietary",
+              "title": "自营"
+            },
+            {
+              "field": "2DCooperation",
+              "title": "合作"
+            },
+            {
+              "field": "3DProprietary",
+              "title": "自营"
+            },
+            {
+              "field": "3DCooperation",
+              "title": "合作"
+            },
+            {
+              "field": "WorkloadProprietary",
+              "title": "自营"
+            },
+            {
+              "field": "WorkloadCooperation",
+              "title": "合作"
+            },
+            {
+              "field": "ForOil",
+              "title": "找油目的"
+            },
+            {
+              "field": "ForGas",
+              "title": "找气目的"
+            },
+            {
+              "field": "DeepWell",
+              "title": "深水井"
+            },
+            {
+              "field": "ShallowWell",
+              "title": "浅水井"
+            },
+            {
+              "field": "3OilProprietary",
+              "title": "自营"
+            },
+            {
+              "field": "3OilCooperation",
+              "title": "合作"
+            },
+            {
+              "field": "3GasProprietary",
+              "title": "自营"
+            },
+            {
+              "field": "3GasCooperation",
+              "title": "合作"
+            },
+            {
+              "field": "ProvenOilProprietary",
+              "title": "自营"
+            },
+            {
+              "field": "ProvenOilCooperation",
+              "title": "合作"
+            },
+            {
+              "field": "ProvenGasProprietary",
+              "title": "自营"
+            },
+            {
+              "field": "ProvenGasCooperation",
+              "title": "合作"
+            }
+          ]
+        ],
+        "columns": [
+          {
+            "field": "Year",
+            "type": "string"
+          },
+          {
+            "field": "2DProprietary",
+            "type": "number"
+          },
+          {
+            "field": "2DCooperation",
+            "type": "number"
+          },
+          {
+            "field": "3DProprietary",
+            "type": "number"
+          },
+          {
+            "field": "3DCooperation",
+            "type": "number"
+          },
+          {
+            "field": "WorkloadProprietary",
+            "type": "number"
+          },
+          {
+            "field": "WorkloadCooperation",
+            "type": "number"
+          },
+          {
+            "field": "ForOil",
+            "type": "number"
+          },
+          {
+            "field": "ForGas",
+            "type": "number"
+          },
+          {
+            "field": "DeepWell",
+            "type": "number"
+          },
+          {
+            "field": "ShallowWell",
+            "type": "number"
+          },
+          {
+            "field": "3OilProprietary",
+            "type": "number"
+          },
+          {
+            "field": "3OilCooperation",
+            "type": "number"
+          },
+          {
+            "field": "3GasProprietary",
+            "type": "number"
+          },
+          {
+            "field": "3GasCooperation",
+            "type": "number"
+          },
+          {
+            "field": "ProvenOilProprietary",
+            "type": "number"
+          },
+          {
+            "field": "ProvenOilCooperation",
+            "type": "number"
+          },
+          {
+            "field": "ProvenGasProprietary",
+            "type": "number"
+          },
+          {
+            "field": "ProvenGasCooperation",
+            "type": "number"
+          }
+        ],
+        "rows": [
+          [
+            "2016",
+            1,
+            1,
+            3444,
+            1650,
+            20,
+            1,
+            13,
+            8,
+            10,
+            11,
+            1130,
+            100,
+            12,
+            3,
+            5000,
+            2000,
+            30,
+            12
+          ],
+          [
+            "2015",
+            2,
+            2,
+            3444,
+            1650,
+            20,
+            1,
+            13,
+            8,
+            10,
+            11,
+            1130,
+            100,
+            12,
+            3,
+            5000,
+            2000,
+            30,
+            12
+          ],
+          [
+            "2014",
+            1,
+            1,
+            3444,
+            1650,
+            20,
+            1,
+            13,
+            8,
+            10,
+            11,
+            1130,
+            100,
+            12,
+            3,
+            5000,
+            2000,
+            30,
+            12
+          ],
+          [
+            "合计",
+            4,
+            4,
+            3444,
+            1650,
+            20,
+            1,
+            13,
+            8,
+            10,
+            11,
+            1130,
+            100,
+            12,
+            3,
+            5000,
+            2000,
+            30,
+            12
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "M1_2_1",
+    "pt": "深水区原油勘探成效统计表（探明储量）",
+    "data": [
+      {
+        "tablename": "深水区原油勘探成效统计表（探明储量）",
+        "header": [
+          [
+            {
+              "field": "Year",
+              "align": "center",
+              "rowspan": 2,
+              "title": "年度"
+            },
+            {
+              "field": "Proprietary",
+              "align": "center",
+              "colspan": 5,
+              "title": "自营"
+            },
+            {
+              "field": "Cooperation",
+              "align": "center",
+              "colspan": 5,
+              "title": "合作"
+            },
+            {
+              "field": "Total",
+              "align": "center",
+              "colspan": 5,
+              "title": "合计"
+            }
+          ],
+          [
+            {
+              "field": "Proprietary1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Proprietary2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Proprietary3",
+              "title": "五年探明储量（万吨）"
+            },
+            {
+              "field": "Proprietary4",
+              "title": "五年单井勘探成效（万吨/口）"
+            },
+            {
+              "field": "Proprietary5",
+              "title": "进尺成效（吨/米）"
+            },
+            {
+              "field": "Cooperation1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Cooperation2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Cooperation3",
+              "title": "五年探明储量（万吨）"
+            },
+            {
+              "field": "Cooperation4",
+              "title": "五年单井勘探成效（万吨/口）"
+            },
+            {
+              "field": "Cooperation5",
+              "title": "进尺成效（吨/米）"
+            },
+            {
+              "field": "Total1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Total2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Total3",
+              "title": "五年探明储量（万吨）"
+            },
+            {
+              "field": "Total4",
+              "title": "五年单井勘探成效（万吨/口）"
+            },
+            {
+              "field": "Total5",
+              "title": "进尺成效（吨/米）"
+            }
+          ]
+        ],
+        "columns": [
+          {
+            "field": "Year",
+            "type": "string"
+          },
+          {
+            "field": "Proprietary1",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary2",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary3",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary4",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary5",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation1",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation2",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation3",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation4",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation5",
+            "type": "number"
+          },
+          {
+            "field": "Total1",
+            "type": "number"
+          },
+          {
+            "field": "Total2",
+            "type": "number"
+          },
+          {
+            "field": "Total3",
+            "type": "number"
+          },
+          {
+            "field": "Total4",
+            "type": "number"
+          },
+          {
+            "field": "Total5",
+            "type": "number"
+          }
+        ],
+        "rows": [
+          [
+            "十二五（2011-2015）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "十一五（2006-2010）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "十五（2001-2005）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "九五（1996-2000）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "M1_2_2",
+    "pt": "深水原油单井勘探成效",
+    "data": {
+      "setting": {
+        "title": "深水原油单井勘探成效",
+        "smooth": true,
+        "defaultchart": "bar",
+        "chart": [ ],
+        "legend": [ "自营", "合作", "合计" ],
+        "yaxiscaption": "万吨（口）",
+        "xaxisfield": "Date"
+      },
+      "columns": [
+        {
+          "field": "Date",
+          "title": "时间",
+          "type": "String",
+          "format": ""
+        },
+        {
+          "field": "Proprietary",
+          "title": "自营",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "Cooperation",
+          "title": "合作",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "Total",
+          "title": "合计",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ "六五", 90, 100, 110 ],
+        [ "七五", 90, 110, 110 ],
+        [ "八五", 90, 120, 110 ],
+        [ "九五", 90, 130, 110 ],
+        [ "十五", 90, 140, 110 ],
+        [ "十一五", 90, 150, 110 ],
+        [ "十二五", 90, 160, 110 ]
+      ]
+    }
+  },
+  {
+    "modular": "M1_2_3",
+    "pt": "深水区天然气勘探成效统计表（探明储量）",
+    "data": [
+      {
+        "tablename": "深水区天然气勘探成效统计表（探明储量）",
+        "header": [
+          [
+            {
+              "field": "Year",
+              "align": "center",
+              "rowspan": 2,
+              "title": "年度"
+            },
+            {
+              "field": "Proprietary",
+              "align": "center",
+              "colspan": 5,
+              "title": "自营"
+            },
+            {
+              "field": "Cooperation",
+              "align": "center",
+              "colspan": 5,
+              "title": "合作"
+            },
+            {
+              "field": "Total",
+              "align": "center",
+              "colspan": 5,
+              "title": "合计"
+            }
+          ],
+          [
+            {
+              "field": "Proprietary1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Proprietary2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Proprietary3",
+              "title": "五年探明储量（亿方）"
+            },
+            {
+              "field": "Proprietary4",
+              "title": "五年单井勘探成效（亿方/口）"
+            },
+            {
+              "field": "Proprietary5",
+              "title": "进尺成效（亿方/米）"
+            },
+            {
+              "field": "Cooperation1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Cooperation2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Cooperation3",
+              "title": "五年探明储量（亿方）"
+            },
+            {
+              "field": "Cooperation4",
+              "title": "五年单井勘探成效（亿方/口）"
+            },
+            {
+              "field": "Cooperation5",
+              "title": "进尺成效（亿方/米）"
+            },
+            {
+              "field": "Total1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Total2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Total3",
+              "title": "五年探明储量（亿方）"
+            },
+            {
+              "field": "Total4",
+              "title": "五年单井勘探成效（亿方/口）"
+            },
+            {
+              "field": "Total5",
+              "title": "进尺成效（亿方/米）"
+            }
+          ]
+        ],
+        "columns": [
+          {
+            "field": "Year",
+            "type": "string"
+          },
+          {
+            "field": "Proprietary1",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary2",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary3",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary4",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary5",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation1",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation2",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation3",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation4",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation5",
+            "type": "number"
+          },
+          {
+            "field": "Total1",
+            "type": "number"
+          },
+          {
+            "field": "Total2",
+            "type": "number"
+          },
+          {
+            "field": "Total3",
+            "type": "number"
+          },
+          {
+            "field": "Total4",
+            "type": "number"
+          },
+          {
+            "field": "Total5",
+            "type": "number"
+          }
+        ],
+        "rows": [
+          [
+            "十二五（2011-2015）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "十一五（2006-2010）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "十五（2001-2005）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "九五（1996-2000）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "M1_02_1",
+    "pt": "浅水区原油勘探成效统计表（探明储量）",
+    "data": [
+      {
+        "tablename": "浅水区原油勘探成效统计表（探明储量）",
+        "header": [
+          [
+            {
+              "field": "Year",
+              "align": "center",
+              "rowspan": 2,
+              "title": "年度"
+            },
+            {
+              "field": "Proprietary",
+              "align": "center",
+              "colspan": 5,
+              "title": "自营"
+            },
+            {
+              "field": "Cooperation",
+              "align": "center",
+              "colspan": 5,
+              "title": "合作"
+            },
+            {
+              "field": "Total",
+              "align": "center",
+              "colspan": 5,
+              "title": "合计"
+            }
+          ],
+          [
+            {
+              "field": "Proprietary1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Proprietary2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Proprietary3",
+              "title": "五年探明储量（万吨）"
+            },
+            {
+              "field": "Proprietary4",
+              "title": "五年单井勘探成效（万吨/口）"
+            },
+            {
+              "field": "Proprietary5",
+              "title": "进尺成效（吨/米）"
+            },
+            {
+              "field": "Cooperation1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Cooperation2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Cooperation3",
+              "title": "五年探明储量（万吨）"
+            },
+            {
+              "field": "Cooperation4",
+              "title": "五年单井勘探成效（万吨/口）"
+            },
+            {
+              "field": "Cooperation5",
+              "title": "进尺成效（吨/米）"
+            },
+            {
+              "field": "Total1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Total2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Total3",
+              "title": "五年探明储量（万吨）"
+            },
+            {
+              "field": "Total4",
+              "title": "五年单井勘探成效（万吨/口）"
+            },
+            {
+              "field": "Total5",
+              "title": "进尺成效（吨/米）"
+            }
+          ]
+        ],
+        "columns": [
+          {
+            "field": "Year",
+            "type": "string"
+          },
+          {
+            "field": "Proprietary1",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary2",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary3",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary4",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary5",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation1",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation2",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation3",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation4",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation5",
+            "type": "number"
+          },
+          {
+            "field": "Total1",
+            "type": "number"
+          },
+          {
+            "field": "Total2",
+            "type": "number"
+          },
+          {
+            "field": "Total3",
+            "type": "number"
+          },
+          {
+            "field": "Total4",
+            "type": "number"
+          },
+          {
+            "field": "Total5",
+            "type": "number"
+          }
+        ],
+        "rows": [
+          [
+            "十二五（2011-2015）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "十一五（2006-2010）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "十五（2001-2005）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "九五（1996-2000）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "M1_02_2",
+    "pt": "浅水区天然气勘探成效统计表（探明储量）",
+    "data": [
+      {
+        "tablename": "浅水区天然气勘探成效统计表（探明储量）",
+        "header": [
+          [
+            {
+              "field": "Year",
+              "align": "center",
+              "rowspan": 2,
+              "title": "年度"
+            },
+            {
+              "field": "Proprietary",
+              "align": "center",
+              "colspan": 5,
+              "title": "自营"
+            },
+            {
+              "field": "Cooperation",
+              "align": "center",
+              "colspan": 5,
+              "title": "合作"
+            },
+            {
+              "field": "Total",
+              "align": "center",
+              "colspan": 5,
+              "title": "合计"
+            }
+          ],
+          [
+            {
+              "field": "Proprietary1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Proprietary2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Proprietary3",
+              "title": "五年探明储量（亿方）"
+            },
+            {
+              "field": "Proprietary4",
+              "title": "五年单井勘探成效（亿方/口）"
+            },
+            {
+              "field": "Proprietary5",
+              "title": "进尺成效（亿方/米）"
+            },
+            {
+              "field": "Cooperation1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Cooperation2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Cooperation3",
+              "title": "五年探明储量（亿方）"
+            },
+            {
+              "field": "Cooperation4",
+              "title": "五年单井勘探成效（亿方/口）"
+            },
+            {
+              "field": "Cooperation5",
+              "title": "进尺成效（亿方/米）"
+            },
+            {
+              "field": "Total1",
+              "title": "五年钻井数（口）"
+            },
+            {
+              "field": "Total2",
+              "title": "五年自营进尺（米）"
+            },
+            {
+              "field": "Total3",
+              "title": "五年探明储量（亿方）"
+            },
+            {
+              "field": "Total4",
+              "title": "五年单井勘探成效（亿方/口）"
+            },
+            {
+              "field": "Total5",
+              "title": "进尺成效（亿方/米）"
+            }
+          ]
+        ],
+        "columns": [
+          {
+            "field": "Year",
+            "type": "string"
+          },
+          {
+            "field": "Proprietary1",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary2",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary3",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary4",
+            "type": "number"
+          },
+          {
+            "field": "Proprietary5",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation1",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation2",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation3",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation4",
+            "type": "number"
+          },
+          {
+            "field": "Cooperation5",
+            "type": "number"
+          },
+          {
+            "field": "Total1",
+            "type": "number"
+          },
+          {
+            "field": "Total2",
+            "type": "number"
+          },
+          {
+            "field": "Total3",
+            "type": "number"
+          },
+          {
+            "field": "Total4",
+            "type": "number"
+          },
+          {
+            "field": "Total5",
+            "type": "number"
+          }
+        ],
+        "rows": [
+          [
+            "十二五（2011-2015）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "十一五（2006-2010）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "十五（2001-2005）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "九五（1996-2000）",
+            32,
+            90921,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "M1_3_1",
+    "pt": "待探明地质资源量",
+    "data": [
+      {
+        "tablename": "待探明地质资源量",
+        "header": [
+          [
+            {
+              "field": "Resources",
+              "align": "center",
+              "colspan": 2,
+              "title": "油气资源量\坳陷\凹陷名称"
+            },
+            {
+              "field": "enping",
+              "align": "center",
+              "rowspan": 2,
+              "title": "恩平"
+            },
+            {
+              "field": "xijiang",
+              "align": "center",
+              "rowspan": 2,
+              "title": "西江"
+            },
+            {
+              "field": "huizhou",
+              "align": "center",
+              "rowspan": 2,
+              "title": "惠州"
+            },
+            {
+              "field": "lufeng",
+              "align": "center",
+              "rowspan": 2,
+              "title": "陆丰"
+            },
+            {
+              "field": "hanjiang",
+              "align": "center",
+              "rowspan": 2,
+              "title": "韩江"
+            },
+            {
+              "field": "zycanwa",
+              "align": "center",
+              "rowspan": 2,
+              "title": "中央残洼"
+            },
+            {
+              "field": "kaiping",
+              "align": "center",
+              "rowspan": 2,
+              "title": "开平"
+            },
+            {
+              "field": "kp-sd",
+              "align": "center",
+              "rowspan": 2,
+              "title": "开平西-顺德"
+            },
+            {
+              "field": "baiyunN",
+              "align": "center",
+              "rowspan": 2,
+              "title": "白云北"
+            },
+            {
+              "field": "baiyunS",
+              "align": "center",
+              "rowspan": 2,
+              "title": "白云南"
+            },
+            {
+              "field": "liwan",
+              "align": "center",
+              "rowspan": 2,
+              "title": "荔湾"
+            },
+            {
+              "field": "xingning",
+              "align": "center",
+              "rowspan": 2,
+              "title": "兴宁"
+            },
+            {
+              "field": "UDeepWater",
+              "align": "center",
+              "rowspan": 2,
+              "title": "超深水"
+            },
+            {
+              "field": "chaoshan",
+              "align": "center",
+              "rowspan": 2,
+              "title": "潮汕"
+            },
+            {
+              "field": "Total",
+              "align": "center",
+              "rowspan": 2,
+              "title": "合计"
+            },
+            {
+              "field": "shallowwater",
+              "align": "center",
+              "rowspan": 2,
+              "title": "浅水"
+            },
+            {
+              "field": "deepwater",
+              "align": "center",
+              "rowspan": 2,
+              "title": "深水"
+            }
+          ],
+          [
+            {
+              "field": "resourcetype",
+              "title": "资源类型"
+            },
+            {
+              "field": "totaltype",
+              "title": "统计方式"
+            }
+          ]
+        ],
+        "columns": [
+          {
+            "field": "resourcetype",
+            "type": "string"
+          },
+          {
+            "field": "totaltype",
+            "type": "string"
+          },
+          {
+            "field": "enping",
+            "type": "number"
+          },
+          {
+            "field": "xijiang",
+            "type": "number"
+          },
+          {
+            "field": "huizhou",
+            "type": "number"
+          },
+          {
+            "field": "lufeng",
+            "type": "number"
+          },
+          {
+            "field": "hanjiang",
+            "type": "number"
+          },
+          {
+            "field": "zycanwa",
+            "type": "number"
+          },
+          {
+            "field": "kaiping",
+            "type": "number"
+          },
+          {
+            "field": "kp-sd",
+            "type": "number"
+          },
+          {
+            "field": "baiyunN",
+            "type": "number"
+          },
+          {
+            "field": "baiyunS",
+            "type": "number"
+          },
+          {
+            "field": "liwan",
+            "type": "number"
+          },
+          {
+            "field": "xingning",
+            "type": "number"
+          },
+          {
+            "field": "UDeepWater",
+            "type": "number"
+          },
+          {
+            "field": "chaoshan",
+            "type": "number"
+          },
+          {
+            "field": "Total",
+            "type": "number"
+          },
+          {
+            "field": "shallowwater",
+            "type": "number"
+          },
+          {
+            "field": "deepwater",
+            "type": "number"
+          }
+        ],
+        "rows": [
+          [
+            "原油",
+            "总地质资源量(万吨)",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ],
+          [
+            "原油",
+            "待探明地质资源量(万吨)",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ],
+          [
+            "原油",
+            "已探明储量(万吨)",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ],
+          [
+            "原油",
+            "已发现三级储量(万吨)",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ],
+          [
+            "原油",
+            "地质探明率（%）",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ],
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "M1_3_2",
+    "pt": "待探明地质资源量",
+    "data": [
+      {
+        "tablename": "待探明地质资源量",
+        "header": [
+          [
+            {
+              "field": "Resources",
+              "align": "center",
+              "colspan": 2,
+              "title": "油气资源量\坳陷\凹陷名称"
+            },
+            {
+              "field": "enping",
+              "align": "center",
+              "rowspan": 2,
+              "title": "恩平"
+            },
+            {
+              "field": "xijiang",
+              "align": "center",
+              "rowspan": 2,
+              "title": "西江"
+            },
+            {
+              "field": "huizhou",
+              "align": "center",
+              "rowspan": 2,
+              "title": "惠州"
+            },
+            {
+              "field": "lufeng",
+              "align": "center",
+              "rowspan": 2,
+              "title": "陆丰"
+            },
+            {
+              "field": "hanjiang",
+              "align": "center",
+              "rowspan": 2,
+              "title": "韩江"
+            },
+            {
+              "field": "zycanwa",
+              "align": "center",
+              "rowspan": 2,
+              "title": "中央残洼"
+            },
+            {
+              "field": "kaiping",
+              "align": "center",
+              "rowspan": 2,
+              "title": "开平"
+            },
+            {
+              "field": "kp-sd",
+              "align": "center",
+              "rowspan": 2,
+              "title": "开平西-顺德"
+            },
+            {
+              "field": "baiyunN",
+              "align": "center",
+              "rowspan": 2,
+              "title": "白云北"
+            },
+            {
+              "field": "baiyunS",
+              "align": "center",
+              "rowspan": 2,
+              "title": "白云南"
+            },
+            {
+              "field": "liwan",
+              "align": "center",
+              "rowspan": 2,
+              "title": "荔湾"
+            },
+            {
+              "field": "xingning",
+              "align": "center",
+              "rowspan": 2,
+              "title": "兴宁"
+            },
+            {
+              "field": "UDeepWater",
+              "align": "center",
+              "rowspan": 2,
+              "title": "超深水"
+            },
+            {
+              "field": "chaoshan",
+              "align": "center",
+              "rowspan": 2,
+              "title": "潮汕"
+            },
+            {
+              "field": "Total",
+              "align": "center",
+              "rowspan": 2,
+              "title": "合计"
+            },
+            {
+              "field": "shallowwater",
+              "align": "center",
+              "rowspan": 2,
+              "title": "浅水"
+            },
+            {
+              "field": "deepwater",
+              "align": "center",
+              "rowspan": 2,
+              "title": "深水"
+            }
+          ],
+          [
+            {
+              "field": "resourcetype",
+              "title": "资源类型"
+            },
+            {
+              "field": "totaltype",
+              "title": "统计方式"
+            }
+          ]
+        ],
+        "columns": [
+          {
+            "field": "resourcetype",
+            "type": "string"
+          },
+          {
+            "field": "totaltype",
+            "type": "string"
+          },
+          {
+            "field": "enping",
+            "type": "number"
+          },
+          {
+            "field": "xijiang",
+            "type": "number"
+          },
+          {
+            "field": "huizhou",
+            "type": "number"
+          },
+          {
+            "field": "lufeng",
+            "type": "number"
+          },
+          {
+            "field": "hanjiang",
+            "type": "number"
+          },
+          {
+            "field": "zycanwa",
+            "type": "number"
+          },
+          {
+            "field": "kaiping",
+            "type": "number"
+          },
+          {
+            "field": "kp-sd",
+            "type": "number"
+          },
+          {
+            "field": "baiyunN",
+            "type": "number"
+          },
+          {
+            "field": "baiyunS",
+            "type": "number"
+          },
+          {
+            "field": "liwan",
+            "type": "number"
+          },
+          {
+            "field": "xingning",
+            "type": "number"
+          },
+          {
+            "field": "UDeepWater",
+            "type": "number"
+          },
+          {
+            "field": "chaoshan",
+            "type": "number"
+          },
+          {
+            "field": "Total",
+            "type": "number"
+          },
+          {
+            "field": "shallowwater",
+            "type": "number"
+          },
+          {
+            "field": "deepwater",
+            "type": "number"
+          }
+        ],
+        "rows": [
+          [
+            "天然气",
+            "总地质资源量(万吨)",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ],
+          [
+            "天然气",
+            "待探明地质资源量(万吨)",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ],
+          [
+            "天然气",
+            "已探明储量(万吨)",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ],
+          [
+            "天然气",
+            "已发现三级储量(万吨)",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ],
+          [
+            "天然气",
+            "地质探明率（%）",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "M1_4_1",
+    "pt": "勘探工作量及投资成本",
+    "data": [
+      {
+        "tablename": "勘探工作量及投资成本",
+        "header": [
+          [
+            {
+              "field": "Year",
+              "align": "center",
+              "rowspan": 3,
+              "title": "年度"
+            },
+            {
+              "field": "workAttribute",
+              "align": "center",
+              "rowspan": 3,
+              "title": "作业属性"
+            },
+            {
+              "field": "2D",
+              "align": "center",
+              "colspan": 3,
+              "title": "二维地震"
+            },
+            {
+              "field": "3D",
+              "align": "center",
+              "colspan": 3,
+              "title": "三维地震"
+            },
+            {
+              "field": "well",
+              "align": "center",
+              "colspan": 5,
+              "title": "探井"
+            },
+            {
+              "field": "nonSeismic",
+              "align": "center",
+              "rowspan": 2,
+              "title": "非地震物探投资"
+            },
+            {
+              "field": "other",
+              "align": "center",
+              "rowspan": 2,
+              "title": "其它投资"
+            },
+            {
+              "field": "total",
+              "align": "center",
+              "rowspan": 2,
+              "title": "勘探总投资"
+            }
+          ],
+          [
+            {
+              "field": "2Dwork",
+              "align": "center",
+              "title": "工作量"
+            },
+            {
+              "field": "2Dunitcost",
+              "align": "center",
+              "title": "单位成本"
+            },
+            {
+              "field": "2Dinvest",
+              "align": "center",
+              "title": "投资"
+            },
+            {
+              "field": "3Dwork",
+              "align": "center",
+              "title": "工作量"
+            },
+            {
+              "field": "3Dunitcost",
+              "align": "center",
+              "title": "单位成本"
+            },
+            {
+              "field": "3Dinvest",
+              "align": "center",
+              "title": "投资"
+            },
+            {
+              "field": "workNum",
+              "align": "center",
+              "title": "井数"
+            },
+            {
+              "field": "wellfootage",
+              "align": "center",
+              "title": "进尺"
+            },
+            {
+              "field": "wellunitcost",
+              "align": "center",
+              "title": "单位成本"
+            },
+            {
+              "field": "wellinvest",
+              "align": "center",
+              "title": "投资"
+            },
+            {
+              "field": "wellcost",
+              "align": "center",
+              "title": "单井成本"
+            }
+          ],
+          [
+            {
+              "field": "2Dworkunit",
+              "title": "km"
+            },
+            {
+              "field": "2Dunitcostunit",
+              "title": "10^3￥/km"
+            },
+            {
+              "field": "2Dinvestunit",
+              "title": "10^3￥"
+            },
+            {
+              "field": "3Dworkunit",
+              "title": "km^2"
+            },
+            {
+              "field": "3Dunitcostunit",
+              "title": "10^3￥/km^2"
+            },
+            {
+              "field": "3Dinvestunit",
+              "title": "10^3￥"
+            },
+            {
+              "field": "workNumunit",
+              "title": "口"
+            },
+            {
+              "field": "wellfootageunit",
+              "title": "m"
+            },
+            {
+              "field": "wellunitcostunit",
+              "title": "￥/m"
+            },
+            {
+              "field": "wellinvestunit",
+              "title": "10^3￥"
+            },
+            {
+              "field": "wellcostunit",
+              "title": "10^3/口"
+            },
+            {
+              "field": "nonseismicunit",
+              "title": "10^3￥"
+            },
+            {
+              "field": "otherunit",
+              "title": "10^3￥"
+            },
+            {
+              "field": "totalunit",
+              "title": "10^3￥"
+            }
+          ]
+        ],
+        "columns": [
+          {
+            "field": "Year",
+            "type": "string"
+          },
+          {
+            "field": "workAttribute",
+            "type": "string"
+          },
+          {
+            "field": "2Dworkunit",
+            "type": "number"
+          },
+          {
+            "field": "2Dunitcostunit",
+            "type": "number"
+          },
+          {
+            "field": "2Dinvestunit",
+            "type": "number"
+          },
+          {
+            "field": "3Dworkunit",
+            "type": "number"
+          },
+          {
+            "field": "3Dunitcostunit",
+            "type": "number"
+          },
+          {
+            "field": "3Dinvestunit",
+            "type": "number"
+          },
+          {
+            "field": "workNumunit",
+            "type": "number"
+          },
+          {
+            "field": "wellfootageunit",
+            "type": "number"
+          },
+          {
+            "field": "wellunitcostunit",
+            "type": "number"
+          },
+          {
+            "field": "wellinvestunit",
+            "type": "number"
+          },
+          {
+            "field": "wellcostunit",
+            "type": "number"
+          },
+          {
+            "field": "nonseismicunit",
+            "type": "number"
+          },
+          {
+            "field": "otherunit",
+            "type": "number"
+          },
+          {
+            "field": "totalunit",
+            "type": "number"
+          }
+        ],
+        "rows": [
+          [
+            "2016",
+            "自营浅水",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "2016",
+            "自营深水",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "2016",
+            "合作浅水",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "2016",
+            "合作深水",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ],
+          [
+            "2016",
+            "小计",
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "M2_1_01",
+    "pt": "投资完成情况",
+    "data": {
+      "setting": {
+        "title": "投资完成情况",
+        "smooth": false,
+        //"defaultchart": "bar",
+        "chart": [ "line", "bar" ],
+        "legend": [ "规划", "实际" ],
+        "yaxiscaption": "（万元）",
+        "xaxisfield": "Year"
+      },
+      "columns": [
+        {
+          "field": "Year",
+          "title": "年份",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "planning",
+          "title": "规划",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "actual",
+          "title": "实际",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ 2016, 78000, 80000 ],
+        [ 2017, 80000, 50000 ],
+        [ 2018, 90000 ],
+        [ 2019, 88000 ],
+        [ 2020, 99000 ]
+
+      ]
+    }
+  },
+  {
+    "modular": "M2_1_2",
+    "pt": "探明储量完成情况",
+    "data": {
+      "setting": {
+        "title": "探明储量完成情况",
+        "smooth": false,
+        //"defaultchart": "bar",
+        "chart": [ "line", "line", "bar", "bar" ],
+        "legend": [ "规划(oil)", "规划(gas)", "实际(oil)", "实际(gas)" ],
+        "yaxiscaption": "（万吨）",
+        "xaxisfield": "Year"
+      },
+      "columns": [
+        {
+          "field": "Year",
+          "title": "年份",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "planningoil",
+          "title": "规划(oil)",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "planninggas",
+          "title": "规划(gas)",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "actualoil",
+          "title": "实际(oil)",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "actualgas",
+          "title": "实际(gas)",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ 2016, 3400, 2100, 3400, 2100 ],
+        [ 2017, 3400, 2100, 1600, 1300 ],
+        [ 2018, 3400, 2100 ],
+        [ 2019, 3400, 2100 ],
+        [ 2020, 3400, 2100 ]
+
+      ]
+    }
+  },
+  {
+    "modular": "M2_1_3",
+    "pt": "工作量（探井）完成情况",
+    "data": {
+      "setting": {
+        "title": "工作量（探井）完成情况",
+        "smooth": false,
+        //"defaultchart": "bar",
+        "chart": [ "line", "line", "bar", "bar" ],
+        "legend": [ "规划井数", "规划进尺", "实际完井", "实际进尺" ],
+        "yaxiscaption": "（口）",
+        "xaxisfield": "Year"
+      },
+      "columns": [
+        {
+          "field": "Year",
+          "title": "年份",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "planningoil",
+          "title": "规划井数",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "planninggas",
+          "title": "规划进尺",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "actualoil",
+          "title": "实际完井",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "actualgas",
+          "title": "实际进尺",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ 2016, 61, 2100, 3400, 2100 ],
+        [ 2017, 61, 2100, 1600, 1300 ],
+        [ 2018, 61, 2100 ],
+        [ 2019, 61, 2100 ],
+        [ 2020, 61, 2100 ]
+
+      ]
+    }
+  },
+  {
+    "modular": "M2_1_4",
+    "pt": "工作量（地震）完成情况",
+    "data": {
+      "setting": {
+        "title": "工作量（地震）完成情况",
+        "smooth": false,
+        //"defaultchart": "bar",
+        "chart": [ "line", "line", "bar", "bar" ],
+        "legend": [ "规划(2D)", "规划(3D)", "实际(2D)", "实际(3D)" ],
+        "yaxiscaption": "",
+        "xaxisfield": "Year"
+      },
+      "columns": [
+        {
+          "field": "Year",
+          "title": "年份",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "planning2D",
+          "title": "规划(2D)",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "planning3D",
+          "title": "规划(3D)",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "actual2D",
+          "title": "实际(2D)",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "actual3D",
+          "title": "实际(3D)",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ 2016, 3200, 4800, 3400, 4800 ],
+        [ 2017, 3200, 4800, 2100, 2900 ],
+        [ 2018, 3200, 4800 ],
+        [ 2019, 3200, 4800 ],
+        [ 2020, 3200, 4800 ]
+
+      ]
+    }
+  },
+  {
+    "modular": "M2_1_5",
+    "pt": "探井成功率",
+    "data": {
+      "setting": {
+        "title": "探井成功率",
+        "smooth": false,
+        "defaultchart": "line",
+        "chart": [ ],
+        "legend": [ "成功率" ],
+        "yaxiscaption": "（%）",
+        "xaxisfield": "Year"
+      },
+      "columns": [
+        {
+          "field": "Year",
+          "title": "年份",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "successrate",
+          "title": "成功率",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ 2016, 65 ],
+        [ 2017, 78 ],
+        [ 2018, ],
+        [ 2019, ],
+        [ 2020, ]
+
+      ]
+    }
+  },
+  {
+    "modular": "M2_1_6",
+    "pt": "探明成本",
+    "data": {
+      "setting": {
+        "title": "探明成本",
+        "smooth": false,
+        //"defaultchart": "bar",
+        "chart": [ "line",  "bar" ],
+        "legend": [ "规划", "实际" ],
+        "yaxiscaption": "（元/吨）",
+        "xaxisfield": "Year"
+      },
+      "columns": [
+        {
+          "field": "Year",
+          "title": "年份",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "planning",
+          "title": "规划",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "actual",
+          "title": "实际",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ 2016, 32, 28],
+        [ 2017, 27, 37],
+        [ 2018 ],
+        [ 2019],
+        [ 2020]
+
+      ]
+    }
+  }
+]

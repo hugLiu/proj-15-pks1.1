@@ -1,0 +1,95 @@
+﻿@model string
+@using PKS.Web
+@{ 
+    ViewBag.Title = "物探化工程 - " + ViewBag.Swa;
+    var sooilUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.SOOIL);
+}
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-12">
+            <div class="jurassic-section">
+                <i class="glyphicon glyphicon-map-marker jurassic-panel-logo"></i>
+                <span class="jurassic-panel-title">工区位置 </span>
+                <div class="fixed-height-400">
+                    @*<pks:image :items="geoeng_imgItems"></pks:image>*@
+                    <pks:singleimg :item="geoeng_imgItems" :map="imagemap" :onclick="onclickfunc"></pks:singleimg>
+                </div>
+            </div>
+            <div class="jurassic-section">
+                <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                <span class="jurassic-panel-title">地震采集</span>
+                <pks:tabs :titles="geotitles1" :showmore="true" :onshowmore="onshowmore">
+                    <div slot="采集数据" class="jurassic-tab-section fixed-height-400">
+                        <pks:listm :data="items2_1"
+                                   :map="map1"
+                                   :onclick="onclickfunc">
+                        </pks:listm>
+                    </div>
+                    <div slot="采集日报" class="jurassic-tab-section fixed-height-400">
+                        <pks:listm :data="items2_2"
+                                   :map="map1"
+                                   :onclick="onclickfunc">
+                        </pks:listm>
+                    </div>
+                </pks:tabs>
+            </div>
+            <div class="jurassic-section">
+                <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                <span class="jurassic-panel-title">地震处理</span>
+                <pks:tabs :titles="geotitles2" :showmore="true" :onshowmore="onshowmore">
+                    <div slot="常规处理" class="jurassic-tab-section fixed-height">
+                        <pks:listm :data="items3_1"
+                                    :map="map1"
+                                    :onclick="onclickfunc">
+                        </pks:listm>
+                    </div>
+                    <div slot="特殊处理" class="jurassic-tab-section fixed-height">
+                        <pks:listm :data="items3_2"
+                                    :map="map1"
+                                    :onclick="onclickfunc">
+                        </pks:listm>
+                    </div>
+                    <div slot="处理周报" class="jurassic-tab-section fixed-height">
+                        <pks:listm :data="items2_3"
+                                   :map="map1"
+                                   :onclick="onclickfunc">
+                        </pks:listm>
+                    </div>
+                </pks:tabs>
+            </div>
+        </div>   
+    </div>
+</div>
+<script>
+    window.navigation = "勘探信息共享 > 勘探数据成果 > 物化探工程 > <font color='red'>@ViewBag.Swa</font>";
+
+    var model = @Html.Raw(Model);
+    var imageMap = { "url": "src", "thumbnail": "thumbnail", "bottom": "title", "param": "iiid" };
+    PKSUI.bind({
+        el: "#el",
+        data: {
+            map1: { left: "title", right: "indexeddate", url: "iiid" },
+            geoeng_imgItems: model.g1.results ? model.g1.results[0] : {},
+            geotitles1:["采集数据", "采集日报"],
+            geotitles2:["常规处理","特殊处理","处理周报"],
+            items2_1: model.g2_1.results,
+            items2_2: model.g2_2.results,
+            items2_3: model.g2_3.results,
+            items2_4: model.g2_4.results,
+            items3_1: model.g3_1.results,
+            items3_2: model.g3_2.results,
+            imagemap: imageMap
+        },
+        methods: {
+            onclickfunc: function (e) {
+                open("@Url.Action("GoToPublicPage")?iiid=" + e,"_blank");
+            },
+            onshowmore: function (e)
+            {
+                var url = "@sooilUrl/search/list?sourcename = 全部&p=1&w=" +e ;
+                window.open(url);
+            }
+        },
+        model: [ "pks:singleimg", "pks:tabs", "pks:listm"]
+    });
+</script>

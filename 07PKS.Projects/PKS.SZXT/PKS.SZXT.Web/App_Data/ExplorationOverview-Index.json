@@ -1,0 +1,579 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "钻探油气新发现情况",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "terms": {
+          "pt.keyword": [
+            "油气测试情况",
+            "钻时气测数据表"
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "钻探复杂情况",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "terms": {
+          "pt.keyword": [ "钻探复杂情况" ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "钻井完成情况统计图",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid" ],
+      "query": {
+        "term": {
+          "pt.keyword": "钻井完成情况统计图"
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3_1",
+    "title": "钻井完成情况统计图（进尺）",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid" ],
+      "query": {
+        "term": {
+          "pt.keyword": "钻井完成情况统计图（进尺）"
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "title": "二维地震采集完成情况统计图",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid" ],
+      "query": {
+        "term": {
+          "pt.keyword": "二维地震采集完成情况统计图"
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G5",
+    "title": "三维地震采集完成情况统计图",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid" ],
+      "query": {
+        "term": {
+          "pt.keyword": "三维地震采集完成情况统计图"
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G6",
+    "title": "项目完成情况统计图",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid" ],
+      "query": {
+        "term": {
+          "pt.keyword": "项目完成情况统计图"
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G7",
+    "title": "项目进展",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": {
+            "terms": {
+              "pt.keyword": [ "勘探双周报", "勘探月报" ]
+            }
+          }
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G8",
+    "title": "最新成果",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "term": {
+          "dsn.keyword": "自建库"
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G9",
+    "title": "最新部署",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "terms": {
+          "pt.keyword": [ "井位部署图", "井位部署表" ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G10",
+    "title": "热点信息",
+    "query": {
+      "size": 0,
+      "aggs": {
+        "all": {
+          "terms": {
+            "field": "iiid.keyword",
+            "size": "@size"
+          }
+        }
+      }
+    }
+  },
+  {
+    "grid": "G11",
+    "title": "最近浏览",
+    "query": {
+      "_source": [ "iiid", "logdate" ],
+      "query": {
+        "term": {
+          "user.keyword": "@user"
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "logdate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G12_1",
+    "title": "钻井地质作业动态表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "最新钻井地质作业动态表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G12_2",
+    "title": "钻井地质作业动态表(分井)",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻井地质作业动态表"
+              }
+            },
+            {
+              "terms": {
+                "well.keyword": [ "@well" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G13_1",
+    "title": "现场岩心岩屑录井原始数据表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "最新现场岩心岩屑录井原始数据表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G13_2",
+    "title": "现场岩心岩屑录井原始数据表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "现场岩心岩屑录井原始数据表"
+              }
+            },
+            {
+              "terms": {
+                "well.keyword": [ "@well" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G14_1",
+    "title": "地层测试求产成果数据表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "测井项目动态表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G14_2",
+    "title": "地层测试求产成果数据表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "测井项目动态表"
+              }
+            },
+            {
+              "terms": {
+                "well.keyword": [ "@well" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G15_1",
+    "title": "地层测试作业日报表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "最新地层测试作业日报表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G15_2",
+    "title": "地层测试作业日报表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地层测试作业日报表"
+              }
+            },
+            {
+              "terms": {
+                "well.keyword": [ "@well" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G16_1",
+    "title": "地震资料采集作业动态表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "swa" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "最新地震资料采集作业动态表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G16_2",
+    "title": "地震资料采集作业动态表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "swa" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地震资料采集作业动态表"
+              }
+            },
+            {
+              "terms": {
+                "swa.keyword": [ "@swa" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G17",
+    "title": "互联互通软件启动",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "subject", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "互联互通软件启动"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "asc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G18",
+    "title": "互联互通软件下载",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "互联互通软件下载"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "asc"
+          }
+        }
+      ]
+    }
+  }
+]

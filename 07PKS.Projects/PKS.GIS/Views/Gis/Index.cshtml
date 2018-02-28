@@ -1,0 +1,116 @@
+﻿@using PKS.Web;
+@{
+    ViewBag.Title = "智能勘探工作平台GIS导航";
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+}
+@section Styles{
+    <title>@ViewBag.Title</title>
+
+    <!--
+    <link href="~/Content/AppCSS/ToolBarRight.css" rel="stylesheet" />
+    <link href="~/Content/AppCSS/Default.css" rel="stylesheet" />
+    <link href="~/Content/AppCSS/MapCSS.css" rel="stylesheet" />
+    -->
+
+    <link href="~/Content/Scripts/Maps/leaflet/leaflet.css" rel="stylesheet" />
+    <!--fullscreen-->
+    @*<link href="~/Content/Scripts/Maps/leaflet.fullscreen/leaflet.fullscreen.css" rel="stylesheet" />*@
+    <!-- 边栏 -->
+    <link href="~/Content/Scripts/Maps/Leaflet.Sidebar/L.Control.Sidebar.css" rel="stylesheet" />
+    <!--Measure-->
+    <link href="~/Content/Scripts/Maps/Leaflet.Measure/leaflet.measure.css" rel="stylesheet" />
+    <!-- MiniMap-->
+    <link href="~/Content/Scripts/Maps/Leaflet-MiniMap/Control.MiniMap.css" rel="stylesheet" />
+    <!-- GroupLayerControl-->
+    <link href="~/Content/Scripts/Maps/Leaflet.groupedlayercontrol/leaflet.groupedlayercontrol.css" rel="stylesheet" />
+    <!-- Location-->
+    <link href="~/Content/Scripts/Maps/Leaflet.position/src/leaflet-control-position.css" rel="stylesheet">
+    <!--zoomHome-->
+    <link href="~/Content/Scripts/Maps/leaflet.zoomhome/leaflet.zoomhome.css" rel="stylesheet" />
+    <!-- 右键菜单-->
+    <link href="~/Content/Scripts/Maps/Leaflet.contextmenu-master/dist/leaflet.contextmenu.css" rel="stylesheet" />
+    <!-- box selector-->
+    @*<link href="~/Content/Scripts/Maps/Leaflet.boxselector/src/selector.css" rel="stylesheet" />*@
+    <!--搜索-->
+    <link href="~/Content/Scripts/Maps/leaflet-search-master/dist/leaflet-search.src.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="@webApiSiteUrl/Content/bootstrap-3.3.7/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/Content/Scripts/bootstrap-select-1.12.4/css/bootstrap-select.css" />*@
+
+    <link rel="stylesheet" href="@webApiSiteUrl/Content/xvision/xvision.css" />
+    <link rel="stylesheet" href="~/Content/Gis/gis.css?v=11" />
+}
+<!--[if lte IE 8]>
+<script type="text/javascript">alert("浏览器版本太低，请使用IE9及以上浏览器！");</script>
+<![endif]-->
+
+<div id="mapContent" class="map"></div>
+
+@section Scripts{
+    <script src="~/Content/Scripts/Maps/leaflet/leaflet-src.js"></script>
+    <!--fallback-->
+    <script src="~/Content/Scripts/Maps/Leaflet.fallback/leaflet.tilelayer.fallback.js"></script>
+    <!--fullscreen-->
+    @*<script src="~/Content/Scripts/Maps/leaflet.fullscreen/Leaflet.fullscreen.min.js"></script>*@
+    <!-- 边栏 -->
+    <script src="~/Content/Scripts/Maps/Leaflet.Sidebar/L.Control.Sidebar.js"></script>
+    <!--Measure-->
+    <script src="~/Content/Scripts/Maps/Leaflet.Measure/leaflet.measure.js"></script>
+    <!--Arrow-->
+    @*<script src="~/Content/Scripts/Maps/Leaflet.arrow/leaflet.polylineDecorator.js"></script>*@
+    <!-- MiniMap-->
+    <script src="~/Content/Scripts/Maps/Leaflet-MiniMap/Control.MiniMap.js"></script>
+    <!-- GroupLayerControl-->
+    <script src="~/Content/Scripts/Maps/Leaflet.groupedlayercontrol/leaflet.groupedlayercontrol.pks.js"></script>
+    <!-- Arc-->
+    @*<script src="~/Content/Scripts/Maps/Leaflet.Arc/dist/leaflet-arc.min.js"></script>*@
+    @*<script src="~/Content/Scripts/Maps/Leaflet.Arc/arc.js"></script>*@
+    <!-- Location-->
+    @*<script src="~/Content/Scripts/Maps/Leaflet.position/src/leaflet-control-position.js"></script>*@
+    <!--zoomHome-->
+    <script src="~/Content/Scripts/Maps/leaflet.zoomhome/leaflet.zoomhome.min.js"></script>
+    <!-- 右键菜单-->
+    <script src="~/Content/Scripts/Maps/Leaflet.contextmenu-master/dist/leaflet.contextmenu.js"></script>
+    <!-- box selector-->
+    @*<script src="~/Content/Scripts/Maps/Leaflet.boxselector/src/selector.js"></script>*@
+    <!--搜索-->
+    <script src="~/Content/Scripts/Maps/leaflet-search-master/dist/leaflet-search.src.js"></script>
+    <!--绘制工具-->  <!--zhanglingling changed at 20170315 because this plugin incompatible with Leaflet Tooltip-->
+    <!--<link href="Scripts/Maps/Leaflet.draw/dist/leaflet.draw.css" rel="stylesheet" />
+    <script src="Scripts/Maps/Leaflet.draw/dist/leaflet.draw-src.js"></script>-->
+    <!--测量工具-->
+    <!--<link href="Scripts/Maps/Leaflet.MeasureControl/leaflet.measurecontrol.css" rel="stylesheet" />
+    <script src="Scripts/Maps/Leaflet.MeasureControl/leaflet.measurecontrol.js"></script>-->
+    @*<script src="~/Content/Scripts/Maps/geoJsonFilter/L.geojsonfilter.js"></script>*@
+    <!--
+    <link href="~/Content/AppCSS/IphoneCss.css" rel="stylesheet" />
+    <script src="~/Content/AppJS/IphoneStyle.js"></script>
+    <script src="~/Content/AppJS/touchable.js"></script>
+    -->
+    @*<script src="~/Content/AppJS/UtilityTools.js"></script>*@
+    @*<script src="AppJS/LineInfo.js"></script>*@
+    @*<script src="AppJS/FacilitiesInfo.js"></script>*@
+
+    <script src="@webApiSiteUrl/Content/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    @*<script src="~/Content/Scripts/bootstrap-select-1.12.4/js/bootstrap-select.js"></script>*@
+    <!--日期-->
+    <script src="@webApiSiteUrl/Scripts/moment.2.18.1/moment.min.js"></script>
+    @*Vue组件*@
+    <script src="@webApiSiteUrl/Content/PKSUI/vendor.js?v=0"></script>
+    <script src="@webApiSiteUrl/Content/PKSUI/PKSUI.js?v=0"></script>
+
+    <script src="~/Content/Gis/gisConfig.js?v=26"></script>
+    <script src="~/Content/Gis/gisCtrl.js?v=21"></script>
+    <script>
+        (function () {
+            //设置配置
+            var config = pksGlobalStore.config;
+            gisConfig.init(config.apiServiceUrl, config.portalSiteUrl);
+            //用百度地图测试，不出错但不显示地图
+            gisConfig.tileLayers[0].url = "http://shangetu0.map.bdimg.com/it/u=x={x};y={y};z={z};v=017;type=web&fm=44&udt=20130712";
+            gisConfig.tileLayers[1].url = "http://shangetu1.map.bdimg.com/it/u=x={x};y={y};z={z};v=017;type=web&fm=44&udt=20130712";
+            //初始化
+            gisCtrl.init(gisConfig);
+        })();
+    </script>
+}

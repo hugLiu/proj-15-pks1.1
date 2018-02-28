@@ -1,0 +1,62 @@
+﻿.marker-cluster-robford-animate {
+    animation: leaves 0.3s ease-in-out 3s infinite alternate;
+    -webkit-animation: leaves 0.3s ease-in-out 3s infinite alternate;
+    -moz-animation: leaves 0.3s ease-in-out 3s infinite alternate;
+    -o-animation: leaves 0.3s ease-in-out 3s infinite alternate;
+}
+
+@-webkit-keyframes leaves {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes leaves {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes leaves {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes leaves {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,157 @@
+
+    {
+      "bot": "井",
+      "code": "well",
+        "pageurls": [
+            {
+                "title": "xxx",
+                "url": "",
+                "system": "SZXT"
+            }
+        ],
+      "keypts": [
+        {
+          "title": "蒙太奇图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pt.keyword": "蒙太奇图"
+                    }
+                  },
+                  {
+                    "term": {
+                      "well.keyword": "wellId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "单井综合柱状图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pt.keyword": "单井综合柱状图"
+                    }
+                  },
+                  {
+                    "term": {
+                      "well.keyword": "wellId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "地层分层数据表",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pt.keyword": "地层分层数据表"
+                    }
+                  },
+                  {
+                    "term": {
+                      "well.keyword": "wellId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "井身结构图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pt.keyword": "井身结构图"
+                    }
+                  },
+                  {
+                    "term": {
+                      "well.keyword": "wellId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "井认识",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pc.keyword": "井百科"
+                    }
+                  },
+                  {
+                    "term": {
+                      "well.keyword": "wellId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        }
+      ],
+      "relatedpages": [
+
+      ]
+    }

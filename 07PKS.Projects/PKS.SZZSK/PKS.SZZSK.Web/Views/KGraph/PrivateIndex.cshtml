@@ -1,0 +1,678 @@
+﻿@using PKS.Web;
+@{
+    ViewBag.Title = "我的图谱 - 知识图谱";
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+}
+@section stylesSection {
+    <link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/vakata-jstree-3.3.4/dist/themes/default/style.min.css">
+    <style>
+        .jurassic-panel-more {
+            font-size: 14px;
+        }
+
+        .jurassic-panel-header a:hover {
+            color: rgb(255,124,52);
+        }
+
+        .table > tbody > tr > td {
+            border-top: 0;
+        }
+
+        .table > tbody > tr .left {
+            width: 24%;
+            text-align: right;
+        }
+
+        .table > tbody > tr .right {
+            width: 76%;
+            text-align: left;
+        }
+
+        .jurassic-news-text {
+            font-size: 16px;
+            color: rgb(85,85,85);
+        }
+
+        .topic a {
+            font-size: 16px;
+        }
+
+        .topic-catalog em {
+            font-size: 12px;
+        }
+
+        .topic-catalog .title {
+            font-size: 14px;
+            color: rgb(5,80,230);
+            font-weight: bold;
+        }
+
+            .topic-catalog .title a {
+                font-size: 14px;
+                color: rgb(5,80,230);
+                font-weight: bold;
+            }
+
+        .topic-catalog .action {
+            font-size: 14px;
+            color: #337ab7;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .topic-catalog .action:hover {
+                color: rgb(255,124,52);
+            }
+    </style>
+}
+@section scriptsSection {
+    <script type="text/javascript" src="@webApiSiteUrl/Content/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="@webApiSiteUrl/Content/vakata-jstree-3.3.4/dist/jstree.js"></script>
+    <script src="~/Content/lib/pager/jquery.pagination.js"></script>
+}
+<div id="app" class="jurassic-row">
+    <div class="jurassic-col-3">
+        <div class="jurassic-margin-container">
+            <pks:panel :title="title_catalog" :show="showMore"></pks:panel>
+            <div id="catalogTree" style="margin:5px;width:100%;min-height:300px;"></div>
+            <div id="catalogDialog">
+                <form id="catalogForm" method="post" enctype="multipart/form-data">
+                    <div>
+                        <input type="hidden" name="Id" />
+                        <input type="hidden" name="ParentId" />
+                        <input type="hidden" name="Code" value="test" />
+                        <div style="padding:20px 10px;">
+                            <input class="easyui-textbox" name="Name" data-options="width:360,label:'名称:',labelPosition:'top',required:true,missingMessage:'必需',validType:{length:[1,255]}" />
+                        </div>
+                        <input type="hidden" name="ImageURL" />
+                        <input type="hidden" name="PatternURL" />
+                        <input type="hidden" name="Description" />
+                        <input type="hidden" name="Level" />
+                        <input type="hidden" name="Order" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="jurassic-col-9">
+        <div class="jurassic-margin-container">
+            <div class="jurassic-panel">
+                <div class="jurassic-panel-header">
+                    <div class="jurassic-row">
+                        <div class="jurassic-col-9">
+                            <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                            <span class="jurassic-panel-title">{{title_topic}}</span>
+                        </div>
+                        <div class="jurassic-col-3 jurassic-text-right">
+                            @*<i class="glyphicon glyphicon-plus-sign"></i>*@
+                            <a class="jurassic-panel-more" @@click="onTopicSubmitClick">我要提交</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="jurassic-panel-body">
+                    <ul class="jurassic-list" v-for="(topic, index) in topics">
+                        <li class="jurassic-list-item" :key="index">
+                            <div class="jurassic-news">
+                                <div class="jurassic-row topic">
+                                    <div class="jurassic-col-10 jurassic-news-brief">
+                                        <a class="jurassic-news-text link" :href="topic.LinkUrl" target="_blank">{{topic.Title}}</a>
+                                    </div>
+                                    <div class="jurassic-col-2 jurassic-text-right">
+                                        <span class="jurassic-news-date ">{{topic.CreatedDate}}</span>
+                                    </div>
+                                </div>
+                                <div class="topic-catalog">
+                                    <em>&nbsp;&nbsp;收录到&nbsp;&nbsp;</em>
+                                    <span class="title">{{getPrivateCatalogTitle(topic)}}</span>
+                                    <template v-if="topic.PublicCatalogs && topic.PublicCatalogs.length > 0">
+                                        <em>&nbsp;&nbsp;分享到&nbsp;&nbsp;</em>
+                                        <span class="title">
+                                            <template v-for="(publicCatalog, publicCatalogIndex) in topic.PublicCatalogs">
+                                                <a :href="getPublicCatalogTopicLinkUrl(publicCatalog)">{{publicCatalog.Text}}</a>
+                                                <em v-if="publicCatalogIndex < topic.PublicCatalogs.length - 1">/&nbsp;</em>
+                                            </template>
+                                        </span>
+                                    </template>
+                                    <template v-else>
+                                        <em>&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                        <a class="action" @@click="onTopicSharedClick(topic)">我要分享</a>
+                                    </template>
+                                    <em>&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                    <a class="action" @@click="onTopicEditClick(topic)">编辑</a>
+                                    <em>&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                                    <a class="action" @@click="onTopicDeleteClick(topic)">删除</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="topicsPage" class="pager" style="display:none;">
+            </div>
+            <div id="topicDialog">
+                <form id="topicForm" method="post" enctype="multipart/form-data">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="left">主题标题：</td>
+                                <td class="right">
+                                    <input type="hidden" name="Id">
+                                    <input id="topicTitle" class="easyui-textbox" name="Title" data-options="width:340,required:true,missingMessage:'必需',validType:{length:[1,255]}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">主题URL：</td>
+                                <td class="right">
+                                    <input id="topicLinkUrl" class="easyui-textbox" name="LinkUrl" data-options="width:340,required:true,missingMessage:'必需',validType:{length:[1,255]}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">主题图谱分类：</td>
+                                <td class="right">
+                                    <input id="privateCatalogTree" class="easyui-combotree" name="PrivateCatalogId" data-options="width:340,required:true,missingMessage:'必需'">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">我要分享：</td>
+                                <td class="right">
+                                    <input id="publicCatalogTreeSwitch" class="easyui-switchbutton" checked data-options="onText:'是',offText:'否',onChange:onChangeTopicShared">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">公共图谱分类：</td>
+                                <td class="right">
+                                    <input id="publicCatalogId" type="hidden" name="PublicCatalogId">
+                                    <input id="publicCatalogTree" class="easyui-combotree" name="VisiblePublicCatalogId" data-options="width:340,missingMessage:'必需'">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var privateTopics = [];
+
+    PKSUI.bind({
+        el: "#app",
+        data: {
+            title_catalog: "我的图谱",
+            showMore: false,
+            title_topic: "我的主题",
+            topics: privateTopics,
+        },
+        methods: {
+            onTopicSubmitClick: function () {
+                openTopicDialog();
+            },
+            onTopicEditClick: function (topic) {
+                openTopicDialog(topic, false);
+            },
+            onTopicDeleteClick: function (topic) {
+                deleteTopic(topic);
+            },
+            onTopicSharedClick: function (topic) {
+                openTopicDialog(topic, true);
+            },
+            getPrivateCatalogTitle: function (topic) {
+                var catalogs = "";
+                if (topic.PrivateCatalogs) {
+                    var lastIndex = topic.PrivateCatalogs.length - 1;
+                    for (var i = 0; i <= lastIndex; i++) {
+                        catalogs += topic.PrivateCatalogs[i].Text;
+                        if (i < lastIndex) catalogs += "/"
+                    }
+                }
+                return catalogs;
+            },
+            getPublicCatalogTopicLinkUrl: function (catalog) {
+                return "/KGraph/PublicTopics?id=" + catalog.Id;
+            },
+            getPublicCatalogTitle: function (topic) {
+                var catalogs = "";
+                if (topic.PublicCatalogs) {
+                    var lastIndex = topic.PublicCatalogs.length - 1;
+                    for (var i = 0; i <= lastIndex; i++) {
+                        catalogs += topic.PublicCatalogs[i].Text;
+                        if (i < lastIndex) catalogs += "/"
+                    }
+                }
+                return catalogs;
+            },
+        },
+        model: ["pks:panel"]
+    });
+</script>
+<script>
+    //分类树
+    var catalogTree;
+    var catalogDialog = $('#catalogDialog');
+    var catalogForm = $('#catalogForm');
+    var selectedCatalogId = @Html.Raw(ViewBag.CatalogId);
+    var catalogTreeChanged = true;
+
+    function loadCatalogTree() {
+        $.post("/KGraph/GetPrivateCatalogTree", function (nodes) {
+            handleCatalogNodes(nodes);
+            renderCatalogTree(nodes);
+        });
+    }
+
+    function handleCatalogNodes(nodes) {
+        for (var i = 0; i < nodes.length; i++) {
+            handleCatalogNode(nodes[i]);
+        }
+    }
+
+    function handleCatalogNode(node) {
+        node.id = node.Id.toString();
+        node.text = node.Name;
+        node.state = { opened: true };
+        if (node.id < 1) {
+            node.parent = "#";
+        } else if (node.ParentId) {
+            node.parent = node.ParentId.toString();
+        } else {
+            node.parent = "0";
+        }
+        if (node.id == selectedCatalogId) {
+            node.state.selected = true;
+        }
+    }
+
+    function renderCatalogTree(nodes) {
+        $("#catalogTree").jstree({
+            plugins: ["contextmenu"],
+            core: {
+                animation: true,
+                data: nodes,
+                check_callback: function (operation, node, node_parent, node_position, more) {
+                    // operation can be 'create_node', 'rename_node', 'delete_node', 'move_node', 'copy_node' or 'edit'
+                    // in case of 'rename_node' node_position is filled with the new node name
+                    return true;
+                }
+            },
+            contextmenu: {
+                items: {
+                    append: {
+                        label: "添加",
+                        action: appendCatalogNode,
+                    },
+                    delete: {
+                        label: "删除",
+                        action: deleteCatalogNode,
+                    }
+                }
+            }
+        }).on("ready.jstree", function (e, data) {
+            loadTopics(selectedCatalogId, 1);
+        }).on("changed.jstree", function (e, data) {
+            if (data.action != "select_node") return;
+            if (data.selected.length == 0) return;
+            if (selectedCatalogId == data.selected[0]) return;
+            selectedCatalogId = data.selected[0];
+            loadTopics(selectedCatalogId, 1);
+        });
+        catalogTree = $("#catalogTree").jstree(true);
+    };
+
+    function appendCatalogNode(data) {
+        var parentNode = catalogTree.get_node(data.reference);
+        if (!parentNode) return;
+        var node = {
+            ParentId: parentNode.original.Id,
+            Id: 0,
+            Code: "code",
+            Name: "",
+            ImageURL: null,
+            PatternURL: null,
+            Description: null,
+            Level: parentNode.original.Level + 1,
+            Order: getNextOrder(parentNode),
+        };
+        catalogForm.form('load', node);
+        catalogDialog.dialog({ title: '添加新图谱分类' });
+        catalogDialog.dialog('open');
+    }
+
+    function deleteCatalogNode(data) {
+        var node = catalogTree.get_node(data.reference);
+        if (!node) return;
+        if (node.id == "0") return;
+        if (node.children.length > 0) {
+            $.messager.show({
+                title: '删除失败',
+                msg: '请先删除子图谱分类！',
+                timeout: 2000,
+                showType: 'slide'
+            });
+            return;
+        }
+        $.messager.confirm('删除图谱分类', '是否删除当前选择的图谱分类？', function (deleted) {
+            if (!deleted) return;
+            $.post("/KGraph/DeletePrivateCatalog?id=" + node.id, function (result) {
+                catalogTreeChanged = true;
+                catalogTree.delete_node(node.id);
+            });
+        });
+    }
+
+    //获取某个节点的下一个顺序值
+    function getNextOrder(parentNode) {
+        var nodes = parentNode.children;
+        var order = -1;
+        if (nodes) {
+            for (var i = 0; i < nodes.length; i++) {
+                var node = catalogTree.get_node(nodes[i]).original;
+                if (node.Order > order) order = node.Order;
+            }
+        }
+        return order + 1;
+    }
+
+    //是否重复节点
+    function isRepeat(treeNode, formNode) {
+        var parentNode = catalogTree.getParentNode(treeNode);
+        var children = catalogTree.getChildNodes(parentNode);
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            if (child == treeNode) continue;
+            if (child.Code == formNode.Code) return true;
+            if (child.Name == formNode.Name) return true;
+        }
+        return false;
+    }
+
+    //分类对话框
+    catalogDialog.dialog({
+        title: '分类定义',
+        width: 400,
+        height: 200,
+        closed: true,
+        cache: false,
+        modal: true,
+        buttons: [{
+            text: '确定',
+            iconCls: 'icon-ok',
+            handler: function () {
+                catalogForm.submit();
+            }
+        }, {
+            text: '取消',
+            handler: function () {
+                catalogDialog.dialog('close');
+            }
+        }]
+    });
+
+    catalogForm.form({
+        url: "/KGraph/SavePrivateCatalog",
+        onSubmit: function () {
+            var valid = catalogForm.form('validate')
+            return valid;
+        },
+        success: function (result) {
+            result = JSON.parse(result);
+            if (typeof result != 'object') {
+                $.messager.alert('保存失败', '服务器内部错！', 'error');
+                return;
+            } else if (!result.Succeed) {
+                $.messager.alert('保存失败', result.ErrorMessage, 'error');
+                return;
+            }
+            var node = result.Data;
+            handleCatalogNode(node);
+            catalogTree.create_node(node.parent, node);
+            catalogDialog.dialog('close');
+            catalogTreeChanged = true;
+        }
+    });
+</script>
+<script>
+    //显示和发布主题
+    var closeAfterSubmit = false;
+    var publicCatalogTree = null;
+    var topicDialog = $('#topicDialog');
+    var topicForm = $('#topicForm');
+    var topicsPage = $("#topicsPage");
+
+    //主题对话框
+    topicDialog.dialog({
+        title: '主题定义',
+        width: 500,
+        height: 350,
+        closed: true,
+        cache: false,
+        modal: true,
+        buttons: [{
+            text: '提交',
+            iconCls: 'icon-ok',
+            handler: function () {
+                closeAfterSubmit = true;
+                topicForm.submit();
+            }
+        }, {
+            text: '提交继续',
+            iconCls: 'icon-ok',
+            handler: function () {
+                closeAfterSubmit = false;
+                topicForm.submit();
+            }
+        }, {
+            text: '取消',
+            iconCls: 'icon-cancel',
+            handler: function () {
+                topicDialog.dialog('close');
+            }
+        }]
+    });
+
+    function onChangeTopicShared(enable) {
+        var action = enable ? "enable" : "disable";
+        $("#publicCatalogTree").combotree({ required: enable });
+        $("#publicCatalogTree").combotree(action);
+    }
+
+    topicForm.form({
+        url: "/KGraph/SaveTopic",
+        iframe: false,
+        //novalidate: true,
+        onSubmit: function () {
+            var valid = topicForm.form('validate')
+            if (valid) {
+                var shared = $("#publicCatalogTreeSwitch").switchbutton("options").checked;
+                var publicCatalogId = null;
+                if (shared) {
+                    publicCatalogId = $("#publicCatalogTree").combotree("getValue");
+                }
+                $("#publicCatalogId").val(publicCatalogId);
+            }
+            return valid;
+        },
+        success: function (result) {
+            result = JSON.parse(result);
+            if (typeof result != 'object') {
+                $.messager.alert('保存失败', '服务器内部错！', 'error');
+                return;
+            } else if (!result.Succeed) {
+                $.messager.alert('保存失败', result.ErrorMessage, 'error');
+                return;
+            }
+            var newTopic = result.Data;
+            var topicIndex = privateTopics.findIndex(function (topic) {
+                return topic.Id == newTopic.Id;
+            });
+            if (topicIndex >= 0) {
+                var topic = privateTopics[topicIndex];
+                topic.Title = newTopic.Title;
+                topic.LinkUrl = newTopic.LinkUrl;
+                if (topic.PrivateCatalogId != newTopic.PrivateCatalogId) {
+                    topic.PrivateCatalogId = newTopic.PrivateCatalogId;
+                    buildTopicPrivateCatalogs(topic);
+                }
+                if (topic.PublicCatalogId != newTopic.PublicCatalogId) {
+                    topic.PublicCatalogId = newTopic.PublicCatalogId;
+                    buildTopicPublicCatalogs(topic);
+                }
+                privateTopics.splice(topicIndex, 1, topic)
+                topicDialog.dialog('close');
+                return;
+            }
+            buildTopicPrivateCatalogs(newTopic);
+            buildTopicPublicCatalogs(newTopic);
+            privateTopics.push(newTopic);
+            if (privateTopics.length > pageOptions.showData) {
+                privateTopics.shift();
+            }
+            pageOptions.totalData++;
+            topicsPage.pagination(pageOptions);
+            if (closeAfterSubmit) {
+                topicDialog.dialog('close');
+                return;
+            }
+            $("#topicTitle").textbox("clear");
+            $("#topicLinkUrl").textbox("clear");
+        }
+    });
+
+    var pageOptions = {
+        isHide: true,
+        totalData: 0,
+        showData: 0,
+        current: 1,
+        jump: false,
+        coping: true,
+        keepShowPN: false,
+        count: 3,
+        homePage: '首页',
+        endPage: '末页',
+        prevContent: '上页',
+        nextContent: '下页',
+        callback: function (e) {
+            loadTopics(selectedCatalogId, e.getCurrent());
+        }
+    };
+
+    function loadTopics(catalogId, page) {
+        $.post("/KGraph/GetPrivateTopics?catalogId=" + catalogId + "&page=" + page, function (pageInfo) {
+            privateTopics.splice(0, privateTopics.length);
+            Array.prototype.push.apply(privateTopics, pageInfo.Data);
+            pageOptions.totalData = pageInfo.Total;
+            pageOptions.showData = pageInfo.Size;
+            pageOptions.current = pageInfo.CurrentNumber;
+            topicsPage.pagination(pageOptions);
+        });
+    }
+
+    function openTopicDialog(topic, shared) {
+        if (catalogTreeChanged) {
+            var privateCatalogTree = [];
+            var root = catalogTree.get_node("0");
+            buildPrivateCatalogTree(privateCatalogTree, root);
+            $('#privateCatalogTree').combotree('loadData', privateCatalogTree);
+            catalogTreeChanged = false;
+        }
+        if (!publicCatalogTree) {
+            $.post("/KGraph/GetPublicCatalogTree", function (tree) {
+                $('#publicCatalogTree').combotree('loadData', tree);
+                publicCatalogTree = {};
+                buildPublicCatalogTree(publicCatalogTree, tree);
+                openTopicDialog2(topic, shared);
+            });
+            return;
+        }
+        openTopicDialog2(topic, shared);
+    }
+
+    function openTopicDialog2(topic, shared) {
+        var newTopic = { Id: 0, Title: "", LinkUrl: "", };
+        if (topic) $.extend(newTopic, topic);
+        var dialogTitle;
+        if (shared) {
+            $("#publicCatalogTreeSwitch").switchbutton("check");
+            dialogTitle = "分享主题";
+        } else if (topic) {
+            shared = (topic.PublicCatalogId > 0);
+            $("#publicCatalogTreeSwitch").switchbutton(shared ? "check" : "uncheck");
+            newTopic.VisiblePublicCatalogId = topic.PublicCatalogId;
+            dialogTitle = "编辑主题";
+        } else {
+            dialogTitle = "添加新主题";
+        }
+        topicForm.form('load', newTopic);
+        topicDialog.dialog({ title: dialogTitle });
+        topicDialog.dialog('open');
+    }
+
+    function buildPrivateCatalogTree(tree, node) {
+        for (var i = 0; i < node.children.length; i++) {
+            var child = catalogTree.get_node(node.children[i]);
+            var childNew = { id: child.id, text: child.text };
+            tree.push(childNew);
+            if (child.children) {
+                childNew.children = [];
+                buildPrivateCatalogTree(childNew.children, child);
+            }
+        }
+    }
+
+    function buildPublicCatalogTree(tree, nodes) {
+        for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
+            tree[node.id] = node;
+            if (node.children && node.children.length > 0) {
+                buildPublicCatalogTree(tree, node.children);
+            }
+        }
+    }
+
+    function buildTopicPrivateCatalogs(newTopic) {
+        newTopic.PrivateCatalogs = [];
+        if (newTopic.PrivateCatalogId < 1) return;
+        var privateCatalogId = newTopic.PrivateCatalogId;
+        do {
+            var privateCatalogNode = catalogTree.get_node(privateCatalogId);
+            newTopic.PrivateCatalogs.push({ Id: privateCatalogId, Text: privateCatalogNode.text });
+            privateCatalogId = privateCatalogNode.parent;
+        }
+        while (privateCatalogId > 0);
+        newTopic.PrivateCatalogs.reverse();
+    }
+
+    function buildTopicPublicCatalogs(newTopic) {
+        newTopic.PublicCatalogs = [];
+        if (newTopic.PublicCatalogId < 1) return;
+        var publicCatalogId = newTopic.PublicCatalogId;
+        do {
+            var publicCatalogNode = publicCatalogTree[publicCatalogId];
+            newTopic.PublicCatalogs.push({ Id: publicCatalogId, Text: publicCatalogNode.text });
+            publicCatalogId = publicCatalogNode.parentid;
+        }
+        while (publicCatalogId > 0);
+        newTopic.PublicCatalogs.reverse();
+    }
+
+    function deleteTopic(deletedTopic) {
+        $.messager.confirm('删除主题', '是否删除当前选择的主题(删除后无法恢复)?', function (deleted) {
+            if (!deleted) return;
+            $.post("/KGraph/DeletePrivateTopic?id=" + deletedTopic.Id, function (result) {
+                var topicIndex = privateTopics.findIndex(function (topic) {
+                    return topic.Id == deletedTopic.Id;
+                });
+                if (topicIndex >= 0) {
+                    privateTopics.splice(topicIndex, 1);
+                }
+            });
+        });
+    }
+
+    $(function () {
+        loadCatalogTree();
+        onChangeTopicShared(true);
+    });
+</script>

@@ -1,0 +1,208 @@
+﻿@{
+    ViewBag.Title = "勘探概况";
+}
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-8">
+            @*<a href="javascript:{
+                pksGlobalStore.goToDetailService.gotodetailpage('钻井日报','BY35-3-2','2017-7-17');
+                }">测试</a>*@
+            <div class="jurassic-margin-container">
+                <pks:singletitle title="钻探油气新发现情况" :data="G1_data" :map="map" :onshowmore="onshowmore" :onclick="G1_onclick"></pks:singletitle>
+            </div>
+            <div class="jurassic-margin-container">
+                <pks:panel title="年度勘探总况" :show="false">
+                    <div class="jurassic-margin-container" slot="panel">
+                        <pks:tabs :titles="surveytitle">
+                            <div slot="探井">
+                                <div class="jurassic-margin-container">
+                                    <pks:histogram :data="G3_1_data"
+                                                   height="300px"
+                                                   width="700px"
+                                                   :titlelocation="titlelocation"
+                                                   :legendstyle="legendstyle">
+                                    </pks:histogram>
+                                </div>
+                                <div class="jurassic-margin-container">
+                                    <pks:histogram :data="G3_data"
+                                                   height="300px"
+                                                   width="700px"
+                                                   :titlelocation="titlelocation"
+                                                   :legendstyle="legendstyle">
+                                    </pks:histogram>
+                                </div>
+                            </div>
+                            <div slot="物探">
+                                <div class="jurassic-margin-container" style="text-align:center">
+                                    <pks:histogram :data="G4_data"
+                                                   height="300px"
+                                                   width="700px"
+                                                   :titlelocation="titlelocation"
+                                                   :legendstyle="legendstyle">
+                                    </pks:histogram>
+                                </div>
+                                <div class="jurassic-margin-container">
+                                    <pks:histogram :data="G5_data"
+                                                   height="300px"
+                                                   width="700px"
+                                                   :titlelocation="titlelocation"
+                                                   :legendstyle="legendstyle">
+                                    </pks:histogram>
+                                </div>
+                            </div>
+                            <div slot="项目">
+                                <div class="jurassic-margin-container">
+                                    <pks:histogram :data="G6_data"
+                                                   height="400px"
+                                                   width="700px"
+                                                   :titlelocation="titlelocation"
+                                                   :legendstyle="legendstyle">
+                                    </pks:histogram>
+                                </div>
+                            </div>
+                        </pks:tabs>
+                    </div>
+                </pks:panel>
+            </div>
+        </div>
+        <div class="jurassic-col-4">
+            <div class="jurassic-margin-container">
+                <pks:singletitle title="钻探复杂情况" :show=true :data="G2_data" :map="map" :onshowmore="onshowmore" :onclick="G1_onclick">
+                </pks:singletitle>
+            </div>
+            <div class="jurassic-margin-container">
+                <pks:multipletitle :panelshow="false"
+                                   :titles="G7_G9_title"
+                                   :show="true"
+                                   :data="G7_G9_data"
+                                   :map="maplist"
+                                   :onshowmore="onshowmore"
+                                   :onclick="G1_onclick">
+                </pks:multipletitle>
+            </div>
+            <div class="jurassic-margin-container">
+                <pks:multipletitle :panelshow="false"
+                                   :titles="G10_G11_title"
+                                   :show="false"
+                                   :data="G10_G11_data"
+                                   :map="maplist"
+                                   :onclick="G1_onclick">
+                </pks:multipletitle>
+            </div>
+            <div class="jurassic-margin-container">
+                <pks:singletitle title="互联互通软件入口" :show=false :data="G17_data" :map="map2" :onclick="G17_onclick">
+                </pks:singletitle>
+            </div>
+            <div class="jurassic-margin-container">
+                <pks:singletitle title="互联互通软件下载" :show=false :data="G18_data" :map="map" :onclick="G18_onclick">
+                </pks:singletitle>
+            </div>
+        </div>
+    </div>
+
+    <div class="jurassic-row">
+        <div class="jurassic-margin-container">
+            <pks:panel :title="title02" :show="false">
+                <div class="jurassic-margin-container" slot="panel">
+                    <div class="jurassic-marginTop-container" slot="panel">
+                        <pks:tabs :titles="title02_1">
+
+                            <div class="jurassic-margin-container" slot="钻井动态">
+                                <pks:table :datasource="G12_data" id="G12"></pks:table>
+                            </div>
+                            <div class="jurassic-margin-container" slot="录井动态">
+                                <pks:table :datasource="G13_data" id="G13"></pks:table>
+                            </div>
+                            <div class="jurassic-margin-container" slot="测井动态">
+                                <pks:table :datasource="G14_data" id="G14"></pks:table>
+                            </div>
+                            <div class="jurassic-margin-container" slot="测试动态">
+                                <pks:table :datasource="G15_data" id="G15"></pks:table>
+                            </div>
+
+                            <div class="jurassic-margin-container" slot="地震采集动态">
+                                <pks:table :datasource="G16_data" id="G16"></pks:table>
+                            </div>
+                        </pks:tabs>
+                    </div>
+                </div>
+            </pks:panel>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    bootstrapTableOptions.showTitleTab = true;
+    var sourcedata=@Html.Raw(Model);
+    var map = { left: "title", right: "ShortDate", url: "iiid" };
+    var map2 = { left: "title", url: "subject" };
+    PKSUI.bind({
+        el: "#el",
+        data: {
+            G1_data: sourcedata["g1"],
+            map: map,
+            map2: map2,
+            G2_data: sourcedata["g2"],
+            G7_G9_title: ["项目进展","最新成果","最新部署"],
+            G7_G9_data:[sourcedata["g7"],sourcedata["g8"],sourcedata["g9"]],
+            G10_G11_title:["热点信息","最近浏览"],
+            G10_G11_data:[sourcedata["g10"],sourcedata["g11"]],
+            surveytitle:["探井","物探","项目"],
+            maplist:[map,map,map],
+            title02:"勘探动态",
+            title02_1:["钻井动态","录井动态","测井动态","测试动态","地震采集动态"],
+            G3_data: sourcedata["g3"],
+            G3_1_data: sourcedata["g3_1"],
+            titlelocation:["center","10"],
+            legendstyle:["center","bottom","horizontal"],
+            G4_data:sourcedata["g4"],
+            G5_data:sourcedata["g5"],
+            G6_data:sourcedata["g6"],
+            G12_data:setBootstrapTableOptions(sourcedata["g12"]),
+            G13_data:setBootstrapTableOptions(sourcedata["g13"]),
+            G14_data:setBootstrapTableOptions(sourcedata["g14"]),
+            G15_data:setBootstrapTableOptions(sourcedata["g15"]),
+            G16_data:setBootstrapTableOptions(sourcedata["g16"]),
+            G17_data:sourcedata["g17"],
+            G18_data:sourcedata["g18"],
+
+        },
+        methods:{
+            G1_onclick: function (e) {
+                open("/ExplorationOverview/GoToPublicPage?iiid="+e,"_blank");
+            },
+            G17_onclick: function (e) {
+                open(e,"_self");
+            },
+            G18_onclick: function (e) {
+                open('/ExplorationOverview/GoToPublicPage?handleunknownformat=1&iiid=' + e,"_blank")
+            },
+            onshowmore:function(e){
+                var map={
+                    "项目进展": {pt: "项目进展"},
+                    "最新成果": { pt: "最新成果", urlparam: "order=createddate$desc&ischecked=on&field=dsn&operator=equal&matchtext1=自建库"},
+                    "最新部署": { pt:"最新部署"},
+                    "热点信息": { pt:"热点信息"},
+                    "最近浏览": { pt: "最近浏览"},
+                    "钻探复杂情况": { pt: "钻探复杂情况"},
+                    "钻探油气新发现情况": { pt: "油气测试情况,钻时气测数据表", urlparam:"ischecked=on&field=pt&operator=contain&matchtext1=油气测试情况,钻时气测数据表" }
+                };
+                if (map[e].urlparam) {
+                    open("/ExplorationOverview/GoToSooilPage?urlparam=" + encodeURIComponent("isadvance=true&" + map[e].urlparam), "_blank");
+                }
+                else {
+                    goToSearchPage(map[e].pt);
+                }
+            }
+        },
+        model: ["pks:singletitle","pks:multipletitle","pks:tabs","pks:histogram","pks:panel","pks:table"]
+    });
+    function goToSearchPage(pt,period){
+        if (period==null) {
+            open("/ExplorationOverview/GoToSearchPage?pt="+pt,"_blank");
+        }else{
+            open("/ExplorationOverview/GoToSearchPage?pt="+pt+"&period="+period,"_blank");
+        }
+    }
+</script>
+

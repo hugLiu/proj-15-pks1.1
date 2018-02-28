@@ -1,0 +1,11 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "错误";
+    Layout = "~/Views/Shared/_errorLayout.cshtml";
+}
+
+<hgroup class="title">
+    <h1 class="error">错误:</h1>
+    <h2 class="error">@Model.Exception.ToString()</h2>
+</hgroup>

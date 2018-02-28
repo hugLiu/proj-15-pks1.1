@@ -1,0 +1,128 @@
+@charset "utf-8";
+/* CSS Document 查看页面样式
+*  author ： zhanggf
+*  date : 2012-11-16
+*/
+* {
+	padding-left: 0;
+	margin: 0;
+	border: none;
+	font-size: 12px;
+	font-family:"宋体";
+	color: #333;
+}
+
+body {
+	background: #FFF;
+	height:100%;/* body 和html 的高度设置为%100，解决ie7下拖动布局时 页面中的datagrid高度自适应问题，杨恒涛2013年10月9日添加*/
+}
+
+html{
+	overflow-x: hidden;
+	overflow-y: hidden;
+	height:100%;/* body 和html 的高度设置为%100，解决ie7下拖动布局时 页面中的datagrid高度自适应问题，杨恒涛2013年10月9日添加*/
+}
+
+.buttontable {
+	width: 100%;
+	text-align: right;
+	vertical-align: top;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padding: 3 3 3 3;
+	margin: 0 0 0 0;
+}
+
+.button_area {
+	position:relative; 
+	bottom:0px;
+	left:0px;
+	border-top:1px solid #B6B6B6;
+	background: #e4e4e4;/*灰色*/
+	width:100%;
+	height:30px;
+	text-align:center;
+	padding-top:10px;
+}
+
+.detailtable {
+	border:1px solid #cccccc;/*灰色*/
+	table-layout:fixed;
+    empty-cells:show; 
+    border-collapse: collapse;
+	margin:2px 2px 2px 2px;
+	width:99%;
+	line-height:18px;
+}
+
+.detailtable th {
+	background-color: #f6f6f6; /*灰色*/
+    color: #333333;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    padding-right:10px;
+    width: 20%;
+    text-align: right;
+    word-wrap:break-word; 
+    word-break:break-all;
+}
+
+.detailtable td {
+	background-color: #FFF;
+	color: #333;
+	font-size: 12px;
+	padding-left: 15px;
+	width: 30%;
+	text-align: left;
+	word-wrap:break-word;
+	word-break:break-all;
+}
+
+.detailtable tr, .detailtable th,.detailtable td{
+	border:1px solid #e4e4e4;/*灰色*/
+    padding: 3px 3px 3px 3px;
+    word-wrap:break-word; 
+    word-break:break-all;
+}
+.attmenttable {
+	border:1px solid #e4e4e4;/*灰色*/
+	border-top:0px;
+	table-layout:fixed;
+    empty-cells:show; 
+	margin:2px 2px 2px 2px;
+	width:99%;
+	text-align: right;
+	vertical-align: top;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padding: 3 3 3 3;
+}
+.attmenttable td {
+	border:1px solid #e4e4e4;/*灰色*/
+	background-color: transparent;
+    color: #333333;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    padding-right:10px;
+    text-align: center;
+    word-wrap:break-word; 
+    word-break:break-all;
+}
+.button_area_absolute {
+	position:absolute; 
+	bottom:0px;
+	left:0px;
+	border-top:1px solid #B6B6B6;
+	background: #e4e4e4;/*灰色*/
+	width:100%;
+	height:40px;
+	text-align:center;
+	line-height:30px;
+}
+
+#main_area{
+	overflow-x:hidden;
+	 overflow-y:auto;
+}

@@ -1,0 +1,136 @@
+/*! http://responsiveslides.com v1.55 by @viljamis */
+
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  }
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  /*text-align:center;*/
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+  }
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left;
+  }
+
+.rslides img {
+  /*display: block;*/
+  height: auto;
+  /*float: left;*/
+  /*width: 100%;*/
+  border: 0;
+  }
+
+
+
+.centered-btns_nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 38px;
+    height: 61px;
+    margin-top: -40px;
+    line-height: 200px;
+    background-image: url(images/arrow.gif);
+    overflow: hidden;
+    opacity: .7;
+}
+
+.next {
+    right: 0;
+    background-position: right 0;
+}
+
+
+
+
+.centered-btns_nav:active {
+    opacity: 1;
+}
+
+.centered-btns_tabs {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0;
+    list-style-type: none;
+}
+
+    .centered-btns_tabs li {
+        display: inline-block;
+        margin: 0 3px;
+        *display: inline;
+        *zoom: 1;
+    }
+
+    .centered-btns_tabs a {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        line-height: 20px;
+        background-color: rgba(0, 0, 0, .3);
+        background-color: #ccc\9;
+        overflow: hidden;
+        *display: inline;
+        *zoom: 1;
+    }
+
+    .centered-btns_tabs .centered-btns_here a {
+        background-color: rgba(0, 0, 0, .8);
+        background-color: #666\9;
+    }
+
+
+.rslides li {
+    position: relative;
+}
+
+.rslides p {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+    margin: 0;
+    padding: 0 10px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #666\9;
+}
+
+.centered-btns_nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 38px;
+    height: 61px;
+    margin-top: -40px;
+    line-height: 200px;
+    background-image: url(images/arrow.gif);
+    overflow: hidden;
+    opacity: .7;
+}
+
+.next {
+    right: 0;
+    background-position: right 0;
+}
+
+.centered-btns_nav:active {
+    opacity: 1;
+}

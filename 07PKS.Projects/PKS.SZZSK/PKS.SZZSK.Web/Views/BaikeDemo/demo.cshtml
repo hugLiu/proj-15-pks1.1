@@ -1,0 +1,36 @@
+﻿@using PKS.Web
+@using PKS.SZZSK.Web.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.BO = "LW3-2-1";
+    ViewBag.Title = "井百科 - " + ViewBag.BO;
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+    var templateUrl = new TemplateUrl();
+    templateUrl.Id = 1;
+    templateUrl.PageId = 7;
+    templateUrl.InstanceClass = "井";
+    templateUrl.Type = "目标认识";
+    ViewData["bo"] = ViewBag.BO;
+}
+<link href="~/Content/baike/baidu.css" rel="stylesheet" />
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-9">
+            <div class="jurassic-margin-container">
+                @Html.Partial("_baikedemo", new ViewDataDictionary{
+               {"well",ViewBag.BO },
+               {"author","张三" },
+                   { "instanceclass",templateUrl.InstanceClass},
+                   { "instance",ViewBag.BO},
+                   { "urlid", templateUrl.Id},
+                   { "type", templateUrl.Type}
+                        })
+            </div>
+        </div>      
+    </div>
+</div>
+<script src="~/Scripts/util.js"></script>
+<script src="~/Content/lib/ResponsiveSlides.js/responsiveslides.js"></script>
+<link href="~/Content/lib/ResponsiveSlides.js/responsiveslides.css" rel="stylesheet" />
+<script src="~/Content/baike/sidebar.js"></script>
+

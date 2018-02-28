@@ -1,0 +1,220 @@
+﻿@model  IEnumerable<PKS.DbModels.OilWiki.PKS_OILWIKI_CATALOG>
+@{
+    ViewBag.Title = "石油百科 - 首页";
+    var ImageBase64 = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAlBJREFUaAXtWUtOwzAQtUnCAdghlTNwgG6y7RU4QJdISIhDICQklr0AR+g2mx6AO1RixwFII+OJMpax7NTx2C1BzqJJ7Pm8meeZpA5j+cgZyBnIGThnBjjVef0mFoe2e5Z2aiHEtY89zvmnlGvKqnhq7vneR8clQwoAwLdt98GEuHI5GB3n/KuqiltKEOWogyOTfeYleM74trws1r5Aeta+u41kbDWwd3fElXP6wjnjN1GD2BTwIA+Bgg5cy6PufwN/SAHgmvfNvI4RddCGPjflmhTAFEepZH8VcUhHSQXMtOvqXCoAckcxPaa6NzqX6kKhHSUVTtOuq3PpNVCD0tSOYjpKde/qXCoA7AbYHVIBodhFbIgVbKkAKIbPqTv7AFQRx8ri8vWw4h3bCCYWuk35urEXBVvvHsqtPk69js6ADTyAhIBgjgrY1I/OAGZ+91ipZww4Xb60AudMEJT76AxQwITozj4A0hJyFexYJmEp4XyMwiYx4CpYBHjsHKOwSQxgUZoFawNuk4lR2CQGbEBPPZYDOHXGTX+kGui7iHzC6p0FHZhr3iYDsmADdULOpCUE7zYUANhGQ4CjDomB4cXsBo3B2ZVplDGZwfHQM4mBUKcx9WYfAGkJ2TI5VtiUerH5grHoDLgKO0bB2oKIzoCtsG2OY41FZyAWMF87/yeAYe+RwQ6Yb/SnlkNsiBX86ww0MHCQHx5QEO7/yoFbiwOeBnGpP94gQPpchBZTn43NXcUAbNvB9ypJz7tOUWo8vvYBE2CjflPz9ZflcgbmkoEfC8f5nKQktocAAAAASUVORK5CYII=";
+
+
+}
+@*<link href="~/Content/lib/guideSlider/guideSlier.css" rel="stylesheet" />*@
+<script src="~/Content/lib/typeahead/bootstrap-typeahead.js"></script>
+
+<style type="text/css">
+    a:visited, a:active, a:focus {
+        text-decoration: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    ul, ol, li {
+        list-style: none;
+    }
+
+    .clearfix:after {
+        content: ".";
+        font-size: 0;
+        line-height: 0;
+        display: block;
+        overflow: hidden;
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        clear: both
+    }
+
+    .category .category-list {
+        margin-top: 28px;
+        padding-bottom: 55px;
+    }
+
+        .category .category-list .category-item {
+            position: relative;
+            float: left;
+            border: 1px solid #ddd;
+            /*width: 281px;*/
+            width: 268px;
+            height: 168px;
+            /*margin-right: 12px;
+            margin-bottom: 12px;*/
+            margin-right: 7px;
+            margin-bottom: 7px;
+            background: #fff;
+        }
+
+
+            .category .category-list .category-item img {
+                float: left;
+                display: block;
+                width: 48px;
+                height: 48px;
+                /*margin: 24px 28px 0 20px;*/
+                margin: 24px 15px 0 15px;
+            }
+
+            .category .category-list .category-item .category-info {
+                float: left;
+                margin-top: 20px;
+                width: 170px;
+            }
+
+                .category .category-list .category-item .category-info h5 {
+                    margin-bottom: 8px;
+                    /*font-size: .83em;
+                    color: #333;*/
+                    /*margin-bottom: 0px;*/
+                }
+
+                    .category .category-list .category-item .category-info h5 a {
+                        height: 33px;
+                        line-height: 33px;
+                        font-size: 24px;
+                        font-weight: 400;
+                        color: #666565;
+                        cursor: pointer;
+                    }
+
+                        .category .category-list .category-item .category-info h5 a:hover {
+                            cursor: pointer;
+                            color: #3B8CFB;
+                            text-decoration: underline;
+                        }
+
+                .category .category-list .category-item .category-info .category-link a {
+                    height: 40px;
+                    line-height: 20px;
+                    overflow: hidden;
+                    font-size: 14px;
+                    color: #3B8CFB;
+                    cursor: pointer;
+                }
+
+                .category .category-list .category-item .category-info .category-detail {
+                    line-height: 20px;
+                    font-size: 14px;
+                    color: #666565;
+                    position: absolute;
+                    bottom: 18px;
+                }
+
+                    .category .category-list .category-item .category-info .category-detail:hover {
+                        text-decoration: underline;
+                        color: #3B8CFB;
+                    }
+</style>
+
+<div class="container-fluid" style="background-color:#EEE;padding-top:17px;">
+    <div class="jurassic-row">
+        <div class="col-md-2 col-md-offset-1" style="padding-top:8px;"><span style="font-weight:bolder;">石油百科</span></div>
+        <div class="input-group col-md-9 col-md-pull-1">
+            <input id="txtSearch" autocomplete="off" type="text" class="form-control" placeholder="百科词条">
+            <span class="input-group-btn">
+                <button class="btn btn-default btn-primary" type="button" id="btnSearch">进入词条</button>
+            </span>
+        </div>
+    </div>
+
+    @*<div class="row" style="height:30px;"></div>*@
+
+    <div class="jurassic-row">
+        <div class="category">
+            <div class="category-list">
+                <ul class="clearfix">
+                    @foreach (var item in Model)
+                {
+                    <li class="category-item">
+                        <img class="lazy-img" src="@ImageBase64">
+                        <div class="category-info">
+                            <h5><a href="@Url.Action("List")?id=@item.Id" target="_blank">@item.NAME</a></h5>
+                            <p class="category-link">
+                                @{
+                                int i = 0;
+
+                                }
+                                @foreach (var entryItem in item.PKS_OILWIKI_ENTRY)
+                            {
+                                <a target="_blank" href="@Url.Action("Entry")?id=@entryItem.Id">@entryItem.NAME</a>
+                            if (i == 2) { break; }
+                            i++;
+                            @: 、
+                    }
+
+                                @*、<a target="_blank" href="https://baike.baidu.com/item/%E8%82%BA%E7%BB%93%E6%A0%B8/101306">肺结核</a>
+                                、<a target="_blank" href="https://baike.baidu.com/item/%E6%80%A5%E6%80%A7%E5%BF%83%E8%82%8C%E6%A2%97%E6%AD%BB">急性心肌梗死</a>*@
+                            </p>
+                            <a class="category-detail" href="@Url.Action("List")?id=@item.Id" target="_blank">查看详情 &gt;&gt;</a>
+                        </div>
+                    </li>
+            }
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+    window.navigation = " ";
+    $(function () {
+
+        $("#btnSearch").on("click", search);
+        function search() {
+            var queryString = $.trim($('#txtSearch').val());
+            if (queryString) {
+                $.ajax({
+                    url: "@Url.Action("GetEntryByName")",
+                    type: "post",
+                    data: { name: queryString },
+                    success: function (matchedId) {
+                        if (matchedId == -1) {
+                            alert("该词条不存在，请重新输入");
+                            $('#txtSearch').select();
+                        }
+                        else {
+                            displayResult(null, matchedId, queryString);
+                        }
+                    }
+                });
+            }
+        }
+
+        function displayResult(item, val, text) {
+            window.open("@Url.Action("Entry")" + "?id=" + val, "_self");
+        }
+
+        $('#txtSearch').typeahead({
+            ajax: {
+                url: "@Url.Action("GetSearch")",
+                timeout: 300,
+                method: 'post',
+                triggerLength: 1,
+                displayField: "name"
+            },
+            items: 8,
+            menu: '<ul class="typeahead dropdown-menu col-md-6" ></ul>',
+            itemSelected: displayResult
+        }).keyup(function (event) {
+            if (event.keyCode == 13) { search(); }
+        });
+
+        $("#guideSlider").eq(0).find(".guide-list .guide").hover(function () {
+            $(this).addClass("on").siblings().removeClass("on");
+        });
+
+    });
+
+</script>
+

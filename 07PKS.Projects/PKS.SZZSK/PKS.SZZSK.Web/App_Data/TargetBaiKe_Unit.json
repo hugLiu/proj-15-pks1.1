@@ -1,0 +1,33 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bt.keyword": "目标认识"
+              }
+            },
+            {
+              "match": {
+                "bp.keyword": "二级构造单元"
+              }
+            }
+          ]
+        }
+      },
+      "size": "10",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

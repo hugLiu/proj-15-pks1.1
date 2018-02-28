@@ -1,0 +1,57 @@
+.calendar-title span{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.calendar-prevmonth,.calendar-nextmonth,.calendar-prevyear,.calendar-nextyear{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.calendar-day{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.calendar-menu-month{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+a:hover.l-btn-plain{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.menu-active{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.menu-shadow{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+a.m-btn-plain-active{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.progressbar{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.progressbar-value{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.searchbox a.l-btn-plain:hover{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.searchbox a.m-btn-plain-active{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.slider-inner{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.slider-handle{
+	background:url('images/slider_handle.png') no-repeat;
+}
+a.s-btn-plain-active{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.tabs li{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.tabs li a.tabs-inner{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.window {
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}
+.window-body{
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+}

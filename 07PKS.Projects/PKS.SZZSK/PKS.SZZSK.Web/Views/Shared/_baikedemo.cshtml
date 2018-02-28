@@ -1,0 +1,65 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Converters
+@using PKS.DbServices.KManage.Model
+@using PKS.PageEngine
+@using PKS.PageEngine.Extensions
+@using PKS.SZZSK.Web.Common
+@using PKS.Web
+@{
+    PageContext pageContext = new PageContext();
+    foreach (var viewDataKey in ViewData.Keys)
+    {
+        pageContext.AddContextParam(viewDataKey,ViewData[viewDataKey]);
+    }
+    var baikeType = ViewData["type"];
+    var pageRenderEngine = new BaikePageEngineDemo(pageContext);
+    var hasTemplate = pageRenderEngine.Load();
+    IEnumerable<string> fullTagNameList = null;
+    string fullTagNames = string.Empty;
+    // 是否找到模板 -- zeyu 2017.12.21
+    if (hasTemplate)
+    {
+        fullTagNameList = pageRenderEngine.ViewManager.GetAllComponentTagNames().Distinct();
+        fullTagNames = string.Join(",", fullTagNameList.Select(item => "'" + item + "'"));
+    }
+
+}
+
+<link href="~/Content/styles/themes/default/baike.css" rel="stylesheet" />
+    <link href="~/Content/Catalogue/bkml.css" rel="stylesheet" />
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Content/lib/ResponsiveSlides.js/responsiveslides.js"></script>
+    <link href="~/Content/lib/ResponsiveSlides.js/responsiveslides.css" rel="stylesheet" />
+
+<div class="row" style="">
+    @if (hasTemplate)
+    {
+        <div id="container">
+            @Html.Raw(pageRenderEngine.GetHtml())
+        </div>
+    }
+    else
+    {
+        <div id="tips">
+            <h2>没有找到该目标的 @baikeType</h2>
+        </div>
+    }
+
+
+</div>
+
+<script>
+    var baikeModel = @Html.Raw(JsonConvert.SerializeObject(pageRenderEngine.GetData(), Formatting.Indented));
+    var vm = PKSUI.bind({
+        el: "#container",
+        data: baikeModel,
+        methods: {
+            onclick: function (e) {
+
+            }
+        },
+        model:[@Html.Raw(fullTagNames)]
+    });
+
+</script>
+

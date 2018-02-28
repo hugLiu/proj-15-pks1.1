@@ -1,0 +1,21 @@
+﻿{
+  "hits": {
+    "hits": [
+      {
+        "_source": {
+          "iiid": "demo1.png",
+          "title": "demo1",
+          "thumbnail": "/content/vue/defaultvalue/slideimg/demo1.png"
+        }
+      },
+      {
+        "_source": {
+          "iiid": "demo2.png",
+          "title": "demo2",
+          "thumbnail": "/content/vue/defaultvalue/slideimg/demo2.png"
+        }
+      }
+    ],
+    "total": 2
+  }
+}

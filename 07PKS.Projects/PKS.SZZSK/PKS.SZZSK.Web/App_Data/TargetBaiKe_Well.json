@@ -1,0 +1,30 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "NearBos",
+    "title": "临井",
+    "query": {
+      "bo": "@bo",
+      "bot": "井",
+      "distince": 100000000,
+      "top": 10
+    }
+  }
+]

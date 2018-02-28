@@ -1,0 +1,195 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "探井资料-" + ViewBag.Well;
+    var webApiSiteUrl = this.Context.GetWebApiSiteUrl();
+    var portalUrl = this.Context.GetPortalSiteUrl();
+    var sooilUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.SOOIL);
+}
+@section stylesSection{
+    <style>
+        .wellName {
+            font-size: x-large;
+        }
+
+        .right {
+            float: right;
+        }
+    </style>
+}
+<div id="el">
+    <div class="jurassic-row">
+        <span class="wellName">@ViewBag.Well</span>
+        <a class="right" href="AnalysisTestDetail?well=@ViewBag.Well">跳转到此井的分析化验资料</a>
+        <div class="jurassic-col-12">
+            <div class="jurassic-margin-container">
+                <div class="jurassic-margin-container" style="text-align:left">
+                    <pks:panel title="基本信息" :show="false">
+                        <div class="jurassic-section" slot="panel">
+                            <pks:tabs class="" :titles="titleDetail1" slot="panel" :showmore="true" :onshowmore="onshowmore">
+                                <div slot="基础数据">
+                                    <div class="jurassic-margin-container fixed-height-400">
+                                        <pks:singleimg v-bind:item="G11" v-bind:map="imageMap" v-bind:onclick="openUrl"> </pks:singleimg>
+                                    </div>
+                                </div>
+                                <div slot="构造位置">
+                                    <div class="jurassic-margin-container fixed-height-400">
+                                        <pks:singleimg v-bind:item="G12" v-bind:map="imageMap" v-bind:onclick="openUrl"> </pks:singleimg>
+                                    </div>
+                                </div>
+                                <div slot="综合柱状图">
+                                    <div class="jurassic-margin-container fixed-height-400">
+                                        <pks:singleimg v-bind:item="G13" v-bind:map="imageMap" v-bind:onclick="openUrl"> </pks:singleimg>
+                                    </div>
+                                </div>
+                                <div slot="钻探目的">
+                                    <div class="jurassic-margin-container fixed-height-400">
+                                        <pks:html :template="G15">
+                                        </pks:html>
+                                    </div>
+                                </div>
+                            </pks:tabs>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-margin-container">
+                    <pks:panel title="钻井信息" :show="false">
+                        <div class="jurassic-section" slot="panel">
+                            <pks:tabs class="" :titles="titleDetail2" slot="panel" :showmore="true" :onshowmore="onshowmore">
+                                <div slot="钻探情况">
+                                    <div class="jurassic-margin-container fixed-height-400">
+                                        <pks:html :template="G16">
+                                        </pks:html>
+                                    </div>
+                                </div>
+                                <div slot="井身结构">
+                                    <div class="jurassic-margin-container fixed-height-400">
+                                        <pks:singleimg v-bind:item="G14" v-bind:map="imageMap" v-bind:onclick="openUrl"> </pks:singleimg>
+                                    </div>
+                                </div>
+                            </pks:tabs>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-margin-container">
+                    <pks:panel title="油气信息" :show="false">
+                        <div class="jurassic-section" slot="panel">
+                            <pks:tabs class="" :titles="titleDetail3" slot="panel" :showmore="true" :onshowmore="onshowmore">
+                                <div slot="综合解释成果">
+                                    <div class="jurassic-margin-container fixed-height-400">
+                                        <pks:table :datasource="G1" :pagination="false"></pks:table>
+                                    </div>
+                                </div>
+                                <div slot="测井解释成果">
+                                    <div class="jurassic-margin-container fixed-height-400">
+                                        <pks:listm :data="G4" :map="map" :onclick="openUrl"></pks:listm>
+                                    </div>
+                                </div>
+                                <div slot="试油解释成果">
+                                    <div class="jurassic-margin-container fixed-height-400">
+                                        <pks:table :datasource="G2" :pagination="false"></pks:table>
+                                    </div>
+                                </div>
+                            </pks:tabs>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-margin-container" id="wellachievements">
+                    <pks:panel title="探井成果" :show="false">
+                        <div class="jurassic-section" slot="panel">
+                            <pks:tabs class="" :titles="titleDetail4" slot="panel" :showmore="true" :onshowmore="onshowmore">
+                                <div slot="钻井">
+                                    <div class="jurassic-margin-container fixed-height">
+                                        <pks:listm :data="G5" :map="map" :onclick="openUrl"></pks:listm>
+                                    </div>
+                                </div>
+                                <div slot="录井">
+                                    <div class="jurassic-margin-container fixed-height">
+                                        <pks:listm :data="G6" :map="map" :onclick="openUrl"></pks:listm>
+                                    </div>
+                                </div>
+                                <div slot="测井">
+                                    <div class="jurassic-margin-container fixed-height">
+                                        <pks:listm :data="G7" :map="map" :onclick="openUrl"></pks:listm>
+                                    </div>
+                                </div>
+                                <div slot="测试">
+                                    <div class="jurassic-margin-container fixed-height">
+                                        <pks:listm :data="G8" :map="map" :onclick="openUrl"></pks:listm>
+                                    </div>
+                                </div>
+                                <div slot="时深数据">
+                                    <div class="jurassic-margin-container fixed-height">
+                                        <pks:listm :data="G9" :map="map" :onclick="openUrl"></pks:listm>
+                                    </div>
+                                </div>
+                                @*<div slot="报告">
+                                        <div class="jurassic-margin-container fixed-height">
+                                            <pks:listm :data="G10" :map="map" :onclick="openUrl"></pks:listm>
+                                        </div>
+                                    </div>*@
+                            </pks:tabs>
+                        </div>
+                    </pks:panel>
+                </div>
+            </div>
+        </div>
+        @*<div class="jurassic-col-3">
+                <div class="jurassic-margin-container">
+                        <pks:singletitle :title="title_adjacentwell"
+                                       :show=true
+                                       :data="nearWells"
+                                       :map ="adjacentmap"
+                                       :onshowmore="onshowmore"
+                                       :onclick="onclick_adjacentwell">
+                        </pks:singletitle>
+                    </div>
+            </div>*@
+    </div>
+</div>
+<script src="~/Scripts/util.js"></script>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    window.navigation = "勘探信息共享 > 勘探数据成果 > 探井资料 > ";
+    window.navigation = window.navigation + "<font color='red'>@ViewBag.Well</font> [<a href='/ExplorationDataAchievement/AnalysisTestDetail?well=@ViewBag.Well' target='_blank'>分析化验</a>]";
+
+    var data =@Html.Raw(ViewBag.data);
+    bootstrapTableOptions.tableOption.height = 300;
+    data.G1 = setBootstrapTableOptions(data.G1);
+    data.G2 = setBootstrapTableOptions(data.G2);
+    //var nearWells=@Html.Raw(ViewBag.nearWells);
+
+
+    var dataConfig = $.extend({}, data, {
+        wellTitle: getPageParam("well"),
+        imageMap : { "url": "url", "thumbnail": "thumbnail", "bottom": "title", "param": "iiid" },
+        map: { left: "title", right: "indexeddate", url: "iiid" },
+        adjacentmap: { left: "title", right: "indexeddate", url: "title" },
+        title_adjacentwell: "相邻井",
+        //nearWells: nearWells,
+        titleDetail1: ["基础数据", "构造位置", "综合柱状图","钻探目的"],
+        titleDetail2: ["钻探情况","井身结构"],
+        titleDetail3: ["录井成果", "测井成果", "试油成果"],
+        titleDetail4: ["钻井", "录井", "测井", "测试", "时深数据"]
+    });
+
+    PKSUI.bind({
+        el: "#el",
+        data: dataConfig ,
+        methods: {
+            onshowmore:function(e)
+            {
+                var url = "@sooilUrl/search/list?sourcename = 全部&p=1&w=" + e ;
+                window.open(url,"_blank");
+            },
+            onclick_adjacentwell:function(e) {
+                var url = "/ExplorationDataAchievement/ExploratoryWellDetail?well=" + e;
+                window.open(url,"_blank");
+            },
+            openUrl:function(e)
+            {
+                window.open("@portalUrl/render/content?iiid=" + e,"_blank");
+            }
+        },
+        model: ["pks:tabs", "pks:histogram", "pks:panel", "pks:image", "pks:html", "pks:table", "pks:singletitle", "pks:filterlist", "pks:listtable", "pks:listm", "pks:singleimg"]
+    });
+</script>

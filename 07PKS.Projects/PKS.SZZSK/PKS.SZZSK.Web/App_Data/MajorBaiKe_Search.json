@@ -1,0 +1,83 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "最新成果",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "GSearch",
+    "title": "搜索框查询",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate", "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bt.keyword": "专业研究"
+              }
+            },
+            {
+              "match": {
+                "bp.keyword": "@major"
+              }
+            }
+          ],
+          "should": [
+            {
+              "match": {
+                "dataid": "@text"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "from": "@from"
+    }
+  },
+  {
+    "grid": "GFeature",
+    "title": "目标查询",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate", "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bt.keyword": "专业研究"
+              }
+            },
+            {
+              "match": {
+                "bp.keyword": "@major"
+              }
+            },
+            {
+              "terms": {
+                "dataid.keyword": [ "@bos" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "from": "@from"
+    }
+  }
+
+]

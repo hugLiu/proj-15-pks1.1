@@ -1,0 +1,1171 @@
+﻿[
+  {
+    "modular": "G1",
+    "data": [
+      {
+        "title": "2017年5月8日，BY3-1-1井，层位ZJ1，井段3280-3405米，油压24.2-24.06兆帕，日产油55.65 方，日产气0.75万方。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，LH30-1-1井珠江组岩屑见荧光显示，岩屑有油味",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，正钻井19口，进尺4088米，钻井完井1口（BY3-1-1井），年度井位部署完成率72%，阶段开钻及完井完成率100%。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，截至目前探井累计试油完井7口（含未试油3口），试获工业油气流井4口。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，XJ34-1-1井使用环保型水基（Evolution®类油基）钻井液体系开展钻井液新技术现场先导性试验成功转试油。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，对LH19-1-1井区开展了海底井场调查。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，事故井LW3-1-1Sa井侧钻至井深3002米（侧钻点2300米）。下步工作计划：继续侧钻。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      }
+    ]
+  },
+  {
+    "modular": ["G2"],
+    "data": [
+      {
+        "title": "BY30-2-4井，4月5日钻进过程中发现溢流1m3；",
+        "auditteddate": "09-26",
+        "iiid": ""
+      },
+      {
+        "title": "HZ30-3-2井，3月28日钻井过程中发生漏失（漏失2m3）；",
+        "auditteddate": "09-26",
+        "iiid": ""
+      },
+      {
+        "title": "PY18-5-1井，3月25日倒划眼至井深2280m，悬重异常，起钻完发现钻具脱扣，落鱼长2260m，鱼顶深412m；",
+        "auditteddate": "09-26",
+        "iiid": ""
+      },
+      {
+        "title": "LH22-5-3井，3月15日钻至1980m缩颈卡钻，活动借卡；",
+        "auditteddate": "09-26",
+        "iiid": ""
+      },
+      {
+        "title": "BY32-4-2井，3月2日起钻至井深2230m遇卡，活动过程中钻具脱扣；",
+        "auditteddate": "09-26",
+        "iiid": ""
+      },
+      {
+        "title": "BY18-5-1井，2月15日钻至1840m钻井液漏失（漏失钻井液10m3）；",
+        "auditteddate": "09-26",
+        "iiid": ""
+      },
+      {
+        "title": "BY34-2-4井，2月12日定向钻进发现溢流0.5m3；",
+        "auditteddate": "09-26",
+        "iiid": ""
+      }
+    ]
+  },
+  {
+    "modular": "G3",
+    "data": {
+      "setting": {
+        "title": "钻井完成情况统计图",
+        "smooth": true,
+        "defaultchart": "bar",
+        "chart": [],
+        "legend": [ "设计", "已开钻", "油气层井", "油气流井" ],
+        "yaxiscaption": "井数（口）",
+        "xaxisfield": "bo"
+      },
+      "columns": [
+        {
+          "field": "bo",
+          "title": "目标区",
+          "type": "String",
+          "format": ""
+        },
+        {
+          "field": "design",
+          "title": "设计",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "spud",
+          "title": "已开钻",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "HRWell",
+          "title": "油气层井",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "oilFlowWell",
+          "title": "油气流井",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ "白云深水", 5, 4, 2, 1 ],
+        [ "惠州", 3, 3, 1, 1 ],
+        [ "陆丰", 4, 2, 2, 0 ],
+        [ "韩江", 3, 2, 1, 1 ],
+        [ "恩平", 2, 1, 0, 1 ],
+        [ "西江", 3, 2, 2, 1 ],
+        [ "合作区", 8, 5, 2, 1 ]
+      ]
+    }
+  },
+  {
+    "modular": "G4",
+    "data": {
+       "setting": {
+        "title": "二维地震采集完成情况统计图",
+        "smooth": true,
+        "defaultchart": "bar",
+        "chart": [],
+        "legend": [ "设计", "已采集" ],
+        "yaxiscaption": "二维（km）",
+        "xaxisfield": "bo"
+      },
+      "columns": [
+        {
+          "field": "bo",
+          "title": "目标区",
+          "type": "String",
+          "format": ""
+        },
+        {
+          "field": "design",
+          "title": "设计",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "collected",
+          "title": "已采集",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ "白云深水",2008.31, 1808.31 ],
+        [ "惠州", 1986.3,1326.3 ],
+        [ "陆丰", 1823.1,1523.1 ],
+        [ "韩江",1842.1,1242.1 ],
+        [ "恩平", 1561.5,961.5 ],
+        [ "西江",993.5,793.5],
+        [ "合作区", 1680.3,1380.3]
+      ]
+    }
+  },
+  {
+    "modular": "G5",
+    "data": {
+      "setting": {
+        "title": "三维地震采集完成情况统计图",
+        "smooth": true,
+        "defaultchart": "bar",
+        "chart": [],
+        "legend": [ "设计", "已采集" ],
+        "yaxiscaption": "三维（km2）",
+        "xaxisfield": "bo"
+      },
+      "columns": [
+        {
+          "field": "bo",
+          "title": "目标区",
+          "type": "String",
+          "format": ""
+        },
+        {
+          "field": "design",
+          "title": "设计",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "collected",
+          "title": "已采集",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ "白云深水",883.5, 543.3],
+        [ "惠州", 652.3,764.5],
+        [ "陆丰",553.6,387.3],
+        [ "韩江",653.8,446.7 ],
+        [ "恩平", 882.3,335.2 ],
+        [ "西江",965.32,823.1],
+        [ "合作区", 882.3,842.1]
+      ]
+    }
+  },
+  {
+    "modular": "G6",
+    "pt": "项目完成情况统计图",
+    "data": {
+      "setting": {
+        "title": "项目完成情况统计图",
+        "smooth": true,
+        "defaultchart": "bar",
+        "chart": [],
+        "legend": [ "计划项目", "已开题", "通过中期检查", "通过验收" ],
+        "yaxiscaption": "项目数量（个）",
+        "xaxisfield": "bo"
+      },
+      "columns": [
+        {
+          "field": "bo",
+          "title": "项目类型",
+          "type": "String",
+          "format": ""
+        },
+        {
+          "field": "plan",
+          "title": "计划项目",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "thesis",
+          "title": "已开题",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "INSPECTION",
+          "title": "通过中期检查",
+          "type": "",
+          "format": ""
+        },
+        {
+          "field": "acceptance",
+          "title": "通过验收",
+          "type": "",
+          "format": ""
+        }
+      ],
+      "rows": [
+        [ "国家级科研",13,9, 5, 1 ],
+        [ "有限综合及自立科研", 20, 16, 8, 3 ],
+        [ "生产性科研",5,3,2, 1 ]
+      ]
+    }
+  },
+  {
+    "modular": [ "G7" ],
+    "data":[
+        {
+          "title": "白云凹陷勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "惠州凹陷勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "超深水勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "番禺低隆起勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "DS25-1构造勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "LW24-1构造勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "白云西有利勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        }
+      ]
+  },
+  {
+    "modular": [ "G8" ],
+    "data": [
+        {
+          "title": "2016年3月BY34-1-1井，井位论证通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2016年2月LH25-1-1，井位论证通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2016年7月LW29-1-1，井位论证通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2017年4月BY34-1-1井获得工业油气流",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2016年7月BY35-4圈闭风险审通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2016年7月LH29-5圈闭论证通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "开平凹陷是海相碎屑岩石油勘探现实领域",
+          "auditteddate": "09-26",
+          "iiid": ""
+        }
+      ]
+  },
+  {
+    "modular": [ "G9" ],
+    "data":[
+        {
+          "title": "LH32-1-3井顺利开钻",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "LW29-5-2井顺利开钻",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "LW31-5-3井顺利开钻",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "PY23-5-1井顺利开钻",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "BY23-5-1井顺利开钻",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "KP22-1-1井顺利开钻",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "EP12-1-1井顺利开钻",
+          "auditteddate": "09-26",
+          "iiid": ""
+        }
+      ]
+  },
+  {
+    "modular": [ "G10" ],
+    "data":[
+        {
+          "title": "白云凹陷勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "惠州凹陷勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "超深水勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "番禺低隆起勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "DS25-1构造勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "LW24-1构造勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "白云西有利勘探项目进展",
+          "auditteddate": "09-26",
+          "iiid": ""
+        }
+      ]
+  },
+  {
+    "modular": [ "G11" ],
+    "data": [
+        {
+          "title": "2016年3月BY34-1-1井，井位论证通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2016年2月LH25-1-1，井位论证通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2016年7月LW29-1-1，井位论证通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2017年4月BY34-1-1井获得工业油气流",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2016年7月BY35-4圈闭风险审通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "2016年7月LH29-5圈闭论证通过",
+          "auditteddate": "09-26",
+          "iiid": ""
+        },
+        {
+          "title": "开平凹陷是海相碎屑岩石油勘探现实领域",
+          "auditteddate": "09-26",
+          "iiid": ""
+        }
+      ]
+  },
+  {
+    "modular": "G12",
+    "data": [
+      {
+        "tablename": "钻井地质作业动态表",
+        "columns": [
+          {
+            "field": "Well",
+            "title": "井名",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Cur_Datetime",
+            "title": "当日时间",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Cur_Depth",
+            "title": "当日井深",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Cur_Ft",
+            "title": "当日进尺",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Strata_ID",
+            "title": "层位",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Md",
+            "title": "钻井液密度",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Operate",
+            "title": "作业动态",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Report",
+            "title": "钻井日报",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          }
+        ],
+        "rows": [ [ "BY35-3-2", "2017-7-17", "1234", "17", "ZJ2-1", "1.2", "作业简况：2017.7.17", "<a herf='#'>钻井日报</a>" ] ]
+      }
+    ]
+  },
+  {
+    "modular": "G13",
+    "data": [
+      {
+        "tablename": "现场岩心岩屑录井原始数据表",
+        "header": [ ],
+        "columns": [
+          {
+            "field": "Cur_Date",
+            "title": "当日时间",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Well",
+            "title": "井名",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Top_Depth",
+            "title": "顶深",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Bot_Depth",
+            "title": "底深",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Color",
+            "title": "颜色",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Lith_ID",
+            "title": "岩性",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Show_Grade_ID",
+            "title": "含油产状",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Tg",
+            "title": "气测全量",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "C1",
+            "title": "甲烷",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "C2",
+            "title": "乙烷",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "C3",
+            "title": "丙烷",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "iC4",
+            "title": "异丁烷",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "nC4",
+            "title": "正丙烷",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "iC5",
+            "title": "异丙烷",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "nC5",
+            "title": "正丙烷",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          }
+        ],
+        "rows": [
+          [
+            "2008/10/23",
+            "WC12-10-1",
+            1705.00,
+            1716.00,
+            -7,
+            "泥质细砂岩",
+            "油迹",
+            8.8866,
+            3.6409,
+            0.8259,
+            0.6047,
+            0.1414,
+            0.2349,
+            0.0805,
+            0.0001
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "G14",
+    "data": [
+      {
+        "tablename": "地层测试求产成果数据表",
+        "header": [ ],
+        "columns": [
+          {
+            "field": "Well",
+            "title": "井名",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Dst_No",
+            "title": "测试层号",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Strata_ID",
+            "title": "层位",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Cur_Date",
+            "title": "当日日期",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Lith_ID",
+            "title": "岩性",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Top_Depth",
+            "title": "测试井段顶斜深",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Bot_Depth",
+            "title": "测试井段底斜深",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Top_V_Depth",
+            "title": "测试井段顶垂深",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Bot_V_Depth",
+            "title": "测试井段底垂深",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Dst_Way",
+            "title": "求产方法",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Thick",
+            "title": "层厚",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "LayerNum",
+            "title": "层数",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Mater_dep",
+            "title": "压力计下深",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Trock",
+            "title": "工作制度",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "B_Time",
+            "title": "求产起始时间",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "E_Time",
+            "title": "求产终止时间",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Dst_Oil",
+            "title": "日产油",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Dst_Gas",
+            "title": "日产气",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Dst_Water",
+            "title": "日产水",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Gor",
+            "title": "油气比",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "W_P",
+            "title": "井口压力",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "W_T",
+            "title": "井口温度",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Stabl_P",
+            "title": "井底静压",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Stabl_T",
+            "title": "井底静温",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "F_P",
+            "title": "井底流压",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "F_T",
+            "title": "井底流温",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Oil_d",
+            "title": "油相对密度",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Gas_d",
+            "title": "气相对密度",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Conclution_ID",
+            "title": "测试结论",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          }
+        ],
+        "rows": [
+          [
+            "WC12-10-1",
+            "DST1",
+            "珠江组一段",
+            "2008/11/3",
+            "泥质粉砂岩",
+            1283.00,
+            1350.00,
+            1283.00,
+            1350.00,
+            "自喷",
+            67,
+            1,
+            1246.46,
+            7.94,
+            "2008/11/3  13:26:30",
+            "2008/11/3  22:48:50",
+            55.30,
+            619.00,
+            ,
+            ,
+            0.585,
+            28.7,
+            12.21,
+            81.63,
+            9.691,
+            85.15,
+            0.752,
+            1.27,
+
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "G15",
+    "data": [
+      {
+        "tablename": "地层测试作业日报表",
+        "header": [ ],
+        "columns": [
+          {
+            "field": "Well",
+            "title": "井名",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Cur_Date",
+            "title": "当日日期",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Strata_ID",
+            "title": "层位",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Dst_No",
+            "title": "测试层号",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Shoot",
+            "title": "射孔裸眼井段",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Thick",
+            "title": "层厚",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "LayerNum",
+            "title": "层数",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Task",
+            "title": "作业内容",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          }
+        ],
+        "rows": [
+          [
+            "WC12-10-1",
+            "2008/11/3  13:23:36",
+            "珠江组一段",
+            1,
+            1348.00,
+            65.00,
+            1,
+            "2008年11月3日测试作业内容"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "modular": "G16",
+    "data": [
+      {
+      "tablename" : "地震资料采集作业动态表",
+      "header" :[],
+      "columns" : [{
+          "field" : "Block",
+          "title" : "区块名",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Cur_Date",
+          "title" : "当日日期",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        }, {
+          "field" : "TimeDaily",
+          "title" : "日时效",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Main_Line",
+          "title" : "主线",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Around_Line",
+          "title" : "转线",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Benefit_Line",
+          "title" : "补线",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Focus",
+          "title" : "震源",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "TimeSurvey",
+          "title" : "工区时效",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Main_Line_Survey",
+          "title" : "主线工区",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Around_Line_Survey",
+          "title" : "转线工区",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Benefit_Line_Survey",
+          "title" : "补线工区",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Focus_Survey",
+          "title" : "震源工区",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "MainSPNumD",
+          "title" : "日主线炮数",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "AreaDaily",
+          "title" : "日采集平方公里",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "AreaMonth",
+          "title" : "月采集平方公里",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "AreaSurveyAccumulate",
+          "title" : "工区采集平方公里",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "Coordinate",
+          "title" : "坐标",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "TotalCollect",
+          "title" : "本工区总工作量",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "PercentComplete",
+          "title" : "本工区完成百分比",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "RemainCollect",
+          "title" : "剩余工作量",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "StartDate",
+          "title" : "作业开始日期",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        },{
+          "field" : "TheDay",
+          "title" : "开始第？天",
+          "type" : "",
+          "align" : "center",
+          "valign" : "bottom"
+        }],
+        "rows": [
+          [
+            "cnooc2008-12",
+            "2008/11/3",
+            8.12,
+            8.12,
+            8.12,
+            8.12,
+            9,
+            10,
+            7,
+            6.3,
+            8.3,
+            7.8,
+            1,
+            100.000,
+            1000.00,
+            3000.00,
+            "(48°51'40''N,2°20'09''E)",
+            2115.625,
+            "12.85%",
+            2000.626,
+            "2008/1/1",
+            4
+          ]
+        ]
+    }
+    ]
+  }
+]

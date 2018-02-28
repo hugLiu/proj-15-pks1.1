@@ -1,0 +1,467 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "年度总结-工作量-年度物化探采集工作量表",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "年度物化探采集工作量表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "年度总结-工作量-年度地震处理工作量表",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "年度地震处理工作量表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "年度总结-工作量-年度探井工作量表",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "年度探井工作量表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "title": "年度总结-工作量-年度勘探主要研究工作量统计表",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "年度勘探主要研究工作量统计表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G5",
+    "title": "年度总结-预算-年度自营勘探预算执行情况表",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "年度自营勘探预算执行情况表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G6",
+    "title": "年度总结-储量-年度新发现地质储量汇总表",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "年度新发现地质储量汇总表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G7",
+    "title": "年度总结-勘探成果-勘探成果图",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "区域勘探成果图"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 10,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G8",
+    "title": "年度总结-勘探成果-勘探成果表",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "年度勘探成果表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G9",
+    "title": "年度总结-勘探总结-勘探年度总结报告",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "勘探年度总结报告"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G10",
+    "title": "年度计划-勘探部署-勘探部署图",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "勘探部署图"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G11",
+    "title": "年度计划-勘探部署-自营勘探部署表",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "年度自营勘探部署表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G12",
+    "title": "年度计划-勘探部署-合作勘探部署表",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "合作勘探部署表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G13",
+    "title": "年度计划-年度计划",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "勘探年度任务书",
+                  "勘探年度计划报告"
+                ]
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G14",
+    "title": "勘探年度计划报告",
+    "query": {
+      "_source": [ "iiid", "dataid", "pt", "showtype", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "勘探年度计划报告"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

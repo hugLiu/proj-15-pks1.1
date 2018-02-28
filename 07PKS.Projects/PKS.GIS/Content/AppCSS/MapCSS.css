@@ -1,0 +1,344 @@
+﻿#mapContent {
+    /*min-height: 700px;*/
+    /*margin-top:10px;*/
+}
+
+.leaflet-control-ship {
+    background-image: url(../Assets/images/maps/cruise-ship-icon.png);
+}
+/*船样式**/
+.marker-ship {
+    background-clip: padding-box;
+}
+.map-label {
+    /*color:#7ac9f1;*/
+    color:white;
+    width:100px;
+}
+    .marker-ship div {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 20px solid red;
+    }
+/*绿色船*/
+.marker-ship-green {
+    background-clip: padding-box;
+}
+
+    .marker-ship-green div {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 20px solid green;
+    }
+    
+ /*橙色船*/
+.marker-ship-orange {
+    background-clip: padding-box;
+}
+
+    .marker-ship-orange div {
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 30px solid orange;
+    }
+/*黄色船*/
+.marker-ship-yellow {
+    background-clip: padding-box;
+}
+
+    .marker-ship-yellow div {
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 30px solid yellow;
+    }
+
+.marker-red-ship {
+    background-clip: padding-box;
+}
+
+    .marker-red-ship div {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 20px solid red;
+    }
+
+.marker-green-ship {
+    background-clip: padding-box;
+}
+
+    .marker-green-ship div {
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 30px solid green;
+    }
+
+.marker-yellow-ship {
+    background-clip: padding-box;
+}
+
+    .marker-yellow-ship div {
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 30px solid yellow;
+    }
+/*故障点样式*/
+.fault-icon {
+    background: red;
+    border: 1px solid #666;
+}
+
+
+.leaflet-animated-div-icon {
+    border-radius: 50%;
+    border: none;
+    opacity: .2;
+    background: black;
+}
+
+.leaflet-popup-close-button {
+    display: none;
+}
+
+.leaflet-label-overlay {
+    line-height: 0px;
+    margin-top: 9px;
+    position: absolute;
+}
+
+.div-round {
+    padding: 10px;
+    border: 2px solid #4cff00;
+    background: #b6ff00;
+    opacity: 0.4;
+    -moz-border-radius: 15px; /* Gecko browsers */
+    -webkit-border-radius: 15px; /* Webkit browsers */
+    border-radius: 15px; /* W3C syntax */
+}
+
+.div-round2 {
+    padding: 10px;
+    background: #FC9;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.tip {
+    /* margin: 100px auto;*/
+    padding: 10px;
+    opacity: 0.9;
+    background: #BAC2D8;
+    border-radius: 5px;
+    position: absolute;
+    color: #12385F;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+    .tip:after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+        border-bottom-color: #BAC2D8;
+        position: absolute;
+        top: -20px;
+        left: 10%;
+    }
+
+.fontStyle {
+    color: #345FD4;
+    /*font-weight: 600;*/
+    font-weight:bold;
+    font-size:12px;
+}
+
+/*地图上信息框样式*/
+.tiphgmonitor {
+    /* margin: 100px auto;*/
+    padding: 10px;
+    opacity: 0.7;
+    background: #808080;
+    border-radius: 5px;
+    position: absolute;
+    color: #94ff67;
+}
+
+    .tiphgmonitor:after {
+        content: "";
+        display: block;
+        width: 0px;
+        height: 0px;
+        border: 10px solid transparent;
+        border-bottom-color: #808080;
+        position: absolute;
+        top: -20px;
+        left: 10%;
+    }
+    .tiphgmonitor a{
+        clear:both;
+        font-size:14px;
+        color: #94ff67;
+    }
+    /*往左偏移*/
+    .tiphgmonitor2 {
+    /* margin: 100px auto;*/
+    padding: 10px;
+    opacity: 0.7;
+    background: #808080;
+    border-radius: 5px;
+    position: absolute;
+    color: #94ff67;
+}
+    .tiphgmonitor2:after {
+        content: "";
+        display: block;
+        width: 0px;
+        height: 0px;
+        border: 10px solid transparent;
+        border-bottom-color: #808080;
+        position: absolute;
+        top: -20px;
+        left: 80%;
+    }
+    .tiphgmonitor2 a{
+        clear:both;
+        font-size:14px;
+        color: #94ff67;
+    }
+
+.tip-monitor {
+    /* margin: 100px auto;*/
+    padding: 10px;
+    /*opacity: 0.7;*/
+    background:rgba(0, 0, 0, 0.7) !important;  /*rgba(0, 0, 0, 0.7) !important;*/ /* IE无效，FF有效 背景透明，而内容不透明*/  
+    filter: alpha(opacity=70);  
+    background-color: #808080;
+
+    border-radius: 5px;
+    position: absolute;
+    color: #000;
+
+}
+
+    .tip-monitor:after {
+        content: "";
+        display: block;
+        width: 0px;
+        height: 0px;
+        border: 10px solid transparent;
+        border-bottom-color: #808080;
+        position: absolute;
+        top: -20px;
+        left: 10%;
+    }
+    .tip-monitor a{
+        clear:both;
+        font-size:14px;
+        color: #94ff67;
+    }
+    /*内容*/
+    .tip-monitor-content{
+        color: #000;
+        text-align:left;
+    }
+    .tip-monitor-content a{
+        clear:both;
+        font-size:14px;
+        color: #000;
+    }
+    .tip-monitor-content a>span{
+        /*color: #FAC000;*/
+         color: white;
+    }
+
+/*提示框样式*/
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    /*background: #BDC5DA;*/
+      background: url('../images/background.jpg') no-repeat left bottom;
+    opacity: 0.9;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+}
+
+/*缩略图标样式*/
+.marker-pt {
+    background-clip: padding-box;
+    border-radius: 20px;
+}
+
+    .marker-pt div {
+        width: 30px;
+        height: 30px;
+        margin-left: 5px;
+        margin-top: 5px;
+        text-align: center;
+        border-radius: 15px;
+        font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    }
+
+    .marker-pt span {
+        line-height: 30px;
+    }
+
+.marker-pt-small {
+    background-color: darkseagreen;
+}
+
+
+/*平台信息卡*/
+.map-facility-card-row{
+    margin-left:2px;
+    margin-right:2px;
+    margin-top:2px;
+    margin-bottom:2px;
+    
+}
+.map-facility-card-item{
+    /*margin-left:4px;
+    margin-right:4px;*/
+    padding-left:0px;
+    padding-right:0px;
+}
+.map-facility-card-item > a{
+    cursor:pointer;
+    margin-bottom:4px;
+}
+.map-facility-card-item > a >img{
+    width:30px;
+    height:30px;
+}
+
+
+/*工作台*/
+.my-work-station-control{
+    padding: 8px;
+    /*opacity: 0.6 ;*/
+    /*background: #BAC2D8;*/
+    background:rgba(186, 194, 216, 0.6) !important; /* IE无效，FF有效 背景透明，而内容不透明*/  
+    filter: alpha(opacity=60); 
+    background: #BAC2D8;
+             
+    border-radius: 4px;
+    /*position: absolute;*/
+    color: #12385F;
+    font-size: 14px;
+    font-weight: bolder;
+            
+    /*text-align:left;*/
+}

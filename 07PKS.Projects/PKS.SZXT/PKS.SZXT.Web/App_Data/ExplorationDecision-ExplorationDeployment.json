@@ -1,0 +1,251 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "探井部署表",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "探井部署表"
+              }
+            },
+            {
+              "term": {
+                "period.keyword": "@period"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "探井部署表",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "探井部署表"
+              }
+            },
+            {
+              "term": {
+                "period.keyword": "@period"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "井场调查报告",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "井场调查报告"
+              }
+            },
+            {
+              "term": {
+                "period.keyword": "@period"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "title": "井位建议材料",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "井位建议材料"
+              }
+            },
+            {
+              "term": {
+                "period.keyword": "@period"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G5",
+    "title": "地震部署图",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                //"pt.keyword": "地震工区位置图",
+                "pt.keyword": "地震采集建议表"
+              }
+            },
+            {
+              "term": {
+                "period.keyword": "@period"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G6",
+    "title": "地震采集建议表",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地震采集建议表"
+              }
+            },
+            {
+              "term": {
+                "period.keyword": "@period"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G7",
+    "title": "采集工区调查报告",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "采集工区调查报告"
+              }
+            },
+            {
+              "term": {
+                "period.keyword": "@period"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G8",
+    "title": "地震采集处理建议书",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地震采集处理建议书"
+              }
+            },
+            {
+              "term": {
+                "period.keyword": "@period"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

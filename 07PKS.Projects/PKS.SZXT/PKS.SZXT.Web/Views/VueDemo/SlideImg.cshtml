@@ -1,0 +1,66 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "图片列表";
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+}
+
+@section scriptsSection
+{
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Content/lib/ResponsiveSlides.js/responsiveslides.js"></script>
+    <link href="~/Content/lib/ResponsiveSlides.js/responsiveslides.css" rel="stylesheet" />
+ }
+<div class="row" style="">
+
+    <div id="container">
+        <div class="col-md-6" style="height:450px;">
+            <pks:slideimg :esurl="esurl" :esquery="esquery" :onclick="onclick" :map="map"></pks:slideimg>
+        </div>
+        <div class="col-md-5" style="height:450px;">
+            <pks:slideimg :esurl="esurl" :iiids="iiids" :onclick="onclick" :map="map"></pks:slideimg>
+        </div>
+        <div class="col-md-12" style="height:450px;">
+            <pks:slideimg></pks:slideimg>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    var esUrl = "@webApiSiteUrl//api/searchservice/essearch";
+    var vm = PKSUI.bind({
+        el: "#container",
+        data: {
+            "title":"标题列表demo【EsQuery】",
+            "esurl": esUrl,
+            "map": { "top": "thumbnail", "bottom": "title", "param": "iiid" },
+            "esquery": {
+                "_source": ["iiid", "title", "thumbnail"],
+                "query": {
+                    "bool": {
+                        "must": [
+                            {
+                                "terms": {
+                                    "pt.keyword": ["测试图片"]
+                                }
+                            }                            
+                        ]
+                    }
+                },
+                "from":0,
+                "size": 10
+            },
+
+            "title2": "标题列表demo[iiid数组]",
+            "iiids": ["83C68C0B8F591A63C1584362C79F1B07","202B190D5B48201C2961F484CBC0E446"]
+        },
+        methods: {
+            onclick: function (e) {
+                
+            }
+        },
+        model: 'pks:slideimg'
+    });
+</script>
+

@@ -1,0 +1,157 @@
+﻿@model  PKS.DbServices.OilWiki.Model.EntryDetails
+@{
+    ViewBag.Title = "石油百科 - 词条解释";
+}
+<script src="~/Content/lib/typeahead/bootstrap-typeahead.js"></script>
+@*<link href="~/Content/lib/guideSlider/guideSlier.css" rel="stylesheet" />
+<link href="~/Content/lib/guideSlider/detail.css" rel="stylesheet" />*@
+
+<div class="container-fluid" style="background-color:#EEE; padding-top:17px;">
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1" style="padding-top:8px;"><span style="font-weight:bolder;">石油百科</span></div>
+        <div class="input-group col-md-9 col-md-pull-1">
+
+            <input id="txtSearch" autocomplete="off" type="text" class="form-control" placeholder="百科词条">
+            <span class="input-group-btn">
+                <button class="btn btn-default btn-primary" type="button" id="btnSearch">进入词条</button>
+            </span>
+        </div>
+    </div>
+
+    <div class="row" style="height:30px;"></div>
+
+    <div class="row">
+        <div style="margin-top: 0px">
+            <span>
+                <a href="@Url.Action("Navigation")">石油百科</a>
+                &nbsp;>&nbsp;
+                <a href="@Url.Action("List")?id=@Model.ParentCatalogId">@Model.ParentCatalogName</a>
+                &nbsp;>&nbsp;
+                <a href="@Url.Action("Entry")?id=@Model.Id">@Model.Name</a>
+            </span>
+        </div>
+        <div class="wrap">
+            <div class="content">
+                <div style="width:100%;height:0px;clear:both"></div>
+                <div style="width:0;height:0;clear:both"></div>
+                <dl class="lemmaWgt-lemmaTitle lemmaWgt-lemmaTitle-">
+                    <dd class="lemmaWgt-lemmaTitle-title">
+                        <h1>@Model.Name</h1>
+                    </dd>
+                </dl>
+                <div class="lemma-summary" label-module="lemmaSummary">
+                    <div class="para" label-module="para">
+                        <p>
+                            @Html.Raw(HttpUtility.HtmlDecode(Model.Contents))
+                        </p>
+                    </div>
+                </div>
+                <div class="lemmaWgt-lemmaCatalog">
+                    <div class="lemma-catalog">
+                        <h2 class="block-title">同义词</h2>
+                        <div class="catalog-list column-3" style="background-color:#fbfbfb;border-left:none;margin-top:-10px;">
+                            <ol style="width:400px;">
+                                @foreach (var item in Model.AliasEntry)
+                                {
+                                    <li class="level1">
+                                        <span class="index"></span>
+                                        <span class="text" style="width:300px;">
+                                            <a href="@Url.Action("Entry")?id=@item.EntryId">@item.EntryName</a>
+                                        </span>
+                                    </li>
+                                }
+                                <li class="level1">
+                                    <span class="index"></span>
+                                    <span class="text" style="width:300px;"><a href="#1">构造和地下构造测试</a></span>
+                                </li>
+                                <li class="level1">
+                                    <span class="index"></span>
+                                    <span class="text" style="width:300px;"><a href="#1">构造和地下构造测试</a></span>
+                                </li>
+                                <li class="level1">
+                                    <span class="index"></span>
+                                    <span class="text" style="width:300px;"><a href="#1">构造和地下构造测试</a></span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="open-tag-title">
+                    来源：@Model.Source
+                </div>
+            </div>
+            <div class="side-content" style=" width:300px;">
+                <dl class="side-box lemma-statistics" style="padding: 0 10px 14px;">
+                    <dt class="title">相关词条</dt>
+                    <dd class="description">
+                        <span class="news DataLayer" style="width: 260px">
+                            <ul>
+                                @foreach (var item in Model.RelatedEntry)
+                                {
+                                    <li><a href="@Url.Action("Entry")?id=@item.EntryId">@item.EntryName</a><i></i></li>
+                                }
+                                <li><a href="#">荔湾3-2-1井</a><i>测试数据</i></li>
+                                <li><a href="#">荔湾3-2-2井</a><i>测试数据</i></li>
+                                <li><a href="#">荔湾3-2-3井</a><i>测试数据</i></li>
+                            </ul>
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+
+    $(function () {
+
+        $("#btnSearch").on("click", search);
+
+        function search() {
+            var queryString = $.trim($('#txtSearch').val());
+            if (queryString) {
+                $.ajax({
+                    url: "@Url.Action("GetEntryByName")",
+                    type: "post",
+                    data: { name: queryString },
+                    success: function (matchedId) {
+                        if (matchedId == -1) {
+                            alert("该词条不存在，请重新输入");
+                            $('#txtSearch').select();
+                        }
+                        else {
+                            displayResult(null, matchedId, queryString);
+                        }
+                    }
+                });
+            }
+        }
+
+        function displayResult(item, val, text) {
+            window.open("@Url.Action("Entry")" + "?id=" + val, "_self");
+        }
+
+        $('#txtSearch').typeahead({
+            ajax: {
+                url: "@Url.Action("GetSearch")",
+                timeout: 300,
+                method: 'post',
+                triggerLength: 1,
+                displayField: "name"
+            },
+            items: 8,
+            menu: '<ul class="typeahead dropdown-menu col-md-6" ></ul>',
+            itemSelected: displayResult
+        }).keyup(function (event) {
+            if (event.keyCode == 13) { search(); }
+        });
+
+    });
+
+</script>
+

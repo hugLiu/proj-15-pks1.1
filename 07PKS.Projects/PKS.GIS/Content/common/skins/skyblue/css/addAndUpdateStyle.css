@@ -1,0 +1,184 @@
+﻿@charset "utf-8";
+
+/* CSS Document 功能新增、修改样式
+*  author ： zhanggf
+*  date : 2012-11-16
+*/
+* {
+	padding-left: 0;
+	margin: 0;
+	border: none;
+	font-size: 12px;
+	font-family:"宋体";
+	color: #333;
+}
+
+body {
+	background: #F5FCFF;
+	height:100%;/* body 和html 的高度设置为%100，解决ie7下拖动布局时 页面中的datagrid高度自适应问题，杨恒涛2013年10月9日添加*/
+}
+html{
+	overflow-x: hidden;
+	overflow-y: hidden;
+	height:100%;/* body 和html 的高度设置为%100，解决ie7下拖动布局时 页面中的datagrid高度自适应问题，杨恒涛2013年10月9日添加*/
+}
+
+.edittable {
+	width: 100%;
+	border: 0px solid #d6d9e2;
+	text-align: right;
+	vertical-align: top;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padding: 3 3 3 3;
+	margin: 0 0 0 0;
+	table-layout:fixed;
+}
+.edittable td{
+	height: 30px;
+	padding-right:6px;
+}
+
+.input_bg {
+	width: 100%;
+	height: 18px;
+	background: #fff url(../image/text-bg.gif) repeat-x;/*input的背景图像，边框颜色和外边距*/
+	margin: 1px 0px ;
+	border-top: 1px solid #b4b5bd;
+	border-left: 1px solid #c3c5cd;
+	border-bottom: 1px solid #c3c5cd;
+	border-right: 1px solid #c3c5cd;
+	line-height: 18px;
+}
+
+.input_bg_focus {
+	border-top: 1px solid red;
+	border-left: 1px solid red;
+	border-bottom: 1px solid red;
+	border-right: 1px solid red;
+/* 	margin-left: 0px;
+	margin-top: 0px; */
+}
+
+.input[type=text] {
+	width: 100%;
+	height: 18px;
+	padding-top: 1px;
+	background: #fff url(../image/text-bg.gif) repeat-x;
+	/*input的背景图像，边框颜色和外边距*/
+	border: none;
+	margin: 0px;
+	border-top: 1px solid #b4b5bd;
+	border-left: 1px solid #c3c5cd;
+	border-bottom: 1px solid #c3c5cd;
+	border-right: 1px solid #c3c5cd;
+}
+
+.select {
+	border-top: 1px solid #b4b5bd;
+	border-left: 1px solid #c3c5cd;
+	border-bottom: 1px solid #c3c5cd;
+	border-right: 1px solid #c3c5cd;
+	margin: 1px 0px ;
+	width: 100%;
+	height: 22px;
+	line-height: 22px;
+	background: #fff url(../image/text-bg.gif) repeat-x;
+}
+
+
+.button_area {
+	position:relative; 
+	bottom:0px;
+	left:0px;
+	background: #ddf4ff;
+	width:100%;
+	height:30px;
+	text-align:center;
+	padding-top:10px;
+}
+
+.button_area_absolute {
+	position:absolute; 
+	bottom:0px;
+	left:0px;
+	background: #ddf4ff;
+	width:100%;
+	height:40px;
+	text-align:center;
+	line-height:30px;
+}
+
+#main_area{
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+
+
+textarea
+{
+	width:100%;
+	background: #fff url(../image/text-bg.gif) repeat-x;
+	/*input的背景图像，边框颜色和外边距*/
+	padding-top: 1px;
+	margin: 1px 0;
+	border-top: 1px solid #b4b5bd;
+	border-left: 1px solid #c3c5cd;
+	border-bottom: 1px solid #c3c5cd;
+	border-right: 1px solid #c3c5cd;
+	word-wrap:break-word; 
+	word-break:break-all;
+}
+
+.inputselect {
+	width:100%;
+	height:22px;
+	background:url(../image/inputselect.gif) repeat-x;/*input的背景图像，边框颜色和外边距*/
+	border-top:1px solid #b4b5bd; 
+	border-left:1px solid #c3c5cd;
+	border-bottom:1px solid #c9cdd3;
+	border-right:1px solid #c3c5cd;
+	margin:4px 0;
+	padding-top:3px;
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.xuxian_td{ background:url(../image/line_1.jpg) repeat-x;height:28px; line-height:28px;margin-left:7px;padding-left:16px;}
+.xuxian_all_td{ background:url(../image/line_1.jpg) repeat-x;height:28px; line-height:28px;padding:0 15px;}
+.xuxian_all2_td{ background:url(../image/line_sm.gif) repeat-x;height:4px; line-height:4px;padding:0 15px;}
+.attmenttable {
+	border:1px solid #cad9ea;
+	border-top:0px;
+	table-layout:fixed;
+    empty-cells:show; 
+	margin: 0 0 0 0;
+	width:100%;
+	text-align: right;
+	vertical-align: top;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padding: 3 3 3 3;
+}
+.attmenttable td {
+	border:1px solid #cad9ea;
+	background-color: transparent;
+    color: #333333;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    padding-right:10px;
+    text-align: center;
+    word-wrap:break-word; 
+    word-break:break-all;
+}
+.fileInput{
+	width: 100%;
+	height: 22px;
+	border: none;
+	margin: 1px 0;
+	border-top: 1px solid #b4b5bd;
+	border-left: 1px solid #c3c5cd;
+	border-bottom: 1px solid #c3c5cd;
+	border-right: 1px solid #c3c5cd;
+	line-height: 22px
+}

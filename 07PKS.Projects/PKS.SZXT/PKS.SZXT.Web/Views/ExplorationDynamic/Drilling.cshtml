@@ -1,0 +1,145 @@
+﻿@model string
+@{
+    ViewBag.Title = "钻井作业";
+}
+<div id="app">
+    <div class="jurassic-section">
+        <div class="jurassic-row">
+            <div class="jurassic-col-12">
+                <div class="jurassic-container">
+                    <pks:singletitle :title="g1.title" :map="config.map" :data="g1.list" fontclass="glyphicon glyphicon-star" :onshowmore="showMore" :onclick="linkItem"></pks:singletitle>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="jurassic-section">
+        <div class="jurassic-row">
+            <pks:panel :title="drillingDynamic.title" :show="false">
+                <div slot="panel">
+                    <div class="jurassic-section" style="padding-top:10px">
+                        <pks:table :datasource="g2" id="1" :ontabclick="onTabClick" :onrowclick="onRowClick" ></pks:table>
+                    </div>
+                    <div class="jurassic-section">
+                        <pks:tabs class="fixed-height" :titles="tab.titles">
+                            <div slot="钻井基本数据表" >
+                                <pks:table :datasource="g3_1" id="2"></pks:table>
+                            </div>
+                            <div slot="钻井设计">
+                                <pks:listm :data="g3_2" :map="config.map" :onclick="click"></pks:listm>
+                            </div>
+                            @*<div slot="钻井地质设计" >
+                                <pks:listm :data="g3_2" :map="config.map" :onclick="click"></pks:listm>
+                            </div>
+                            <div slot="钻井工程设计" >
+                                <pks:listm :data="g3_3" :map="config.map" :onclick="click"></pks:listm>
+                            </div>*@
+                            <div slot="设计井身结构" class="jurassic-text-center" >
+                                <img :src="g3_4" />
+                            </div>
+                            @*<div slot="实际井身结构" class="jurassic-text-center" >
+                                <img :src="g3_5" />
+                            </div>*@
+                            <div slot="工程参数">
+                                <pks:listm :data="g3_6" :map="config.map" :onclick="click"></pks:listm>
+                            </div>
+                            @*<div slot="钻井日报" >
+                                <pks:listm :data="g3_7" :map="config.map" :onclick="click"></pks:listm>
+                            </div>*@
+                            <div slot="相邻井" >
+                                <pks:listm :data="g3_8" :map="config.map" :onclick="click"></pks:listm>
+                            </div>
+                        </pks:tabs>
+                    </div>
+                </div>
+            </pks:panel>
+        </div>
+    </div>
+
+</div>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    var model = @Html.Raw(Model);
+
+    var _CURDATE_ = "";
+    var _CURWELL_ = null;
+    function GetWellInfo() {
+        var well = _CURWELL_.Well || _CURWELL_.tablename;
+        if(!well) return;
+        $.ajax({
+            url: "/ExplorationDynamic/GetDrillingWellInfo",
+            type: "post",
+            data: { wellId: well, date: _CURDATE_ },
+            success: function (res) {
+                res = JSON.parse(res);
+                app.g3_1 = setBootstrapTableOptions(res["g3_1"]);
+                app.g3_2 = res["g3_2"];
+                //app.g3_3 = res["g3_3"];
+                app.g3_4 = res["g3_4"];
+                //app.g3_5 = res["g3_5"];
+                app.g3_6 = res["g3_6"];
+                //app.g3_7 = res["g3_7"];
+                app.g3_8 = res["g3_8"];
+            }
+        });
+    }
+
+    var goToDetail = function(iiid){
+        var url = "/ExplorationDynamic/GoToPublicPage?iiid=" + iiid;
+        window.open(url,"_blank");
+    };
+    var goToSearchPage = function (pt,period){
+        if (period==null) {
+            open("/ExplorationOverview/GoToSearchPage?pt="+pt,"_blank");
+        }else{
+            open("/ExplorationOverview/GoToSearchPage?pt="+pt+"&period="+period,"_blank");
+        }
+    };
+    var map = { "left": "title", "right": "ShortDate", "url": "iiid" };
+    var tabTitles = ["钻井基本数据表","钻井设计", "设计井身结构", "工程参数", "相邻井"];//"钻井地质设计", "钻井工程设计", "实际井身结构", "钻井日报", 
+    bootstrapTableOptions.showTitleTab = true;
+    var app = PKSUI.bind({
+        el: "#app",
+        data: {
+            config: {map:map,listMap:[map,map,map]},
+            drillingDynamic: { title: "钻井动态" },
+            tab: { titles: tabTitles },
+            g1: { title: "复杂井情况", list: model["g1"] },
+            g2: setBootstrapTableOptions(model["g2"]),
+            g3_1:[],
+            g3_2:[],
+            g3_3:[],
+            g3_4:"",
+            g3_5:"",
+            g3_6:[],
+            g3_7:[],
+            g3_8:[]
+        },
+        methods: {
+            linkItem: function (e) {
+                goToDetail(e)
+            },
+            showMore:function(e){
+                var map={
+                    "复杂井情况":"复杂井情况"
+                };
+                goToSearchPage(map[e]);
+            },
+            click: function (e) {
+                goToDetail(e)
+            },
+            onRowClick: function (e, row, $element, tablename) {
+                _CURWELL_ = row;
+                GetWellInfo();
+            },
+            onTabClick: function (index, table) {
+                if(index == 0) return;
+                _CURWELL_ = table;
+                GetWellInfo();
+            }
+        },
+        model: ["pks:singletitle", "pks:listm", "pks:panel", "pks:tabs","pks:table"]
+    });
+    bootstrapTableOptions.showTitleTab = false;
+</script>
+
+

@@ -1,0 +1,62 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "PDF切换";
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+}
+
+@section scriptsSection
+{
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Content/lib/ResponsiveSlides.js/responsiveslides.js"></script>
+    <link href="~/Content/lib/ResponsiveSlides.js/responsiveslides.css" rel="stylesheet" />
+ }
+<div class="row" style="">
+
+    <div id="container">
+        <div class="col-md-6" style="height:450px;margin-top:20px;margin-bottom:20px;padding:0px;">
+            <pks:slidepdf :esurl="esurl" :downloadurl="downloadurl" :esquery="esquery" ></pks:slidepdf>
+        </div>
+        <div class="col-md-5" style="height:450px;margin-top:20px;margin-bottom:20px;padding:0px;margin-left:20px;">
+            <pks:slidepdf :esurl="esurl"  :downloadurl="downloadurl" :iiids="iiids" ></pks:slidepdf>
+        </div>
+        <div class="col-md-12" style="height:450px;margin-top:20px;margin-bottom:20px;padding:0px;margin-left:20px;">
+            <pks:slidepdf></pks:slidepdf>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    var esUrl = "@webApiSiteUrl/api/searchservice/essearch";
+    var downloadUrl = "@webApiSiteUrl/api/appdataservice/download";
+    var vm = PKSUI.bind({
+        el: "#container",
+        data: {
+            "title":"pdf切换demo【EsQuery】",
+            "esurl": esUrl,
+            "downloadurl": downloadUrl,
+            "esquery": {
+                "_source": ["iiid", "title", "dataid"],
+                "query": {
+                    "bool": {
+                        "must": [
+                            {
+                                "terms": {
+                                    "pt.keyword": ["测试PDF"]
+                                }
+                            }                            
+                        ]
+                    }
+                },
+                "from":0,
+                "size": 10
+            },
+
+            "title2": "pdf切换demo[iiid数组]",
+            "iiids": ["3F8D55A2A84049ADA1E1CB79FF3C14DC","20D1B33F68391FBA527AAD4A4425A7FC"]
+        },
+        model: 'pks:slidepdf'
+    });
+</script>
+

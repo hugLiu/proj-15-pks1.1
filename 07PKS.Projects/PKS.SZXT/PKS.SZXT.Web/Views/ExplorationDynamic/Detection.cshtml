@@ -1,0 +1,150 @@
+﻿@model string
+@{
+    ViewBag.Title = "测井作业";
+}
+<div id="app">
+    <div class="jurassic-section">
+        <div class="jurassic-row">
+            <div class="jurassic-col-12">
+                <div class="jurassic-container">
+                    <pks:singletitle :title="g1.title" :map="config.map" :data="g1.list" :onshowmore="showMore" fontclass="glyphicon glyphicon-star" :onclick="linkItem"></pks:singletitle>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="jurassic-section">
+        <div class="jurassic-row">
+            <pks:panel :title="g2Title" :show="false">
+                <div slot="panel">
+                    <pks:tabs class="fixed-height" :titles="tab.titles2">
+                        <div slot="随钻测井">
+                            <div class="jurassic-section" style="padding-top:10px">
+                                <pks:listm :title="g1.title" :map="config.map" :data="g1.list" :onshowmore="showMore" fontclass="glyphicon glyphicon-star" :onclick="linkItem"></pks:listm>
+                            </div>
+                            <div class="jurassic-section">
+                                <pks:tabs class="fixed-height" :titles="tab.titles">
+                                    <div slot="测井曲线" class="jurassic-text-center">
+                                        <img :src="g3_1" />
+                                    </div>
+                                    <div slot="测井设计">
+                                        <pks:listm :data="g3_2" :map="config.map" :onclick="click"></pks:listm>
+                                    </div>
+                                    <div slot="相邻井">
+                                        <pks:listm :data="g3_3" :map="config.map" :onclick="click"></pks:listm>
+                                    </div>
+                                </pks:tabs>
+                            </div>
+                        </div>
+                        <div slot="电缆测井">
+                            <div class="jurassic-section" style="padding-top:10px">
+                                <pks:table :datasource="g2" id="G2" :ontabclick="onTabClick" v-if="g2_showType == 'Table'" :onrowclick="onRowClick"></pks:table>
+                                <pks:html id="g2-excel-table" :template="g2" v-if="g2_showType == 'Html'">
+                                </pks:html>
+                            </div>
+                            <div class="jurassic-section">
+                                <pks:tabs class="fixed-height" :titles="tab.titles">
+                                    <div slot="测井曲线" class="jurassic-text-center">
+                                        <img :src="g3_1" />
+                                    </div>
+                                    <div slot="测井设计">
+                                        <pks:listm :data="g3_2" :map="config.map" :onclick="click"></pks:listm>
+                                    </div>
+                                    <div slot="相邻井">
+                                        <pks:listm :data="g3_3" :map="config.map" :onclick="click"></pks:listm>
+                                    </div>
+                                </pks:tabs>
+                            </div>
+                        </div>
+                    </pks:tabs>
+
+                    
+                </div>
+            </pks:panel>
+        </div>
+    </div>
+
+</div>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    var model = @Html.Raw(Model);
+
+    var _CURDATE_ = "";
+    var _CURWELL_ = null;
+    function GetWellInfo() {
+        var well = _CURWELL_.Well || _CURWELL_.tablename;
+        if(!well) return;
+        $.ajax({
+            url: "/ExplorationDynamic/GetDetectionWellInfo",
+            type: "post",
+            data: { wellId: well, date: _CURDATE_ },
+            success: function (res) {
+                res = JSON.parse(res);
+                app.g3_1 = res["g3_1"];
+                //app.g3_2 = setBootstrapTableOptions(res["g3_2"]);
+                app.g3_2 = res["g3_2"];
+                app.g3_3 = res["g3_3"];
+            }
+        });
+    }
+
+    var goToDetail = function(iiid){
+        var url = "/ExplorationDynamic/GoToPublicPage?iiid=" + iiid;
+        window.open(url,"_blank");
+    };
+    var goToSearchPage = function (pt,period){
+        if (period==null) {
+            open("/ExplorationOverview/GoToSearchPage?pt="+pt,"_blank");
+        }else{
+            open("/ExplorationOverview/GoToSearchPage?pt="+pt+"&period="+period,"_blank");
+        }
+    };
+    var map = { "left": "title", "right": "ShortDate", "url": "iiid" };
+    var map2 = { "left": "title", "url": "iiid" };
+    var tabTitles = ["测井曲线","测井设计","相邻井"];
+    bootstrapTableOptions.showTitleTab = true;
+    var app = PKSUI.bind({
+        el: "#app",
+        data: {
+            config: { map: map, map2: map2,listMap: [map, map, map]},
+            g2Title: "测井动态",
+            tab: { titles: tabTitles, titles2:["随钻测井","电缆测井"] },
+            g1: { title: "测井解释情况", list: model["g1"] },
+            g2_showType: model.g2 == null ? "" : model.g2.showtype,
+            g2: setBootstrapTableOptions(model.g2.Content),
+            g3_1:"",
+            g3_2:[],
+            g3_3:[],
+            tabTitles4:["随钻测井","电缆测井"],
+            tabTitles5:["测井曲线","测井设计","相邻井"],
+            tabTitles6:["最新","A1","A2"],
+        },
+        methods: {
+            linkItem: function (e) {
+                goToDetail(e)
+            },
+            showMore:function(e){
+                var map={
+                    "随钻测井情况":"随钻测井情况"
+                };
+                goToSearchPage(map[e]);
+            },
+            click: function (e) {
+                goToDetail(e);
+            },
+            onRowClick: function (e, row, $element, tablename) {
+                _CURWELL_ = row;
+                GetWellInfo();
+            },
+            onTabClick: function (index, table) {
+                if(index == 0) return;
+                _CURWELL_ = table;
+                GetWellInfo();
+            }
+        },
+        model: ["pks:singletitle", "pks:listm","pks:list", "pks:panel", "pks:tabs","pks:table", "pks:html"]
+    });
+    bootstrapTableOptions.showTitleTab = false;
+</script>
+
+

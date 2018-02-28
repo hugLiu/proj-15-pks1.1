@@ -1,0 +1,47 @@
+/* CSS Document 登录页面样式*/
+
+
+body{
+	overflow:hidden;
+	margin:0px 0px 0px 0px;
+}
+
+/*背景图*/
+#dl_main {
+    margin:0px auto;      /* 居中 这个是必须的，，其它的属性非必须 */   
+    width:1024px;		/* 宽度 */
+	height:768px;		/* 高度 */
+	background-image: url(../image/dl.jpg);
+}
+
+
+/*登录信息输入区域*/
+.logininfo
+{
+	position:relative;
+	top:300px;
+	left:630px;
+	width: 251px;
+	height: 133px;
+}
+
+.logininfo  th {
+	color:#0066CC;
+	font-weight:bold;
+	font-size:12px;
+	width:80px;
+}
+
+
+.logininfo .btn {
+	width: 79px;
+	height: 26px;
+    float:right;
+}
+
+/*footer区域*/
+.footer {
+	text-align: center;
+	line-height: 25px;
+	margin-top: 30px
+}

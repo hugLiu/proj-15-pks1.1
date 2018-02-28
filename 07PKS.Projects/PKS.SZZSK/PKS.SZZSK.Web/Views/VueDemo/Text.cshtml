@@ -1,0 +1,57 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "文本组件";
+}
+
+@section scriptsSection
+{
+    <script src="~/Scripts/util.js"></script>
+ }
+<div class="row" style="">
+    <div>
+       
+    </div>
+    <div id="container">
+        <div id="el1" class="col-md-6" style="height: 450px; margin-top: 20px; margin-bottom: 20px; padding: 0px;">
+            <label>示例1</label>
+            <a href="#;" onclick="refresh1()">刷新</a>
+            <pks:text :data="data"></pks:text>
+        </div>
+        <div id="el2" class="col-md-6" style="height: 450px; margin-top: 20px; margin-bottom: 20px; padding: 0px;">
+            <label>示例2</label>
+            <a href="#;" onclick="refresh2()">刷新</a>
+            <pks:text :data="data"></pks:text>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    //示例1
+    var textdata = {"data":[]};
+    var vm = PKSUI.bind({
+        el: "#el1",
+        data: textdata,
+        model: 'pks:text'
+    });
+    function refresh1() {
+        var htmltext = "html_" + (new Date()).getTime();
+        textdata.data.push(htmltext);
+    }
+    ///示例2
+    var textdata2 = { "data": null };
+    var vm2 = PKSUI.bind({
+        el: "#el2",
+        data: textdata2,
+        model: 'pks:text'
+    });
+
+    function refresh2() {
+        if (!textdata2.data) {
+            textdata2.data = [];
+        }
+        var htmltext = "html_" + (new Date()).getTime();
+        textdata2.data.push(htmltext);
+    }
+</script>
+

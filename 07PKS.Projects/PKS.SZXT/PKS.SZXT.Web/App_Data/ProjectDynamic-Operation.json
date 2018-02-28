@@ -1,0 +1,119 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "项目运行头条",
+    "query": {
+      "_source": [ "pt", "iiid", "title", "indexeddate" ],
+      "query": {
+        "term": {
+          "pt.keyword": "作业项目运行头条"
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "项目运行进度图",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid" ],
+      "query": {
+        "term": {
+          "pt.keyword": "作业项目进展情况图"
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "项目进展情况表",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid" ],
+      "query": {
+        "term": {
+          "pt.keyword": "作业项目进展情况表"
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "title": "项目管理",
+    "query": {
+      "_source": [ "pt", "iiid", "title", "indexeddate" ],
+      "query": {
+        "terms": {
+          "pt.keyword": [
+            "勘探双周报",
+            "勘探月报"
+          ]
+        }
+      },
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G5",
+    "title": "热点信息",
+    "query": {
+      "size": 0,
+      "aggs": {
+        "all": {
+          "terms": {
+            "field": "iiid.keyword",
+            "size": "@size"
+          }
+        }
+      }
+    }
+  },
+  {
+    "grid": "G6",
+    "title": "最近浏览",
+    "query": {
+      "_source": [ "iiid", "title", "logdate" ],
+      "query": {
+        "term": {
+          "user.keyword": "@user"
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "logdate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

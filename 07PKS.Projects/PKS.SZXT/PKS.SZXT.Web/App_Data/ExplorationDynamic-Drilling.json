@@ -1,0 +1,310 @@
+﻿[
+  {
+    "Grid": "g1",
+    "title": "钻探油气新发现情况",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "terms": {
+          "pt.keyword": [ "钻探复杂情况" ]
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g2_1",
+    "title": "钻井动态",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "最新钻井地质作业动态表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g2_2",
+    "title": "钻井动态",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻井地质作业动态表"
+              }
+            },
+            {
+              "terms": {
+                "well.keyword": [ "@well" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g3_1",
+    "title": "钻井基本数据表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻井基本数据表"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "g3_2",
+    "title": "钻井地质设计报告",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [ "钻井地质设计报告", "钻井工程设计报告" ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "g3_3",
+    "title": "钻井工程设计报告",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻井工程设计报告"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "g3_4",
+    "title": "设计井身结构",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "设计井身结构图"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "g3_5",
+    "title": "实际井身结构",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "实际井身结构图"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "g3_6",
+    "title": "钻井工程参数",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "动态库/钻井液性能表",
+                  "动态库/钻井参数表",
+                  "动态库/钻头、套管程序表",
+                  "动态库/井斜数据表"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "g3_7",
+    "title": "钻井日报",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻井日报"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            },
+            {
+              "range": {
+                "createddate": {
+                  "lte": "@date"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g3_8",
+    "title": "钻井作业相邻井",
+    "query": {
+      "BOT": "井",
+      "BO": "@well",
+      "Distince": "10000",
+      "Top": "8"
+    }
+  },
+  {
+    "Grid": "g3_9",
+    "title": "钻井作业相邻井",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "实际井身结构图",
+                  "钻井工程完工报告",
+                  "钻井工程施工总结报告"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "well.keyword": [ "@wellIds" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "well.keyword": {
+            "order": "asc"
+          }
+        },
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

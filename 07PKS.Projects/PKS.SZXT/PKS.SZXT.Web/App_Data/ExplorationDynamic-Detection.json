@@ -1,0 +1,171 @@
+﻿[
+  {
+    "grid": "g1",
+    "title": "测井情况",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "match": {
+          "pt.keyword": "测井解释成果表"
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+   {
+    "Grid": "g2_1",
+    "title": "测井动态",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "测井项目动态表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g2_2",
+    "title": "测井动态",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "测井项目动态表"
+              }
+            },
+            {
+              "terms": {
+                "well.keyword": [ "@well" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_1",
+    "title": "测井曲线",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "测井曲线"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "g3_2",
+    "title": "测井设计",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "测井设计"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "g3_3",
+    "title": "相邻井",
+    "query": {
+      "BOT": "井",
+      "BO": "@well",
+      "Distince": "10000",
+      "Top": "8"
+    }
+  },
+  {
+    "grid": "g3_4",
+    "title": "相邻井",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "测井一次解释成果图",
+                  "测井一次解释成果表",
+                  "测井二次解释成果图",
+                  "测井二次解释成果表"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "well": [ "@wellIds" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

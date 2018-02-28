@@ -1,0 +1,79 @@
+﻿[
+  {
+    "id": 1,
+    "pageid": 7,
+    "url": "/TargetBaiKe/Well",
+    "instanceclass": "井",
+    "type":  "目标认识"
+  },
+  {
+    "id": 2,
+    "pageid": 8,
+    "url": "/TargetBaiKe/SWA",
+    "instanceclass": "地震工区",
+    "type": "目标认识"
+  },
+  {
+    "id": 3,
+    "pageid": 9,
+    "url": "/TargetBaiKe/Trap",
+    "instanceclass": "圈闭",
+    "type": "目标认识"
+  },
+  {
+    "id": 4,
+    "pageid": 10,
+    "url": "/TargetBaiKe/Unit",
+    "instanceclass": "二级构造单元",
+    "type": "目标认识"
+  },
+  {
+    "id": 5,
+    "pageid": 11,
+    "url": "/TargetBaiKe/Basin",
+    "instanceclass": "盆地",
+    "type": "目标认识"
+  },
+  {
+    "id": 6,
+    "pageid": 12,
+    "url": "/MajorBaiKe/Stratum",
+    "instanceclass": "二级构造单元",
+    "type": "专业研究"
+  },
+  {
+    "id": 7,
+    "pageid": 13,
+    "url": "/MajorBaiKe/Structure",
+    "instanceclass": "二级构造单元",
+    "type": "专业研究"
+  },
+  {
+    "id": 8,
+    "pageid": 14,
+    "url": "/MajorBaiKe/Sedimentation",
+    "instanceclass": "二级构造单元",
+    "type": "专业研究"
+  },
+  {
+    "id": 9,
+    "pageid": 15,
+    "url": "/MajorBaiKe/Reservoir",
+    "instanceclass": "二级构造单元",
+    "type": "专业研究"
+  },
+  {
+    "id": 10,
+    "pageid": 16,
+    "url": "/MajorBaiKe/OilGenerating",
+    "instanceclass": "二级构造单元",
+    "type": "专业研究"
+  },
+  {
+    "id": 11,
+    "pageid": 17,
+    "url": "/MajorBaiKe/PoolForming",
+    "instanceclass": "二级构造单元",
+    "type": "专业研究"
+  }
+]

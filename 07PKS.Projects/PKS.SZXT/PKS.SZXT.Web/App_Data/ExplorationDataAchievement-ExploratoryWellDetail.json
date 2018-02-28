@@ -1,0 +1,630 @@
+﻿[
+  {
+    "grid": "G1",
+    "topname": "油气信息",
+    "category": "油气信息",
+    "title": "录井成果",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title", "showtype" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "气测解释成果数据表"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "topname": "油气信息",
+    "category": "试油成果",
+    "title": "试油成果",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title", "showtype" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地层测试求产成果数据表"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "topname": "油气信息",
+    "category": "测井成果",
+    "title": "测井成果",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [ "Elan测井解释成果", "测井二次解释成果表" ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G5",
+    "topname": "探井成果",
+    "category": "钻井",
+    "title": "钻井",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "钻井地质设计基本数据表",
+                  "钻井地质作业动态表",
+                  "井斜数据表",
+                  "井斜基本数据表",
+                  "井身结构数据表",
+                  "设计井身结构图",
+                  "井身结构图",
+                  "钻头、套管程序表",
+                  "钻井参数表",
+                  "钻井液性能数据表",
+                  "钻井液性能",
+                  "固井水泥返深及质量评价",
+                  "靶心数据表",
+                  "泥浆漏失数据表",
+                  "钻井地质设计报告",
+                  "钻井工程设计报告",
+                  "钻井取心作业报告",
+                  "钻井井下事故处理报告",
+                  "钻井工程完工报告",
+                  "钻井工程施工总结报告",
+                  "完井工程完工报告",
+                  "钻井日报"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G6",
+    "topname": "探井成果",
+    "category": "录井",
+    "title": "录井",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "现场岩心岩屑录井原始数据表",
+                  "岩心岩屑录井成果数据表",
+                  "现场井壁取心描述表",
+                  "钻井取心统计数据表",
+                  "钻井取心描述数据表",
+                  "井壁取心统计数据表",
+                  "井壁取心描述数据表",
+                  "综合录井图岩性综述表",
+                  "完井地质图岩性综述表",
+                  "岩性数据表",
+                  "钻时、气测录井数据表",
+                  "钻时气测数据表",
+                  "气测解释成果数据表",
+                  "油气显示综合数据表",
+                  "完井油气显示综合表",
+                  "录井油气显示综合表",
+                  "随钻地层分层数据表",
+                  "地层分层数据表",
+                  "地层分层数据表",
+                  "各类储层岩性统计表",
+                  "QFT数据表",
+                  "现场热解样品采集分析记录",
+                  "热解分析数据总表",
+                  "储集岩热解分析数据表",
+                  "储集岩热解解释成果表",
+                  "烃源岩热解分析数据表",
+                  "烃源岩热解解释成果表",
+                  "热解分析图谱格式数据表",
+                  "现场蒸发样品采集分析记录",
+                  "热蒸发烃气相色谱仪校验记录表",
+                  "岩石热蒸发烃气相色谱分析表",
+                  "现场岩屑和井壁取心核磁录井分析数据表",
+                  "现场碳酸盐岩含量测定数据表",
+                  "核磁录井分析报告",
+                  "综合录井完井报告",
+                  "完井地质总结报告",
+                  "井壁取心作业报告",
+                  "地化录井报告",
+                  "钻井地质日报"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G7",
+    "topname": "探井成果",
+    "category": "测井",
+    "title": "测井",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "现场测井解释成果",
+                  "测井一次解释成果表",
+                  "测井一次解释成果图",
+                  "Elan解释成果表",
+                  "Elan解释成果图",
+                  "测井二次解释成果表",
+                  "测井二次解释成果图",
+                  "测井复查解释成果表",
+                  "测井复查解释成果图",
+                  "测井一次解释成果报告",
+                  "测井完井解释报告",
+                  "测井二次解释报告",
+                  "测井复查解释报告",
+                  "测井作业完井总结报告",
+                  "测井作业施工总结报告"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "grid": "G8",
+    "topname": "探井成果",
+    "category": "测试",
+    "title": "测试",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地层测试作业日报表",
+                  "地层测试求产成果数据表",
+                  "现场油气测试解释基本数据表",
+                  "油气测试结果表",
+                  "油气测试解释基本数据表",
+                  "油气测试地质设计报告",
+                  "油气测试工程设计报告",
+                  "现场油气测试解释成果报告",
+                  "油气测试取样报告",
+                  "油气测试施工总结报告",
+                  "油气测试工程总结报告",
+                  "油气测试地质总结报告",
+                  "测试地质日报"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G9",
+    "topname": "探井成果",
+    "category": "时深关系",
+    "title": "时深关系",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "时深关系图",
+                  "VSP时深数据"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G10",
+    "topname": "探井成果",
+    "category": "报告",
+    "title": "报告",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "钻井地质设计报告",
+                  "钻井工程设计报告",
+                  "钻井取心作业报告",
+                  "钻井井下事故处理报告",
+                  "钻井工程完工报告",
+                  "钻井工程施工总结报告",
+                  "完井工程完工报告",
+                  "地化录井报告",
+                  "核磁录井分析报告",
+                  "综合录井完井报告",
+                  "完井地质总结报告",
+                  "井壁取心作业报告",
+                  "测井一次解释成果报告",
+                  "测井完井解释报告",
+                  "测井二次解释报告",
+                  "测井复查解释报告",
+                  "测井作业完井总结报告",
+                  "测井作业施工总结报告",
+                  "油气测试地质设计报告",
+                  "油气测试工程设计报告",
+                  "现场油气测试解释成果报告",
+                  "油气测试取样报告",
+                  "油气测试施工总结报告",
+                  "油气测试工程总结报告",
+                  "油气测试地质总结报告"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G11",
+    "topname": "基本信息",
+    "category": "基础数据",
+    "title": "井基础数据表",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻井地质设计基础数据表"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G12",
+    "topname": "基本信息",
+    "category": "构造位置",
+    "title": "构造位置图",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻后构造位置图"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G13",
+    "topname": "基本信息",
+    "category": "综合柱状图",
+    "title": "单井综合柱状图",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "单井综合柱状图"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G14",
+    "topname": "钻井信息",
+    "category": "井身结构",
+    "title": "实际井身结构图",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "井身结构图"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G15",
+    "topname": "基本信息",
+    "category": "钻探目的",
+    "title": "钻探目的html片段",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻探目的"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G16",
+    "topname": "钻探信息",
+    "category": "钻探情况",
+    "title": "钻探情况html",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻探情况"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 100,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G111",
+    "title": "临井",
+    "query": {
+      "bo": "@well",
+      "bot": "井",
+      "distince": 100000000,
+      "top": 10
+    }
+  }
+]

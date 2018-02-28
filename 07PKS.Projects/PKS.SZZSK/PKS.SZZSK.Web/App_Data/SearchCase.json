@@ -1,0 +1,55 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "",
+    "query": {
+      "_source": [ "iiid", "dataid", "thumbnail", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "bp.keyword": "@bp"
+              }
+            },
+            {
+              "term": {
+                "pt.keyword": "知识案例"
+              }
+
+            }
+          ]
+        }
+      },
+      "from": "@from",
+      "size": "@size"
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "",
+    "query": {
+      "_source": [ "iiid", "dataid", "thumbnail", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "知识案例"
+              }
+            }
+          ],
+          "should": [
+            {
+              "match": {
+                "title": "@title"
+              }
+            }
+          ]
+        }
+      },
+      "from": "@from",
+      "size": "@size"
+    }
+  }
+]

@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "目标评价";
+}
+@section stylesSection{
+    <style>
+        .jurassic-listbox {
+        }
+
+        .jurassic-listimg {
+        }
+
+            .jurassic-listimg > img {
+            }
+    </style>
+}
+<div id="el">
+    <div class="jurassic-row">
+        <pks:filterlist v-bind:showsearchbtn="true" targettype="圈闭" v-bind:items="filteritems" v-bind:searchbtnclick="onclick_searchTrap" v-bind:querybtnclick="onclick_queryFeature" v-bind:resultnum="resultnum" v-bind:shownum="shownum"></pks:filterlist>
+    </div>
+    <div class="jurassic-row">
+        @*<pks:sort v-bind:items="sortitems" v-bind:onclick="onclick_sort"></pks:sort>*@
+        <div id="imglist">
+            <pks:imglist v-bind:data="imglistData" v-bind:map="map" v-bind:onclick="onclick_goDetail"></pks:imglist>
+        </div>
+    </div>
+</div>
+<script>
+    var model = @Html.Raw(Model);
+
+    var filterData = model.r1;
+
+    var searchUrl = "@Url.Action("GetTargetEvaluationSearchResult")";
+    var th_url = "@Url.Action("GetTrapThumbnail")";
+    var searchParam = {};
+    var objectThumbnail = "@Url.Content("~/Content/images/Objects/圈闭_缩略.png")";
+    var th = 'data:image/png;base64,';
+    function search(page){
+        if (page<1){
+            page = 1;
+        }
+        var pageUrl = searchUrl + "?from=" + ((page-1) * vm.pagesize) + "&size=" + vm.pagesize;
+        $.post(pageUrl, searchParam, function (r) {
+            r = JSON.parse(r);
+            r.results.forEach(function (element) {
+                $.ajax({
+                    url: th_url,
+                    type: "POST",
+                    data: { trap: element.trap },
+                    async: false,
+                    success: function (data) {
+                        var r = JSON.parse(data);
+                        if (r&&r.length) {
+                            element.thumbnail = th + r[0]["thumbnail"];
+                        } else {
+                            element.thumbnail = objectThumbnail;
+                        }
+                    },
+                    error: function (d) {
+                        console && console.log(d);
+                    }
+                })
+            });
+            vm.imglistData = r.results;
+            vm.totaldata = r.total;
+            vm.current = r.from;
+            vm.resultnum = r.total;
+        });
+    }
+    var vm =  PKSUI.bind({
+        el: "#el",
+        data: {
+            filteritems: filterData,
+            shownum:8,
+            resultnum: 0,
+            // sortitems: sortData,
+            imglistData: [],
+            map: { top: "thumbnail", bottom: "trap", param: "trap" },
+            pagesize: 255,
+            totaldata:100,
+            current: 1,
+        },
+        methods: {
+            onclick_searchTrap: function (e) {
+                searchUrl = "@Url.Action("GetTargetEvaluationSearchResult")";
+                searchParam = {key: e.content};
+                search(1);
+            },
+            onclick_queryFeature: function (e) {
+                var p = {};
+                for(var i in e){
+                    var k = e[i].catelog;
+                    var v = e[i].value;
+                    if (!p[k]){
+                        p[k] = [];
+                    }
+                    p[k].push(v);
+                };
+                if(JSON.stringify(p)=="{}"){
+                    alert("请选择筛选条件！");
+                    return;
+                }
+                searchUrl = "@Url.Action("GetTargetEvaluationFeatureResult")";
+                searchParam = {feature: JSON.stringify(p)};
+
+                search(1);
+            },
+
+            onclick_sort: function (sorttype, e) {
+                alert(sorttype + e.key + e.value);
+            },
+            onclick_goDetail: function (e) {
+                window.open("@Url.Action("TargetEvaluationDetail")?trap="+ e);
+            },
+        },
+        model: ["pks:filterlist", "pks:imglist", "pks:sort", "pks:pager"]
+
+    });
+    $(function () {
+        searchParam = { key: ""};
+        search(1);
+    })
+</script>

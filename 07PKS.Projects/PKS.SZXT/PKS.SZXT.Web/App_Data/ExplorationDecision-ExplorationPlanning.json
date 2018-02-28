@@ -1,0 +1,716 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "规划执行情况-G11-探明储量完成情况（原油）",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "探明储量完成情况（原油）"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "规划执行情况-G13-地震完成情况统计图",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地震完成情况统计图"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "规划执行情况-G10-工作量完成情况（地震）",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "工作量完成情况（地震）"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "title": "规划执行情况-G9-工作量完成情况（探井）",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "工作量完成情况（探井）"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G5",
+    "title": "规划执行情况-G14-探明成本统计图",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "探明成本统计图"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G6",
+    "title": "规划执行情况-G12-探明储量完成情况（天然气）",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "探明储量完成情况（天然气）"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G7",
+    "title": "规划执行情况-G15-工作量及探明储量",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "工作量及探明储量执行情况统计表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G8",
+    "title": "规划执行情况-G16-费率执行情况",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "费率执行情况统计表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G10",
+    "title": "五年计划规划表",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "五年计划规划表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G11",
+    "title": "勘探规划-工作量及投资-G18",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "工作量及投资规划表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G12",
+    "title": "勘探规划-工作量及投资-G19",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "探明储量规划表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G13",
+    "title": "勘探规划-勘探规划报告-G20",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "勘探规划报告"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G14",
+    "title": "勘探现状-历年勘探工作量-G1",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "历年勘探工作量统计表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G15",
+    "title": "勘探现状-勘探成效-G2",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "勘探成效分析表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G16",
+    "title": "深水区天然气勘探成效统计表",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "深水区天然气勘探成效统计表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G17",
+    "title": "浅水区原油勘探成效统计表",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "浅水区原油勘探成效统计表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G18",
+    "title": "浅水区天然气勘探成效统计表",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "浅水区天然气勘探成效统计表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G19",
+    "title": "勘探现状-勘探成果-G6",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "勘探形势图"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G20",
+    "title": "勘探现状-资源基础-G7",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "资源基础及待探明资源量统计表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G21",
+    "title": "勘探现状-历年勘探工作量-G8",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "历年发现储量统计表"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G22",
+    "title": "勘探现状-勘探成果-G22",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "createddate", "showtype", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "勘探形势图"
+              }
+            },
+            {
+              "range": {
+                "period.keyword": {
+                  "gte": "@beginYear",
+                  "lte": "@endYear"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

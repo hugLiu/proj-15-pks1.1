@@ -1,0 +1,307 @@
+﻿[
+  {
+    "Grid": "tree",
+    "title": "",
+    "query": {
+      "tree": [
+        {
+          "text": "单井烃源岩评价",
+          "state": { "opened": true },
+          "tag": { "querykey": "1" },
+          "children": [
+            {
+              "text": "单井烃源岩有机质丰度、类型、成熟度分析图表",
+              "state": { "selected": true },
+              "tag": {
+                "querykey": "1_1"
+              }
+            },
+            {
+              "text": "单井烃源岩元素地球化学分析图表",
+              "tag": {
+                "querykey": "1_2"
+              }
+            },
+            {
+              "text": "单井烃源岩有机显微组分分析图表",
+              "tag": {
+                "querykey": "1_3"
+              }
+            },
+            {
+              "text": "单井烃源岩生物标志化合物分析图表",
+              "tag": {
+                "querykey": "1_4"
+              }
+            },
+            {
+              "text": "单井烃源岩有机相综合柱状图",
+              "tag": {
+                "querykey": "1_5"
+              }
+            },
+            {
+              "text": "单井埋藏-热演化史图",
+              "tag": {
+                "querykey": "1_6"
+              }
+            },
+            {
+              "text": "单井生排烃史图",
+              "tag": {
+                "querykey": "1_7"
+              }
+            }
+          ]
+        },
+        {
+          "text": "油气源对比及成因分析",
+          "tag": { "querykey": "2" },
+          "children": [
+            {
+              "text": "原油物性分析图表",
+              "tag": {
+                "querykey": "2_1"
+              }
+            },
+            {
+              "text": "原油、抽提物族组分分析图表",
+              "tag": {
+                "querykey": "2_2"
+              }
+            },
+            {
+              "text": "原油、抽提烃地球化学分析图表",
+              "tag": {
+                "querykey": "2_3"
+              }
+            },
+            {
+              "text": "原油、抽提烃同位素分析图表",
+              "tag": {
+                "querykey": "2_4"
+              }
+            },
+            {
+              "text": "原油、抽提烃成因判识图",
+              "tag": {
+                "querykey": "2_5"
+              }
+            },
+            {
+              "text": "天然气物性分析图表",
+              "tag": {
+                "querykey": "2_6"
+              }
+            },
+            {
+              "text": "天然气成因判别图",
+              "tag": {
+                "querykey": "2_7"
+              }
+            },
+            {
+              "text": "油气源对比图",
+              "tag": {
+                "querykey": "2_8"
+              }
+            }
+          ]
+        },
+        {
+          "text": "含油气系统分析与模拟",
+          "_children": [
+            {
+              "text": "地史",
+              "tag": {
+                "querykey": "3_1"
+              },
+              "children": [
+                {
+                  "text": "埋藏史图"
+
+                }
+              ]
+            },
+            {
+              "text": "热演化史",
+              "tag": {
+                "querykey": "3_2"
+              },
+              "children": [
+                {
+                  "text": "主力烃源岩层热演化史剖面图"
+                }
+              ]
+            },
+            {
+              "text": "生排烃史",
+              "tag": {
+                "querykey": "3_3"
+              },
+              "children": [
+                {
+                  "text": "主力烃源岩层生烃史图"
+                },
+                {
+                  "text": "主力烃源岩生烃强度等值线图"
+                }
+              ]
+            },
+            {
+              "text": "排烃史",
+              "tag": {
+                "querykey": "3_4"
+              },
+              "children": [
+                {
+                  "text": "主力烃源岩层排烃史图"
+                },
+                {
+                  "text": "主力烃源岩排烃强度等值线图"
+                }
+              ]
+            },
+            {
+              "text": "运聚史",
+              "tag": {
+                "querykey": "3_5"
+              },
+              "children": [
+                {
+                  "text": "不同时刻各层面流体势图"
+
+                },
+                {
+                  "text": "流体包裹体油气充注信息",
+                  "tag": {
+                    "querykey": "3_8"
+                  }
+                },
+                {
+                  "text": "油气充注期次和成藏时期",
+                  "tag": {
+                    "querykey": "3_9"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "资源评估数",
+          "_children": [
+            {
+              "text": "资源量参数选取",
+              "tag": {
+                "querykey": "4_1"
+              },
+              "children": [
+                {
+                  "text": "参数选取图表",
+                  "tag": {
+                    "querykey": "4_1"
+                  }
+                }
+              ]
+            },
+            {
+              "text": "资源量计算",
+              "tag": {
+                "querykey": "4_2"
+              },
+              "children": [
+                {
+                  "text": "资源量计算结果图表",
+                  "tag": {
+                    "querykey": "4_2"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "油田水分析",
+          "tag": {
+            "querykey": "5_1"
+          },
+          "children": [
+            {
+              "text": "油田水矿化度、水型、酸碱度、黏度及成因分析表",
+              "tag": {
+                "querykey": "5_1"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G1",
+    "title": "获取圈闭筛选条件",
+    "query": {
+      "query": {
+        "name": "圈闭"
+      },
+      "fields": {
+        "properties.目标区": 1,
+        "properties.圈闭类型": 1,
+        "properties.圈闭落实日期2": 1,
+        "properties.二级构造单元2": 1,
+        "properties.钻探情况2": 1,
+        "properties.圈闭落实程度": 1,
+        "properties.圈闭状况2": 1
+      }
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "获取筛选后的圈闭列表",
+    "query": {
+      "_source": [ "trap", "pt", "iiid", "title", "indexeddate", "thumbnail" ],
+      "query": {
+        "match": { "pt.keyword": "目标区深度构造图" }
+      },
+      "post_filter": {
+        "terms": {
+          "trap": "@trap"
+        }
+      },
+      "from": "@from",
+      "size": "@size",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g_th",
+    "title": "缩略图",
+    "query": {
+      "_source": ["thumbnail"],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "目标区深度构造图"
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1
+    }
+  }
+]

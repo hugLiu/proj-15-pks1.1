@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "目标评价-"+ ViewBag.trap;
+}
+<div id="app">
+    <div class="jurassic-section">
+        <pks:panel title="钻前评价" v-bind:show=false>
+            <div slot="panel">
+                <pks:tabs v-bind:titles="tabTitles">
+                    <div slot="图片">
+                        <pks:imgviewer v-bind:data="G1_1" v-bind:map="imgMap" v-bind:onclick="onImgClick"></pks:imgviewer>
+                    </div>
+                    <div slot="文档">
+                        <pks:listm v-bind:data="G1_2" v-bind:map="lstMap" v-bind:onclick="onLstClick"></pks:listm>
+                    </div>
+                </pks:tabs>
+            </div>
+        </pks:panel>
+    </div>
+
+    <div class="jurassic-section">
+        <pks:panel title="随钻分析" v-bind:show=false>
+            <div slot="panel">
+                <pks:tabs v-bind:titles="tabTitles">
+                    <div slot="图片">
+                        <pks:imgviewer v-bind:data="G2_1" v-bind:map="imgMap" v-bind:onclick="onImgClick"></pks:imgviewer>
+                    </div>
+                    <div slot="文档">
+                        <pks:listm v-bind:data="G2_2" v-bind:map="lstMap" v-bind:onclick="onLstClick"></pks:listm>
+                    </div>
+                </pks:tabs>
+            </div>
+        </pks:panel>
+    </div>
+
+    <div class="jurassic-section">
+        <pks:panel title="钻后评价" v-bind:show=false>
+            <div slot="panel">
+                <pks:tabs v-bind:titles="tabTitles">
+                    <div slot="图片">
+                        <pks:imgviewer v-bind:data="G3_1" v-bind:map="imgMap" v-bind:onclick="onImgClick"></pks:imgviewer>
+                    </div>
+                    <div slot="文档">
+                        <pks:listm v-bind:data="G3_2" v-bind:map="lstMap" v-bind:onclick="onLstClick"></pks:listm>
+                    </div>
+                </pks:tabs>
+            </div>
+        </pks:panel>
+    </div>
+
+    <div class="jurassic-section">
+        <pks:panel title="油气藏早期评估" v-bind:show=false>
+            <div slot="panel">
+                <pks:tabs v-bind:titles="tabTitles">
+                    <div slot="图片">
+                        <pks:imgviewer v-bind:data="G4_1" v-bind:map="imgMap" v-bind:onclick="onImgClick"></pks:imgviewer>
+                    </div>
+                    <div slot="文档">
+                        <pks:listm v-bind:data="G4_2" v-bind:map="lstMap" v-bind:onclick="onLstClick"></pks:listm>
+                    </div>
+                </pks:tabs>
+            </div>
+        </pks:panel>
+
+    </div>
+</div>
+<script>
+    window.navigation = "勘探信息共享 > 勘探研究成果 > 目标/油气藏评价 > ";
+    window.navigation = window.navigation + "<font color='red'>@ViewBag.trap</font> [<a href='/ExplorationDataAchievement/TripReserveDetail?trap=@ViewBag.trap' target='_blank'>圈闭储备</a>]";
+
+    var model = @Html.Raw(Model);
+</script>
+<script>
+    var goToDetail = function(iiid){
+        var url = "/ExplorationResearchAchievement/GoToPublicPage?iiid=" + iiid;
+        window.open(url,"_blank");
+    };
+</script>
+<script>
+    var imgMap ={ "url": "resourcekey", "thumbnail": "thumbnail", "bottom": "title", "param": "iiid" };
+    var lstMap = { "left": "title", "right": "indexeddate", "url": "iiid" };
+    var tabTitles = ["图片","文档"];
+    var app = PKSUI.bind({
+        el: "#app",
+        data:{
+            tabTitles:tabTitles,
+            lstMap:lstMap,
+            imgMap:imgMap,
+            G1_1:model["G1_1"] || [],
+            G1_2:model["G1_2"] || [],
+            G2_1:model["G2_1"] || [],
+            G2_2:model["G2_2"] || [],
+            G3_1:model["G3_1"] || [],
+            G3_2:model["G3_2"] || [],
+            G4_1:model["G4_1"] || [],
+            G4_2:model["G4_2"] || [],
+        },
+        methods:{
+            onImgClick:function(e){
+                goToDetail(e);
+            },
+            onLstClick:function(e){
+                goToDetail(e);
+            }
+        },
+        model:["pks:panel","pks:tabs","pks:listm","pks:imgviewer"]
+    });
+</script>

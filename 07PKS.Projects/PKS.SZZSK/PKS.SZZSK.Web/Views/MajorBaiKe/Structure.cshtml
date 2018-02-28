@@ -1,0 +1,93 @@
+﻿@using PKS.Web
+@using PKS.SZZSK.Web.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "构造百科 - " + ViewBag.BO;
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+    var TemplateUrl = (TemplateUrl)ViewBag.TemplateUrl;
+}
+<link href="~/Content/baike/baidu.css" rel="stylesheet" />
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-9">
+            <div class="jurassic-margin-container">
+                @Html.Partial("_baike", new ViewDataDictionary{
+               { "instanceclass",TemplateUrl.InstanceClass},
+               { "instance",ViewBag.BO},
+               { "urlid", TemplateUrl.Id},
+               { "type", TemplateUrl.Type}
+                    })
+            </div>
+        </div>
+
+        <div class="jurassic-col-3" id="rightContainer">
+            <div class="jurassic-margin-container">
+                <pks:slideimg :esurl="esUrl" :iiids="iiids" :onclick="slideimg_onclick" :map="map1"></pks:slideimg>
+            </div>
+            <div class="jurassic-margin-container">
+                <pks:singletitle title="相关构造研究" :data="G2_data" :map="map" :onclick="G2_onclick" :show="false"></pks:singletitle>
+            </div>
+            <div class="jurassic-margin-container">
+                <pks:singletitle title="相关研究成果" :data="G3_data" :map="map" :onclick="G2_onclick" :show="false"></pks:singletitle>
+            </div>
+            <div class="slide" style="">
+                <div id="sideToolbar" style="position: fixed; bottom: 0">
+                    <div id="sideCatalog" class="sideCatalogBg" style="visibility: visible;">
+                        <div id="sideCatalog-sidebar">
+                            <div class="sideCatalog-sidebar-top"></div>
+                            <div class="sideCatalog-sidebar-bottom"></div>
+                        </div>
+                        <div id="sideCatalog-updown" style="visibility: visible;">
+                            <div id="sideCatalog-up" class="sideCatalog-up-disable" title="向上翻页"></div>
+                            <div id="sideCatalog-down" class="sideCatalog-down-enable" title="向下翻页"></div>
+                        </div>
+                        <div id="sideCatalog-catalog">
+                            <dl style="width:175px;zoom:1"></dl>
+                        </div>
+                    </div>
+                    <a id="sideCatalogBtn" class="" style="visibility: visible;" href="javascript:void(0);"></a>
+                    <a id="sideToolbar-up" style="visibility: visible;" title="返回顶部" href="javascript:void(0)"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/util.js"></script>
+<script src="~/Content/lib/ResponsiveSlides.js/responsiveslides.js"></script>
+<link href="~/Content/lib/ResponsiveSlides.js/responsiveslides.css" rel="stylesheet" />
+<script src="~/Content/baike/sidebar.js"></script>
+<script>
+    var model =@Html.Raw(ViewBag.Model);
+    window.navigation = "勘探知识库 > 勘探专题研究 > 构造 > ";
+    window.navigation = window.navigation + "<font color='red'>@ViewBag.BO</font>";
+    var dataConfig = {
+        //图册
+        iiids: model.ImageList,
+        esUrl : "@webApiSiteUrl//api/searchservice/essearch",
+        map1: { top: "thumbnail", bottom: "title", param: "iiid" },
+        //相邻井
+        G2_data: model.G2,
+        map2: { left: "name",url: "name"},
+        //相关成果
+        G3_data: model.G3,
+        map: { left: "title", right: "", url: "iiid" },
+    }
+
+    var vm = PKSUI.bind({
+        el: "#rightContainer",
+        data: dataConfig,
+        methods: {
+            G2_onclick:function(e){
+                open("/MajorBaiKe/GoToBaikePage?iiid=" + e, "_blank");
+            },
+
+            slideimg_onclick:function(e){
+                open("/MajorBaiKe/GoToPublicPage?iiid=" + e, "_blank");
+            }
+        },
+        model: ["pks:singletitle","pks:slideimg"]
+    });
+</script>
+
+
+

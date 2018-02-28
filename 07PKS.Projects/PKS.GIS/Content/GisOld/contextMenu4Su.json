@@ -1,0 +1,101 @@
+
+    {
+      "bot": "构造单元",
+      "code": "secondlevel",
+        "pageurls": [
+            {
+                "title": "xxx",
+                "url": "",
+                "system": "SZXT"
+            }
+        ],
+      "keypts": [
+        {
+          "title": "勘探成果图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                          "term": {
+                            "pt.keyword": "勘探成果图"
+                          }
+                        },
+                        {
+                          "term": {
+                            "secondlevel.keyword": "wellId"
+                          }
+                        }
+                    ]
+                }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "勘探成果表",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                          "term": {
+                            "pt.keyword": "勘探成果表"
+                          }
+                        },
+                        {
+                          "term": {
+                            "secondlevel.keyword": "wellId"
+                          }
+                        }
+                    ]
+                }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "已入库圈闭汇总表",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                          "term": {
+                            "pt.keyword": "已入库圈闭汇总表"
+                          }
+                        },
+                        {
+                          "term": {
+                            "secondlevel.keyword": "wellId"
+                          }
+                        }
+                    ]
+                }
+            },
+            "size": 1
+          }
+        }
+      ],
+      "relatedpages": [
+
+      ]
+    }

@@ -1,0 +1,229 @@
+﻿[
+  {
+    "grid": "g1",
+    "title": "油气测试情况",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "term": {
+          "pt.keyword": "油气测试情况"
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g2_1",
+    "title": "测试动态",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "最新地层测试作业日报表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g2_2",
+    "title": "测试动态",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地层测试作业日报表"
+              }
+            },
+            {
+              "terms": {
+                "well.keyword": [ "@well" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_1",
+    "title": "油气测试地质设计报告",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [ "油气测试地质设计报告", "油气测试工程设计报告" ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "g3_2",
+    "title": "油气测试工程设计报告",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "油气测试工程设计报告"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "g3_3",
+    "title": "测试数据",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地层测试求产成果数据表"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "g3_4",
+    "title": "测试地质日报",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "测试地质日报"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            },
+            {
+              "range": {
+                "createddate": {
+                  "lte": "@date"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g3_5",
+    "title": "钻井作业相邻井",
+    "query": {
+      "BOT": "井",
+      "BO": "@well",
+      "Distince": "10000",
+      "Top": "8"
+    }
+  },
+  {
+    "grid": "g3_6",
+    "title": "相邻井",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地层测试求产成果数据"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "well": [ "@wellIds" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

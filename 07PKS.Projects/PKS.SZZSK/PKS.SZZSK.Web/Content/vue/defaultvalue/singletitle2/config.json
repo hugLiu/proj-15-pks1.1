@@ -1,0 +1,21 @@
+﻿{
+  "hits": {
+    "hits": [
+      {
+        "_source": {
+          "iiid": "123456",
+          "title": "测试标题1",
+          "indexeddate": "2017-11-13T14:45:46Z"
+        }
+      },
+      {
+        "_source": {
+          "iiid": "abcdef",
+          "title": "测试标题2",
+          "indexeddate": "2017-11-13T14:45:46Z"
+        }
+      }
+    ],
+    "total": 2
+  }
+}

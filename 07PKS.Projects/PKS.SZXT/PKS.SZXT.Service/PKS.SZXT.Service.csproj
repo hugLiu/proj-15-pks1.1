@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{87DC9152-9551-48C6-8988-49572B0D9441}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PKS.SZXT.Service</RootNamespace>
+    <AssemblyName>PKS.SZXT.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\..\Bin\Debug\PKS.SZXT.Service.xml</DocumentationFile>
+    <NoWarn>1591,1572,1573</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\..\Bin\Release\PKS.SZXT.Service.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SZDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>..\..\..\Bin\Debug\PKS.SZXT.Service.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\DefatuleApiServiceConfig.cs" />
+    <Compile Include="Common\DefaultPageSearchConfigGrabber.cs" />
+    <Compile Include="Common\ViewServiceBase.cs" />
+    <Compile Include="ExplorationDataAchievement\AnalysisTestService.cs" />
+    <Compile Include="ExplorationDataAchievement\ExploratoryWellDataService.cs" />
+    <Compile Include="ExplorationDataAchievement\GeoEngineeringService.cs" />
+    <Compile Include="ExplorationDataAchievement\TripReserveService.cs" />
+    <Compile Include="ExplorationDecision\AnnualPlanService.cs" />
+    <Compile Include="ExplorationResearchAchievement\DepositionResearchService.cs" />
+    <Compile Include="ExplorationDecision\ExplorationDeploymentService.cs" />
+    <Compile Include="ExplorationDecision\ExplorationPlanningService.cs" />
+    <Compile Include="ExplorationDecision\WellReviewService.cs" />
+    <Compile Include="ExplorationDynamic\DetectionService.cs" />
+    <Compile Include="ExplorationDynamic\DrillingService.cs" />
+    <Compile Include="ExplorationDynamic\GeophysicalExpService.cs" />
+    <Compile Include="ExplorationDynamic\LoggingService.cs" />
+    <Compile Include="ExplorationDynamic\TestingService.cs" />
+    <Compile Include="ExplorationResearchAchievement\AreaSearchService.cs" />
+    <Compile Include="ExplorationResearchAchievement\ResearchAchievementService.cs" />
+    <Compile Include="ExplorationResearchAchievement\ResearchAchievementServiceBase.cs" />
+    <Compile Include="ExplorationResearchAchievement\TargetEvaluationService.cs" />
+    <Compile Include="ExprorationOverview\ExprorationOverviewService.cs" />
+    <Compile Include="ProjectDynamic\OperationProjectService.cs" />
+    <Compile Include="ProjectDynamic\ResearchProjectService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\01PKS.Library\PKS.Core\PKS.Core.csproj">
+      <Project>{786ebcd8-0b99-4adf-82a8-95442c455c1f}</Project>
+      <Name>PKS.Core</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\01PKS.Library\PKS.DbModels\PKS.DbModels.csproj">
+      <Project>{2610b762-07c3-4f27-94db-a3a6ea91e976}</Project>
+      <Name>PKS.DbModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\01PKS.Library\PKS.Utils\PKS.Utils.csproj">
+      <Project>{4820A9F8-9AA4-4116-9BF1-69893297C6FC}</Project>
+      <Name>PKS.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\06PKS.WebAPI\PKS.WebAPI.Interface\PKS.WebAPI.Interface.csproj">
+      <Project>{35D5187B-68A7-4FC0-A827-62C240E43493}</Project>
+      <Name>PKS.WebAPI.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PKS.SZXT.Core\PKS.SZXT.Core.csproj">
+      <Project>{4457fd44-ade7-4421-b38d-240caccb80b5}</Project>
+      <Name>PKS.SZXT.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PKS.SZXT.Infrastructure\PKS.SZXT.Infrastructure.csproj">
+      <Project>{0D061EE1-35CA-4C8B-87ED-28F6EE94A1F4}</Project>
+      <Name>PKS.SZXT.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PKS.SZXT.IService\PKS.SZXT.IService.csproj">
+      <Project>{3df9d9da-c0c0-44d4-9633-12941042ea3a}</Project>
+      <Name>PKS.SZXT.IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PKS.SZXT.Web.Config\PKS.SZXT.Web.Config.csproj">
+      <Project>{B0BE690B-2C99-49DB-9CB5-3362A02D7667}</Project>
+      <Name>PKS.SZXT.Web.Config</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

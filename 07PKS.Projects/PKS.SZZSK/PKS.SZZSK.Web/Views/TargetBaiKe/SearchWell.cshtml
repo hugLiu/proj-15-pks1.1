@@ -1,0 +1,118 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "搜索井";
+}
+<link href="~/Content/baike/baike.css" rel="stylesheet" />
+
+<div id="el">
+    <div class="jurassic-col-12">
+        <div class="jurassic-margin-container" style="margin-left:0px;margin-right:0px;">
+            <div class="jurassic-margin-container" style="margin-left:0px;margin-right:0px;">
+                <pks:filterlist :showsearchbtn="true" targettype="井" :items="G1_data" :searchbtnclick="g1_onclick_searchWell" :querybtnclick="g1_onclick_queryFeature" :shownum="shownum" :resultnum="resultnum"></pks:filterlist>
+            </div>
+        </div>
+    </div>
+    <div class="jurassic-row">
+        <div class="jurassic-col-9">
+            <div class="jurassic-margin-container">
+                <pks:imglist :data="imglist_data" :map="map" :onclick="imglist_onclick"></pks:imglist>
+            </div>
+        </div>
+        <div class="jurassic-col-3">
+            <div class="jurassic-margin-container">
+                <pks:singletitle title="最新成果" :data="G2_data" :map="map2" :onclick="G2_onclick" :show="false"></pks:singletitle>
+            </div>
+        </div>
+    </div>
+    <div style="display: inline-block;">
+        <pks:pager :current="current" :totaldata="totaldata" :pagesize="pagesize" :onclick="page_onclick"></pks:pager>
+    </div>
+</div>
+
+<script src="~/Content/lib/pager/jquery.pagination.js"></script>
+<script>
+    var searchConfig = {};
+
+    var Model =@Html.Raw(ViewBag.Model);
+
+    var dataConfig = {
+        //filterlist组件数据
+        G1_data: Model.G1,
+        shownum: 7,
+        resultnum: 0,
+       
+        //imglist组件数据
+        imglist_data: [],
+        map: { top: "thumbnail", bottom: "title", param: "name" },
+        
+        //singletitle 最新成果数据
+        G2_data: Model.G2,
+        map2: { left: "title", right: "", url: "iiid" },
+        
+        //page组件数据
+        pagesize: 16,
+        totaldata: 0,
+        current: 1
+    }
+
+    function searchWell(searchUrl, page, searchParam) {
+        if (page < 1) {
+            page = 1;
+        }
+
+        var pageUrl = searchUrl + "?from=" + ((page - 1) * dataConfig.pagesize) + "&size=" + dataConfig.pagesize;
+        $.post(pageUrl, searchParam, function (r) {
+            dataConfig.imglist_data = r.Data;
+            dataConfig.totaldata = r.Total;
+            dataConfig.resultnum = r.Total;
+        });
+    }
+
+    var vm = PKSUI.bind({
+        el: "#el",
+        data: dataConfig,
+        methods: {
+            g1_onclick_searchWell: function (e) {
+                searchConfig.searchUrl = "@Url.Action("GetWellSearchResult")";
+                searchConfig.page = 1;
+                searchConfig.searchParam = { wellName: e.content };
+                searchWell(searchConfig.searchUrl, searchConfig.page, searchConfig.searchParam);
+            },
+
+            g1_onclick_queryFeature: function (e) {
+                var p = {};
+                for (var i in e) {
+                    var k = e[i].catelog;
+                    var v = e[i].value;
+                    if (!p[k]) {
+                        p[k] = [];
+                    }
+                    p[k].push(v);
+                    if (JSON.stringify(p) == "{}") {
+                        alert("请选择筛选条件！");
+                        return;
+                    }
+                };
+                searchConfig.searchUrl = "@Url.Action("GetWellFeatureResult")";
+                searchConfig.page = 1;
+                searchConfig.searchParam = { feature: JSON.stringify(p) };
+                searchWell(searchConfig.searchUrl, searchConfig.page, searchConfig.searchParam);
+            },
+
+            imglist_onclick: function (e) {
+                window.open("Well?bo=" + e, "_blank");
+            },
+
+            G2_onclick:function(e){
+                open("/TargetBaiKe/GoToPublicPage?iiid=" + e, "_blank");
+            },
+
+            page_onclick: function (e) {
+                searchWell(searchConfig.searchUrl, e, searchConfig.searchParam);
+            }
+        },
+        model: ["pks:filterlist", "pks:imglist", "pks:pager","pks:singletitle"]
+    });
+
+    vm.g1_onclick_searchWell({ type: "井", content: "" });
+</script>

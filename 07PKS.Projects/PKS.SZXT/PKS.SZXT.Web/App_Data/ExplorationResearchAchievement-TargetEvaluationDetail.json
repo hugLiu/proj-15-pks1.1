@@ -1,0 +1,581 @@
+﻿[
+  {
+    "Grid": "viewConfig",
+    "title": "页面配置",
+    "query": {
+      "actionOfBoSection": "/ExplorationResearchAchievement/FragInfoOfTarget",
+      "treeUrl": "/ExplorationResearchAchievement/GetTreeDataOfTarget",
+      "showFilter": false,
+      "target": {
+        "name": "@targetType",
+        "value": "@targetName"
+      },
+      "defaultBo": "@target"
+    }
+  },
+  {
+    "Grid": "tree",
+    "title": "",
+    "query": {
+      "tree": [
+        {
+          "text": "钻前评价",
+          "state": { "opened": true },
+          "_children": [
+            {
+              "text": "圈闭精细描述",
+              "state": { "selected": true },
+              "tag": {
+                "querykey": "g1_1"
+              }
+            },
+            {
+              "text": "资源量计算",
+              "tag": {
+                "querykey": "g1_2"
+              }
+            },
+            {
+              "text": "地质风险分析",
+              "tag": {
+                "querykey": "g1_3"
+              }
+            },
+            {
+              "text": "井位部署",
+              "tag": {
+                "querykey": "g1_4"
+              }
+            },
+            {
+              "text": "综合评价",
+              "tag": {
+                "querykey": "g1_5"
+              }
+            }
+          ]
+        },
+        {
+          "text": "随钻分析",
+          "tag": { "querykey": "g2" }
+        },
+        {
+          "text": "钻后评价",
+          "_children": [
+            {
+              "text": "圈闭再评价",
+              "tag": {
+                "querykey": "g3_1"
+              }
+            },
+            {
+              "text": "油气藏发现评估",
+              "tag": {
+                "querykey": "g3_2"
+              }
+            },
+            {
+              "text": "第①评估点储量计算",
+              "tag": {
+                "querykey": "g3_3"
+              }
+            },
+            {
+              "text": "综合评价",
+              "tag": {
+                "querykey": "g3_4"
+              }
+            }
+          ]
+        },
+        {
+          "text": "油气藏早期评估",
+          "_children": [
+            {
+              "text": "含油气层综合评价",
+              "tag": {
+                "querykey": "g4_1"
+              }
+            },
+            {
+              "text": "第②评估点储量计算",
+              "tag": {
+                "querykey": "g4_2"
+              }
+            },
+            {
+              "text": "综合评价",
+              "tag": {
+                "querykey": "g4_3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g1_1",
+    "title": "圈闭精细描述",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "目标区深度构造图",
+                  "目标区时间构造图",
+                  "目标区地震剖面图",
+                  "构造及属性叠合图",
+                  "圈闭十字剖面图",
+                  "圈闭发育史图",
+                  "圈闭封堵性分析图",
+                  "油藏剖面预测图",
+                  "主要目的层连井对比图",
+                  "圈闭要素表",
+                  "断层要素表"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g1_2",
+    "title": "资源量计算算",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "圈闭资源量计算表"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g1_3",
+    "title": "地质风险分析",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地质风险评价表"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g1_4",
+    "title": "井位部署",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "蒙太奇图",
+                  "钻井地质设计基础数据表",
+                  "井位部署图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g1_5",
+    "title": "综合评价",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "钻前地质评价报告"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g2",
+    "title": "随钻分析",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "现场岩屑描述表",
+                  "现场岩心描述表",
+                  "随钻地质分层数据表",
+                  "随钻测井解释",
+                  "现场油气解释成果表",
+                  "录井剖面草图",
+                  "地层测试求产成果数据表"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_1",
+    "title": "圈闭再评价",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "钻后构造位置图",
+                  "钻后圈闭要素表",
+                  "钻后断裂体系分析图",
+                  "钻后沉积相平面图",
+                  "钻后单井综合柱状图",
+                  "钻后储层物性分析图表",
+                  "砂体属性分析图",
+                  "钻后油气运移条件分析图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_2",
+    "title": "油气藏发现评估",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "Elan测井解释成果",
+                  "预探目标油气水界面确定分析图",
+                  "预探目标油气层对比图",
+                  "预探目标油气成藏模式图",
+                  "预探目标油气藏剖面图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_3",
+    "title": "第①评估点储量计算",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "第①评估点储量计算图表"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_4",
+    "title": "综合评价",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "预探目标钻后评价报告"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g4_1",
+    "title": "含油气层综合评价",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "测井二次解释成果图表",
+                  "预探目标油气水界面确定分析图",
+                  "预探目标油气层对比图",
+                  "预探目标油气成藏模式图",
+                  "预探目标油气藏剖面图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g4_2",
+    "title": "第②评估点储量计算",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "预探目标油气组含油气面积图",
+                  "预探目标油气组有效厚度图",
+                  "第②评估点储量计算表"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g4_3",
+    "title": "综合评价",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "评价目标钻后评价报告"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

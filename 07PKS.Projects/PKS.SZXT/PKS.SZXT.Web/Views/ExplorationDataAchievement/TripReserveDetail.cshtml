@@ -1,0 +1,81 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "圈闭储备 - " + ViewBag.Trap;
+    var sooilUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.SOOIL);
+}
+@model string
+<script src="~/Scripts/util.js"></script>
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-12">
+            <div class="jurassic-margin-container">
+                <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                <span class="jurassic-panel-title">圈闭要素表</span>
+                <div class="jurassic-margin-container">
+                    @*<pks:table :datasource="tableA" :pagination="false" id="G1"></pks:table>*@
+                    <pks:html :template="tableA" id="G1"></pks:html>
+                </div>
+            </div>
+
+            <div class="jurassic-margin-container">
+                <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                <span class="jurassic-panel-title">圈闭潜在资源量表</span>
+                <div class="jurassic-margin-container">
+                    <pks:tabs :titles="tabs">
+                        <div slot="圈闭原油资源量表">
+                            @*<pks:table :datasource="tableB1" :pagination="false" id="G2"></pks:table>*@
+                            <pks:html :template="tableBOne" id="G2"></pks:html>
+                        </div>
+                        <div slot="圈闭天然气资源量表">
+                            @*<pks:table :datasource="tableB2" :pagination="false" id="G3"></pks:table>*@
+                            <pks:html :template="tableBTwo" id="G3"></pks:html>
+                         </div>
+                    </pks:tabs>
+                </div>
+            </div>
+
+            <div class="jurassic-margin-container">
+                <pks:singletitle :title="title" v-bind:map="map" v-bind:data="items" v-bind:onshowmore="onshowmore" v-bind:onclick="onclickfunc" id="G4"></pks:singletitle>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    window.navigation = "勘探信息共享 > 勘探数据成果 > 圈闭储备 > ";
+    window.navigation = window.navigation + "<font color='red'>@ViewBag.Alias</font> [<a href='/ExplorationResearchAchievement/TargetEvaluationDetail?trap=@ViewBag.Trap' target='_blank'>目标/油气藏评价</a>]";
+
+    var model = @Html.Raw(ViewBag.Data);
+
+    //转换时间
+    for (var i = 0; i < model.G4.length; i++) {
+        if (model.G4[i].indexeddate) {
+            model.G4[i].indexeddate = moment(model.G4[i].indexeddate, "YYYY-MM-DDTHH:mm:ss.SSSZ").toDate().format("MM-dd");
+        }
+    }
+
+    PKSUI.bind({
+        el: "#el",
+        data: {
+            map: { left: "title", right: "indexeddate", url: "iiid" },
+            tabs:["圈闭原油资源量表","圈闭天然气资源量表"],
+            panelTitle:"圈闭潜在资源量表",
+            title:"圈闭评价报告",
+            tableA:model.G1,
+            tableBOne:model.G2,
+            tableBTwo:model.G3,
+            items:model.G4
+        },
+        methods: {
+            onclickfunc: function (e) {
+                open("@Url.Action("GoToPublicPage")?iiid=" + e,"_blank");
+            },
+            onshowmore: function (e)
+            {
+                var url = "@sooilUrl/search/list?sourcename = 全部&p=1&w=" +e ;
+                window.open(url);
+            }
+        },
+        model: ["pks:singletitle", "pks:table", "pks:tabs", "pks:html", "pks:panel"]
+    });
+</script>

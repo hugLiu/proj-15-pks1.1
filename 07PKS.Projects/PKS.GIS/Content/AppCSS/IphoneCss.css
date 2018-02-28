@@ -1,0 +1,89 @@
+﻿ 
+       .homeScreen {
+            width: 300px;
+            height:100%;
+            padding: 1px;
+            margin: 0 auto 1px;
+            /*background: url('../images/background.png') no-repeat left bottom;*/
+        }
+        /* 面膜只显示在一个屏幕上的时间。使用溢出：隐藏 */
+        .mask {
+            width: 300px;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            margin: 1px auto 0;
+        }
+
+        /*#allScreens {
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            cursor: move;
+        }*/
+         
+        .screen {
+            width: 300px;
+            float: left;
+        }
+
+            .dock .iphonedockicon, .screen .iphoneicon {
+                float: left;
+                width: 60px;
+                height: 60px;
+                background-repeat: no-repeat;
+                margin: 20px;
+                border-radius: 12px;
+                position: relative;
+            }
+                /* 下面的图标显示的标题属性:*/
+                .screen .iphoneicon:after {
+                    bottom: -25px;
+                    content: attr(title);
+                    font-size: 12px;
+                    height: 20px;
+                    left: -20px;
+                    overflow: hidden;
+                    position: absolute;
+                    text-align: center;
+                    white-space: nowrap;
+                    width: 100px;
+                }
+
+        .dock {
+            height: 70px;
+            margin: 60px auto;
+            width: 332px;
+        }
+            /* 被告席上的图标得到下面这些细微的阴影 */
+            .dock .dockicon:after {
+                border-radius: 50px/10px;
+                bottom: 7px;
+                box-shadow: 0 5px 2px #000000;
+                content: "";
+                height: 1px;
+                position: absolute;
+                width: 58px;
+            }
+
+        .indicators {
+            text-align: center;
+            list-style: none;
+        }
+
+            .indicators li {
+                border-radius: 50%;
+                display: inline-block;
+                margin: 7px;
+                width: 6px;
+                height: 6px;
+                background-color: white;
+                opacity: 0.6;
+            }
+
+                .indicators li.active {
+                    opacity: 1;
+                    background-color: #00A2D6;
+                    box-shadow: 0 0 3px #00A2D6, 0 0 1px #51CFF9 inset;
+                }

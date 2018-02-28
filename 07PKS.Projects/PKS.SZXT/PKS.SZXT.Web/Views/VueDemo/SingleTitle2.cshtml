@@ -1,0 +1,61 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "文字列表";
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+}
+
+@section scriptsSection
+{
+    <script src="~/Scripts/util.js"></script>
+ }
+<div class="row" style="">
+
+    <div id="container">
+        <pks:singletitle2 :title="title" :esurl="esurl" :esquery="esquery" :onclick="onclick" :map="map"></pks:singletitle2>
+        <pks:singletitle2 :title="title2" :esurl="esurl" :iiids="iiids" :onclick="onclick" :map="map"></pks:singletitle2>
+        <pks:singletitle2 :title="title3" ></pks:singletitle2>
+
+    </div>
+
+</div>
+
+<script>
+
+    var esUrl = "@webApiSiteUrl//api/searchservice/essearch";
+    var vm = PKSUI.bind({
+        el: "#container",
+        data: {
+            "title":"标题列表demo【EsQuery】",
+            "esurl": esUrl,
+            "map": { "left": "title", "right":"indexeddate","url":"iiid"},
+            "esquery": {
+                "_source": ["iiid", "pt", "title", "indexeddate"],
+                "query": {
+                    "bool": {
+                        "must": [
+                            {
+                                "terms": {
+                                    "pt.keyword": ["ceshi"]
+                                }
+                            }                            
+                        ]
+                    }
+                },
+                "from":0,
+                "size": 10
+            },
+
+            "title2": "标题列表demo[iiid数组]",
+            "iiids": ["BEC26B002561DE926F0CF1A1F95CD15D", "314A25758B21E6860AE13882C0ABE532"],
+
+            "title3":"标题列表默认数据"
+        },
+        methods: {
+            onclick: function (e) {
+                
+            }
+        },
+        model: 'pks:singletitle2'
+    });
+</script>
+

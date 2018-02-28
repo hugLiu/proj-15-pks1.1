@@ -1,0 +1,193 @@
+﻿[
+  {
+    "grid": "g1",
+    "title": "地震采集情况",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "term": {
+          "pt.keyword": "地震采集情况"
+        }
+      },
+      "size": 8,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g2_1",
+    "title": "采集作业动态表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "最新地震资料采集作业动态表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g2_2",
+    "title": "采集作业动态表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "swa" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地震资料采集作业动态表"
+              }
+            },
+            {
+              "terms": {
+                "swa.keyword": [ "@swa" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_1",
+    "title": "地震采集设计报告",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地震采集设计报告"
+              }
+            },
+            {
+              "term": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "g3_2",
+    "title": "地震采集基本数据表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地震采集基本数据表"
+              }
+            },
+            {
+              "term": {
+                "swa.keyword": "@swa"
+              }
+            },
+            {
+              "range": {
+                "createddate": {
+                  "lte": "@date"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "g3_3",
+    "title": "地震采集工区位置图",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地震采集工区位置图"
+              }
+            },
+            {
+              "term": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "g3_4",
+    "title": "地震采集日报",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地震采集日报"
+              }
+            },
+            {
+              "term": {
+                "swa.keyword": "@swa"
+              }
+            },
+            {
+              "range": {
+                "createddate": {
+                  "lte": "@date"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 8,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>基础开发平台</title>
+	<meta http-equiv="pragma" content="no-cache" />
+	
+    <link rel="stylesheet" type="text/css" href="css/login.css"/>								<!-- 登录页面css -->
+    
+	<script type="text/javascript" src="../common/thirdparty/jquery/jquery-1.7.2.min.js"></script><!-- jquery js类库 -->
+	<script type="text/javascript" src="js/login.js"></script>									<!-- 登录页面js -->
+</head>
+<body onresize="initPageSize()">
+	<div id="dl_main"> 
+		<!-- 登录信息输入区域 -->
+		<div class="logininfo">
+			<table width="100%" >
+				<tr >
+					<th><span id="usernamelabel">用&nbsp;&nbsp;&nbsp;&nbsp;户：</span></th>
+					<td colspan="2"><input type="text" name="userid" id="userid" value='admin'  style="width:96%"/></td>
+				</tr>
+				<tr>
+					<th id="passwordlabel">密&nbsp;&nbsp;&nbsp;&nbsp;码：</th>
+					<td colspan="2"><input type="password" name="pass" id="pass" value='111111' style="width:96%"/></td>
+				</tr>
+				
+				<tr >
+					<th id="languagelabel">语&nbsp;&nbsp;&nbsp;&nbsp;言：</th>
+					<td  style="width:80px;margin-left: 0px;">
+					    <select id="language" name="language" onchange="changelanguage()" style="width:100%;height:23px">
+								<option value="zh_CN">&nbsp;中&nbsp;&nbsp;文&nbsp;</option>
+								<option value="en" >&nbsp;English&nbsp;</option>
+						</select>
+					</td>
+					<td>
+						<input type="image"  class="btn" id="login" onclick="login()"  src="image/LoginButtonChinese.png"/>
+					</td>
+				</tr>
+			</table>
+	     </div>
+	</div>
+</body>
+</html>

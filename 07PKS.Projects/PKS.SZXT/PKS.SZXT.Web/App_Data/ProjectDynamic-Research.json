@@ -1,0 +1,164 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "项目运行头条",
+    "query": {
+      "_source": [ "pt", "iiid", "title", "indexeddate" ],
+      "query": {
+        "term": {
+          "pt.keyword": "项目运行头条"
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "项目进展情况表",
+    "query": {
+      "_source": [ "pt", "iiid", "showtype", "dataid" ],
+      "query": {
+        "term": {
+          "pt.keyword": "科研项目进展情况统计表"
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "G3_1",
+    "title": "项目立项",
+    "query": {
+      "_source": [ "pt", "iiid", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "项目可行性论证材料",
+                  "项目课题预算书",
+                  "项目立项建议书",
+                  "项目立项论证材料"
+                ]
+              }
+            },
+            {
+              "term": {
+                "project.keyword": "@projectName"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "G3_2",
+    "title": "项目实施",
+    "query": {
+      "_source": [ "pt", "iiid", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "项目月/季报",
+                  "年度执行情况报告",
+                  "项目变更调整报告",
+                  "项目进度报表",
+                  "项目终期审查材料"
+                ]
+              }
+            },
+            {
+              "term": {
+                "project.keyword": "@projectName"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "G3_3",
+    "title": "项目验收",
+    "query": {
+      "_source": [ "pt", "iiid", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "项目验收材料",
+                  "项目自评价报告",
+                  "项目技术总结报告",
+                  "项目工作报告",
+                  "项目成果转化报告",
+                  "项目财务决算报告"
+                ]
+              }
+            },
+            {
+              "term": {
+                "project.keyword": "@projectName"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "G5",
+    "title": "热点信息",
+    "query": {
+      "size": 0,
+      "aggs": {
+        "all": {
+          "terms": {
+            "field": "iiid.keyword",
+            "size": "@size"
+          }
+        }
+      }
+    }
+  },
+  {
+    "grid": "G6",
+    "title": "最近浏览",
+    "query": {
+      "_source": [ "iiid", "title", "logdate" ],
+      "query": {
+        "term": {
+          "user.keyword": "@user"
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "logdate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

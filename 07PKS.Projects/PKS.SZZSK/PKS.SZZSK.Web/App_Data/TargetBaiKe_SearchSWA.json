@@ -1,0 +1,75 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "获取地震筛选条件",
+    "query": {
+      "query": {
+        "name": "地震工区"
+      },
+      "fields": {
+        "properties.海域状况": 1,
+        "properties.作业方式2": 1,
+        "properties.作业类型": 1,
+        "properties.采集时间": 1
+      }
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bt.keyword": "目标认识"
+              }
+            },
+            {
+              "match": {
+                "bp.keyword": "地震工区"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g_th",
+    "title": "获取地震缩略图",
+    "query": {
+      "_source": [ "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地震工区位置图",
+                  "目标区地震剖面图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1
+    }
+  }
+]

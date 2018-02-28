@@ -1,0 +1,100 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "图册",
+    "query": {
+      "_source": [ "iiid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pc.keyword": "构造专业研究"
+              }
+            },
+            {
+              "match": {
+                "secondlevel.keyword": "@bo"
+              }
+            },
+            {
+              "match": {
+                "showtype.keyword": "Image"
+              }
+            }
+          ]
+        }
+      },
+      "size": 10,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "相关地层研究",
+    "query": {
+      "_source": [ "iiid", "dataid", "pageid", "title", "abstract", "indexeddate", "createddate", "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bt.keyword": "专业研究"
+              }
+            },
+            {
+              "match": {
+                "bp.keyword": "构造"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "相关研究成果",
+    "query": {
+      "_source": [ "iiid", "dataid", "pageid", "title", "abstract", "indexeddate", "createddate", "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bt.keyword": "专业研究"
+              }
+            },
+            {
+              "match": {
+                "dataid.keyword": "@text"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

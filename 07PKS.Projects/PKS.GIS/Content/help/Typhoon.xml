@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="gb2312"?>
+<document>
+	<Point index='0' time='7月3日9时' lon='145' lat='8.8' press='1000' windSpeed='18' windLevel='8' level='热带风暴' speed='15' direction='西北西' radius7='300' radius10='' />
+	<Point index='1' time='7月3日14时' lon='144.8' lat='9.2' press='1000' windSpeed='18' windLevel='8' level='热带风暴' speed='15' direction='西北西' radius7='300' radius10='' />
+	<Point index='2' time='7月3日20时' lon='144.3' lat='9.9' press='995' windSpeed='20' windLevel='8' level='热带风暴' speed='20' direction='北西' radius7='260' radius10='' />
+	<Point index='3' time='7月4日2时' lon='143.5' lat='10.6' press='995' windSpeed='20' windLevel='8' level='热带风暴' speed='30' direction='北西' radius7='260' radius10='' />
+	<Point index='4' time='7月4日8时' lon='142.2' lat='11.8' press='995' windSpeed='20' windLevel='8' level='热带风暴' speed='28' direction='北西' radius7='300' radius10='' />
+	<Point index='5' time='7月4日14时' lon='141.3' lat='12.8' press='995' windSpeed='20' windLevel='8' level='热带风暴' speed='30' direction='北西' radius7='300' radius10='' />
+	<Point index='6' time='7月4日20时' lon='139.5' lat='13.5' press='990' windSpeed='23' windLevel='9' level='热带风暴' speed='20' direction='北西' radius7='300' radius10='' />
+	<Point index='7' time='7月5日2时' lon='138.4' lat='14.5' press='982' windSpeed='28' windLevel='10' level='强热带风暴' speed='28' direction='西北西' radius7='300' radius10='80' />
+	<Point index='8' time='7月5日8时' lon='136.5' lat='15.2' press='975' windSpeed='33' windLevel='12' level='台风' speed='30' direction='北西' radius7='300' radius10='80' />
+	<Point index='9' time='7月5日14时' lon='135.1' lat='16.2' press='960' windSpeed='40' windLevel='13' level='台风' speed='30' direction='北西' radius7='350' radius10='110' />
+	<Point index='10' time='7月5日20时' lon='133.6' lat='17.1' press='935' windSpeed='53' windLevel='16' level='超强台风' speed='30' direction='北西' radius7='350' radius10='110' />
+	<Point index='11' time='7月6日2时' lon='132' lat='17.9' press='920' windSpeed='60' windLevel='17' level='超强台风' speed='30' direction='西北西' radius7='350' radius10='150' />
+	<Point index='12' time='7月6日5时' lon='131' lat='18.3' press='910' windSpeed='65' windLevel='18' level='超强台风' speed='30' direction='西北西' radius7='350' radius10='150' />
+	<Point index='13' time='7月6日8时' lon='130.2' lat='18.7' press='910' windSpeed='65' windLevel='18' level='超强台风' speed='30' direction='西北西' radius7='350' radius10='150' />
+	<Point index='14' time='7月6日11时' lon='129.3' lat='19' press='905' windSpeed='68' windLevel='18' level='超强台风' speed='30' direction='西北西' radius7='350' radius10='150' />
+	<Point index='15' time='7月6日14时' lon='128.6' lat='19.4' press='905' windSpeed='68' windLevel='18' level='超强台风' speed='30' direction='西北西' radius7='350' radius10='150' />
+	<Point index='16' time='7月6日17时' lon='127.7' lat='19.8' press='905' windSpeed='68' windLevel='18' level='超强台风' speed='30' direction='西北西' radius7='350' radius10='150' />
+	<Point index='17' time='7月6日20时' lon='127' lat='20.1' press='905' windSpeed='68' windLevel='18' level='超强台风' speed='27' direction='西北西' radius7='350' radius10='150' />
+	<Point index='18' time='7月6日23时' lon='126.3' lat='20.4' press='905' windSpeed='68' windLevel='18' level='超强台风' speed='26' direction='西北西' radius7='350' radius10='150' />
+	<Point index='19' time='7月7日2时' lon='125.6' lat='20.7' press='905' windSpeed='68' windLevel='18' level='超强台风' speed='20' direction='西北西' radius7='350' radius10='150' />
+	<Point index='20' time='7月7日5时' lon='125' lat='21.1' press='915' windSpeed='60' windLevel='17' level='超强台风' speed='20' direction='西北西' radius7='350' radius10='150' />
+	<Point index='21' time='7月7日6时' lon='124.8' lat='21.1' press='915' windSpeed='60' windLevel='17' level='超强台风' speed='20' direction='西北西' radius7='350' radius10='150' />
+	<Point index='22' time='7月7日7时' lon='124.6' lat='21.3' press='915' windSpeed='60' windLevel='17' level='超强台风' speed='20' direction='西北西' radius7='350' radius10='150' />
+</document>
+

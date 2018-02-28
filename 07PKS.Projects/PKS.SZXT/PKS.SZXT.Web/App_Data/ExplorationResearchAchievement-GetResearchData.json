@@ -1,0 +1,309 @@
+﻿[
+  {
+    "Grid": "viewConfig",
+    "title": "页面配置",
+    "query": {
+      "actionOfBoSection": "/ExplorationResearchAchievement/FragInfoOfDisposition",
+      "treeUrl": "/ExplorationResearchAchievement/GetTreeDataOfDisposition",
+      "showFilter": true,
+      "defaultBo": [ "白云凹陷" ],
+      "defaultYear": [ 2016 ]
+    }
+  },
+  {
+    "Grid": "tree",
+    "title": "",
+    "query": {
+      "tree": [
+        {
+          "text": "层序地层分析",
+          "tag": { "querykey": "g1" }
+        },
+        {
+          "text": "沉积研究",
+          "_children": [
+            {
+              "text": "物源",
+              "tag": {
+                "querykey": "g2_1"
+              }
+            },
+            {
+              "text": "沉积相",
+              "tag": {
+                "querykey": "g2_2"
+              }
+            }
+          ]
+        },
+        {
+          "text": "储层评价",
+          "_children": [
+            {
+              "text": "储层物性",
+              "tag": {
+                "querykey": "g3_1"
+              }
+            },
+            {
+              "text": "成岩作用",
+              "tag": {
+                "querykey": "g3_2"
+              }
+            }
+          ]
+        },
+        {
+          "text": "综合评价",
+          "tag": { "querykey": "g4" }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g0",
+    "title": "",
+    "query": "二级构造单元"
+  },
+  {
+    "grid": "g1",
+    "title": "分层数据表",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "分层数据表"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "size": 1000,
+    "sort": [
+      {
+        "indexeddate": {
+          "order": "desc"
+        }
+      }
+    ]
+  },
+  {
+    "grid": "g2_1",
+    "title": "物源",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "轻重矿物类型统计图",
+                  "ZTR指数等值线图",
+                  "常量元素折线图",
+                  "微量元素折线图",
+                  "稀土元素折线图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g2_2",
+    "title": "沉积相",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "井壁取心描述表",
+                  "岩心描述柱状图",
+                  "单井综合柱状图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_1",
+    "title": "储层物性",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "岩石组分三角图",
+                  "粒度累积曲线",
+                  "储集空间类型与深度关系图",
+                  "孔渗与深度关系图",
+                  "孔渗直方图",
+                  "孔渗交会图",
+                  "压汞曲线"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_2",
+    "title": "成岩作用",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "成岩类型与深度关系图",
+                  "成岩阶段划分图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g4",
+    "title": "综合评价",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "储层综合评价图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

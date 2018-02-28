@@ -1,0 +1,1384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{90FE2C4C-1701-4A8A-90F1-C45C30119ABA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PKS.GIS</RootNamespace>
+    <AssemblyName>PKS.GIS</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.Web.4.5.0\lib\net35\NLog.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Oracle.ManagedDataAccess.12.2.1100\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Oracle.ManagedDataAccess.EntityFramework.12.2.1100\lib\net45\Oracle.ManagedDataAccess.EntityFramework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\GisController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\AppCSS\AnimationCSS.css" />
+    <Content Include="Content\AppCSS\css-home-1.13.1553.12740.css" />
+    <Content Include="Content\AppCSS\Default.css" />
+    <Content Include="Content\AppCSS\IphoneCss.css" />
+    <Content Include="Content\AppCSS\MapCSS.css" />
+    <Content Include="Content\AppCSS\ToolBar.css" />
+    <Content Include="Content\AppCSS\ToolBarRight.css" />
+    <Content Include="Content\AppCSS\TyphoonCSS.css" />
+    <Content Include="Content\AppJS\allfaclities.js" />
+    <Content Include="Content\AppJS\BaseLine.js" />
+    <Content Include="Content\AppJS\DataPipelineInfo.js" />
+    <Content Include="Content\AppJS\DataPipelineInfolatlon.js" />
+    <Content Include="Content\AppJS\FacilitiesInfo.js" />
+    <Content Include="Content\AppJS\IphoneStyle.js" />
+    <Content Include="Content\AppJS\LineInfo.js" />
+    <Content Include="Content\AppJS\touchable.js" />
+    <Content Include="Content\AppJS\UtilityTools.js" />
+    <Content Include="Content\common\css\addAndUpdateStyle.css" />
+    <Content Include="Content\common\css\addMonitStyle.css" />
+    <Content Include="Content\common\css\detail3DStyle.css" />
+    <Content Include="Content\common\css\detailStyle.css" />
+    <Content Include="Content\common\css\jasframework-layout.css" />
+    <Content Include="Content\common\css\main.css" />
+    <Content Include="Content\common\css\queryStyle.css" />
+    <Content Include="Content\common\css\radius_htc.css" />
+    <Content Include="Content\common\image\alarm_block.png" />
+    <Content Include="Content\common\image\amhEmsmenu.png" />
+    <Content Include="Content\common\image\banner-bottom.png" />
+    <Content Include="Content\common\image\banner-bottom1.png" />
+    <Content Include="Content\common\image\banner-top.png" />
+    <Content Include="Content\common\image\close.gif" />
+    <Content Include="Content\common\image\close.png" />
+    <Content Include="Content\common\image\down.jpg" />
+    <Content Include="Content\common\image\down1.png" />
+    <Content Include="Content\common\image\emsMenu_1.png" />
+    <Content Include="Content\common\image\emsMenu_2.png" />
+    <Content Include="Content\common\image\excel.png" />
+    <Content Include="Content\common\image\favicon.ico" />
+    <Content Include="Content\common\image\funnel.png" />
+    <Content Include="Content\common\image\help.png" />
+    <Content Include="Content\common\image\help1.png" />
+    <Content Include="Content\common\image\icon_close02_on.gif" />
+    <Content Include="Content\common\image\icon_close_off.gif" />
+    <Content Include="Content\common\image\icon_close_on.gif" />
+    <Content Include="Content\common\image\language.png" />
+    <Content Include="Content\common\image\laymenu.png" />
+    <Content Include="Content\common\image\left.jpg" />
+    <Content Include="Content\common\image\left1.png" />
+    <Content Include="Content\common\image\logo.png" />
+    <Content Include="Content\common\image\logon2.png" />
+    <Content Include="Content\common\image\logo_title.png" />
+    <Content Include="Content\common\image\logo_title_ems.png" />
+    <Content Include="Content\common\image\logp.png" />
+    <Content Include="Content\common\image\map2d.png" />
+    <Content Include="Content\common\image\map3d.png" />
+    <Content Include="Content\common\image\menu_1.png" />
+    <Content Include="Content\common\image\menu_2.png" />
+    <Content Include="Content\common\image\navigator.png" />
+    <Content Include="Content\common\image\open.png" />
+    <Content Include="Content\common\image\parentMenu.png" />
+    <Content Include="Content\common\image\pass.png" />
+    <Content Include="Content\common\image\pdf.png" />
+    <Content Include="Content\common\image\perference.png" />
+    <Content Include="Content\common\image\pin.png" />
+    <Content Include="Content\common\image\quit.png" />
+    <Content Include="Content\common\image\right.jpg" />
+    <Content Include="Content\common\image\right1.png" />
+    <Content Include="Content\common\image\searchbox_button.png" />
+    <Content Include="Content\common\image\space.gif" />
+    <Content Include="Content\common\image\spinner_arrow_down.gif" />
+    <Content Include="Content\common\image\spinner_arrow_up.gif" />
+    <Content Include="Content\common\image\split1.png" />
+    <Content Include="Content\common\image\split2.png" />
+    <Content Include="Content\common\image\statistic.png" />
+    <Content Include="Content\common\image\tab-close_hover.gif" />
+    <Content Include="Content\common\image\tabs_active.png" />
+    <Content Include="Content\common\image\tabs_close.gif" />
+    <Content Include="Content\common\image\tabs_enabled.png" />
+    <Content Include="Content\common\image\tabs_leftarrow.png" />
+    <Content Include="Content\common\image\tabs_rightarrow.png" />
+    <Content Include="Content\common\image\tab_active_r1_c1.png" />
+    <Content Include="Content\common\image\tab_bg.png" />
+    <Content Include="Content\common\image\tab_bg1.png" />
+    <Content Include="Content\common\image\tab_map_close.png" />
+    <Content Include="Content\common\image\tab_map_close1.png" />
+    <Content Include="Content\common\image\tab_map_max.png" />
+    <Content Include="Content\common\image\tab_map_max_on.png" />
+    <Content Include="Content\common\image\tab_map_max_restore.png" />
+    <Content Include="Content\common\image\tab_map_min.png" />
+    <Content Include="Content\common\image\tab_map_min_on.png" />
+    <Content Include="Content\common\image\tab_map_restore.png" />
+    <Content Include="Content\common\image\tab_map_restore_on.png" />
+    <Content Include="Content\common\image\text-bg.gif" />
+    <Content Include="Content\common\image\title.png" />
+    <Content Include="Content\common\image\top.png" />
+    <Content Include="Content\common\image\up.jpg" />
+    <Content Include="Content\common\image\up1.png" />
+    <Content Include="Content\common\image\userinfo.png" />
+    <Content Include="Content\common\image\word.png" />
+    <Content Include="Content\common\js\AppConfig.js" />
+    <Content Include="Content\common\js\AppMethod.js" />
+    <Content Include="Content\common\js\baseJasDatagrid.js" />
+    <Content Include="Content\common\js\common.js" />
+    <Content Include="Content\common\js\jsonUtil.js" />
+    <Content Include="Content\common\js\parseXmlDoc.js" />
+    <Content Include="Content\common\js\PIE.htc" />
+    <Content Include="Content\common\js\PIE_IE678.js" />
+    <Content Include="Content\common\js\PIE_IE9.js" />
+    <Content Include="Content\common\js\validate_class.js" />
+    <Content Include="Content\common\skins\gray\css\addAndUpdateStyle.css" />
+    <Content Include="Content\common\skins\gray\css\detailStyle.css" />
+    <Content Include="Content\common\skins\gray\css\jasframework-layout.css" />
+    <Content Include="Content\common\skins\gray\css\main.css" />
+    <Content Include="Content\common\skins\gray\css\queryStyle.css" />
+    <Content Include="Content\common\skins\gray\css\radius_htc.css" />
+    <Content Include="Content\common\skins\gray\image\banner-bottom.png" />
+    <Content Include="Content\common\skins\gray\image\banner-top.png" />
+    <Content Include="Content\common\skins\gray\image\buju.png" />
+    <Content Include="Content\common\skins\gray\image\down1.png" />
+    <Content Include="Content\common\skins\gray\image\left1.png" />
+    <Content Include="Content\common\skins\gray\image\logo.png" />
+    <Content Include="Content\common\skins\gray\image\logo_title.png" />
+    <Content Include="Content\common\skins\gray\image\menu_1.png" />
+    <Content Include="Content\common\skins\gray\image\menu_2.png" />
+    <Content Include="Content\common\skins\gray\image\open.png" />
+    <Content Include="Content\common\skins\gray\image\right1.png" />
+    <Content Include="Content\common\skins\gray\image\split1.png" />
+    <Content Include="Content\common\skins\gray\image\split2.png" />
+    <Content Include="Content\common\skins\gray\image\tab_active.png" />
+    <Content Include="Content\common\skins\gray\image\tab_active_r1_c1.png" />
+    <Content Include="Content\common\skins\gray\image\tab_bg.png" />
+    <Content Include="Content\common\skins\gray\image\tab_map_close.png" />
+    <Content Include="Content\common\skins\gray\image\tab_map_close1.png" />
+    <Content Include="Content\common\skins\gray\image\tab_map_max.png" />
+    <Content Include="Content\common\skins\gray\image\tab_map_max_on.png" />
+    <Content Include="Content\common\skins\gray\image\up1.png" />
+    <Content Include="Content\common\skins\gray\image\zhuandao.png" />
+    <Content Include="Content\common\skins\gray\login\css\login.css" />
+    <Content Include="Content\common\skins\gray\login\home.htm" />
+    <Content Include="Content\common\skins\gray\login\image\checkbox.png" />
+    <Content Include="Content\common\skins\gray\login\image\Chinese.png" />
+    <Content Include="Content\common\skins\gray\login\image\dl.jpg" />
+    <Content Include="Content\common\skins\gray\login\image\dl_1.png" />
+    <Content Include="Content\common\skins\gray\login\image\English.png" />
+    <Content Include="Content\common\skins\gray\login\image\eyu.png" />
+    <Content Include="Content\common\skins\gray\login\image\language_index.gif" />
+    <Content Include="Content\common\skins\gray\login\image\LoginButtonChinese.png" />
+    <Content Include="Content\common\skins\gray\login\image\LoginButtonEnglish.png" />
+    <Content Include="Content\common\skins\gray\login\image\login_back.png" />
+    <Content Include="Content\common\skins\gray\login\image\login_input_back.png" />
+    <Content Include="Content\common\skins\gray\login\image\logo.png" />
+    <Content Include="Content\common\skins\gray\login\image\name.png" />
+    <Content Include="Content\common\skins\gray\login\image\ubox-select.gif" />
+    <Content Include="Content\common\skins\gray\login\js\login.js" />
+    <Content Include="Content\common\skins\gray\login\login.htm" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\easyui.css" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\easyui_ie678.css" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\button_a_bg.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\button_span_bg.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\combo_arrow_1.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\datagrid_title_bg.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\layout_arrows_1.png" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\pagination_first1.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\pagination_last1.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\pagination_load1.png" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\pagination_next1.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\pagination_prev1.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\panel_title.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\panel_tools_1.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\tabs_enabled.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\tree_file1.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\tree_folder1.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\tree_folder_open1.gif" />
+    <Content Include="Content\common\skins\gray\thirdparty\jquery\themes\default\images\window_head.png" />
+    <Content Include="Content\common\skins\skyblue\css\addAndUpdateStyle.css" />
+    <Content Include="Content\common\skins\skyblue\css\detailStyle.css" />
+    <Content Include="Content\common\skins\skyblue\css\jasframework-layout.css" />
+    <Content Include="Content\common\skins\skyblue\css\main.css" />
+    <Content Include="Content\common\skins\skyblue\css\queryStyle.css" />
+    <Content Include="Content\common\skins\skyblue\css\radius_htc.css" />
+    <Content Include="Content\common\skins\skyblue\image\alarm_block.png" />
+    <Content Include="Content\common\skins\skyblue\image\banner-bottom.png" />
+    <Content Include="Content\common\skins\skyblue\image\banner-top.png" />
+    <Content Include="Content\common\skins\skyblue\image\buju.png" />
+    <Content Include="Content\common\skins\skyblue\image\close.gif" />
+    <Content Include="Content\common\skins\skyblue\image\close.png" />
+    <Content Include="Content\common\skins\skyblue\image\down.jpg" />
+    <Content Include="Content\common\skins\skyblue\image\down1.png" />
+    <Content Include="Content\common\skins\skyblue\image\excel.png" />
+    <Content Include="Content\common\skins\skyblue\image\help.png" />
+    <Content Include="Content\common\skins\skyblue\image\icon_close02_on.gif" />
+    <Content Include="Content\common\skins\skyblue\image\icon_close_off.gif" />
+    <Content Include="Content\common\skins\skyblue\image\icon_close_on.gif" />
+    <Content Include="Content\common\skins\skyblue\image\language.png" />
+    <Content Include="Content\common\skins\skyblue\image\laymenu.png" />
+    <Content Include="Content\common\skins\skyblue\image\left.jpg" />
+    <Content Include="Content\common\skins\skyblue\image\left1.png" />
+    <Content Include="Content\common\skins\skyblue\image\logo.png" />
+    <Content Include="Content\common\skins\skyblue\image\logon2.png" />
+    <Content Include="Content\common\skins\skyblue\image\logo_title.png" />
+    <Content Include="Content\common\skins\skyblue\image\logp.png" />
+    <Content Include="Content\common\skins\skyblue\image\map2d.png" />
+    <Content Include="Content\common\skins\skyblue\image\map3d.png" />
+    <Content Include="Content\common\skins\skyblue\image\menu_1.png" />
+    <Content Include="Content\common\skins\skyblue\image\menu_2.png" />
+    <Content Include="Content\common\skins\skyblue\image\navigator.png" />
+    <Content Include="Content\common\skins\skyblue\image\open.png" />
+    <Content Include="Content\common\skins\skyblue\image\pass.png" />
+    <Content Include="Content\common\skins\skyblue\image\pdf.png" />
+    <Content Include="Content\common\skins\skyblue\image\perference.png" />
+    <Content Include="Content\common\skins\skyblue\image\pin.png" />
+    <Content Include="Content\common\skins\skyblue\image\quit.png" />
+    <Content Include="Content\common\skins\skyblue\image\right.jpg" />
+    <Content Include="Content\common\skins\skyblue\image\right1.png" />
+    <Content Include="Content\common\skins\skyblue\image\searchbox_button.png" />
+    <Content Include="Content\common\skins\skyblue\image\space.gif" />
+    <Content Include="Content\common\skins\skyblue\image\spinner_arrow_down.gif" />
+    <Content Include="Content\common\skins\skyblue\image\spinner_arrow_up.gif" />
+    <Content Include="Content\common\skins\skyblue\image\split1.png" />
+    <Content Include="Content\common\skins\skyblue\image\split2.png" />
+    <Content Include="Content\common\skins\skyblue\image\statistic.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab-close_hover.gif" />
+    <Content Include="Content\common\skins\skyblue\image\tabs_active.png" />
+    <Content Include="Content\common\skins\skyblue\image\tabs_close.gif" />
+    <Content Include="Content\common\skins\skyblue\image\tabs_enabled.png" />
+    <Content Include="Content\common\skins\skyblue\image\tabs_leftarrow.png" />
+    <Content Include="Content\common\skins\skyblue\image\tabs_rightarrow.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_active.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_active_r1_c1.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_bg.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_map_close.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_map_close1.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_map_max.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_map_max_on.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_map_max_restore.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_map_min.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_map_min_on.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_map_restore.png" />
+    <Content Include="Content\common\skins\skyblue\image\tab_map_restore_on.png" />
+    <Content Include="Content\common\skins\skyblue\image\text-bg.gif" />
+    <Content Include="Content\common\skins\skyblue\image\top.png" />
+    <Content Include="Content\common\skins\skyblue\image\up.jpg" />
+    <Content Include="Content\common\skins\skyblue\image\up1.png" />
+    <Content Include="Content\common\skins\skyblue\image\userinfo.png" />
+    <Content Include="Content\common\skins\skyblue\image\word.png" />
+    <Content Include="Content\common\skins\skyblue\image\zhuandao.png" />
+    <Content Include="Content\common\skins\skyblue\login\css\login.css" />
+    <Content Include="Content\common\skins\skyblue\login\home.htm" />
+    <Content Include="Content\common\skins\skyblue\login\image\checkbox.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\Chinese.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\dl.jpg" />
+    <Content Include="Content\common\skins\skyblue\login\image\dl_1.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\English.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\eyu.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\language_index.gif" />
+    <Content Include="Content\common\skins\skyblue\login\image\LoginButtonChinese.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\LoginButtonEnglish.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\login_back.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\login_input_back.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\logo.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\name.png" />
+    <Content Include="Content\common\skins\skyblue\login\image\ubox-select.gif" />
+    <Content Include="Content\common\skins\skyblue\login\js\login.js" />
+    <Content Include="Content\common\skins\skyblue\login\login.htm" />
+    <Content Include="Content\common\skins\skyblue\thirdparty\jquery\themes\default\easyui.css" />
+    <Content Include="Content\common\skins\skyblue\thirdparty\jquery\themes\default\easyui_ie678.css" />
+    <Content Include="Content\common\skins\skyblue\thirdparty\jquery\themes\default\images\button_a_bg.gif" />
+    <Content Include="Content\common\skins\skyblue\thirdparty\jquery\themes\default\images\button_span_bg.gif" />
+    <Content Include="Content\common\skins\skyblue\thirdparty\jquery\themes\default\images\datagrid_title_bg.png" />
+    <Content Include="Content\common\skins\skyblue\thirdparty\jquery\themes\default\images\panel_title.png" />
+    <Content Include="Content\common\skins\skyblue\thirdparty\jquery\themes\default\images\tabs_enabled.png" />
+    <Content Include="Content\common\skins\皮肤使用说明-v1.4.txt" />
+    <Content Include="Content\common\skins\皮肤使用说明-v1.5.txt" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\calendar.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\en_WdatePicker.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\lang\en.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\lang\pg.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\WdatePicker.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\zh-cn_WdatePicker.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\lang\en.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\lang\zh-cn.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\lang\zh-tw.js" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\readme.txt" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\skin\datePicker.gif" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\skin\default\datepicker.css" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\skin\default\img.gif" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\skin\WdatePicker.css" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\skin\whyGreen\bg.jpg" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\skin\whyGreen\datepicker.css" />
+    <Content Include="Content\common\thirdparty\date\My97DatePicker\开发包\skin\whyGreen\img.gif" />
+    <Content Include="Content\common\thirdparty\FlexPaper\Changelog.txt" />
+    <Content Include="Content\common\thirdparty\FlexPaper\css\flexpaper.css" />
+    <Content Include="Content\common\thirdparty\FlexPaper\docs\Paper.pdf.swf" />
+    <Content Include="Content\common\thirdparty\FlexPaper\FlexPaperViewer.swf" />
+    <Content Include="Content\common\thirdparty\FlexPaper\index.html" />
+    <Content Include="Content\common\thirdparty\FlexPaper\index_debug.html" />
+    <Content Include="Content\common\thirdparty\FlexPaper\index_startatpage.html" />
+    <Content Include="Content\common\thirdparty\FlexPaper\index_twopage.html" />
+    <Content Include="Content\common\thirdparty\FlexPaper\js\expressInstall.swf" />
+    <Content Include="Content\common\thirdparty\FlexPaper\js\flexpaper.js" />
+    <Content Include="Content\common\thirdparty\FlexPaper\js\flexpaper_handlers.js" />
+    <Content Include="Content\common\thirdparty\FlexPaper\js\flexpaper_handlers_debug.js" />
+    <Content Include="Content\common\thirdparty\FlexPaper\js\jquery.min.js" />
+    <Content Include="Content\common\thirdparty\FlexPaper\LICENSE-COMMERCIAL.txt" />
+    <Content Include="Content\common\thirdparty\FlexPaper\LICENSE-UNLIMITED.txt" />
+    <Content Include="Content\common\thirdparty\FlexPaper\LICENSE.txt" />
+    <Content Include="Content\common\thirdparty\FlexPaper\版本使用说明.txt" />
+    <Content Include="Content\common\thirdparty\highcharts\js\adapters\mootools-adapter.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\adapters\mootools-adapter.src.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\adapters\prototype-adapter.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\adapters\prototype-adapter.src.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\highcharts-more.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\highcharts-more.src.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\highcharts.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\highcharts.src.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\jquery-1.6.min.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\jquery.min.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\modules\canvas-tools.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\modules\canvas-tools.src.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\modules\data.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\modules\data.src.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\modules\exporting.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\modules\exporting.src.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\themes\dark-blue.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\themes\dark-green.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\themes\gray.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\themes\grid.js" />
+    <Content Include="Content\common\thirdparty\highcharts\js\themes\skies.js" />
+    <Content Include="Content\common\thirdparty\jquery\jquery-1.6.min.js" />
+    <Content Include="Content\common\thirdparty\jquery\jquery.easyui.min.js" />
+    <Content Include="Content\common\thirdparty\jquery\jquery.inputDefault.js" />
+    <Content Include="Content\common\thirdparty\jquery\jquery.jasfc.jasfcFactory.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-af.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-bg.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-ca.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-cs.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-cz.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-da.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-de.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-en.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-es.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-fr.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-it.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-nl.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-pt_BR.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-ru.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-tr.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-zh_CN.js" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-zh_TW.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.accordion.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.calendar.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.combo.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.combobox.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.combogrid.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.combotree.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.datagrid.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.datebox.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.datetimebox.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.dialog.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.draggable.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.droppable.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.form.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.layout.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.linkbutton.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.menu.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.menubutton.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.messager.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.numberbox.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.numberspinner.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.pagination.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.panel.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.parser.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.progressbar.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.propertygrid.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.resizable.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.searchbox.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.slider.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.spinner.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.splitbutton.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.tabs.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.timespinner.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.tree.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.treegrid.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.validatebox.js" />
+    <Content Include="Content\common\thirdparty\jquery\plugins\jquery.window.js" />
+    <Content Include="Content\common\thirdparty\jquery\qtip\jquery.qtip.css" />
+    <Content Include="Content\common\thirdparty\jquery\qtip\jquery.qtip.js" />
+    <Content Include="Content\common\thirdparty\jquery\qtip\jquery.qtip.min.css" />
+    <Content Include="Content\common\thirdparty\jquery\qtip\jquery.qtip.min.js" />
+    <Content Include="Content\common\thirdparty\jquery\qtip\jquery.qtip.pack.js" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\accordion.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\calendar.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\combo.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\combobox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\datagrid.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\datebox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\dialog.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\easyui.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\easyui_ie678.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\accordion_arrows.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\accordion_collapse.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\accordion_expand.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\blank.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\button_a_bg.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\button_plain_hover.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\button_span_bg.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\calendar_arrows.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\calendar_nextmonth.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\calendar_nextyear.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\calendar_prevmonth.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\calendar_prevyear.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\combo_arrow.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\combo_arrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\datagrid_header_bg.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\datagrid_icons.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\datagrid_row_collapse.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\datagrid_row_expand.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\datagrid_sort_asc.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\datagrid_sort_desc.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\datagrid_title_bg.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\datebox_arrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\layout_arrows.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\linkbutton_bg.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\menu.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\menu_arrows.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\menu_downarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\menu_rightarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\menu_sep.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\menu_split_downarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\messager_error.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\messager_icons.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\messager_info.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\messager_question.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\messager_warning.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\pagination_first.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\pagination_icons.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\pagination_last.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\pagination_load.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\pagination_loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\pagination_next.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\pagination_prev.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\panel_loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\panel_title.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\panel_tools.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\panel_tools.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\searchbox_button.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\slider_handle.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\spinner_arrows.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\spinner_arrow_down.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\spinner_arrow_up.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tabs_active.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tabs_close.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tabs_enabled.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tabs_icons.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tabs_leftarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tabs_rightarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tab_bg1.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_arrows.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_checkbox_0.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_checkbox_1.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_checkbox_2.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_dnd_no.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_dnd_yes.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_elbow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_file.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_folder.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_folder_open.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_icons.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\tree_loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\validatebox_pointer.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\validatebox_warning.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\images\window_head.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\layout.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\linkbutton.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\menu.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\menubutton.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\messager.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\pagination.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\panel.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\progressbar.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\propertygrid.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\searchbox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\slider.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\spinner.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\splitbutton.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\tabs.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\tree.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\validatebox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\default\window.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\accordion.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\calendar.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\combo.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\combobox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\datagrid.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\datebox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\dialog.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\easyui.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\accordion_collapse.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\accordion_expand.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\blank.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\button_a_bg.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\button_plain_hover.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\button_span_bg.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\calendar_nextmonth.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\calendar_nextyear.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\calendar_prevmonth.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\calendar_prevyear.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\combo_arrow.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\datagrid_header_bg.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\datagrid_row_collapse.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\datagrid_row_expand.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\datagrid_sort_asc.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\datagrid_sort_desc.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\datagrid_title_bg.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\datebox_arrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\layout_arrows.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\menu.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\menu_downarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\menu_rightarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\menu_sep.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\menu_split_downarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\messager_error.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\messager_info.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\messager_question.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\messager_warning.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\pagination_first.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\pagination_last.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\pagination_load.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\pagination_loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\pagination_next.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\pagination_prev.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\panel_loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\panel_title.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\panel_tools.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\searchbox_button.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\slider_handle.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\spinner_arrow_down.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\spinner_arrow_up.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tabs_close.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tabs_enabled.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tabs_leftarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tabs_rightarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_arrows.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_checkbox_0.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_checkbox_1.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_checkbox_2.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_dnd_no.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_dnd_yes.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_elbow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_file.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_folder.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_folder_open.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\tree_loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\validatebox_pointer.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\images\validatebox_warning.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\layout.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\linkbutton.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\menu.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\menubutton.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\messager.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\pagination.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\panel.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\progressbar.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\propertygrid.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\searchbox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\slider.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\spinner.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\splitbutton.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\tabs.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\tree.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\validatebox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\gray\window.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icon.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\add_asdf.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\analysis.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\arrow_inout.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\back.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\blank.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\calculator.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\cancel.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\chongzhi.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\clear.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\clock.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\close.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\copy.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\cut.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\details.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\download.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\edit_add.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\edit_remove.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\excel.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\export.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\filesave.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\flash.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\hammer_screwdriver.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\help.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\history.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\images.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\import.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\locate.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\lookChart.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\map.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\mini_add.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\mini_edit.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\mini_refresh.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\navigator.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\no.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\ok.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\PatrolPerson.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\PatrolPerson_offline.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\pause.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\pencil.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\pipeIcon.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\print.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\query.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\redo.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\reload.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\remind.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\role.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\search.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\start.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\stop.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\sum.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\target.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\tip.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\track.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\transfer.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\undo.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\icons\zoom.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\accordion.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\calendar.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\combo.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\combobox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\datagrid.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\datebox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\dialog.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\easyui.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\accordion_collapse.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\accordion_expand.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\blank.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\calendar_nextmonth.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\calendar_nextyear.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\calendar_prevmonth.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\calendar_prevyear.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\combo_arrow.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\datagrid_row_collapse.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\datagrid_row_expand.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\datagrid_sort_asc.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\datagrid_sort_desc.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\datebox_arrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\layout_arrows.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\menu_downarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\menu_rightarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\menu_sep.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\menu_split_downarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\messager_error.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\messager_info.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\messager_question.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\messager_warning.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\pagination_first.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\pagination_last.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\pagination_load.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\pagination_loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\pagination_next.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\pagination_prev.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\panel_loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\panel_tools.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\searchbox_button.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\slider_handle.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tabs_close.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tabs_leftarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tabs_rightarrow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_arrows.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_checkbox_0.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_checkbox_1.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_checkbox_2.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_dnd_no.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_dnd_yes.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_elbow.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_file.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_folder.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_folder_open.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\tree_loading.gif" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\images\validatebox_warning.png" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\layout.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\linkbutton.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\menu.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\menubutton.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\messager.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\pagination.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\panel.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\progressbar.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\propertygrid.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\searchbox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\slider.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\splitbutton.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\tabs.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\tree.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\validatebox.css" />
+    <Content Include="Content\common\thirdparty\jquery\themes\metro\window.css" />
+    <Content Include="Content\Gis\gisCtrl.js" />
+    <Content Include="Content\Gis\gisConfig.js" />
+    <Content Include="Content\Gis\Icons\井\探井.png" />
+    <Content Include="Content\Gis\Images\funnel.png" />
+    <Content Include="Content\Images\background-1.png" />
+    <Content Include="Content\Images\background-3.png" />
+    <Content Include="Content\Images\background.jpg" />
+    <Content Include="Content\Images\background.png" />
+    <Content Include="Content\Images\control.png" />
+    <Content Include="Content\Images\default_user_photo.jpg" />
+    <Content Include="Content\Images\DetailIcon\iconbook.png" />
+    <Content Include="Content\Images\DetailIcon\tab-background.jpg" />
+    <Content Include="Content\Images\DetailIcon\tab_left.png" />
+    <Content Include="Content\Images\DetailIcon\tab_right.png" />
+    <Content Include="Content\Images\down.png" />
+    <Content Include="Content\Images\down1.png" />
+    <Content Include="Content\Images\down2.png" />
+    <Content Include="Content\Images\fdj.jpg" />
+    <Content Include="Content\Images\fgx.png" />
+    <Content Include="Content\Images\FXTJ.png" />
+    <Content Include="Content\Images\GDSY.jpg" />
+    <Content Include="Content\Images\GL.png" />
+    <Content Include="Content\Images\HG.jpg" />
+    <Content Include="Content\Images\HG_SingleLayer.jpg" />
+    <Content Include="Content\Images\HYSYT.jpg" />
+    <Content Include="Content\Images\Icon\bill.png" />
+    <Content Include="Content\Images\Icon\BossPrefs.png" />
+    <Content Include="Content\Images\Icon\Camera_Icon.png" />
+    <Content Include="Content\Images\Icon\CCTV.png" />
+    <Content Include="Content\Images\Icon\CCTV_i.png" />
+    <Content Include="Content\Images\Icon\CCTV_i2.png" />
+    <Content Include="Content\Images\Icon\CCTV_i4.png" />
+    <Content Include="Content\Images\Icon\close.png" />
+    <Content Include="Content\Images\Icon\CLXX.png" />
+    <Content Include="Content\Images\Icon\CLXX_i.png" />
+    <Content Include="Content\Images\Icon\CLXX_i1.png" />
+    <Content Include="Content\Images\Icon\DCS_i.png" />
+    <Content Include="Content\Images\Icon\DCS_i3.png" />
+    <Content Include="Content\Images\Icon\Developer.png" />
+    <Content Include="Content\Images\Icon\DJ-1.png" />
+    <Content Include="Content\Images\Icon\DJ.png" />
+    <Content Include="Content\Images\Icon\EDIS.png" />
+    <Content Include="Content\Images\Icon\EightGJSB\DJ.png" />
+    <Content Include="Content\Images\Icon\EightGJSB\FDJ.png" />
+    <Content Include="Content\Images\Icon\EightGJSB\KQYSJ.png" />
+    <Content Include="Content\Images\Icon\EightGJSB\RJZGL.png" />
+    <Content Include="Content\Images\Icon\EightGJSB\TRJYSJ.png" />
+    <Content Include="Content\Images\Icon\EightGJSB\TRQYSJ.png" />
+    <Content Include="Content\Images\Icon\EightGJSB\XFB.png" />
+    <Content Include="Content\Images\Icon\EightGJSB\YYWSB.png" />
+    <Content Include="Content\Images\Icon\EightGJSB\ZSB.png" />
+    <Content Include="Content\Images\Icon\Equipment_Icon.png" />
+    <Content Include="Content\Images\Icon\FDJ.png" />
+    <Content Include="Content\Images\Icon\FDJ_i.png" />
+    <Content Include="Content\Images\Icon\funnel.png" />
+    <Content Include="Content\Images\Icon\FXPG.png" />
+    <Content Include="Content\Images\Icon\GJSB.png" />
+    <Content Include="Content\Images\Icon\GJSB_i.png" />
+    <Content Include="Content\Images\Icon\GJSB_i1.png" />
+    <Content Include="Content\Images\Icon\gongzuoribao.png" />
+    <Content Include="Content\Images\Icon\GTJL.png" />
+    <Content Include="Content\Images\Icon\GTJL_i.png" />
+    <Content Include="Content\Images\Icon\GTXX_i.png" />
+    <Content Include="Content\Images\Icon\GYLC.png" />
+    <Content Include="Content\Images\Icon\GYLC_i.png" />
+    <Content Include="Content\Images\Icon\GYLC_i1.png" />
+    <Content Include="Content\Images\Icon\GYLC_i2.png" />
+    <Content Include="Content\Images\Icon\GZTJ.png" />
+    <Content Include="Content\Images\Icon\HG.png" />
+    <Content Include="Content\Images\Icon\HGLY.png" />
+    <Content Include="Content\Images\Icon\HGRT.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\内检测记录.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\台风路径Down.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\台风路径over.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\台风路径Up.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\平台信息.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\指标查询.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\故障历史Down.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\故障历史over.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\故障历史Up.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\海管.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\海管路由.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\运行趋势.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\通球记录.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\雷达监控Down.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\雷达监控over.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\雷达监控Up.png" />
+    <Content Include="Content\Images\Icon\HGToolBarIcon\风险评估.png" />
+    <Content Include="Content\Images\Icon\HGTQ.png" />
+    <Content Include="Content\Images\Icon\HYGL.png" />
+    <Content Include="Content\Images\Icon\iconlaba.png" />
+    <Content Include="Content\Images\Icon\icon_settings.png" />
+    <Content Include="Content\Images\Icon\JCXX.png" />
+    <Content Include="Content\Images\Icon\KQYSJ.jpg" />
+    <Content Include="Content\Images\Icon\luggage.png" />
+    <Content Include="Content\Images\Icon\Maps.png" />
+    <Content Include="Content\Images\Icon\Member_Icon.png" />
+    <Content Include="Content\Images\Icon\newIcon\GJSB.png" />
+    <Content Include="Content\Images\Icon\newIcon\PTXX.png" />
+    <Content Include="Content\Images\Icon\newIcon\SBGZ.png" />
+    <Content Include="Content\Images\Icon\newIcon\WXGD.png" />
+    <Content Include="Content\Images\Icon\newIcon\WXRB.png" />
+    <Content Include="Content\Images\Icon\newIcon\WZXX.png" />
+    <Content Include="Content\Images\Icon\Notes.png" />
+    <Content Include="Content\Images\Icon\pipeAccident_Icon.png" />
+    <Content Include="Content\Images\Icon\pipeAssessment_Icon.png" />
+    <Content Include="Content\Images\Icon\pipeInfo_Icon.png" />
+    <Content Include="Content\Images\Icon\pipeMonitoring_Icon.png" />
+    <Content Include="Content\Images\Icon\pipeOrder_Icon.png" />
+    <Content Include="Content\Images\Icon\pipeRouting_Icon.png" />
+    <Content Include="Content\Images\Icon\pipeWaters_Icon.png" />
+    <Content Include="Content\Images\Icon\Platform_Icon.png" />
+    <Content Include="Content\Images\Icon\ProductInfo_Icon.png" />
+    <Content Include="Content\Images\Icon\PTXX.png" />
+    <Content Include="Content\Images\Icon\PTXX_i.png" />
+    <Content Include="Content\Images\Icon\PTXX_i1.png" />
+    <Content Include="Content\Images\Icon\PTXX_i2.png" />
+    <Content Include="Content\Images\Icon\QT_i.png" />
+    <Content Include="Content\Images\Icon\return.jpg" />
+    <Content Include="Content\Images\Icon\RJZGL.png" />
+    <Content Include="Content\Images\Icon\RJZGL_i.png" />
+    <Content Include="Content\Images\Icon\SBBJ_i.png" />
+    <Content Include="Content\Images\Icon\sbgz.png" />
+    <Content Include="Content\Images\Icon\SBGZ_i.png" />
+    <Content Include="Content\Images\Icon\SBGZ_i1.png" />
+    <Content Include="Content\Images\Icon\SBXX_i.png" />
+    <Content Include="Content\Images\Icon\SBXX_i1.png" />
+    <Content Include="Content\Images\Icon\SCRB.png" />
+    <Content Include="Content\Images\Icon\setting_32.png" />
+    <Content Include="Content\Images\Icon\storehouse.png" />
+    <Content Include="Content\Images\Icon\tower.png" />
+    <Content Include="Content\Images\Icon\TRQYSJ.jpg" />
+    <Content Include="Content\Images\Icon\weixiugongdan.png" />
+    <Content Include="Content\Images\Icon\wrench.png" />
+    <Content Include="Content\Images\Icon\WXGD_i.png" />
+    <Content Include="Content\Images\Icon\WXGD_i1.png" />
+    <Content Include="Content\Images\Icon\WXRB_i.png" />
+    <Content Include="Content\Images\Icon\XFB.jpg" />
+    <Content Include="Content\Images\Icon\YCJK.png" />
+    <Content Include="Content\Images\Icon\YYWSB.jpg" />
+    <Content Include="Content\Images\Icon\ZBRightBar\EDISDown.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\EDISover.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\EDISUp.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\库存优化Down.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\库存优化over.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\库存优化Up.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\指标查询Down.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\指标查询over.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\指标查询Up.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\维修报表Down.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\维修报表over.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\维修报表Up.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\设备信息Down.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\设备信息over.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\设备信息Up.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\设备维修Down.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\设备维修over.png" />
+    <Content Include="Content\Images\Icon\ZBRightBar\设备维修Up.png" />
+    <Content Include="Content\Images\Icon\zhuangbei.png" />
+    <Content Include="Content\Images\Icon\ZJXX.png" />
+    <Content Include="Content\Images\Icon\ZSB.jpg" />
+    <Content Include="Content\Gis\Icons\井\无显示井.png" />
+    <Content Include="Content\Gis\Icons\井\正钻井.png" />
+    <Content Include="Content\Gis\Icons\井\气层井.png" />
+    <Content Include="Content\Gis\Icons\井\气流井.png" />
+    <Content Include="Content\Gis\Icons\井\油层井.png" />
+    <Content Include="Content\Gis\Icons\井\油气层井.png" />
+    <Content Include="Content\Gis\Icons\井\油气显示井.png" />
+    <Content Include="Content\Gis\Icons\井\油流井.png" />
+    <Content Include="Content\Gis\Icons\井\评价井.png" />
+    <Content Include="Content\Gis\Icons\井\预探井.png" />
+    <Content Include="Content\Images\Icon\压力容器.png" />
+    <Content Include="Content\Images\Icon\压力容器（储罐）.png" />
+    <Content Include="Content\Images\Icon\发电机组.jpg" />
+    <Content Include="Content\Images\Icon\惰气发生器.jpg" />
+    <Content Include="Content\Images\Icon\热介质锅炉.jpg" />
+    <Content Include="Content\Images\Icon\球罐.png" />
+    <Content Include="Content\Images\MapIcon\alarm_info_16.png" />
+    <Content Include="Content\Images\MapIcon\GC.png" />
+    <Content Include="Content\Images\MapIcon\GC2.png" />
+    <Content Include="Content\Images\MapIcon\GC3.png" />
+    <Content Include="Content\Images\MapIcon\jc.png" />
+    <Content Include="Content\Images\MapIcon\mt.png" />
+    <Content Include="Content\Images\MapIcon\PT-1.png" />
+    <Content Include="Content\Images\MapIcon\PT-2-1.png" />
+    <Content Include="Content\Images\MapIcon\PT-2-2.png" />
+    <Content Include="Content\Images\MapIcon\PT-2.png" />
+    <Content Include="Content\Images\MapIcon\小船.png" />
+    <Content Include="Content\Images\MapIcon\平台.png" />
+    <Content Include="Content\Images\MapIcon\平台2.png" />
+    <Content Include="Content\Images\MapIcon\平台3.png" />
+    <Content Include="Content\Images\MapIcon\海上平台.png" />
+    <Content Include="Content\Images\MapIcon\海上平台2.png" />
+    <Content Include="Content\Images\qq_button_11.gif" />
+    <Content Include="Content\Images\rqj.jpg" />
+    <Content Include="Content\Images\SGT-100.jpg" />
+    <Content Include="Content\Images\SGT100.jpg" />
+    <Content Include="Content\Images\ship-1.png" />
+    <Content Include="Content\Images\ship-1b.png" />
+    <Content Include="Content\Images\ship-2.png" />
+    <Content Include="Content\Images\Ship\CN.png" />
+    <Content Include="Content\Images\Ship\shipflag.png" />
+    <Content Include="Content\Images\Ship\shipImages\default.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\Viking Boy.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\东方勇士2号.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\东方明珠.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\中油海262.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\中石化381.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\凯旋一号.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\勘探312.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\勘探六号.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\华翱.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\新润3.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\海洋石油257.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\海洋石油603.JPG" />
+    <Content Include="Content\Images\Ship\shipImages\海洋石油614.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\海洋石油616.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\海洋石油655.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\海洋石油656.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\海洋石油683.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\海洋石油689.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\海洋石油942.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\胜利281.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\胜利292.jpg" />
+    <Content Include="Content\Images\Ship\shipImages\舟海供5.jpg" />
+    <Content Include="Content\Images\Ship\vi8.png" />
+    <Content Include="Content\Images\Ship_Desc.jpg" />
+    <Content Include="Content\Images\SZ\jing.png" />
+    <Content Include="Content\Images\SZ\touchan.png" />
+    <Content Include="Content\Images\SZ\wanjing.png" />
+    <Content Include="Content\Images\SZ\wanzuan.png" />
+    <Content Include="Content\Images\SZ\zhengzuan.png" />
+    <Content Include="Content\Images\ToolBarIcon\BJXX.png" />
+    <Content Include="Content\Images\ToolBarIcon\CBDT.png" />
+    <Content Include="Content\Images\ToolBarIcon\CBJH.png" />
+    <Content Include="Content\Images\ToolBarIcon\chengbaoshang_35.png" />
+    <Content Include="Content\Images\ToolBarIcon\chuguan_35.png" />
+    <Content Include="Content\Images\ToolBarIcon\DiaoJi_35.png" />
+    <Content Include="Content\Images\ToolBarIcon\DiaoJi_48.png" />
+    <Content Include="Content\Images\ToolBarIcon\fadianji_35.png" />
+    <Content Include="Content\Images\ToolBarIcon\FXJH.png" />
+    <Content Include="Content\Images\ToolBarIcon\HGJK.png" />
+    <Content Include="Content\Images\ToolBarIcon\jiusheng_35.png" />
+    <Content Include="Content\Images\ToolBarIcon\KCBJ.png" />
+    <Content Include="Content\Images\ToolBarIcon\LDJK.png" />
+    <Content Include="Content\Images\ToolBarIcon\NDCL.png" />
+    <Content Include="Content\Images\ToolBarIcon\QXFW.png" />
+    <Content Include="Content\Images\ToolBarIcon\RYDT.png" />
+    <Content Include="Content\Images\ToolBarIcon\SGDT.png" />
+    <Content Include="Content\Images\ToolBarIcon\TFXX.png" />
+    <Content Include="Content\Images\ToolBarIcon\xiaofang_35.png" />
+    <Content Include="Content\Images\ToolBarIcon\YDCL.png" />
+    <Content Include="Content\Images\ToolBarIcon\YJLX.png" />
+    <Content Include="Content\Images\tree.png" />
+    <Content Include="Content\Images\TWT_A.jpg" />
+    <Content Include="Content\Images\up.png" />
+    <Content Include="Content\Images\up1.png" />
+    <Content Include="Content\Images\well.png" />
+    <Content Include="Content\Images\YC\gray_16.png" />
+    <Content Include="Content\Images\YC\gray_64.png" />
+    <Content Include="Content\Images\YC\KCK.png" />
+    <Content Include="Content\Images\YC\KCK_16.png" />
+    <Content Include="Content\Images\YC\KCK_64.png" />
+    <Content Include="Content\Images\YC\white_16.png" />
+    <Content Include="Content\Images\YC\white_64.png" />
+    <Content Include="Content\Images\YC\YC.png" />
+    <Content Include="Content\Images\YC\YC_16.png" />
+    <Content Include="Content\Images\YC\YC_64.png" />
+    <Content Include="Content\Images\YC\yellow_16.png" />
+    <Content Include="Content\Images\YC\yellow_64.png" />
+    <Content Include="Content\Images\YC\ZY.png" />
+    <Content Include="Content\Images\YC\ZY_16.png" />
+    <Content Include="Content\Images\YC\ZY_64.png" />
+    <Content Include="Content\Images\路由概览图.png" />
+    <Content Include="Content\GisOld\basin.js" />
+    <Content Include="Content\GisOld\firstSu.js" />
+    <Content Include="Content\GisOld\initialMap.js" />
+    <Content Include="Content\GisOld\map.js" />
+    <Content Include="Content\Scripts\Maps\geoJsonFilter\L.geojsonfilter-src.js" />
+    <Content Include="Content\Scripts\Maps\geoJsonFilter\L.geojsonfilter.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet-MiniMap\Control.MiniMap.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet-MiniMap\Control.MiniMap.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet-MiniMap\images\toggle.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet-MiniMap\images\toggle.svg" />
+    <Content Include="Content\Scripts\Maps\leaflet-search-master\dist\leaflet-search.src.css" />
+    <Content Include="Content\Scripts\Maps\leaflet-search-master\dist\leaflet-search.src.js" />
+    <Content Include="Content\Scripts\Maps\leaflet-search-master\images\back.png" />
+    <Content Include="Content\Scripts\Maps\leaflet-search-master\images\leaflet-search.jpg" />
+    <Content Include="Content\Scripts\Maps\leaflet-search-master\images\loader.gif" />
+    <Content Include="Content\Scripts\Maps\leaflet-search-master\images\search-icon-mobile.png" />
+    <Content Include="Content\Scripts\Maps\leaflet-search-master\images\search-icon.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\arc.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\dist\leaflet-arc.min.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\src\leaflet-arc.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\webpack.config.babel.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.arrow\leaflet.polylineDecorator.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\examples\clustering-groups.html" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\examples\clustering-groups.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\examples\clustering.html" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\examples\clustering.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\examples\example.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\examples\index.html" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\src\gpx.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\src\select-icon.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\src\selector.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\src\selector.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.contextmenu-master\dist\leaflet.contextmenu.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet.contextmenu-master\dist\leaflet.contextmenu.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.contextmenu-master\dist\leaflet.contextmenu.min.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet.contextmenu-master\dist\leaflet.contextmenu.min.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.fallback\leaflet.tilelayer.fallback.js" />
+    <Content Include="Content\Scripts\Maps\leaflet.fullscreen\fullscreen%402x.png" />
+    <Content Include="Content\Scripts\Maps\leaflet.fullscreen\fullscreen.png" />
+    <Content Include="Content\Scripts\Maps\leaflet.fullscreen\leaflet.fullscreen.css" />
+    <Content Include="Content\Scripts\Maps\leaflet.fullscreen\Leaflet.fullscreen.js" />
+    <Content Include="Content\Scripts\Maps\leaflet.fullscreen\Leaflet.fullscreen.min.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.groupedlayercontrol\leaflet.groupedlayercontrol.pks.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.groupedlayercontrol\leaflet.groupedlayercontrol.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet.groupedlayercontrol\leaflet.groupedlayercontrol.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Measure\example.html" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Measure\leaflet.measure.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Measure\leaflet.measure.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\demo\bower_components.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\demo\bower_components.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\demo\images\layers-2x.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\demo\images\layers.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\demo\images\marker-icon-2x.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\demo\images\marker-icon.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\demo\images\marker-shadow.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\demo\index.html" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\dist\images\position.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\dist\leaflet-control-position.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\dist\leaflet-control-position.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\gruntfile.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\src\images\position.png" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\src\leaflet-control-position.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\src\leaflet-control-position.js" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Sidebar\L.Control.Sidebar.css" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Sidebar\L.Control.Sidebar.js" />
+    <Content Include="Content\Scripts\Maps\leaflet.zoomhome\leaflet.zoomhome.css" />
+    <Content Include="Content\Scripts\Maps\leaflet.zoomhome\leaflet.zoomhome.js" />
+    <Content Include="Content\Scripts\Maps\leaflet.zoomhome\leaflet.zoomhome.min.js" />
+    <Content Include="Content\Scripts\Maps\leaflet\images\layers-2x.png" />
+    <Content Include="Content\Scripts\Maps\leaflet\images\layers.png" />
+    <Content Include="Content\Scripts\Maps\leaflet\images\marker-icon-2x.png" />
+    <Content Include="Content\Scripts\Maps\leaflet\images\marker-icon.png" />
+    <Content Include="Content\Scripts\Maps\leaflet\images\marker-shadow.png" />
+    <Content Include="Content\Scripts\Maps\leaflet\leaflet-src-pks.js" />
+    <Content Include="Content\Scripts\Maps\leaflet\leaflet-src.js" />
+    <Content Include="Content\Scripts\Maps\leaflet\leaflet.css" />
+    <Content Include="Content\Scripts\Maps\leaflet\leaflet.js" />
+    <Content Include="Content\GisOld\secondSu.js" />
+    <Content Include="Content\GisOld\trap.js" />
+    <Content Include="Content\GisOld\trapData.json" />
+    <Content Include="Content\GisOld\basinData.json" />
+    <Content Include="Content\GisOld\firstSuData.json" />
+    <Content Include="Content\GisOld\secondSuData.json" />
+    <Content Include="Content\Scripts\vdata.js" />
+    <Content Include="Content\Scripts\vdata2.js" />
+    <Content Include="Content\Scripts\vdata3.js" />
+    <Content Include="Content\GisOld\well.js" />
+    <Content Include="Content\GisOld\workArea.js" />
+    <Content Include="Content\GisOld\workAreaData.json" />
+    <Content Include="Content\GisOld\contextMenu4Well.json" />
+    <Content Include="Content\GisOld\contextMenu4Trap.json" />
+    <Content Include="Content\GisOld\contextMenu4Basin.json" />
+    <Content Include="Content\GisOld\contextMenu4Su.json" />
+    <Content Include="Content\GisOld\contextMenu4WorkArea.json" />
+    <Content Include="Content\common\thirdparty\FlexPaper\README" />
+    <Content Include="Content\common\thirdparty\jquery\locale\easyui-lang-af.js.svntmp" />
+    <Content Include="Content\Scripts\Maps\leaflet\leaflet-src.map" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\.babelrc" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\.eslintrc" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\.gitignore" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\.travis.yml" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\dist\leaflet-arc.min.js.map" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\package.json" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Arc\README.md" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Measure\.gitignore" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Measure\.gitmodules" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Measure\LICENSE" />
+    <Content Include="Content\Scripts\Maps\Leaflet.Measure\README.md" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\.gitignore" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\LICENSE" />
+    <Content Include="Content\Scripts\Maps\Leaflet.boxselector\README.md" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\.browserslistrc" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\.eslintrc" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\.gitignore" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\.uglifyrc" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\bower.json" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\LICENSE-MIT" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\package.json" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\README.md" />
+    <Content Include="Content\Scripts\Maps\Leaflet.position\src\leaflet-control-position.scss" />
+    <None Include="Content\GisOld\wellData.json" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Gis\gis.css" />
+    <Content Include="docs\中海油GIS图图形标识及颜色参考标准.docx" />
+    <None Include="docs\GIS需求梳理.xlsx" />
+    <None Include="docs\WebGIS对接需求.docx" />
+    <None Include="docs\勘探地理信息数据存储及文件格式规范.pdf" />
+    <None Include="docs\勘探管理常用图件图册编制规范.pdf" />
+    <None Include="docs\总公司轻量级GIS平台用户手册V1.0.docx" />
+    <None Include="docs\项目对轻量级GIS系统需求.docx" />
+    <None Include="Properties\PublishProfiles\LocalWebDeploy.pubxml" />
+    <None Include="Properties\PublishProfiles\SZWebDeploy.pubxml" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Gis\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutBase.cshtml" />
+    <None Include="Web.SZDebug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\css\" />
+    <Folder Include="Content\help\" />
+    <Folder Include="Content\Scripts\bootstrap-select-1.12.4\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\01PKS.Library\PKS.Core.Implements\PKS.Core.Implements.csproj">
+      <Project>{29e821f2-0a8d-4434-8d9d-ce70544de3e5}</Project>
+      <Name>PKS.Core.Implements</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\01PKS.Library\PKS.Core\PKS.Core.csproj">
+      <Project>{786ebcd8-0b99-4adf-82a8-95442c455c1f}</Project>
+      <Name>PKS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\01PKS.Library\PKS.DbModels\PKS.DbModels.csproj">
+      <Project>{2610b762-07c3-4f27-94db-a3a6ea91e976}</Project>
+      <Name>PKS.DbModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\01PKS.Library\PKS.DbServices\PKS.DbServices.csproj">
+      <Project>{aaccbeca-03a0-4b56-8152-596752582da5}</Project>
+      <Name>PKS.DbServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\01PKS.Library\PKS.Utils\PKS.Utils.csproj">
+      <Project>{4820a9f8-9aa4-4116-9bf1-69893297c6fc}</Project>
+      <Name>PKS.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\01PKS.Library\PKS.Web\PKS.Web.csproj">
+      <Project>{1cd2095d-3389-4ae3-b2aa-adeab7d21d44}</Project>
+      <Name>PKS.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\06PKS.WebAPI\PKS.WebAPI.Interface\PKS.WebAPI.Interface.csproj">
+      <Project>{35d5187b-68a7-4fc0-a827-62c240e43493}</Project>
+      <Name>PKS.WebAPI.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\06PKS.WebAPI\PKS.WebAPI.Wrapper\PKS.WebAPI.Wrapper.csproj">
+      <Project>{c5601f65-6d47-435c-b148-1c6ca80eed1a}</Project>
+      <Name>PKS.WebAPI.Wrapper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SZDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>21423</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50756/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:8085</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

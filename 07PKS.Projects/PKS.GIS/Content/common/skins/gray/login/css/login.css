@@ -1,0 +1,188 @@
+/* CSS Document 登录页面样式*/
+
+
+body{
+	overflow:hidden;
+	margin:0px 0px 0px 0px;
+	font-weight:bold;
+	font-size:12px;
+}
+
+/*背景图*/
+#dl_main {
+    margin:0px auto;      /* 居中 这个是必须的，，其它的属性非必须 */   
+    width:1024px;		/* 宽度 */
+	height:768px;		/* 高度 */
+	/*background-image: url(../image/dl.jpg);*/
+	background-image: url(../image/dl_1.png);
+	z-index:-1;
+	
+}
+#logo{
+	position:relative;
+	top:100px;
+	left:300px;
+	width: 55px;
+	height: 55px;
+	background-image: url(../image/logo.png);
+}
+#name{
+	position:relative;
+	top:40px;
+	left: 355px;
+	width: 320px;
+	height: 55px;
+	background-image: url(../image/name.png);
+}
+#loginback{
+	position:relative;
+	top:150px;
+	left:140px;
+	width: 762px;
+	height: 171px;
+	background-image: url(../image/login_back.png);
+}
+.logininfos
+{
+	position:relative;
+	top:50px;
+	left:130px;
+	width: 600px;
+	height: 69px;
+	color:#868686;
+}
+.login_input_bg {
+	width: 100%;
+	height: 39px;
+	background: #fff url(../image/login_input_back.png) repeat-x;/*input的背景图像，边框颜色和外边距*/
+	margin: 1px 0px ;
+	border-top: 0px solid #818181;
+	border-left: 0px solid #838383;
+	border-bottom: 1px solid #F7F7F7;
+	border-right: 1px solid #CCCCCC;
+	line-height: 35px;
+	position:relative;
+	border-radius:3px;
+	behavior: url(/jasframework/jasframework/common/js/PIE.htc);
+	color:#868686;
+}
+/*记住密码，自动登录*/
+#passwordMsg{
+	position:relative;
+	top:10px;
+	left:245px;
+	width: 100px;
+	height: 20px;	
+}
+#passwordMsg1{
+	position:relative;
+	top:-8px;
+	left:340px;
+	width: 150px;
+	height: 20px;	
+}
+.checkbox {
+	width: 15px;
+	height: 15px;
+	padding: 0 5px 0 0;
+	background: url(../image/checkbox.png) no-repeat;
+	display: block;
+	clear: left;
+	float: left;
+}
+/*语言切换*/
+#language_index .select_box{
+	width:80px;
+	height:18px;
+}
+#language_index div.tag_select{
+	display:block;
+	color:#868686;
+	width:80px;
+	height:18px;
+	background:transparent url("../image/language_index.gif") no-repeat 0 0;
+	padding:0 10px;
+	line-height:18px;
+}
+#language_index div.tag_select_hover{
+	display:block;
+	color:#868686;
+	width:80px;
+	height:18px;
+	background:transparent url("../image/language_index.gif") no-repeat 0 -18px;
+	padding:0 10px;
+	line-height:18px;
+}
+#language_index div.tag_select_open{
+	display:block;
+	color:#868686;
+	width:80px;
+	height:18px;
+	background:transparent url("../image/language_index.gif") no-repeat 0 -36px;
+	padding:0 10px;
+	line-height:18px;
+}
+
+#language_index ul.tag_options{
+	position:absolute;
+	padding:0;
+	margin:0;
+	list-style:none;
+	background:transparent url("../image/language_index.gif") no-repeat right bottom;
+	width:78px;
+	padding:0 0 5px;
+	margin:0;
+	border: 1px solid  #868686;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+#language_index ul.tag_options li{
+	background:transparent url("../image/language_index.gif") repeat-y -80px 0;
+	display:block;
+	width:58px;
+	padding:0 10px;
+	height:18px;
+	text-decoration:none;
+	line-height:18px;
+	color:#868686;
+}
+
+#language_index ul.tag_options li.open_hover{
+	background:transparent url("../image/language_index.gif") no-repeat -1px -54px;
+	color:#fff;
+}
+#language_index ul.tag_options li.open_selected{
+	background:transparent url("../image/language_index.gif") no-repeat -1px -72px;
+	color:#fff;
+} 
+
+/*登录信息输入区域*/
+.logininfo
+{
+	position:relative;
+	top:300px;
+	left:630px;
+	width: 251px;
+	height: 133px;
+}
+
+.logininfo  th {
+	color:#0066CC;
+	font-weight:bold;
+	font-size:12px;
+	width:80px;
+}
+
+
+.logininfo .btn {
+	width: 79px;
+	height: 26px;
+    float:right;
+}
+
+/*footer区域*/
+.footer {
+	text-align: center;
+	line-height: 25px;
+	margin-top: 30px
+}

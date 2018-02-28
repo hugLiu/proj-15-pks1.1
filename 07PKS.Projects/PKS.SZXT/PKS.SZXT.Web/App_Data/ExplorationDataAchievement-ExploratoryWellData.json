@@ -1,0 +1,136 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "年度探井统计",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pt.keyword": "钻井基本数据图"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "年度探井统计",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pt.keyword": "钻井基本数据表"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@period"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "获取井筛选条件",
+    "query": {
+      "query": {
+        "name": "井"
+      },
+      "fields": {
+        "properties.二级构造单元2": 1,
+        "properties.作业方式2": 1,
+        "properties.井型": 1,
+        "properties.井别": 1,
+        "properties.井况2": 1,
+        "properties.水深类型": 1,
+        "properties.完钻日期": 1
+      }
+    }
+  },
+
+  {
+    "grid": "G4",
+    "title": "获取筛选后的探井成果列表",
+    "query": {
+      "_source": [ "well", "pt", "iiid", "title", "indexeddate", "thumbnail" ],
+
+      "post_filter": {
+        "terms": {
+          "well": "@well"
+        }
+      },
+      "from": "@from",
+      "size": "@size",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g_th",
+    "title": "缩略图",
+    "query": {
+      "_source": [ "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "井身结构图",
+                  "设计井身结构图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1
+    }
+  }
+]

@@ -1,0 +1,157 @@
+
+    {
+      "bot": "圈闭",
+      "code": "trap",
+        "pageurls": [
+            {
+                "title": "xxx",
+                "url": "",
+                "system": "SZXT"
+            }
+        ],
+      "keypts": [
+        {
+          "title": "圈闭要素表",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pt.keyword": "圈闭要素表"
+                    }
+                  },
+                  {
+                    "term": {
+                      "trap.keyword": "wellId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "十字剖面图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pt.keyword": "十字剖面图"
+                    }
+                  },
+                  {
+                    "term": {
+                      "trap.keyword": "wellId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "蒙太奇图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pt.keyword": "蒙太奇图"
+                    }
+                  },
+                  {
+                    "term": {
+                      "trap.keyword": "wellId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "油藏剖面图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pt.keyword": "油藏剖面图"
+                    }
+                  },
+                  {
+                    "term": {
+                      "trap.keyword": "wellId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "圈闭认识",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pc.keyword": "圈闭百科"
+                    }
+                  },
+                  {
+                    "term": {
+                      "trap.keyword": "trapId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        }
+      ],
+      "relatedpages": [
+
+      ]
+    }

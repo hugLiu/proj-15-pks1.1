@@ -1,0 +1,63 @@
+﻿@using PKS.Web;
+@{
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<!--[if lte IE 9]>
+            <script type="text/javascript" >
+                //window.html5 = { 'shivMethods': false };
+            </script>
+            <script type="text/javascript" src="@webApiSiteUrl/Scripts/html5shiv-3.7.3/html5shiv.min.js"></script>
+        <![endif]-->*@
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/lib/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/lib/viewer/viewer.min.css" rel="stylesheet" />
+
+    <link href="~/Content/styles/site.css" rel="stylesheet" />
+    <link href="~/Content/styles/layout/header/head-nav-2.css" rel="stylesheet" />
+    <link href="~/Content/xvision/xvision.css" rel="stylesheet" />
+    @RenderSection("stylesSection", false)
+
+    <script type="text/javascript" src="~/Content/jquery/jquery-3.1.1.min.js"></script>
+    <script src="~/Content/lib/pager/jquery.pagination.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/lib/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/Content/lib/viewer/viewer.min.js"></script>
+    @*WebAPI脚本*@
+    <script src="@webApiSiteUrl/Scripts/moment.2.18.1/moment.min.js"></script>@*时间处理*@
+    <script src="@webApiSiteUrl/Scripts/PKSGlobalStore.js"></script>@*错误日志*@
+    <script>
+        pksGlobalStore.init("@webApiSiteUrl");
+    </script>
+    @*Vue组件*@
+    <script src="@webApiSiteUrl/Content/PKSUI/vendor.js"></script>
+    <script src="@webApiSiteUrl/Content/PKSUI/PKSUI.js"></script>
+    @RenderSection("scriptsSection", false)
+</head>
+<body>
+    <div id="xt_header" class="header">
+        <pks:header2 ref="content"></pks:header2>
+        <pks:menu :apipath="apipath" :navigation="navigation"></pks:menu>
+    </div>
+    <div class="jurassic-body">
+        @RenderBody()
+    </div>
+    <div id="footer" class="footer">
+        <pks:footer :apipath="apipath"></pks:footer>
+    </div>
+    <script src="@webApiSiteUrl/Scripts/layout/header.js"></script>@*页头*@
+
+    <script src="@webApiSiteUrl/Scripts/layout/footer.js"></script>@*页尾*@
+    <script>
+        pksGlobalFooter.bindFooter("@webApiSiteUrl");
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "图片";
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+}
+
+@section scriptsSection
+{
+    <script src="~/Scripts/util.js"></script>
+ }
+<div class="row" style="">
+
+    <div id="container">
+        <pks:imglist2 :esurl="esurl" :esquery="esquery" :onclick="onclick" :map="map"></pks:imglist2>
+       <h1 style="border-bottom:dotted 1px red;"></h1>
+        <pks:imglist2  :esurl="esurl" :iiids="iiids" :onclick="onclick" :map="map"></pks:imglist2>
+        <h1 style="border-bottom:dotted 1px red;"></h1>
+        <pks:imglist2></pks:imglist2>
+    </div>
+
+</div>
+
+<script>
+
+    var esUrl = "@webApiSiteUrl//api/searchservice/essearch";
+    var vm = PKSUI.bind({
+        el: "#container",
+        data: {
+            "title":"图片列表demo【EsQuery】",
+            "esurl": esUrl,
+            "map": { "top": "thumbnail", "bottom": "title","param":"iiid"},
+            "esquery": {
+                "_source": ["iiid", "title", "thumbnail"],
+                "query": {
+                    "bool": {
+                        "must": [
+                            {
+                                "terms": {
+                                    "pt.keyword": ["测试图片"]
+                                }
+                            }                            
+                        ]
+                    }
+                },
+                "from":0,
+                "size": 10
+            },
+
+            "title2": "图片列表demo[iiid数组]",
+            "iiids": ["202B190D5B48201C2961F484CBC0E446","83C68C0B8F591A63C1584362C79F1B07"]
+        },
+        methods: {
+            onclick: function (e) {
+                
+            }
+        },
+        model: 'pks:imglist2'
+    });
+</script>
+

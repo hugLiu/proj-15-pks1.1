@@ -1,0 +1,224 @@
+﻿
+@{
+    ViewBag.Title = "搜索成藏";
+}
+<link href="~/Content/baike/baike.css" rel="stylesheet" />
+<div id="el">
+
+    <div class="jurassic-row">
+        <div class="jurassic-col-12">
+            <div class="jurassic-margin-container">
+                <div class="jurassic-search-component">
+                    <div class="jurassic-search-panel">
+                        <div class="jurassic-search">
+                            <div class="jurassic-search-interaction">
+                                <div class="jurassic-search-interaction-panel">
+                                    <input id="searchtext" type="text" placeholder="请输入要查询 研究目标 的名称" onkeydown="if(event.keyCode==13) {queryText()}" class="jurassic-search-input" />
+                                </div>
+                                <div class="jurassic-search-auto-complete-container"></div>
+                            </div>
+                            <button class="jurassic-search-btn" style="float:right;" onclick="queryText()">搜索</button>
+                        </div>
+                    </div>
+
+                    @*<div class="jurassic-search-filter">
+                        <div class="jurassic-search-filter-base">
+                            <div class="jurassic-row">
+                                <div class="jurassic-col-1">
+                                    <span class="jurassic-caption" style="float:right;">对象类型：</span>
+                                </div>
+                                <div class="jurassic-col-2">
+                                    <select id="comboBot" style="width:120px;"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>*@
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @*<div class="jurassic-row">
+        <div class="jurassic-col-12">
+            <div class="jurassic-margin-container" style="margin-left:0px;margin-right:0px;">
+                <div class="jurassic-margin-container" style="margin-left:0px;margin-right:0px;">
+                    <pks:filterlist :showsearchbtn="false" targettype="井" :items="GBO_data" :querybtnclick="queryFeature" :shownum="shownum" :resultnum="resultnum"></pks:filterlist>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="jurassic-row">
+        <div class="jurassic-col-9">
+            <div class="jurassic-margin-container">
+                <pks:imglist :data="g2_imglistData" :map="mapthumbnail" :onclick="G2_onclick_goDetail"></pks:imglist>
+            </div>
+            <div style="display: inline-block;">
+                <pks:pager :current="current" :totaldata="totaldata" :pagesize="pagesize" :onclick="page_onclick"></pks:pager>
+            </div>
+        </div>
+
+        <div class="jurassic-col-3">
+            <div class="jurassic-margin-container">
+                <pks:singletitle title="最新成果" :data="G1_data" :map="map" :onshowmore="onshowmore" :onclick="G1_onclick"></pks:singletitle>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/lib/pager/jquery.pagination.js"></script>
+<script>
+
+    var searchConfig = {};
+    var sourcedata = @Html.Raw(ViewBag.Model);
+    var dataConfig = {
+        //imglist组件数据
+        g2_imglistData: [],
+        mapthumbnail: { top: "thumbnail", bottom: "title", param: "iiid" },
+
+        //singletitle 最新成果数据
+        G1_data: sourcedata.G1,
+        map: { left: "title", right: "", url: "iiid" },
+
+        GBO_data: sourcedata.GBO,
+        shownum: 7,
+        resultnum: 0,
+
+        //page组件数据
+        pagesize: 16,
+        totaldata: 0,
+        current: 1
+    }
+
+    function searchResult(searchUrl, page, searchParam) {
+        if (page < 1) {
+            page = 1;
+        }
+
+        var pageUrl = searchUrl + "?from=" + ((page - 1) * dataConfig.pagesize) + "&size=" + dataConfig.pagesize;
+        $.post(pageUrl, searchParam, function (r) {
+            dataConfig.g2_imglistData = r.Data;
+            dataConfig.totaldata = r.Total;
+            dataConfig.resultnum = r.Total;
+        });
+    }
+
+    function queryText() {
+                var content = $("#searchtext").val();
+                searchConfig.searchUrl = "@Url.Action("GetSearchResult")";
+                searchConfig.page = 1;
+                searchConfig.searchParam = { type: "成藏", name: content };
+                searchResult(searchConfig.searchUrl, searchConfig.page, searchConfig.searchParam);
+    };
+
+    var vm = PKSUI.bind({
+        el: "#el",
+        data: dataConfig,
+        methods: {
+            queryFeature: function (e) {
+                var comboBot = $("#comboBot").val();
+
+                var p = {};
+                for (var i in e) {
+                    var k = e[i].catelog;
+                    var v = e[i].value;
+                    if (!p[k]) {
+                        p[k] = [];
+                    }
+                    p[k].push(v);
+                    if (JSON.stringify(p) == "{}") {
+                        alert("请选择筛选条件！");
+                        return;
+                    }
+                };
+                searchConfig.searchUrl = "@Url.Action("GetFeatureResult")";
+                searchConfig.page = 1;
+                searchConfig.searchParam = { type: "成藏", bot: comboBot, feature: JSON.stringify(p) };
+                searchResult(searchConfig.searchUrl, searchConfig.page, searchConfig.searchParam);
+            },
+
+            G1_onclick: function (e) {
+                open("/ExplorationKB/GoToPublicPage?iiid=" + e, "_blank");
+            },
+
+            G2_onclick_goDetail: function (e) {
+                open("/MajorBaiKe/PoolForming?bo=" + e, "_blank");
+            },
+
+            page_onclick: function (e) {
+                searchResult(searchConfig.searchUrl, e, searchConfig.searchParam);
+            },
+
+            onshowmore: function (e) {
+                var map = {
+                    "最新成果": { pt: "最新成果", urlparam: "order=createddate$desc&ischecked=on&field=dsn&operator=equal&matchtext1=自建库" }
+                };
+                if (map[e].urlparam) {
+                    open("/MajorBaiKe/GoToSooilPage?urlparam=" + encodeURIComponent("isadvance=true&" + map[e].urlparam), "_blank");
+                }
+                else {
+                    goToSearchPage(map[e].pt);
+                }
+            }
+        },
+        model: ["pks:singletitle", "pks:histogram", "pks:panel", "pks:imglist", "pks:pager", "pks:filterlist"]
+    });
+
+    //点击搜索
+    queryText();
+
+    function goToSearchPage(pt, period) {
+        if (period == null) {
+            open("/MajorBaiKe/GoToSearchPage?pt=" + pt, "_blank");
+        } else {
+            open("/MajorBaiKe/GoToSearchPage?pt=" + pt + "&period=" + period, "_blank");
+        }
+    }
+
+    $(document).ready(function () {
+        renderCombobox();
+        $("#comboBot").bind("change", function () {
+            $.ajax({
+                url: "/MajorBaiKe/GetBotFilters?bot=" + $(this).val(),
+                success: function (result) {
+                    result.forEach(function (item) {
+                        item.showNum = 7;
+                        item.expandMore = false;
+                        item.checkAll = false;
+                        item.checkList = {};
+                        if (item.list.length > 0) {
+                            item.list.forEach(function (name) {
+                                item.checkList[name] = false;
+                            });
+                        }
+                    });
+                    vm.GBO_data = result;
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        });
+    });
+
+    function renderCombobox() {
+        $.ajax({
+            url: "/MajorBaiKe/GetBots",
+            success: function (result) {
+                if (result != null) {
+                    for (var i = 0; i < result.length; i++) {
+                        $("#comboBot").append("<option value='" + result[i] + "'>" + result[i] + "</option>")
+                    }
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+
+    }
+
+</script>

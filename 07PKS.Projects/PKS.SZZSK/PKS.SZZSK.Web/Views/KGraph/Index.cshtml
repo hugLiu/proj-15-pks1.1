@@ -1,0 +1,49 @@
+﻿@using PKS.DbServices.Models;
+@model List<KG_CatalogNode>
+@{
+    ViewBag.Title = "首页 - 知识图谱";
+}
+@section stylesSection {
+    <link rel="stylesheet" href="~/Content/KGraph/common.css">
+    <link rel="stylesheet" href="~/Content/KGraph/kn_index_new.css">
+}
+@section scriptsSection {
+
+}
+<div class="mainCol clearfix padding15px addcolor">
+    <div class="kn_cloumn ">
+        <div class="mctitle">公共图谱</div>
+    </div>
+    <div class="bottomwrap whitebk">
+        <div class="bottomcontent">
+            <div class="createperbtn">
+                <a href="/KGraph/PrivateIndex"><i class="fa fa-plus"></i>创建我的图谱</a>
+            </div>
+        </div>
+    </div>
+    <div class="kn_cloumn ">
+        <ul class="list01 clearfix">
+            @foreach (var node in Model)
+            {
+                var nodeUrl = $"/KGraph/Public?id={node.Id.ToString()}";
+                <li>
+                    <div class="spantop bk0">
+                        <div class="imgtop">
+                        </div>
+                        <span>
+                            <a href="@nodeUrl"><img src="@node.ImageURL" width="80" height="80"></a>
+                        </span>
+                    </div>
+                    <div class="divbottoms">
+                        <a href="@nodeUrl" class="title">@node.Name</a>
+                        <p class="pdesc" title="@node.Description">@node.Description</p>
+                        <p class="pext" style="display:none;">
+                            <em>3162</em>&nbsp;&nbsp;收录资源
+                        </p>
+                        <p class="pabtn"><a href="@nodeUrl">查看知识图谱</a></p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@charset "utf-8";
+/* CSS Document 查看界面样式
+*  author ： zhanggf
+*  date : 2012-11-16
+*/
+* {
+	margin: 0;
+	border: none;
+	font-size: 12px;
+	font-family:"宋体";
+	color: #333;
+}
+
+body {
+	background: #F5FCFF;
+	height:100%;/* body 和html 的高度设置为%100，解决ie7下拖动布局时 页面中的datagrid高度自适应问题，杨恒涛2013年10月9日添加*/
+}
+html { 
+	overflow-x: hidden;
+	overflow-y: hidden;
+	height:100%;/* body 和html 的高度设置为%100，解决ie7下拖动布局时 页面中的datagrid高度自适应问题，杨恒涛2013年10月9日添加*/
+}
+
+.querytable {
+	width: 100%;
+	border: 0px solid #d6d9e2;
+	text-align: right;
+	vertical-align: top;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padding: 3 3 3 3;
+	margin: 0 0 0 0;
+}
+
+.querytable td{
+	height: 30px;
+	padding-right:6px;
+}
+
+.input_bg {
+	width: 100%;
+	height: 18px;
+	background: #fff url(../image/text-bg.gif) repeat-x;/*input的背景图像，边框颜色和外边距*/
+	margin: 1px 0px ;
+	border-top: 1px solid #b4b5bd;
+	border-left: 1px solid #c3c5cd;
+	border-bottom: 1px solid #c3c5cd;
+	border-right: 1px solid #c3c5cd;
+	line-height: 18px;
+}
+.input_bg_focus {
+	border-top: 1px solid red;
+	border-left: 1px solid red;
+	border-bottom: 1px solid red;
+	border-right: 1px solid red;
+/* 	margin-left: 0px;
+	margin-top: 0px; */
+}
+
+.select {
+	border-top: 1px solid #b4b5bd;
+	border-left: 1px solid #c3c5cd;
+	border-bottom: 1px solid #c3c5cd;
+	border-right: 1px solid #c3c5cd;
+	margin: 1px 0px ;
+	width: 100%;
+	height: 22px;
+	line-height: 22px;
+	background: #fff url(../image/text-bg.gif) repeat-x;
+}
+
+.button_area {
+	padding-bottom: 4px;
+}

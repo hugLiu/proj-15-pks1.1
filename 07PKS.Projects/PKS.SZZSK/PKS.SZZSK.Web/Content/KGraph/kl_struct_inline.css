@@ -1,0 +1,235 @@
+.croot_15 {
+    background-color: #97c024;
+}
+
+.addcolor .fades {
+    transition: color 300ms ease-out;
+    -webkit-transition: color 300ms ease-out;
+    -moz-transition: color 300ms ease-out;
+    -ms-transition: color 300ms ease-out;
+    -o-transition: color 300ms ease-out;
+}
+
+.addcolor .c15 .root {
+    color: #97c024 !important;
+}
+
+.addcolor .c15 .iconfont:hover,
+.addcolor .c15 a:hover {
+    color: #97c024 !important;
+}
+
+    .addcolor .c15 .iconfont:hover em,
+    .addcolor .c15 a:hover em,
+    .addcolor .c15 .iconfont:hover i,
+    .addcolor .c15 a:hover i {
+        color: #97c024 !important;
+    }
+
+.addcolor .c15 .gzb {
+    border-color: #97c024 !important;
+    transition: background-color 300ms ease-out;
+    -webkit-transition: background-color 300ms ease-out;
+    -moz-transition: background-color 300ms ease-out;
+    -ms-transition: background-color 300ms ease-out;
+    -o-transition: background-color 300ms ease-out;
+    color: #97c024 !important;
+}
+
+    .addcolor .c15 .gzb em {
+        color: #97c024 !important;
+    }
+
+    .addcolor .c15 .gzb:hover {
+        color: #fff !important;
+        background-color: #80a615 !important;
+    }
+
+        .addcolor .c15 .gzb:hover em {
+            color: #fff !important;
+        }
+
+.addcolor .c15 .gz {
+    transition: background-color 300ms ease-out, border-color 300ms ease-out;
+    -webkit-transition: background-color 300ms ease-out, border-color 300ms ease-out;
+    -moz-transition: background-color 300ms ease-out, border-color 300ms ease-out;
+    -ms-transition: background-color 300ms ease-out, border-color 300ms ease-out;
+    -o-transition: background-color 300ms ease-out, border-color 300ms ease-out;
+    border-color: #97c024 !important;
+    color: #97c024 !important;
+}
+
+    .addcolor .c15 .gz:hover {
+        color: #fff !important;
+        background-color: #80a615 !important;
+    }
+
+.addcolor .c15 .tabs:hover {
+    color: #97c024 !important;
+    border-color: #97c024 !important;
+}
+
+.addcolor .c15 .lasttabs {
+    color: #97c024 !important;
+    border-color: #97c024 !important;
+}
+
+    .addcolor .c15 .lasttabs:hover {
+        color: #80a615 !important;
+        border-color: #80a615 !important;
+    }
+
+.addcolor .c15 .rroot {
+    border-top: 1px solid #97c024 !important;
+}
+
+    .addcolor .c15 .rroot em,
+    .addcolor .c15 .rroot i {
+        color: #97c024 !important;
+    }
+
+.addcolor .c15 .fa-search {
+    color: #97c024 !important;
+}
+
+.addcolor .c15 .tcolor {
+    color: #97c024 !important;
+}
+
+.addcolor .c15 .titlehover {
+    border-left: 2px solid #97c024 !important;
+}
+
+    .addcolor .c15 .titlehover:hover i {
+        color: #fff !important;
+        background-color: #97c024 !important;
+    }
+
+        .addcolor .c15 .titlehover:hover i:before,
+        .addcolor .c15 .titlehover:hover i:after {
+            border-right-color: #97c024 !important;
+        }
+
+.addcolor .c15 .addback {
+    background-color: #97c024 !important
+}
+
+.addcolor .c15 .tcolora {
+    color: #97c024 !important
+}
+
+    .addcolor .c15 .tcolora:hover {
+        color: #80a615 !important
+    }
+
+.addcolor .c15 .bordercolor {
+    border-color: #97c024 !important
+}
+
+.addcolor .c15 .banner_div,
+.addcolor .c15 .nav {
+    background-color: #346FBB !important;
+    border-top: 1px solid #80a615
+}
+
+.addcolor .c15 .gzdiv a {
+    border: 1px solid #80a615
+}
+
+    .addcolor .c15 .gzdiv a b {
+        color: #f8beaf
+    }
+
+    .addcolor .c15 .gzdiv a:hover i,
+    .addcolor .c15 .gzdiv a:hover em,
+    .addcolor .c15 .gzdiv a:hover span {
+        color: #fff !important;
+    }
+
+.addcolor .c15 .nav .root {
+    background-color: #80a615;
+    color: #fff !important;
+    position: relative;
+}
+
+.addcolor .c15 .nav a:hover {
+    /*-background-color: < %=base.hover% > */
+    color: #fff !important;
+    position: relative;
+}
+
+.addcolor .c15 .nav .root:after {
+    content: " ";
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+    position: absolute;
+    border-left: 5px solid #80a615;
+    border-right: 5px solid #80a615;
+    border-top: 5px solid #80a615;
+    border-bottom: 5px solid #fff;
+}
+
+.addcolor .c15 .itabs:hover {
+    background-color: #97c024;
+    color: #fff;
+    border-color: #fff;
+}
+
+.addcolor .c15 .title_top .title {
+    color: #97c024 !important;
+}
+
+.addcolor .c15 .tabtn:hover {
+    color: #80a615 !important;
+}
+
+.addcolor .c15 .tabtn:hover {
+    border-color: #80a615;
+}
+
+.addcolor .c15 .divbottom .title a,
+.addcolor .c15 .kn_title .title,
+.addcolor .c15 .kn_title .title a,
+.addcolor .c15 .divbottom .title,
+.addcolor .c15 .kn_advert a {
+    color: #97c024 !important;
+}
+
+    .addcolor .c15 .divbottom .title a:hover,
+    .addcolor .c15 .kn_title .title:hover,
+    .addcolor .c15 .kn_title .title a:hover,
+    .addcolor .c15 .divbottom .title:hover,
+    .addcolor .c15 .kn_advert a:hover {
+        color: #80a615 !important;
+    }
+
+.addcolor .c15 .kn_title .root,
+.addcolor .c15 .divbottom .root {
+    border-bottom: 2px solid #97c024;
+}
+
+.addcolor .c15 .number,
+.addcolor .c15 .color {
+    color: #97c024 !important;
+}
+
+    .addcolor .c15 .color:hover,
+    .addcolor .c15 .pull-left a:hover {
+        color: #80a615 !important;
+    }
+
+.addcolor .c15 .backcolor {
+    background-color: #97c024 !important;
+    color: #fff !important;
+}
+
+.addcolor .c15 .backgroundcolor {
+    background-color: #97c024 !important;
+    color: #fff !important;
+}
+
+    .addcolor .c15 .backgroundcolor:hover {
+        background-color: #80a615 !important;
+        color: #fff !important;
+    }

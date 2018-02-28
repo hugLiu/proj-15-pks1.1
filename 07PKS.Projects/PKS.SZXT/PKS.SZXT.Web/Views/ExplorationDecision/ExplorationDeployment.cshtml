@@ -1,0 +1,141 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "勘探部署";
+    var sooilUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.SOOIL);
+}
+
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-1 jurassic-card jurasssic-leftgrey">
+            <div class="jurassic-margin-container jurassic-text-center jurassic-card-align">
+                周期
+            </div>
+        </div>
+        <div class="jurassic-col-11 jurassic-card">
+            <div class="jurassic-margin-container">
+                <pks:tabsfilter :data="filterdata" :map="filtermap" :onclick="onfilter"></pks:tabsfilter>
+            </div>
+        </div>
+    </div>
+    <div class="jurassic-row jurassic-card-border">
+        <pks:tabs :titles="deployTitles">
+            <div class="jurassic-margin-container" slot="井位部署">
+                <div class="jurassic-row">
+                    <pks:panel title="井位部署" :show=false>
+                        <div class="jurassic-row" slot="panel">
+                            @*<div class="jurassic-margin-container">
+                                <img :src="G1_data" style="width:100%" />
+                            </div>*@
+                            <div class="jurassic-margin-container">
+                                <pks:table :datasource="G2_data" id="M1-2" v-if="G2_showType == 'Table'"></pks:table>
+                                <pks:html :template="G2_data" v-else-if="G2_showType == 'Html'">
+                                </pks:html>
+                            </div>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:singletitle title="井场调查报告" :data="G3_data" :map="news_map" :onclick="goToPublicPage" :onshowmore="onShowMore"></pks:singletitle>
+                </div>
+                <div class="jurassic-row">
+                    <pks:singletitle title="井位建议材料" :data="G4_data" :map="news_map" :onclick="goToPublicPage" :onshowmore="onShowMore"></pks:singletitle>
+                </div>
+            </div>
+            <div class="jurassic-margin-container" slot="地震部署">
+                <div class="jurassic-row">
+                    <pks:panel title="地震部署" :show=false>
+                        <div class="jurassic-row" slot="panel">
+                            @*<div class="jurassic-margin-container">
+                                <img :src="G5_data" style="width:100%" />
+                            </div>*@
+                            <div class="jurassic-margin-container">
+                                <pks:table :datasource="G6_data" id="M1-2" v-if="G6_showType == 'Table'"></pks:table>
+                                <pks:html :template="G6_data" v-else-if="G6_showType == 'Html'">
+                                </pks:html>
+                            </div>
+                        </div>
+                    </pks:panel>
+                </div>
+                @*<div class="jurassic-row">
+                    <pks:singletitle title="采集工区调查报告" :data="G7_data" :map="news_map" :onclick="goToPublicPage" :onshowmore="onShowMore"></pks:singletitle>
+                </div>*@
+                <div class="jurassic-row">
+                    <pks:singletitle title="地震采集处理建议书" :data="G8_data" :map="news_map" :onclick="goToPublicPage" :onshowmore="onShowMore"></pks:singletitle>
+                </div>
+            </div>
+
+        </pks:tabs>
+    </div>
+</div>
+<script src="~/Scripts/explorationDecision/FiveYearsPlan.js"></script>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    var GetDataService = {
+        state: {
+            year: new Date().getFullYear().toString()
+        },
+        GetDataByYear: function () {
+            $.ajax({
+                url: "/ExplorationDecision/GetWellLocationData",
+                type: "post",
+                data: { "year": GetDataService.state.year },
+                success: function (value) {
+                    value = JSON.parse(value);
+                    vm.G1_data = value["g1"];
+                    var g2 = value.g2;
+                    vm.G2_showType = g2 == null ? "" : g2.showtype;
+                    vm.G2_data = g2 == null ? null : setBootstrapTableOptions(g2.Content);
+                    vm.G3_data = value["g3"];
+                    vm.G4_data = value["g4"];
+                    vm.G5_data = value["g5"];
+                    var g6 = value.g6;
+                    vm.G6_showType = g6 == null ? "" : g6.showtype;
+                    vm.G6_data = g6 == null ? null : setBootstrapTableOptions(g6.Content);
+                    //vm.G6_data = setBootstrapTableOptionsForIndexData(g6);
+                    vm.G7_data = value["g7"];
+                    vm.G8_data = value["g8"];
+                }
+            });
+        }
+    };
+
+    var vm = PKSUI.bind({
+        el: "#el",
+        data: {
+            filterdata: getShow5thName(3),
+            filtermap: { title: "fiveplan", filter: "year" },
+
+            deployTitles: ["井位部署", "地震部署"],
+
+            G1_data: "",
+            G2_showType: "",
+            G2_data: [],
+            G3_data: [],
+            G4_data: [],
+            G5_data: "",
+            G6_showType: "",
+            G6_data: [],
+            G7_data: [],
+            G8_data: [],
+            news_map: { left: "title", right: "indexeddate", url: "iiid" }
+        },
+        methods: {
+            onfilter: function (e) {
+                GetDataService.state.year = e;
+                GetDataService.GetDataByYear();
+            },
+            goToPublicPage: function (e) {
+                open("/ExplorationDecision/GoToPublicPage?iiid=" + e, "_blank");
+            },
+            onShowMore: function (e) {
+                var url = "@sooilUrl/search/list?isadvance=true&ischecked=on&field=pt&operator=equal&matchtext1=" + e;
+                window.open(url, "_blank");
+            }
+        },
+        model: ["pks:tabsfilter", "pks:singletitle", "pks:image", "pks:tabs", "pks:ctabs", "pks:panel", "pks:table", "pks:complex", "pks:html"]
+    });
+
+    $(function () {
+        GetDataService.GetDataByYear();
+    });
+</script>

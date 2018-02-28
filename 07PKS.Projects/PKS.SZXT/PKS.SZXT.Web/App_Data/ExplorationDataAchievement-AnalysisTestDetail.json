@@ -1,0 +1,438 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "数据成果/分析化验/物性分析/基础数据",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "数据成果/分析化验/物性分析/基础数据"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  //{
+  //  "grid": "G1",
+  //  "title": "数据成果/分析化验/物性分析/基础数据",
+  //  "query": {
+  //    "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+  //    "query": {
+  //      "bool": {
+  //        "must": [
+  //          {
+  //            "term": {
+  //              "well.keyword": "@well"
+  //            }
+  //          }
+  //        ],
+  //        "should": [
+  //          {
+  //            "term": {
+  //              "pc.keyword": "数据成果/分析化验/物性分析/基础数据"
+  //            }
+  //          },
+  //          {
+  //            "term": {
+  //              "pt.keyword": "物性分析报告"
+  //            }
+  //          }
+  //        ]
+  //      }
+  //    },
+  //    "sort": [
+  //      {
+  //        "createddate": {
+  //          "order": "desc"
+  //        },
+  //        "indexeddate": {
+  //          "order": "desc"
+  //        }
+  //      }
+  //    ]
+  //  }
+  //},
+  {
+    "grid": "G2",
+    "title": "数据成果/分析化验/物性分析/分析报告",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "物性分析报告"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "数据成果/分析化验/岩矿分析/基础数据",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "数据成果/分析化验/岩矿分析/基础数据"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "title": "数据成果/分析化验/岩矿分析/分析报告",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "岩矿分析报告"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G5",
+    "title": "数据成果/分析化验/流体高压物性分析/基础数据",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "数据成果/分析化验/流体高压物性分析/基础数据"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G6",
+    "title": "数据成果/分析化验/流体高压物性分析/分析报告",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "流体PVT分析报告"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G7",
+    "title": "数据成果/分析化验/地球化学分析/基础数据",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "数据成果/分析化验/地球化学分析/基础数据"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G8",
+    "title": "数据成果/分析化验/地球化学分析/分析报告",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "地球化学分析报告"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G9",
+    "title": "数据成果/分析化验/油气水分析/基础数据",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "数据成果/分析化验/油气水分析/基础数据"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G10",
+    "title": "数据成果/分析化验/油气水分析/分析报告",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "油气水分析报告"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G11",
+    "title": "数据成果/分析化验/古生物分析/基础数据",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "数据成果/分析化验/古生物分析/基础数据"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G12",
+    "title": "数据成果/分析化验/古生物分析/分析报告",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "古生物分析报告"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

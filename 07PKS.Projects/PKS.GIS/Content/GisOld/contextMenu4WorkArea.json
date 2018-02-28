@@ -1,0 +1,73 @@
+
+    {
+      "bot": "地震工区",
+      "code": "swa",
+        "pageurls": [
+            {
+                "title": "xxx",
+                "url": "",
+                "system": "SZXT"
+            }
+        ],
+      "keypts": [
+        {
+          "title": "工区位置图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pt.keyword": "工区位置图"
+                    }
+                  },
+                  {
+                    "term": {
+                      "swa.keyword": "swaId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "地震工区认识",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "term": {
+                      "pc.keyword": "地震工区百科"
+                    }
+                  },
+                  {
+                    "term": {
+                      "swa.keyword": "swaId"
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 1
+          }
+        }
+      ],
+      "relatedpages": [
+
+      ]
+    }

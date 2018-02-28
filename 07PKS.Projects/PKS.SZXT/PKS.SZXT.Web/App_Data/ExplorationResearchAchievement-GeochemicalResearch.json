@@ -1,0 +1,645 @@
+﻿[
+  {
+    "Grid": "viewConfig",
+    "title": "页面配置",
+    "query": {
+      "actionOfBoSection": "/ExplorationResearchAchievement/FragInfoOfGeochemical",
+      "treeUrl": "/ExplorationResearchAchievement/GetTreeDataOfGeochemical",
+      "showFilter": true,
+      "defaultBo": [ "白云凹陷" ],
+      "defaultYear": [ 2016 ]
+    }
+  },
+  {
+    "Grid": "tree",
+    "title": "",
+    "query": {
+      "tree": [
+        {
+          "text": "单井烃源岩评价",
+          "state": { "opened": true },
+          "tag": { "querykey": "1" },
+          "children": [
+            {
+              "text": "单井烃源岩有机质丰度、类型、成熟度分析图表",
+              "state": { "selected": true },
+              "tag": {
+                "querykey": "1_1"
+              }
+            },
+            {
+              "text": "单井烃源岩元素地球化学分析图表",
+              "tag": {
+                "querykey": "1_2"
+              }
+            },
+            {
+              "text": "单井烃源岩有机显微组分分析图表",
+              "tag": {
+                "querykey": "1_3"
+              }
+            },
+            {
+              "text": "单井烃源岩生物标志化合物分析图表",
+              "tag": {
+                "querykey": "1_4"
+              }
+            },
+            {
+              "text": "单井烃源岩有机相综合柱状图",
+              "tag": {
+                "querykey": "1_5"
+              }
+            },
+            {
+              "text": "单井埋藏-热演化史图",
+              "tag": {
+                "querykey": "1_6"
+              }
+            },
+            {
+              "text": "单井生排烃史图",
+              "tag": {
+                "querykey": "1_7"
+              }
+            }
+          ]
+        },
+        {
+          "text": "油气源对比及成因分析",
+          "tag": { "querykey": "2" },
+          "children": [
+            {
+              "text": "原油物性分析图表",
+              "tag": {
+                "querykey": "2_1"
+              }
+            },
+            {
+              "text": "原油、抽提物族组分分析图表",
+              "tag": {
+                "querykey": "2_2"
+              }
+            },
+            {
+              "text": "原油、抽提烃地球化学分析图表",
+              "tag": {
+                "querykey": "2_3"
+              }
+            },
+            {
+              "text": "原油、抽提烃同位素分析图表",
+              "tag": {
+                "querykey": "2_4"
+              }
+            },
+            {
+              "text": "原油、抽提烃成因判识图",
+              "tag": {
+                "querykey": "2_5"
+              }
+            },
+            {
+              "text": "天然气物性分析图表",
+              "tag": {
+                "querykey": "2_6"
+              }
+            },
+            {
+              "text": "天然气成因判别图",
+              "tag": {
+                "querykey": "2_7"
+              }
+            },
+            {
+              "text": "油气源对比图",
+              "tag": {
+                "querykey": "2_8"
+              }
+            }
+          ]
+        },
+        {
+          "text": "含油气系统分析与模拟",
+          "_children": [
+            {
+              "text": "地史",
+              "tag": {
+                "querykey": "3_1"
+              },
+              "children": [
+                {
+                  "text": "埋藏史图"
+                }
+              ]
+            },
+            {
+              "text": "热演化史",
+              "tag": {
+                "querykey": "3_2"
+              },
+              "children": [
+                {
+                  "text": "主力烃源岩层热演化史剖面图"
+                }
+              ]
+            },
+            {
+              "text": "生排烃史",
+              "tag": {
+                "querykey": "3_3"
+              },
+              "children": [
+                {
+                  "text": "主力烃源岩层生烃史图"
+                },
+                {
+                  "text": "主力烃源岩生烃强度等值线图"
+                }
+              ]
+            },
+            {
+              "text": "排烃史",
+              "tag": {
+                "querykey": "3_4"
+              },
+              "children": [
+                {
+                  "text": "主力烃源岩层排烃史图"
+                },
+                {
+                  "text": "主力烃源岩排烃强度等值线图"
+                }
+              ]
+            },
+            {
+              "text": "运聚史",
+              "tag": {
+                "querykey": "3_5"
+              },
+              "children": [
+                {
+                  "text": "不同时刻各层面流体势图"
+
+                },
+                {
+                  "text": "流体包裹体油气充注信息",
+                  "tag": {
+                    "querykey": "3_8"
+                  }
+                },
+                {
+                  "text": "油气充注期次和成藏时期",
+                  "tag": {
+                    "querykey": "3_9"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "资源评估数",
+          "_children": [
+            {
+              "text": "资源量参数选取",
+              "tag": {
+                "querykey": "4_1"
+              },
+              "children": [
+                {
+                  "text": "参数选取图表",
+                  "tag": {
+                    "querykey": "4_1"
+                  }
+                }
+              ]
+            },
+            {
+              "text": "资源量计算",
+              "tag": {
+                "querykey": "4_2"
+              },
+              "children": [
+                {
+                  "text": "资源量计算结果图表",
+                  "tag": {
+                    "querykey": "4_2"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "油田水分析",
+          "tag": {
+            "querykey": "5_1"
+          },
+          "children": [
+            {
+              "text": "油田水矿化度、水型、酸碱度、黏度及成因分析表",
+              "tag": {
+                "querykey": "5_1"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g0",
+    "title": "",
+    "query": "二级构造单元"
+  },
+  {
+    "Grid": "1",
+    "title": "单井烃源岩评价",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "单井烃源岩有机质丰度、类型、成熟度分析图表",
+                  "单井烃源岩元素地球化学分析图表",
+                  "单井烃源岩有机显微组分分析图表",
+                  "单井烃源岩生物标志化合物分析图表",
+                  "单井烃源岩有机相综合柱状图",
+                  "单井埋藏-热演化史图",
+                  "单井生排烃史图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "2",
+    "title": "油气源对比及成因分析",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "原油物性分析图表",
+                  "原油、抽提物族组分分析图表",
+                  "原油、抽提烃地球化学分析图表",
+                  "原油、抽提烃同位素分析图表",
+                  "原油、抽提烃成因判识图",
+                  "天然气物性分析图表",
+                  "天然气组分分析图表",
+                  "天然气成因判别图",
+                  "油气源对比图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "3_1",
+    "title": "地史",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "埋藏史图"
+              }
+            }
+            ,
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "3_2",
+    "title": "热演化史",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "主力烃源岩层热演化史剖面图"
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "3_3",
+    "title": "生排烃史",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "主力烃源岩层生烃史图",
+                  "主力烃源岩生烃强度等值线图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "3_4",
+    "title": "排烃史",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "主力烃源岩层排烃史图",
+                  "主力烃源岩排烃强度等值线图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "3_5",
+    "title": "运聚史",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "不同时刻各层面流体势图",
+                  "流体包裹体油气充注信息",
+                  "油气充注期次和成藏时期"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "4_1",
+    "title": "参数选取图表",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "参数选取图表"
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "4_2",
+    "title": "资源量计算结果图表",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "资源量计算结果图表"
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "5_1",
+    "title": "油田水分析",
+    "query": {
+      "_source": [ "iiid", "pageid", "dataid", "title", "createddate", "author", "showtype", "thumbnail", "pc", "pt" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "油田水矿化度、水型、酸碱度、黏度及成因分析表"
+              }
+            },
+            {
+              "terms": {
+                "secondlevel.keyword": [ "@target" ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

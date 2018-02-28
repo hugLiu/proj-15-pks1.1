@@ -1,0 +1,317 @@
+﻿[
+  {
+    "modular": "M1_1",
+    "title": "项目运行头条",
+    "pt": "项目运行头条",
+    "items": [
+      {
+        "title": "2017年5月8日，BY3-1-1井，层位ZJ1，井段3280-3405米，油压24.2-24.06兆帕，日产油55.65 方，日产气0.75万方。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，LH30-1-1井珠江组岩屑见荧光显示，岩屑有油味",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，正钻井19口，进尺4088米，钻井完井1口（BY3-1-1井），年度井位部署完成率72%，阶段开钻及完井完成率100%。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，截至目前探井累计试油完井7口（含未试油3口），试获工业油气流井4口。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，XJ34-1-1井使用环保型水基（Evolution®类油基）钻井液体系开展钻井液新技术现场先导性试验成功转试油。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，对LH19-1-1井区开展了海底井场调查。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      },
+      {
+        "title": "2017年5月8日，事故井LW3-1-1Sa井侧钻至井深3002米（侧钻点2300米）。下步工作计划：继续侧钻。",
+        "auditteddate": "05-08",
+        "iiid": ""
+      }
+    ]
+  },
+  {
+    "modular": "M1_2",
+    "title": [ "热点信息", "最近浏览" ],
+    "pt": [ "热点信息", "最近浏览" ],
+    "items": [
+      [
+        {
+          "Id": "kt-rdxx1",
+          "left": "2017年4月份第3周番禺地区钻井动态",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx2",
+          "left": "2017年4月份第3周惠州地区钻井动态",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx3",
+          "left": "2017年4月份第4周惠州地区试油动态",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx4",
+          "left": "2017年4月份第4周惠州地区录井动态",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx5",
+          "left": "2016年白云凹陷探井资产信息",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx6",
+          "left": "2016年珠江口盆地储量资产信息",
+          "right": "03-12",
+          "url": "javascript:;"
+        }
+      ],
+      [
+        {
+          "Id": "kt-rdxx1",
+          "left": "zjll2017年4月份第3周番禺地区钻井动态",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx2",
+          "left": "zjll2017年4月份第3周惠州地区钻井动态",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx3",
+          "left": "zjll2017年4月份第4周惠州地区试油动态",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx4",
+          "left": "zjll2017年4月份第4周惠州地区录井动态",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx5",
+          "left": "zjll2016年白云凹陷探井资产信息",
+          "right": "03-12",
+          "url": "javascript:;"
+        },
+        {
+          "Id": "kt-rdxx6",
+          "left": "zjll2016年珠江口盆地储量资产信息",
+          "right": "03-12",
+          "url": "javascript:;"
+        }
+      ]
+    ]
+  },
+  {
+    "modular": "M2_1",
+    "title": "2017年项目进展情况表",
+    "pt": "",
+    "data": [
+      {
+        "tablename": "项目进展表",
+        "columns": [
+          {
+            "field": "Well",
+            "title": "井名",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Cur_Datetime",
+            "title": "当日时间",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Cur_Depth",
+            "title": "当日井深",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Cur_Ft",
+            "title": "当日进尺",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Strata_ID",
+            "title": "层位",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Md",
+            "title": "钻井液密度",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Operate",
+            "title": "作业动态",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          },
+          {
+            "field": "Report",
+            "title": "钻井日报",
+            "type": "",
+            "align": "center",
+            "valign": "bottom"
+          }
+        ],
+        "rows": [ [ "BY35-3-2", "2017-7-17", "1234", "17", "ZJ2-1", "1.2", "作业简况：2017.7.17", "钻井日报" ] ]
+      }
+    ]
+  },
+  {
+    "modular": "M3_1",
+    "title": "项目详情",
+    "pt": "项目详情",
+    "items": [
+      {
+        "state": "项目立项",
+        "catelogs": [ "项目设计报告", "项目预算" ],
+        "items": [
+          {
+            "catelog": "项目设计报告",
+            "list": [
+              {
+                "id": "kt-rdxx6",
+                "left": "南海北部深水区油气充注期次与时限研究项目设计报告",
+                "url": "javascript:;"
+              }
+            ]
+          },
+          {
+            "catelog": "项目预算",
+            "list": [
+              {
+                "id": "kt-rdxx6",
+                "left": "南海北部深水区油气充注期次与时限研究项目预算",
+                "url": "javascript:;"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "state": "项目实施",
+        "catelogs": [ "项目周报", "项目月报", "项目季报" ],
+        "items": [
+          {
+            "catelog": "项目周报",
+            "list": [
+              {
+                "id": "kt-rdxx6",
+                "left": "2016年第10期 办公会双周报（2016-09-12)",
+                "url": "javascript:;"
+              },
+              {
+                "id": "kt-rdxx6",
+                "left": "2016年第09期 办公会双周报（2016-08-29)",
+                "url": "javascript:;"
+              },
+              {
+                "id": "kt-rdxx6",
+                "left": "22016年第09期 办公会双周报（2016-08-15)",
+                "url": "javascript:;"
+              }
+            ]
+          },
+          {
+            "catelog": "项目月报",
+            "list": [
+              {
+                "id": "kt-rdxx6",
+                "left": "深圳分公司2016年10月份勘探月报",
+                "url": "javascript:;"
+              },
+              {
+                "id": "kt-rdxx6",
+                "left": "深圳分公司2016年10月份勘探月报附表",
+                "url": "javascript:;"
+              },
+              {
+                "id": "kt-rdxx6",
+                "left": "深圳分公司2016年9月份勘探月报附表",
+                "url": "javascript:;"
+              },
+              {
+                "id": "kt-rdxx6",
+                "left": "深圳分公司2016年8月份勘探月报",
+                "url": "javascript:;"
+              }
+            ]
+          },
+          {
+            "catelog": "项目季报",
+            "list": [
+              {
+                "id": "kt-rdxx6",
+                "left": "深圳分公司2016年10月份勘探季报",
+                "url": "javascript:;"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "state": "项目验收",
+        "catelogs": [ "验收报告", "费用执行情况" ],
+        "items": [
+          {
+            "catelog": "验收报告",
+            "list": [
+              {
+                "id": "kt-rdxx6",
+                "left": "南海北部深水区油气充注期次与时限研究项目验收报告（2016-12-06）",
+                "url": "javascript:;"
+              }
+            ]
+          },
+          {
+            "catelog": "费用执行情况",
+            "list": [
+              {
+                "id": "kt-rdxx6",
+                "left": "南海北部深水区油气充注期次与时限研究项目费用执行情况",
+                "url": "javascript:;"
+              }
+            ]
+          }
+        ]
+      }
+
+    ]
+  }
+]

@@ -1,0 +1,104 @@
+﻿@using System.Linq;
+@using PKS.Utils;
+@using PKS.DbServices.Models;
+@model List<KG_CatalogNode>
+@{
+    KG_CatalogNode root = Model.First();
+    ViewBag.Title = root.Name + " - 知识图谱";
+    var graphTitle = root.Name + "知识结构";
+}
+@section stylesSection {
+    <link rel="stylesheet" href="~/Content/KGraph/kl_struc.css">
+    <link rel="stylesheet" href="~/Content/KGraph/kl_struct_inline.css">
+}
+@section scriptsSection {
+    <script src="~/Content/KGraph/d3.min.js"></script>
+    <script src="~/Content/KGraph/strucMap.js"></script>
+}
+<div class="header_top addcolor">
+    <div class="module_div c15">
+        <div class="banner_div curindex">
+            <div class="mainCol padding15px clearfix">
+                <div class="banner_top_img">
+                </div>
+                <div class="banner_middle" style="cursor:default">
+                    <div class="banner_log">
+                        <span><img src="@root.ImageURL" width="80" height="80" alt=""></span>
+                        <em>@root.Name</em>
+                    </div>
+                    <div class="gzdiv" id="gzdiv" status="false" style="display:none;">
+                        <a>
+                            <em>38887</em><b>&nbsp;关注者</b>
+                            <em class="username" value="Hubo0831" style="display: none"></em>
+                            <span class="triggerlayer" baseid="15" status="false">
+                                <i class="fa fa-plus"></i>
+                                <em>&nbsp;关注</em>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                @*<p class="pdesc" title="@root.Description">@root.Description</p>*@
+            </div>
+        </div>
+        <div id="nav" class="nav nav-csdn" style="position: static; opacity: 1; top: 0px; left: 0px; z-index: 4;">
+            <div class="mainCol padding15px clearfix">
+                <div class="navtabs">
+                    <a class="root">动态图谱</a>
+                    <a href="/KGraph/PublicTopics?id=@root.Id">知识点</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mainCol clearfix">
+    <div class="structure_chart">
+        <div class="kl_title">@graphTitle</div>
+        <div id="mapRow" class="kl_str"></div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var models = @Html.Raw(Model.ToJson());
+        var options = {
+            width: 1100,
+            height: 940
+        };
+        var nodes = [];
+        var links = [];
+        for (var i = 0; i < models.length; i++) {
+            var node = models[i];
+            nodes.push({
+                "href": "/KGraph/PublicTopics?id=" + node.Id,
+                "id": node.Id,
+                "pid": node.ParentId,
+                "index": i,
+                "prop": {
+                    "code": node.Code,
+                    "name": node.Name,
+                    "subject": ""
+                },
+            });
+        }
+        for (var i = 1; i < nodes.length; i++) {
+            var node = nodes[i];
+            var parent = null;
+            for (var j = 0; j < nodes.length; j++) {
+                if (nodes[j].id == node.pid) {
+                    parent = nodes[j];
+                    break;
+                }
+            }
+            links.push({
+                "desc": node.desc,
+                "source": (parent ? parent.index : 0),
+                "target": node.index,
+                "type": "REL"
+            });
+        }
+        var root = nodes[0];
+        root.fixed = true;
+        root.x = 530;
+        root.y = 250;
+        loadMap(options, nodes, links);
+    });
+</script>

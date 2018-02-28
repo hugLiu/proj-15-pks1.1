@@ -1,0 +1,23 @@
+﻿@using PKS.Web;
+@{
+    Layout = "~/Views/Shared/_LayoutBase.cshtml";
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+    var portalSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.Portal);
+}
+@section Styles{
+    @RenderSection("Styles", false)
+}
+
+@RenderBody()
+
+@section Scripts{
+    <script src="@webApiSiteUrl/Content/jquery/jquery-2.0.3.min.js"></script>
+    @*WebAPI脚本*@
+    <script src="@webApiSiteUrl/Scripts/PKSGlobalStore.js"></script>
+    <script>
+        pksGlobalStore.init("@webApiSiteUrl");
+        pksGlobalStore.config.portalSiteUrl = "@portalSiteUrl";
+    </script>
+    @*WebAPI脚本*@
+    @RenderSection("Scripts", false)
+}

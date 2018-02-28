@@ -1,0 +1,74 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "获取构造单元筛选条件",
+    "query": {
+      "query": {
+        "name": "构造单元"
+      },
+      "fields": {
+        "properties.地区": 1
+      }
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bt.keyword": "目标认识"
+              }
+            },
+            {
+              "match": {
+                "bp.keyword": "二级构造单元"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g_th",
+    "title": "获取构造单元缩略图",
+    "query": {
+      "_source": [ "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "钻后构造位置图",
+                  "目标区深度构造图",
+                  "目标区时间构造图",
+                  "构造及属性叠合图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "secondlevel.keyword": "@unit"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1
+    }
+  }
+]

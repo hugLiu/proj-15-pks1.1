@@ -1,0 +1,78 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "获取井筛选条件",
+    "query": {
+      "query": {
+        "name": "井"
+      },
+      "fields": {
+        "properties.二级构造单元2": 1,
+        "properties.作业方式2": 1,
+        "properties.井型": 1,
+        "properties.井别": 1,
+        "properties.井况2": 1,
+        "properties.水深类型": 1,
+        "properties.完钻日期": 2
+      }
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bt.keyword": "目标认识"
+              }
+            },
+            {
+              "match": {
+                "bp.keyword": "井"
+              }
+            }
+          ]
+        }
+      },
+      "size": "10",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g_th",
+    "title": "获取井缩略图",
+    "query": {
+      "_source": [ "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "井身结构图",
+                  "设计井身结构图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1
+    }
+  }
+]

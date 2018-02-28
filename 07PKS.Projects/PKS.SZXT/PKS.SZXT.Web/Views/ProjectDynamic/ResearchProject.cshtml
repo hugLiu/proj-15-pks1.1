@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "研究项目";
+}
+
+<div id="el">
+
+    <div class="jurassic-row">
+        <div class="jurassic-col-12">
+            <pks:singletitle v-bind:title="projectHeadlines.title"
+                             v-bind:data="projectHeadlines.list"
+                             v-bind:map="map1"
+                             v-bind:show=true
+                             v-bind:onshowmore="onshowmore"
+                             v-bind:onclick="link_click">
+            </pks:singletitle>
+        </div>
+        @*<div class="jurassic-col-4">
+            <pks:multipletitle v-bind:titles="behaviorAnalysis.titles"
+                               v-bind:data="behaviorAnalysis.lists"
+                               :show="false"
+                               v-bind:map="maps"
+                               v-bind:onclick="link_click">
+            </pks:multipletitle>
+        </div>*@
+    </div>
+
+    <div class="jurassic-row">
+        <pks:panel v-bind:title="projectProgress.title" v-bind:show="false">
+            <div class="jurassic-margin-container" slot="panel">
+                <div class="jurassic-margin-container">
+                    <pks:table v-bind:datasource="projectProgress.data" v-bind:onrowclick="onRowClick"></pks:table>
+                </div>
+            </div>
+        </pks:panel>
+    </div>
+
+    <div class="jurassic-row" v-if="projectName.length>0">
+        <h2>《{{projectName}}》项目</h2>
+
+
+        <div class="jurassic-row">
+            <pks:panel title="项目立项" v-bind:show="false">
+                <div class="jurassic-margin-container" slot="panel">
+                    <pks:listm v-bind:data="g3_1" v-bind:map="map2" v-bind:onclick="link_click"></pks:listm>
+                </div>
+            </pks:panel>
+            <pks:panel title="项目实施" v-bind:show="false">
+                <div class="jurassic-margin-container" slot="panel">
+                    <pks:listm v-bind:data="g3_2" v-bind:map="map2" v-bind:onclick="link_click"></pks:listm>
+                </div>
+            </pks:panel>
+            <pks:panel title="项目验收" v-bind:show="false">
+                <div class="jurassic-margin-container" slot="panel">
+                    <pks:listm v-bind:data="g3_3" v-bind:map="map2" v-bind:onclick="link_click"></pks:listm>
+                </div>
+            </pks:panel>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    bootstrapTableOptions.showTitleTab = false;
+    bootstrapTableOptions.tableOption.height = 200;
+    var _CURProject_ = null;
+    function GetProjectDetail() {
+        $.ajax({
+            url: "/ProjectDynamic/GetProjectDetail",
+            type: "post",
+            data: { projectName: _CURProject_.Proj_Name},
+            success: function (res) {
+                app.projectName=_CURProject_.Proj_Name;
+                res = JSON.parse(res);
+                app.g3_1 = res["g3_1"];
+                app.g3_2 = res["g3_2"];
+                app.g3_3 = res["g3_3"];
+            }
+        });
+    }
+
+    function goToSearchPage(pt,period){
+        if (period==null) {
+            open("/ProjectDynamic/GoToSearchPage?pt="+pt,"_blank");
+        }else{
+            open("/ProjectDynamic/GoToSearchPage?pt="+pt+"&period="+period,"_blank");
+        }
+    }
+    var model=@Html.Raw(Model);
+
+    //var map1 = { "left": "title", "right": "date", "url": "url" };
+    //var map2={left:"left",url:"url"};
+
+    var map1={left:"title",right:"indexeddate",url:"iiid"};
+    var map2={left:"title",right:"indexeddate",url:"iiid"};
+    var app = PKSUI.bind({
+        el: "#el",
+        data: {
+            map1:map1,
+            map2:map2,
+            maps:[map1,map1],
+
+            projectHeadlines:{title:"项目运行头条",list:model.projectHeadlines},
+            behaviorAnalysis: { titles: ["热点信息","最近浏览"], lists: [model.topHots,model.recentlyView]},
+            projectProgress:{title:"项目进展情况表",data:setBootstrapTableOptions(model.projectProgress)},
+
+            projectName:"",
+            g3_1:[],
+            g3_2:[],
+            g3_3:[],
+        },
+        methods: {
+            link_click: function (e) {
+                open("/ExplorationDynamic/GoToPublicPage?iiid="+e,"_blank");
+            },
+            onshowmore:function(e){
+                var map={
+                    "项目运行头条":"项目运行头条",
+                    "热点信息":"热点信息",
+                    "最近浏览":"最近浏览",
+                    "项目管理":"项目管理",
+                };
+                goToSearchPage(map[e]);
+            },
+
+            onRowClick: function (e, row, $element, tablename) {
+                _CURProject_ = row;
+                if(_CURProject_) {
+                    _CURProject_.Proj_Name = _CURProject_.field1;
+                    if(_CURProject_.Proj_Name) GetProjectDetail();
+                }
+            }
+        },
+        model: ["pks:listm","pks:multipletitle","pks:tabs","pks:singletitle","pks:panel","pks:table"]
+
+    });
+</script>

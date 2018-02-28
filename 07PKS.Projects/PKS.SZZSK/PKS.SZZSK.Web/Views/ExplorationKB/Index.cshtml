@@ -1,0 +1,325 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "勘探知识库首页";
+}
+<style type="text/css">
+    #box {
+        /*width: 100%;
+        height: 999.3px;*/
+        /*border: 1px solid #000000;*/
+        position: relative;
+    }
+
+    div.item {
+        width: 33.33333333%;
+        height: 333.1px;
+        /*border-radius: 5px;*/
+        float: left;
+        /*background: goldenrod;*/
+        /*border: 1px solid lightgray;*/
+    }
+
+    div.itemstyle {
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        background: #7bbfea;
+        z-index: 1;
+        cursor: move;
+    }
+
+    div.moving {
+        border: 1px dashed gray;
+        background: white;
+    }
+
+    div.draging {
+        width: 33.33333333%;
+        height: 333.1px;
+        position: absolute;
+        background: #7bbfea;
+        box-shadow: 0 0 2px 2px #555;
+        border-radius: 5px;
+        z-index: 500;
+    }
+
+    div.newmodule {
+        float: left;
+        width: 33.33333333%;
+        height: 333.1px;
+        border: 1px dashed gray;
+        background: white;
+        border-radius: 5px;
+    }
+
+    .btnclose {
+        position: relative;
+        width: 33px;
+        height: 33px;
+        float: right;
+        margin-bottom: -20px;
+        margin-right: 2px;
+        color: red;
+        font-size: 20px;
+        visibility: hidden;
+        cursor: pointer;
+        z-index: 499;
+    }
+    .btnspan {
+        cursor: pointer;
+        margin-left: 10px;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-12">
+            <div class="item jurassic-col-4">
+                <div class="jurassic-margin-container">
+                    <pks:singletitle title="重点头条" :data="G1_data" :map="map" :onshowmore="onshowmore" :onclick="G2_onclick"></pks:singletitle>
+                </div>
+            </div>
+            <div class="item jurassic-col-4">
+                <div class="jurassic-margin-container">
+                    <pks:singletitle title="社区热点" :data="G1_data" :map="map" :onshowmore="onshowmore" :onclick="G2_onclick"></pks:singletitle>
+                </div>
+            </div>
+            <div class="item jurassic-col-4">
+                <div class="jurassic-margin-container">
+                    <pks:singletitle title="信息系统" :data="G1_data" :map="map" :onshowmore="onshowmore" :onclick="G2_onclick"></pks:singletitle>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="jurassic-row" >      
+        <div style="width:97%;margin:15px 15px 1px 15px;border-bottom: 1px solid rgb(214,214,214);">
+            <button type="button" class="btn btn-default" onclick="saveClick()" style="float:right;margin-top:-14px;">
+                <span class="glyphicon glyphicon-cog"></span> 保存
+            </button>
+            <button type="button" class="btn btn-default" onclick="setClick()" style="float:right;margin-top:-14px;">
+                <span class="glyphicon glyphicon-cog" ></span> 设置
+            </button>
+        </div>
+        <div id="box" class="jurassic-col-12">
+            <div class="item jurassic-col-4">
+                <div class="btnclose" onclick="colseClick(this)" onmousedown="closeMouseDown(event)">
+                    <span class="btnspan glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </div>
+                <div class="jurassic-margin-container">                  
+                    <pks:singletitle title="勘探目标认识" :data="G1_data" :map="map" :onshowmore="onshowmore" :onclick="G2_onclick"></pks:singletitle>
+                </div>
+            </div>
+
+            <div class="item jurassic-col-4">
+                <div class="btnclose" onclick="colseClick(this)" onmousedown="closeMouseDown(event)">
+                    <span class="btnspan glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </div>
+                <div class="jurassic-margin-container">
+                    <pks:singletitle title="勘探专业研究" :data="G2_data" :map="map" :onshowmore="onshowmore" :onclick="G2_onclick"></pks:singletitle>
+                </div>
+            </div>
+
+            <div class="item jurassic-col-4">
+                <div class="btnclose" onclick="colseClick(this)" onmousedown="closeMouseDown(event)">
+                    <span class="btnspan glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </div>
+                <div class="jurassic-margin-container">
+                    <pks:singletitle title="最近更新" :data="G8_data" :map="map" :onshowmore="onshowmore" :onclick="G1_onclick"></pks:singletitle>
+                </div>
+            </div>
+            
+            <div class="item jurassic-col-4">
+                <div class="btnclose" onclick="colseClick(this)" onmousedown="closeMouseDown(event)">
+                    <span class="btnspan glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </div>
+                <div class="jurassic-margin-container">
+                    <pks:singletitle title="知识案例" :data="G3_data" :map="map" :onshowmore="onshowmore" :onclick="G1_onclick"></pks:singletitle>
+                </div>
+            </div>
+
+            <div class="item jurassic-col-4">
+                <div class="btnclose" onclick="colseClick(this)" onmousedown="closeMouseDown(event)">
+                    <span class="btnspan glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </div>
+                <div class="jurassic-margin-container">
+                    <pks:singletitle title="石油百科词条" :data="G4_data" :map="map" :onshowmore="onshowmore" :onclick="G1_onclick"></pks:singletitle>
+                </div>
+            </div>
+
+            <div class="item jurassic-col-4">
+                <div class="btnclose" onclick="colseClick(this)" onmousedown="closeMouseDown(event)">
+                    <span class="btnspan glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </div>
+                <div class="jurassic-margin-container">
+                    <pks:singletitle title="勘探社区热点" :data="G5_data" :map="map" :onshowmore="onshowmore" :onclick="G1_onclick"></pks:singletitle>
+                </div>
+            </div>
+
+            <div class="item jurassic-col-4">
+                <div class="btnclose" onclick="colseClick(this)" onmousedown="closeMouseDown(event)">
+                    <span class="btnspan glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </div>
+                <div class="jurassic-margin-container">
+                    <pks:singletitle title="知识图谱" :data="G6_data" :map="map" :onshowmore="onshowmore" :onclick="G1_onclick"></pks:singletitle>
+                </div>
+            </div>
+        </div>
+
+       
+        
+    </div>  
+</div>
+<script src="~/Scripts/util.js"></script>
+<script src="~/Content/lib/ResponsiveSlides.js/responsiveslides.js"></script>
+<link href="~/Content/lib/ResponsiveSlides.js/responsiveslides.css" rel="stylesheet" />
+<script>
+    var sourcedata = @Html.Raw(Model);
+    var map = { left: "title", right: "ShortDate", url: "iiid" };
+    PKSUI.bind({
+        el: "#el",
+        data: {
+            map: map,
+            maplist: [map, map, map],
+            G1_data: sourcedata["g1"],
+            G2_data: sourcedata["g2"],
+            G3_data: sourcedata["g3"],
+            G4_data: sourcedata["g4"],
+            G5_data: sourcedata["g5"],
+            G6_data: sourcedata["g6"],
+            G7_data: sourcedata["g7"],
+            G8_data: sourcedata["g8"],
+        },
+        methods: {
+            G1_onclick: function (e) {
+                open("/ExplorationKB/GoToPublicPage?iiid=" + e, "_blank");
+            },
+            G2_onclick: function (e) {
+                open("/ExplorationKB/GoToBaikePage?iiid=" + e, "_blank");
+            },
+            onshowmore: function (e) {
+                var map = {
+                    "最新成果": { pt: "最新成果", urlparam: "order=createddate$desc&ischecked=on&field=dsn&operator=equal&matchtext1=自建库" }
+                };
+                if (map[e].urlparam) {
+                    open("/ExplorationKB/GoToSooilPage?urlparam=" + encodeURIComponent("isadvance=true&" + map[e].urlparam), "_blank");
+                }
+                else {
+                    goToSearchPage(map[e].pt);
+                }
+            }
+        },
+        model: ["pks:singletitle", "pks:multipletitle", "pks:tabs", "pks:histogram", "pks:panel", "pks:table", "pks:slideimg"]
+    });
+
+    function goToSearchPage(pt, period) {
+        if (period == null) {
+            open("/ExplorationKB/GoToSearchPage?pt=" + pt, "_blank");
+        } else {
+            open("/ExplorationKB/GoToSearchPage?pt=" + pt + "&period=" + period, "_blank");
+        }
+    }
+</script>
+<script type="text/javascript">
+
+    var bstop = false;
+
+    /**
+     * 进入模块编辑模式，可以移动模块，添加新的模块，删除现有模块
+     */
+    function setClick() {
+        bstop = true;
+        $('#box .item').addClass('itemstyle');
+        var parent = document.getElementById('box');
+        var newdiv = document.createElement("div");
+        newdiv.setAttribute("class", "newmodule");
+        parent.append(newdiv);
+        $('.jurassic-panel-more').hide();
+        $('.btnclose').css('visibility', 'visible');
+    }
+
+    /**
+     * 保存修改到数据库，退出编辑模式
+     */
+    function saveClick() {
+        bstop = false;
+        $('#box .item').removeClass('itemstyle');
+        $('#box .newmodule').remove();
+        $('.jurassic-panel-more').show();
+        $('.btnclose').css('visibility', 'hidden');
+    }
+
+    function closeMouseDown(e) {
+        // 中断事件流
+        e.stopPropagation();
+    }
+
+    function colseClick(Obj) {
+        // 删除当前元素的父元素
+        Obj.parentNode.parentNode.removeChild(Obj.parentNode);    
+    }
+
+    $('#box .item').on('mousedown', function (e) {
+        if (bstop) {
+            bstop = false;
+            var that = this;
+            var disx = e.offsetX; //获取的拖拽过程的短线的长度（鼠标的位置离盒子边缘的位置）
+            var disy = e.offsetY;
+            var $clone = $(this).clone(); //克隆
+            $clone.addClass('draging').css({ //对克隆的盒子设置类名以及位置
+                left: $(this).position().left,
+                top: $(this).position().top
+            });
+            $('#box').append($clone); //追加到box里面
+            $(this).addClass('moving').html(''); //被克隆的元素添加类移除内容
+            $('#box').on('mousemove', function (e) { //对克隆的盒子进行拖拽
+                $clone.css({
+                    left: e.pageX - $(this).offset().left - disx,
+                    top: e.pageY - $(this).offset().top - disy
+                })
+
+            });
+
+            $clone.on('mouseup', function () {
+                $('#box').off('mousemove'); //取消mousemove事件
+                var minIndex = $(that).index(); //最小索引赋初始值
+                var minValue = 1000; //初始化最小值，用来存储所有盒子的最小值
+                $('#box .item').not(':last').each(function () { //不包括克隆的那个盒子
+                    var smalldistance = Math.sqrt(Math.pow($clone.position().left - $(this).position().left, 2) + Math.pow($clone.position().top - $(this).position().top, 2)); //利用勾股定理获取每一个盒子离克隆出来的盒子的距离
+                    if (smalldistance < minValue) { //比较
+                        minValue = smalldistance; //获取最小值
+                        minIndex = $(this).index(); //获取最小值对应的索引
+                    }
+                });
+                if (minIndex == $(that).index()) { //如果当前最小距离的那个盒子和拖拽的盒子索引相等的话，归位。
+                    $clone.animate($(that).position(), 400, function () {
+                        $(that).removeClass('moving').html($clone.html()); //恢复被克隆盒子的相关样式
+                        $(this).remove(); //移除被克隆的盒子
+                        bstop = true;
+                    });
+                } else {
+                    var $minbox = $('#box .item').eq(minIndex); //最小索引的盒子
+                    var $clone2 = $minbox.clone(); //克隆一个最小盒子的副本，添加相关样式
+                    $clone2.addClass('draging').css({
+                        left: $minbox.position().left,
+                        top: $minbox.position().top
+                    })
+                    $('#box').append($clone2); //追加
+                    $minbox.addClass('moving').html('');
+                    $clone.animate($minbox.position(), 400, function () { //克隆的内容运动到最小索引的盒子的位置
+                        $minbox.removeClass('moving').html($clone.html()); //移除相关样式，添加内容
+                        $clone.remove(); //移除克隆的盒子
+                        bstop = true;
+                    });
+                    $clone2.animate($(that).position(), 400, function () {
+                        $(that).removeClass('moving').html($clone2.html());
+                        $clone2.remove();
+                        bstop = true;
+                    });
+                }
+            });
+        }
+        return false;
+    });
+</script>

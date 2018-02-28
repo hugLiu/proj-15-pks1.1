@@ -1,0 +1,43 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Converters
+@using PKS.Web
+@model PKS.PageEngine.PageRenderEngine
+@{
+    ViewBag.Title = "百科组件Demo";
+    //var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+    var fullTagNameList = Model.ViewManager.GetAllComponentTagNames().Distinct();
+    var fullTagNames = string.Join(",", fullTagNameList.Select(item => "'" + item + "'"));
+}
+
+@section scriptsSection
+{
+    <script src="~/Scripts/util.js"></script>
+    <script src="~/Content/lib/ResponsiveSlides.js/responsiveslides.js"></script>
+    <link href="~/Content/lib/ResponsiveSlides.js/responsiveslides.css" rel="stylesheet"/>
+
+    <link href="~/Content/lib/viewer/viewer.min.css" rel="stylesheet"/>
+    <script src="~/Content/lib/viewer/viewer.min.js"></script>
+}
+<div class="row" style="">
+
+    <div id="container">
+        @Html.Raw(Model.GetHtml())
+
+    </div>
+
+</div>
+
+<script>
+    var model = @Html.Raw(JsonConvert.SerializeObject(Model.GetData(), Formatting.Indented));
+    var vm = PKSUI.bind({
+        el: "#container",
+        data: model,
+        methods: {
+            onclick: function (e) {
+
+            }
+        },
+        model:[@Html.Raw(fullTagNames)]
+    });
+</script>
+

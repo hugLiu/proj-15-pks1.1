@@ -1,0 +1,75 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "获取圈闭筛选条件",
+    "query": {
+      "query": {
+        "name": "圈闭"
+      },
+      "fields": {
+        "properties.圈闭类型": 1,
+        "properties.圈闭落实程度": 1,
+        "properties.二级构造单元2": 1
+      }
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bt.keyword": "目标认识"
+              }
+            },
+            {
+              "match": {
+                "bp.keyword": "圈闭"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g_th",
+    "title": "获取圈闭缩略图",
+    "query": {
+      "_source": [ "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "圈闭十字剖面图",
+                  "圈闭封堵性分析图",
+                  "圈闭发育史图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "trap.keyword": "@trap"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1
+    }
+  }
+]

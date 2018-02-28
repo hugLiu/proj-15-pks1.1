@@ -1,0 +1,2 @@
+使用说明：
+	当前项目中使用FlexPaper版本为FlexPaper_2.1.2

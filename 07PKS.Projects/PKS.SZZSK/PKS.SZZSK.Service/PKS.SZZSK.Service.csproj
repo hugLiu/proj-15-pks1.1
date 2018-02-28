@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{93A50001-80BF-42F8-B04D-8FA563DA108F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PKS.SZZSK.Service</RootNamespace>
+    <AssemblyName>PKS.SZZSK.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\DefatuleApiServiceConfig.cs" />
+    <Compile Include="Common\DefaultPageSearchConfigGrabber.cs" />
+    <Compile Include="Common\ServiceInvoker.cs" />
+    <Compile Include="Common\ViewServiceBase.cs" />
+    <Compile Include="Config\ConfigService.cs" />
+    <Compile Include="Config\Model\AppStateHelper.cs" />
+    <Compile Include="Config\Model\ConfigSection.cs" />
+    <Compile Include="Config\Model\PageSearchConfig.cs" />
+    <Compile Include="Config\Model\SearchItem.cs" />
+    <Compile Include="Config\PageConfig\PageSearchConfigCollection.cs" />
+    <Compile Include="Config\PageConfig\PageSearchConfigElement.cs" />
+    <Compile Include="Config\PageConfig\PageSearchConfigSection.cs" />
+    <Compile Include="Config\PageSearchService\PageSearchService.cs" />
+    <Compile Include="ExplorationKB\ExplorationKBService.cs" />
+    <Compile Include="MajorBaiKe\MajorBaiKeDataService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Standard\Standard.cs" />
+    <Compile Include="TargetBaiKe\TrapDataService.cs" />
+    <Compile Include="TargetBaiKe\BasinDataService.cs" />
+    <Compile Include="TargetBaiKe\UnitDataService.cs" />
+    <Compile Include="TargetBaiKe\SWADataService.cs" />
+    <Compile Include="TargetBaiKe\WellDataService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\01PKS.Library\PKS.Core\PKS.Core.csproj">
+      <Project>{786ebcd8-0b99-4adf-82a8-95442c455c1f}</Project>
+      <Name>PKS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\01PKS.Library\PKS.DbModels\PKS.DbModels.csproj">
+      <Project>{2610b762-07c3-4f27-94db-a3a6ea91e976}</Project>
+      <Name>PKS.DbModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\01PKS.Library\PKS.Utils\PKS.Utils.csproj">
+      <Project>{4820a9f8-9aa4-4116-9bf1-69893297c6fc}</Project>
+      <Name>PKS.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\06PKS.WebAPI\PKS.WebAPI.Interface\PKS.WebAPI.Interface.csproj">
+      <Project>{35d5187b-68a7-4fc0-a827-62c240e43493}</Project>
+      <Name>PKS.WebAPI.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PKS.SZZSK.Core\PKS.SZZSK.Core.csproj">
+      <Project>{f7c2703d-e54d-433a-96aa-5d3b08c8bd5f}</Project>
+      <Name>PKS.SZZSK.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PKS.SZZSK.IService\PKS.SZZSK.IService.csproj">
+      <Project>{0f4f2737-507b-4025-b821-d0b8c09c4ccb}</Project>
+      <Name>PKS.SZZSK.IService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

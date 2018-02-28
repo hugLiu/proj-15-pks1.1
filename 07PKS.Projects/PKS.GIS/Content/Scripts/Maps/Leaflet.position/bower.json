@@ -1,0 +1,40 @@
+{
+  "name": "leaflet-control-position",
+  "version": "0.2.5",
+  "homepage": "https://github.com/FCOO/leaflet-control-position",
+  "authors": [
+    "Jesper Larsen jla@fcoo.dk"
+  ],
+  "description": "Leaflet control for zooming to a specified position",
+  "main": [
+    "dist/leaflet-control-position.js",
+    "dist/leaflet-control-position.css",
+    "dist/images/position.png"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FCOO/leaflet-control-position.git"
+  },
+  "dependencies": {
+    "leaflet": "latest",
+    "magellan": "https://github.com/dbarbalato/magellan.git#master",
+    "noty": "latest",
+    "jquery": "latest"
+  },
+  "devDependencies": {
+    "bourbon": "latest",
+    "modernizr-mixin": "latest",
+    "mathsass": "latest"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "moduleType": [
+    "es6"
+  ]
+}

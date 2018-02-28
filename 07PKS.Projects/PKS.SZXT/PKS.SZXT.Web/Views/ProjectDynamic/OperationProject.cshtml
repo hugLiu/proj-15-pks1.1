@@ -1,0 +1,109 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "作业项目";
+}
+@section stylesSection{
+    <style>
+        .table > thead > tr > th[data-field="项目进度"] {
+            width: 35%;
+        }
+    </style>
+}
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-12">
+            <pks:singletitle v-bind:title="projectHeadlines.title"
+                             v-bind:data="projectHeadlines.list"
+                             v-bind:map="map"
+                             v-bind:show=true
+                             v-bind:onshowmore="onshowmore"
+                             v-bind:onclick="link_click">
+            </pks:singletitle>
+        </div>
+        @*<div class="jurassic-col-4">
+                <pks:multipletitle v-bind:titles="behaviorAnalysis.titles"
+                                   v-bind:data="behaviorAnalysis.lists"
+                                   :show="false"
+                                   v-bind:map="maps"
+                                   v-bind:onclick="link_click">
+                </pks:multipletitle>
+            </div>*@
+    </div>
+
+    <div class="jurassic-row">
+        <pks:panel v-bind:title="projectProgress.title" v-bind:show="false">
+            <div class="jurassic-margin-container" slot="panel">
+                <div class="jurassic-margin-container">
+                    <pks:table v-bind:datasource="projectProgress.data" v-bind:tableoptions="projectProgress.tableoptions"></pks:table>
+                    @*<pks:histogram :data="projectProgress.data" height="300px" width="700px" :titlelocation="titlelocation" :legendstyle="legendstyle"></pks:histogram>*@
+                </div>
+            </div>
+        </pks:panel>
+    </div>
+
+    <div class="jurassic-row">
+        <pks:panel v-bind:title="projectProgress2.title" v-bind:show="false">
+            <div class="jurassic-margin-container" slot="panel">
+                <div class="jurassic-margin-container">
+                    <pks:table v-bind:datasource="projectProgress2.data"></pks:table>
+                </div>
+            </div>
+        </pks:panel>
+    </div>
+
+    <div class="jurassic-row">
+        <pks:singletitle v-bind:title="projectManagement.title"
+                         v-bind:data="projectManagement.list"
+                         v-bind:map="map"
+                         v-bind:show=true
+                         v-bind:onshowmore="onshowmore"
+                         v-bind:onclick="link_click">
+        </pks:singletitle>
+    </div>
+</div>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    bootstrapTableOptions.tableOption.height = 200;
+
+    function goToSearchPage(pt,period){
+        if (period==null) {
+            open("/ProjectDynamic/GoToSearchPage?pt="+pt,"_blank");
+        }else{
+            open("/ProjectDynamic/GoToSearchPage?pt="+pt+"&period="+period,"_blank");
+        }
+    }
+    var theYear=new Date().getFullYear()-1;//获取的是去年的数据
+    var model=@Html.Raw(Model);
+    var projectTableOptions = [{tableoption:{pagination: false}}];
+    var map={left:"title",right:"indexeddate",url:"iiid"};
+    PKSUI.bind({
+        el: "#el",
+        data: {
+            projectHeadlines:{title:"项目运行头条",list:model.projectHeadlines},
+            behaviorAnalysis: { titles: ["热点信息","最近浏览"], lists: [model.topHots,model.recentlyView]},
+            titlelocation:["center","10"],
+            legendstyle:["center","bottom","horizontal"],
+            projectProgress:{title:"项目运行进度图_"+theYear+"年",data:model.projectProgress, tableoptions: projectTableOptions},
+            projectProgress2:{title:"项目进展情况表_"+theYear+"年",data:setBootstrapTableOptions(model.projectProgress2)},
+            projectManagement:{title:"项目管理",list:model.projectManagement},
+            map:map,
+            maps:[map,map]
+        },
+        methods: {
+            link_click: function (e) {
+                open("/ExplorationDynamic/GoToPublicPage?iiid="+e,"_blank");
+            },
+            onshowmore:function(e){
+                var map={
+                    "项目运行头条":"项目运行头条",
+                    "热点信息":"热点信息",
+                    "最近浏览":"最近浏览",
+                    "项目管理":"项目管理",
+                };
+                goToSearchPage(map[e]);
+            }
+        },
+        model: ["pks:singletitle","pks:multipletitle","pks:panel","pks:table", "pks:histogram"]
+    });
+</script>
+

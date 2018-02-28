@@ -1,0 +1,100 @@
+﻿@using System.Linq;
+@using PKS.Utils;
+@using PKS.Web;
+@using PKS.DbModels;
+@using PKS.DbServices.Models;
+@{
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+    KG_CatalogNode root = ViewBag.Root;
+    KG_CatalogNode current = ViewBag.Current;
+    List<KG_CatalogNode> parents = ViewBag.Parents;
+    ViewBag.Title = "提交知识 - 知识图谱";
+}
+@section stylesSection {
+    <link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/icon.css">
+    <link rel="stylesheet" href="~/Content/KGraph/kn_sub_knowledge.css">
+    <link rel="stylesheet" href="~/Content/KGraph/kn_sub_knowledge_inline.css">
+}
+@section scriptsSection {
+    <script type="text/javascript" src="@webApiSiteUrl/Content/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
+}
+<div class="mainCol clearfix padding15px addcolor cur-default">
+    <div class="kn_left w860px whitebk">
+        <div class="containerwrap">
+            <div class="kn_sub">
+                <div class="kn_tab_title clearfix">
+                    <span class="pull-left">
+                        <a href="/KGraph/PrivateIndex" class="cura">我的图谱</a>
+                        <i class="fa fa-angle-right"></i>
+                        <span>提交知识</span>
+                    </span>
+                    @for (int i = 0; i < parents.Count; i++)
+                    {
+                        var parent = parents[i];
+                        if (i == 0)
+                        {
+                            @Html.Raw("&nbsp;&nbsp;")
+                        }
+                        else
+                        {
+                            @Html.Raw("&nbsp;-&nbsp;")
+                        }
+                        <a href="/KGraph/PublicTopics?id=@parent.Id">@parent.Name</a>
+                    }
+                </div>
+                <form id="submitTopic" action="/KGraph/PublicSubmit" method="post" enctype="multipart/form-data">
+                    <div class="kn_sub_content">
+                        <p class="title"><i class="must">*</i>主题标题：</p>
+                        <div class="subdiv clearfix">
+                            <div class="inputwrap pull-left verif">
+                                <input name="Title" type="text" class="easyui-validatebox" data-options="required:true,missingMessage:'',validType:'length[1,255]'" value="">
+                            </div>
+                        </div>
+                        <p class="url"><i class="must">*</i>内容URL：</p>
+                        <div class="subdiv clearfix">
+                            <div class="inputwrap pull-left verif">
+                                <input name="LinkUrl" type="text" class="easyui-validatebox" data-options="required:true,missingMessage:'',validType:'length[1,255]'" value="">
+                            </div>
+                        </div>
+                        <p><i class="must">*</i>知识分类：</p>
+                        <div class="subdiv clearfix newNode">
+                            <input id="catalogTree" class="easyui-combotree" name="PublicCatalogId" value="@current.Id" style="width:50%">
+                        </div>
+                        <div class="pbtns">
+                            <input type="submit" class="subatbns confrimAdd" style="width: 95px;height:35px;" value="提交" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var catalogTree = $('#catalogTree');
+        catalogTree.combotree({required: true});
+        var treeData = @Html.Raw(ViewBag.TreeData.ToString());
+        catalogTree.combotree('loadData', treeData);
+        $('#submitTopic').form({
+            success: function (result) {
+                result = JSON.parse(result);
+                var msg;
+                if (typeof result == 'object') {
+                    msg = result.Succeed ? "提交成功！" : result.ErrorMessage;
+                    if (result.Succeed) {
+                        $("#submitTopic input[name='Title']").val("");
+                        $("#submitTopic input[name='LinkUrl']").val("");
+                    }
+                } else {
+                    msg = "服务器内部错！";
+                }
+                $.messager.show({
+                    title: '提交知识',
+                    msg: msg,
+                    showType: 'show'
+                });
+            }
+        });
+    });
+</script>

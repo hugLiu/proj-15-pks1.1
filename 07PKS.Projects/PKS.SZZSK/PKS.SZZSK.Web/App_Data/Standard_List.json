@@ -1,0 +1,106 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "国家标准",
+    "query": {
+      "_source": [ "iiid", "title", "thumbnail"],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "国家标准"
+              }
+            }
+          ]
+        }
+      },
+      "size": 8,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "行业标准",
+    "query": {
+      "_source": [ "iiid", "title", "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "行业标准"
+              }
+            }
+          ]
+        }
+      },
+      "size": 8,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "企业标准",
+    "query": {
+      "_source": [ "iiid", "title", "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "企业标准"
+              }
+            }
+          ]
+        }
+      },
+      "size": 8,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "title": "分公司标准",
+    "query": {
+      "_source": [ "iiid", "title", "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pc.keyword": "分公司标准"
+              }
+            }
+          ]
+        }
+      },
+      "size": 8,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

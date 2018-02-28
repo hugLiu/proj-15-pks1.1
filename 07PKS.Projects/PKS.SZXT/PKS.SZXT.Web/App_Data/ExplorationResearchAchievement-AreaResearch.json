@@ -1,0 +1,825 @@
+﻿[
+  {
+    "Grid": "viewConfig",
+    "title": "页面配置",
+    "query": {
+      "actionOfBoSection": "/ExplorationResearchAchievement/FragInfoOfArea",
+      "treeUrl": "/ExplorationResearchAchievement/GetTreeDataOfArea",
+      "showFilter": true,
+      "defaultBo": [],
+      "defaultYear": []
+    }
+  },
+  {
+    "Grid": "tree",
+    "title": "",
+    "query": {
+      "tree": [
+        {
+          "text": "构造研究",
+          "state": { "opened": true },
+          "_children": [
+            {
+              "text": "区域构造背景分析",
+              "state": { "selected": true },
+              "tag": {
+                "querykey": "g1_1"
+              }
+            },
+            {
+              "text": "地震构造解释",
+              "tag": {
+                "querykey": "g1_2"
+              }
+            },
+            {
+              "text": "凹(洼)陷结构及演化",
+              "tag": {
+                "querykey": "g1_3"
+              }
+            },
+            {
+              "text": "断裂体系",
+              "tag": {
+                "querykey": "g1_4"
+              }
+            }
+          ]
+        },
+        {
+          "text": "沉积研究",
+          "state": { "opened": true },
+          "_children": [
+            {
+              "text": "地层对比",
+              "tag": {
+                "querykey": "g2_1"
+              }
+            },
+            {
+              "text": "层序结构",
+              "tag": {
+                "querykey": "g2_2"
+              }
+            },
+            {
+              "text": "沉积相",
+              "tag": {
+                "querykey": "g2_3"
+              }
+            }
+          ]
+        },
+        {
+          "text": "储盖层研究",
+          "_children": [
+            {
+              "text": "储层物性",
+              "tag": {
+                "querykey": "g3_1"
+              }
+            },
+            {
+              "text": "成岩作用",
+              "tag": {
+                "querykey": "g3_2"
+              }
+            },
+            {
+              "text": "储层预测",
+              "tag": {
+                "querykey": "g3_3"
+              }
+            },
+            {
+              "text": "盖层特征",
+              "tag": {
+                "querykey": "g3_4"
+              }
+            }
+          ]
+        },
+        {
+          "text": "含油气系统分析",
+          "_children": [
+            {
+              "text": "烃源岩分析",
+              "tag": {
+                "querykey": "g4_1"
+              }
+            },
+            {
+              "text": "盆地模拟",
+              "tag": {
+                "querykey": "g4_2"
+              }
+            },
+            {
+              "text": "含油气系统描述",
+              "tag": {
+                "querykey": "g4_3"
+              }
+            },
+            {
+              "text": "资源量估算",
+              "tag": {
+                "querykey": "g4_4"
+              }
+            }
+          ]
+        },
+        {
+          "text": "成藏区带研究",
+          "tag": {
+            "querykey": "g5"
+          }
+        },
+        {
+          "text": "有利区块评价",
+          "tag": {
+            "querykey": "g6"
+          }
+        },
+        {
+          "text": "预探目标优选",
+          "tag": {
+            "querykey": "g7"
+          }
+        },
+        {
+          "text": "综合研究",
+          "tag": {
+            "querykey": "g8"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g0",
+    "title": "",
+    "query": "二级构造单元"
+  },
+  {
+    "Grid": "g1_1",
+    "title": "构造研究",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "盆地结构大剖面图",
+                  "二级构造带分布图",
+                  "盆地构造演化示意图",
+                  "断裂体系及应力状态分析图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g1_2",
+    "title": "地震构造解释",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "合成记录图",
+                  "连井地震地质解释剖面图",
+                  "区域时间构造图",
+                  "区域深度构造图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g1_3",
+    "title": "凹(洼)陷结构及演化",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "区域构造区划图",
+                  "区域时间等厚图",
+                  "区域深度等厚图",
+                  "骨干剖面构造演化图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g1_4",
+    "title": "断裂体系",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "断裂体系分布平面图",
+                  "断裂体系解释剖面图",
+                  "断层活动性分析图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g2_1",
+    "title": "地层对比",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地层对比剖面图",
+                  "地层分层数据表"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g2_2",
+    "title": "层序结构",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "区域地层综合柱状图",
+                  "层序划分方案图",
+                  "地震剖面层序结构解释图",
+                  "连井骨干剖面层序划分图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g2_3",
+    "title": "沉积相",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "单井综合柱状图",
+                  "区域岩性圈闭要素表",
+                  "区域沉积相剖面图",
+                  "区域沉积相平面图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g3_1",
+    "title": "储层物性",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "岩心岩性、物性分析统计图表",
+                  "测井解释物性统计表",
+                  "目标区主要目的层沉积相图",
+                  "储层物性平面图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g3_2",
+    "title": "成岩作用",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "成岩阶段划分图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g3_3",
+    "title": "储层预测",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "储层厚度平面图",
+                  "地震反演结果图",
+                  "属性分析图",
+                  "速度场平面图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g3_4",
+    "title": "盖层特征",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "盖层性质统计表"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g4_1",
+    "title": "烃源岩分析",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "烃源岩等厚图",
+                  "烃源岩TOC等值线图",
+                  "氯仿沥青A等值线图",
+                  "Ro等值线图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g4_2",
+    "title": "盆地模拟",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "埋藏史图",
+                  "热演化史剖面图",
+                  "生烃史图",
+                  "排烃史图",
+                  "运聚史图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g4_3",
+    "title": "含油气系统描述",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "油气聚集统计表",
+                  "含油气系统埋藏史图",
+                  "关键时刻地质剖面图",
+                  "关键时刻平面分布图",
+                  "含油气系统事件图"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g4_4",
+    "title": "资源量估算",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "盆地资源量估算表"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g5",
+    "title": "成藏区带研究",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "成藏区带划分表",
+                  "区带成藏条件综合评价表",
+                  "成藏区带资源量表",
+                  "区带重点圈闭地质风险分析表",
+                  "油气藏模式图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "showtype.keyword": "Image"
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g6",
+    "title": "有利区块评价",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "区带勘探目标资源潜力表",
+                  "区域各构造目标排队与优选表"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g7",
+    "title": "预探目标优选",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "圈闭储盖层要素表",
+                  "优选目标圈闭要素表",
+                  "圈闭综合评价表",
+                  "优选目标资源量计算"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  },
+  {
+    "Grid": "g8",
+    "title": "综合研究",
+    "query": {
+      "_source": [ "iiid", "title", "indexeddate", "dataid", "showtype", "pt" ],
+      "query": {
+        "bool": {
+          "should": [
+            { "terms": { "secondlevel.keyword": [ "@sl" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-Basin%" ] } },
+            { "terms": { "basin.keyword": [ "%BOT-FirstLevel%" ] } }
+          ],
+          "minimum_should_match": 1,
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "区域评价总结报告",
+                  "区域地层研究报告",
+                  "区域沉积相研究报告",
+                  "储层综合研究报告",
+                  "储层预测研究报告",
+                  "勘探目标评价报告",
+                  "盆地资源潜力评价报告"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "period.keyword": [ "@year" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": 1000
+    }
+  }
+]

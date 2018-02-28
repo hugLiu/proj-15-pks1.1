@@ -1,0 +1,89 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "获取井筛选条件",
+    "query": {
+      "query": {
+        "name": "井"
+      },
+      "fields": {
+        "properties.二级构造单元2": 1,
+        "properties.作业方式2": 1,
+        "properties.井型": 1,
+        "properties.井别": 1,
+        "properties.井况2": 1,
+        "properties.水深类型": 1,
+        "properties.完钻日期": 1
+      }
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "根据井筛选条件查询井[点击查询]",
+    "query": {
+      "query": {
+        "bot": "井",
+        "bo": {
+          "$regex": "@bo",
+          "$options": "i"
+        },
+        "properties.目标区": { "$in": [ "白云深水", "惠州" ] },
+        "properties.作业方式": { "$in": [ "自营", "合作" ] },
+        "properties.工区性质": { "$in": [ "2D", "3D" ] },
+        "properties.采集时间": { "$in": [ "2017", "2016", "2015" ] }
+      },
+      "fields": { "bo": 1 },
+      "sort": { "bo": 1 },
+      "skip": "@from",
+      "limit": "@size"
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "获取筛选后的探井成果列表[点击搜索]",
+    "query": {
+      "_source": [ "welll", "pt", "iiid", "title", "indexeddate", "thumbnail" ],
+
+      "post_filter": {
+        "terms": {
+          "well": "@well"
+        }
+      },
+      "from": "@from",
+      "size": "@size",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g_th",
+    "title": "缩略图",
+    "query": {
+      "_source": [ "thumbnail" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "井身结构图","设计井身结构图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@well"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1
+    }
+  }
+]

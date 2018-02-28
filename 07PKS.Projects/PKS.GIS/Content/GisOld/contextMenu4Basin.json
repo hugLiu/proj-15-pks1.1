@@ -1,0 +1,101 @@
+
+    {
+      "bot": "盆地",
+      "code": "basin",
+        "pageurls": [
+            {
+                "title": "xxx",
+                "url": "",
+                "system": "SZXT"
+            }
+        ],
+      "keypts": [
+        {
+          "title": "勘探成果图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                          "term": {
+                            "pt.keyword": "勘探成果图"
+                          }
+                        },
+                        {
+                          "term": {
+                            "basin.keyword": "wellId"
+                          }
+                        }
+                    ]
+                }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "勘探成果表",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                          "term": {
+                            "pt.keyword": "勘探成果表"
+                          }
+                        },
+                        {
+                          "term": {
+                            "basin.keyword": "wellId"
+                          }
+                        }
+                    ]
+                }
+            },
+            "size": 1
+          }
+        },
+        {
+          "title": "勘探形式图",
+          "query": {
+            "_source": [
+              "pt",
+              "iiid",
+              "title",
+              "indexeddate"
+            ],
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                          "term": {
+                            "pt.keyword": "勘探形式图"
+                          }
+                        },
+                        {
+                          "term": {
+                            "basin.keyword": "wellId"
+                          }
+                        }
+                    ]
+                }
+            },
+            "size": 1
+          }
+        }
+      ],
+      "relatedpages": [
+
+      ]
+    }

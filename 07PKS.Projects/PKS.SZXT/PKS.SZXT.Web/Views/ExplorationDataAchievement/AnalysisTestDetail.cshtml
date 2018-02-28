@@ -1,0 +1,90 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "分析化验 - " + ViewBag.Well;
+    var sooilUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.SOOIL);
+}
+@model string
+
+<style>
+    .wellName {
+        font-size: x-large;
+    }
+
+    .right {
+        float: right;
+    }
+</style>
+<script src="~/Scripts/util.js"></script>
+<div id="el">
+    <div class="jurassic-row">
+        <span class="wellName">@ViewBag.Well</span>
+        <a class="right" href="ExploratoryWellDetail?well=@ViewBag.Well">跳转到此井的探井资料</a>
+        <div class="jurassic-col-12">
+            <div class="jurassic-section">
+                <pks:singletitle title="物性分析" v-bind:map="map" v-bind:data="items1_1" v-bind:onshowmore="onshowmore" v-bind:onclick="onclickfunc"></pks:singletitle>
+            </div>
+            <div class="jurassic-section">
+                <pks:singletitle title="岩矿分析" v-bind:map="map" v-bind:data="items2_1" v-bind:onshowmore="onshowmore" v-bind:onclick="onclickfunc"></pks:singletitle>
+            </div>
+            <div class="jurassic-section">
+                <pks:singletitle title="流体高压物性分析" v-bind:map="map" v-bind:data="items3_1" v-bind:onshowmore="onshowmore" v-bind:onclick="onclickfunc"></pks:singletitle>
+            </div>
+            <div class="jurassic-section">
+                <pks:singletitle title="地球化学分析" v-bind:map="map" v-bind:data="items4_1" v-bind:onshowmore="onshowmore" v-bind:onclick="onclickfunc"></pks:singletitle>
+            </div>
+            <div class="jurassic-section">
+                <pks:singletitle title="油气水分析" v-bind:map="map" v-bind:data="items5_1" v-bind:onshowmore="onshowmore" v-bind:onclick="onclickfunc"></pks:singletitle>
+            </div>
+            <div class="jurassic-section">
+                <pks:singletitle title="古生物分析" v-bind:map="map" v-bind:data="items6_1" v-bind:onshowmore="onshowmore" v-bind:onclick="onclickfunc"></pks:singletitle>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.navigation = "勘探信息共享 > 勘探数据成果 > 分析化验 > ";
+    window.navigation = window.navigation + "<font color='red'>@ViewBag.Well</font> [<a href='/ExplorationDataAchievement/ExploratoryWellDetail?well=@ViewBag.Well' target='_blank'>探井资料</a>]";
+
+    var model = @Html.Raw(ViewBag.data);
+
+    //转换时间
+    for (var item in model) {
+        for (var i = 0; i < model[item].length; i++) {
+            if (model[item][i].indexeddate) {
+                model[item][i].indexeddate = moment(model[item][i].indexeddate, "YYYY-MM-DDTHH:mm:ss.SSSZ").toDate().format("MM-dd");
+            }
+        }
+    }
+
+    var imageMap = { "url": "src", "thumbnail": "thumbnail", "bottom": "title", "param": "iiid" };
+    PKSUI.bind({
+        el: "#el",
+        data: {
+            map: { left: "title", right: "indexeddate", url: "iiid" },
+            titles:["基础数据", "分析报告"],
+            items1_1: model.G1,
+            items1_2: model.G2,
+            items2_1: model.G3,
+            items2_2: model.G4,
+            items3_1: model.G5,
+            items3_2: model.G6,
+            items4_1: model.G7,
+            items4_2: model.G8,
+            items5_1: model.G9,
+            items5_2: model.G10,
+            items6_1: model.G11,
+            items6_2: model.G12
+        },
+        methods: {
+            onclickfunc: function (e) {
+                open("@Url.Action("GoToPublicPage")?iiid=" + e,"_blank");
+            },
+            onshowmore: function (e)
+            {
+                var url = "@sooilUrl/search/list?sourcename = 全部&p=1&w=" +e ;
+                window.open(url);
+            }
+        },
+        model: ["pks:singletitle", "pks:singleimg", "pks:tabs", "pks:listm"]
+    });
+</script>

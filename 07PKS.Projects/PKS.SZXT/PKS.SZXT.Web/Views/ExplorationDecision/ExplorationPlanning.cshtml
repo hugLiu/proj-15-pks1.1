@@ -1,0 +1,395 @@
+﻿@{
+    ViewBag.Title = "勘探规划";
+}
+@section stylesSection{
+    <style>
+        .jurassic-card {
+            height: 50px;
+        }
+
+        .jurassic-card-align {
+            line-height: 30px;
+        }
+    </style>
+}
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-1  jurassic-card jurasssic-leftgrey">
+            <div class="jurassic-margin-container jurassic-text-center jurassic-card-align">
+                周期
+            </div>
+        </div>
+        <div class="jurassic-col-11 jurassic-card">
+            <div class="jurassic-margin-container">
+                @*<pks:tabsfilter :data="filterdata" :map="filtermap" :onclick="onfilter"></pks:tabsfilter>*@
+                <ul>
+                    <li class="jurassic-li-inline" v-for="item in filterdata" v-bind:class="{active: item.active }" v-on:click="onfilter(item)">{{item.fiveplan}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="jurassic-row jurassic-card-border">
+        <pks:tabs :titles="planningClassification">
+            <div class="jurassic-margin-container" slot="规划执行情况">
+                <div class="jurassic-row">
+                    <div class="jurassic-col-6">
+                        <div class="jurassic-margin-container">
+                            <pks:histogram v-if="G9_showType == 'Chart'" :data="G9_data" height="300px" width="400px" :titlelocation="titlelocation2_1_1" :legendstyle="legendstyle2_1_1"></pks:histogram>
+                            <pks:table v-if="G9_showType == 'Table'" :datasource="G9_data" id="G9"></pks:table>
+                            <pks:html v-if="G9_showType == 'Html'" :template="G9_data">
+                            </pks:html>
+                        </div>
+                    </div>
+                    <div class="jurassic-col-6">
+                        <div class="jurassic-margin-container">
+                            <pks:histogram v-if="G10_showType == 'Chart'" :data="G10_data" height="300px" width="400px" :titlelocation="titlelocation2_1_1" :legendstyle="legendstyle2_1_1"></pks:histogram>
+                            <pks:table v-if="G10_showType == 'Table'" :datasource="G10_data" id="G10"></pks:table>
+                            <pks:html v-if="G10_showType == 'Html'" :template="G10_data">
+                            </pks:html>
+                        </div>
+                    </div>
+                </div>
+                <div class="jurassic-row">
+                    <div class="jurassic-col-6">
+                        <div class="jurassic-margin-container">
+                            <pks:histogram v-if="G11_showType == 'Chart'" :data="G11_data" height="300px" width="400px" :titlelocation="titlelocation2_1_1" :legendstyle="legendstyle2_1_1"></pks:histogram>
+                            <pks:table v-if="G11_showType == 'Table'" :datasource="G11_data" id="G11"></pks:table>
+                            <pks:html v-if="G11_showType == 'Html'" :template="G11_data">
+                            </pks:html>
+                        </div>
+                    </div>
+                    <div class="jurassic-col-6">
+                        <div class="jurassic-margin-container">
+                            <pks:histogram v-if="G12_showType == 'Chart'" :data="G12_data" height="300px" width="400px" :titlelocation="titlelocation2_1_1" :legendstyle="legendstyle2_1_1"></pks:histogram>
+                            <pks:table v-if="G12_showType == 'Table'" :datasource="G12_data" id="G12"></pks:table>
+                            <pks:html v-if="G12_showType == 'Html'" :template="G12_data">
+                            </pks:html>
+                        </div>
+                    </div>
+                </div>
+                <div class="jurassic-row">
+                    <div class="jurassic-col-6">
+                        <div class="jurassic-margin-container">
+                            <div v-if="G13_showType == 'Chart'">
+                                <pks:histogram :data="G13_data" height="300px" width="400px" :titlelocation="titlelocation2_1_1" :legendstyle="legendstyle2_1_1"></pks:histogram>
+                            </div>
+                            <div v-if="G13_showType == 'Html'">
+                                <pks:html id="n13-1" :template="G13_data">
+                                </pks:html>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jurassic-col-6">
+                        <div class="jurassic-margin-container">
+                            <div v-if="G14_showType == 'Chart'">
+                                <pks:histogram :data="G14_data" height="300px" width="400px" :titlelocation="titlelocation2_1_1" :legendstyle="legendstyle2_1_1"></pks:histogram>
+                            </div>
+                            <div v-if="G14_showType == 'Html'">
+                                <pks:html id="n14-1" :template="G14_data">
+                                </pks:html>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jurassic-row">
+                    <div class="jurassic-margin-container">
+                        <pks:panel title="工作量及探明储量执行情况" :show=false>
+                            <div class="jurassic-row jurassic-margin-container" slot="panel">
+                                <div v-if="G15_showType == 'Table'">
+                                    <pks:table :datasource="G15_data" id="n15-1"></pks:table>
+                                </div>
+                                <div v-if="G15_showType == 'Html'">
+                                    <pks:html id="n15-1" :template="G15_data">
+                                    </pks:html>
+                                </div>
+                            </div>
+                        </pks:panel>
+                    </div>
+                </div>
+                <div class="jurassic-row">
+                    <div class="jurassic-margin-container">
+                        <pks:panel title="费率执行情况" :show=false>
+                            <div class="jurassic-row jurassic-margin-container" slot="panel">
+                                <div v-if="G16_showType == 'Table'">
+                                    <pks:table :datasource="G16_data" id="n16-1"></pks:table>
+                                </div>
+                                <div v-if="G16_showType == 'Html'">
+                                    <pks:html id="n16-1" :template="G16_data">
+                                    </pks:html>
+                                </div>
+                            </div>
+                        </pks:panel>
+                    </div>
+                </div>
+            </div>
+            <div class="jurassic-margin-container" slot="勘探现状">
+                <div class="jurassic-row">
+                    <pks:panel title="勘探成果" :show="false">
+                        <div class="jurassic-margin-container" slot="panel">
+                            <div v-if="G6_showType == 'Table'">
+                                <pks:table :datasource="G6_data" id="n6-1"></pks:table>
+                            </div>
+                            <div v-if="G6_showType == 'Image'">
+                                <pks:imgviewer :data="G6_data" :map="imgMap" :onclick="onImgClick"></pks:imgviewer>
+                            </div>
+                            <div v-if="G6_showType == 'Html'">
+                                <pks:html :template="G6_data">
+                                </pks:html>
+                            </div>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:panel title="资源基础" :show=false>
+                        <div class="jurassic-margin-container" slot="panel">
+                            <div v-if="G7_showType == 'Table'">
+                                <pks:table :datasource="G7_data" id="n7-1"></pks:table>
+                            </div>
+                            <div v-if="G7_showType == 'Html'">
+                                <pks:html :template="G7_data">
+                                </pks:html>
+                            </div>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:panel title="历年勘探工作量" :show=false>
+                        <div class="jurassic-margin-container" slot="panel">
+                            <div v-if="G1_showType == 'Table'">
+                                <pks:table :datasource="G1_data" id="M1-1"></pks:table>
+                            </div>
+                            <div v-if="G1_showType == 'Html'">
+                                <pks:html :template="G1_data">
+                                </pks:html>
+                            </div>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:panel title="历年发现储量" :show=false>
+                        <div class="jurassic-margin-container" slot="panel">
+                            <div v-if="G8_showType == 'Table'">
+                                <pks:table :datasource="G8_data" id="M8-1"></pks:table>
+                            </div>
+                            <div v-if="G8_showType == 'Html'">
+                                <pks:html :template="G8_data">
+                                </pks:html>
+                            </div>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:panel title="勘探成效" :show=false>
+                        <div class="jurassic-margin-container" slot="panel">
+                            <div v-if="G2_showType == 'Table'">
+                                <pks:table :datasource="G2_data" id="M2-1"></pks:table>
+                            </div>
+                            <div v-if="G2_showType == 'Html'">
+                                <pks:html :template="G2_data">
+                                </pks:html>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="jurassic-margin-container" slot="勘探规划">
+                <div class="jurassic-row">
+                    <div class="jurassic-margin-container">
+                        <pks:panel title="工作量及投资" :show=false>
+                            <div class="jurassic-row jurassic-margin-container" slot="panel">
+                                <div v-if="G18_showType == 'Table'">
+                                    <pks:table :datasource="G18_data" id="n4-3"></pks:table>
+                                </div>
+                                <div v-if="G18_showType == 'Html'">
+                                    <pks:html id="n4-3" :template="G18_data">
+                                    </pks:html>
+                                </div>
+                            </div>
+                        </pks:panel>
+                    </div>
+                    <div class="jurassic-margin-container">
+                        <pks:panel title="探明储量" :show=false>
+                            <div class="jurassic-row jurassic-margin-container" slot="panel">
+                                <div v-if="G19_showType == 'Table'">
+                                    <pks:table :datasource="G19_data" id="n19-4"></pks:table>
+                                </div>
+                                <div v-if="G19_showType == 'Html'">
+                                    <pks:html id="n4-3" :template="G19_data">
+                                    </pks:html>
+                                </div>
+                            </div>
+                        </pks:panel>
+                    </div>
+                    <div class="jurassic-margin-container">
+                        <pks:singletitle title="勘探规划报告" :data="G20_data" :map="titleMap" :onclick="onTitleClick" :show=false></pks:singletitle>
+                    </div>
+                </div>
+            </div>
+        </pks:tabs>
+    </div>
+</div>
+<script src="~/Scripts/explorationDecision/FiveYearsPlan.js"></script>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    var filterItems = getShow5thName(3);
+
+    var setFilterItemsActive = function (item) {
+        for (var i in filterItems) {
+            var item2 = filterItems[i];
+            item2.active = (item == item2);
+        }
+    }
+    var firstItem = filterItems[0];
+    setFilterItemsActive(firstItem);
+
+    var goToDetail = function (iiid) {
+        var url = "/ExplorationDecision/GoToPublicPage?iiid=" + iiid;
+        window.open(url, "_blank");
+    };
+
+    var GetDataService = {
+        state: {
+            beginYear: firstItem.year[firstItem.year.length - 1],
+            endYear: firstItem.year[0]
+        },
+        setGridContent: function (result, sgrid, pgrid) {
+            var data = result[sgrid];
+            vm[pgrid + "_showType"] = data == null ? "" : data.showtype;
+            vm[pgrid + "_data"] = data == null ? null : data.Content;
+        },
+        setGridImage: function (result, sgrid, pgrid) {
+            var data = result[sgrid];
+            var showType = data == null ? "" : data.showtype;
+            vm[pgrid + "_showType"] = showType;
+            if (showType == 'Image') {
+                vm[pgrid + "_data"] = data == null ? null : [data];
+            } else {
+                vm[pgrid + "_data"] = data == null ? null : data.Content;
+            }
+        },
+        setGridImages: function (result, sgrid, pgrid) {
+            var data = result[sgrid];
+            vm[pgrid + "_showType"] = 'Image';
+            vm[pgrid + "_data"] = data;
+        },
+        setGridTitles: function (result, sgrid, pgrid) {
+            vm[pgrid + "_showType"] = "";
+            vm[pgrid + "_data"] = result[sgrid];
+        },
+        GetDataByYear: function () {
+            var state = GetDataService.state;
+            $.ajax({
+                url: "/ExplorationDecision/GetExplorationPlanningDataByYear",
+                type: "post",
+                data: { beginYear: state.beginYear, endYear: state.endYear },
+                success: function (result) {
+                    var mine = GetDataService;
+                    result = JSON.parse(result);
+                    //规划执行情况
+                    mine.setGridContent(result, "g4", "G9");
+                    mine.setGridContent(result, "g3", "G10");
+                    mine.setGridContent(result, "g1", "G11");
+                    mine.setGridContent(result, "g6", "G12");
+                    mine.setGridContent(result, "g2", "G13");
+                    mine.setGridContent(result, "g5", "G14");
+                    mine.setGridContent(result, "g7", "G15");
+                    mine.setGridContent(result, "g8", "G16");
+                    //勘探现状
+                    mine.setGridImages(result, "g19", "G6");//图片
+                    mine.setGridContent(result, "g20", "G7");
+                    mine.setGridContent(result, "g14", "G1");
+                    mine.setGridContent(result, "g21", "G8");
+                    mine.setGridContent(result, "g15", "G2");
+
+                    //mine.setGridContent(result, "g16", "G3");
+                    //mine.setGridContent(result, "g17", "G4");
+                    //mine.setGridContent(result, "g18", "G5");
+                    //勘探规划
+                    //mine.setGridContent(result, "g10", "G17");
+                    mine.setGridContent(result, "g11", "G18");
+                    mine.setGridContent(result, "g12", "G19");
+                    mine.setGridTitles(result, "g13", "G20");//标题列表
+                }
+            });
+        }
+    };
+
+    var vm = PKSUI.bind({
+        el: "#el",
+        data: {
+            filterdata: filterItems,
+            filterActive: 0,
+            filtermap: { title: "fiveplan", filter: "year" },
+            planningClassification: ["规划执行情况", "勘探现状", "勘探规划"],
+            explorationEffects: ["深水区", "浅水区"],
+            G1_showType: "",
+            G1_data: {},
+            G2_showType: "",
+            G2_data: {},
+            G3_showType: "",
+            G3_data: {},
+            G4_showType: "",
+            G4_data: {},
+            G5_showType: "",
+            G5_data: {},
+            G6_showType: "",
+            G6_data: [],
+            G7_showType: "",
+            G7_data: {},
+            G8_showType: "",
+            G8_data: {},
+
+            G9_showType: "",
+            G9_data: {},
+            G10_showType: "",
+            G10_data: {},
+            G11_showType: "",
+            G11_data: {},
+            G12_showType: "",
+            G12_data: {},
+            G13_showType: "",
+            G13_data: {},
+            G14_showType: "",
+            G14_data: {},
+            G15_showType: "",
+            G15_data: {},
+            G16_showType: "",
+            G16_data: {},
+
+            G17_showType: "",
+            G17_data: {},
+            G18_showType: "",
+            G18_data: {},
+            G19_showType: "",
+            G19_data: {},
+            G20_showType: "",
+            G20_data: [],
+
+            titleMap: { "left": "title", "right": "ShortDate", "url": "iiid" },
+            titlelocation1_2_2: ["center", "10"],
+            legendstyle1_2_2: ["center", "bottom", "horizontal"],
+
+            resourceBase: ["原油", "天然气"],
+
+            titlelocation2_1_1: ["left", "10"],
+            legendstyle2_1_1: ["center", "bottom", "horizontal"],
+
+            imgMap: { "url": "url", "thumbnail": "url", "bottom": "title", "param": "iiid" }
+        },
+        methods: {
+            onfilter: function (e) {
+                GetDataService.state.beginYear = e.year[e.year.length - 1];
+                GetDataService.state.endYear = e.year[0];
+                setFilterItemsActive(e);
+                GetDataService.GetDataByYear();
+            },
+            onTitleClick: function (e) {
+                goToDetail(e);
+            },
+            onImgClick: function (e) {
+                goToDetail(e);
+            },
+            model: ["pks:tabsfilter", "pks:singletitle", "pks:multipletitle", "pks:tabs", "pks:histogram", "pks:panel", "pks:table", "pks:html"]
+        }
+    });
+    GetDataService.GetDataByYear();
+</script>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>基础开发平台</title>
+    <link rel="stylesheet" type="text/css" href="../common/css/jasframework-layout.css" />
+    <link rel="stylesheet" type="text/css" href="../common/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="../common/thirdparty/jquery/themes/default/easyui.css"/>
+	<link rel="stylesheet" type="text/css" href="../common/thirdparty/jquery/themes/icon.css"></link>
+	
+	<script type="text/javascript" src="../common/thirdparty/jquery/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="../common/thirdparty/jquery/jquery.easyui.min.js"></script>
+	
+	<script type="text/javascript" src="../common/js/common.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-latest.js"></script> 
+ 	<script type="text/javascript" src="js/jquery.layout-latest.min.js"></script>
+  	<script type="text/javascript" src="js/jasframework.layout.js"></script> 
+	<script type="text/javascript" src="js/jasframework.functionMenu.js"></script>
+	<script type="text/javascript" src="js/jasframework.tab.js"></script>
+	<script type="text/javascript" src="js/jasframework.topButton.js"></script>
+	<script type="text/javascript" src="../common/js/AppConfig.js"></script>
+	<script type="text/javascript" src="../common/js/AppMethod.js"></script>
+	<script type="text/javascript" src="../mapviewer/js/MapViewerAPI.js"></script>
+	<script type="text/javascript" src="../i18n/i18n.js"></script>
+	<script type="text/javascript" src="js/home.js"></script> 
+ </head>  
+<!--  oncontextmenu="return false" -->
+<body >
+<input type="hidden" id="menuid" value="home"/>
+<!-- top区 -->
+
+	<!-- 站内搜索框、绝对定位、具体位置根据项目改变 -->
+	<div style="position:absolute;z-index:1000;top:88px;right: 50px " >
+		<input id="ss" class="easyui-searchbox"  data-options="prompt:'请输入搜索内容',searcher:itemSearch" />
+	</div>
+	<!-- 布局按钮 -->
+	<div class="layoutButton">
+		<div id="layout4" class="layout4" onmouseover="if(this.className!='layout4current'){this.className='layout4hov'}" onmouseout="if(this.className!='layout4current'){this.className='layout4'}" onclick="changeLayout('1');"></div>
+		<div id="layout3" class="layout3" onmouseover="if(this.className!='layout3current'){this.className='layout3hov'}" onmouseout="if(this.className!='layout3current'){this.className='layout3'}" onclick="changeLayout('2');"></div>
+	</div>
+	
+  	<div id="outerNorth" class="ui-layout-north" >
+  		<div id="toptop"></div>
+    	<div id="top">
+			<div class="logo">
+				<div class="logo_img"></div>
+				<div class="logo_title"></div>
+			</div>
+			<div class="nav">
+				<div class="toolbar">
+					<!-- <span class="info" id="DateTime">
+					 	<script> 
+                	 		setInterval("DateTime.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+                   		</script>
+             		</span>
+             		<span class="split1"></span> -->
+             		<a id="map2d"  href="#" onclick="showmap2d()" class="map2d"><span key="home_map" class="paltform-i18n">地图</span></a>
+             		<span class="split1"></span>
+					<a id="map3d"  href="#" onclick="showmap3d()" class="map3d"><span key="home_3D" class="paltform-i18n">三维</span></a>
+					<span class="split1"></span>
+					<a id="personalization"  href="#" onclick="showpreference()" class="preference"><span key="home_personalization" class="paltform-i18n">个性化设置</span></a>
+					<span class="split1"></span>
+					<a id="languagebutton"  href="#" onclick="showLanguageMenu()" onmouseover="showLanguageMenu()"  class="language"><span key="home_language" class="paltform-i18n">语言</span></a>
+					<span class="split1"></span>
+					<a id="information"  href="#" onclick="showInformation()" class="userinfo"><span key="home_userinfo" class="paltform-i18n">用户信息</span></a>
+					<span class="split1"></span>
+					<a id="updatepass"  href="#" onclick="updatePassward()" class="password"><span key="home_updatepass" class="paltform-i18n">修改密码</span></a> 
+ 					<span class="split1"></span>
+					<a id="quit"  href="#" onclick="login_out()" class="quit"><span key="home_quit" class="paltform-i18n">退出</span></a>
+					<span class="split1"></span>
+					<a id="help"  href="#" onclick="downloadFile(1);" class="help"><span key="home_help" class="paltform-i18n">帮助</span></a>
+				</div>
+			</div>
+			<div class="nav2">
+				<div class="toolbar2">
+             		<span class="split2"></span>
+             		<span id="zhuandao" onclick="" class="zhuandao">转到</span> 
+             		<span class="split2"></span>
+					<span id="layoutchange" onclick="" class="layoutchange">布局</span>
+					<span class="split2"></span>
+				</div>
+			</div>
+		</div>
+    </div>
+<!-- 隐藏top区域的图标 -->
+	<div id="hiddentop" class="hiddentop" style="display:block" align="center" onclick="hiddenTop()"></div>
+	<div id="showtop" class="showtop" style="display:none"  onclick="showTop()"></div>
+<!-- 隐藏left区域的图标 -->
+	<div id="hiddenleft" class="hiddenleft" style="display:block" align="center" onclick="hiddenLeft()"></div>
+	<div id="showleft" class="showleft" style="display:none"  onclick="showLeft()"></div>
+<!-- 菜单区 -->
+	<div id="left" class="ui-layout-west" onresize="leftResize()"></div>
+<!-- 功能区 -->
+  	<div id="outerCenter" class="ui-layout-center">  
+  		<div id="innerNorth" class="ui-layout-north">
+	  		<div id="innerNorthCenter" class="ui-layout-center"> 
+	  			<div id="innerNorthCenterTab" class="tab_map" onresize="resizeDiv(this)">
+					<ul id="innerNorthCenterTabtag"></ul>
+					<dl id="innerNorthCenterContentArea" class="contentArea"  style="z-index: 2;overflow: hidden;"></dl>
+				</div>
+	  		</div>
+	  		<div id="innerNorthEast" class="ui-layout-east"> 
+		  		<div id="innerNorthEastTab" class="tab_map" onresize="resizeDiv(this)">
+					<ul id="innerNorthEastTabtag"></ul>
+					<dl id="innerNorthEastContentArea" class="contentArea"  style="z-index: 2;overflow: hidden;"></dl>
+				</div>
+	  		</div>
+		</div>	
+	  	<div id="innerCenter" class="ui-layout-center"> 
+		<!-- 业务功能区 -->
+			<div id="centerTab" class="tab" onresize="resizeDiv(this)">	
+				<ul id="centerTabtag"></ul>
+				<dl id="centerContentArea" class="contentArea"  style="z-index: 2;padding: 0px;overflow: hidden;height: auto;width:auto"></dl>
+			</div>
+	  	</div>		
+		<div id="innerEast" class="ui-layout-east" style="overflow: hidden;">
+			<div id="innerEastCenter" class="ui-layout-center"> 
+				<div id="innerEastCenterTab" class="tab_map" onresize="resizeDiv(this)">
+					<ul id="innerEastCenterTabtag"></ul>
+					<dl id="innerEastCenterContentArea" class="contentArea"  style="z-index: 2;padding: 0px;overflow: hidden;"></dl>
+				</div>	
+	  		</div>
+	  		<div id="innerEastSouth" class="ui-layout-south"> 
+		  		<div id="innerEastSouthTab" class="tab_map" onresize="resizeDiv(this)">
+					<ul id="innerEastSouthTabtag"></ul>
+					<dl id="innerEastSouthContentArea" class="contentArea"  style="z-index: 2"></dl>
+				</div>	
+	  		</div>
+		</div>
+	</div>    	
+
+	<!-- 为解决窗口拖动不顺畅问题添加的div，不能删除 -->
+	<div id="loaderDiv" class="coverDiv" onmouseup="isMove=false;this.style.display='none';" style="display:none;"></div>
+  </body>
+</html>

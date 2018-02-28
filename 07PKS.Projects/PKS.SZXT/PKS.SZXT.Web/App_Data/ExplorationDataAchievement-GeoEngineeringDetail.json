@@ -1,0 +1,279 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "工区位置",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地震工区位置图"
+                ]
+              }
+            },
+            {
+              "term": {
+                "showtype.keyword": "Image"
+              }
+            },
+            {
+              "terms": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2-1",
+    "title": "地震采集数据",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地震采集设计报告",
+                  "采集工区调查成果数据表",
+                  "采集工区调查报告及汇报材料",
+                  "地震导航前绘数据",
+                  "地震采集基本数据表",
+                  "地震采集动态表",
+                  "二维地震测线作业数据表",
+                  "三维地震束线作业数据表",
+                  "地震资料现场处理报告及汇报材料",
+                  "地震采集参数表",
+                  "地震采集作业总结数据表",
+                  "地震资料采集报告",
+                  "地震资料采集作业施工总结",
+                  "地震资料采集综合导航报告",
+                  "地震资料采集导航定位报告",
+                  "地震资料采集监督报告"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2-2",
+    "title": "地震采集日报",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地震采集日报",
+                  "地震采集作业月报表"
+
+                ]
+              }
+            },
+            {
+              "terms": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2-3",
+    "title": "地震现场处理周报",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地震处理周报"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2-4",
+    "title": "地震采集作业月报表",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地震采集参数表"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3-1",
+    "title": "地震处理/常规处理数据",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地震资料处理基本数据表",
+                  "地震资料处理线束信息表",
+                  "地震资料处理报告及汇报材料",
+                  "地震资料处理网格数据表",
+                  "VSP资料处理报告",
+                  "地震资料重处理论证报告"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3-2",
+    "title": "地震处理/特殊处理数据",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "pt.keyword": [
+                  "地震资料处理方法研究基本数据表",
+                  "地震资料处理方法研究报告及汇报材料",
+                  "速度研究总结及汇报材料",
+                  "压力研究报告及汇报材料",
+                  "岩石物理研究总结报告及汇报材料"
+                ]
+              }
+            },
+            {
+              "terms": {
+                "swa.keyword": "@swa"
+              }
+            }
+          ]
+        }
+      },
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          },
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+
+]

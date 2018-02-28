@@ -1,0 +1,445 @@
+/* CSS Document 主界面样式
+*  author zhanggf
+*  date : 2012-11-16
+*/
+
+/* -----------页面整体样式定义-开始------------ */
+* {
+	margin: 0;
+	font-size: 12px;
+	font-family:"宋体";
+}
+
+html{
+	height:100%;
+	width:100%;
+	overflow-x: hidden;
+	overflow-y: hidden; 
+	border:none;
+}
+
+body{
+	height:100%;
+	width:100%;
+	background:#fff;
+	font-size:12px;
+	position:relative;
+	overflow:hidden;
+}
+
+img{
+	border:0;
+}
+
+iframe{
+	border:0;
+}
+
+ol, dl, ul {
+	list-style-type: none;
+	list-style-image: url();
+}
+
+/* -----------页面整体样式定义-结束------------ */
+
+/* -----------logo区域样式定义--开始----------- */
+
+#top{ 
+	width:100%; 
+	background:url(../image/banner-bottom.png) repeat-x 0 0; 
+	height:55px; 
+	overflow:hidden;
+}
+#top .logo{
+	float:left;
+	height:55px;
+	padding-left:0px;
+	width:50%;
+	display:inline;
+}
+
+#top .toolbar{
+	margin-right:0px;
+	margin-top:10px;
+	float:right;
+}
+
+.toolbar a{
+	font-weight:bold;
+	color:#008080;
+	height:16px;
+	line-height:16px;
+	display:inline-block;
+}
+.toolbar a:hover{
+	color:#003399;
+}
+
+.toolbar a.help{
+	background:url(../image/help.png) no-repeat 0 0;
+	padding:0 0 0 18px;
+}
+.toolbar a:hover.help{
+	color: #ff8100;
+}
+.toolbar a.password{
+	background:url(../image/pass.png) no-repeat 0 0;
+	padding:0 0 0 18px;
+}
+.toolbar a.language{
+	background:url(../image/language.png) no-repeat 0 0;
+	padding:0 0 0 18px;
+}
+.toolbar a.quit{
+	background:url(../image/quit.png) no-repeat 0 0;
+	padding:0 0 0 18px;
+}
+.toolbar a.map2d{
+	background:url(../image/map2d.png) no-repeat 0 0;
+	padding:0 0 0 18px;
+}
+.toolbar a.map3d{
+	background:url(../image/map3d.png) no-repeat 0 0;
+	padding:0 0 0 18px;
+}
+.toolbar a.navigator{
+	background:url(../image/navigator.png) no-repeat 0 0;
+	padding:0 0 0 18px;
+}
+.toolbar a.preference{
+	background:url(../image/perference.png) no-repeat 0 0;
+	padding:0 0 0 18px;
+}
+.toolbar a.userinfo{
+	background:url(../image/userinfo.png) no-repeat 0 0;
+	padding:0 0 0 18px;
+}
+
+.layoutButton{
+	position:absolute;
+	width:30px;
+	height:20px;
+	top:40px;
+	right:10px;
+	z-index:9999;
+	text-aligh:right;
+}
+
+.layout3{
+	background:url(../image/laymenu.png) no-repeat -75px 0px;
+	height:15px;
+	width:15px;	
+	float:left;
+}
+.layout4{
+	background:url(../image/laymenu.png) no-repeat -90px 0px;
+	height:15px;
+	width:15px;	
+	float:left;
+}
+
+.layout3current{ background:url(../image/laymenu.png) no-repeat -75px -15px; width:15px; height:15px;float:left;}
+.layout4current{ background:url(../image/laymenu.png) no-repeat -90px -15px; width:15px; height:15px;float:left;}
+
+.layout3hov{ background:url(../image/laymenu.png) no-repeat -75px -15px; width:15px; height:15px;float:left;}
+.layout4hov{ background:url(../image/laymenu.png) no-repeat -90px -15px; width:15px; height:15px;float:left;}
+
+/*-----------logo区域样式定义--结束----------- */
+
+
+/*-----------左侧菜单区域样式定义--开始----------- */
+#left{ 
+	width:200px;
+	height:500px;
+	float:left;
+	overflow:hidden; 
+	background:#f5fcff;
+	border-right:#D2E0F2 1px solid;
+}
+
+#left .dis{
+	display:block;
+	padding:5px;
+	height:auto;
+	overflow:auto;
+}
+
+#left .undis{
+	display:none;
+}
+
+#left a{
+	color: #444444;
+	text-decoration: none;
+}
+#left a:visited {
+	color: #999;
+	text-decoration: none;
+}
+#left a:hover {
+	color: #ff8100;
+	text-decoration: underline;
+}
+
+#left img{
+	margin:-7px 3px 0 0;
+}
+
+#left .normaltab{	
+	background:url(../image/menu_1.png) no-repeat 0 0;
+	cursor:pointer;
+	height:22px; 
+	font-size:12px; 
+	padding:6px 0 0 15px; 
+	color:#1b1212; 
+	margin:0px 0 1px 0;
+}
+#left .hovertab { 
+	background:url(../image/menu_2.png) no-repeat 0 0; 
+	cursor:pointer;
+	height:22px;
+	font-size:12px; 
+	padding:6px 0 0 15px;
+	color:#1b1212;
+	margin:0px 0 1px 0;
+}
+/*-----------左侧菜单区域样式定义--结束----------- */
+
+
+
+/*-----------右侧区域样式定义--开始----------- */
+#right {
+}
+/*-----------右侧区域样式定义--结束----------- */
+
+
+
+/*-----------footer区域样式定义--开始----------- */
+#footer{ 
+	background:#70d0fa; 
+	height:26px; 
+	text-align:center; 
+	width:100%; 
+	padding-top:4px;
+	color:#fff;
+}
+#footer img{ vertical-align:middle; margin-right:10px}
+
+/*-----------footer区域样式定义--开始----------- */
+
+
+
+
+/*-----------tab标签样式定义--开始----------- */
+
+.tab{
+	padding-top:0px;
+	height:100%;
+	width:100%;
+	position:relative;
+/* 	margin-top:-1px; */
+}
+
+.tab_map{
+	height:100%;
+	width:100%;
+	position:relative;
+	margin-top:-1px;
+}
+
+.tab ul,.tab_map ul{
+	height:29px;
+	background:url(../image/tab_bg.png) repeat-x 0 0;
+}
+
+.tab ul li{ 
+	float:left; 
+	padding:0 0 0 9px; 
+	height:28px;
+	margin:0 0 0 0px;
+	line-height:28px;
+}
+
+.tab_map ul li { 
+	float:left; 
+	padding:0 0 0 9px; 
+	height:28px;
+	margin:0 0 0 0px;
+	line-height:28px;
+}
+.tab ul li a {
+	display:block; 
+	padding:2px 30px 0 10px; 
+	height:25px; 
+	color:#555; 
+	font-weight:bold; 
+	float:left; 
+	text-decoration:none; 
+}
+.tab_map ul li a {
+	display:inline-block; 
+	padding:0px 0px 0 0px; 
+	height:12px;
+	width:16px;
+	color:#555; 
+	font-weight:bold; 
+	float:left; 
+	text-decoration:none; 
+}
+.tab ul li a:hover,.tab_map ul li a:hover{ 
+	/*color:#000;*/
+}
+
+
+.tab ul li.mouseover ,.tab_map ul li.mouseover {
+	background:url(../image/tab_active_r1_c1.png) no-repeat left top; 
+	/*color:#000;*/
+	padding:0 0 0 15px;
+	color:#FFF;
+}
+
+.tab ul li.current {
+	background:url(../image/tab_active_r1_c1.png) no-repeat left top; _background:url(../image/tab_active_r1_c1.gif) no-repeat left top; 
+	padding:0 0 0 15px;
+	color:#FFF;
+}
+
+.tab_map ul li.current {
+}
+
+.tab ul li.current a{ 
+	background:url(../image/tab_active_r1_c1.png) no-repeat right bottom; 
+	color:#000;
+	padding:2px 30px 3px 4px;
+	text-shadow:0 0 1px #fff;
+}
+.tab_map ul li.current a{ 
+}
+
+.tab ul li.mouseover a ,.tab_map ul li.mouseover a{ 
+	background:url(../image/tab_active_r1_c1.png) no-repeat right bottom; 
+	/*color:#000;*/
+	padding:2px 30px 3px 4px;
+	text-shadow:0 0 1px #fff;
+}
+
+.tab ul li a img,.tab_map ul li a img{
+	width:12px;
+	height:12px;
+	margin:-10px -10px 0 5px;
+}
+
+.map_tab_titleDiv{
+	position:absolute;
+	left:10px;
+	top:3px;
+	font-weight:bold; 
+}
+.map_tab_toolsDiv{
+	position:absolute;
+	/* width:40px; */
+	height:10px;
+	right:1px;
+	top:8px;
+}
+.tab_map_max{
+	background:url('../image/tab_map_max.png') no-repeat;
+}
+.tab_map_max_on{
+	background:url('../image/tab_map_max_on.png') no-repeat;
+}
+.tab_map_restore{
+	background:url('../image/tab_map_restore.png') no-repeat;
+}
+.tab_map_restore_on{
+	background:url('../image/tab_map_restore_on.png') no-repeat;
+}
+.tab_map_min{
+	background:url('../image/tab_map_min.png') no-repeat;
+}
+.tab_map_min_on{
+	background:url('../image/tab_map_min_on.png') no-repeat;
+}
+.tab_map_close{
+	background:url('../image/tab_map_close.png') no-repeat;
+}
+.tab_map_close_on{
+	background:url('../image/tab_map_close1.png') no-repeat;
+}
+
+.mapArea{
+	margin:35 auto;
+	overflow:hidden;
+}
+.mapArea dt{
+	height:100%;
+	display:none;
+}
+.mapArea dt.on{
+	display:block;
+}
+	
+.contentArea{
+	margin:35 auto;
+	padding-top:1px
+	overflow:hidden;
+}
+.contentArea dt{
+	height:100%;
+	display:none;
+}
+.contentArea dt.on{
+	height:100%;
+	display:block;
+}
+
+/*-----------tab标签样式定义--结束----------- */
+
+
+
+
+/* --------区域显示与隐藏按钮-开始-------- */
+.showhideleft{margin:auto 0 auto 0;float:left; width:4px; height:100%;}
+.hiddenleft{ margin:auto 0 auto -2px; width:9px; height:42px;background:url(../image/left.jpg) no-repeat; cursor:pointer;z-index:100;position:absolute;left:200px;top:355px;}
+.showleft{ margin:auto 0 auto 0; width:9px; height:42px;background:url(../image/right.jpg) no-repeat; cursor:pointer;z-index:100;position:absolute;left:0px;top:355px;}
+.showhidetop{ margin:0 auto 0 auto; width:100%; height:3px;}
+.hiddentop{ margin:-4px auto 0 auto; width:42px; height:9px; background:url(../image/up.jpg) no-repeat; cursor:pointer;z-index:100;position:absolute;left:550px;top:55px;}
+.showtop{ margin:0 auto 0 auto; width:42px; height:9px; background:url(../image/down.jpg) no-repeat; cursor:pointer;z-index:100;position:absolute;left:550px;top:0px;}
+/* --------区域显示与隐藏按钮-结束-------- */
+
+
+
+/*窗口拖动遮盖层，解决窗口拖动不顺畅问题*/
+.coverDiv{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:10000px;
+	height:10000px;
+	/* background:#fff;
+	filter:alpha(opacity=50); */
+	background:url(../image/space.gif) repeat 0 0;/*占位符图片，背景透明*/
+	z-index:10000000;
+}
+
+/*窗口遮盖层，用于解决窗口被activeX控件遮挡问题*/
+.window-maskDiv{
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	filter:alpha(opacity=40);
+	opacity:0.40;
+	background:#ccc;
+	font-size:1px;
+	*zoom:1;
+	overflow:hidden;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+}
+
+/*超链接去除虚线边框*/
+a{ text-decoration:none; outline:none;} /*ie8、9*/
+a:active {star:expression(this.onFocus=this.blur());} /*ie7*/

@@ -1,0 +1,263 @@
+﻿[
+  {
+    "grid": "G0",
+    "title": "储备圈闭分布图",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pc.keyword": "储备圈闭分布图"
+              }
+            },
+            {
+              "term": { "showtype.keyword": "Image" }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G1",
+    "title": "储备圈闭汇总",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pc.keyword": "储备圈闭汇总表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 10,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "重新落实圈闭汇总表",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pc.keyword": "重新落实圈闭汇总表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 10,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "新发现圈闭汇总表",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pc.keyword": "新发现圈闭汇总表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 10,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "title": "圈闭钻探情况汇总表",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pc.keyword": "圈闭钻探情况汇总表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 10,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G5",
+    "title": "待钻圈闭汇总表",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pc.keyword": "待钻圈闭汇总表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 10,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G6",
+    "title": "待钻圈闭综合评价汇总表",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "pc.keyword": "待钻圈闭综合评价汇总表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 10,
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G11",
+    "title": "获取勘探形势图",
+    "query": {
+      "_source": [ "pc", "pt", "iiid", "title", "indexeddate", "dataid", "resourcekey" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "勘探形势图"
+              }
+            },
+            {
+              "term": {
+                "showtype.keyword": "Image"
+              }
+            },
+            {
+              "prefix": {
+                "period":  "@year"
+              }
+            }
+          ]
+        }
+      },
+      "size": "1",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+ 
+  {
+    "grid": "G12",
+    "title": "获取已入库目标汇总表",
+    "query": {
+      "_source": [ "iiid", "indexeddate", "dataid", "title" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "圈闭储备汇总表"
+              }
+            },
+            {
+              "term": {
+                "secondlevel.keyword": "@secondlevel"
+              }
+            },
+            {
+              "prefix": {
+                "period": {
+                  "value": "@year"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": "1",
+      "sort": [
+        {
+          "indexeddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+
+]

@@ -1,0 +1,182 @@
+﻿@using PKS.Web
+@{
+    ViewBag.Title = "圈闭储备";
+    var portalUrl = this.Context.GetPortalSiteUrl();
+
+    var curYear = DateTime.Now.Year;
+    var tenYears = new List<int>();
+    while (curYear >= 2008)
+    {
+        tenYears.Add(curYear);
+        curYear--;
+    }
+}
+@section stylesSection{
+    <style>
+        .jurassic-card {
+            height: 45px;
+        }
+    </style>
+}
+
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-12">
+            <div class="jurassic-margin-container">
+                <div class="jurassic-row">
+                    <div class="jurassic-col-1  jurassic-card jurasssic-leftgrey">
+                        <div class="jurassic-margin-container jurassic-text-center" style="padding-top:5px;">
+                            年度
+                        </div>
+                    </div>
+                    <div class="jurassic-col-11 jurassic-card">
+                        <div class="jurassic-margin-container" style="padding-top:5px;" id="yearsContainer">
+                            @foreach (var item in tenYears)
+                            {
+                                var aid = "year" + item;
+                                var activeClass = item == DateTime.Now.Year ? "class=active" : "";
+                                <a href="#;" @activeClass id="@aid" onclick="changeYear('@aid','@item')">@item</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="jurassic-row">
+                    <div class="jurassic-margin-container">
+                        <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                        <span class="jurassic-panel-title" id="g1_data_collect">勘探形势图</span>
+                        <pks:singleimg :item="image" :map="map" :onclick="openRender"></pks:singleimg>
+                    </div>
+                </div>
+               
+                <div class="jurassic-row">
+                        <div class="jurassic-col-1 jurassic-card" style="height:85px;">
+                            <div class="jurassic-margin-container" style="padding-top:27px;">
+                                构造单元
+                            </div>
+                        </div>
+                        <div class="jurassic-col-11 jurassic-card" style="height:85px;">
+                            <div class="jurassic-margin-container" style="padding-top:5px;" id="bosContainer">
+                                @{
+                                    int ten = 1;
+                                }
+                                @foreach (var bo in ViewBag.BOs)
+                                {
+                                    var id = "bo" + bo;
+                                    var activeClass = bo == "白云凹陷" ? "class=active" : "";
+                                    <a href="#;" @activeClass id="@id" onclick="changeBO('@id','@bo')">@bo</a>
+                                    if (ten > 10)
+                                    {
+                                        ten = 1;
+                                        <br />
+                                    }
+                                    else
+                                    {
+                                        ten++;
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+          
+                
+
+                <div class="jurassic-margin-container">
+                    <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                    <span class="jurassic-panel-title" id="g2_data_collect_table">已入库目标汇总表</span>
+                    <div class="jurassic-margin-container">
+                        @*<pks:table :datasource="table" :onrowclick="onRowClick" :pagination="false" id="summaryTable"></pks:table>*@
+                        <pks:html :template="table" id="htmlTable"></pks:html>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    var detailData = @Html.Raw(ViewBag.DetailData);
+    var traps = detailData.traps;
+
+    var viewModel = {
+        map: { "url": "resourcekey", "thumbnail": "thumbnail", "bottom": "title", "param": "iiid" },
+        image:detailData.image,
+        table:detailData.table
+    };
+
+    PKSUI.bind({
+        el: "#el",
+        data: viewModel,
+        methods: {
+            openRender:function(e)
+            {
+                window.open("@portalUrl/render/content?iiid="+e);
+            },
+            onRowClick:function(e, row, $element, tablename)
+            {
+                var trap = row.trap || row["目标名称"];
+                window.open("/ExplorationDataAchievement/TripReserve?trap="+trap);
+            }
+        },
+        model: ["pks:singleimg","pks:table","pks:html"]
+
+    });
+
+    function loadData(year,bo) {
+        var serviceUrl = "@Url.Action("GetTrapImageByYear")";
+        $.ajax({
+            url: serviceUrl,
+            type: "post",
+            data: {
+                year: year,
+                bo:bo
+            },
+            success: function (res) {
+                //console.log("loadData: ", res);
+                if (!res) {
+                    return
+                }
+                var data = JSON.parse(res);
+                viewModel.image = data.image;
+                viewModel.table = data.table;
+            },
+            error: function (res) {
+
+            }
+        });
+    }
+
+    function addLink()
+    {
+        $("#htmlTable table tr td").each(function(){
+            var trap = $(this).text();
+            var that = this;
+            $.each(traps,function(i,iTrap){
+                if(iTrap["BO"] == trap || $.inArray(trap,iTrap["Alias"])>=0){
+                    var html = "<a href='/ExplorationDataAchievement/TripReserveDetail?trap=" + iTrap["BO"] + "&alias=" + trap + "' target='_blank'>"+trap+"</a>";
+                    $(that).html(html);
+                }
+            });
+            
+        });
+    }
+
+    function changeYear(aid, year) {
+        $('a', $('#' + aid).parent()).removeClass("active");
+        $('#' + aid).addClass("active");
+        var bo = $("#bosContainer a.active").text();
+        loadData(year,bo);
+    }
+
+    function changeBO(id, bo) {
+        $('a', $('#' + id).parent()).removeClass("active");
+        $('#' + id).addClass("active");
+        var year = $("#yearsContainer a.active").text();
+        loadData(year,bo);
+        addLink();
+    }
+
+    $(document).ready(function(){
+        addLink();
+    });
+</script>

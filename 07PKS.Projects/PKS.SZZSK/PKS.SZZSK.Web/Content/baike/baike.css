@@ -1,0 +1,11 @@
+﻿.jurassic-imglist {
+    padding:0;
+}
+
+.jurassic-imglist .jurassic-listbox {
+    width: 192px;
+}
+
+.jurassic-imglist .jurassic-listimg {
+    width: auto;
+}

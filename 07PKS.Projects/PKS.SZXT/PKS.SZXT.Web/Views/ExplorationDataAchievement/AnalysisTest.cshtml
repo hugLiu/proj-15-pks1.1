@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "分析化验";
+}
+<div id="el">
+    <div class="jurassic-row">
+        <pks:filterlist v-bind:showsearchbtn="true" targettype="井" v-bind:items="filteritems" v-bind:searchbtnclick="onclick_searchTrap" v-bind:querybtnclick="onclick_queryFeature" v-bind:resultnum="resultnum" v-bind:shownum="shownum"></pks:filterlist>
+    </div>
+    <div class="jurassic-row">
+        <div id="imglist">
+            <pks:imglist v-bind:data="imglistData" v-bind:map="map" v-bind:onclick="onclick_goDetail"></pks:imglist>
+        </div>
+    </div>
+</div>
+<script>
+    var filterData = @Html.Raw(ViewBag.filterData);
+
+    var searchUrl = "@Url.Action("GetAnalysisTestSearchResult")";
+    var searchParam = {};
+    var objectThumbnail = "@Url.Content("~/Content/images/Objects/井_缩略.png")";
+    var th_url = "@Url.Action("GetWellThumbnail")";
+    var th = 'data:image/png;base64,';
+    function search(page){
+        if (page<1){
+            page = 1;
+        }
+        var pageUrl = searchUrl + "?from=" + ((page-1) * vm.pagesize) + "&size=" + vm.pagesize;
+        $.post(pageUrl, searchParam, function(r){
+            r.results.forEach(function (element) {
+                $.ajax({
+                    url: th_url,
+                    type: "POST",
+                    data: { well: element.well },
+                    async: false,
+                    success: function (data) {
+                        var r = JSON.parse(data);
+                        if (r&&r.length) {
+                            element.thumbnail = th + r[0]["thumbnail"];
+                        } else {
+                            element.thumbnail = objectThumbnail;
+                        }
+                    },
+                    error: function (d) {
+                        console && console.log(d);
+                    }
+                })
+                //element.thumbnail = objectThumbnail;
+            });
+            vm.imglistData = r.results;
+            vm.totaldata = r.total;
+            vm.current = r.from;
+            vm.resultnum = r.total;
+        });
+    }
+
+    var vm =  PKSUI.bind({
+        el: "#el",
+        data: {
+            filteritems: filterData,
+            shownum:7,
+            resultnum: 0,
+            imglistData: [],
+            map: { top: "thumbnail", bottom: "well", param: "well" },
+            pagesize: 255,
+            totaldata:100,
+            current: 1,
+        },
+        methods: {
+            onclick_searchTrap: function (e) {
+                searchUrl = "@Url.Action("GetAnalysisTestSearchResult")";
+                searchParam = {key: e.content};
+                search(1);
+            },
+            onclick_queryFeature: function (e) {
+                var p = {};
+                for(var i in e){
+                    var k = e[i].catelog;
+                    var v = e[i].value;
+                    if (!p[k]){
+                        p[k] = [];
+                    }
+                    p[k].push(v);
+                };
+                if(JSON.stringify(p)=="{}"){
+                    alert("请选择筛选条件！");
+                    return;
+                }
+                searchUrl = "@Url.Action("GetAnalysisTestFeatureResult")";
+                searchParam = {feature: JSON.stringify(p)};
+
+                search(1);
+            },
+
+            onclick_sort: function (sorttype, e) {
+                alert(sorttype + e.key + e.value);
+            },
+            onclick_goDetail: function (e) {
+                window.open("@Url.Action("AnalysisTestDetail")?well="+ e);
+            },
+        },
+        model: ["pks:filterlist", "pks:imglist", "pks:sort", "pks:pager"]
+
+    });
+    vm.onclick_searchTrap({type: "井", content: ""});
+
+</script>

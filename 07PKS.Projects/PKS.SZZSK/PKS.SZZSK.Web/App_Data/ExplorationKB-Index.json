@@ -1,0 +1,161 @@
+﻿[
+  {
+    "grid": "G1",
+    "title": "勘探目标认识",
+    "query": {
+      "_source": [ "iiid", "title" ],
+      "query": {
+        "match_phrase": {
+          "url": "/TargetBaiKe"
+        }
+      },
+      "size": "@size",
+      "aggs": {
+        "all": {
+          "terms": {
+            "field": "iiid.keyword",
+            "size": "8"
+          }
+        }
+      }
+    }
+  },
+  {
+    "grid": "G2",
+    "title": "勘探专业研究",
+    "query": {
+      "_source": [ "iiid", "title" ],
+      "query": {
+        "match_phrase": {
+          "url": "/MajorBaiKe"
+        }
+      },
+      "size": "@size",
+      "aggs": {
+        "all": {
+          "terms": {
+            "field": "iiid.keyword",
+            "size": "8"
+          }
+        }
+      }
+    }
+  },
+  {
+    "grid": "G3",
+    "title": "知识案例",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "知识案例"
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G4",
+    "title": "石油百科词条",
+    "query": {
+      "_source": [ "iiid", "title" ],
+      "query": {
+        "match_phrase": {
+          "url": "/OilWiKi"
+        }
+      },
+      "size": "@size",
+      "aggs": {
+        "all": {
+          "terms": {
+            "field": "iiid.keyword",
+            "size": "8"
+          }
+        }
+      }
+    }
+  },
+  {
+    "grid": "G5",
+    "title": "勘探社区热点",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G6",
+    "title": "知识图谱",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G7",
+    "title": "项目进展",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "G8",
+    "title": "最近更新百科",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "indexeddate", "createddate" ],
+      "query": {
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

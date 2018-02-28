@@ -1,0 +1,207 @@
+﻿@{
+    var curYear = DateTime.Now.Year;
+    var tenYears = new List<int>();
+    for (var i = 0; i < 10; i++)
+    {
+        tenYears.Add(curYear - i);
+    }
+    ViewBag.Title = "探井资料";
+}
+@section stylesSection{
+    <style>
+        .jurassic-card {
+            height: 45px;
+        }
+    </style>
+
+}
+
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-12">
+            <div class="jurassic-margin-container">
+                <pks:tabs :titles="titleArry">
+                    <div slot="汇总">
+                        <div class="jurassic-row">
+                            <div class="jurassic-col-1  jurassic-card jurasssic-leftgrey">
+                                <div class="jurassic-margin-container jurassic-text-center">
+                                    年度
+                                </div>
+                            </div>
+                            <div class="jurassic-col-11 jurassic-card">
+                                <div class="jurassic-margin-container" style="padding-top:5px;" id="yearsContainer">
+                                    @foreach (var item in tenYears)
+                                    {
+                                        var aid = "year" + item;
+                                        var activeClass = item == DateTime.Now.Year ? "class=active" : "";
+                                        <a href="#;" @activeClass id="@aid" onclick="changeYear('@aid','@item')">@item</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jurassic-margin-container">
+                            <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                            <span class="jurassic-panel-title" id="g1_data_collect">2017年年度探井统计</span>
+                            <pks:histogram :maintitle="g1_title_collect"
+                                           :data="g1_data_collect"
+                                           height="400px"
+                                           width="1100px"
+                                           :titlelocation="g1_titlelocation_collect"
+                                           :legendstyle="g1_legendstyle_collect">
+                            </pks:histogram>
+                        </div>
+                        <div class="jurassic-margin-container">
+                            <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                            <span class="jurassic-panel-title" id="g2_data_collect_table">2017年年度探井统计汇总</span>
+                            <div class="jurassic-margin-container">
+                                <pks:table :datasource="g2_data_collect_table" :pagination="false" id="summaryTable"></pks:table>
+                            </div>
+                        </div>
+                    </div>
+                    <div slot="明细">
+                        <div class="jurassic-col-12">
+                            <div class="jurassic-margin-container" style="margin-left:0px;margin-right:0px;">
+                                <div class="jurassic-margin-container" style="margin-left:0px;margin-right:0px;">
+                                    <pks:filterlist :showsearchbtn="true" targettype="井" :items="g3_filteritems" :searchbtnclick="g3_onclick_searchWell" :querybtnclick="g3_onclick_queryFeature" :shownum="shownum" :resultnum="resultnum"></pks:filterlist>
+                                </div>
+                                <div class="jurassic-margin-container">
+                                    <pks:imglist :data="g4_imglistData" :map="map" :onclick="g4_onclick_goDetail"></pks:imglist>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jurassic-margin-container" style="text-align:center">
+                            <div style="display:inline-block">
+                                @*<pks:pager :current="current" :totaldata="totaldata" :pagesize="pagesize" :onclick="onclick_pager"></pks:pager>*@
+                            </div>
+                        </div>
+                    </div>
+                </pks:tabs>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+     var th_url = "@Url.Action("GetWellThumbnail_WellData")";
+    var th = 'data:image/png;base64,';
+
+    var filterData =@Html.Raw(ViewBag.filterData);
+
+    var dataConfig = {
+        g1_title_collect: "2017年年度探井统计",
+        g1_data_collect: {},
+        g1_titlelocation_collect: ["center", "10"],
+        g1_legendstyle_collect: ["center", "bottom", "horizontal"],
+        g2_data_collect_table: [],
+        titleArry: ["汇总", "明细"],
+        g3_filteritems: filterData,
+        shownum: 7,
+        resultnum: 0,
+        //sortitems: sortData,
+        g4_imglistData: [],
+        map: { top: "thumbnail", bottom: "title", param: "well" },
+        imgMap: { "url": "url", "thumbnail": "url", "bottom": "title", "param": "iiid" },
+        pagesize: 255,
+        totaldata: 0,
+        current: 1
+    }
+
+    function getSummaryDataByYear(year) {
+        $('#g1_data_collect').html(year + "年年度探井统计");
+        $('#g2_data_collect_table').html(year + "年年度探井统计汇总");
+        $.ajax({
+            async:false,
+            url: "/ExplorationDataAchievement/GetExploratoryWellData",
+            type: "post",
+            data: { "year": year },
+            success: function (result) {
+                dataConfig.g1_data_collect = result.g1;
+                dataConfig.g2_data_collect_table = setBootstrapTableOptions(result.g2);
+            }
+        });
+    }
+
+    var year=new Date().getFullYear().toString();
+    getSummaryDataByYear(year);
+
+    function changeYear(aid,year)
+    {
+        $('a',$('#'+aid).parent()).removeClass("active");
+        $('#' + aid).addClass("active");
+        getSummaryDataByYear(year);
+    }
+    var searchConfig = {};
+    var objectThumbnail = "@Url.Content("~/Content/images/Objects/井_缩略.png")";
+
+    function searchWell(searchUrl, page, searchParam) {
+        if (page < 1) {
+            page = 1;
+        }
+        var pageUrl = searchUrl + "?from=" + ((page - 1) * dataConfig.pagesize) + "&size=" + dataConfig.pagesize;
+        $.post(pageUrl, searchParam, function (r) {
+            r.results.forEach(function(element){
+             $.ajax({
+                    url: th_url,
+                    type: "POST",
+                    data: { well: element.well },
+                    async: false,
+                    success: function (data) {
+                        var r = JSON.parse(data);
+                        if (r&&r.length) {
+                            element.thumbnail = th + r[0]["thumbnail"];
+                        } else {
+                            element.thumbnail = objectThumbnail;
+                        }
+                    },
+                    error: function (d) {
+                        console && console.log(d);
+                    }
+                });
+            });
+            dataConfig.g4_imglistData = r.results;
+            dataConfig.totaldata = r.total;
+            dataConfig.current = r.from;
+            dataConfig.resultnum = r.total;
+        });
+    }
+
+
+    var vm= PKSUI.bind({
+        el: "#el",
+        data: dataConfig,
+        methods: {
+
+            g3_onclick_searchWell: function (e) {
+                searchConfig.searchUrl = "@Url.Action("GetExploratoryWellSearchResult")";
+                searchConfig.page = 1;
+                searchConfig.searchParam = { key: e.content };
+                searchWell(searchConfig.searchUrl, searchConfig.page, searchConfig.searchParam);
+            },
+            g3_onclick_queryFeature: function (e) {
+                var p = {};
+                for(var i in e){
+                    var k = e[i].catelog;
+                    var v = e[i].value;
+                    if (!p[k]){
+                        p[k] = [];
+                    }
+                    p[k].push(v);
+                };
+                searchConfig.searchUrl = "@Url.Action("GetExploratoryWellFeatureResult")";
+                searchConfig.page = 1;
+                searchConfig.searchParam = { feature: JSON.stringify(p) };
+                searchWell(searchConfig.searchUrl, searchConfig.page, searchConfig.searchParam);
+            },
+            onclick_sort: function (sorttype, e) {
+                alert(sorttype + e.key + e.value);
+            },
+            g4_onclick_goDetail: function (e) {
+                window.open("ExploratoryWellDetail?well="+e,"_blank");
+            },
+        },
+        model: ["pks:tabs", "pks:histogram", "pks:table", "pks:filterlist", "pks:imglist", "pks:sort", "pks:pager", "pks:imgviewer"]
+
+    });
+
+    vm.g3_onclick_searchWell({type: "井", content: ""});
+</script>

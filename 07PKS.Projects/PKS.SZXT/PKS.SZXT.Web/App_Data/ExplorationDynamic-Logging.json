@@ -1,0 +1,227 @@
+﻿[
+  {
+    "grid": "g1",
+    "title": "录井油气发现",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "term": {
+          "pt.keyword": "钻时气测数据表"
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g2_1",
+    "title": "录井动态",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "最新现场岩心岩屑录井原始数据表"
+              }
+            }
+          ]
+        }
+      },
+      "size": 1,
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g2_2",
+    "title": "录井动态",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate", "well" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "现场岩心岩屑录井原始数据表"
+              }
+            },
+            {
+              "terms": {
+                "well.keyword": [ "@well" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "@size",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "grid": "g3_1",
+    "title": "蒙太奇图",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "蒙太奇图"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "g3_2",
+    "title": "录井草图",
+    "query": {
+      "_source": [ "pt", "iiid", "dataid", "title", "indexeddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "录井剖面草图"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "grid": "g3_3",
+    "title": "油气显示表",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "录井油气显示综合表"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Grid": "g3_4",
+    "title": "钻井地质日报",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "钻井地质日报"
+              }
+            },
+            {
+              "term": {
+                "well.keyword": "@wellId"
+              }
+            },
+            {
+              "range": {
+                "createddate": {
+                  "lte": "@date"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Grid": "g3_5",
+    "title": "钻井作业相邻井",
+    "query": {
+      "BOT": "井",
+      "BO": "@well",
+      "Distince": "10000",
+      "Top": "8"
+    }
+  },
+  {
+    "grid": "g3_6",
+    "title": "相邻井",
+    "query": {
+      "_source": [ "iiid", "dataid", "title", "abstract", "showtype", "indexeddate", "createddate" ],
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "pt.keyword": "相邻井"
+              }
+            },
+            {
+              "terms": {
+                "well": [ "@wellIds" ]
+              }
+            }
+          ]
+        }
+      },
+      "size": "8",
+      "sort": [
+        {
+          "createddate": {
+            "order": "desc"
+          }
+        }
+      ]
+    }
+  }
+]

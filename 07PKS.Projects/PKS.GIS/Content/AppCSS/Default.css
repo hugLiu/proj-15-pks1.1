@@ -1,0 +1,482 @@
+﻿html {
+    clear:both;
+    min-height: 100%;
+    /*margin-top:-10px;*/
+    
+}
+body {
+    width:100%;
+    height:100%;
+    
+}
+
+
+/*首页导航*/
+.navbar .navbar-nav > .active {
+            background-color: #3C7FA6; /* 背景色 */
+            color: white; /* 文字颜色 */
+            text-decoration: none; /* 不显示超链接下划线 */
+        }
+
+.main-navbar {
+    position:fixed;
+    z-index:2500;
+    height:90px;
+    width:100%;
+    /*background-color:#22356C;*/
+    background-image:url("../Images/Navbar/导航底图.png") ;
+    background-repeat:repeat-x;
+    border: 0px #202A5E solid; /* 边框 */
+    border-bottom-width:2px;
+        }
+
+            .main-navbar-ul li {                
+                float: left; /* 向左漂移，将竖排变为横排 */
+                display: block;
+                vertical-align:middle;
+                width:124px;
+                height:90px;
+                border: 0px #202A5E solid; /* 边框 */
+                border-right-width:1px;
+            }
+            .main-navbar-ul > li:last-child{
+                border-right-width:0px;
+            }
+
+/*首页导航收起*/
+.main-navbar-hide{
+    margin-top:-80px;
+}
+
+/*导航帮助*/
+.main-navbar-help{
+    float:right;
+    /*background-color:#132463;*/
+    /*background-image:url("../Images/Navbar/帮助底.png") ;
+    background-repeat:repeat-x;
+    width:127px;
+    height:90px;*/
+    vertical-align:middle;
+    text-align:center;
+    /*为了不下突出*/
+    /*margin-top:-10px;*/
+}
+.main-navbar-help{
+    /*color:#505F9B;*/
+    color:white;
+    cursor:pointer;
+    vertical-align:middle;
+    align-content:center;
+    text-align:center;
+    text-decoration: none; /* 不显示超链接下划线 */
+    /*line-height:90px; /*居中*/*/
+    font-weight:bolder;/*加粗*/
+}
+.main-navbar-help:hover{
+    color:#7997d0;
+    text-decoration: none; /* 不显示超链接下划线 */
+}
+.main-navbar-help img{
+    width:18px;
+    height:18px;
+    
+}
+
+/*用户信息*/
+.main-navbar-account{
+    display:none;
+    float:right;
+    /*width:250px;
+    height:90px;*/
+    vertical-align:middle;
+    text-align:right;
+    text-decoration: none; /* 不显示超链接下划线 */
+}
+.main-navbar-account a{
+    /*color:#fff;*/
+    text-decoration: none; /* 不显示超链接下划线 */
+    margin-right:10px;
+}
+
+        /* 所有class为menu的div中的ul中的a样式(包括尚未点击的和点击过的样式) */
+        .main-navbar-ul li a, .main-navbar li a:visited {
+            /*background-color: #465c71; *//* 背景色 */   
+            height:90px;  
+            /*line-height:90px;*/       
+            width:124px;
+            margin-top:4px;     
+            border: 0px #202A5E solid; /* 边框 */       
+            color: #4b62a1; /* 文字颜色 */
+            display: block; /* 此元素将显示为块级元素，此元素前后会带有换行符 */
+            line-height: 1.35em; /* 行高 */
+            padding: 0px; /*padding: 4px 40px;*/ /* 内部填充的距离 */
+            text-decoration: none; /* 不显示超链接下划线 */
+            white-space: nowrap; /* 对于文本内的空白处，不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。 */
+            vertical-align:middle;
+            text-align:center;
+            font-size:12px;
+            font-weight:bolder;
+        }
+            /* 所有class为menu的div中的ul中的a样式(鼠标移动到元素中的样式) */
+            .main-navbar-ul li a:hover {
+                /*background-color: #bfcbd6;*/ /* 背景色 */
+                color: #7997d0; /* 文字颜色 */
+                text-decoration: none; /* 不显示超链接下划线 */
+            }
+            /* 所有class为menu的div中的ul中的a样式(鼠标点击元素时的样式) */
+            .main-navbar-ul li a:active {
+                background-color: lightgray; /* 背景色 */
+                color: #fff; /* 文字颜色 */
+                text-decoration: none; /* 不显示超链接下划线 */
+            }
+            
+    .main-navbar-text{
+        display:block;
+        width:124px;
+        /*line-height:24px;*/
+        text-align:center;
+        vertical-align:top;
+        font-size:12px;
+        font-weight:bold;
+        margin-top:-8px;
+    }
+    .main-navbar-logo{
+        display:block;
+        /*background-image:url("../Images/Navbar/海管up.png") ;*/
+        width:124px;
+        height:54px;
+        margin:0px;
+        vertical-align:top;
+        text-align:center;
+        align-content:center;
+        margin-left:0px;
+        margin-right:0px;
+    }
+/*海管*/
+.main-navbar-a-hg > .main-navbar-logo{    
+    background:url("../Images/Navbar/海管down.png") no-repeat top center;
+}
+.main-navbar-a-hg:hover > .main-navbar-logo{
+    background:url("../Images/Navbar/海管over.png") no-repeat top center;
+}
+.main-navbar-a-hg:active > .main-navbar-logo{
+    background:url("../Images/Navbar/海管up.png") no-repeat top center;
+}
+.main-navbar-a-hg-selected > .main-navbar-logo{    
+    background:url("../Images/Navbar/海管up.png") no-repeat top center;
+}
+.main-navbar-a-hg-selected > .main-navbar-text{    
+    color: #fff; /* 文字颜色 */
+}
+
+/*装备*/
+.main-navbar-a-zb > .main-navbar-logo{    
+    background:url("../Images/Navbar/装备down.png") no-repeat top center;
+}
+.main-navbar-a-zb:hover > .main-navbar-logo{
+    background:url("../Images/Navbar/装备over.png") no-repeat top center;
+}
+.main-navbar-a-zb:active > .main-navbar-logo{
+    background:url("../Images/Navbar/装备up.png") no-repeat top center;
+}
+.main-navbar-a-zb-selected > .main-navbar-logo{    
+    background:url("../Images/Navbar/装备up.png") no-repeat top center;
+}
+.main-navbar-a-zb-selected > .main-navbar-text{    
+    color: #fff; /* 文字颜色 */
+}
+
+/*油藏*/
+.main-navbar-a-yc > .main-navbar-logo{    
+    background:url("../Images/Navbar/通用场景down.png") no-repeat top center;
+}
+.main-navbar-a-yc:hover > .main-navbar-logo{
+    background:url("../Images/Navbar/通用场景over.png") no-repeat top center;
+}
+.main-navbar-a-yc:active > .main-navbar-logo{
+    background:url("../Images/Navbar/通用场景up.png") no-repeat top center;
+}
+.main-navbar-a-yc-selected > .main-navbar-logo{    
+    background:url("../Images/Navbar/通用场景up.png") no-repeat top center;
+}
+.main-navbar-a-yc-selected > .main-navbar-text{    
+    color: #fff; /* 文字颜色 */
+}
+
+/*协调*/
+.main-navbar-a-xt > .main-navbar-logo{    
+    background:url("../Images/Navbar/协调down.png") no-repeat top center;
+}
+.main-navbar-a-xt:hover > .main-navbar-logo{
+    background:url("../Images/Navbar/协调over.png") no-repeat top center;
+}
+.main-navbar-a-xt:active > .main-navbar-logo{
+    background:url("../Images/Navbar/协调up.png") no-repeat top center;
+}
+.main-navbar-a-xt-selected > .main-navbar-logo{    
+    background:url("../Images/Navbar/协调up.png") no-repeat top center;
+}
+.main-navbar-a-xt-selected > .main-navbar-text{    
+    color: #fff; /* 文字颜色 */
+}
+/*生产*/
+.main-navbar-a-sc > .main-navbar-logo{    
+    background:url("../Images/Navbar/生产down.png") no-repeat top center;
+}
+.main-navbar-a-sc:hover > .main-navbar-logo{
+    background:url("../Images/Navbar/生产over.png") no-repeat top center;
+}
+.main-navbar-a-sc:active > .main-navbar-logo{
+    background:url("../Images/Navbar/生产up.png") no-repeat top center;
+}
+.main-navbar-a-sc-selected > .main-navbar-logo{    
+    background:url("../Images/Navbar/生产up.png") no-repeat top center;
+}
+.main-navbar-a-sc-selected > .main-navbar-text{    
+    color: #fff; /* 文字颜色 */
+}
+
+/*随钻*/
+.main-navbar-a-sz > .main-navbar-logo{    
+    background:url("../Images/Navbar/通用场景down.png") no-repeat top center;
+}
+.main-navbar-a-sz:hover > .main-navbar-logo{
+    background:url("../Images/Navbar/通用场景over.png") no-repeat top center;
+}
+.main-navbar-a-sz:active > .main-navbar-logo{
+    background:url("../Images/Navbar/通用场景up.png") no-repeat top center;
+}
+.main-navbar-a-sz-selected > .main-navbar-logo{    
+    background:url("../Images/Navbar/通用场景up.png") no-repeat top center;
+}
+.main-navbar-a-sz-selected > .main-navbar-text{    
+    color: #fff; /* 文字颜色 */
+}
+
+
+/*故障诊断gz*/
+.main-navbar-a-gz > .main-navbar-logo{    
+    background:url("../Images/Navbar/通用场景down.png") no-repeat top center;
+}
+.main-navbar-a-gz:hover > .main-navbar-logo{
+    background:url("../Images/Navbar/通用场景over.png") no-repeat top center;
+}
+.main-navbar-a-gz:active > .main-navbar-logo{
+    background:url("../Images/Navbar/通用场景up.png") no-repeat top center;
+}
+.main-navbar-a-gz-selected > .main-navbar-logo{    
+    background:url("../Images/Navbar/通用场景up.png") no-repeat top center;
+}
+.main-navbar-a-gz-selected > .main-navbar-text{    
+    color: #fff; /* 文字颜色 */
+}
+
+
+/*公告栏*/
+.noticebar{
+    width:100%;
+    height:36px;    
+    background: rgba(0, 0, 0, 0.3) !important; /* IE无效，FF有效 背景透明，而内容不透明*/  
+    filter: alpha(opacity=30);  
+    background-color:#000;
+    color:#cbe42b;
+    font-size:14px;
+    font-weight:bold;
+    vertical-align:middle;
+    text-align:left;
+    margin-top:10px;
+}
+.noticebar-laba{
+    float:left;
+    width:23px;
+    height:19px;
+    vertical-align:middle;
+    margin-left:16px;
+    margin-top:7px;
+    cursor:pointer;
+}
+#noticebarContentUL >li > a{
+    color:#cbe42b;
+}
+
+
+.scrollText > ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+.scrollText {
+    float:left;
+    min-width: 600px;
+    height: 28px;
+    min-height: 25px;
+    line-height: 25px;
+    border: #ccc 0px solid;
+    float: left;
+    overflow: hidden;
+
+    vertical-align:middle;
+    margin-top:4px;
+    margin-left:6px;
+}
+    .scrollText li {
+        height: 25px;
+        padding-left: 10px;
+    }
+
+
+/*主页内容*/
+.main-content-my{
+    width:100%;
+    height:100%;
+}
+/*地图*/
+.mapContent{
+    width:100%;
+    height:100%;
+}
+
+
+
+
+
+
+/*图形导航上的样式*/
+
+
+.LeftSymbolOfMarkerDesc {
+            /* margin: 100px auto;*/
+            padding: 8px;
+            /*opacity: 0.6 ;*/
+            /*background: #BAC2D8;*/
+            background:rgba(186, 194, 216, 0.6) !important; /* IE无效，FF有效 背景透明，而内容不透明*/  
+            filter: alpha(opacity=60); 
+            background: #BAC2D8;
+             
+            border-radius: 4px;
+            position: absolute;
+            color: #12385F;
+            font-size: 14px;
+            font-weight: bolder;
+            
+            text-align:left;
+        }
+/*设置数字颜色*/
+.LeftSymbolOfMarkerDesc > span{
+        /*color: #FAC000;*/
+        color: white;
+        /*font-weight:normal;*/
+    }
+.LeftSymbolOfMarkerDesc > a{
+    clear:both;
+    cursor:pointer;
+    color:black;
+}
+.LeftSymbolOfMarkerDesc > a > span{
+        /*color: #FAC000;*/
+        color: white;
+        /*font-weight:normal;*/
+    }
+
+
+/*列表信息*/
+.slide-liebiao .my-liebiao-li {
+        clear: both;
+        border-bottom: 1px #DEE0E1 solid;
+        background: #fff;
+        padding: 0 10px;
+        line-height: 30px;
+        height: 30px;
+    }
+
+        .slide-liebiao .slide-liebiao-li > span {
+            float: left;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+.slide-liebiao-li .icheckbox_flat-blue {
+    float: right;
+    margin-top: 5px;
+}
+
+.slide-liebiao > ul {
+    clear: both;
+    list-style: none;
+    margin: 0px;
+    /*height: 70px;*/
+    overflow: hidden;
+    /*background: #F0F8FE;*/
+}
+
+    .liebiao > ul > li {
+        float: left;
+        width: 180px;
+        height: 23.3px;
+        line-height: 23.3px;
+        color: #666;
+        margin-left: 3px;
+        display: inline;
+        list-style-type: none;
+    }
+
+        .liebiao > ul > li > img {
+            margin-left: 5px;
+            margin-right: 2px;
+        }
+
+
+/*附件列表样式*/
+.attachment-list{
+
+}
+.attachment-list > a{
+    margin-right:10px;
+}
+
+/*按钮*/
+
+/*设置按钮*/
+.setting-btn-32{
+    display:block;
+    cursor:pointer;
+    width:28px;
+    height:27px;
+    background:url("../Images/Icon/setting_32.png") no-repeat top center;
+    background-size:26px 26px;
+}
+
+
+
+/*帮助页面*/
+.help-header {
+    position:static;
+    z-index:2500;
+    height:90px;
+    width:100%;
+    /*background-color:#22356C;*/
+    background-image:url("../Images/Navbar/导航底图.png") ;
+    background-repeat:repeat-x;
+    border: 0px #202A5E solid; /* 边框 */
+    border-bottom-width:2px;
+
+}
+
+.help-header a{
+    color:#fff;
+    font-size:24px;
+    font-weight:bolder;
+    line-height:90px;
+    text-decoration: none; /* 不显示超链接下划线 */
+    
+    margin-left:60px;
+}
+.help-header a > img{
+    width:24px;
+    height:24px;
+    
+    margin-top:-4px;
+}
+
+
+

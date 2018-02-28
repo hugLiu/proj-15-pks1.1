@@ -1,0 +1,75 @@
+﻿[
+  {
+    "id": "well",
+    "parent": "#",
+    "text": "正钻井",
+    "type": "well"
+  },
+  {
+    "id": "well001",
+    "parent": "well",
+    "text": "BY35-2-1",
+    "type": "wellChild"
+  },
+  {
+    "id": "well002",
+    "parent": "well",
+    "text": "BY35-2-2",
+    "type": "wellChild"
+  },
+  {
+    "id": "well003",
+    "parent": "well",
+    "text": "BY35-3-1",
+    "type": "wellChild"
+  },
+  {
+    "id": "well004",
+    "parent": "well",
+    "text": "BY35-3-3",
+    "type": "wellChild"
+  },
+  {
+    "id": "well005",
+    "parent": "well",
+    "text": "BY35-4-1",
+    "type": "wellChild"
+  },
+  {
+    "id": "seismic",
+    "parent": "#",
+    "text": "地震工区",
+    "type": "seismic"
+  },
+  {
+    "id": "seismic001",
+    "parent": "seismic",
+    "text": "HZ21_2017",
+    "type": "seismicChild",
+    "state": {"open": true}
+  },
+  {
+    "id": "seismic002",
+    "parent": "seismic",
+    "text": "DS25_2009",
+    "type": "seismicChild"
+  },
+  {
+    "id": "seismic003",
+    "parent": "seismic",
+    "text": "DS23_2003",
+    "type": "seismicChild"
+  },
+  {
+    "id": "seismic004",
+    "parent": "seismic",
+    "text": "BY_1979",
+    "type": "seismicChild"
+  },
+  {
+    "id": "seismic005",
+    "parent": "seismic",
+    "text": "BY32_2012",
+    "type": "seismicChild"
+  }
+]

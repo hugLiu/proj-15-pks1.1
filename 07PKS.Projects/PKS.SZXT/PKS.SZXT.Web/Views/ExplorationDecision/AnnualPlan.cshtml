@@ -1,0 +1,339 @@
+﻿@{
+    ViewBag.Title = "勘探计划";
+}
+@section stylesSection{
+    <style>
+        .tabbable .tab-content .tab-pane .clearfix {
+            height: 42px;
+        }
+    </style>
+}
+<div id="el">
+    <div class="jurassic-row">
+        <div class="jurassic-col-1  jurassic-card jurasssic-leftgrey">
+            <div class="jurassic-margin-container jurassic-text-center jurassic-card-align">
+                周期
+            </div>
+        </div>
+        <div class="jurassic-col-11 jurassic-card">
+            <div class="jurassic-margin-container">
+                <pks:tabsfilter :data="filterdata" :map="filtermap" :onclick="onfilter"></pks:tabsfilter>
+            </div>
+        </div>
+    </div>
+    <div class="jurassic-row jurassic-card-border">
+        <pks:tabs :titles="planningTitles">
+            <div class="jurassic-margin-container" slot="年度计划">
+                <div class="jurassic-row">
+                    <pks:panel title="勘探部署" :show="false">
+                        <div class="jurassic-row" slot="panel">
+                            <div class="jurassic-margin-container">
+                                <pks:table :datasource="G11_data" id="N1-1" v-if="G11_ShowType == 'Table'"></pks:table>
+                                <pks:tabs :titles="g11_Titles" v-else-if="G11_ShowType == 'Html'">
+                                    <div class="jurassic-margin-container" slot="年度自营勘探部署表">
+                                        <div class="jurassic-row">
+                                            <pks:html :template="G11_data">
+                                            </pks:html>
+                                        </div>
+                                    </div>
+                                </pks:tabs>
+                            </div>
+                            <div class="jurassic-margin-container">
+                                <pks:table :datasource="G12_data" id="N2-1" v-if="G12_ShowType == 'Table'"></pks:table>
+                                <pks:tabs :titles="g12_Titles" v-else-if="G12_ShowType == 'Html'">
+                                    <div class="jurassic-margin-container" slot="合作勘探部署表">
+                                        <div class="jurassic-row">
+                                            <pks:html :template="G12_data">
+                                            </pks:html>
+                                        </div>
+                                    </div>
+                                </pks:tabs>
+                            </div>
+                        </div>
+                        @*<div class="jurassic-margin-container" slot="panel">
+                                <pks:tabs :titles="deploymentTitles">
+                                    <div class="jurassic-row" slot="勘探部署表">
+                                        <div class="jurassic-margin-container">
+                                            <pks:table :datasource="G11_data" id="N1-1"></pks:table>
+                                        </div>
+                                        <div class="jurassic-margin-container">
+                                            <pks:table :datasource="G12_data" id="N2-1"></pks:table>
+                                        </div>
+                                    </div>
+                                    <div class="jurassic-row" slot="勘探部署图">
+                                        <div class="jurassic-margin-container">
+                                            <img :src="G10_data" style="width:100%;" />
+                                        </div>
+                                    </div>
+                                </pks:tabs>
+                            </div>*@
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:singletitle title="年度任务" :data="G13_data" :map="news_map" :onclick="G13_click" :show="false"></pks:singletitle>
+                </div>
+            </div>
+            <div class="jurassic-margin-container" slot="年度总结">
+                <div class="jurassic-row">
+                    <pks:panel title="工作量" :show="false">
+                        <div class="jurassic-row" slot="panel">
+                            <div class="jurassic-margin-container">
+                                <pks:table :datasource="G1_data" id="M1-1" v-if="G1_ShowType == 'Table'"></pks:table>
+                                <pks:tabs :titles="g1_Titles" v-else-if="G1_ShowType == 'Html'">
+                                    <div class="jurassic-margin-container" slot="年度物化探采集工作量表">
+                                        <div class="jurassic-row">
+                                            <pks:html :template="G1_data">
+                                            </pks:html>
+                                        </div>
+                                    </div>
+                                </pks:tabs>
+                            </div>
+                            <div class="jurassic-margin-container">
+                                <pks:table :datasource="G2_data" id="M1-2" v-if="G2_ShowType == 'Table'"></pks:table>
+                                <pks:tabs :titles="g2_Titles" v-else-if="G2_ShowType == 'Html'">
+                                    <div class="jurassic-margin-container" slot="年度地震处理工作量表">
+                                        <div class="jurassic-row">
+                                            <pks:html :template="G2_data">
+                                            </pks:html>
+                                        </div>
+                                    </div>
+                                </pks:tabs>
+                            </div>
+                            <div class="jurassic-margin-container">
+                                <pks:table :datasource="G3_data" id="M1-3" v-if="G3_ShowType == 'Table'"></pks:table>
+                                <pks:tabs :titles="g3_Titles" v-else-if="G3_ShowType == 'Html'">
+                                    <div class="jurassic-margin-container" slot="年度探井工作量表">
+                                        <div class="jurassic-row">
+                                            <pks:html :template="G3_data">
+                                            </pks:html>
+                                        </div>
+                                    </div>
+                                </pks:tabs>
+
+                            </div>
+                            <div class="jurassic-margin-container">
+                                <pks:table :datasource="G4_data" id="M1-4" v-if="G4_ShowType == 'Table'"></pks:table>
+                                <pks:tabs :titles="g4_Titles" v-else-if="G4_ShowType == 'Html'">
+                                    <div class="jurassic-margin-container" slot="年度勘探主要研究工作量统计表">
+                                        <div class="jurassic-row">
+                                            <pks:html :template="G4_data">
+                                            </pks:html>
+                                        </div>
+                                    </div>
+                                </pks:tabs>
+                            </div>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:panel title="预算执行" :show="false">
+                        <div class="jurassic-margin-container" slot="panel">
+                            <pks:table :datasource="G5_data" id="M2-1" v-if="G5_ShowType == 'Table'"></pks:table>
+                            <pks:html :template="G5_data" v-else-if="G5_ShowType == 'Html'">
+                            </pks:html>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:panel title="储量" :show="false">
+                        <div class="jurassic-margin-container" slot="panel">
+                            <pks:table :datasource="G6_data" id="M2-2" v-if="G6_ShowType == 'Table'"></pks:table>
+                            <pks:html :template="G6_data" v-else-if="G6_ShowType == 'Html'">
+                            </pks:html>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:panel title="勘探成果" :show="false">
+                        <div class="jurassic-margin-container" slot="panel">
+                            <pks:tabs :titles="explorationTitles">
+                                <div class="jurassic-row" slot="勘探成果表">
+                                    <pks:table :datasource="G8_data" id="M2-3" v-if="G8_ShowType == 'Table'"></pks:table>
+                                    <pks:html :template="G8_data" v-else-if="G8_ShowType == 'Html'">
+                                    </pks:html>
+                                </div>
+                                <div class="jurassic-row" slot="勘探成果图">
+                                    <pks:imgviewer :data="G7_data" :map="imgMap" :onclick="onImgClick"></pks:imgviewer>
+                                </div>
+                            </pks:tabs>
+                        </div>
+                    </pks:panel>
+                </div>
+                <div class="jurassic-row">
+                    <pks:singletitle title="勘探总结" :data="G9_data" :map="news_map" :onclick="G13_click" :show="false"></pks:singletitle>
+                </div>
+            </div>
+        </pks:tabs>
+    </div>
+</div>
+<script src="~/Scripts/explorationDecision/FiveYearsPlan.js"></script>
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script>
+    bootstrapTableOptions.showTitleTab = true;
+    bootstrapTableOptions.tableOption.height = "100%";
+    bootstrapTableOptions.tableOption.selectedRowIndex = -1;
+    var GetDataService = {
+        state: {
+            year: new Date().getFullYear().toString()
+        },
+        GetDataByYear: function () {
+            $.ajax({
+                url: "/ExplorationDecision/GetAnnualPlanDataByYear",
+                type: "post",
+                data: { "year": GetDataService.state.year },
+                success: function (value) {
+                    value = JSON.parse(value);
+
+                    if (value["g1"]) {
+                        vm.G1_data = setBootstrapTableOptions(value["g1"].Content);
+                        vm.G1_ShowType = value["g1"].ShowType;
+                    } else {
+                        vm.G1_data = [];
+                        vm.G1_ShowType = "Table";
+                    }
+
+                    if (value["g2"]) {
+                        vm.G2_data = setBootstrapTableOptions(value["g2"].Content);
+                        vm.G2_ShowType = value["g2"].ShowType;
+                    } else {
+                        vm.G2_data = [];
+                        vm.G2_ShowType = "Table";
+                    }
+
+                    if (value["g3"]) {
+                        var tables = setBootstrapTableOptions(value["g3"].Content);
+                        bootstrapTableOptions.buildMergeOptions(tables, 0, ["Company", "Basin", "TheYear", "Ocean", "WorkName", "Op_Mode_ID"], true, "Ocean", []);
+                        vm.G3_data = tables;
+                        //vm.G3_data = setBootstrapTableOptions(value["g3"].Content);
+                        vm.G3_ShowType = value["g3"].ShowType;
+                    } else {
+                        vm.G3_data = [];
+                        vm.G3_ShowType = "Table";
+                    }
+
+                    if (value["g4"]) {
+                        vm.G4_data = setBootstrapTableOptions(value["g4"].Content);
+                        vm.G4_ShowType = value["g4"].ShowType;
+                    } else {
+                        vm.G4_data = [];
+                        vm.G4_ShowType = "Table";
+                    }
+
+                    if (value["g5"]) {
+                        vm.G5_data = setBootstrapTableOptions(value["g5"].Content);
+                        vm.G5_ShowType = value["g5"].ShowType;
+                    } else {
+                        vm.G5_data = [];
+                        vm.G5_ShowType = "Table";
+                    }
+
+                    if (value["g6"]) {
+                        vm.G6_data = setBootstrapTableOptions(value["g6"].Content);
+                        vm.G6_ShowType = value["g6"].ShowType;
+                    } else {
+                        vm.G6_data = [];
+                        vm.G6_ShowType = "Table";
+                    }
+
+                    //vm.G1_data = setBootstrapTableOptions(value["g1"]);
+                    //vm.G2_data = setBootstrapTableOptions(value["g2"]);
+                    //vm.G3_data = setBootstrapTableOptions(value["g3"]);
+                    //vm.G4_data = setBootstrapTableOptions(value["g4"]);
+                    //vm.G5_data = setBootstrapTableOptions(value["g5"]);
+                    //vm.G6_data = setBootstrapTableOptions(value["g6"]);
+
+                    //vm.G8_data = setBootstrapTableOptions(value["g8"]);
+
+                    vm.G7_data = value["g7"];
+                    if (value["g8"]) {
+                        vm.G8_data = setBootstrapTableOptions(value["g8"].Content);
+                        vm.G8_ShowType = value["g8"].ShowType;
+                    } else {
+                        vm.G8_data = [];
+                        vm.G8_ShowType = "Table";
+                    }
+                    vm.G9_data = value["g9"];
+                    vm.G10_data = value["g10"];
+
+                    if (value["g11"]) {
+                        var tables = setBootstrapTableOptions(value["g11"].Content);
+                        bootstrapTableOptions.buildMergeOptions(tables, 0, ["Company", "Basin", "TheYear", "Ocean", "D3Collect", "D2Collect", "num"], true, "Ocean", []);
+                        vm.G11_data = tables;
+                        vm.G11_ShowType = value["g11"].ShowType;
+                    } else {
+                        vm.G11_data = [];
+                        vm.G11_ShowType = "Table";
+                    }
+                    if (value["g12"]) {
+                        vm.G12_data = setBootstrapTableOptions(value["g12"].Content);
+                        vm.G12_ShowType = value["g12"].ShowType;
+                    } else {
+                        vm.G12_data = [];
+                        vm.G12_ShowType = "Table";
+                    }
+
+                    vm.G13_data = value["g13"];
+                    //vm.G14_data = value["g14"];
+                }
+            });
+        }
+    };
+
+    var vm = PKSUI.bind({
+        el: "#el",
+        data: {
+            filterdata: getShow5thName(3),
+            filtermap: { title: "fiveplan", filter: "year" },
+            planningTitles: ["年度计划", "年度总结"],
+            explorationTitles: ["勘探成果表", "勘探成果图"],
+            deploymentTitles: ["勘探部署表", "勘探部署图"],
+            g1_Titles: ["年度物化探采集工作量表"],
+            g2_Titles: ["年度地震处理工作量表"],
+            g3_Titles: ["年度探井工作量表"],
+            g4_Titles: ["年度勘探主要研究工作量统计表"],
+            g11_Titles: ["年度自营勘探部署表"],
+            g12_Titles: ["合作勘探部署表"],
+            G1_data: [],
+            G1_ShowType: "Table",
+            G2_data: [],
+            G2_ShowType: "Table",
+            G3_data: [],
+            G3_ShowType: "Table",
+            G4_data: [],
+            G4_ShowType: "Table",
+            G5_data: [],
+            G5_ShowType: "Table",
+            G6_data: [],
+            G6_ShowType: "Table",
+            G7_data: [],
+            G8_data: [],
+            G8_ShowType: "Table",
+            G9_data: [],
+            G10_data: "",
+            G11_ShowType: "Table",
+            G11_data: [],
+            G12_ShowType: "Table",
+            G12_data: [],
+            G13_data: [],
+            //G14_data: [],
+
+            news_map: { "left": "title", "right": "indexeddate", "url": "iiid" },
+            imgMap: { "url": "url", "thumbnail": "url", "bottom": "title", "param": "iiid" }
+        },
+        methods: {
+            onfilter: function (e) {
+                GetDataService.state.year = e;
+                GetDataService.GetDataByYear();
+            },
+            onImgClick: function (e) {
+                open("/ExplorationDecision/GoToPublicPage?iiid=" + e, "_blank");
+            },
+            G13_click: function (e) {
+                open("/ExplorationDecision/GoToPublicPage?iiid=" + e, "_blank");
+            }
+        },
+        model: ["pks:tabsfilter", "pks:singletitle", "pks:image", "pks:tabs", "pks:panel", "pks:table", "pks:imgviewer", "pks:html"]
+
+    });
+    GetDataService.GetDataByYear();
+</script>

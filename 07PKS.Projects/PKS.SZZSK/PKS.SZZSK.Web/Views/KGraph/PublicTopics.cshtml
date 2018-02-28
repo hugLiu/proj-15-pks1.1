@@ -1,0 +1,187 @@
+﻿@using System.Linq;
+@using PKS.Utils;
+@using PKS.DbModels;
+@using PKS.DbServices.Models;
+@model List<PKS.DbModels.PKS_KG_Topic>
+@{
+    KG_CatalogNode root = ViewBag.Root;
+    KG_CatalogNode current = ViewBag.Current;
+    List<KG_CatalogNode> parents = ViewBag.Parents;
+    ViewBag.Title = current.Name + "知识点 - 知识图谱";
+}
+@section stylesSection {
+    <link rel="stylesheet" href="~/Content/KGraph/iconfont.min.css">
+    <link rel="stylesheet" href="~/Content/KGraph/kn_knowledge_content.css">
+    <link rel="stylesheet" href="~/Content/KGraph/kn_knowledge_inline.css">
+}
+@section scriptsSection {
+    @*<script src="~/Content/KGraph/d3.min.js"></script>*@
+    @*<script src="~/Content/KGraph/strucMap.js"></script>*@
+    <script src="~/Content/lib/pager/jquery.pagination.js"></script>
+}
+<div class="header_top addcolor">
+    <div class="module_div c15">
+        <div class="banner_div curindex">
+            <div class="mainCol padding15px clearfix">
+                <div class="banner_top_img">
+                </div>
+                <div class="banner_middle" style="cursor:default">
+                    <div class="banner_log">
+                        <span><img src="@current.ImageURL" width="80" height="80" alt=""></span>
+                        <em>@current.Name</em>
+                    </div>
+                    <div class="gzdiv" id="gzdiv" status="false" style="display:none;">
+                        <a>
+                            <em>38887</em><b>&nbsp;关注者</b>
+                            <em class="username" value="Hubo0831" style="display: none"></em>
+                            <span class="triggerlayer" baseid="15" status="false">
+                                <i class="fa fa-plus"></i>
+                                <em>&nbsp;关注</em>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                @*<p class="pdesc" title="@current.Description">@current.Description</p>*@
+            </div>
+        </div>
+        <div id="nav" class="nav nav-csdn" style="position: static; opacity: 1; top: 0px; left: 0px; z-index: 4;">
+            <div class="mainCol padding15px clearfix">
+                <div class="navtabs">
+                    <a href="/KGraph/Public?id=@root.Id">动态图谱</a>
+                    <a class="root">知识点</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mainCol topics addcolor">
+    <div class="my_knowledge clearfix c15">
+        <div class="kn_left whitebk w270px">
+            <div class="kn_left_bottom">
+                <p class="ptitle">在知识结构中的位置</p>
+                <ul class="listmenu">
+                    @foreach (var parent in parents)
+                    {
+                        if (parent == current)
+                        {
+                            <li class="lastli c15"><a class="lasttabs">@parent.Name</a></li>
+                        }
+                        else
+                        {
+                            <li class="c15">
+                                <a href="/KGraph/PublicTopics?id=@parent.Id">@parent.Name</a><i class="fa fa-long-arrow-down"></i>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="kn_right whitebk w860px">
+            <a name="md" id="md"></a>
+            <div class="rightcontent" id="content_list_div">
+                <div class="atab c15" push_type="false">
+                    <span class="xian bordercolor"></span>
+                    最新收录
+                    <a href="/KGraph/PublicSubmit?id=@current.Id" class="addeditbtn" target="_blank">
+                        <i class="fa"></i>我要提交
+                    </a>
+                </div>
+                <div class="divlist03 ">
+                    <ul class="list03 dynamicollect">
+                        @foreach (var topic in Model)
+                        {
+                            <li class="clearfix c15">
+                                <div class="siconleft">
+                                    <a class="iconfont icon-article" title="文章"></a>
+                                </div>
+                                <div class="scontentright">
+                                    <p class="title csdn-tracking-statistics" data-mod="popu_240_lib_15">
+                                        <a href="@topic.LinkUrl" title="@topic.Title" target="_blank">
+                                            @topic.Title
+                                        </a>
+                                        <em class="gray">&nbsp;&nbsp;来自&nbsp;&nbsp;</em>
+                                        <i>@topic.CreatedBy</i>
+                                    </p>
+                                    <p class="content">
+                                        <span>@topic.CreatedDate.Value.ToStandardDateString()</span>
+                                        <em class="gray">收录到&nbsp;&nbsp;</em>
+                                        @{
+                                            var catalogs = new List<PKS_KG_PublicCatalog>();
+                                            var topicCatalog = topic.PublicCatalog;
+                                            catalogs.Add(topicCatalog);
+                                            while (true)
+                                            {
+                                                var parentCatalog = topicCatalog.Parent;
+                                                if (parentCatalog == null) { break; }
+                                                catalogs.Add(parentCatalog);
+                                                topicCatalog = parentCatalog;
+                                            }
+                                            catalogs.Reverse();
+                                            for (int i = 0; i < catalogs.Count; i++)
+                                            {
+                                                topicCatalog = catalogs[i];
+                                                if (i == catalogs.Count - 1)
+                                                {
+                                                    <a href="/KGraph/PublicTopics?id=@topicCatalog.Id" class="tabs">@topicCatalog.Name</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="/KGraph/PublicTopics?id=@topicCatalog.Id">@topicCatalog.Name</a>
+                                                    <em class="gray">&nbsp;&nbsp;-&nbsp;&nbsp;</em>
+                                                }
+                                            }
+                                        }
+                                    </p>
+                                    <span class="optbtns" style="display:none;">
+                                        <!--TODO：　about collectoin, if the page is not myLib-collection, 'isCollection' should be '0', push it in the routes please-->
+                                        <a href="javascript:void(0);" data-id="53522-15-297-0" class="collectbtn triggerlayer">
+                                            <i class="fa-tianjia"></i>
+                                            <em>收藏</em>
+                                        </a>
+                                        <div href="" class="sharebtn" style="z-index: 3">
+                                            <span>
+                                                <i class="fa fa-share"></i>
+                                                <em>分享</em>
+                                            </span>
+                                            <div class="shareall kl_spread bdsharebuttonbox" bds_share_url="http://lib.csdn.net/article/android/53522?knId=297" data-id="53522" share_title="Android中measure过程、WRAP_CONTENT详解以及xml布局文件解析流程浅析(下)" share_resource="Android中measure过程、WRAP_CONTENT详解以及xml布局文件解析流程浅析(下)
+【Android知识库 - APP基础 - UI和布局】
+CSDN知识库，你身边的技术百科全书" share_pic="http://img.knowledge.csdn.net/upload/base/1455589744328_328.jpg" data-bd-bind="1513600393554" style="display: none;">
+                                                <a href="" title="分享到新浪微博" class="weibo fa fa-weibo" data-cmd="tsina" data-id="53522"></a>
+                                                <a href="" title="分享到微信" class="weixin fa fa-wechat" data-cmd="weixin" data-id="53522"></a>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </li>
+                                            }
+                    </ul>
+                </div>
+                <div id="topics_page" class="pager">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        var currentTopicId = @Html.Raw(current.Id);
+        var currentPage = @Html.Raw(ViewBag.CurrentPage);
+        var totalCount = @Html.Raw(ViewBag.Total);
+        var pageSize = @Html.Raw(ViewBag.PageSize);
+        $("#topics_page").pagination({
+            totalData: totalCount,
+            showData: pageSize,
+            current: currentPage,
+            jump: false,
+            coping: true,
+            keepShowPN: false,
+            isHide: true,
+            count: 3,
+            homePage: '首页',
+            endPage: '末页',
+            prevContent: '上页',
+            nextContent: '下页',
+            callback: function (e) {
+                window.location.href = "/KGraph/PublicTopics?id=" + currentTopicId + "&page=" + e.getCurrent();
+            }
+        });
+</script>

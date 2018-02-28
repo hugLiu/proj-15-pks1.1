@@ -1,0 +1,21 @@
+﻿{
+  "hits": {
+    "hits": [
+      {
+        "_source": {
+          "iiid": "demo1.pdf",
+          "title": "demo1",
+          "dataid": "demo1.pdf"
+        }       
+      },
+      {
+        "_source": {
+          "iiid": "demo2.pdf",
+          "title": "demo2",
+          "dataid": "demo2.pdf"
+        }       
+      }
+    ],
+    "total": 2
+  }
+}

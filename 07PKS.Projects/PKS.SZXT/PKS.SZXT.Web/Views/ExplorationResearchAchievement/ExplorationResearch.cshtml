@@ -1,0 +1,580 @@
+﻿@using PKS.Web;
+@model string
+@{
+    var portalUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.Portal);
+}
+@section stylesSection{
+    <style>
+        .side-nav {
+            width: 100%;
+            box-sizing: border-box;
+            padding-right: 30px;
+        }
+
+            .side-nav span {
+                display: block;
+                width: 100%;
+                font-size: 16px;
+                color: #5e6d82;
+                line-height: 40px;
+                transition: .2s;
+                padding-bottom: 6px;
+                border-bottom: 1px solid #eaeefb;
+            }
+
+            .side-nav ul {
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
+            }
+
+                .side-nav ul a.active {
+                    color: #f79383;
+                }
+
+            .side-nav li {
+                list-style: none;
+            }
+
+            .side-nav .nav-item a {
+                font-size: 16px;
+                color: #5e6d82;
+                line-height: 40px;
+                height: 40px;
+                margin: 0;
+                padding: 0;
+                text-decoration: none;
+                display: block;
+                position: relative;
+                transition: all .3s;
+            }
+
+            .side-nav .nav-item .nav-item a {
+                display: block;
+                height: 40px;
+                line-height: 40px;
+                font-size: 13px;
+                padding-left: 24px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+        .jurassic-imgviewer {
+            padding: 0px;
+        }
+
+        .jstree-open > .jstree-anchor > .fa-folder:before {
+            content: "\f07c";
+        }
+
+        .jstree-default .jstree-icon.none {
+            width: 0;
+        }
+
+        .rslides img {
+            max-width: 100%;
+            height: 418px;
+            cursor: pointer;
+        }
+
+        .image-box li {
+            float: left;
+            width: 230px;
+            height: 180px;
+        }
+    </style>
+}
+
+@section scriptsSection{
+    <script src="~/Scripts/util.js"></script>
+}
+
+<div id="app">
+    <!--start 搜索 过滤条件 -->
+    <div class="jurassic-section">
+        <div class="jurassic-row" v-if="showFilter">
+            <div class="jurassic-search-component" style="padding:5px;">
+                <div class="jurassic-search-filter" v-for="(item, index) in filters" :id="item.catelog">
+                    <div class="jurassic-search-filter-base">
+                        <div class="jurassic-row">
+                            <div class="jurassic-col-2">
+                                <span class="jurassic-caption">{{item.displayName}} ：</span>
+                            </div>
+                            <div class="jurassic-col-9">
+                                <label class="jurassic-label" v-if="item.type=='checkbox'">
+                                    <input class="jurassic-checkbox-all" :type="item.type" name="selectAll" @@click="onClickFilterItem"/>
+                                    全选
+                                </label>
+                                <label class="jurassic-label" v-for="(name,index) in item.list" v-if="index < showNum">
+                                    <input class="jurassic-checkbox" :type="item.type" :name="name" @@click="onClickFilterItem"/>
+                                    {{name}}
+                                </label>
+                            </div>
+                            <div class="jurassic-col-1" v-if="item.list.length > showNum">
+                                <span class="jurassic-label"   @@click="onShowMoreFilter">
+                                    更多
+                                    <i class="glyphicon glyphicon-triangle-bottom"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jurassic-search-filter-more" v-if="item.list.length >showNum">
+                        <div class="jurassic-row">
+                            <div class="jurassic-col-2">
+                                <span style="visibility: hidden" class="jurassic-label jurassic-caption"></span>
+                            </div>
+                            <div class="jurassic-col-10">
+                                <label class="jurassic-label" v-for="(name,index) in item.list"  v-if="index >= showNum">
+                                    <input class="jurassic-checkbox" :type="item.type" :name="name" @@click="onClickFilterItem" />
+                                    {{name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- end 搜索 过滤条件 -->
+    <!-- start 文档主体 -->
+    
+    <div class="jurassic-section">
+        <div class="jurassic-row">
+            <h3>@ViewBag.trap</h3>
+            <div class="jurassic-col-3">
+                <div class="side-nav">
+                    <ul id="tree"></ul>
+                </div>
+            </div>
+            <div class="jurassic-col-9">
+                <template v-for="(metadata,index) in metadatas">
+                    <div class="jurassic-section">
+                        <div class="jurassic-panel">
+                            <div class="jurassic-panel-header">
+                                <div class="jurassic-row">
+                                    <div class="jurassic-col-9">
+                                        <i class="glyphicon glyphicon-list jurassic-panel-logo"></i>
+                                        <span class="jurassic-panel-title">{{metadata.pt}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jurassic-panel-body" style="position:relative;padding:5px 0px;">
+                                <template v-if="metadata.list.length>0">
+                                    <template v-if="metadata.isImageType">
+                                        <pks:imgviewer :data="metadata.list" :map="imgMap" :onclick="openDetailUrl"></pks:imgviewer>
+                                    </template>
+                                    <template v-else>
+                                        <pks:listm :data=metadata.list :map="lstMap" :onclick="openDetailUrl"></pks:listm>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+    <!-- end 文档主体 -->
+</div>
+<script>
+
+    
+    function State() {
+        this._STATE_ = {};
+        this._PathSplitor = ".";
+        this.stateChangeEvent = "stateChanged.wander";
+        this.onStateChanged = function (state) {
+            $(document).triggerHandler(this.stateChangeEvent, { state: state});
+        };
+        this.getPathArray = function (path) {
+            var res = [];
+            if (typeof path != 'string')
+                return res;
+            res = path.split(this._PathSplitor);
+            return res;
+        };
+        this.setState = function (path, state) {
+            var ps = this.getPathArray(path);
+            if (ps.length > 0) {
+                var p = this._STATE_;
+                var l = ps.pop();
+                for (var i = 0, j = ps.length; i < j; i++) {
+                    if (p[ps[i]] == null)
+                        p = p[ps[i]] = {};
+                }
+                p[l] = state;
+                this.onStateChanged(state);
+            } else {
+                throw new Error("");
+            }
+        };
+        this.getState = function (path) {
+            var res = null;
+            var ps = this.getPathArray(path);
+            var s = this._STATE_;
+            for (var i = 0, j = ps.length; i < j; i++) {
+                res = s[ps[i]];
+                if (res == null)
+                    break;
+                s = s[ps[i]];
+            }
+            return res;
+        }
+    };
+</script>
+
+<script>
+    var GLOBAL_MODEL = @Html.Raw(Model);
+    var viewConfig = @Html.Raw(ViewBag.ViewConfig);
+    var _STATE_ = new State();
+
+    if(typeof GLOBAL_MODEL == "string"){
+        var trap = GLOBAL_MODEL;
+        window.navigation = "勘探信息共享 > 勘探研究成果 > 目标/油气藏评价 > ";
+        window.navigation = window.navigation + "<font color='red'>"+trap+"</font> [<a href='/ExplorationDataAchievement/TripReserveDetail?trap="+trap+"' target='_blank'>圈闭储备</a>]";
+    }
+    
+
+</script>
+<script>
+    var bot = "二级构造单元";
+    var yrName = "年份";
+</script>
+<script>
+    var selectAll = "selectAll";
+
+    function getOpts(filterName) {
+        var res = [];
+        $('#' + filterName)
+            .find('input[type="checkbox"]')
+            .each(function (i, n) {
+                if ($(n).prop("checked") && ($(n).attr("name") != selectAll)) {
+                    res.push($(n).attr("name"));
+                }
+            });
+        return res;
+    };
+
+    function checkOpts(filterName, opts) {
+        $('#' + filterName)
+            .find('input[type="checkbox"]')
+            .each(function (i, n) {
+                for (var i = 0, j = opts.length; i < j; i++) {
+                    if ($(n).attr("name") == opts[i]) {
+                        $(n).prop({ checked: true });
+                        break;
+                    }
+                }
+            });
+    };
+
+    function onClickCheckAll(e) {
+        var inputs = $(e.currentTarget).closest(".jurassic-search-filter").find("input");
+        if ($(e.currentTarget).prop("checked")) {
+            inputs.prop({ checked: true });
+        } else {
+            inputs.prop({ checked: false });
+        }
+    };
+
+    function onShowMoreFilterCriterias(e) {
+        var base$ = $(e.currentTarget).closest(".jurassic-search-filter-base");
+        base$.toggleClass("active")
+            .next(".jurassic-search-filter-more")
+            .slideToggle("600");
+    };
+
+    function onClickFilterCriteria(e) {
+        var tagName = $(e.currentTarget).attr("name");
+        if (tagName == selectAll)
+            onClickCheckAll(e);
+    }
+</script>
+<script>
+    function initViewModelByViewConfig(viewConfig,viewModel){
+        var config = {
+            showFilter: viewConfig.showFilter
+        };
+        if (viewConfig.showFilter) {
+            config.showNum = 8;
+            config.filters = GLOBAL_MODEL.filters;
+        } else {
+            config.target = GLOBAL_MODEL;
+            config.targetType = viewConfig.target.name;
+        }
+        return $.extend({}, viewModel, config);
+    }
+</script>
+<script>
+    var viewModel = {
+        imgMap: { url: "url", bottom: "title", param: "iiid" },
+        lstMap: { left: "title", right: "indexeddate", url: "iiid" },
+        metadatas: [],
+        catName: '',
+        querykey: '',
+        pdfshowurl: '/content/lib/pdfjs/ptpdf.show.html'
+    };
+
+    viewModel = initViewModelByViewConfig(viewConfig, viewModel);
+
+    var app = PKSUI.bind({
+        el: "#app",
+        data: viewModel,
+        methods: {
+            openDetailUrl: function (iiid) {
+                open('/ExplorationResearchAchievement/GoToPublicPage?handleunknownformat=1&iiid=' + iiid)
+            },
+            onShowMoreFilter: function (e) {
+                onShowMoreFilterCriterias(e);
+            },
+            onClickFilterItem: function (e) {
+                onClickFilterCriteria(e);
+                var filterName = $(e.currentTarget).closest(".jurassic-search-filter").attr("id");
+                var state = getOpts(filterName);
+                _STATE_.setState(filterName, state);
+            }
+        },
+        watch: {
+            "metadatas": function () {
+                this.$nextTick(function () {
+                    $("a[class^='centered-btns_nav']").remove();
+                });
+            }
+        },
+        model: ["pks:imgviewer","pks:listm"]
+    });
+</script>
+<script>
+    function getKnowlege(nodeName, queryKey) {
+        var result = [];
+        var tars = _STATE_.getState(bot);
+        var yrs = _STATE_.getState(yrName);
+        var url = viewConfig.actionOfBoSection;
+        var params = { fragName: nodeName, grid: queryKey, bos: tars, years: yrs };
+        $.ajax({
+            url: url,
+            type:"POST",
+            data: params,
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                result = data;
+            },
+            error: function () {
+
+            }
+        });
+        return result;
+    };
+</script>
+<script>
+    function getTreeData() {
+        var result = [];
+        var tars = _STATE_.getState(bot);
+        var yrs = _STATE_.getState(yrName);
+        var url = viewConfig.treeUrl;
+        var params = { bos: tars, years: yrs };
+        $.ajax({
+            url: url,
+            data: params,
+            type:"POST",
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                result = data;
+            },
+            error: function () {
+
+            }
+        });
+        return result;
+    }
+
+    function onTreeChange(obj, nodeName, querykey, isByEvent) {
+        if ($(obj).next().length > 0 && isByEvent) {
+            $(obj).next().slideToggle();
+            return;
+        }
+        $('a', $(obj).parents(".side-nav")).removeClass("active");
+        $(obj).addClass("active");
+        var  model = {};
+        model.catName = nodeName;
+        model.querykey = querykey;
+        if (querykey) {
+            app.metadatas = getKnowlege(nodeName, querykey);
+        }
+        else {
+            app.metadatas = [];
+        }
+    }
+
+    function BuildTree(data) {
+        $('#tree').html('');
+        //只构建2级
+        var lis = '';
+        var liFormat = '<li class="nav-item"><a href="#;" onclick="onTreeChange(this,\'{0}\',\'{1}\',true)" class="{2}" title="{4}">{0}</a>{3}</li>';
+        var ulFormat = ' <ul class="pure-menu-list sub-nav" style="height: auto;">{0}</ul>'
+        for (var i = 0; i < data.length; i++) {
+            var nodeText = data[i].text;
+            if (data[i]._children) {
+                var childlis = '';
+                for (var j = 0; j < data[i]._children.length; j++) {
+                    var childNodeText = data[i]._children[j].text;
+                    childlis += String.format(liFormat, childNodeText + "(" + data[i]._children[j].total + ")", data[i]._children[j].tag ? data[i]._children[j].tag.querykey : "", '', '', childNodeText);
+                }
+                var ul = String.format(ulFormat, childlis);
+                lis += String.format(liFormat, nodeText + "(" + data[i].total + ")", data[i].tag ? data[i].tag.querykey : "", '', ul, nodeText);
+            }
+            else {
+                lis += String.format(liFormat, nodeText + "(" + data[i].total + ")", data[i].tag ? data[i].tag.querykey : "", '', '', nodeText);
+            }
+        }
+        $('#tree').html(lis);
+    }
+
+    
+    @*var isTreeLoaded = false;
+
+    var app = PKSUI.bind({
+        el: "#app",
+        data: model,
+        methods: {
+            openDetailUrl: function (iiid) {
+                open('@portalUrl/render/content?iiid=' + iiid)
+            },
+            onShowMoreFiter: function (e) {
+                $(e.currentTarget).closest(".jurassic-search-filter-base")
+                    .next(".jurassic-search-filter-more")
+                    .slideToggle();
+            },
+            onClickFilterItem: function (e) {
+                var tagName = $(e.currentTarget).attr("name");
+                if (tagName == selectAll)
+                    onClickCheckAll(e);
+                var target = getOpts(targets);
+                var year = getOpts(years);
+                var selectedTitle = $("a[class='active']", $(".side-nav")).attr('title');
+                var treeData = getTreeData();
+                BuildTree(treeData);
+                if (target.options.length > 0 && year.options.length > 0) {
+                    if (selectedTitle)
+                        onTreeChange($("a[title='" + selectedTitle + "']", $(".side-nav"))[0], this.catName, this.querykey, false);
+                    else
+                        onTreeChange($('a', $(".side-nav"))[0], treeData[0].text, treeData[0].tag ? treeData[0].tag.querykey : '', false);
+                    var isTreeLoaded = true;
+                }
+            }
+        },
+        watch: {
+            "metadatas": function () {
+                this.$nextTick(function () {
+                    $("a[class^='centered-btns_nav']").remove();
+                });
+            }
+        },
+        model: ["pks:imgviewer","pks:listm"]
+    });*@
+
+    
+
+    
+    //$(document).ready(function () {
+    //    var treeData = getTreeData();
+    //    BuildTree(treeData);
+
+    //    var firstNode = null;
+    //    for (var i = 0; i < treeData.length; i++) {
+    //        var node = treeData[i];
+    //        if(node._children && node._children.length > 0){
+    //            for (var j = 0; j < node._children.length; j++) {
+    //                if(node._children[j].total > 0){
+    //                    firstNode = node._children[j];
+    //                    break;
+    //                }
+    //            }
+    //        } else if(node.total > 0) {
+    //            firstNode = node;
+    //        }
+    //        if(firstNode) break;
+    //    }
+
+    //    if(firstNode == null) firstNode = treeData[0];
+    //    var firstElement = $("a[title='" + firstNode.text + "']", $(".side-nav"))[0];
+
+    //    onTreeChange(firstElement, firstNode.text, firstNode.tag ? firstNode.tag.querykey : '',false);
+    //});
+</script>
+<script>
+    $(document).ready(function () {
+        if (viewConfig.showFilter) {
+            _STATE_.setState(bot, viewConfig.defaultBo);
+            _STATE_.setState(yrName, viewConfig.defaultYear);
+
+            checkOpts(bot,viewConfig.defaultBo);
+            checkOpts(yrName,viewConfig.defaultYear);
+
+        } else {
+            _STATE_.setState(bot, [GLOBAL_MODEL]);
+            _STATE_.setState(yrName, []);
+        }
+        var treeData = getTreeData();
+
+        BuildTree(treeData);
+
+        var firstNode = null;
+        for (var i = 0; i < treeData.length; i++) {
+            var node = treeData[i];
+            if (node._children && node._children.length > 0) {
+                for (var j = 0; j < node._children.length; j++) {
+                    if (node._children[j].total > 0) {
+                        firstNode = node._children[j];
+                        break;
+                    }
+                }
+            } else if (node.total > 0) {
+                firstNode = node;
+            }
+            if (firstNode) break;
+        }
+
+        if (firstNode == null) firstNode = treeData[0];
+        var firstElement = $("a[title='" + firstNode.text + "']", $(".side-nav"))[0];
+
+        onTreeChange(firstElement, firstNode.text, firstNode.tag ? firstNode.tag.querykey : '', false);
+
+        $(document).on(_STATE_.stateChangeEvent, function (e, data) {
+            var treeData = getTreeData();
+            BuildTree(treeData);
+            var firstNode = null;
+            for (var i = 0; i < treeData.length; i++) {
+                var node = treeData[i];
+                if (node._children && node._children.length > 0) {
+                    for (var j = 0; j < node._children.length; j++) {
+                        if (node._children[j].total > 0) {
+                            firstNode = node._children[j];
+                            break;
+                        }
+                    }
+                } else if (node.total > 0) {
+                    firstNode = node;
+                }
+                if (firstNode) break;
+            }
+
+            if (firstNode == null) firstNode = treeData[0];
+            var firstElement = $("a[title='" + firstNode.text + "']", $(".side-nav"))[0];
+
+            onTreeChange(firstElement, firstNode.text, firstNode.tag ? firstNode.tag.querykey : '', false);
+        })
+        $(".jurassic-search-filter input").attr("checked", true);
+        $(".jurassic-search-filter").each(function () {
+            var filterName = $(this).attr("id");
+            var state = getOpts(filterName);
+            _STATE_.setState(filterName, state);
+        });
+        $(".jurassic-search-filter input").prop("checked", false);
+        _STATE_ = new State();
+    });
+</script>

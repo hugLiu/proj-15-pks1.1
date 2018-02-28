@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "沉积储层研究";
+}
+<div id="el">
+    <div class="jurassic-row">
+        <pks:filterlist :showsearchbtn="false" targettype="井" :items="items" :searchbtnclick="onclicks" :querybtnclick="oncallback" :shownum="shownum" :resultnum="resultnum"></pks:filterlist>
+    </div>
+
+    <div class="jurassic-row jurassic-card-border">
+        <div class="jurassic-row">
+            <div class="jurassic-row" slot="panel">
+                <pks:singletitle title="分层数据表" :data="G1" :map="news_map" :show="showMore" :onclick="showDetailPage"></pks:singletitle>
+            </div>
+        </div>
+
+        <div class="jurassic-row">
+            <pks:panel title="沉积研究>物源" :show=false>
+                <div class="jurassic-row" slot="panel">
+                    <div class="jurassic-margin-container">
+                        <pks:imgviewer :data="G2" :map="image_map" :onclick="showDetailPage"></pks:imgviewer>
+                    </div>
+                </div>
+            </pks:panel>
+        </div>
+
+        <div class="jurassic-row">
+            <pks:panel title="沉积研究>沉积相" :show=false>
+                <div class="jurassic-margin-container" slot="panel">
+                    <pks:tabs :titles="cjyjResult">
+                        <div class="jurassic-row" slot="图">
+                            <pks:imgviewer :data="G3_1" :map="image_map" :onclick="showDetailPage"></pks:imgviewer>
+                        </div>
+                        <div class="jurassic-row" slot="表">
+                            <pks:listm :data="G3_2" :map="news_map" :onclick="showDetailPage"></pks:listm>
+                        </div>
+                    </pks:tabs>
+                </div>
+            </pks:panel>
+        </div>
+
+        <div class="jurassic-row">
+            <pks:panel title="储层评价>储层物性" :show=false>
+                <div class="jurassic-row" slot="panel">
+                    <div class="jurassic-margin-container">
+                        <pks:imgviewer :data="G4" :map="image_map" :onclick="showDetailPage"></pks:imgviewer>
+                    </div>
+                </div>
+            </pks:panel>
+        </div>
+
+        <div class="jurassic-row">
+            <pks:panel title="储层评价>成岩作用" :show=false>
+                <div class="jurassic-row" slot="panel">
+                    <div class="jurassic-margin-container">
+                        <pks:imgviewer :data="G5" :map="image_map" :onclick="showDetailPage"></pks:imgviewer>
+                    </div>
+                </div>
+            </pks:panel>
+        </div>
+        <div class="jurassic-row">
+            <pks:panel title="综合评价" :show=false>
+                <div class="jurassic-margin-container" slot="panel">
+                    <pks:imgviewer :data="G6" :map="image_map" :onclick="showDetailPage"></pks:imgviewer>
+                </div>
+            </pks:panel>
+        </div>
+
+    </div>
+</div>
+<script src="~/Scripts/explorationResearchAchievement/YearData.js"></script>
+<script>
+    var BotPropertysService = {
+        state: {
+            areas: "",
+            year: new Date().getFullYear().toString()
+        },
+        GetResearchData: function (target, year) {
+            $.ajax({
+                url: "/ExplorationResearchAchievement/GetResearchData",
+                data: {
+                    areas: target,
+                    year: year
+                },
+                type: "post",
+                success: function (result) {
+                    vm.G1 = result["g1"] || [];
+                    vm.G2 = result["g2"] || [];
+                    vm.G3_1 = result["g3_1"] || [];
+                    vm.G3_2 = result["g3_2"] || [];
+                    vm.G4 = result["g4"] || [];
+                    vm.G5 = result["g5"] || [];
+                    vm.G6 = result["g6"] || [];
+                    if (result["g8"]) vm.items = result["g8"];
+                }
+            });
+        }
+    }
+    var goToDetail = function (iiid) {
+        var url = "/ExplorationResearchAchievement/GoToPublicPage?iiid=" + iiid;
+        window.open(url, "_blank");
+    };
+    var vm = PKSUI.bind({
+        el: "#el",
+        data: {
+            items: [],
+            cjyjResult: ["图", "表"],
+            G1: [],
+            G2: [],
+            G3_1: [],
+            G3_2: [],
+            G4: [],
+            G5: [],
+            G6: [],
+            shownum: 8,
+            resultnum: 0,
+            showMore: false,
+            news_map: { left: "title", right: "indexeddate", url: "iiid" },
+            image_map: { url: "url", bottom: "title", param: "iiid" }
+        },
+        methods: {
+            onclicks: function (e) {
+                alert(e.result);
+            },
+            oncallback: function (e) {
+                var p = {};
+                for (var i in e) {
+                    var k = e[i].catelog;
+                    var v = e[i].value;
+                    if (!p[k]) {
+                        p[k] = [];
+                    }
+                    p[k].push(v);
+                };
+                var aa = eval(p);
+                if (aa.目标区 && aa.年度) {
+                    BotPropertysService.GetResearchData(aa.目标区, aa.年度);
+                }
+            },
+            showDetailPage: function (e) {
+                goToDetail(e);
+            },
+            onShowMore: function (e) {
+                alert(e);
+            }
+        },
+        model: ["pks:tabs", "pks:filterlist", "pks:panel", "pks:listm", "pks:singletitle", "pks:imgviewer", "pks:listm"]
+    });
+    BotPropertysService.GetResearchData(null, null);
+</script>
