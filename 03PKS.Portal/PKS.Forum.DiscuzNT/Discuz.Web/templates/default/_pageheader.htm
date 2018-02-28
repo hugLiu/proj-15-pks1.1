@@ -1,0 +1,66 @@
+﻿<%if {infloat}!=1%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%if pagetitle=="首页"%>
+    <title>{config.forumtitle} {config.seotitle}</title>
+    <%else%>
+    <title>{pagetitle} - {config.forumtitle} {config.seotitle}</title>
+    <%/if%>
+    {meta}
+    <meta name="generator" content="Discuz!NT {forumversion}" />
+    <meta name="author" content="Discuz!NT Team and Comsenz UI Team" />
+    <meta name="copyright" content="2001-2011 Comsenz Inc." />
+    <link rel="icon" href="{forumurl}favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="{forumurl}favicon.ico" type="image/x-icon" />
+
+    <!-- PKS公共头 -->
+    <link href="{webApiSiteUrl}/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{webApiSiteUrl}/Content/styles/site.css" rel="stylesheet" />
+    <link href="{webApiSiteUrl}/Content/styles/layout/header/head-nav-2.css" rel="stylesheet" />
+    <!--<link href="{webApiSiteUrl}/Content/xvision/xvision.css" rel="stylesheet" />-->
+    <!-- PKS WebAPI脚本 -->
+    <!--<script type="text/javascript" src="{webApiSiteUrl}/Scripts/jquery-1.11.1.js"></script>-->
+    <!--<script type="text/javascript" src="{webApiSiteUrl}/Scripts/moment.2.18.1/moment.min.js"></script>-->
+    <script type="text/javascript" src="{webApiSiteUrl}/Scripts/PKSGlobalStore.js"></script>
+    <script>
+        pksGlobalStore.init("{webApiSiteUrl}");
+    </script>
+    <!-- PKS WebAPI脚本 -->
+    <script type="text/javascript" src="{webApiSiteUrl}/Content/PKSUI/vendor.js"></script>
+    <script type="text/javascript" src="{webApiSiteUrl}/Content/PKSUI/PKSUI.js"></script>
+    <!-- PKS公共头 -->
+    <%if pagename!="website.aspx"%>
+    <link itemscope=""  rel="stylesheet" href="{cssdir}/dnt.css" type="text/css" media="all" />
+    <%/if%>
+    <link rel="stylesheet" href="{cssdir}/float.css" type="text/css" />
+    <%if {isnarrowpage}%>
+    <link type="text/css" rel="stylesheet" href="{cssdir}/widthauto.css" id="css_widthauto" />
+    <%/if%>
+    {link}
+    <link type="text/css" rel="stylesheet" href="/redirect/site.css" />
+    <script type="text/javascript">
+        var creditnotice = '{Scoresets.GetValidScoreNameAndId()}';
+        var forumpath = "{forumpath}";
+    </script>
+    <script type="text/javascript" src="{config.jqueryurl}"></script>
+    <script type="text/javascript">jQuery.noConflict();</script>
+    <script type="text/javascript" src="{jsdir}/common.js"></script>
+    <script type="text/javascript" src="{jsdir}/template_report.js"></script>
+    <script type="text/javascript" src="{jsdir}/template_utils.js"></script>
+    <script type="text/javascript" src="{jsdir}/ajax.js"></script>
+    <script type="text/javascript">
+        var aspxrewrite = {config.aspxrewrite};
+        var IMGDIR = '{imagedir}';
+        var disallowfloat = '{config.disallowfloatwin}';
+        var rooturl = "{rooturl}";
+        var imagemaxwidth = '{Templates.GetTemplateWidth(templatepath)}';
+        var cssdir = '{cssdir}';
+    </script>
+    {script}
+</head>

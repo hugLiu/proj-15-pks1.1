@@ -1,0 +1,63 @@
+﻿@using Newtonsoft.Json
+@model dynamic
+@{
+    //ViewBag.Title = ViewBag.data.title;
+}
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script src="~/Content/lib/bootstrap-table/bootstrap-table.min.js"></script>
+<link href="~/Content/lib/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+<link href="~/Content/styles/comment.css" rel="stylesheet" />
+<div class="row">
+    <div style="text-align:center">
+        <h1 id="title">@Model.title</h1>
+    </div>
+    <div style="text-align:center;margin:20px 0px;">
+        <span>作者：</span><span id="author">@Model.author</span>
+        <span style="margin-left:30px;">创建时间：</span><span id="createdate"></span>
+
+    </div>
+</div>
+<div id="pkstablecontainer">
+    <pks:table :id="'pttable'" :datasource="datasource"></pks:table>
+
+</div>
+<div id="remarkcontainer">
+    <pks:remark2 :id="'remark'" :iiid="iiid"></pks:remark2>
+</div>
+
+
+<script>
+
+  var config =@Html.Raw(JsonConvert.SerializeObject(Model));
+    var tableData = config.dataSource ? JSON.parse(config.dataSource) : [];
+
+    var vm = PKSUI.bind({
+        el: "#pkstablecontainer",
+        data: {
+            datasource: setBootstrapTableOptions(tableData)
+        },
+        model: 'pks:table'
+    });
+    var iiid = getPageParam("iiid");
+    if (iiid) {
+        var vm2 = PKSUI.bind({
+            el: "#remarkcontainer",
+            data: {
+                iiid: iiid
+            },
+            model: 'pks:remark2'
+        });
+    }
+
+
+    $(document).ready(function () {
+        if (config.createddate) {
+            //$('#original_createdate').html(data.createdate);
+            var date = moment(config.createddate, "YYYY-MM-DDTHH:mm:ss.SSSZ").toDate();
+            $('#createdate').html(date.format("yyyy-MM-dd hh:mm:ss"));
+        }
+    });
+</script>
+
+
+

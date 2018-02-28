@@ -1,0 +1,47 @@
+﻿@using PKS.Web;
+@{
+    var gisurl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.GIS);
+}
+<link href="~/Content/bootstrap/css/font-awesome.css" rel="stylesheet" />
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<div class="yxj_nav">
+    <div class="boxcenter" style="margin: 0 auto; overflow: visible;">
+        <div class="yxj_gis">
+            <h1>
+                <a href="javascript:redirectGisSys()" style="color: white"><span><i class="glyphicon glyphicon-map-marker"></i>GIS系统</span></a>
+            </h1>
+        </div>
+        <div class="yxj_admin ">
+            
+            @{
+                if (HasLogin())
+                {
+                    <h1 ><a style="color: white" href="#;">@UserName</a>
+                    </h1>
+                    <h1 ><a style="color: white" href="@LogoutUrl">退出</a>
+                    </h1>
+                }
+                else
+                {
+                    <h1 style="color: white"><a href="#;" onclick="login()">登录</a>
+                    </h1>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+<script>
+    function login() {
+        var curUrl = location.pathname;
+        var returnUrl = location.href;
+        if (curUrl.toLowerCase() == "/webappaccount/login") {
+            returnUrl = "/";
+        }
+        location.href = "/WebAppAccount/Login?returnUrl=" + returnUrl;
+    }
+
+    function redirectGisSys() {
+        window.open("@gisurl");
+    }
+</script>

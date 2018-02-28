@@ -1,0 +1,12 @@
+.jurassic-list{
+    list-style: none;
+    color:rgb(181,181,181);
+}
+.jurassic-list-item {
+    padding: 10px 10px 8px 2em;
+    border-bottom: 1px solid rgb(237,237,237);
+}
+.jurassic-list-item  a{
+    text-decoration: none;
+    color:rgb(181,181,181);
+}

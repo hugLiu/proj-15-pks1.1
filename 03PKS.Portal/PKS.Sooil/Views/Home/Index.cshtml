@@ -1,0 +1,219 @@
+﻿@{
+    var urlPrefix = "http://www.yooso.com.cn/";
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache">
+
+    <meta http-equiv="cache-control" content="no-cache">
+
+    <meta http-equiv="expires" content="0">
+    @*<link rel='icon' href='/Images/sooil/search_logo.png' type='image/x-ico' />*@
+    <title>搜油</title>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="js/ie6png.js" ></script>
+    <script type="text/javascript">
+    DD_belatedPNG.fix('div,ul,li,a,p,img,body,table,tr,td,dd,dt,span');</script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="@urlPrefix/css/style.css" />
+
+    @*<link href="@urlPrefix/css/bootstrap-responsive.css" rel="stylesheet">*@
+
+    <!-- <script type="text/javascript" src="js/suggest-yui2.js"></script>  -->
+    <script type="text/javascript" src="@urlPrefix/js/yahoo-dom-event.js"></script>
+    <script type="text/javascript" src="@urlPrefix/js/suggest-yui1.js"></script>
+    <script type="text/javascript" src="@urlPrefix/js/jquery.min.js"></script>
+    <script type="text/javascript" src="@urlPrefix/js/jquery.cookie.min.js"></script>
+    <!--  <script type="text/javascript" src="js/index.js"></script>  -->
+
+    <script type="text/javascript" src="@urlPrefix/js/index.js"></script>
+
+
+
+    <style>
+                a {
+                    color: #E0E0E0;
+                    text-decoration: none;
+                }
+                /* a:hover{ color:#F00; text-decoration:underline;}
+        a:active{ color:#30F;} */
+    </style>
+
+
+
+    <style type="text/css">
+@@media (max-width: 1280px) {
+	 .yxj_nav2{display:block;}
+	 .yxj_cd{display:none;}
+
+}
+/* 平板电脑和小屏电脑之间的分辨率 */
+@@media (min-width: 768px) and (max-width: 1024px) {
+   .yxj_search .yxj_ipt1{width:86%;}
+
+
+
+ }
+
+/* 横向放置的手机和竖向放置的平板之间的分辨率 */
+@@media (max-width: 767px) {
+   .yxj_search .yxj_ipt1{width:70%;}
+
+
+}
+
+.cf_xs{width:88px;background:#484848; position:absolute;left: 186px;height:66px;z-index:1}
+.cf_xs1{ width:88px; margin-left:8px; color:rgb(192, 192, 192)}
+.cf_xs1 h3{padding-bottom:6px;}
+.cf_xs1 h3 a{ font-size:13px; line-height:32px;}
+.cf_xs1 h4 a{ font-size:13px; line-height:16px;}
+.cf_xs1 h3 a:hover{background:url(../images/yxj_nav.jpg) repeat-x left 22px;color:#fff; text-decoration:none;}
+.cf_xs1 h4 a:hover{background:url(../images/yxj_nav.jpg) repeat-x left 14px;color:#fff;text-decoration:none;}
+
+@@media (min-width: 1500px) {
+.cf_xs{width:86px;}
+.cf_xs1{width:90px;}
+}
+@@media screen and (-webkit-min-device-pixel-ratio:0){
+.cf_xs1{width:92px;}
+}
+@@media (min-width: 1280px) and (max-width:1499px) {
+.cf_xs{width:88px;}
+.cf_xs1{width:88px;}
+}
+    </style>
+
+    <script type="text/javascript">
+$(document).ready(function(e) {
+
+	$(".yxj_nav2").hover(function(){
+		$(".yxj_nav2 dd").toggle();
+		})
+
+	$(".yxj_s2").click(function(e) {
+		$(this).find(".yxj_tc").show();
+	});
+
+	$(document).click(function(e) {
+		if($(".yxj_tc").is(":visible") && e.target.className!="yxj_ipt1"){
+			$(".yxj_tc").hide();
+		}
+	});
+	$(".yxj_tc li").click(function(e) {
+		$(".yxj_ipt1").val($(this).find("p").text());
+	});
+
+});
+    </script>
+
+    <script src="@urlPrefix/js/jquery.ez-bg-resize.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    /*$(document).ready(function() {
+      $("body").ezBgResize({
+        img     : "images/yooso_bg2.jpg", // Relative path example.  You could also use an absolute url (http://...).
+        opacity : 1, // Opacity. 1 = 100%.  This is optional.
+        center  : true // Boolean (true or false). This is optional. Default is true.
+      });
+    });*/
+    </script>
+
+</head>
+
+@*<body style="background: #ccc; overflow:hidden;background-size:100%">*@
+ <body style="background:#ccc url(@urlPrefix/images/yooso_bg2.jpg) no-repeat; overflow:hidden;background-size:100%">
+    <div class="yxj_nav">
+        <div class="boxcenter" style="margin:0 auto;overflow:visible;">
+
+        </div>
+    </div>
+
+
+    <!-- <div class="clear" style=" display:none;"></div> -->
+
+    <div class="clear" style=" display:none;"></div>
+    <div class="yxj_main yxj_sjmain">
+        <div class="yxj_ds">
+
+            <div class="yooso_logo" style="background-color:#ccc "><img src="/Images/sooil/search_logo.png" /></div>
+            <div class="yxj_search">
+                <div class="yxj_s2">
+
+                    <input type="hidden" name="channelid" value="234439">
+                    <input type="hidden" name="orderby" value="-IR_RANK" />
+                    <!--     <input type="hidden" name="orderby" value="RELEVANCE" /> -->
+                    <script>
+/*
+ *编码解码函数
+ */
+function encode(str,u)
+{
+	if (typeof(encodeURIComponent) == 'function')
+	{
+		if (u)
+			return encodeURI(str);
+		else
+			return encodeURIComponent(str);
+	}
+	else
+	{
+		return escape(str);
+	}
+}
+function search_for_text(){
+	var key = $("#textfield").val();
+	if(!key)
+		return false;
+	window.location.href = "/search/list?w=" + encode(key);
+}
+$(document).keyup(function(){
+	//敲击回车
+	if (event.keyCode==13)//回车键的键值为13
+		search_for_text();
+});
+                    </script>
+                    <input type="hidden" name="perpage" value="">
+                    <input placeholder="石油勘测" name="searchword" id="textfield" class="yxj_ipt1" />
+                    <input type="button" value="" class="yxj_ipt2" onclick="search_for_text()" />
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    ﻿
+
+    <div class="yxj_foot" style="position:absolute; bottom:0; width:100%;display: none">
+        <h1><span>版权所有©油搜YOOSO </span><span>京ICP备13039486号-7</span></h1>
+        <h2>
+            <span>
+                <a href="http://www.yooso.com.cn/foot/aboutOilSearch.html" target="_blank">关于油搜</a>
+            </span>    |
+            <span>
+                <a href="http://www.yooso.com.cn/foot/t20151218_283.html" target="_blank">设为首页</a>
+            </span>    |
+
+            <span>
+                <a href="http://www.yooso.com.cn/foot/t20151218_280.html" target="_blank">免责声明</a>
+            </span>    |
+
+            <span>
+                <a href="http://www.yooso.com.cn/addusermessageinfo01.jsp" target="_blank">  推广合作</a>
+            </span> |
+
+            <span>
+                <a href="http://www.yooso.com.cn/addusermessageinfo.jsp" target="_blank">意见反馈</a>
+            </span>
+        </h2>
+    </div>
+</body>
+</html>

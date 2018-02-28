@@ -1,0 +1,41 @@
+﻿@using PKS.Web;
+@{
+    Layout = "~/Views/Shared/_LayoutBase.cshtml";
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+}
+@section Styles{
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/lib/viewer/viewer.min.css" rel="stylesheet" />
+    <link href="~/Content/xvision/xvision.css" rel="stylesheet" />
+    <link href="~/Content/styles/layout/header/head-nav-2.css" rel="stylesheet" />
+    <link href="~/Content/styles/site.css" rel="stylesheet" />
+    @RenderSection("Styles", false)
+}
+<div id="xt_header" class="header">
+    <pks:header2 ref="content"></pks:header2>
+    <pks:menu :apipath="apipath"></pks:menu>
+</div>
+<div class="jurassic-body">
+    @RenderBody()
+</div>
+@section Scripts{
+    <script src="~/Content/jquery/jquery-3.1.1.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/util.js"></script>
+    @*WebAPI脚本*@
+    <script src="@webApiSiteUrl/Scripts/PKSGlobalStore.js"></script>@*错误日志*@
+    <script>
+        pksGlobalStore.init("@webApiSiteUrl");
+    </script>
+    <script src="@webApiSiteUrl/Scripts/moment.2.18.1/moment.min.js"></script>@*时间处理*@
+    @*WebAPI脚本*@
+    <script src="~/Content/xvision/xvision.js"></script>
+    <script src="~/Content/lib/viewer/viewer.min.js"></script>
+    @*Vue组件*@
+    <script src="@webApiSiteUrl/Content/PKSUI/vendor.js"></script>
+    <script src="@webApiSiteUrl/Content/PKSUI/PKSUI.js"></script>
+    <script src="~/Scripts/layout/header.js"></script>
+    @RenderSection("Scripts", false)
+}

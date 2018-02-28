@@ -1,0 +1,152 @@
+
+button,
+span{
+    vertical-align: middle;
+}
+
+.container{
+    position: relative;
+    min-width: 1280px;
+}
+
+.search{
+    height: 120px;
+    background-color: rgb(255,255,255);
+    box-shadow: 0px 2px 2px rgb(206,206,206);
+}
+
+.content{
+    width: 1170px;
+    margin: 20px auto ;
+}
+
+.content-main{
+    float: left;
+    width: 893px;
+    padding: 30px 50px;
+    border-top: 7px solid rgb(252,205,79);
+    border-right: 1px solid rgb(241,241,241);
+    background-color: rgb(255,255,255);
+}
+
+.content-relative{
+    float: left;
+    width: 276px;
+    padding: 30px 20px;
+    border-top: 7px solid rgb(235,235,235);
+    background-color: rgb(251,251,251);
+}
+
+.content-relative-display{
+    position: relative;
+    margin-bottom: 35px;
+}
+.content-relative-display>h1 {
+    font-size: 16px;
+    margin: 8px 0px;
+}
+
+.content-relative-display > ul{
+    margin: 0px ;
+    padding: 0px;
+    border-top: 1px solid  rgb(237,237,237);
+}
+.content-relative-display > ul>li{
+    padding:  10px 0px;
+    list-style: none;
+    border-bottom: 1px solid rgb(237,237,237);
+    font-size: 13px;
+}
+
+.vocabulary{
+    width: 100%;
+    position: relative;
+}
+
+.vocabulary-label{
+    width: 100%;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.vocabulary-label td{
+    padding: 15px 3px;
+    border-bottom: 1px solid rgb(199,199,199);
+}
+
+.vocabulary-label tr>td:first-child{
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.vocabulary-label tr>td:last-child{
+    text-align: right;
+}
+
+.img-button{
+    width: 24px;
+    height: 24px;
+    border: 1px solid red;
+    outline: none;
+    background-color: transparent;
+}
+
+.vocabulary-metadata{
+    width: 100%;
+    border: none;
+    margin-bottom: 10px;
+}
+.vocabulary-metadata td{
+    padding: 12px 3px;
+    border-bottom: 1px solid rgb(242,244,245);
+}
+.vocabulary-metadata tr>td:nth-child(odd){
+    width: 55px;
+    color:rgb(206,206,206);
+}
+
+.vocabulary-metadata tr>td:nth-child(4n+2){
+    width: 342px;
+}
+
+.vocabulary-metadata tr:last-child > td:first-child{
+    vertical-align: top;
+}
+.vocabulary-metadata tr:last-child>td{
+    border: none;
+}
+.vocabulary-metadata tr:last-child>td:last-child{
+    color: rgb(168,168,168);
+}
+
+.vocabulary-tag{
+    margin-bottom: 20px;
+}
+
+.vocabulary-tag-label-container{
+    padding: 15px 0px;
+    border-bottom: 1px solid rgb(199,199,199);
+}
+.vocabulary-tag-label{
+    border: none;
+    outline: none;
+    padding: 6px 10px;
+    background-color: rgb(249,109,62);
+    color:rgb(255,255,255);
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+.vocabulary-tag-content{
+    padding: 24px 0px ;
+}
+
+.vocabulary-tag-content-section{
+    padding: 5px 0px;
+    color:rgb(144,144,144);
+    line-height: 30px;
+    text-indent: 24px;
+    font-size: 14px;
+}
+

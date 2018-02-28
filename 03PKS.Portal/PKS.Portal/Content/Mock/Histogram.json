@@ -1,0 +1,52 @@
+﻿{
+  "setting": {
+    "title": "钻井完成情况统计图",
+    "smooth": true,
+    "defaultchart": "bar",
+    "chart": [ ],
+    "legend": [ "设计", "已开钻", "油气层井", "油气流井" ],
+    "yaxiscaption": "井数（口）",
+    "xaxisfield": "bo"
+  },
+  "columns": [
+    {
+      "field": "bo",
+      "title": "目标区",
+      "type": "String",
+      "format": ""
+    },
+    {
+      "field": "design",
+      "title": "设计",
+      "type": "",
+      "format": ""
+    },
+    {
+      "field": "spud",
+      "title": "已开钻",
+      "type": "",
+      "format": ""
+    },
+    {
+      "field": "HRWell",
+      "title": "油气层井",
+      "type": "",
+      "format": ""
+    },
+    {
+      "field": "oilFlowWell",
+      "title": "油气流井",
+      "type": "",
+      "format": ""
+    }
+  ],
+  "rows": [
+    [ "白云深水", 5, 4, 2, 1 ],
+    [ "惠州", 3, 3, 1, 1 ],
+    [ "陆丰", 4, 2, 2, 0 ],
+    [ "韩江", 3, 2, 1, 1 ],
+    [ "恩平", 2, 1, 0, 1 ],
+    [ "西江", 3, 2, 2, 1 ],
+    [ "合作区", 8, 5, 2, 1 ]
+  ]
+}

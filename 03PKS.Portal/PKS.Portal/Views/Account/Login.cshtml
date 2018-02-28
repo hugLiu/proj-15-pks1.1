@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "登录";
+    Layout = "~/Views/Shared/_LayoutBase.cshtml";
+}
+@section Styles{
+    <link href="~/Content/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/global.css" rel="stylesheet" />
+    <link href="~/Content/css/login.css" rel="stylesheet" />
+    <style>
+        .loginForm_bg {
+            background-color: #346FBB;
+        }
+
+        .loginForm_loginbg {
+            background-image: url("../../Content/css/images/login/login_sz.png");
+        }
+    </style>
+}
+@* returnUrl不要放在Form中，否则刷新会自动上传，导致returnUrl无效 *@
+<input id="returnUrl" type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid lg">
+        <div class="logintitle">
+            <div class="logo">
+                <p class="p2" style="padding-top:5px;">中海石油（中国）有限公司深圳分公司</p>
+                <p class="p1" style="padding-top:0px;">智能勘探工作平台</p>
+            </div>
+        </div>
+        <div class="login">
+            <div class="loginForm_bg">
+                <div class="loginForm_loginbg">
+                    <div class="loginForm">
+                        @if (ViewBag.IsWindowsAuthentication)
+                        {
+                            <a id="btnWindowsLogin" class="mini-button frame-submit frame-default" href="javascript:windowsLogin()">
+                                <span class="mini-button-text">
+                                    <span id="windowsLoginText" class="loginButton">Windows集成登录</span>
+                                </span>
+                            </a>
+                        }
+                        <div class="form_username" for="username$text">
+                            <span class="mini-textbox mini-required" style="border-width: 0px; width: 100%; padding: 0px;">
+                                <span class="mini-textbox-border">
+                                    <input id="userName" class="mini-textbox-input" name="userName" type="text" autocomplete="off" value="@ViewBag.UserName" placeholder="用户名">
+                                </span>
+                            </span>
+                        </div>
+                        <div class="form_password " for="pwd$text">
+                            <span id="Password" class="mini-textbox mini-password mini-required mini-error" style="border-width: 0px; width: 100%; padding: 0px;">
+                                <span class="mini-textbox-border">
+                                    <input id="password" class="mini-textbox-input" name="password" type="password" autocomplete="off" placeholder="密码">
+                                </span>
+                            </span>
+                        </div>
+                        <div class="login_RememberMe">
+                            <span class="mini-checkbox" style="border-width: 0px;">
+                                <input id="rememberMe" name="rememberMe" type="checkbox" class="mini-checkbox-check" checked="checked" value="true" />
+                                <label for="rememberMe">记住我</label>
+                            </span>
+                            <a href="/Account/Forgotpassword" class="frame-submit" style="float:right; padding-top:2px;display:none;">忘记密码</a>
+                        </div>
+                        <a id="btnLogin" class="mini-button frame-submit frame-default" href="javascript:submit()">
+                            <span class="mini-button-text">
+                                <span id="loginText" class="loginButton">登录</span>
+                            </span>
+                        </a>
+                        <div id='login-error' class="error-tip" style="color:red;margin-top:5px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer" style="display:none;">
+            <div class="footerlogo"></div>
+            <div class="footertext">
+                <ul class="list-unstyled">
+                    <li>Copyright © 2014 - 2018 Jurassic, all rights reserved</li>
+                    <li>地址：北京市海淀区学清路9号汇智大厦B座9层 电话：010-82730099</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts{
+    <script src="~/Content/jquery/jquery-3.1.1.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        var isAutoLogin = @ViewBag.IsAutoLogin.ToString().ToLowerInvariant();
+        var isWindowsAuth = @ViewBag.IsWindowsAuthentication.ToString().ToLowerInvariant();
+        var isWindowsAutoLogin = (isAutoLogin && isWindowsAuth);
+
+        document.onkeydown = function (event) {
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if (e && e.keyCode === 13) {
+                submit();
+                if (e.preventDefault) e.preventDefault();//IE8不支持
+                return false;
+            }
+        };
+        function enableLogin() {
+            $("#btnLogin").css("cursor", "pointer")
+                .attr('href', 'javascript:submit()');
+            $('#loginText').text("登录");
+            $("#btnWindowsLogin").css("cursor", "pointer")
+                .attr('href', 'javascript:windowsLogin()');
+            $('#windowsLoginText').text("Windows集成登录");
+        }
+        function disableLogin(isWindowsLogin) {
+            $("#btnLogin").css("cursor", "default")
+                .attr('href', '#');
+            $("#btnWindowsLogin").css("cursor", "default")
+                .attr('href', '#');
+            if (isWindowsLogin) {
+                $('#windowsLoginText').text("正在Windows集成登录");
+            }
+            else {
+                $('#loginText').text("正在登录");
+            }
+        }
+
+        function handleLoginSuccess(result) {
+            if (result.Succeed) {
+                isWindowsAutoLogin = false;
+                $('#login-error').text('');
+                location.href = result.Data;
+                return;
+            }
+            handleLoginError(result);
+        }
+
+        function handleLoginError(result) {
+            enableLogin();
+            var message = "登录失败！请刷新后重新登录！";
+            if (result.responseJSON && result.responseJSON.Message) {
+                message = result.responseJSON.Details;
+            } else if (result.ErrorMessage) {
+                message = result.ErrorMessage;
+            } else if (isWindowsAutoLogin) {
+                isWindowsAutoLogin = false;
+                message = "域自动登录失败！请输入用户密码登录！";
+            }
+            $('#login-error').text(message);
+        }
+
+        function submit() {
+            var userName = $('#userName').val();
+            if (!userName) {
+                $('#login-error').text("请输入用户名!");
+                return;
+            }
+            var password = $('#password').val();
+            if (!password) {
+                $('#login-error').text("请输入用户密码!");
+                return;
+            }
+            var rememberMe = $('#rememberMe').val();
+            var returnUrl = $('#returnUrl').val();
+            var __RequestVerificationToken = $("input[name='__RequestVerificationToken']").val();
+            disableLogin(false);
+
+            $.ajax({
+                type: "post",
+                url: "/Account/Login",
+                data: { userName: userName, password: password, rememberMe: rememberMe, returnUrl: returnUrl, __RequestVerificationToken: __RequestVerificationToken },
+                success: handleLoginSuccess,
+                error: handleLoginError
+            });
+        }
+
+        function windowsLogin() {
+            disableLogin(true);
+            var returnUrl = $('#returnUrl').val();
+            $.ajax({
+                type: "post",
+                url: "/WindowsLogin",
+                data: { returnUrl: returnUrl },
+                success: handleLoginSuccess,
+                error: handleLoginError
+            });
+        }
+
+        if (isWindowsAutoLogin) {
+            $(document).ready(function () {
+                windowsLogin();
+            });
+        }
+    </script>
+}

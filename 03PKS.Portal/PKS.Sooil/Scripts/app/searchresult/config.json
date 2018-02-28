@@ -1,0 +1,25 @@
+﻿{
+  "leftsideconfig": {
+    "leftsiders": [
+      {
+        "title": "成果类型",
+        "field": "pt",
+        "top": 10
+      },
+      {
+        "title": "作者",
+        "field": "author",
+        "top": 10
+      }
+    ],
+    "datesider": {
+      "show": true,
+      "field": "createddate"
+    }
+  },
+  "searchlistconfig": {
+    "isfulltext": false,
+    "searchfields": [ "title", "author", "abstract", "pt", "fulltext", "pc" ],
+    "pagesize": 10
+  }
+}

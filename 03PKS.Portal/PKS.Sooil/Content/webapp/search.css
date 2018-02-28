@@ -1,0 +1,134 @@
+﻿.search {
+    border: 1px solid #ED6236;
+    /*height: 40px;*/
+    margin: -23px auto 0 auto;
+
+}
+
+.search select {
+    display: none;
+}
+
+.search .select_box {
+    font-size: 16px;
+    color: #666666;
+    width: 160px;
+    line-height: 40px;
+    float: left;
+    position: relative;
+    border-right: 1px solid #ED6236;
+}
+
+.search .select_showbox {
+    height: 40px;
+    background: url(/content/images/search/caret-down.png) no-repeat 140px center;
+    text-indent: 2.5em;
+}
+
+.search .select_showbox.active {
+    background: url(/content/images/search/caret-down.png) no-repeat 140px;
+}
+
+.search .select_option {
+    -webkit-box-shadow: 0 0 20px #E9E9E9;
+    border-top: none;
+    display: none;
+    left: -1px;
+    top: 41px;
+    position: absolute;
+    z-index: 99;
+    background: #fff;
+    width: 160px;
+    line-height: 40px;
+}
+
+.search .select_option li {
+    text-indent: 2.5em;
+    width: 140px;
+    cursor: pointer;
+}
+
+.search .select_option li.selected {
+    color: #666666;
+}
+
+.search .select_option li.hover {
+    color: #ED6236;
+}
+
+.search input.inp_srh, .search input.btn_srh {
+    border: none;
+    background: none;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+}
+
+.search input.inp_srh {
+    outline: none;
+    width: 325px;
+}
+
+.search input.btn_srh {
+    background: #ed6236;
+    color: #FFF;
+    font-family: "微软雅黑";
+    font-size: 18px;
+    width: 90px;
+}
+
+.search input.inp_srh, .search input.btn_srh1 {
+    border: none;
+    background: none;
+    height: 40px;
+    line-height: 20px;
+    float: left;
+    padding: 0px 10px;
+}
+
+.search input.btn_srh1 {
+    background: #f0c44e;
+    color: #FFF;
+    font-family: "微软雅黑";
+    font-size: 18px;
+    width: 120px;
+}
+
+.red {
+    color:red
+}
+
+
+/**原页面search_default.css*/
+.cf_paixu-2-2 {
+    width: 280px;
+    float: left;
+    line-height: 18px;
+    padding-top: 10px;
+    font-size: 14px;
+    color: #666666;
+}
+.cf_ln-1 a{
+    color:#666;
+    line-height:35px;
+    border-radius:6px;
+    text-align:center;
+}
+.cf_yy-3 a{
+    color:#666;
+}
+.cf_ln-2 a{
+    color:#666;
+}
+a:hover {
+    color:#ED6236;
+}
+/*.cf_ln-4*/
+/*{*/
+/*height: 48px;*/
+/*}*/
+/*.cf_ln-4 p*/
+/*{*/
+/*margin: 0;*/
+/*line-height: 24px;*/
+/*}*/

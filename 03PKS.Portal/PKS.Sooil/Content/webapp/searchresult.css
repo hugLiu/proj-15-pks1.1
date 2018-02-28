@@ -1,0 +1,44 @@
+﻿.media-heading a {
+    color: #aaaaaa;
+}
+.media-heading a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.media h1 {
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+}
+.media h1 a:link,
+.media h1 a:visited,
+.media h1 a:hover,
+.panel-body h2{
+    color: #1024ee;
+}
+span.search {
+    color: #F03;
+}
+.media h1 a,
+span.search,
+.media-body h2 a:hover{
+    text-decoration: underline;
+}
+.media-left{
+    padding-left:18px;
+}
+.media-body h2,.noimg h3 {
+    font-size: 14px;
+    line-height: 21px;
+}
+.media-body h2 a:link,
+.media-body h2 a:visited,
+.media-body h2 a:hover {
+    color: #008000;
+}
+.media-body h2 .content {
+    display:inline;
+}
+.noimg {
+    padding-left: 18px;
+}

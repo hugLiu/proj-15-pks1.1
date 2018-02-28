@@ -1,0 +1,82 @@
+.jurassic-float-left{
+    float: left;
+}
+.jurassic-app-container{
+    
+    
+}
+.jurassic-app-container div{
+    
+    box-sizing: border-box;
+}
+.jurassic-header-container{
+    height: 38px;
+    background-color: rgb(72,72,72);
+}
+.jurassic-search-bar-container{
+    height: 120px;
+    background-color: rgb(255,255,255);
+    box-shadow: 0px 2px 2px rgb(206,206,206);
+}
+.jurassic-content-container{
+    padding-top: 20px;
+}
+.jurassic-content{
+    width: 1172px;
+    margin: 0 auto;
+    background-color: rgb(251,251,251);
+}
+.jurassic-content-article{
+    width: 893px;
+    padding: 0px 80px;
+    border-top:7px solid rgb(252,205,79);
+    border-right:1px solid rgb(241,241,241);
+    background-color: rgb(255,255,255);
+}
+.jurassic-content-recommend{
+    width:276px;
+    padding: 0px 30px;
+    border-top:7px solid rgb(235,235,235);
+    border-right:1px solid rgb(241,241,241);
+}
+.jurassic-paragraph{
+    text-indent: 2em;
+    line-height: 30px;
+}
+.jurassic-paragraph>a{
+    text-decoration: none;
+    color:rgb(182,181,181);
+}
+.jurassic-article-caption{}
+.jurassic-article-caption td{
+    border-bottom:1px solid rgb(199,199,199);
+}
+.jurassic-article-caption td:first-child{
+    font-size: 38px;
+}
+.jurassic-article-caption td:last-child{
+    text-align: right;
+}
+.jurassic-article-base-information{}
+.jurassic-article-summary{
+    margin-bottom: 36px;
+}
+.jurassic-article-summary td{
+    line-height: 29px;
+}
+.jurassic-article-summary td:first-child{
+    width: 55px;
+    vertical-align: top;
+    color:rgb(206,206,206);
+}
+.jurassic-article-summary td:last-child{
+    color:rgb(168,168,168);
+}
+.jurassic-img-container{
+    width: 250px;
+    text-align: center;
+}
+.jurassic-img{
+    width: 90%;
+    height: auto;
+}

@@ -1,0 +1,32 @@
+.jurassic-table{
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+.jurassic-table td{
+    padding: 3px;
+}
+.jurassic-table-article-properties{}
+.jurassic-table-article-base-properties{}
+
+.jurassic-table-article-base-properties td,
+.jurassic-table-article-properties td{
+    padding: 8px 0px;
+    border-bottom: 1px solid rgb(242,244,245);
+}
+.jurassic-table-article-base-properties tr:last-child td{
+    border-bottom: none;
+}
+.jurassic-table-article-base-properties td,
+.jurassic-table-article-properties td:nth-child(odd){
+    width: 55px;
+    color:rgb(206,206,206);
+}
+.jurassic-table-article-base-properties td,
+.jurassic-table-article-properties td:nth-child(even){
+    color: rgb(92,91,92);
+    text-align: left;
+}
+.jurassic-table-article-properties tr:first-child td{
+    border-top: 1px solid rgb(242,244,245);
+}

@@ -1,0 +1,12 @@
+.jurassic-button{
+    margin-right: 5px;
+    font-size: 12px;
+    text-decoration: none;
+}
+.jurassic-button:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+.jurassic-button>span{
+    margin-left: 3px;
+}

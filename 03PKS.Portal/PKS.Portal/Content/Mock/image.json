@@ -1,0 +1,21 @@
+[
+  {
+    "src": "/content/mock/images/tibet-1.jpg",
+    "title": "Cuo Na Lake"
+  },
+  {
+    "src": "/content/mock/images/tibet-2.jpg",
+    "thumbnail": "/content/mock/images/thumbnails/tibet-2.jpg",
+    "title": "Tibetan Plateau"
+  },
+  {
+    "src": "/content/mock/images/tibet-3.jpg",
+    "thumbnail": "/content/mock/images/thumbnails/tibet-3.jpg",
+    "title": "Jokhang Temple"
+  },
+  {
+    "src": "/content/mock/images/tibet-3.jpg",
+    "thumbnail": "/content/mock/images/thumbnails/tibet-3.jpg",
+    "title": "Jokhang Temple"
+  }
+] 

@@ -1,0 +1,21 @@
+﻿@{
+    //ViewBag.Title = ViewBag.data.title;
+}
+<h2>Index</h2>
+<h1>tohistogram</h1>
+<h2>成果展示组件列表</h2>
+<div class="row">
+    <div class="list-group col-md-4">
+        <a href="/Render/Content2?iiid=pt-image" class="list-group-item">pks:image</a>
+        <a href="/Render/Content2?iiid=pt-html" class="list-group-item">pks:html</a>
+        <a href="/Render/Content2?iiid=pt-pdf" class="list-group-item">pks:pdf</a>
+        <a href="/Render/Content2?iiid=pt-table" class="list-group-item">pks:table</a>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("h1").click(function () {
+            location.href = "/Render/Content?iiid=5"
+        });
+    })
+</script>

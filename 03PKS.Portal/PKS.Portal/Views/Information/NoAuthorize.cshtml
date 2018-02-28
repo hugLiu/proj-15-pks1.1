@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "NoAuthorize";
+    Layout = "~/Views/Shared/_errorLayout.cshtml";
+    var returnUrl = Request.Params["returnurl"];
+}
+<div class="row" style="margin-top: 150px;">
+    <div class="col-md-offset-4 col-md-4" >
+        <h3 style="color:coral">对不起，您无权限查看此页面</h3>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 50px;">
+    <div class="col-md-offset-4 col-md-4">
+        <a style="color: blue; font-size: 20px;" href="/account/login?returnurl=@returnUrl">重新登录</a>
+  
+        <a style="color: blue; font-size: 20px;margin-left: 20px" href="/account/logout">退出登录</a>
+    </div>
+</div>
+

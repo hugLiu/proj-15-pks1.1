@@ -1,0 +1,156 @@
+﻿@using PKS.Web
+@{
+    var webApiSiteUrl = this.Context.GetWebApiSiteUrl();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>井百科-录井</title>
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/jstree/themes/default/style.min.css" rel="stylesheet" />
+    <link href="~/Content/webapp/SearchDetail/button.css" rel="stylesheet" />
+    <link href="~/Content/webapp/SearchDetail/table.css" rel="stylesheet" />
+    <link href="~/Content/webapp/SearchDetail/tab.css" rel="stylesheet" />
+    <link href="~/Content/webapp/SearchDetail/site.css" rel="stylesheet" />
+    <link href="~/Content/webapp/SearchDetail/panel.css" rel="stylesheet" />
+    <link href="~/Content/webapp/SearchDetail/list.css" rel="stylesheet" />
+    <link href="~/Content/webapp/SearchDetail/detail.css" rel="stylesheet" />
+    <link href="~/Content/webapp/webapp-main.css" rel="stylesheet" />
+    <link href="~/Content/webapp/search.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    @*WebAPI脚本*@
+    <script src="@webApiSiteUrl/Scripts/PKSGlobalStore.js"></script>@*错误日志*@
+    <script>
+        pksGlobalStore.init("@webApiSiteUrl");
+    </script>
+    @*WebAPI脚本*@
+    <script src="~/Scripts/app/di.js"></script>
+    <script src="~/Scripts/app/app.js"></script>
+    <script src="~/Scripts/app/util.js"></script>
+    <script src="~/Scripts/app/RecentDates.js"></script>
+    <script src="~/Scripts/app/base.extend.js"></script>
+    <script src="~/Scripts/app/vue.2.3.2.js"></script>
+    @*<script src="https://unpkg.com/vue/dist/vue.js"></script>*@
+    <script src="~/Scripts/app/vue.extend.js"></script>
+    <script src="~/Scripts/app/esservice.js"></script>
+    <script src="~/Scripts/app/baseserivce.js"></script>
+   
+    @*<script src="../plugins/jstree/jstree.js"></script>*@
+    <script src="~/Content/jstree/jstree.min.js"></script>
+    <script src="~/Scripts/app/searchdetail/model.js"></script>
+    <script src="~/Scripts/app/searchdetail/tab.js"></script>
+
+</head>
+
+<body>
+
+    @{
+        Html.RenderPartial("SoLoginBar");
+    }
+
+
+    <!--头部开始-->
+
+    @{
+        Html.RenderPartial("SoSearchBar");
+    }
+<div class="jurassic-app-container">
+    @*<div class="jurassic-header-container"></div>
+        <div class="jurassic-search-bar-container"></div>*@
+    <div class="jurassic-content-container">
+        <div class="jurassic-content" id="content">
+            <div class="jurassic-float-left jurassic-content-article">
+                <!-- start article -->
+                <article>
+                    <!-- start caption -->
+                    <section class="jurassic-article-caption">
+                        <table class="jurassic-table">
+                            <tr>
+                                <td>{{article.caption}}</td>
+                                <td>
+                                    <a class="jurassic-button"><i class="glyphicon glyphicon-heart"></i><span>收藏</span></a>
+                                    <a class="jurassic-button"><i class="glyphicon glyphicon-download"></i><span>下载</span></a>
+                                    <a class="jurassic-button"><i class="glyphicon glyphicon-eye-open"></i><span>显示</span></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+                    <!-- end caption -->
+                    <! -- start base information -->
+                    <section class="jurassic-article-base-information">
+                        <table class="jurassic-table jurassic-table-mix">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <table class="jurassic-table jurassic-table-article-base-properties">
+                                            <tr v-for="attr in baseProperties">
+                                                <td>{{attr[0].name}}</td>
+                                                <td>{{attr[0].value}}</td>
+                                                <td>{{attr[1].name}}</td>
+                                                <td>{{attr[1].value}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                                <td class="jurassic-img-container">
+                                    <img class="jurassic-img" v-bind:src="article.image"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="jurassic-table jurassic-table-article-properties">
+                            <tr v-for="attr in wholeRowProperties">
+                                <td>{{attr.name}}</td>
+                                <td>{{attr.value}}</td>
+                            </tr>
+                        </table>
+                    </section>
+                    <!-- end base information -->
+                    <!-- start summary -->
+                    <section class="jurassic-article-summary">
+                        <table class="jurassic-table">
+                            <tr>
+                                <td>概&nbsp;&nbsp;&nbsp;述</td>
+                                <td>{{article.summary}}</td>
+                            </tr>
+                        </table>
+                    </section>
+                    <!-- end summary -->
+                    <!-- start tags -->
+                    <section>
+                        <div class="jurassic-tab">
+                            <div class="jurassic-tab-header">
+                                <button class="jurassic-tab-button" v-for="tag in article.tags" v-bind:id="tag.name">{{tag.name}}</button>
+                            </div>
+                            <div class="jurassic-tab-body">
+                                <div class="jurassic-tab-fragment" v-for="tag in article.tags" v-bind:id="tag.name + '_tab_fragment'">
+                                    <div class="jurassic-paragraph" v-for="item in tag.content"><a v-bind:href="item.url">{{item.name}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- end tags -->
+                </article>
+                <!-- end article -->
+            </div>
+            <div class="jurassic-float-left jurassic-content-recommend">
+                <div class="jurassic-panel" v-for="rec in recommend">
+                    <div class="jurassic-panel-header">
+                        <h3>{{rec.caption}}</h3>
+                    </div>
+                    <div class="jurassic-panel-body">
+                        <ul class="jurassic-list" v-if="rec.type == 'list'">
+                            <li class="jurassic-list-item" v-for="item in rec.content"><a v-bind:href="item.url">{{item.name}}</a></li>
+                        </ul>
+                        <div v-else="" v-bind:id="rec.caption"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="~/Scripts/app/searchdetail/detail.js"></script>
+</body>
+</html>

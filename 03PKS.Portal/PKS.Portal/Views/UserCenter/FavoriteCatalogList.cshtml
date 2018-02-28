@@ -1,0 +1,193 @@
+﻿@using PKS.Web;
+@using PKS.DbModels;
+@using PKS.DbServices.Models;
+@{
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+    Layout = null;
+    string treeData = ViewBag.treeData as string;
+    var userId = ViewBag.userId;
+    var IIID = ViewBag.IIID;
+    var userName = ViewBag.userName;
+}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/icon.css">
+
+    <script type="text/javascript" src="~/Content/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="@webApiSiteUrl/Content/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="@webApiSiteUrl/Content/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
+
+    <script type="text/javascript">
+
+
+    var userId = '@userId';
+    var IIID = '@IIID';
+    var userName = '@userName';
+    var icon = 'icon-folder';
+
+    //var treeData = [{ "id": 0, "text": "收藏夹", iconCls: 'icon-folder-close' }];
+    var treeData =@Html.Raw(treeData);
+
+
+    $(function () {
+        loadTree();
+    });
+
+    function loadTree() {
+        var favTree = $("#favTree").tree({
+            data: treeData,
+            animate: true,
+            lines: true,
+            dnd: false,
+            formatter: function (node) { return node.text; },
+            onContextMenu: function (e, node) { initMenu(e, node, this); },
+            onAfterEdit: function (node) { afterNodeEdit(node); },
+            //onClick: function (node) { $(this).tree("toggle", node.target); },
+            onLoadSuccess: function (node, data) { if (node == null) { ; } }
+        });
+    }
+
+    //收藏树右键菜单初始化
+    function initMenu(e, node,tree) {
+        e.preventDefault();
+        $(tree).tree('select', node.target);
+        $("#divMenu").menu('show', { left: e.pageX, top: e.pageY });
+    }
+
+
+     //添加收藏夹
+    function addNode() {
+        var t = $("#favTree");
+        var node = t.tree('getSelected');
+        var nodeType = node.type;
+        if (node.state == "closed") {
+            var children = t.tree('getChildren', node.target);
+            children.length && t.tree("expand", node.target);
+        }
+
+        $.ajax({
+            type: "POST",
+            cache: false,
+            url: "@Url.Action("AddFavCatalog")",
+            data: { pId: node.id, folderName: '新建收藏夹', userId: userId, userName: userName },
+            success: function (obj) {
+                t.tree('append', {
+                    parent: (node ? node.target : null),
+                    data: { id: obj.id, text: obj.text, iconCls: icon }
+                });
+                var childNode = t.tree('find', obj.id);
+                var target = childNode.target;
+                t.tree('select', target).tree('beginEdit', target);
+                $(target).find("input").select().css("color","red");
+            }
+        });
+    }
+
+    //删除收藏夹
+    function delNode() {
+        var t = $("#favTree");
+        var node = t.tree('getSelected');
+
+        $.messager.confirm("确认", "将删除收藏夹以及收藏内容，确认要删除吗？", function (r) {
+            if (r) {
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "@Url.Action("DelFavCatalog")",
+                    data: { id: node.id},
+                    datatype: "text",
+                    success: function (r) {
+                        if (node.type == 0) {
+                            var childrenNodes = t.tree('getChildren', node.target);
+                            for (var i = 0; i < childrenNodes.length; i++) {
+                                t.tree('remove', childrenNodes[i].target);
+                            }
+                        }
+                        else { t.tree('remove', node.target); }
+                    }
+                });
+            }
+        });
+
+    }
+
+    function renameNode() {
+        var t = $("#favTree");
+        var node = t.tree('getSelected');
+        t.tree('beginEdit', node.target);
+        $(node.target).find("input").select().css("color", "#111");
+    }
+
+    //重命名
+    function afterNodeEdit(node) {
+
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "@Url.Action("RenameFavCatalog")",
+                data: { id: node.id,name: node.text },
+                datatype: "text",
+                success: function (r) { ;}
+            });
+    }
+
+    function add() {
+        var t = $("#favTree");
+        var node = t.tree('getSelected');
+        var id = -1;
+        var result;
+        if (node) { id = node.id; }
+        else {
+            show("请先选择一个收藏夹");
+            return { message: "请先选择一个收藏夹", code: 0 };
+        }
+        $.ajax({
+            async: false,
+            type: "POST",
+            cache: false,
+            url: "@Url.Action("AddFavorite")",
+            data: { userId: userId, IIID: IIID, favoritecatalogId: id },
+            datatype: "JSON",
+            success: function (r) { result = r; }  //{ message = "添加成功", code = 1 }
+        });
+        return result;
+    }
+
+    function show(msg) {
+        $.messager.show({
+            title: '消息',
+            msg: msg,
+            timeout: 1000,
+            showType: 'slide'
+        });
+    }
+
+    </script>
+
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="padding-left:20px;">
+                <ul id="favTree" style="padding-top:20px;padding-bottom:20px;"></ul>
+            </div>
+        </div>
+    </div>
+
+    @* 收藏夹的右键菜单 *@
+    <div id="divMenu" class="easyui-menu" style="width: 120px;display:none;">
+        <div onclick="addNode()" data-options="iconCls:'icon-add'">
+            添加
+        </div>
+        <div onclick="delNode()" data-options="iconCls:'icon-remove'">
+            删除
+        </div>
+        <div onclick="renameNode()" data-options="iconCls:'icon-edit'">
+            重命名
+        </div>
+    </div>
+
+</body>
+</html>

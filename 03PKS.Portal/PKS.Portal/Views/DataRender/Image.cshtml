@@ -1,0 +1,148 @@
+﻿@using Newtonsoft.Json
+@model dynamic
+@{
+    var favoriteText = ViewBag.hasFavorite ? "取消收藏" : "收藏";
+}
+<link href="~/Content/lib/viewer/viewer.min.css" rel="stylesheet" />
+<link href="~/Content/lib/elastislide/css/elastislide.css" rel="stylesheet" />
+<link href="~/Content/styles/comment.css" rel="stylesheet" />
+<script src="~/Content/lib/viewer/viewer.min.js"></script>
+<script src="~/Content/lib/elastislide/js/modernizr.custom.17475.js"></script>
+<script src="~/Content/lib/elastislide/js/jquerypp.custom.js"></script>
+<script src="~/Content/lib/elastislide/js/jquery.elastislide.js"></script>
+
+<style>
+    .jurassic-singleimg-head {
+        text-align: center;
+    }
+
+    .jurassic-singleimg-bottom p {
+        display: none;
+    }
+</style>
+
+<div class="row">
+    <div style="text-align:center">
+        <h1 id="title">@Model.title</h1>
+    </div>
+    <div style="text-align:center;margin:20px 0px;">
+        <span>作者：</span><span id="author">@Model.author</span>
+        <span style="margin-left:30px;">创建时间：</span><span id="createdate"></span>
+
+    </div>
+</div>
+<div class="row" style="">
+    <div class="col-md-2 col-md-offset-10">
+        <a id="btnFavourite" cancelurl="/usercenter/CancelFavorite?userId=@Model.userid&IIID=@Request.Params["iiid"]" data-toggle="modal" onclick="addFeavourite()">@favoriteText</a>@*data-target="#favouriteModal"*@
+        &nbsp;&nbsp;&nbsp;<a href="@Url.Action("DownloadFile",new RouteValueDictionary{{"iiid",Model.iiid},{"dataid",Model.dataid}})">下载</a>
+    </div>
+    <div id="ptimgcontainer" class="jurassic-singleimg-full">
+        <pks:singleimg :item="data" :map="map" :onclick="onclick"></pks:singleimg>
+    </div>
+
+</div>
+<div id="remarkcontainer" style="margin-top:50px">
+    <pks:remark2 :id="'remark'" :iiid="iiid"></pks:remark2>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="favouriteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    我的收藏
+                </h4>
+            </div>
+            <div class="modal-body">
+                <iframe style="width: 100%;height:100%" src="/UserCenter/FavoriteCatalogList?userId=@Model.userid&IIID=@Request.Params["iiid"]" frameborder="0" ></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default ok">
+                   确定
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script>
+
+    var config =@Html.Raw(JsonConvert.SerializeObject(Model));
+    var imgData = { url: config.dataSource, thumbnail: config.dataSource, title: config.title, iiid: config.iiid };
+    var vm = PKSUI.bind({
+        el: "#ptimgcontainer",
+        data: {
+            data: imgData,
+            map: { "url": "url", "thumbnail": "thumbnail", "bottom": "title", "param": "iiid" }
+        },
+        methods: {
+            onclick: function(e) {
+                // alert(e);
+            }
+        },
+        model: 'pks:singleimg'
+    });
+
+    var iiid = getPageParam("iiid");
+    if (iiid) {
+        var vm2 = PKSUI.bind({
+            el: "#remarkcontainer",
+            data: {
+                iiid: iiid
+            },
+            model: 'pks:remark2'
+        });
+    }
+    $(document).ready(function() {
+        if (config.createddate) {
+            var date = moment(config.createddate, "YYYY-MM-DDTHH:mm:ss.SSSZ").toDate();
+            $('#createdate').html(date.format("yyyy-MM-dd hh:mm:ss"));
+        }
+    });
+
+    function addFeavourite() {
+        var btnText = $('#btnFavourite').text();
+        if (btnText == "取消收藏") {
+            var url = $('#btnFavourite').attr("cancelurl");
+            var result;
+            $.ajax({
+                async:false,
+                type: "get",
+                cache: false,
+                url: url,
+                datatype: "JSON",
+                success: function (r) { result= r; } 
+            });
+            if (result.code == 1) {
+                $('#btnFavourite').text("收藏");
+            }
+        }
+        else
+            $('#favouriteModal').modal("show");
+    }
+
+    $('#favouriteModal .ok').click(function() {
+        var addMethod = $('#favouriteModal iframe')[0].contentWindow.add;
+        if (addMethod) {
+            var addResult = addMethod();
+            if (addResult) {
+                if (addResult.code == 1) {
+                    $('#btnFavourite').text("取消收藏");
+                    //收藏成功
+                } else {
+                    alert(addResult.message);
+                }
+            }
+        }
+
+        $('#favouriteModal').modal('hide');
+    });
+</script>
+

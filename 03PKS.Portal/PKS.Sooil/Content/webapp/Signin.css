@@ -1,0 +1,287 @@
+﻿body.signin {
+    padding-top: 100px;
+    padding-bottom: 40px;
+}
+.signin .form-signin {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px rgb(182,182,182);
+}
+.signin .form-signin-heading {
+    padding-left: 105px;
+    padding-top: 25px;
+    height: 60px;
+    background: url(/Images/sooil/login_logo.png) #f7f7f7 no-repeat 10px 50%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font: bold 17px '微软雅黑',arial,verdana;
+    color: #8c8c8c;
+    box-shadow: 0px 1px 3px rgb(182,182,182);
+}
+
+.signin .main {
+    padding: 35px;
+}
+
+.signin .form-signin .checkbox {
+    margin-bottom: 5px;
+    padding-top: 15px;
+    font-weight: normal;
+}
+.signin .form-signin .checkbox a {
+    float: right;
+    text-align: right;
+    color: #3f89ec;  
+}   
+.signin .form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #3f89ec;
+    border-color: #3f89ec;
+}
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active,
+    .btn-primary.active {
+        background-color: #2e7ce3;
+        border-color: #2e7ce3;       
+    }
+
+
+/*.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}*/
+/*Login.cshtml*/
+    * {
+        font-family: 'Microsoft YaHei',宋体,Arial, Helvetica,sans-serif ;
+        font-size: 14px;
+        
+    }
+.container {
+    padding-top: 100px;
+}
+label {
+    /*height: 20px;*/
+    vertical-align: middle;
+}
+
+
+/*------定义输入框------*/
+.mini-textbox {
+    width: 100%;
+    border-radius: 3px;
+}
+.mini-textbox-border {
+    background: white;
+}
+.mini-textbox-input {
+    padding: 0 10px;
+}
+.mini-required .mini-textbox-border,
+.mini-required .mini-buttonedit-border {
+    background: #fff;
+    border: none;
+    color: #999999;
+}
+/*------定义button-----*/
+.mini-button, a.mini-button {
+    width: 100%;
+    padding: 10px 0px;
+    margin-top: 3px;
+    text-align: center;
+    background: #2b7cd8;
+    border-radius: 3px;
+    color: #fff !important;
+    border: none;
+}
+body a:hover.mini-button {
+    width: 100%;
+    padding: 10px 0px;
+    background: #1360b8;
+    border: none;
+    color: #fff;
+}
+body .mini-button-pressed, body a:hover.mini-button-pressed,
+body .mini-button-checked, body a:hover.mini-button-checked,
+body a.mini-button-popup, body a:hover.mini-button-popup
+{
+    border:none;    
+    padding:10px 0px;
+    color:#fff;
+    background:#1360b8  url(images/button/disabled1.png) repeat-x 0 0px;   
+    cursor:pointer;   
+}
+body a.mini-button-disabled, body a:hover.mini-button-disabled
+{
+    border:none;
+    padding:10px 0px;
+    color:#fff;
+    background:#1360b8 url(images/button/disabled1.png) repeat-x 0 0px;      
+    cursor:default;
+}
+
+
+
+.mini-button-text {
+    color: #fff;
+    display: inline-block;
+}
+.loginButton {
+    font-size: 18px;
+    font-weight: bold;
+}
+/*语言选择区，wang加*/
+.en_zh {
+    color: #808080;
+}
+.en_zh .mini-button {
+    width: 100px;
+    height: 22px;
+    margin-top: 3px;
+    line-height: 22px;
+    text-align: center;
+    background: #EDEDED;
+    border-radius: 5px;
+}
+.en_zh a:hover.mini-button {
+       background:#dbdbdb;
+       box-shadow:none;
+}
+.en_zh .mini-button-text{
+       line-height:22px;
+       color: #4e4e4e;
+       display: inline;
+    }
+
+ /*控制整体登陆框与浏览器的距离*/
+.login {
+    width: 400px;
+    margin: auto;
+    background: #fff;
+    background: none;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.6);
+}
+.logintitle {
+    padding-left: 105px;
+    padding-top: 25px;
+    height: 60px;
+    background: url(/Images/sooil/login_logo.png) #f7f7f7 no-repeat 10px 50%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font: bold 16px '微软雅黑',arial,verdana;
+    color: #8c8c8c;
+    box-shadow: 0px 1px 3px rgb(182,182,182);
+    text-align:left;
+}
+.loginFrom {
+    padding: 35px;
+}
+.form_username,.form_password{
+    border: 1px solid #ccc;
+    border-radius: 3px; 
+    padding: 5px 8px 5px 30px;
+}
+.form_username {
+    background: url("/Images/username.png") 10px 10px no-repeat #fefefe;
+}
+.form_password {
+    background: url("/Images/password.png") 10px 10px no-repeat #fefefe;
+    margin-top: 30px;
+}
+
+.showTips {
+    height: 20px;
+    color: red;
+    width: 100%;
+    float: right;
+    text-align: right;
+}
+.login_RememberMe {
+    height: 36px;
+    display: inline;
+}
+    .login_RememberMe a {
+        color: #2b7cd8;
+        text-decoration: none;
+    }
+        .login_RememberMe a:hover {
+            color: #2b7cd8;
+            text-decoration: underline;
+        }
+.loginFrom .loginButton-text{
+    font-size:16px;
+    font-weight:bold;
+}
+/*语言选择区，wang加*/
+    .language {
+        width:345px;
+        margin-top:20px;
+    }
+
+.en_zh {
+    color: #808080;
+}
+    .en_zh .mini-button {
+        width: 100px;
+        padding:1px 0px;
+        margin-top: 3px;
+        text-align: center;
+        background: #dbdbdb;
+        border-radius:3px;
+    }
+    .en_zh a:hover.mini-button {
+        width: 100px;
+        padding:1px 0px;
+        background: #d3d1d1;
+        box-shadow: none;
+    }
+    .en_zh .mini-button-text {
+        line-height: 22px;
+        color: #4e4e4e;
+        display: inline;
+    }
+
+    .labelTips {
+        float: left;
+        font-weight: 600;
+        color: #0068B7;
+        width: 16px;
+    }
+
+.copyright {
+    color: #b5b5b5;
+    background-color: #f5f6f5;
+    border-top: 1px solid #ebebeb;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    zoom: 1;
+    height: 35px;
+    line-height: 35px;
+    margin:0px auto;
+    padding-left:10px;
+}
+}
+/*Login.cshtml*/
+
+
+/*修改的样式*/
+.mini-checkbox-check {
+    vertical-align: text-top;
+}

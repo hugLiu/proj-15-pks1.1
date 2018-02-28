@@ -1,0 +1,638 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PKS.WebAPI.Wrapper</name>
+    </assembly>
+    <members>
+        <member name="T:PKS.WebAPI.Services.ApiServiceConfig">
+            <summary>API服务配置</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ApiServiceConfig.#ctor(PKS.Models.IPKSSubSystemConfig)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.ApiServiceConfig.Url">
+            <summary>服务地址</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ApiServiceConfig.GetToken(System.Object)">
+            <summary>从当前会话中获得令牌</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.Wrapper.WebApiNinjectModule">
+            <summary>注入模块</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.Wrapper.WebApiNinjectModule.Load">
+            <summary>加载注入</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.AppDataServiceWrapper">
+            <summary>应用数据服务包装器</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.#ctor(System.String)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.#ctor(PKS.WebAPI.Services.IApiServiceConfig)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.Upload(PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.UploadAsync(PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.UploadAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.Upload(System.String,System.String,System.Int32)">
+            <summary>上传一个文件，支持秒传和分片(单位为K)</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.UploadAsync(System.String,System.String,System.Int32)">
+            <summary>上传一个文件，支持秒传和分片(单位为K)</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.UploadAsyncInternal(PKS.Web.HttpClientWrapper,System.String,System.String,System.Int32)">
+            <summary>上传一个文件，支持秒传和分片(单位为K)</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.InsertMany(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.InsertManyAsync(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.InsertManyAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.Save(PKS.WebAPI.Models.AppDataSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.SaveAsync(PKS.WebAPI.Models.AppDataSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.SaveAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.AppDataSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.SaveMany(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.SaveManyAsync(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.SaveManyAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.DeleteMany(System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.DeleteManyAsync(System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.DeleteManyAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.Get(System.String)">
+            <summary>根据DataID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetAsync(System.String)">
+            <summary>根据DataID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>根据DataID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetMany(System.Collections.Generic.List{System.String})">
+            <summary>根据DataID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetManyAsync(System.Collections.Generic.List{System.String})">
+            <summary>根据DataID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetManyAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{System.String})">
+            <summary>根据DataID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.Match(PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.MatchAsync(PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.MatchAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetUploadFolders">
+            <summary>获得上传文件夹下全部子文件夹</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetUploadFoldersAsync">
+            <summary>获得上传文件夹下全部子文件夹</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetUploadFoldersAsyncInternal(PKS.Web.HttpClientWrapper)">
+            <summary>获得上传文件夹下全部子文件夹</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetUploadFolderFiles(System.String)">
+            <summary>获得某个上传文件夹下全部文件列表</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetUploadFolderFilesAsync(System.String)">
+            <summary>获得某个上传文件夹下全部文件列表</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetUploadFolderFilesAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>获得某个上传文件夹下全部文件列表</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.ClearTempFiles">
+            <summary>清除临时文件夹中的过期文件</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.ClearTempFilesAsync">
+            <summary>清除临时文件夹中的过期文件</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.ClearTempFilesAsyncInternal(PKS.Web.HttpClientWrapper)">
+            <summary>清除临时文件夹中的过期文件</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.Download(PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据DataID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.DownloadAsync(PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据DataID获得相关文件流</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.DownloadAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据DataID或FileID获得相关文件流</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetFileFormats">
+            <summary>获得全部文件格式信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetFileFormatsAsync">
+            <summary>获得全部文件格式信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.GetFileFormatsAsyncInternal(PKS.Web.HttpClientWrapper)">
+            <summary>获得全部文件格式信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.AppDataServiceWrapper.PKS#Services#IFileFormatService#GetAll">
+            <summary>获得全部文件格式信息</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.BO2ServiceWrapper">
+            <summary>对象服务包装器</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.#ctor(System.String)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.#ctor(PKS.WebAPI.Services.IApiServiceConfig)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.GetBO(System.String,System.String)">
+            <summary>根据类型名称和对象名称获得对象</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.GetBOAsync(System.String,System.String)">
+            <summary>根据类型名称和对象名称获得对象</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.GetBOAsyncInternal(PKS.Web.HttpClientWrapper,System.String,System.String)">
+            <summary>根据类型名称和对象名称获得对象</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.GetBOT(System.String)">
+            <summary>根据类型名称获得对象类型</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.GetBOTAsync(System.String)">
+            <summary>根据类型名称获得对象类型</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.GetBOTAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>根据类型名称获得对象类型</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.FindBOs(System.String,System.String)">
+            <summary>根据类型名称和对象名称获得对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.FindBOsAsync(System.String,System.String)">
+            <summary>根据类型名称和对象名称获得对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.FindBOsAsyncInternal(PKS.Web.HttpClientWrapper,System.String,System.String)">
+            <summary>根据类型名称和对象名称获得对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.FilterBOs(PKS.WebAPI.Models.FilterRequest)">
+            <summary>根据条件获得对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.FilterBOsAsync(PKS.WebAPI.Models.FilterRequest)">
+            <summary>根据条件获得对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.FilterBOsAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.FilterRequest)">
+            <summary>根据条件获得对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.FilterBOTs(PKS.WebAPI.Models.FilterRequest)">
+            <summary>根据条件获得对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.FilterBOTsAsync(PKS.WebAPI.Models.FilterRequest)">
+            <summary>根据条件获得对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.FilterBOTsAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.FilterRequest)">
+            <summary>根据条件获得对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.InsertBOTs(System.Collections.Generic.List{PKS.WebAPI.Models.BOT})">
+            <summary>插入对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.InsertBOTsAsync(System.Collections.Generic.List{PKS.WebAPI.Models.BOT})">
+            <summary>插入对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.InsertBOTsAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{PKS.WebAPI.Models.BOT})">
+            <summary>插入对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.SaveBOTs(System.Collections.Generic.List{PKS.WebAPI.Models.BOT})">
+            <summary>保存对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.SaveBOTsAsync(System.Collections.Generic.List{PKS.WebAPI.Models.BOT})">
+            <summary>保存对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.SaveBOTsAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{PKS.WebAPI.Models.BOT})">
+            <summary>保存对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.DeleteBOTs(System.Collections.Generic.List{System.String})">
+            <summary>删除对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.DeleteBOTsAsync(System.Collections.Generic.List{System.String})">
+            <summary>删除对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.DeleteBOTsAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{System.String})">
+            <summary>删除对象类型集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.InsertBOs(System.Collections.Generic.List{PKS.WebAPI.Models.BO2})">
+            <summary>插入对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.InsertBOsAsync(System.Collections.Generic.List{PKS.WebAPI.Models.BO2})">
+            <summary>插入对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.InsertBOsAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{PKS.WebAPI.Models.BO2})">
+            <summary>插入对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.SaveBOs(System.Collections.Generic.List{PKS.WebAPI.Models.BO2})">
+            <summary>保存对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.SaveBOsAsync(System.Collections.Generic.List{PKS.WebAPI.Models.BO2})">
+            <summary>保存对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.SaveBOsAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{PKS.WebAPI.Models.BO2})">
+            <summary>保存对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.DeleteBOs(PKS.WebAPI.Models.BO2DeleteRequest)">
+            <summary>删除对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.DeleteBOsAsync(PKS.WebAPI.Models.BO2DeleteRequest)">
+            <summary>删除对象集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.BO2ServiceWrapper.DeleteBOsAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.BO2DeleteRequest)">
+            <summary>删除对象集合</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.PageDataServiceWrapper">
+            <summary>日志服务实现</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.#ctor(System.String)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.#ctor(PKS.WebAPI.Services.IApiServiceConfig)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.Upload(PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+            <remarks>
+            如果Guid为空表示不分片，否则表示分片
+            </remarks>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.UploadAsync(PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+            <remarks>
+            如果Guid为空表示不分片，否则表示分片
+            </remarks>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.UploadAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.UploadRequest)">
+            <summary>上传文件，支持秒传和分片</summary>
+            <remarks>
+            如果Guid为空表示不分片，否则表示分片
+            </remarks>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.InsertMany(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.InsertManyAsync(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.InsertManyAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.SaveMany(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.SaveManyAsync(PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.SaveManyAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.IndexDataSaveRequest{PKS.WebAPI.Models.IndexPageData})">
+            <summary>批量保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.DeleteMany(System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.DeleteManyAsync(System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.DeleteManyAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{System.String})">
+            <summary>批量删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.Get(System.String)">
+            <summary>根据PageID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.GetAsync(System.String)">
+            <summary>根据PageID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.GetAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>根据PageID获得一条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.GetMany(System.Collections.Generic.List{System.String})">
+            <summary>根据PageID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.GetManyAsync(System.Collections.Generic.List{System.String})">
+            <summary>根据PageID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.GetManyAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{System.String})">
+            <summary>根据PageID数组获得对应的多条应用数据</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.Match(PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.MatchAsync(PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.MatchAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.IndexDataMatchRequest)">
+            <summary>根据条件和分页参数获得应用数据集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.Download(PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据DataID或ContentRef获得相关文件流</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.DownloadAsync(PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据DataID或ContentRef获得相关文件流</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.PageDataServiceWrapper.DownloadAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.DownloadRequest)">
+            <summary>根据DataID或ContentRef获得相关文件流</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.IndexerServiceWrapper">
+            <summary>索引数据服务接口</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.#ctor(System.String)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.#ctor(PKS.WebAPI.Services.IApiServiceConfig)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.Insert(PKS.WebAPI.Models.IndexInsertRequest)">
+            <summary>插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.InsertAsync(PKS.WebAPI.Models.IndexInsertRequest)">
+            <summary>插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.InsertAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.IndexInsertRequest)">
+            <summary>插入</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.Save(PKS.WebAPI.Models.IndexSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.SaveAsync(PKS.WebAPI.Models.IndexSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.SaveAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.IndexSaveRequest)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.Delete(System.Collections.Generic.List{System.String})">
+            <summary>删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.DeleteAsync(System.Collections.Generic.List{System.String})">
+            <summary>删除</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.IndexerServiceWrapper.DeleteAsyncInternal(PKS.Web.HttpClientWrapper,System.Collections.Generic.List{System.String})">
+            <summary>删除</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.UserBehaviorServiceWrapper">
+            <summary>用户行为日志服务包装器</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.UserBehaviorServiceWrapper.#ctor(System.String)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.UserBehaviorServiceWrapper.#ctor(PKS.WebAPI.Services.IApiServiceConfig)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.UserBehaviorServiceWrapper.Add(PKS.Models.UserBehavior)">
+            <summary>添加用户行为日志</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.UserBehaviorServiceWrapper.AddLog(PKS.Models.UserBehavior)">
+            <summary>添加用户行为日志</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.UserBehaviorServiceWrapper.AddLogInternal(PKS.Web.HttpClientWrapper,PKS.Models.UserBehavior)">
+            <summary>添加用户行为日志</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.UserBehaviorServiceWrapper.Search(System.String)">
+            <summary>搜索用户行为日志</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.UserBehaviorServiceWrapper.SearchAsync(System.String)">
+            <summary>搜索用户行为日志</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.UserBehaviorServiceWrapper.SearchAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>搜索用户行为日志</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.SearchServiceWrapper">
+            <summary>搜索服务实现</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.#ctor(System.String)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.#ctor(PKS.WebAPI.Services.IApiServiceConfig)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.Search(PKS.WebAPI.Models.SearchRequest)">
+            <summary>按短语搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.SearchAsync(PKS.WebAPI.Models.SearchRequest)">
+            <summary>按短语搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.SearchAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.SearchRequest)">
+            <summary>按短语搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.ESSearch(System.String)">
+            <summary>按ES语法搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.ESSearchAsync(System.String)">
+            <summary>按ES语法搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.ESSearchAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>按ES语法搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.Match(PKS.WebAPI.Models.MatchRequest)">
+            <summary>按完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.MatchAsync(PKS.WebAPI.Models.MatchRequest)">
+            <summary>按完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.MatchAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.MatchRequest)">
+            <summary>按完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.MatchMany(PKS.WebAPI.Models.MatchRequest[])">
+            <summary>按多个完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.MatchManyAsync(PKS.WebAPI.Models.MatchRequest[])">
+            <summary>按多个完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.MatchManyAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.MatchRequest[])">
+            <summary>按多个完全匹配条件搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.GetMetadata(PKS.WebAPI.Models.SearchMetadataRequest)">
+            <summary>根据iiid搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.GetMetadataAsync(PKS.WebAPI.Models.SearchMetadataRequest)">
+            <summary>根据iiid搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.GetMetadataAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.SearchMetadataRequest)">
+            <summary>根据iiid搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.GetMetadatas(PKS.WebAPI.Models.SearchMetadatasRequest)">
+            <summary>根据iiid数组搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.GetMetadatasAsync(PKS.WebAPI.Models.SearchMetadatasRequest)">
+            <summary>根据iiid数组搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.GetMetadatasAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.SearchMetadatasRequest)">
+            <summary>根据iiid数组搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.Statistics(PKS.WebAPI.Models.SearchStatisticsRequest)">
+            <summary>根据聚合条件获取统计信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.StatisticsAsync(PKS.WebAPI.Models.SearchStatisticsRequest)">
+            <summary>根据聚合条件获取统计信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.StatisticsAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.SearchStatisticsRequest)">
+            <summary>根据聚合条件获取统计信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.GetMetadataDefinitions">
+            <summary>查询元数据定义信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.GetMetadataDefinitionsAsync">
+            <summary>查询元数据定义信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.GetMetadataDefinitionsAsyncInternal(PKS.Web.HttpClientWrapper)">
+            <summary>查询元数据定义信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.ESSearchEx(System.Object)">
+            <summary>ES搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.ESSearchExAsync(System.Object)">
+            <summary>ES搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.ESSearchExAsyncInternal(PKS.Web.HttpClientWrapper,System.Object)">
+            <summary>ES搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.ESMSearch(System.String)">
+            <summary>ES多结果搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.ESMSearchAsync(System.String)">
+            <summary>ES多结果搜索</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SearchServiceWrapper.ESMSearchAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>ES多结果搜索</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.ApiServiceWrapper">
+            <summary>API服务包装器</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ApiServiceWrapper.#ctor(System.String)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ApiServiceWrapper.#ctor(PKS.WebAPI.Services.IApiServiceConfig,System.String)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.ApiServiceWrapper.ServiceConfig">
+            <summary>服务配置</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.ApiServiceWrapper.ServiceName">
+            <summary>服务名称</summary>
+        </member>
+        <member name="P:PKS.WebAPI.Services.ApiServiceWrapper.ServiceUrl">
+            <summary>服务地址</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ApiServiceWrapper.ResetServiceUrl">
+            <summary>重置服务URL</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ApiServiceWrapper.GetActionUrl(System.String)">
+            <summary>获得某个服务接口URL</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ApiServiceWrapper.InitClient(System.Object)">
+            <summary>初始化客户端</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.ApiServiceWrapper.InitHttpClient">
+            <summary>初始化客户端</summary>
+        </member>
+        <member name="T:PKS.WebAPI.Services.SecurityServiceWrapper">
+            <summary>安全服务实现包装器</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.#ctor(System.String)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.#ctor(PKS.WebAPI.Services.IApiServiceConfig)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetTokenExpireSettings">
+            <summary>获得Token过期参数</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.Login(PKS.WebAPI.Models.LoginRequest)">
+            <summary>登录</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.LoginAsync(PKS.WebAPI.Models.LoginRequest)">
+            <summary>登录</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.LoginAsyncInternal(PKS.Web.HttpClientWrapper,PKS.WebAPI.Models.LoginRequest)">
+            <summary>登录</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.Renew(System.String)">
+            <summary>续期</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.RenewAsync(System.String)">
+            <summary>续期</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.RenewAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>续期</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPrincipal(System.String)">
+            <summary>获取登录用户信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPrincipalAsync(System.String)">
+            <summary>获取登录用户信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPrincipalAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>获取登录用户信息</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.Logout(System.String)">
+            <summary>注销用户</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.LogoutAsync(System.String)">
+            <summary>注销用户</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.LogoutAsyncInternal(PKS.Web.HttpClientWrapper,System.String)">
+            <summary>注销用户</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPortalMenu(System.Int32)">
+            <summary>获得指定角色的门户菜单</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPortalMenuAsync(System.Int32)">
+            <summary>获得指定角色的门户菜单</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPortalMenuAsyncInternal(PKS.Web.HttpClientWrapper,System.Int32)">
+            <summary>获得指定角色的门户菜单</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPermissions(System.Int32)">
+            <summary>获得指定用户的权限集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPermissionsAsync(System.Int32)">
+            <summary>获得指定用户的权限集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPermissionsAsyncInternal(PKS.Web.HttpClientWrapper,System.Int32)">
+            <summary>获得指定用户的权限集合</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.HasMenuPermission(System.Int32,System.String)">
+            <summary>判断指定用户对指定Url是否有权限</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.HasMenuPermissionAsync(System.Int32,System.String)">
+            <summary>判断指定用户对指定Url是否有权限</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.HasMenuPermissionAsyncInternal(PKS.Web.HttpClientWrapper,System.Int32,System.String)">
+            <summary>判断指定用户对指定Url是否有权限</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPortalFooterMenu">
+            <summary>获得门户底部菜单</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPortalFooterMenuAsync">
+            <summary>获得门户底部菜单</summary>
+        </member>
+        <member name="M:PKS.WebAPI.Services.SecurityServiceWrapper.GetPortalFooterMenuAsyncInternal(PKS.Web.HttpClientWrapper)">
+            <summary>获得门户底部菜单</summary>
+        </member>
+    </members>
+</doc>

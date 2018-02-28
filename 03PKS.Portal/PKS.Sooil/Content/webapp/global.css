@@ -1,0 +1,447 @@
+﻿* {
+    font-family: '微软雅黑',arial,verdana,sans-serif;
+    font-size: 14px;
+    color:#333;
+}
+body{
+    padding-top:60px;
+    padding-bottom:60px;
+}
+a{
+    cursor:pointer;
+}
+table{
+    min-width:95%;
+}
+.line{
+    width:100%;
+    height:1px;
+    border:1px solid #
+}
+.block{
+    display:inline-block;
+}
+.left{
+    text-align:left;
+}
+.right{
+    text-align:right;
+}
+.center{
+    text-align:center;
+}
+table .btn-sm{
+    height:30px;
+    font-size:14px;
+    padding:4px 10px;
+}
+.noeditc{
+    color:#999;
+}
+tr{
+     height:36px
+}
+th, td {
+    padding: 0 6px;
+}
+.mini-tree th,
+.mini-tree td{
+    padding:0;
+}
+.mini-tree tr,
+.datetimepicker tr {
+    height: 21px;
+}
+.modal-body {
+    height: 100%;
+    border-bottom: none;
+    padding:5px;
+}
+.modal-footer {
+    padding:5px;
+}
+input.form-control,
+select.form-control {
+    height:30px;
+    padding:4px 6px;
+    border: 1px solid #ccc;
+    border-radius:4px;
+}
+.search .form-control{
+    height:34px;
+    padding:6px 12px;
+}
+td select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height:30px ; 
+    padding: 4px 6px;
+}
+/*编辑搜索输入框search.cshtml组合*/
+.input-group > .form-control, 
+.input-group > .input-group-btn > .btn{
+    height: 35px;
+}
+.input-group > .input-group-btn > .btn{
+    font-size:16px;
+    padding-left:20px;
+    padding-right:20px
+}
+
+/*3级页面顶部样式*/
+.navbar .glyphicon{
+    color:#999;
+}
+.navbar > .container-fluid.topthree{
+    width:1000px;
+}
+/*编辑TopToolbar导航条样式*/
+.navbar,.TopToolbar-view .navbar{
+    background:#fff;
+}
+
+.navbar-form .input-group > .form-control{
+    min-width:400px;
+}
+
+.navbar-brand,.TopToolbar-view .navbar-brand{
+    padding-top:10px;
+}
+
+.fullscreenbar .navbar {
+  background-color:#f6f4f0;
+}
+
+/*默认button样式*/
+.btn-primary {
+    color: #fff;
+    background-color: #3f89ec;
+    border-color: #3f89ec;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+     color: #fff;
+     background-color: #2e7ce3;
+     border-color: #2e7ce3;      
+}
+/*面板样式*/
+.panel-heading h1 {
+    display: inline;
+    font-size:16px;  
+}
+.panel-heading h2{
+    font-weight:bold;
+}
+
+/*顶端右侧快捷菜单样式*/
+.infoBar{
+    display:inline;
+}
+.infoBar-icon:link,
+.infoBar-icon:visited {
+    color: #8c8c8c;
+    text-decoration: none;
+}
+.infoBar-icon:hover {
+    color: #8c8c8c;
+    text-decoration: underline;
+}
+
+.infoBar li{
+    display:inline;
+    padding:0 10px;
+}
+.infoBar a {
+    color: #4cff00;
+}
+.dropdown-menu{
+    min-width:150px;
+}
+
+/*顶端(搜索、收藏、快捷菜单、三级页面）栏样式*/
+.topbar a {
+    color: #aaaaaa;
+}
+.topbar a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/*三级页面全局样式*/
+.navbar-header img{
+    display:inline-block;
+}
+.navbar-header .title{
+    font-size:20px;
+    vertical-align:bottom;
+    font-weight:600;
+}
+.TopToolbar-view {
+    background:#eee;
+}
+    .TopToolbar-view .container-fluid {
+        margin: 0 auto;
+    }
+    .TopToolbar-view .navbar {
+        box-shadow: 0 0 5px #c8c8c8;
+    }
+.modal-body .container-fluid{
+    width:100%;
+}
+
+/*弹出层模态框样式*/
+.PopupWindow .modal-dialog {
+    margin: 0 auto;
+    
+}
+.PopupWindow .modal-content {
+    border-radius: 0;
+    padding: 5px 60px;
+    min-width:700px;
+}
+.modal-title{
+    font-weight:bold;
+}
+.modal-header{
+    padding:5px;
+}
+.modal-header span{
+    font-size:23px;
+}
+/*.modal-body tr{
+    height:32px;
+}*/
+.modal-body tr td .btn{
+    padding:3px 12px;
+}
+
+/*左右结构的tab页样式*/
+.tab-left {
+    float: left;
+    min-width: 80px;
+}
+    .tab-left a {
+        color: rgb(51,51,51);
+    }
+    .tab-left .nav > li > a {
+        padding: 2px 7px;
+    }
+
+        .tab-left .nav > li > a:hover,
+        .tab-left .nav > li > a:focus {
+            text-decoration: none;
+            background: none;
+            color: rgb(51,51,51);
+        }
+    .tab-left .nav-pills > li.active > a,
+    .tab-left .nav-pills > li.active > a:hover,
+    .tab-left .nav-pills > li.active > a:focus {
+        font-weight: bold;
+        background: none;
+        color: rgb(51,51,51);
+    }
+        
+/*上下结构的tab页样式*/
+#down .nav {
+    font-weight: 400; 
+    height: 43px;
+    border: 1px solid #ddd;
+    background: url(/Images/sooil/nav_bg.png) repeat-x #f8f9fa;
+}
+.nav > li {
+  position: relative;
+  display: block;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+}
+.nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius:0;
+}
+.nav-tabs.nav-justified > li > a {
+border-bottom: 1px solid #ddd;
+border-radius: 0;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #555;
+    cursor: default;
+    background: url(/Images/sooil/bgcolor.png) repeat-x top #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+.tab-content {
+    border: 1px solid #ddd;
+    min-height: 150px;
+    margin-top: -1px;
+    padding: 10px;
+    background-color: #fff;
+}
+/*弹出层中上下结构的tab页样式*/
+.PopupWindow .nav, .PopupWindow .nav-tabs{
+    border: none;
+    background: none;
+    border-bottom:1px solid #ddd;
+}
+.PopupWindow .nav > li > a:hover,
+.PopupWindow .nav > li > a:focus {
+  background: url(/Images/sooil/bgcolor.png) repeat-x bottom;
+  border:none;
+   margin-bottom:0px;
+    margin-left: 0px;
+}
+.PopupWindow .nav-tabs > li {
+    float: left;
+    margin-bottom:0px;
+    margin-left: 0px;
+}
+
+.PopupWindow .nav-tabs > li.active > a,
+.PopupWindow .nav-tabs > li.active > a:hover,
+.PopupWindow .nav-tabs > li.active > a:focus {
+    color: #555;
+    cursor: default;
+    background: url(/Images/sooil/bgcolor.png) repeat-x bottom;
+    border:none;
+    border-bottom-color: transparent;   
+}
+.PopupWindow .tab-content {
+    border:none;
+    min-height: 150px;
+    margin-top: -1px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+/*筛选条件样式*/
+.tip1 {
+    color:gray
+}
+.filtrate .dropdown {
+    display: inline;
+    margin-right: 50px;
+}
+.filtrate  .dropdown > a {
+   color: #898989;
+}
+.filtrate  .dropdown .caret {
+   color: #898989;
+}
+.dropdown-menu > li > button{
+    margin: 0 20px;
+}
+/*分页控件样式*/
+.paging {
+    padding: 10px 0;
+}
+.paging .col-xs-1{
+    padding-left:0;
+}
+.paging .col-xs-11 {
+    padding-right: 0;
+}
+.pagination {
+    margin: 0;
+}
+/*表格样式*/
+.tabletitle {
+    background-color: #eee;
+}
+.tabletitle td{
+    text-align:center;
+    vertical-align:middle;
+    font-weight:bold;
+}
+/*树形结构样式*/
+/*form {
+    float: right;
+    display: inline;
+}*/
+.CNLTreeMenu {
+    padding-top: 10px;
+}
+    
+.CNLTreeMenu img.s {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.Closed ul {
+    display: none;
+}
+
+.Child img.s {
+    background: none;
+    cursor: default;
+}
+
+#CNLTreeMenu1 ul {
+    margin: 0 0 0 15px;
+}
+
+#CNLTreeMenu1 img.s {
+    height: 15px;
+    background: none;
+}
+
+#CNLTreeMenu1 .Opened img.s {
+    background: url(/Images/Sooil/opened.gif) no-repeat 4px 6px;
+}
+
+#CNLTreeMenu1 .Closed img.s {
+    background: url(/Images/Sooil/closed.gif) no-repeat 3px 6px;
+}
+
+#CNLTreeMenu1 .Child img.s {
+    background: url(/Images/Sooil/child.gif) no-repeat 3px 5px;
+}
+.CNLTreeMenu a, .CNLTreeMenu a:visited {
+    color: #000;
+    background: inherit;
+}
+
+.fullscreenbar .glyphicon {
+    color:#fff;
+}
+
+    .dropdown-menu > .bottom-link > a:nth-child(1) {
+        display:inline-block;
+        width:57%;
+    }
+.dropdown-menu > .bottom-link > a:nth-child(2) {
+    display:inline-block;
+        width:40%;
+        padding:3px 1px;
+    }
+.dropdown-menu > .bottom-link > a > span {
+    color:#ccc;
+    padding:2px;
+}
+/*底部版权样式*/
+.copyright {
+    color: #b5b5b5;
+    background-color: #f5f6f5;
+    border-top: 1px solid #ebebeb;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    zoom: 1;
+    height: 35px;
+    line-height: 35px;
+}

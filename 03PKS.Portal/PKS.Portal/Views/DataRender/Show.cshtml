@@ -1,0 +1,76 @@
+﻿@{
+//ViewBag.Title = ViewBag.data.title;
+}
+<script src="~/Scripts/dynamicBootstrapTable.js"></script>
+<script src="~/Content/lib/bootstrap-table/bootstrap-table.min.js"></script>
+<link href="~/Content/styles/comment.css" rel="stylesheet" />
+<link href="~/Content/lib/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+
+
+<link href="~/Content/lib/viewer/viewer.min.css" rel="stylesheet" />
+<script src="~/Content/lib/viewer/viewer.min.js"></script>
+<script src="~/Content/lib/elastislide/js/modernizr.custom.17475.js"></script>
+<script src="~/Content/lib/elastislide/js/jquerypp.custom.js"></script>
+
+<div class="row">
+    <div style="text-align:center">
+        <h1 id="title"></h1>
+    </div>
+    <div style="text-align:center;margin:20px 0px;">
+        <span>作者：</span><span id="author"></span>
+        <span style="margin-left:30px;">创建时间：</span><span id="createdate"></span>
+    </div>
+</div>
+
+    <div id="container"  style="margin-top: 10px;width:100%;">
+        <pks:datarender :esdata="esdata">
+        </pks:datarender>
+    </div>
+
+<div class="row">
+    <div id="remarkcontainer" style="margin-top:30px">
+        <pks:remark2 :id="'remark'" :iiid="iiid"></pks:remark2>
+    </div>
+</div>
+<script>
+    var data = @Html.Raw(ViewBag.data);
+    if (data.showtype && data.showtype.toLowerCase() == "pdf")
+    {
+        $('#container').height(800);
+    }
+    else if (data.showtype && (data.showtype.toLowerCase() == "chart" || data.showtype.toLowerCase() == "histogram")) {
+        $('#container').height(500);
+    }
+    var iiid = getPageParam("iiid");
+   // var dataSourceUrl="/DataRender/GetDataSource"
+
+    var vm1 = PKSUI.bind({
+        el: "#container",
+        data: {
+            esdata: data
+        },
+        model: 'pks:datarender'
+    });
+
+
+    if (iiid) {
+        var vm2 = PKSUI.bind({
+            el: "#remarkcontainer",
+            data: {
+                iiid: iiid
+            },
+            model: 'pks:remark2'
+        });
+    }
+    $(document).ready(function () {
+        $('#title').html(data.title);
+        document.title = data.title;
+        $('#author').html(data.author);
+        if (data.createddate) {
+            //$('#original_createdate').html(data.createdate);
+            var date = moment(data.createddate, "YYYY-MM-DDTHH:mm:ss.SSSZ").toDate();
+            $('#createdate').html(date.format("yyyy-MM-dd hh:mm:ss"));
+        }
+    });
+</script>
+

@@ -1,0 +1,418 @@
+﻿@using PKS.Web;
+@using PKS.DbModels;
+@using PKS.DbServices.Models;
+@model PKS.DbModels.USERPROFILE
+@{
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "用户中心";
+    string treeData = ViewBag.treeData as string;
+    string roleName = ViewBag.roleName as string;
+    bool isFormsAuthentication = (bool)ViewBag.isFormsAuthentication;
+}
+
+<link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/bootstrap/easyui.css">
+<link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/icon.css">
+
+@section Scripts
+{
+
+    <script type="text/javascript" src="~/Content/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="@webApiSiteUrl/Content/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="@webApiSiteUrl/Content/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
+
+
+    <script type="text/javascript">
+
+        //显示密码修改窗口
+        function showChangePasswordDialog() {
+            $("#changePasswordForm input").val('');
+            var changePasswordDialog = $("#divChangePassword").show().dialog({
+                draggable: false,
+                closable: true,
+                modal: true,
+                top:200,
+                buttons: [
+                    {
+                        text: '确定',
+                        handler: changgePassword
+                    }, {
+                        text: '取消',
+                        handler: function () {
+                            $("#divChangePassword").hide().dialog('close');
+                        }
+                    }]
+
+            });
+        }
+
+        //修改密码
+        function changgePassword() {
+            var changePasswordForm = $("#changePasswordForm").form("submit", {
+                queryParams: { userId: userId },
+                onSubmit: function () {
+                    if (!$(this).form('validate')) { return false; }
+                    var $p1 = $("#changePasswordForm input[name=newPassword]");
+                    var $p2 = $("#changePasswordForm input[name=newPasswordRepeater]");
+                    if ($p1.val() != $p2.val()) {
+                        $.messager.alert("提示", "两次密码输入不一致,请重新输入", 'info', function () {
+                            $p2.val('');
+                            $p1.val('').focus();
+                        });
+                        return false;
+                    }
+                    return true;
+                },
+                success: function (r) {
+                    var code = $.parseJSON(r).code;
+                    var msg = "";
+                    switch (code) {
+                        case "Success":
+                            $("#divChangePassword").hide().dialog('close');
+                            msg = "修改成功";
+                            break;
+                        case "NotLoginIn":
+                            msg = "修改失败，帐号未登录";
+                            $("#changePasswordForm").form("clear");
+                            break;
+                        case "PasswordError":
+                            msg = "修改失败，密码错误";
+                            $("#changePasswordForm").form("clear");
+                            break;
+                        default:
+                    }
+                    show(msg);
+                }
+            });
+        }
+
+    </script>
+
+    <script type="text/javascript">
+
+
+        var userId = '@Model.USERID';
+        var userName = '@Model.USERNAME';
+        var icon = 'icon-folder';
+
+        //var treeData = [{ "id": 0, "text": "收藏夹", iconCls: 'icon-folder-close' }];
+        var treeData =@Html.Raw(treeData);
+
+
+        $(function () {
+            loadTree();
+        });
+
+        function loadTree() {
+            var favTree = $("#favTree").tree({
+                data: treeData,
+                animate: true,
+                lines: true,
+                dnd: false,
+                formatter: function (node) { return node.text; },
+                onContextMenu: function (e, node) { initMenu(e, node, this); },
+                onAfterEdit: function (node) { afterNodeEdit(node); }
+                //onClick: function (node) { $(this).tree("toggle", node.target); }
+            });
+        }
+
+        //收藏树右键菜单初始化
+        function initMenu(e, node,tree) {
+            e.preventDefault();
+            $(tree).tree('select', node.target);
+            $("#divMenu").menu('show', { left: e.pageX, top: e.pageY });
+        }
+
+        //菜单跳转事件
+        function menuSelected(munu) {
+            var favoriteListUrl = "@Url.Action("FavoriteList")?userId="+'@Model.USERID';
+            var downloadListUrl = "@Url.Action("DownLoadList")?userId="+'@Model.USERID';
+            var url = favoriteListUrl;
+            switch (munu) {
+                case 'download':
+                    url = downloadListUrl;
+                    break;
+                default:
+                    break;
+            }
+            $("#ifrContent").attr("src", url);
+        }
+
+         //添加收藏夹
+        function addNode() {
+            var t = $("#favTree");
+            var node = t.tree('getSelected');
+            var nodeType = node.type;
+            if (node.state == "closed") {
+                t.tree("expand", node.target);
+            }
+
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "@Url.Action("AddFavCatalog")",
+                data: { pId: node.id, folderName: '新建收藏夹', userId: userId, userName: userName },
+                success: function (obj) {
+                    t.tree('append', {
+                        parent: (node ? node.target : null),
+                        data: { id: obj.id, text: obj.text, iconCls: icon }
+                    });
+                    var childNode = t.tree('find', obj.id);
+                    var target = childNode.target;
+                    t.tree('select', target).tree('beginEdit', target);
+                    $(target).find("input").select().css("color","red");
+                }
+            });
+        }
+
+        //删除收藏夹
+        function delNode() {
+            var t = $("#favTree");
+            var node = t.tree('getSelected');
+
+            $.messager.confirm("确认", "将删除收藏夹以及收藏内容，确认要删除吗？", function (r) {
+                if (r) {
+                    $.ajax({
+                        type: "POST",
+                        cache: false,
+                        url: "@Url.Action("DelFavCatalog")",
+                        data: { id: node.id},
+                        datatype: "text",
+                        success: function (r) {
+                            if (node.type == 0) {
+                                var childrenNodes = t.tree('getChildren', node.target);
+                                for (var i = 0; i < childrenNodes.length; i++) {
+                                    t.tree('remove', childrenNodes[i].target);
+                                }
+                            }
+                            else { t.tree('remove', node.target); }
+                        }
+                    });
+                }
+            });
+
+        }
+
+
+        function renameNode() {
+            var t = $("#favTree");
+            var node = t.tree('getSelected');
+            t.tree('beginEdit', node.target);
+            $(node.target).find("input").select().css("color", "#111");
+        }
+
+        //重命名
+        function afterNodeEdit(node) {
+
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "@Url.Action("RenameFavCatalog")",
+                    data: { id: node.id,name: node.text },
+                    datatype: "text",
+                    success: function (r) { ;}
+                });
+        }
+
+        function show(msg) {
+            $.messager.show({
+                title: '消息',
+                msg: msg,
+                timeout: 3000,
+                showType: 'slide'
+            });
+        }
+    </script>
+
+}
+
+
+
+
+<style type="text/css">
+    body {
+        font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        background-color: #f3f3f4;
+        overflow-x: hidden;
+    }
+
+    .tree-file {
+    }
+
+    .ibox-title {
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        background-color: #ffffff;
+        border-color: #e7eaec;
+        -webkit-border-image: none;
+        -o-border-image: none;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 4px 0px 0;
+        color: inherit;
+        margin-bottom: 0;
+        padding: 14px 15px 7px;
+        min-height: 48px;
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="case">
+        <div class="jurassic-row">
+
+            <div class="jurassic-col-3">
+
+                <!--个人信息开始-->
+                <div class="ibox float-e-margins" style="margin-bottom:5px;background-color:#FFF">
+                    <div class="ibox-title">
+                        <h5>个人资料</h5>
+                    </div>
+                    <div>
+                        <div class="ibox-content no-padding border-left-right">
+                            <img alt="image" class="img-responsive" src="/Content/images/header/profile_big.jpg">
+                        </div>
+                        <div class="ibox-content profile-content" style="padding-left:20px;">
+                            <h4><strong>@Model.USERNAME</strong></h4>
+                            <h4><strong>@roleName</strong></h4>
+                            <p><i class="fa fa-map-marker"></i>智能勘探工作平台</p>
+                            <div class="user-button">
+                                <div class="row" style="padding-bottom:10px;">
+
+                                    <div class="col-sm-5">
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        @{
+                                            if (isFormsAuthentication)
+                                            {
+                                                <a onclick="showChangePasswordDialog();" class="btn btn-warning btn-sm btn-block" data-load-url="@Url.Action("changepassword", "account")" data-toggle="modal" data-target="#changePassword_modal"><i class="fa fa-coffee"></i> 修改密码</a>
+                                            }
+                                        }
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--个人信息结束-->
+                <!--左侧导航开始-->
+                <div id="wrapper" style="margin-top:0px;border-top:solid #e7eaec 4px;">
+                    <nav class="navbar-default navbar-static-side" role="navigation" style="height:600px;">
+                        <div class="sidebar-collapse">
+                            <ul class="nav" id="side-menu">
+
+                                <li>
+                                    <a href="#collapseFavTree" data-toggle="collapse" onclick="menuSelected('favorite')">
+                                        <i class="fa fa-heart"></i>
+                                        <span class="nav-label" style="font-size: 14px;">我的收藏</span>
+                                        <span class="fa arrow"></span>
+                                    </a>
+                                    <div id="collapseFavTree" class="panel-collapse collapse in" style="background-color:#ffffff;">
+                                        <div class="panel-body" style="padding: 5px;">
+                                            <ul id="favTree" style="padding-top:20px;padding-bottom:20px;"></ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="javascript:menuSelected('download')">
+                                        <i class="fa fa-download"></i>
+                                        <span class="nav-label" style="font-size: 14px;">我的下载</span>
+                                    </a>
+                                </li>
+                                @*<li>
+                                        <a href="javascript:void(0)">
+                                            <i class="fa fa-chrome"></i>
+                                            <span class="nav-label" style="font-size: 14px;">我的评论</span>
+                                        </a>
+                                    </li>*@
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <!--左侧导航结束-->
+
+            </div>
+
+            <div class="jurassic-col-9">
+                <div style="height:950px;width:100%;margin-left:10px;border-top:solid #e7eaec 4px;">
+                    <iframe id="ifrContent" frameborder="0" scrolling="no" style="width:100%;height:100%;" src="@Url.Action("FavoriteList")?userid=@Model.USERID"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@* 收藏夹的右键菜单 *@
+<div id="divMenu" class="easyui-menu" style="width: 120px;">
+    <div onclick="addNode()" data-options="iconCls:'icon-add'">
+        添加
+    </div>
+    <div onclick="delNode()" data-options="iconCls:'icon-remove'">
+        删除
+    </div>
+    <div onclick="renameNode()" data-options="iconCls:'icon-edit'">
+        重命名
+    </div>
+</div>
+
+@* 修改密码弹框 *@
+<div id="divChangePassword" style="display: none; width: 285px; height: 220px" title="修改密码">
+    <form id="changePasswordForm" method="post" action="@Url.Action("ChangPassword")">
+        <table>
+            <tr style="height: 10px">
+                <td></td>
+            </tr>
+            <tr>
+                <td style="padding-left: 10px">
+                    用户名:
+                </td>
+                <td>
+                    @Model.USERNAME
+                </td>
+            </tr>
+            <tr style="height: 10px">
+                <td></td>
+            </tr>
+            <tr>
+                <td style="padding-left: 10px">
+                    旧密码:
+                </td>
+                <td>
+                    <input class="easyui-validatebox" type="password" name="oldPassword" data-options="required:true"></input>
+                </td>
+            </tr>
+            <tr style="height: 10px">
+                <td></td>
+            </tr>
+            <tr>
+                <td style="padding-left: 10px">
+                    新密码:
+                </td>
+                <td>
+                    <input type="password" class="easyui-validatebox" name="newPassword" data-options="required:true,validType:{length:[5,32]}"></input>
+                </td>
+            </tr>
+            <tr style="height: 10px">
+                <td></td>
+            </tr>
+            <tr>
+                <td style="padding-left: 10px">
+                    确认新密码:
+                </td>
+                <td>
+                    <input type="password" class="easyui-validatebox" name="newPasswordRepeater" data-options="required:true,validType:{length:[5,32]}"></input>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+

@@ -1,0 +1,41 @@
+﻿<link href="~/Content/jqueryui/jquery.ui.crashboard.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.ui.crashboard.js"></script>
+<script src="~/Scripts/app/serivces/SearchHistoryService.js"></script>
+
+  <div class="yxj_top" id="searchbar">
+        <div class="cf_lgz boxcenter">
+            <div class="cf_lg">
+                <div class="cf_logo">
+                    <img style="width: 190px;margin-top: -3px" src="/content/images/search_logo.png" />
+                </div>
+                <div class="search radius6" style="float:left;margin-top: 2px; position:relative">
+                    <form name="searchform" method="get" action="/search/list" onsubmit="return check()">
+                        <div style="position:absolute; left:8px; top:11px; margin-right:10px;">
+                            <img src="/content/images/search/icon_menu.png" style="width: 17px; margin-top: 2px;" />
+                        </div>
+                     
+                        <select name="sourcename" id="choose" v-model="selectedSourceName">
+                            <option v-for="option in sourceNameList" v-bind:value="option.text">{{ option.text }}</option>
+                        </select>
+                        <input type="hidden" name="p" value="1">
+                        <input autocomplete="off" onpropertychange="handle()" oninput="handle()" class="inp_srh" style="padding-right: 40px;" id="searchContentId" name="w" placeholder="" v-model="searchText">
+                        <ul class="yxj_tc" style="display: block;width: 375px;margin-left: 160px;" id="enlist"></ul>
+                        <div style="position:absolute; top:8px; right:220px;" id="icon-search">
+                            <img src="/content/images/search/icon_search.png" />
+                        </div>
+
+                        <input class="btn_srh" type="submit" value="搜索" style="cursor:pointer;">
+                        <input class="btn_srh1" type="button" onclick="openAdvanced()" value="高级搜索" style="cursor:pointer;">
+                    </form>
+                </div>
+
+                <div class="cf_tj" id="hotword">热词推荐：<a v-for="hotWord in hotWords" :href="'/search/list?w=' + hotWord.Word" v-bind:title="hotWord.Word">{{hotWord.Word}}</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<script src="~/Scripts/app/searchbar/SearchBarService.js"></script>
+<script src="~/Scripts/app/searchbar/SearchBar.js"></script>
+
+<script src="~/Scripts/app/jquery.select.js"></script>

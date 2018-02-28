@@ -1,0 +1,157 @@
+﻿{
+  "defaultconditions": [
+    {
+      "title": "成果名称",
+      "name": "m_title_pt",
+      "searchfields": [ "title", "pt" ],
+      "ischecked": false,
+      "selectedoperator": "contain",
+      "ctype": "text",
+      "operators": [
+
+        {
+          "name": "equal",
+          "text": "等于",
+          "operator": "eq"
+        },
+        {
+          "name": "contain",
+          "text": "包含",
+          "operator": "match"
+        },
+        {
+          "name": "all",
+          "text": "全部"
+        }
+      ]
+    },
+    {
+      "title": "数据源",
+      "name": "dsn",
+      "searchfields": [ "dsn" ],
+      "ctype": "select",
+      "selectedoperator": "equal",
+      "operators": [
+
+        {
+          "name": "equal",
+          "text": "等于",
+          "operator": "eq"
+        },
+        {
+          "name": "all",
+          "text": "全部"
+        }
+      ]
+    },
+    {
+      "title": "地质目标",
+      "name": "m_bo",
+      "searchfields": [ "secondlevel", "trap", "well", "swa", "basin" ],
+      "ctype": "text",
+      "selectedoperator": "contain",
+      "operators": [
+
+        {
+          "name": "equal",
+          "text": "等于",
+          "operator": "eq"
+        },
+        {
+          "name": "contain",
+          "text": "包含",
+          "operator": "match"
+        },
+        {
+          "name": "all",
+          "text": "全部"
+        }
+      ]
+    },
+    {
+      "title": "作者",
+      "name": "author",
+      "searchfields": [ "author" ],
+      "selectedoperator": "contain",
+      "ctype": "text",
+      "operators": [
+
+        {
+          "name": "equal",
+          "text": "等于",
+          "operator": "eq"
+        },
+        {
+          "name": "contain",
+          "text": "包含",
+          "operator": "match"
+        },
+        {
+          "name": "all",
+          "text": "全部"
+        }
+      ]
+    },
+    {
+      "title": "审核者",
+      "name": "auditor",
+      "searchfields": [ "auditor" ],
+      "ctype": "text",
+      "selectedoperator": "contain",
+      "operators": [
+        {
+          "name": "all",
+          "text": "全部"
+        },
+        {
+          "name": "equal",
+          "text": "等于",
+          "operator": "eq"
+        },
+        {
+          "name": "contain",
+          "text": "包含",
+          "operator": "match"
+        },
+        {
+          "name": "all",
+          "text": "全部"
+        }
+      ]
+    },
+    {
+      "title": "创建时间",
+      "name": "createddate",
+      "searchfields": [ "createddate" ],
+      "ctype": "date",
+      "selectedoperator": "equal",
+      "operators": [
+
+        {
+          "name": "equal",
+          "text": "等于",
+          "operator": "eq"
+        },
+        {
+          "name": ">=",
+          "text": ">=",
+          "operator": "gte"
+        },
+        {
+          "name": "<=",
+          "text": "<=",
+          "operator": "lte"
+        },
+        {
+          "name": "between",
+          "text": "介于",
+          "operator": "between"
+        },
+        {
+          "name": "all",
+          "text": "全部"
+        }
+      ]
+    }
+  ] 
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "iiid": "h001",
+    "pageid": "/DataRender/Histogram",
+    "dataid": "h1",
+    "pt": "储量统计"
+  },
+  {
+    "iiid": "pt-image",
+    "pageid": "/DataRender/image",
+    "dataid": "image.json"
+  },
+  {
+    "iiid": "pt-html",
+    "pageid": "/DataRender/html",
+    "dataid": "html.json"
+  },
+  {
+    "iiid": "pt-pdf",
+    "pageid": "/DataRender/pdf",
+    "dataid": "pdf.json"
+  },
+  {
+    "iiid": "pt-table",
+    "pageid": "/DataRender/table",
+    "dataid": "table.json"
+  }
+]

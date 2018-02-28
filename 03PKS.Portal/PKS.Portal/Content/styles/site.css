@@ -1,0 +1,12 @@
+﻿.jurassic-body {
+    margin:0 auto;
+}
+@media (min-width:768px) {
+}
+@media (min-width:992px) {
+    .jurassic-body {
+        width: 1100px;
+    }
+}
+@media (min-width:1200px) {
+}

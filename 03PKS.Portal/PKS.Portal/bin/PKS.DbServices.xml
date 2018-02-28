@@ -1,0 +1,1084 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PKS.DbServices</name>
+    </assembly>
+    <members>
+        <member name="T:PKS.DbServices.ObjectMapperProfile">
+            <summary>自定义对象映射配置</summary>
+        </member>
+        <member name="M:PKS.DbServices.ObjectMapperProfile.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="T:PKS.DbServices.PKSSubSystemConfig">
+            <summary>子系统配置</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.Ninject#IInitializable#Initialize">
+            <summary>初始化</summary>
+        </member>
+        <member name="P:PKS.DbServices.PKSSubSystemConfig.CurrentCode">
+            <summary>当前子系统代码</summary>
+        </member>
+        <member name="P:PKS.DbServices.PKSSubSystemConfig.CurrentInfo">
+            <summary>当前子系统信息</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.GetInfo(System.String)">
+            <summary>获得某个子系统信息</summary>
+        </member>
+        <member name="P:PKS.DbServices.PKSSubSystemConfig.Urls">
+            <summary>子系统URL，键是系统代码，值是URL</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.GetCacheItem_Urls(System.String,System.String)">
+            <summary>子系统URL，键是系统代码，值是URL</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.GetRootUrl(PKS.DBModels.PKS_SUBSYSTEM)">
+            <summary>获得子系统URL</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.GetUrl(System.String)">
+            <summary>获得子系统URL</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.OnChanged(PKS.Data.EntityChangedEventArgs{PKS.DBModels.PKS_SUBSYSTEM})">
+            <summary>处理变化事件</summary>
+        </member>
+        <member name="T:PKS.DbServices.PKSSubSystemConfig.CustomBracketPatternProvider">
+            <summary>子系统方括号模式提供者</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.CustomBracketPatternProvider.#ctor(PKS.DbServices.PKSSubSystemConfig)">
+            <summary>构造函数</summary>
+        </member>
+        <member name="P:PKS.DbServices.PKSSubSystemConfig.CustomBracketPatternProvider.Host">
+            <summary>宿主</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.CustomBracketPatternProvider.GetTagValue">
+            <summary>获得标签值</summary>
+        </member>
+        <member name="M:PKS.DbServices.PKSSubSystemConfig.CustomBracketPatternProvider.Resolve(System.String)">
+            <summary>解析标签值</summary>
+        </member>
+        <member name="T:PKS.DbServices.DbServicesNinjectModule">
+            <summary>注入模块</summary>
+        </member>
+        <member name="M:PKS.DbServices.DbServicesNinjectModule.Load">
+            <summary>加载注入</summary>
+        </member>
+        <member name="M:PKS.DbServices.IndexApp.IndexMetadataService.SaveAppIndex(System.Collections.Generic.Dictionary{PKS.Models.Metadata,PKS.WebAPI.Models.AppDataSaveRequest})">
+            <summary>
+            保存索引数据
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.KG_PrivateCatalogService">
+            <summary>私有图谱服务</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PrivateCatalogService.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PrivateCatalogService.GetAll(System.String)">
+            <summary>获得全部</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PrivateCatalogService.Save(PKS.DbServices.Models.KG_CatalogNode)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PrivateCatalogService.Delete(System.Int32,System.String)">
+            <summary>删除</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PrivateCatalogService.Sort(PKS.DbServices.Models.KG_CatalogNode[])">
+            <summary>排序</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PrivateCatalogService.GetChildren(System.String,System.Int32[])">
+            <summary>获得某个分类及其完整树</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PrivateCatalogService.GetParents(System.String,System.Int32[])">
+            <summary>获得某个分类及其完整树</summary>
+        </member>
+        <member name="T:PKS.DbServices.KG_TopicService">
+            <summary>主题服务</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_TopicService.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_TopicService.GetPublicListByPage(System.Int32[],System.Int32,System.Int32,System.Int32@)">
+            <summary>获得分类ID集合相关的主题集合</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_TopicService.GetPrivateListByPage(System.String,PKS.Models.PageInfo,System.Int32[])">
+            <summary>获得分类ID集合相关的主题集合</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_TopicService.Save(PKS.DbServices.Models.KG_NewTopic,System.String)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_TopicService.Delete(System.Int32)">
+            <summary>删除</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_TopicService.GetTopicById(System.Int32)">
+            <summary>查询</summary>
+        </member>
+        <member name="T:PKS.DbServices.KG_PublicCatalogService">
+            <summary>公共图谱服务</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PublicCatalogService.#ctor">
+            <summary>构造函数</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PublicCatalogService.GetAll">
+            <summary>获得全部</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PublicCatalogService.GetFirstLevel">
+            <summary>获得公共分类第一级</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PublicCatalogService.GetChildren(System.Int32[])">
+            <summary>获得某个分类及其完整树</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PublicCatalogService.GetParents(System.Int32[])">
+            <summary>获得某个分类及其完整树</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PublicCatalogService.Insert(PKS.DbServices.Models.KG_CatalogNode)">
+            <summary>插入</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PublicCatalogService.Save(PKS.DbServices.Models.KG_CatalogNode)">
+            <summary>保存</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PublicCatalogService.Delete(PKS.DbServices.Models.KG_CatalogNode)">
+            <summary>删除</summary>
+        </member>
+        <member name="M:PKS.DbServices.KG_PublicCatalogService.Sort(PKS.DbServices.Models.KG_CatalogNode[])">
+            <summary>排序</summary>
+        </member>
+        <member name="T:PKS.DbServices.Models.KG_CatalogModel">
+            <summary>图谱模型</summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogModel.Parent">
+            <summary>父节点</summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogModel.Children">
+            <summary>子节点集合</summary>
+        </member>
+        <member name="T:PKS.DbServices.Models.KG_NewTopicModel">
+            <summary>图谱主题</summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_NewTopicModel.Contents">
+            <summary>
+             内容
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_NewTopicModel.CreatedBy">
+            <summary>
+             创建人
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_NewTopicModel.CreatedDate">
+            <summary>
+             创建时间
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.Models.KG_TopicModel">
+            <summary>图谱主题</summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_TopicModel.PublicCatalogs">
+            <summary>
+             公共分类数组
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_TopicModel.PrivateCatalogs">
+            <summary>
+             公共分类数组
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.Models.KG_NewTopic">
+            <summary>新图谱主题</summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_NewTopic.Id">
+            <summary>
+             Id
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_NewTopic.PublicCatalogId">
+            <summary>
+             公共分类Id
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_NewTopic.PrivateCatalogId">
+            <summary>
+             私有分类Id
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_NewTopic.Title">
+            <summary>
+             主题
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_NewTopic.LinkUrl">
+            <summary>
+             链接URL
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.Models.KG_CatalogNode">
+            <summary>图谱节点</summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.Id">
+            <summary>
+             Id (Primary key)
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.Code">
+            <summary>
+             CODE (length: 100)
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.Name">
+            <summary>
+             NAME (length: 100)
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.PKS#Models#ITreeNode#Text">
+            <summary>
+             NAME (length: 100)
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.Description">
+            <summary>
+             DESCRIPTION (length: 255)
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.Level">
+            <summary>
+             LEVELNUMBER
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.Order">
+            <summary>
+             ORDERNUMBER
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.ParentId">
+            <summary>
+             PARENTID
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.PatternURL">
+            <summary>
+             IMAGEURL (length: 255)
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.ImageURL">
+            <summary>
+             IMAGEURL (length: 255)
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.CreatedBy">
+            <summary>
+             CREATEDBY (length: 50)
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.CreatedDate">
+            <summary>
+             CREATEDDATE
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.LastUpdatedBy">
+            <summary>
+             LASTUPDATEDBY (length: 50)
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Models.KG_CatalogNode.LastUpdatedDate">
+            <summary>
+             LASTUPDATEDDATE
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.KManage.Model.CatalogueInfo">
+            <summary>
+            目录信息
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentTypeParam.Metadata">
+            <summary>
+            对应Es标签【用来定义Es输出参数】
+            </summary>
+        </member>
+        <member name="F:PKS.DbServices.KManage.Model.BoType.Well">
+            <summary>
+            井
+            </summary>
+        </member>
+        <member name="F:PKS.DbServices.KManage.Model.BoType.Trap">
+            <summary>
+            圈闭
+            </summary>
+        </member>
+        <member name="F:PKS.DbServices.KManage.Model.BoType.Structure">
+            <summary>
+            构造
+            </summary>
+        </member>
+        <member name="F:PKS.DbServices.KManage.Model.BoType.FirstStructure">
+            <summary>
+            一级构造
+            </summary>
+        </member>
+        <member name="F:PKS.DbServices.KManage.Model.BoType.SecondStructure">
+            <summary>
+            二级构造
+            </summary>
+        </member>
+        <member name="F:PKS.DbServices.KManage.Model.BoType.Basin">
+            <summary>
+            盆地
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.QueryParameter">
+            <summary>
+            查询参数
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.ComponentParameter">
+            <summary>
+            组件参数
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.Htmltext">
+            <summary>
+            Html文本
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.PlaceholderId">
+            <summary>
+            组件占位唯一标识
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.FragmentTypeCode">
+            <summary>
+            知识片段类型
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.FragmentTypeName">
+            <summary>
+            知识片段名称
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.FragmentVueTag">
+            <summary>
+            知识片段对应Vue标签
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.FragmentHasTextTemplate">
+            <summary>
+            知识片段是否为文本模板
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.TemplateId">
+            <summary>
+            知识片段所在模板
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.FragmentModel.CatalogueNodeId">
+            <summary>
+            从属标题组件的placeholder【对应文档目录的placeholder】
+            注：在标题之下的知识片段
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.KManage.Model.TemplateInfo.Template">
+            <summary>
+            编辑工具生成的字符串
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.KManage.KManageService.GetWidgets">
+            <summary>
+            获取组件信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.KManage2Service.FindTemplateByBo(System.Int32,System.String,System.String)">
+            <summary>
+            根据Bo查找对应的所有知识片段
+            </summary>
+            <param name="boName"></param>
+            <param name="boType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.KManage2Service.GetComponentParamsByFragmentTypeId(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            根据组件类型获取组件参数
+            </summary>
+            <param name="templateId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.KManage2Service.GetCatalogueInfosByTemplateId(System.Int32)">
+            <summary>
+            根据模板获取所有目录
+            </summary>
+            <param name="templateId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.OilWiki.OilWikiService.GetCatalog">
+            <summary>
+            获取所有目录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.OilWiki.OilWikiService.GetCatalogById(System.Int32)">
+            <summary>
+            根据目录Id获取目录
+            </summary>
+            <param name="catalogId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.OilWiki.OilWikiService.SearchEntry(System.String)">
+            <summary>
+            根据查询字符串获取搜索的词条
+            </summary>
+            <param name="queryString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.OilWiki.OilWikiService.GetEntryByName(System.String)">
+            <summary>
+            根据词条名称获取词条记录
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.OilWiki.OilWikiService.GetEntryByCatalogId(System.Int32)">
+            <summary>
+            根据目录Id获取目录下词条列表
+            </summary>
+            <param name="catalogId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.OilWiki.OilWikiService.GetEntryById(System.Int32)">
+            <summary>
+            根据词条Id获取词条数据详情
+            </summary>
+            <param name="entryId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PKS.DbServices.CodeManageService">
+            <summary>
+            码表维护服务
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.Portal.Pagination`1">
+            <summary>
+            分页信息
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Pagination`1.data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Pagination`1.total">
+            <summary>
+            总记录数
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.Portal.Remark.Model.RemarkThumbupModel">
+            <summary>
+            点赞Model
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkThumbupModel.Id">
+            <summary>
+            id
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkThumbupModel.RemarkId">
+            <summary>
+            RemarkId
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkThumbupModel.UserId">
+            <summary>
+            UserId
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkThumbupModel.CreatedBy">
+            <summary>
+            CreatedBy
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkThumbupModel.LastUpdatedBy">
+            <summary>
+            LastUpdatedBy
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkThumbupModel.LastUpdatedDate">
+            <summary>
+            LastUpdatedDate
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.Portal.Remark.Model.RemarkModel">
+            <summary>
+            评论Model
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.IIId">
+            <summary>
+            成果Id
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.Remark">
+            <summary>
+            评论内容
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.UserId">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.CreatedBy">
+            <summary>
+            评论名
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.CreatedDate">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.LastUpdatedBy">
+            <summary>
+            最近修改人
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.LastUpdatedDate">
+            <summary>
+            最近修改日期
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.UserPhotoUrl">
+            <summary>
+            头像Url
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Portal.Remark.Model.RemarkModel.Thumbups">
+            <summary>
+            点赞信息
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.Portal.Remark.RemarkService">
+            <summary>
+            评论服务
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.Portal.Remark.RemarkService.QueryRemark(System.String,System.Int32,System.Int32,System.String,System.Int32)">
+            <summary>
+            查询评论列表
+            </summary>
+            <param name="iiid"></param>
+            <param name="index"></param>
+            <param name="size"></param>
+            <param name="filter"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.Portal.Remark.RemarkService.AddRemark(PKS.DbServices.Portal.Remark.Model.RemarkModel)">
+            <summary>
+            发表评论
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="M:PKS.DbServices.Portal.Remark.RemarkService.DeleteRemark(System.Int32)">
+            <summary>
+            删除评论
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="M:PKS.DbServices.Portal.Remark.RemarkService.PraiseRemark(PKS.DbModels.Portal.PKS_Remark_Thumbup,System.Boolean)">
+            <summary>
+            赞
+            </summary>
+            <param name="thumbup"></param>
+            <param name="praise"></param>
+        </member>
+        <member name="M:PKS.DbServices.Portal.SearchHistory.SearchHistoryService.SaveClickLog(PKS.DbModels.Portal.PKS_SearchHistory,System.String)">
+            <summary>
+            保存基本的历史记录信息
+            </summary>
+            <param name="searhHistoryModel">基本历史记录信息的实体模型</param>
+            <param name="isStartPage">是否是起始页</param>
+        </member>
+        <member name="M:PKS.DbServices.Portal.UserCenter.UserCenterService.LoadFavoriteList(System.Int32,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            加载收藏列表
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.Portal.UserCenter.UserCenterService.AddFavorite(System.Int32,System.String,System.Int32)">
+            <summary>
+            添加收藏
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.Portal.UserCenter.UserCenterService.CancelFavorite(System.Int32,System.String)">
+            <summary>
+            取消收藏
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.Portal.UserCenter.UserCenterService.AddDownLoad(System.Int32,System.String)">
+            <summary>
+            添加下载记录
+            </summary>
+        </member>
+        <member name="F:PKS.DbServices.Portal.UserCenter.ChangePasswordResultType.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:PKS.DbServices.Portal.UserCenter.ChangePasswordResultType.NotLoginIn">
+            <summary>
+            未登录
+            </summary>
+        </member>
+        <member name="F:PKS.DbServices.Portal.UserCenter.ChangePasswordResultType.PasswordError">
+            <summary>
+            密码错误
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.BPAndPTTreeModel.TermClassId">
+            <summary>
+            叙词ID
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.BPAndPTTreeModel.Term">
+            <summary>
+             叙词
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.BPAndPTTreeModel.PId">
+            <summary>
+            叙词父ID
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.BPAndPTTreeModel.CreateDate">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.BPAndPTTreeModel.OrderIndex">
+            <summary>
+            排序索引
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.BPAndPTTreeModel.IsPT">
+            <summary>
+            是否是PT
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.BPAndPTTreeModel.kwCount">
+            <summary>
+            关键字的个数
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.ModelBase.id">
+            <summary>
+            id
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.ModelBase.text">
+            <summary>
+            文本展示
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.Semantic.Model.PtRelations">
+            <summary>
+            与成果类型存在关系的语义关系
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.PtRelations.SR">
+            <summary>
+            关系类型
+            </summary>
+        </member>
+        <member name="P:PKS.DbServices.Semantic.Model.PtRelations.Field">
+            <summary>
+            对应的概念类
+            </summary>
+        </member>
+        <member name="T:PKS.DbServices.SemanticsManageService">
+            <summary> 语义管理服务 </summary>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsManageService.DragNodeEf(PKS.DbServices.Semantic.Model.SemanticsModel,PKS.DbServices.Semantic.Model.CcTermModel,System.String)">
+            <summary>
+            拖拽节点
+            1、删除和以前和父节点的关系
+            2、建立和新的父节点的关系
+            3、更新叙词的关系
+            </summary>
+            <param name="sdModel">语义关系实体</param>
+            <param name="dragmodel">拖拽节点实体</param>
+            <param name="strSr">概念类名称</param>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsManageService.SequenceNodeEf(System.Int32,System.String,System.Int32)">
+            <summary>
+            节点排序
+            1、给根节点排序:获得所有的根节点，进行排序
+            2、给根节点下的子节点排序：获得节点下的子节点，进行排序
+            </summary>
+            <param name="nodeId">叙词id</param>
+            <param name="parentName">父节点的名称</param>
+            <param name="newOrderIndex">节点新的序号</param>
+            <param name="parentPath">节点新的路径</param>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsManageService.AddAlias(PKS.DbServices.Semantic.Model.SemanticsModel)">
+            <summary>
+            添加别名
+            </summary>
+            <param name="semantics">语义关系模型</param>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsManageService.DeleteAlias(PKS.DbServices.Semantic.Model.SemanticsModel)">
+            <summary>
+            删除别名
+            </summary>
+            <param name="semantics">语义关系模型</param>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsManageService.GetTermTraslations(System.Int32)">
+            <summary>
+            获取翻译词
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsManageService.GetSourceList(System.String)">
+            <summary>
+            获取来源
+            </summary>
+            <param name="cc"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PKS.DbServices.SemanticsProviderService">
+            <summary> 提供语义服务 </summary>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsProviderService.GetTermInfo(System.String,System.String)">
+            <summary>
+            获得指定概念类的 叙词信息
+            </summary>
+            <param name="term">正式叙词</param>
+            <param name="cc">概念类（可为空）</param>
+            <returns>给定叙词（满足指定概念类）的详细信息</returns>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsProviderService.GetTranslationById(System.Int32,System.String,System.Boolean)">
+            <summary>
+            根据叙词ID获取其翻译词
+            </summary>
+            <param name="id">叙词ID</param>
+            <param name="langCode">语言类型</param>
+            <param name="onlyMain">是否只包含主词</param>
+            <returns>翻译叙词结果列表</returns>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsProviderService.GetTranslationByName(System.String,System.String,System.Boolean)">
+            <summary>
+            根据叙词获取其翻译词
+            </summary>
+            <param name="term">叙词</param>
+            <param name="langCode">语言类型</param>
+            <param name="onlyMain">是否只包含主词</param>
+            <returns>翻译叙词结果列表</returns>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsProviderService.GetTransDict">
+            <summary>
+            获取翻译词词典
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SemanticsProviderService.GetAliasDict">
+            <summary>
+            获取同义词字典
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PKS.DbServices.SysFrame.Model.SessionCacheItem">
+            <summary>
+            用户认证Session缓存模型
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.Ninject#IInitializable#Initialize">
+            <summary>初始化</summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.InitMetas">
+            <summary>
+            从Mongo中将数据导到SQL Server中
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.GetMetas">
+            <summary>
+            获取元数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.SaveMetas(System.Collections.Generic.IList{PKS.Models.MetadataDefinition})">
+            <summary>
+            保存元数据
+            </summary>
+            <param name="metas"></param>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.DeleteMetas(System.Int32[])">
+            <summary>
+            删除元数据
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.GetPermissionRoleMetas(System.Int32)">
+            <summary>
+            获取角色的数据权限相关的元数据
+            </summary>
+            <param name="metaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.GetMetadataItemPermissions(System.Int32[])">
+            <summary>
+            获取角色的数据权限相关的元数据
+            </summary>
+            <param name="metaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.GetMetaItems(System.Int32)">
+            <summary>
+            获取一个元数据下的项
+            </summary>
+            <param name="metaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.GetPermissionRoleMetaItems(System.Int32,System.Int32)">
+            <summary>
+            获取角色的某个元数据下的项（包括黑白名单）
+            </summary>
+            <param name="roleId"></param>
+            <param name="metaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.SaveRoleMetas(System.Int32,System.Collections.Generic.List{PKS.DbModels.PortalMgmt.PKS_ROLE_METADATAPERMISSION})">
+            <summary>
+            保存Role_Metadata之间的关系
+            </summary>
+            <param name="metas"></param>
+            <param name="roleId"></param>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.RoleMetadataPermissionService.SaveRoleMetaItems(System.Int32,System.Collections.Generic.List{PKS.DbModels.PortalMgmt.PKS_ROLE_METADATAITEMPERMISSION},System.Collections.Generic.List{PKS.DbModels.PortalMgmt.PKS_ROLE_METADATAITEMPERMISSION})">
+            <summary>
+            保存Role_MetaItem之间的关系
+            </summary>
+            <param name="roleId"></param>
+            <param name="metaId"></param>
+            <param name="whiteList"></param>
+            <param name="blackList"></param>
+        </member>
+        <member name="T:PKS.DbServices.SysFrame.IdentityService">
+            <summary>用户身份认证服务</summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.LoginAsync(PKS.WebAPI.Models.LoginRequest,System.TimeSpan)">
+            <summary>登录请求验证</summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.HashPassword(System.String,System.String)">
+            <summary>生成密码散列值</summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.RenewAsync(System.String,PKS.Models.IPKSPrincipal,System.TimeSpan)">
+            <summary>续期</summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="P:PKS.DbServices.SysFrame.IdentityService.DebugPrincipal">
+            <summary>调试用</summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.GetDebugPrincipal">
+            <summary>调试用</summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.GetPrincipalAsync(System.String)">
+            <summary>
+            根据token获取用户认证信息
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.LogoutAsync(System.String)">
+            <summary>
+            注销用户
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.BuildPrincipal(PKS.DbModels.VI_USERINFO,System.String)">
+            <summary>
+            生成用户认证信息
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.GetUserInfo(System.String)">
+            <summary>
+            根据用户名获取用户综合信息
+            </summary>
+            <param name="userName">LoginRequest->UserName</param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.GetUserInfoById(System.Int32)">
+            <summary>
+            根据用户Id获取用户综合信息
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.LoadSession(PKS.Data.IRepository{PKS.DbModels.UserAuthSessions},System.String,System.String)">
+            <summary>
+            从数据库中验证用户认证Session是否存在并且在有效期内
+            </summary>
+            <param name="appKey"></param>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.LoadSessionFromToken(PKS.Data.IRepository{PKS.DbModels.UserAuthSessions},System.String)">
+            <summary>
+            从数据库中验证用户认证Session是否存在并且在有效期内
+            </summary>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.GetUserProfile(System.String)">
+            <summary>
+            根据用户名称获取UserProfile
+            </summary>
+            <param name="username">LoginRequest->UserName</param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.SysFrame.IdentityService.GetMemberShip(System.Decimal)">
+            <summary>
+            根据用户id获取MemberShip
+            </summary>
+            <param name="userid">USERPROFILE->USERID</param>
+            <returns></returns>
+        </member>
+        <member name="T:PKS.DbServices.RolePermissionsService">
+            <summary>角色权限服务</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.Ninject#IInitializable#Initialize">
+            <summary>初始化</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetPortalMenuAsync(System.Int32)">
+            <summary>获得指定角色的门户菜单</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetPortalMenuFromCache(System.Int32)">
+            <summary>获得指定角色的门户菜单</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetCahceItem_PortalMenu(System.String,System.String)">
+            <summary>获得缓存项_指定角色的门户菜单</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetPortalMenu(System.Int32)">
+            <summary>获得指定角色的门户菜单</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.BuildMenuInfo(PKS.DBModels.PKS_ROLE_PERMISSION,System.Collections.Generic.List{PKS.DBModels.PKS_ROLE_PERMISSION})">
+            <summary>生成菜单节点</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetMenuUrl(PKS.DBModels.PKS_PERMISSION)">
+            <summary>获取菜单的url</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetUrlTarget(PKS.DBModels.PKS_PERMISSION)">
+            <summary>生成菜单节点target</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetPermissionsAsync(System.Int32)">
+            <summary>获得指定用户的权限集合</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetPermissionsFromCache(System.Int32)">
+            <summary>获得指定用户的权限集合</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetCahceItem_Permissions(System.String,System.String)">
+            <summary>获得缓存项_指定用户的权限集合</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetPermissions(System.Int32)">
+            <summary>获得指定用户的权限集合</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetPortalFooterMenu">
+            <summary>获得门户底部菜单</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.GetPortalFooterMenuFromDb(System.String,System.String)">
+            <summary>获得门户底部菜单</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.OnChanged(PKS.Data.EntityChangedEventArgs{PKS.DBModels.PKS_SUBSYSTEM})">
+            <summary>处理变化事件</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.OnChanged(PKS.Data.EntityChangedEventArgs{PKS.DBModels.PKS_PERMISSION})">
+            <summary>处理变化事件</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.OnChanged(PKS.Data.EntityChangedEventArgs{PKS.DBModels.PKS_ROLE_PERMISSION})">
+            <summary>处理变化事件</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.OnChanged(PKS.Data.EntityChangedEventArgs{PKS.DbModels.PortalMgmt.PKS_PORTAL_LINKEDIN_TEXT})">
+            <summary>处理变化事件</summary>
+        </member>
+        <member name="M:PKS.DbServices.RolePermissionsService.OnChanged(PKS.Data.EntityChangedEventArgs{PKS.DbModels.PortalMgmt.PKS_PORTAL_EXTERN_LINK})">
+            <summary>处理变化事件</summary>
+        </member>
+        <member name="M:PKS.DbServices.WEditor.WEditorService.AnalysisHtml(System.String,System.String)">
+            <summary>
+            解析html
+            </summary>
+            <param name="serverUrl">服务器路径</param>
+            <param name="locationHtmlFilePath">本地html文件绝对路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.WEditor.WEditorService.GetTempImageFilePath(System.String,System.String,System.String@)">
+            <summary>
+            获取当前文件对应的临时图片存储路径
+            </summary>
+            <param name="filePath">当前html文件路径</param>
+            <param name="src">图片名称</param>
+            <param name="format">图片格式</param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.WEditor.WEditorService.ImageToBase64String(System.String)">
+            <summary>
+            图片转成Base64字符串
+            </summary>
+            <param name="imagePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.XEditor.XEditorService.GetAllFragmentTypes">
+            <summary>
+            获取所有组件类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.XEditor.XEditorService.GetComponentParamsByFragmentTypeId(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            根据组件类型获取组件参数
+            </summary>
+            <param name="templateId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.XEditor.XEditorService.AddFragmentInfo(PKS.DbServices.KManage.Model.FragmentModel)">
+            <summary>
+            新增片段
+            </summary>
+            <param name="fragmentModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.XEditor.XEditorService.DeleteFragment(System.Linq.Expressions.Expression{System.Func{PKS.DbModels.PKS_KFRAGMENT,System.Boolean}})">
+            <summary>
+            删除片段
+            </summary>
+            <param name="catalogueInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.XEditor.XEditorService.GetCatalogueInfosByTemplateId(System.Int32)">
+            <summary>
+            根据模板获取所有目录
+            </summary>
+            <param name="templateId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.XEditor.XEditorService.AddCatalogure(PKS.DbServices.KManage.Model.CatalogueInfo)">
+            <summary>
+            新增目录
+            </summary>
+            <param name="catalogueInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.XEditor.XEditorService.DeleteCatalogure(System.Linq.Expressions.Expression{System.Func{PKS.DbModels.PKS_KTEMPLATE_CATALOGUE,System.Boolean}})">
+            <summary>
+            删除目录
+            </summary>
+            <param name="catalogueInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PKS.DbServices.XEditor.XEditorService.GetTemplateParamsByTemplateId(System.Int32)">
+            <summary>
+            根据模板获取模板参数
+            </summary>
+            <param name="templateId"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,22 @@
+
+  {
+    "template":
+      "<div style=\"width:200px;height:100px;border:solid 1px red;\"><p>用户名：{{username}}<p>公司：{{company}}</p><p>地址{{address}}</p></div>",
+    "templatedata": [
+      {
+        "userid": 1,
+        "username": "jurassic",
+        "company": "侏罗纪"
+      },
+      {
+        "userid": 2,
+        "username": "jurassic2",
+        "company": "侏罗纪"
+      },
+      {
+        "userid": 3,
+        "username": "jurassic3",
+        "company": "侏罗纪"
+      }
+    ]
+  }

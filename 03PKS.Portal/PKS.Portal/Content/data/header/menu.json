@@ -1,0 +1,555 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "key": "HOME_DASHBOARD",
+      "name": "首页",
+      "url": "",
+      "hasThird": false,
+      "target": "_blank",
+      "children": [
+      ]
+    },
+    {
+      "id": 2,
+      "key": "KEY2",
+      "name": "勘探信息共享",
+      "url": "",
+      "hasThird": false,
+      "target": "_self",
+      "children": [
+        {
+          "id": 21,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "/ExplorationOverview/Index",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+        {
+          "id": 22,
+          "key": "KEY22",
+          "name": "勘探动态",
+          "url": "",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+            {
+              "id": 221,
+              "key": "KEY_002_02_01",
+              "name": "钻井作业",
+              "url": "/ExplorationDynamic/Drilling",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 222,
+              "key": "KEY_002_02_02",
+              "name": "录井作业",
+              "url": "/ExplorationDynamic/logging",
+              "hasThird": false,
+              "target": "_self"
+            },
+            {
+              "id": 223,
+              "key": "KEY_002_02_03",
+              "name": "测井作业",
+              "url": "/ExplorationDynamic/Detection",
+              "hasThird": false,
+              "target": "_self"
+            },
+            {
+              "id": 224,
+              "key": "KEY_002_02_04",
+              "name": "测试作业",
+              "url": "/ExplorationDynamic/Testing",
+              "hasThird": false,
+              "target": "_self"
+            },
+            {
+              "id": 225,
+              "key": "KEY_002_02_05",
+              "name": "物探作业",
+              "url": "/ExplorationDynamic/GeophysicalExploration",
+              "hasThird": false,
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "key": "KEY23",
+          "name": "项目动态",
+          "url": "",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+            {
+              "id": 231,
+              "key": "KEY_002_03_01",
+              "name": "作业项目",
+              "url": "/ProjectDynamic/OperationProject",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 232,
+              "key": "KEY_002_03_02",
+              "name": "科研项目",
+              "url": "/ProjectDynamic/ResearchProject",
+              "hasThird": true,
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "key": "KEY24",
+          "name": "勘探决策",
+          "url": "",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+            {
+              "id": 241,
+              "key": "KEY_002_04_01",
+              "name": "勘探规划",
+              "url": "/ExplorationDecision/ExplorationPlanning",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 242,
+              "key": "KEY_002_04_02",
+              "name": "年度计划",
+              "url": "/ExplorationDecision/AnnualPlan",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 243,
+              "key": "KEY_002_04_03",
+              "name": "井位审查",
+              "url": "/ExplorationDecision/WellReview",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 244,
+              "key": "KEY_002_04_04",
+              "name": "勘探效果",
+              "url": "/ExplorationDecision/ExplorationEffect",
+              "hasThird": true,
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "key": "KEY25",
+          "name": "勘探数据成果",
+          "url": "",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+            {
+              "id": 251,
+              "key": "KEY_002_05_01",
+              "name": "探井资料",
+              "url": "/ExplorationDataAchievement/ExploratoryWellData",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 252,
+              "key": "KEY_002_05_02",
+              "name": "分析化验",
+              "url": "/ExplorationDataAchievement/AnalysisTest",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 253,
+              "key": "KEY_002_05_03",
+              "name": "圈闭储备",
+              "url": "/ExplorationDataAchievement/TripReserve",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 254,
+              "key": "KEY_002_05_04",
+              "name": "物化探工程",
+              "url": "/ExplorationDataAchievement/GeoEngineering",
+              "hasThird": true,
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "key": "KEY26",
+          "name": "勘探研究成果",
+          "url": "",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+            {
+              "id": 261,
+              "key": "KEY_002_06_01",
+              "name": "盆地综合研究",
+              "url": "/ExplorationResearchAchievement/BasinResearch",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 262,
+              "key": "KEY_002_06_02",
+              "name": "区域研究",
+              "url": "/ExplorationResearchAchievement/AreaResearch",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 263,
+              "key": "KEY_002_06_03",
+              "name": "目标评价",
+              "url": "/ExplorationResearchAchievement/TargetEvaluation",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 264,
+              "key": "KEY_002_06_04",
+              "name": "油气藏早期评价",
+              "url": "/ExplorationResearchAchievement/ReservoirEvaluation",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 265,
+              "key": "KEY_002_06_05",
+              "name": "沉积储层研究",
+              "url": "/ExplorationResearchAchievement/DepositionResearch",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 266,
+              "key": "KEY_002_06_06",
+              "name": "地化研究",
+              "url": "/ExplorationResearchAchievement/GeochemicalResearch",
+              "hasThird": true,
+              "target": "_self"
+            },
+            {
+              "id": 267,
+              "key": "KEY_002_06_07",
+              "name": "地球物理研究",
+              "url": "/ExplorationResearchAchievement/GeophysicalResearch",
+              "hasThird": true,
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "key": "KEY3",
+      "name": "勘探研究流程",
+      "url": "",
+      "hasThird": false,
+      "target": "_blank",
+      "children": [
+      ]
+    },
+    {
+      "id": 4,
+      "key": "KEY_004",
+      "name": "勘探知识库",
+      "url": "",
+      "hasThird": false,
+      "target": "_blank",
+      "children": [
+        {
+          "id": 15,
+          "key": "KEY_4_1",
+          "name": "概况",
+          "url": "",
+          "hasThird": false,
+          "target": "_blank",
+          "children": [
+          ]
+        },
+        {
+          "id": 16,
+          "key": "KEY_4_1",
+          "name": "勘探目标认识",
+          "url": "",
+          "hasThird": false,
+          "target": "_blank",
+          "children": [
+            {
+              "id": 17,
+              "key": "KEY_003_02_01",
+              "name": "井",
+              "url": "",
+              "hasThird": false,
+              "target": "_blank"
+            },
+            {
+              "id": 18,
+              "key": "KEY_003_02_02",
+              "name": "地震矿区",
+              "url": "http://www.sina.com.cn",
+              "hasThird": true,
+              "target": "_blank"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "key": "KEY_005",
+      "name": "勘探生产管理",
+      "url": "",
+      "hasThird": true,
+      "target": "_blank",
+      "children": [
+      {
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "key": "KEY_006",
+      "name": "勘探决策支持",
+      "url": "",
+      "hasThird": false,
+      "target": "_blank",
+      "children": [
+      ]
+    },
+    {
+      "id": 7,
+      "key": "KEY_007",
+      "name": "勘探综合办公室",
+      "url": "",
+      "hasThird": false,
+      "target": "_blank",
+      "children": [
+      ]
+    },
+    {
+      "id": 8,
+      "key": "KEY_008",
+      "name": "勘探社区",
+      "url": "",
+      "hasThird": false,
+      "target": "_blank",
+      "children": [
+      ]
+    },
+    {
+      "id": 9,
+      "key": "KEY_009",
+      "name": "石油百科",
+      "url": "",
+      "hasThird": false,
+      "target": "_blank",
+      "children": [
+      {
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+	  {
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        }
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "key": "KEY_010",
+      "name": "标准规范",
+      "url": "http://www.sina.com.cn",
+      "hasThird": false,
+      "target": "_self",
+      "children": [
+      {
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+	  {
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self"
+          
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self"
+     
+        }
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        },
+	{
+          "id": 11,
+          "key": "KEY21",
+          "name": "勘探概况",
+          "url": "http://www.sina.com.cn",
+          "hasThird": true,
+          "target": "_self",
+          "children": [
+          ]
+        }
+      ]
+    }
+  ],
+  "status": 1
+}

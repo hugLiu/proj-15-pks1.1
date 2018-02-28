@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = ViewBag.data.title;
+}
+<link href="~/Content/styles/comment.css" rel="stylesheet" />
+<div id="pkstablecontainer">
+    <pks:remark2 :id="'pttable'" :iiid="iiid"></pks:remark2>
+</div>
+
+<script>
+
+
+    var vm = PKSUI.bind({
+        el: "#pkstablecontainer",
+        data: {
+            iiid: 'abc'
+        },
+        model: 'pks:remark2'
+    });
+
+</script>
+
+
+

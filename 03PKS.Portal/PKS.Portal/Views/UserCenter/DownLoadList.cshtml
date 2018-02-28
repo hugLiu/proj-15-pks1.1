@@ -1,0 +1,196 @@
+﻿﻿@using PKS.Web;
+@using PKS.DbModels;
+@using PKS.DbServices.Models;
+@{
+    var webApiSiteUrl = this.Context.GetSubSystemUrl(PKS.Models.PKSSubSystems.WEBAPI);
+    Layout = null;
+    var userId = ViewBag.userId;
+}
+<html>
+<head>
+    <title>下载列表</title>
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="@webApiSiteUrl/Content/jquery-easyui-1.5.3/themes/icon.css">
+
+    <script type="text/javascript" src="~/Content/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="@webApiSiteUrl/Content/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="@webApiSiteUrl/Content/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
+
+    <script type="text/javascript">
+
+    var userId = '@userId';
+
+        $(function () {
+
+            loadGrid();
+
+            $(document).on('click', '#divGrid .iconEvent', function () {
+                var eventType = $(this).attr("eventType");
+                var methods = { "details": details, "download": download, "add": addFavorite, "cancel": cancelFavorite };
+                methods[eventType](this);
+            });
+
+        });
+
+    function loadGrid() {
+
+        datagrid = $("#dg").datagrid({
+            singleSelect: true,
+            url: '@Url.Action("LoadDownLoadList")',
+            data: [],
+            //iconCls: 'icon-save',
+            queryParams: { userId: userId},
+            sortName: 'Id',
+            idField: 'Id',
+            sortOrder: 'asc',
+            remoteSort: true,
+            border: true,
+            fitColumns: true,
+            pagination: true,
+            rownumbers: true,
+            pageSize: 20,
+            pageList: [20, 50, 100],
+            columns: [[
+                { title: '标识', field: 'Id', align: "center", hidden: true },
+                { title: 'dataid', field: 'DataId', align: "center", hidden: true },
+                { title: 'canDownLoad', field: 'CanDownLoad', align: "center", hidden: true },
+                { title: 'favoriteFlag', field: 'FavoriteFlag', align: "center", hidden: true },
+                { title: '标题', field: 'Title', width: 200, align: 'center', sortable: false },
+                { title: '作者', field: 'Author', width: 60, align: 'center', sortable: false },
+                { title: '入库时间', field: 'IndexedDate', width: 150, align: 'center', sortable: false },
+                { title: '最后下载时间', field: 'DownLoadDate', width: 150, align: 'center', sortable: false },
+                { title: '下载次数', field: 'DownLoadCount', width: 80, align: 'center', sortable: false },
+                {
+                    title: '操作', field: 'IIID', width: 120, align: 'center', sortable: false,
+                    formatter: function (value, row, index) {
+                        var datas = { "IIID": value, "DataId": row.DataId ,"userId": userId};
+                        var eventType = row.FavoriteFlag ? "cancel" : "add";
+                        var detailBtn = $("#divTemp button[eventType='details']").clone().attr(datas);
+                        var favBtn = $("#divTemp button[eventType='" + eventType + "']").clone().attr(datas);
+                        var downloadHtml = "";
+                        if (row.CanDownLoad) {
+                            var downLoadBtn = $("#divTemp button[eventType='download']").clone().attr(datas);
+                            downloadHtml = getHtml(downLoadBtn);
+                        }
+                        return getHtml(detailBtn) + getHtml(favBtn) + downloadHtml;
+                    }
+                }
+            ]]
+        });
+
+        }
+
+        function getHtml(ele) {
+            return $("<div>").append(ele).html();
+        }
+
+        function addFavorite(btn) {
+
+            var src = "/UserCenter/FavoriteCatalogList?userId=" + userId + "&IIID=" + $(btn).attr("IIID");
+            var ifm = $("#ifmFav").clone().attr("src", src);
+            $('#divFav').html("").append(ifm).show().dialog({
+                draggable: false,
+                closable: true,
+                title: "添加收藏",
+                top: 100,
+                modal: true,
+                buttons: [
+                    {
+                        text: '确定',
+                        handler: function () {
+                            var addMethod = ifm[0].contentWindow.add;
+                            if(addMethod)
+                            {
+                                var rt = addMethod();
+                                if (rt.code == 0) { return; }
+                                switchBtn(btn);
+                            }
+                            $('#divFav').dialog("close"); }
+                    }, {
+                        text: '取消',
+                        handler: function () {
+                            $('#divFav').dialog("close");
+                        }
+                    }]
+            });
+        }
+
+        function switchBtn(btn) {
+                var eventType = $(btn).attr("eventType");
+                var titleDic = { "cancel": "收藏", "add": "取消收藏" };
+                var eventTypeDic = { "cancel": "add", "add": "cancel" };
+                var classDic = { "cancel": "btn btn-default btn-circle btn-outline btn-xs iconEvent", "add": "btn btn-danger btn-circle btn-outline btn-xs iconEvent" };
+                $(btn).attr("title", titleDic[eventType]).attr("eventType", eventTypeDic[eventType]).attr("class", classDic[eventType]);
+        }
+
+        function cancelFavorite(btn) {
+            var IIID = $(btn).attr("IIID");
+            $.ajax({
+                    type: "POST",
+                    cache: false,
+                    url: "@Url.Action("CancelFavorite")",
+                    data: { userId: userId, IIID: IIID },
+                    datatype: "text",
+                    success: function (r) {
+                        switchBtn(btn);
+                    }
+                });
+        }
+
+        function download(btn) {
+            var IIID = $(btn).attr("IIID");
+            var dataId = $(btn).attr("DataId");
+            var url = "/DataRender/DownloadFile?iiid=" + IIID + "&dataId=" + dataId;
+            window.open(url, "_blank");
+        }
+
+        function details(btn) {
+            var IIID = $(btn).attr("IIID");
+            var url = "/Render/Content?iiid=" + IIID;
+            window.open(url, "_blank");
+        }
+
+
+    </script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row" style="margin-left:0px;margin-top:15px;">
+            <div id="divGrid" class="col-md-12" style="padding-left:5px;padding-right:10px;">
+                <table id="dg" style="height:670px;" title="下载列表"></table>
+            </div>
+        </div>
+    </div>
+    <div id="divTemp" style="display:none;">
+        <button class="btn btn-info btn-circle btn-xs iconEvent" style="font-size: 16px;margin:5px 2px;" eventType="details" type="button" data-toggle="tooltip" data-placement="left" title="浏览">
+            <i class="fa fa-sticky-note-o"></i>
+        </button>
+        <button class="btn btn-danger btn-circle btn-outline btn-xs iconEvent" style="font-size: 16px;margin:5px 2px;" eventType="cancel" type="button" data-toggle="tooltip" data-placement="left" title="取消收藏">
+            <i class="fa fa-heart"></i>
+        </button>
+        <button class="btn btn-default btn-circle btn-outline btn-xs iconEvent" style="font-size: 16px;margin:5px 2px;" eventType="add" type="button" data-toggle="modal" data-placement="left" title="收藏">
+            <i class="fa fa-heart"></i>
+        </button>
+        <button class="btn btn-success btn-circle btn-xs iconEvent" style="font-size: 16px;margin:5px 2px;" eventType="download" type="button" data-toggle="tooltip" data-placement="left" title="下载">
+            <i class="fa fa-download"></i>
+        </button>
+    </div>
+    <div style="width:500px;height:330px;overflow:hidden;" id="divFav"></div>
+    <iframe id="ifmFav" style="width: 100%;height:90%" frameborder="0"></iframe>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

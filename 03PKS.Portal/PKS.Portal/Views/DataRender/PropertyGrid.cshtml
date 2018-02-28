@@ -1,0 +1,83 @@
+﻿@using Newtonsoft.Json
+@model dynamic
+@{
+    //ViewBag.Title = ViewBag.data.title;
+}
+<link href="~/Content/styles/comment.css" rel="stylesheet" />
+<style type="text/css">
+    .div-container {
+        margin: 0 auto;
+        width: 50%;
+    }
+
+    .p-indent {
+        text-indent: 2em;
+    }
+    [v-cloak] {
+        display: none;
+    }
+</style>
+<div id="app" v-cloak>
+    <div class="row">
+        <div style="text-align:center">
+            <h1>{{config.title}}</h1>
+        </div>
+        <div style="text-align:center;margin:20px 0px;">
+            <span>作者：</span><span>{{config.author}}</span>
+            <span style="margin-left:30px;">创建时间：</span><span>{{config.createddate}}</span>
+        </div>
+        <div style="margin: 20px;">
+            <p><strong>摘要：</strong></p>
+            <p class="p-indent">{{config.Abstract}}</p>
+        </div>
+    </div>
+    <div>
+        <div class="jurassic-pgrid">
+            <table class="table table-bordered table-condensed" align="center">
+                <thead></thead>
+                <tbody>
+                    <tr v-for="n in (properties.length / 2)" style="width: 100%;">
+                        <th style="width: 20%;">{{properties[2 * n - 2].title}}</th>
+                        <td style="width: 30%;">{{properties[2 * n - 2].text}}</td>
+                        <th style="width: 20%;">{{properties[2 * n - 1].title}}</th>
+                        <td style="width: 30%;">{{properties[2 * n - 1].text}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <pks:remark2 id="remark" :iiid="config.iiid"></pks:remark2>
+    </div>
+</div>
+
+<script>
+    var config =@Html.Raw(JsonConvert.SerializeObject(Model));
+    var tableData = config.dataSource ? JSON.parse(config.dataSource) : [];
+    var properties = [];
+    var columns = tableData[0].columns;
+    var row = tableData[0].rows[0];
+    for (x in columns) {
+        properties.push({ title: columns[x].title, text: row[columns[x].field] });
+    }
+    if(properties.length % 2 != 0){
+        properties.push({ title: "", text: "" });
+    }
+
+    //config.iiid = getPageParam("iiid");
+
+    if (config.createddate) {
+        var date = moment(config.createddate, "YYYY-MM-DDTHH:mm:ss.SSSZ").toDate();
+        config.createddate = date.format("yyyy-MM-dd hh:mm:ss");
+    }
+    var vm2 = PKSUI.bind({
+        el: "#app",
+        data: {
+            config: config,
+            properties: properties
+        },
+        model: ['pks:remark2']
+    });
+</script>
+
+

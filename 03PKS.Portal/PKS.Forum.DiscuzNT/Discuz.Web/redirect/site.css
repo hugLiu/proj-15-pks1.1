@@ -1,0 +1,117 @@
+/*布局：与bootstrap冲突*/
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.8em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.wrap {
+    width: 1100px;
+}
+
+#hd .wrap {
+    padding: 0 0 0;
+}
+
+    #hd .wrap .head {
+        display: none;
+    }
+
+    #hd .wrap #menubar {
+        display: none;
+    }
+
+.hotlist li {
+    width: 100%;
+}
+/*页头：与bootstrap冲突*/
+.header {
+    margin-bottom: 0;
+}
+
+#headfilter a {
+    height: 30px;
+}
+
+#footer {
+    display: none;
+}
+
+/*编辑和删除帖子*/
+.editpost {
+    display: none;
+}
+
+.delpost {
+    display: none;
+}
+
+/*分享和转发帖子*/
+#share {
+    display: none;
+}
+
+#forward {
+    display: none;
+}
+
+.postauthor {
+    width: 170px;
+}
+
+.pi {
+    height: 36px;
+}
+
+.commonlist li label, .cprate li label, .cpinfo li label {
+    width: 120px;
+    margin-bottom: 0;
+}
+
+.newspecialmenu a {
+    width: 90px;
+}
+
+.post-stars {
+    display: none;
+}
+
+#styleswitcherhome {
+    display: none;
+}
+
+.list th img {
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.btnsearch {
+    vertical-align: middle;
+}
+
+.sel_mb {
+    display: none;
+}
+
+.edt .bar {
+    height: 50px;
+}
+
+.userlist li {
+    width: inherit;
+    margin-right: 5px;
+}
+
+.uc_app .uc_app_hide {
+    display: none;
+}
+
+/*隐藏快速搜索*/
+#nav form {
+    display: none;
+}
+
+/*隐藏举报*/
+.postactions .y a[id^="report_"] {
+    display: none;
+}
