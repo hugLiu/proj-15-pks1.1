@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{35D5187B-68A7-4FC0-A827-62C240E43493}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PKS.WebAPI</RootNamespace>
+    <AssemblyName>PKS.WebAPI.Interface</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Bin\Debug\PKS.WebAPI.Interface.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SZDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>..\..\Bin\Debug\PKS.WebAPI.Interface.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NEST.5.4.0\lib\net45\Nest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="BO2\BO2.cs" />
+    <Compile Include="BO2\BO2Collection.cs" />
+    <Compile Include="BO2\BO2DeleteRequest.cs" />
+    <Compile Include="BO2\BO2SaveRequest.cs" />
+    <Compile Include="BO2\BO2ServiceExceptionCode.cs" />
+    <Compile Include="BO2\BOT.cs" />
+    <Compile Include="BO2\BOTPropertyDefinition.cs" />
+    <Compile Include="BO2\BOTSaveRequest.cs" />
+    <Compile Include="BO2\FilterRequest.cs" />
+    <Compile Include="BO2\GeoJSONObjectType.cs" />
+    <Compile Include="BO2\GeoPoint.cs" />
+    <Compile Include="BO2\GeoPolygon.cs" />
+    <Compile Include="BO2\IBO2Service.cs" />
+    <Compile Include="BO2\Location.cs" />
+    <Compile Include="BO2\NearRequest.cs" />
+    <Compile Include="BO2\Point.cs" />
+    <Compile Include="BO2\PropertyCollection.cs" />
+    <Compile Include="Common\IElasticConfig.cs" />
+    <Compile Include="Common\ServiceCapabilities.cs" />
+    <Compile Include="Common\IMongoConfig.cs" />
+    <Compile Include="Common\IApiServiceWrapper.cs" />
+    <Compile Include="Common\JavaScriptError.cs" />
+    <Compile Include="Common\ServiceInfo.cs" />
+    <Compile Include="Data\UploadFolder.cs" />
+    <Compile Include="Data\IndexDataMatchRequest.cs" />
+    <Compile Include="Data\IndexDataSaveRequest.cs" />
+    <Compile Include="Data\IndexPageData.cs" />
+    <Compile Include="Data\IPageDataService.cs" />
+    <Compile Include="Data\IndexDataType.cs" />
+    <Compile Include="Data\IAppDataService.cs" />
+    <Compile Include="Data\AppDataSaveRequest.cs" />
+    <Compile Include="Data\IndexAppData.cs" />
+    <Compile Include="Data\DownloadRequest.cs" />
+    <Compile Include="Data\UploadFileRequest.cs" />
+    <Compile Include="Data\UploadRequest.cs" />
+    <Compile Include="Common\ApiServiceExceptionCodes.cs" />
+    <Compile Include="Identity\ISecurityService.cs" />
+    <Compile Include="Identity\LoginRequest.cs" />
+    <Compile Include="Identity\IdentityValidationResult.cs" />
+    <Compile Include="Identity\TokenExpireSettings.cs" />
+    <Compile Include="Identity\LoginResult.cs" />
+    <Compile Include="Index\IIndexerService.cs" />
+    <Compile Include="Index\IndexInsertRequest.cs" />
+    <Compile Include="Index\IndexSaveRequest.cs" />
+    <Compile Include="Index\IndexResult.cs" />
+    <Compile Include="Models\Semantics\ConceptClass.cs" />
+    <Compile Include="Models\Semantics\KeyWord.cs" />
+    <Compile Include="Models\Semantics\SemanticsType.cs" />
+    <Compile Include="Models\Semantics\TermInfo.cs" />
+    <Compile Include="Models\Semantics\TransOption.cs" />
+    <Compile Include="Models\Semantics\TreeResult.cs" />
+    <Compile Include="Models\Semantics\WordResult.cs" />
+    <Compile Include="Portal\LinkInfo.cs" />
+    <Compile Include="Portal\PortalMenu.cs" />
+    <Compile Include="Portal\MenuInfo.cs" />
+    <Compile Include="Models\Semantics\GetDictionaryRequest.cs" />
+    <Compile Include="Models\Semantics\GetTermInfoRequest.cs" />
+    <Compile Include="Models\Semantics\GetTranslationByIDRequest.cs" />
+    <Compile Include="Models\Semantics\HierarchyRequest.cs" />
+    <Compile Include="Models\Semantics\SegmentOption.cs" />
+    <Compile Include="Models\Semantics\SegmentRequest.cs" />
+    <Compile Include="Models\Semantics\SemanticsRequest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\ESSearchRequest.cs" />
+    <Compile Include="Search\SearchRequest.cs" />
+    <Compile Include="Search\SearchMetadatasRequest.cs" />
+    <Compile Include="Search\SearchQueryFilter.cs" />
+    <Compile Include="Search\SearchGroupRules.cs" />
+    <Compile Include="Search\MatchResult.cs" />
+    <Compile Include="Search\SearchTermQuery.cs" />
+    <Compile Include="Search\SearchSourceFilter.cs" />
+    <Compile Include="Search\SearchMetadataRequest.cs" />
+    <Compile Include="Search\MatchRequest.cs" />
+    <Compile Include="Search\SearchStatisticsRequest.cs" />
+    <Compile Include="Search\SearchStatisticsResult.cs" />
+    <Compile Include="Search\ISearchService.cs" />
+    <Compile Include="Search\SearchResult.cs" />
+    <Compile Include="Search\SearchSortRule.cs" />
+    <Compile Include="Search\SimpleSearchResult.cs" />
+    <Compile Include="Semantics\ISemantics.cs" />
+    <Compile Include="UserBehavior\IUserBehaviorService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\01PKS.Library\PKS.Core\PKS.Core.csproj">
+      <Project>{786ebcd8-0b99-4adf-82a8-95442c455c1f}</Project>
+      <Name>PKS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\01PKS.Library\PKS.Utils\PKS.Utils.csproj">
+      <Project>{4820a9f8-9aa4-4116-9bf1-69893297c6fc}</Project>
+      <Name>PKS.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

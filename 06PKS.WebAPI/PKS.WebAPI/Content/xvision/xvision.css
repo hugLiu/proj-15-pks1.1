@@ -1,0 +1,951 @@
+﻿/**********************************************************************************************************
+ *** raster ***
+ **********************************************************************************************************/
+.jurassic-container {
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.jurassic-section {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.jurassic-row {
+    position: relative;
+}
+
+.jurassic-section:before {
+    display: block;
+    content: "";
+}
+
+.jurassic-section .fixed-height {
+    height: 800px;
+    overflow-y: auto;
+}
+
+.jurassic-section .fixed-height-400 {
+    height: 400px;
+    overflow-y: auto;
+}
+
+.jurassic-section:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.jurassic-row:before {
+    display: block;
+    content: "";
+}
+
+.jurassic-row:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.jurassic-row [class^=jurassic-col-] {
+    position: relative;
+    float: left;
+}
+
+.jurassic-margin-container {
+    margin: 7px;
+}
+
+.jurassic-col-12 {
+    width: 100%;
+}
+
+.jurassic-col-11 {
+    width: 91.66666667%;
+}
+
+.jurassic-col-10 {
+    width: 83.33333333%;
+}
+
+.jurassic-col-9 {
+    width: 75%;
+}
+
+.jurassic-col-8 {
+    width: 66.66666667%;
+}
+
+.jurassic-col-7 {
+    width: 58.33333333%;
+}
+
+.jurassic-col-6 {
+    width: 50%;
+}
+
+.jurassic-col-5 {
+    width: 41.66666667%;
+}
+
+.jurassic-col-4 {
+    width: 33.33333333%;
+}
+
+.jurassic-col-3 {
+    width: 25%;
+}
+
+.jurassic-col-2 {
+    width: 16.66666667%;
+}
+
+.jurassic-col-1 {
+    width: 8.33333333%;
+}
+
+.jurassic-tab-section {
+    /*min-height: 500px;*/
+    padding-top: 10px;
+}
+/**********************************************************************************************************
+ *** text ***
+ **********************************************************************************************************/
+.jurassic-text-left {
+    text-align: left;
+}
+
+.jurassic-text-center {
+    text-align: center;
+}
+
+.jurassic-text-right {
+    text-align: right;
+}
+/**********************************************************************************************************
+ *** additional ***
+ **********************************************************************************************************/
+.jurassic-inline {
+    display: inline-block;
+}
+
+.jurassic-split-line {
+    margin-left: 3px;
+    margin-right: 3px;
+    border-left: 1px solid rgb(212,212,212);
+    border-right: 1px solid rgb(242,242,242);
+}
+
+.jurassic-caption {
+    font-weight: bold;
+}
+/**********************************************************************************************************
+ *** label ***
+ **********************************************************************************************************/
+.jurassic-label input {
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+}
+
+label,
+.jurassic-label,
+.jurassic-label input {
+    vertical-align: middle;
+}
+/**********************************************************************************************************
+ *** tab ***
+ **********************************************************************************************************/
+.jurassic-tab {
+}
+
+.jurassic-tab-header {
+    padding-left: 5px;
+    border-bottom: 1px solid rgb(247,147,131);
+}
+
+.jurassic-tab-body {
+    /*min-height: 200px;*/
+    padding-top: 8px;
+}
+
+.jurassic-tab-btn {
+    display: inline-block;
+    margin-left: 5px;
+    padding: 5px 18px;
+    border-left: 1px solid rgb(214,214,214);
+    border-top: 1px solid rgb(214,214,214);
+    border-right: 1px solid rgb(214,214,214);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.jurassic-tab-container {
+    display: none;
+    padding: 0px 15px;
+    transition: all 300ms;
+    width: 100%;
+}
+
+.jurassic-tab-btn.active {
+    margin-bottom: -1px;
+    border-left-color: rgb(247,147,131);
+    border-top-color: rgb(247,147,131);
+    border-right-color: rgb(247,147,131);
+    border-bottom: 1px solid rgb(255,255,255);
+}
+
+.jurassic-tab-container.active {
+    display: inline-block;
+}
+/**********************************************************************************************************
+ *** panel ***
+ **********************************************************************************************************/
+.jurassic-panel {
+}
+
+.jurassic-panel-header {
+    padding: 3px 0px;
+    border-bottom: 1px solid rgb(214,214,214);
+}
+
+.jurassic-panel-body {
+    padding: 0px 5px;
+}
+
+.jurassic-panel-logo {
+    padding-left: 10px;
+    padding-right: 8px;
+}
+
+.jurassic-panel-title {
+    color: rgb(5,80,230);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.jurassic-tab-panel-title {
+    color: rgb(187,187,187);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+    .jurassic-tab-panel-title.active {
+        color: rgb(5,80,230);
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+.jurassic-panel-more {
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+    .jurassic-panel-more:hover {
+        cursor: pointer;
+    }
+
+.jurassic-tab-panel-container {
+    display: none;
+}
+
+    .jurassic-tab-panel-container.active {
+        display: block;
+    }
+
+/**********************************************************************************************************
+ *** list ***
+ **********************************************************************************************************/
+.jurassic-list,
+.jurassic-list-horizontal {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.jurassic-list-item {
+}
+
+.jurassic-list-horizontal li,
+.jurassic-list-horizontal .jurassic-list-item {
+    display: inline-block;
+}
+/**********************************************************************************************************
+ *** news ***
+ **********************************************************************************************************/
+.jurassic-news {
+    padding: 8px 0px;
+    border-bottom: 1px dotted rgb(193,193,193);
+}
+
+.jurassic-news-brief {
+    padding-left: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.jurassic-news-text {
+    font-size: 14px;
+    color: rgb(85,85,85);
+}
+
+    .jurassic-news-text:focus,
+    .jurassic-news-text:hover {
+        text-decoration: none;
+        color: rgb(247,147,131);
+        cursor: pointer;
+    }
+
+    .jurassic-news-text:before {
+        padding-right: 5px;
+        content: "●";
+        font-size: 12px;
+        color: rgb(247,147,131);
+    }
+
+.jurassic-news-date {
+    margin-right: 16px;
+    font-size: 11px;
+    color: rgb(153,153,153);
+}
+/**********************************************************************************************************
+ *** search-component ***
+ **********************************************************************************************************/
+.jurassic-search-component {
+    padding: 0px 15px 15px 15px;
+    border-top: 2px solid rgb(255,166,60);
+    border-bottom: 1px solid rgb(221,221,221);
+    border-left: 1px solid rgb(221,221,221);
+    border-right: 1px solid rgb(221,221,221);
+}
+
+.jurassic-search-panel {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 8px;
+    text-align: center;
+}
+
+.jurassic-search-component .jurassic-search-panel {
+    background-color: rgb(246,246,246);
+}
+
+.jurassic-search-filter {
+    font-size: 12px;
+    line-height: 3.2em;
+}
+
+.jurassic-search-filter .jurassic-label {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.jurassic-search-filter input {
+    cursor: pointer;
+}
+
+.jurassic-search-filter label {
+    cursor: pointer;
+}
+
+.jurassic-search-filter-base {
+    border-bottom: 1px dotted rgb(230,230,230);
+}
+
+.jurassic-search-filter-base i {
+    color:rgb(5,80,230);
+    cursor: pointer;
+    transition:all 600ms;
+}
+
+.jurassic-search-filter-base.active i {
+    transform:rotate(180deg);
+}
+
+
+.jurassic-search-filter-more {
+    /*display: none;*/
+}
+
+.jurassic-search-display {
+    font-size: 12px;
+    line-height: 2.3em;
+    background-color: rgb(245,249,250);
+    text-align: center;
+}
+
+.jurassic-search-filter-info {
+    display: inline-block;
+    padding: 2px;
+    border: 1px solid rgb(255,102,0);
+    line-height: 1.2em;
+    margin-right: 5px;
+}
+
+    .jurassic-search-filter-info > span:nth-child(2n+2) {
+        color: rgb(255,102,0);
+        cursor: pointer;
+    }
+
+    .jurassic-search-filter-info > img {
+        margin-left: 2px;
+    }
+
+.jurassic-search-result {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+    .jurassic-search-result > span:nth-child(2n+1) {
+        margin-right: 2px;
+        color: rgb(255,102,0);
+    }
+
+.jurassic-search-display-clear {
+    color: rgb(135,207,250);
+    cursor: pointer;
+}
+
+.jurassic-search-component label,
+.jurassic-search-component .jurassic-label {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 1em;
+    font-weight: normal;
+}
+/**********************************************************************************************************
+ *** search ***
+ **********************************************************************************************************/
+.jurassic-search {
+    display: inline-block;
+    width: 376px;
+}
+
+.jurassic-search-interaction {
+    display: inline-block;
+}
+
+.jurassic-search-interaction-panel {
+    display: inline-block;
+}
+
+.jurassic-search-input {
+    width: 320px;
+    height: 33px;
+    line-height: 33px;
+    text-indent: 8px;
+    border-top: 1px solid rgb(183,183,183);
+    border-bottom: 1px solid rgb(183,183,183);
+    border-left: 1px solid rgb(183,183,183);
+    border-right: none;
+    outline: none;
+}
+
+.jurassic-search-auto-complete-container {
+    position: relative;
+}
+
+.jurassic-search-btn {
+    width: 56px;
+    height: 33px;
+    color: rgb(255,255,255);
+    background: linear-gradient(to bottom,rgb(255,153,32),rgb(255,124,52));
+    border: none;
+    outline: none;
+    font-weight: bold;
+}
+
+    .jurassic-search-btn:hover {
+        background: linear-gradient(to bottom,rgb(245,166,4),rgb(255,138,67));
+    }
+
+/**********************************************************************************************************
+ *** sort ***
+ **********************************************************************************************************/
+.jurassic-sort {
+}
+
+.jurassic-sort-line {
+    height: 35px;
+    background: #F1F1F1;
+    padding: 6px 8px;
+    border-bottom: 1px solid #E7E3E7;
+    zoom: 1;
+}
+
+.jurassic-sort-item a {
+    text-decoration: none;
+    font-weight: normal;
+    float: left;
+    padding: 0 10px;
+    height: 23px;
+    border: 1px solid #CCC;
+    margin-right: -1px;
+}
+
+.jurassic-sort-a-curr {
+    background: red;
+    color: #FFF;
+    border-color: red;
+}
+
+.jurassic-sort-item a:focus {
+    color: white;
+}
+/******************************************************************
+    imglistcss
+**********************************************/
+.jurassic-imglist {
+    display: inline-block;
+    width: 100%;
+}
+
+    .jurassic-imglist .jurassic-listbox {
+        float: left;
+        margin: 5px;
+        padding: 10px;
+        background: #f6f6f6;
+        position: relative;
+        list-style-type: none;
+        border-radius: 5px;
+        width: 160px;
+        height: 190px;
+    }
+
+    .jurassic-imglist .jurassic-listimg {
+        position: relative;
+        overflow: hidden;
+        width: 140px;
+        height: 140px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+        .jurassic-imglist .jurassic-listimg .jurassic-listimg > img {
+            border: 0 none;
+            vertical-align: top;
+            width: 140px;
+            height: 140px;
+        }
+
+    .jurassic-imglist .jurassic-iteminfo p {
+        text-align: center;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        color: gray;
+        white-space: nowrap;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+.jurassic-imgviewer {
+    display: inline-block;
+    width: 100%;
+}
+
+    .jurassic-imgviewer .jurassic-listbox {
+        float: left;
+        margin: 5px;
+        padding: 10px;
+        background: #f6f6f6;
+        position: relative;
+        list-style-type: none;
+        width: 260px;
+        height: 245px;
+        border-radius: 5px;
+    }
+
+        .jurassic-imgviewer .jurassic-listbox .jurassic-listimg {
+            position: relative;
+            overflow: hidden;
+            width: 230px;
+            height: 190px;
+        }
+
+            .jurassic-imgviewer .jurassic-listbox .jurassic-listimg .jurassic-img {
+                border: 0 none;
+                vertical-align: top;
+                width: 100%;
+                height: 190px;
+                cursor: pointer;
+            }
+
+        .jurassic-imgviewer .jurassic-listbox .jurassic-iteminfo {
+            text-align: center;
+        }
+
+            .jurassic-imgviewer .jurassic-listbox .jurassic-iteminfo p {
+                overflow-x: hidden;
+                text-overflow: ellipsis;
+                margin-top: 15px;
+                padding-left: 5px;
+                color: gray;
+                cursor: pointer;
+                white-space: nowrap;
+                font-weight: bold;
+            }
+
+.full .jurassic-imgviewer .jurassic-listbox {
+    width: 100%;
+    height: 100%;
+}
+
+    .full .jurassic-imgviewer .jurassic-listbox .jurassic-listimg {
+        width: 100%;
+        height: 100%;
+    }
+
+        .full .jurassic-imgviewer .jurassic-listbox .jurassic-listimg .jurassic-img {
+            height: 800px;
+        }
+/**********************************************************************************************
+                                            pager
+***********************************************************************************************/
+.pager a,
+.pager span,
+.pager input {
+    display: inline;
+    float: left;
+}
+
+.pager .active {
+    background-color: bisque;
+}
+
+.pager a,
+.pager span {
+    width: 45px;
+    height: 36px;
+    border: 1px solid bisque;
+    border-right: none;
+    text-align: center;
+    line-height: 36px;
+    background: #f6f6f6;
+    font-size: 15px;
+    color: gray;
+}
+
+.pager input.jump-ipt {
+    width: 35px;
+    height: 22px;
+    margin: 8px 20px;
+    border: 1px solid lightgrey;
+}
+
+.pager a:hover {
+    cursor: pointer;
+    text-decoration: none;
+    background-color: bisque;
+}
+
+.pager .next {
+    border-right: 1px solid bisque;
+}
+
+.pager > a.jump-btn {
+    width: 50px;
+    border-right: 1px solid bisque;
+    text-decoration: none;
+}
+
+    .pager > a.jump-btn:hover {
+        cursor: pointer;
+        background-color: bisque;
+    }
+/*---------------------------------------list table*/
+.jurassic-tableList {
+    width: 100%;
+    margin: 5px auto;
+}
+
+    .jurassic-tableList, .jurassic-tableList td {
+        border: solid 1px #d6d6d6;
+        border-collapse: collapse;
+    }
+
+        .jurassic-tableList td {
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+        }
+
+.headTd td {
+    background: #f1f1f1;
+    font-weight: bold;
+    color: #6471a2;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.hide {
+    display: none;
+}
+/****************************************************************************************************************
+                                         singleimg
+*****************************************************************************************************************/
+.jurassic-singleimg {
+    /*float: left;*/
+    margin: 10px 15px;
+    padding: 10px;
+    padding-bottom: 0px;
+    background: #f6f6f6;
+    position: relative;
+    list-style-type: none;
+    border-radius: 5px;
+}
+
+.jurassic-singleimg-img {
+    cursor: pointer;
+    width: 100%;
+    height: 800px;
+}
+
+.jurassic-singleimg-bottom {
+    text-align: center;
+}
+
+    .jurassic-singleimg-bottom p {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        padding: 0px 20px;
+        margin-top: 15px;
+        color: gray;
+        cursor: pointer;
+    }
+
+.fixed-height-400 .jurassic-singleimg img {
+    width: auto;
+    height: 300px;
+}
+    
+    .jurassic-singleimg-full {
+    width: 100%;
+    overflow-x: auto;
+    text-align: center;
+}
+
+    .jurassic-singleimg-full .jurassic-singleimg-img {
+        max-width: 200%;
+        max-height: 800px;
+    }
+
+/****************************************************************************************************************
+                                         Excel生成的表格
+*****************************************************************************************************************/
+.jurassic-table-excel {
+    width: 100%;
+    overflow-x: auto;
+}
+
+    .jurassic-table-excel table {
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    .jurassic-table-excel td {
+        border: .5pt solid black;
+    }
+
+/****************************************************************************************************************
+                                         复杂筛选器
+*****************************************************************************************************************/
+.jurassic-card-border {
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    background-color: #f5f9fa;
+    padding-top: 10px;
+}
+
+    .jurassic-card-border .jurassic-filter-card {
+        display: inline-block;
+        border-top: 2px solid sandybrown;
+        border-bottom: 2px solid sandybrown;
+        border-left: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        width: 100%;
+    }
+
+    .jurassic-card-border .jurassic-filter5th {
+        /*height: 40px;*/
+        line-height: 40px;
+        text-align: center;
+    }
+
+    .jurassic-card-border .fiveYear {
+        text-align: left;
+    }
+
+    .jurassic-card-border .jurassic-click > span {
+        border: 1px solid lightgray;
+        background-color: lightgoldenrodyellow;
+        border-radius: 17px;
+        display: inline-block;
+        height: 30px;
+        line-height: 30px !important;
+        width: 30px;
+        margin: auto 20px;
+        padding: auto 5px;
+        color: gray;
+    }
+
+        .jurassic-card-border .jurassic-click > span:hover {
+            color: sandybrown;
+            background-color: lightgrey;
+        }
+
+    .jurassic-card-border .jurassic-click {
+        padding-top: 2px;
+    }
+
+    .jurassic-card-border .fiveYear > span {
+        display: inline-block;
+        height: 40px;
+        margin: 0px 20px;
+        padding: 0px 5px;
+    }
+
+    .jurassic-card-border .jurassic-pointer span:hover {
+        color: blue;
+        cursor: pointer;
+    }
+
+    .jurassic-card-border .selectbo > span.active, .fiveYear > span.active, .filter span.active {
+        color: blue;
+        font-weight: 700;
+    }
+
+    .jurassic-card-border .jurassic-filter-bottom {
+        border-bottom: 1px dotted lightblue;
+    }
+
+    .jurassic-card-border .jurassic-filter-title {
+        font-weight: 700;
+    }
+
+    .jurassic-card-border .jurassic-filter-fivecolor {
+        color: sandybrown;
+    }
+
+/****************************************************************************************************************
+                                         
+*****************************************************************************************************************/
+.jurassic-card {
+    border-top: 2px solid #ffa63c;
+    border-right: 1px solid lightgrey;
+    border-bottom: 2px solid #ffa63c;
+    height: 100px;
+    background-color: #FCFAFA;
+}
+
+    .jurassic-card a {
+        text-decoration-line: none;
+        line-height: 20px;
+        height: 20px;
+        margin-left: 20px;
+    }
+
+        .jurassic-card a.active {
+            color: red;
+        }
+
+.jurasssic-leftgrey {
+    border-left: 1px solid lightgrey;
+}
+
+.jurassic-card-align {
+    line-height: 80px;
+    font-size: 20px;
+    letter-spacing: 8px;
+}
+
+.jurassic-li-inline {
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
+    font-size: 15px;
+    color: blue;
+    cursor: pointer;
+}
+
+    .jurassic-li-inline.active {
+        color: red;
+    }
+
+.jurassic-tabsfilterli {
+    cursor: pointer;
+}
+
+.jurassic-title-text-center {
+    margin: 10px auto;
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: dimgray;
+}
+
+.single-row .jurassic-card {
+    height: 45px;
+}
+
+.single-row .jurassic-card-align {
+    line-height: 30px;
+}
+
+/****************************************************************************************************************
+                                         BootstrapTable
+*****************************************************************************************************************/
+.bootstrap-table table > tbody > tr > td {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/****************************************************************************************************************
+                                         属性格
+*****************************************************************************************************************/
+.jurassic-pgrid {
+    padding: 15px;
+}
+
+    .jurassic-pgrid .table {
+        width: auto;
+    }
+
+
+/****************************************************************************************************************
+                                         进度条
+*****************************************************************************************************************/
+
+
+.progress {
+    height: 14px;
+    background: transparent;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: none;
+    position: relative;
+    margin-bottom: 0px;
+}
+
+    .progress .progress-bar {
+        height: 14px;
+        position: relative;
+        top: 0px;
+        box-shadow: none;
+        animation: animate-positive 2s;
+    }
+
+.progress-bar-info {
+    background-color: #999;
+}
+
+.progress .progress-value {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    position: absolute;
+    top: -3px;
+}

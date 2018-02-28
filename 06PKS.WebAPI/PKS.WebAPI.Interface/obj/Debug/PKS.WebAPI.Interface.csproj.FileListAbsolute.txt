@@ -1,0 +1,8 @@
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.WebAPI.Interface.dll.config
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.WebAPI.Interface.XML
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.WebAPI.Interface.dll
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.WebAPI.Interface.pdb
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\06PKS.WebAPI\PKS.WebAPI.Interface\obj\Debug\PKS.WebAPI.Interface.csprojResolveAssemblyReference.cache
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\06PKS.WebAPI\PKS.WebAPI.Interface\obj\Debug\PKS.WebAPI.Interface.csproj.CoreCompileInputs.cache
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\06PKS.WebAPI\PKS.WebAPI.Interface\obj\Debug\PKS.WebAPI.Interface.dll
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\06PKS.WebAPI\PKS.WebAPI.Interface\obj\Debug\PKS.WebAPI.Interface.pdb

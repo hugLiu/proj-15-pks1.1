@@ -1,0 +1,8 @@
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.WebAPI.Wrapper.dll.config
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.WebAPI.Wrapper.XML
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.WebAPI.Wrapper.dll
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\Bin\Debug\PKS.WebAPI.Wrapper.pdb
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\06PKS.WebAPI\PKS.WebAPI.Wrapper\obj\Debug\PKS.WebAPI.Wrapper.csprojResolveAssemblyReference.cache
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\06PKS.WebAPI\PKS.WebAPI.Wrapper\obj\Debug\PKS.WebAPI.Wrapper.csproj.CoreCompileInputs.cache
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\06PKS.WebAPI\PKS.WebAPI.Wrapper\obj\Debug\PKS.WebAPI.Wrapper.dll
+E:\projs\搜索业务部\02产品\04PKS1.0\开发库\04编码\PKS1.1\06PKS.WebAPI\PKS.WebAPI.Wrapper\obj\Debug\PKS.WebAPI.Wrapper.pdb
